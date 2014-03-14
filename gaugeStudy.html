@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Gauge development scratch canvas" name="description">
+<title>Gauge Study</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="lib/calc.css">
+</head>
+<body>
+<div>
+	<table>
+	<tbody>
+	<tr align="center">
+		<td colspan="3" rowspan="1" style="vertical-align: top; width: 350px;">
+			<b>
+			<h2>Gauge Study</h2>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" rowspan="1" style="vertical-align: top; width: 350px;">
+			<center>
+			Select gauge style
+			<select id="gaugeStyle">
+				<option>cyanOnBlackGauge</option>
+				<option>grayOnWhiteGauge</option>
+				<option>redOnGrayGauge</option>
+				<option>blueGauge</option>
+			</select>
+			Size <input name="gaugeSize" value="70" onfocus="select()" type="text" size="10">
+			<input ID="btnRedraw" value="Redraw" type="button">
+			</center>
+			<br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table border="0" cellpadding="2" cellspacing="2">
+			<tbody>
+			<tr align="center">
+				<td colspan="3" rowspan="1" style="vertical-align: top;">
+					<canvas id="hourGauge1" width="240" height="200">
+						This browser does not support the canvas element. Please use a more recent browser.
+					</canvas>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">
+					<b>Hours</b>
+				</td>
+				<td>
+					<input name="inputHours1" value="3 hrs" onfocus="select()" type="text" size="14">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input ID="btnHourGauge1" value="Update gauge" type="button">
+				</td>	
+			</tr>
+			</tbody>
+			</table>
+		</td>
+		<td>
+			<table border="0" cellpadding="2" cellspacing="2">
+			<tbody>
+			<tr align="center">
+				<td colspan="3" rowspan="1" style="vertical-align: top;">
+					<canvas id="degreeGauge1" width="240" height="200">
+						This browser does not support the canvas element. Please use a more recent browser.
+					</canvas>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">
+					<b>Degrees</b>
+				</td>
+				<td>
+					<input name="inputDegrees1" value="60 degrees" onfocus="select()" type="text" size="14">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input ID="btnDegreeGauge1" value="Update gauge" type="button">
+				</td>	
+			</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<!-- add row to increase spacing between rows of gauges -->
+	<tr>
+		<td><br></td>
+		<td />
+	</tr>
+	<tr>
+		<td>
+			<table border="0" cellpadding="2" cellspacing="2">
+			<tbody>
+			<tr align="center">
+				<td colspan="3" rowspan="1" style="vertical-align: top;">
+					<canvas id="negHourGauge1" width="240" height="200">
+						This browser does not support the canvas element. Please use a more recent browser.
+					</canvas>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">
+					<b>Hours</b>
+				</td>
+				<td>
+					<input name="inputNegHours1" value="-3 hrs" onfocus="select()" type="text" size="14">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input ID="btnNegHourGauge1" value="Update gauge" type="button">
+				</td>	
+			</tr>
+			</tbody>
+			</table>
+		</td>
+		<td>
+			<table border="0" cellpadding="2" cellspacing="2">
+			<tbody>
+			<tr align="center">
+				<td colspan="3" rowspan="1" style="vertical-align: top;">
+					<canvas id="negDegreeGauge1" width="240" height="200">
+						This browser does not support the canvas element. Please use a more recent browser.
+					</canvas>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">
+					<b>Degrees</b>
+				</td>
+				<td>
+					<input name="inputNegDegrees1" value="-60 degrees" onfocus="select()" type="text" size="14">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input ID="btnNegDegreeGauge1" value="Update gauge" type="button">
+				</td>	
+			</tr>
+			</tbody>
+			</table>
+		</td>
+		<td>
+			<table border="0" cellpadding="2" cellspacing="2">
+			<tbody>
+			<tr align="center">
+				<td colspan="3" rowspan="1" style="vertical-align: top;">
+					<canvas id="neg10DegreeGauge1" width="240" height="200">
+						This browser does not support the canvas element. Please use a more recent browser.
+					</canvas>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">
+					<b>Degrees</b>
+				</td>
+				<td>
+					<input name="inputNeg10Degrees1" value="2 degrees" onfocus="select()" type="text" size="14">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input ID="btnNeg10DegreeGauge1" value="Update gauge" type="button">
+				</td>	
+			</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<br>
+Mel Bartels
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/gaugeLib.js"></script>
+<script src="lib/gaugeStudy.js"></script>
+<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.gaugeStudy.load;</script>
+</html>

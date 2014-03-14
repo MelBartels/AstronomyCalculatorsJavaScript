@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Calculates the off axis illumination for varous diagonal sizes in a telescope" name="description">
+<title>Diagonal Off Axis Illumination Calculator</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="lib/calc.css">
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/diagonal.js"></script>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
+</head>
+<body>
+<div id="inputParms">
+	<table style="text-align: left; width: 396px; height: 157px;" border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="vertical-align: top;">
+			<b>
+			Diagonal Off-Axis Illumination Calculator<br>
+			<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Mirror diameter =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="mirrorDia" value="13.2" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Mirror focal length =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="focalLen" value="40.3" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Diagonal to focal plane distance =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="diagToFocalPlaneDistance" value="9" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Eyepiece field diameter =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="maxField" value="1.38" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Measurements are in:
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="uom" value="inches" checked="checked" type="radio">inches <input name="uom" value="millimeters" type="radio">millimeters
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Acceptable magnitude loss =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="acceptableMagLoss" value="0.4" onfocus="select()" type="text">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<br>
+	<input ID="btnGraphSelectedDiags" value="Update chart using best diagonal sizes" type="button">
+	...or... <input ID="btnGraphDiag" value="Update chart using diagonal size of " type="button">
+	<input name="diagSize" value="3.1" onfocus="select()" type="text">
+	<br>
+	<br>
+</div>
+<div id="chart_div">
+</div>
+<div id="myChart" style="margin-top:20px; margin-left:20px; width:800px; height:300px;">
+</div>
+<div id="offset">
+	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	  <tr>
+		<td style="width: 338px; text-align: right;">Diagonal offset at right angle to focal plane = </td>
+		<td  id='offset' style="width: 100px; text-align: left;"></td>
+	  </tr>
+	</tbody>
+	</table>	
+	<br>
+</div>
+ Interpreting the chart: <br>
+<br>
+ Get the eyepiece's field diameter from the manufacturer's specification. Barring the spec, measure the field lens diameter at the bottom of the eyepiece barrel. <br>
+<br>
+ For a complete picture, the chart includes light lost from the diagonal obstruction. Larger diagonals improve off-axis illumination but cost light across the entire field. <br>
+<br>
+ I find an individual star's light loss of less than 0.3 magnitude is barely noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects.  A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 11 inch and a 12 inch telescope is much smaller at 0.2 magnitudes and not readily apparent. Try it yourself by comparing low contrast details in extended objects like nebulae between the center and the edge of the field. Compare between closely spaced apertures like 10 and 12 inches.<br>
+ <br>
+ Use the magnitude scale and avoid percentages of illumination: the eye responds logarithmically, not linearly. It's a mistake to be upset over a 5% light loss when in fact from the eye's perspective the light loss is an imperceptible 1/20 magnitude.<br>
+<br>
+ An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast = (object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field. <br>
+<br>
+ Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than any visual Newtonian uses, degrades the optical quality by one-sixth wave (less than what is commonly quoted - see <a href="http://www.telescope-optics.net/obstruction.htm">http://www.telescope-optics.net/obstruction.htm</a> for an explanation). Changes less than one-eight wave are very difficult to see. <br>
+<br>
+The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. The diagonal to focuser distance the calculator uses is before the offset is applied. You have two choices. You can slide the diagonal down and away from the focuser and re-calculate the illumination profile, adding in the offset to the diagonal to focal plane distance. Or you can keep the diagonal in position and slide the focuser away from the primary by the offset distance. In this second case, the focal plane will be closer to the intersection point on the diagonal of the primary mirror's center ray and the focuser will be offset away from the primary. For a detailed explanation including graphics, see <a href="DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html">my diagonal offset study</a><br>
+<br>
+ Don't forget to baffle the diagonal - see <a href="baffle.html">baffle.htm</a>. <br>
+<br>
+ Mel Bartels
+</body>
+<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" language="javascript">$(document).ready(MLB.diagonal.load);</script>
+</html>

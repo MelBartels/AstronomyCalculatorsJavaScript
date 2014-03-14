@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates telescope motor positions from a sky coordinate" name="description">
+	<title>Scope to Sky Calculator</title>
+</head>
+
+<body>
+
+<div id="title">
+	<h1>Scope To Sky</h1>
+</div>
+
+<div id="compute">
+	<input ID="btnComputeTelescope" value="Compute telescope position" type="button">
+	<input ID="btnComputeEquatCoords" value="Compute equatorial coordinates" type="button">
+</div>
+
+<div id="coordinatesHeader">
+	<h3>Coordinates</h3>
+</div>
+
+<div id="coordinatesDetail">
+	<div id="coordinatesDetailInput">
+		
+		<table>
+		<tbody>
+			<tr>
+				<td></td>
+				<td><input name="RAorHA" value="RA" type="radio" checked="checked">RA <input name="RAorHA" value="HA" type="radio">Hour Angle</td>
+				<td>Dec</td>
+			</tr>
+			<tr>
+				<td>coordinates</td>
+				<td><input name="inputRAHA" onfocus="select()" type="text"></td>
+				<td><input name="inputDec" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>coordinate year</td>
+				<td><input name="inputCoordinateYear" onfocus="select()" type="text"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>include corrections</td>			
+				<td><input name="includeCorrections" value="yes" type="radio">yes <input name="includeCorrections" value="no" checked="checked" type="radio">no</td>
+			</tr>
+		</tbody>
+		</table>	
+		
+	</div>
+	<div id="coordinatesDetailOutput">
+
+		<table>
+		<tbody>
+			<tr>
+				<td></td>
+				<td>RA</td>
+				<td>Dec</td>
+			</tr>
+			<tr>
+				<td>precession</td>
+				<td id='precessionRA'></td>
+				<td id='precessionDec'></td>
+			</tr>
+			<tr>
+				<td>nutation</td>
+				<td id='nutationRA'></td>
+				<td id='nutationDec'></td>
+			</tr>
+			<tr>
+				<td>annual aberration</td>
+				<td id='annualAberrationRA'></td>
+				<td id='annualAberrationDec'></td>
+			<tr>
+				<td>corrected</td>
+				<td id='correctedRA'></td>
+				<td id='correctedDec'></td>
+			</tr>
+		</tbody>
+		</table>
+
+	</div>
+</div>
+
+<div id="setupHeader">
+	<h3>Setup: date-time and site</h3>
+</div>
+
+<div id="setupDetail">
+	<div id="setupDetailInput">
+
+		<table>
+		<tbody>
+			<tr>
+				<td>use current date-time</td>			
+				<td><input name="useCurrentDateTime" value="yes" type="radio">yes <input name="useCurrentDateTime" value="no" checked="checked" type="radio">no</td>
+			</tr>
+			<tr>
+				<td>date-time</td>
+				<td><input name="dateTime" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>timezone offset</td>
+				<td><input name="timezone" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>latitude (deg)</td>
+				<td><input name="latitude" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>longitude east of GMT</td>
+				<td><input name="longitude" onfocus="select()" type="text"></td>
+			</tr>
+		</tbody>
+		</table>
+		
+	</div>
+	<div id="setupDetailOutput">
+		
+		<table>
+		<tbody>
+			<tr>
+				<td>local sidereal time</td>
+				<td id='SidT'></td>
+			</tr>
+			<tr>
+				<td>Julian Day</td>
+				<td id='JD'></td>
+			</tr>
+			<tr>
+				<td>azimuth</td>
+				<td id='azimuth'></td>
+			</tr>
+			<tr>
+				<td>altitude</td>
+				<td id='altitude'></td>
+			</tr>
+		</tbody>
+		</table>
+		
+	</div>	
+</div>
+
+<div id="telescopeHeader">
+	<h3>Telescope</h3>
+</div>
+
+<div id="telescopeDetail">
+	<div id="telescopeDetailInput">
+
+		<table>
+		<tbody>
+			<tr>
+				<td>include refraction</td>			
+				<td><input name="includeRefraction" value="yes" type="radio">yes <input name="includeRefraction" value="no" checked="checked" type="radio">no</td>
+			</tr>
+			<tr id="alignmentRow">
+				<td>alignment</td>			
+				<td id="alignmentCell">
+					<input name="alignment" value="equatorial" type="radio">equatorial
+					<input name="alignment" value="altazimuth" checked="checked" type="radio">altaz
+					<input name="alignment" value="star" checked="checked" type="radio">star
+				</td>
+			</tr>
+			<tr>
+				<td>conversion style</td>			
+				<td><input name="conversionStyle" value="trig" type="radio">trig
+					<input name="conversionStyle" value="matrix" checked="checked" type="radio">matrix
+				</td>
+			</tr>
+			<tr id="trackingRatesAlgorithm">
+				<td>tracking rates algorithm</td>			
+				<td><input name="trackingRatesAlgorithm" value="deltaTime" type="radio">delta time
+					<input name="trackingRatesAlgorithm" value="formulae" checked="checked" type="radio">formulae
+				</td>
+			</tr>
+			<tr id="canFlipMeridian">
+				<td>can flip meridian</td>			
+				<td><input name="canFlipMeridian" value="yes" type="radio">yes <input name="canFlipMeridian" value="no" checked="checked" type="radio">no</td>
+			</tr>
+			<tr id="flipped">
+				<td>flipped/swung thru pole</td>			
+				<td><input name="flipped" value="yes" type="radio">yes <input name="flipped" value="no" checked="checked" type="radio">no</td>
+			</tr>
+			<tr id="flippedState">
+				<td>flipped state points</td>			
+				<td><input name="flippedState" value="onWestSidePointingEast" type="radio">east <input name="flippedState" value="onEastSidePointingWest" checked="checked" type="radio">west</td>
+			</tr>
+		</tbody>
+		</table>
+
+	</div>
+	<div id="telescopeDetailOutput">
+
+		<table>
+		<tbody>
+			<tr>
+				<td></td>
+				<td>refraction</td>
+				<td>refracted altitude</td>
+				<td>RA</td>
+				<td>Dec</td>
+			</tr>
+			<tr>
+				<td>refraction</td>
+				<td id='refraction'></td>
+				<td id='refractedAltitude'></td>
+				<td id='refractionRA'></td>
+				<td id='refractionDec'></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>primary axis</td>
+				<td>secondary axis</td>
+				<td>tertiary axis</td>
+				<td>notes:</td>
+			</tr>
+			<tr>
+				<td>position</td>
+				<td><input name="az" onfocus="select()" type="text"></td>
+				<td><input name="alt" onfocus="select()" type="text"></td>
+				<td id='FR'></td>
+				<td id='notes1'></td>
+			</tr>
+			<tr>
+				<td>tracking rate (&quot;/sec)</td>
+				<td id='azRate'></td>
+				<td id='altRate'></td>
+				<td id='FRRate'></td>
+				<td id='notes2'></td>
+			</tr>
+			<tr>
+				<td>&Delta; tracking rate (&quot;/sec/sec)</td>
+				<td id='azRateChange'></td>
+				<td id='altRateChange'></td>
+				<td id='FRRateChange'></td>
+				<td id='notes3'></td>
+			</tr>
+		</tbody>
+		</table>
+
+	</div>
+</div>
+
+<div id="matrixConversionHeader">
+	<h3>Matrix coordinate conversion</h3>
+</div>
+
+<div id="matrixConversionDetail">
+	<div id="matrixConversionDetailInput">
+
+		<table>
+		<tbody>
+			<tr>
+				<td><input ID="btnInitMatrix" value="Initialize (include fab. errors)" type="button"></td>
+			</tr>
+			<tr>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><input ID="btnBestZ13" value="Compute alt. offset & axes align." type="button"></td>
+			</tr>
+			<tr>
+				<td><input ID="btnBestZ123" value="Compute all fabrication errors" type="button"></td>
+			</tr>
+			<tr>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><input ID="btnLoadTaki" value="load Taki test data" type="button"></td>
+			</tr>
+		</tbody>
+		</table>
+
+	</div>
+	<div id="matrixConversionDetailOutput">
+
+		<table>
+		<tbody>
+			<tr>
+				<td></td>
+				<td>axes misalignment</td>
+				<td>primary axis offset</td>
+				<td>secondary axis offset</td>
+			</tr>
+			<tr>
+				<td>fabrication errors</td>
+				<td><input name="z1" onfocus="select()" type="text"></td>
+				<td><input name="z2" onfocus="select()" type="text"></td>
+				<td><input name="z3" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>alignment position #1</td>
+				<td colspan="4"><input name="one" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>alignment position #2</td>
+				<td colspan="4"><input name="two" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>alignment position #3</td>
+				<td colspan="4"><input name="three" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>initialization analysis</td>
+				<td colspan="4" id='initAnalysis'></td>
+			</tr>
+			<tr>
+				<td>fabrication errors analysis</td>
+				<td colspan="4" id='fabErrors'></td>
+			</tr>
+			<tr>
+				<td>analysis position #1</td>
+				<td colspan="4"><input name="analysisPosition1" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>analysis position #2</td>
+				<td colspan="4"><input name="analysisPosition2" onfocus="select()" type="text"></td>
+			</tr>
+			<tr>
+				<td>analysis position #3</td>
+				<td colspan="4"><input name="analysisPosition3" onfocus="select()" type="text"></td>
+			</tr>
+		</tbody>
+		</table>
+
+	</div>
+</div>
+
+<div id="notesHeader">
+	<h3>Notes:</h3>
+</div>
+
+<div id="notesDetail">
+	This calculator illustrates and tests coordinate corrections, celestial to telescope coordinate conversion methods including the meridian flip, the impact of refraction, calculation of drive rates and their changes over time and the analysis of fabrication errors.<br>
+	<br>
+	There are two methods to convert between celestial and telescope coordinates: standard spherical trigonometry and matrix math as first promulgated by Toshami Taki. The two methods can be compared directly. If using the matrix option, then either two or three inits can be used. Leave the alignment position #3 empty if desiring only two inits.<br>
+	<br>
+	The meridian flip is used by German Equatorial mounts to prevent the bottom of the telescope tube hitting the mount and by Fork and Horseshoe mounts that need to swing past the pole to view areas below the polar region. This calculator shows the meridian flip in action and calculates the changes in telescope coordinates.<br>
+	<br>
+	Drives rates and their rate of change are calculated with two different methods for comparison: delta time and formulae. The delta time method increments the sidereal time, or sky position, by one second, then computes the speed. The rate of change is calculated by taking a further third position, then comparing drive rates. The formulae method uses standard spherical trigonometry equations to compute speed. However, these equations do not include refraction. The rate of change is used to determine frequency of drive rate updates to the motors. If desired accuracy is 1/10 arcsecond, and rate of change is 1/1000 arcsecond, then the drive rate need not be updated for up to 100 seconds.<br>
+	<br>
+	Refraction has an increasingly significant impact on positioning as the telescope nears the horizon. Importantly, refraction slows down drives rates and increases the rate of change in the drives. The King Rate is included to contrast with rates generated by the delta time algorithm.<br>	
+	<br>
+	Fabrication errors include the offset in the primary axis (either Right Ascension or Hour Angle or azimuth, offset in the secondary axis (either Declination or altitude) and the misalignment between primary and secondary axes. Fabrication errors can be calculated when the conversion style is set to matrix. At the telescope, the azimuth offset can be ignored since the two star initialization method uses offsets exclusively. Altitude can be hard to set precisely, so calculation of altitude offset is of great help. And finally, the axes misalignment is a critical factor is slewing accurately. So calculation of altitude offset and axes alignment is can improve positioning.<br>
+	<br>
+	This calculator can be used to study initializations and their errors. For instance, is it true that init points should be 90 degrees apart? It's more important that the init points are accurate then that they scan as large as difference as possible. Moving exact offset distances from an init point, even if the init point was sloppy, is more important than anything else. Chances are though that if the init points were crudely done, then offset distances will be equally crude. And finally, there is no difference between the matrix and trig methods in accuracy<br>
+	<br>
+	Hours can be entered in a variety of formats. For example, '05h 12m 20.2sec', or '5 12 20.2' or '5:12:20.2' or simply ,'5' for 5 hrs. Decimals can be used anywhere, e.g., '5.5h' is 5h 30m. Any reasonable spelling or shorthand of hours, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+	Degrees can be entered in a variety of formats. For example, '+41°16'10.0"' or '41d 16m 10s' or '41 16 10' or '41:16:10' or simply '4' for 4 degrees. Decimals can be used anywhere, e.g., '5.5' is 5d 30m. Any reasonable spelling or shorthand of degrees, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+	<br>
+	Conventions: hour angle increases to the west and Right Ascension increases to the east. For example, if the local sidereal time is 10 hrs then the scope's meridian points to RA of 10 hrs. RA will be higher to the east and lower to the west. If pointed to an RA of 8 hrs (to the west), then hour angle is 10 - 8 = 2 hrs. The matrix conversion routine also calculates an hour angle offset, which follows the same sign convention. For example the hour angle offset of a scope that thinks it is pointing to the meridian when the sidereal time is 10 hrs but actually points to a location 1 hr east with an RA of 11 hrs is: hour angle offset = 10 hrs (SidT) - 0 (hour angle that scope thinks it is on) - 11 hrs (RA) = -1 hr.<br>
+	<br>
+	Defined alignments for matrix math conversions (altaz and equat): 1st point: scope's celestial pole (faces north in northern hemisphere, faces south in southern hemisphere), 2nd point: intersection of celestial equator and meridian (faces south in northern hemisphere, faces north in southern hemisphere).<br>
+	<br>
+	Coordinate Rules (consequences of the defined alignments, to be applied to all coordinate conversions):<br>
+    1. Altitude increases from horizon to zenith<br>
+	2. Azimuth always increases clockwise (position your body along the pole with head pointed upward, sweep arms from left to right clockwise)<br>
+	3. Azimuth of 0 always points towards Earth's closest pole, azimuth of 180 points to Earth's equator<br>
+    4. Tracking motion causes azimuth to reverse direction in southern hemisphere as compared to northern hemisphere<br>
+	<br>
+	Swinging through the pole: some equatorial mounts can take advantage of swinging through the pole, or must swing through the pole, to reach objects just under the pole. These mounts include fork, German, siderostat and uranostat mounts. Fork mounts can be single or two armed, and may not be able to rotate 360 deg in the primary axis. These mounts must swing through the pole to reach objects underneath the pole.<br>
+	Swinging through the pole is the equivalent of a meridian flip. For example, an object 10 degrees above the pole and on the meridian (RA=0. SidT=0, Dec=80) has a scope or motor position of az=180, alt=80. Moving to an object 10 degrees below the pole (RA=12, SidT=0, Dec=80) results in a scope or motor position of az=0, alt=80 and a movement of az=180, alt=0 deg. But the shortest distance is actually a move through the pole of 20 deg in alt, resulting in a scope or motor position of az=180, alt=100 and a movement of az=0, alt=20 deg. This is equivalent to taking a meridian flip on the position below the pole, ie, the flipped position of (az=0, alt=80) becomes az=180, alt=100, the desired swung through the pole position.<br>
+	A meridian flip is commonly triggered when the scope moves from 'on east pointing west' to 'on west pointing east' and vice versa. Adding the option to swing through the pole means triggering the meridian flip when the scope would move past azimuth limits of a fork mount that cannot rotate 360 deg in azimuth or possibly when the distance to move is less than 180 deg.<br>
+	<br>
+	Considerable time was taken to develop functions that effectively separate axis misalignment and azimuth offset and use these values to accurately calculate altazimuth values near the azimuth axis' pole. Five routines are tested: Taki's initial function, Taki's small angle solution, Taki's iterative solution, Larry Bell's iterative solution and a final function that combines Bell's and Taki's iterative solutions for speed. It's this final solution that's used in the calculator. With an axis misalignment of 0.04 degrees and an azimuth offset of 0.4 degrees, aimed 5 degrees from the zenith, the solutions accuracies (azimuth/altitude in arcseconds) are: 'Taki simple' 1386/237, 'Taki small angle' 30/104, 'Taki iterative' 0/0.2, 'Bell iterative' 0/0 and  Bell+Taki iterative 0/0.<br>
+	<br>
+	To look under the hood, see the more than 1000 unit tests that illustrate and test the code at <a href="http://www.bbastrodesigns.com/lib/coordLib%20unitTests.htm">http://www.bbastrodesigns.com/lib/coordLib%20unitTests.htm</a> and see the code itself at <a href="http://www.bbastrodesigns.com/lib/coordLib.js">http://www.bbastrodesigns.com/lib/coordLib.js</a>
+	User interface rules:<br>
+	<br>
+	- Coordinate corrections are turned off if 'Hour Angle' is selected for the equatorial coordinate.<br>
+	<br>
+	- Refraction is turned off when the tracking rates algorithm is set to formulae.<br>
+	<br>
+	- King Rate is turned on when refraction is turned on, alignment is set to equatorial, conversion style is set to trig and tracking rates algorithm is set to formulae.<br>
+	<br>
+	- The scope to sky conversion method is (re)initialized every time there is a change in the latitude or a change in the alignment or a change in the conversion style or a change in the tracking rates algorithm.<br>
+	<br>
+	- Fabrication errors can only be calculated when the conversion style is set to matrix. Calculation of azimuth or Right Ascension/Hour Angle offset has no impact, so calculation of altitude or Declination offset and axes misalignment is offered. The fab. error calculation ignores any preset fab. error values.<br>
+	<br>
+	- Including several positions beyond the two initializations greatly improves fabrication error calculation accuracy. Test data based on Taki's data is included to illustrate. To use, load the Taki test data, then initialize then calculate fabrication errors. Taki gives -0.04, 0.4 and -1.63 respectively. The first two fabrication errors are deeply intertwined and a decrease in one can be compensated for by an increase in another. See my "telescope mounting's primary axis errors" calculator.<br>
+	<br>
+	- The preset equatorial and altazimuth alignments use matrix math with the first position at the celestial pole and the 2nd position facing south with Declination = 0. In the former case, the telescope's secondary axis reads zero while in the later case it reads 90 - latitude.<br>
+	<br>
+	- To update the fabrication errors, enter them then press the 'Initialize, adopt fab. errors' button. For example, to see the impact of altitude offset, start with an altazimuth alignment with fab errors all showing zero. In the 1st and 2nd initialized positions, add 2 to the altitude numbers (40 and 50 become 42 and 52 respectively). Press the 'Initialize, adopt fab. errors' button. Notice that the calculated latitude and input latitude no longer agree. Enter -2 in the secondary axis offset, and press the Initialize button again. Note that the calculated latitude and input latitude once again agree. Press the 'Compute axes align., alt.offset' button. The analysis now indicates an altiude offset of -2. Remember that the fabrication errors analysis ignores any fab. error presets.<br>
+	<br>
+	- A count of initializations is included along with the current initialization flavor along with any further notes, like the King tracking rates are in effect. Also if using the matrix option, the number of alignment points in use is displayed.<br>
+	<br>
+	<br>
+	Mel Bartels
+</div>
+
+</body>
+
+<link rel="shortcut icon" href="Saucer32.ico">
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/scopeToSky.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>$(document).ready(MLB.scopeToSky.load);</script>
+
+<style type="text/css" media="all">
+	#title, #compute {
+		text-align: center;
+	}
+	#btnComputeTelescope, #btnComputeEquatCoords, #btnInitMatrix, #btnBestZ123, #btnBestZ13, #btnLoadTaki {
+		width: 200px;
+	}
+	#coordinatesHeader, #setupHeader, #telescopeHeader, #matrixConversionHeader, #notesHeader {
+		background: lightgray;
+		clear: both;
+	}
+	#coordinatesDetailInput, #setupDetailInput, #telescopeDetailInput, #matrixConversionDetailInput {
+		float: left;
+		margin-left: 2em;
+	}
+	#coordinatesDetailOutput, #setupDetailOutput, #telescopeDetailOutput, #matrixConversionDetailOutput {
+		margin-left: 35em;
+	}
+	#coordinatesDetail, #setupDetail, #telescopeDetail, #notesDetail {
+	
+	}
+	#canFlipMeridian, #flippedState, #flipped {
+		background: lightgray;
+	}
+	td {
+		width: 170px;
+	}
+	#alignmentCell {
+		width: 190px;
+	}
+	#notes1 {
+		width: 300px;
+	}
+	input[type="text"] {
+		width: 75px;
+		background: lightgray;
+	}
+	input[name="dateTime"] {
+		width: 170px;
+	}
+	input[name="one"], input[name="two"], input[name="three"], input[name="analysisPosition1"], input[name="analysisPosition2"], input[name="analysisPosition3"] {
+		width: 400px;
+	}
+
+</style>
+
+</html>

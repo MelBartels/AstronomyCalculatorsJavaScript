@@ -1,0 +1,20 @@
+#header
+{
+	 text-align: center;
+}
+
+#percent, #aperture
+{
+	clear: both;
+	text-align: left;
+}
+
+#footer
+{
+	clear: both;
+}
+
+input[type="text"]
+{
+	width: 50px;
+}

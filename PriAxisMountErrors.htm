@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Calculates linear trajectories" name="description">
+<title>Telescope Mounting's Primary Axis Pointing Errors Calculator</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="lib/calc.css">
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/PriAxisMountErrorsCalc.js"></script>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
+</head>
+<body>
+<div id="inputParms">
+	<table style="text-align: left; width: 694px; height: 274px;" border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+			<b>
+			Telescope Mounting's Primary Axis Pointing Error Calculator<br>
+			<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Primary axis offset error (degrees) =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="z2Deg" value="-0.26" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Misalignment (bend) between axes (degrees) =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="z1Deg" value="0.2" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Mounting type:
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="mountingType" value="altazimuth" checked="checked" type="radio">altazimuth <input name="mountingType" value="equatorial" type="radio">equatorial
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Latitude (degrees) =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="latDeg" value="40" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Primary axis pointing direction (degrees) =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="priAxisDeg" value="180" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Measurements:
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="measurements" value="real" type="radio">real <input name="measurements" value="apparent" checked="checked" type="radio">apparent
+		</td>
+	</tr>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+			<br>
+			<input value="Plot" onclick="MLB.priAxisMountErrorsCalc.plot()" type="button"><br>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<br>
+</div>
+<div id="plot" style="margin-top:20px; margin-left:20px; width:700px; height:400px;">
+</div>
+ Notes: <br>
+<br>
+All telescope mountings have errors, however slight. One of the errors is the bend or lack of perfect perpendicularity between the axes (for an altiazimuth mounting: azimuth and altitude, and for an equatorial mounting: Right Ascension and Declination). Another error is an offset in the axis reading, that is, the difference between the real position and the reported position. The bend between the axes and the primary axis (azimuth or Right Ascension) and the primary axis offset are intertwined. The bend between the axes does not affect the offset in the secondary axis (altitude or Declination). <br>
+<br>
+Toshimi Taki's algorithm that translates between equatorial and altazimuth coordinates calculates vectors that include products from these two factors multiplied together. This makes it impossible to derive straightforward algebraic equations to calculate the two errors independently of each other. Instead, a goal seeker or optimizer routine must be used that zeroes in on the best values. <br>
+<br>
+This calculator illustrates the relationship between the two primary axis errors. Striking is that one error can be mimicked by the opposite error. This makes it difficult in the field to distinguish between the errors, mirroring the mathematical entwining. This is particular so for altazimuth telescopes. <br>
+<br>
+A bending error creates an error that slants across the plot (and in real life, the sky), crossing the zero point at 90 degrees - latitude for altazimuth mounts or crossing the zero point at zero Declination. Interestingly, an offset error also has a broad bulge whose sides are slants and cross the zero point at the same elevation or Declination. Only at the extremes of the curves do they diverge. This means that a range of measurements up and down the secondary axis (altitude or Declination) is needed to help clarify the subtle differences in the curves. If the apparent error is used (errors as seen in the eyepiece, which decrease as the pole is approached - think of how longitudinal lines come together at the Earth's poles), the differences are even smaller. <br>
+<br>
+Mel Bartels
+</body>
+<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" language="javascript">$(document).ready(MLB.priAxisMountErrorsCalc.plot);</script>
+</html>

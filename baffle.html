@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates baffles for a Newtonian telescope" name="description">
+	<title>Newtonian Diagonal Baffle Calculator</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+</head>
+<body>
+<table style="text-align: left; width: 670px; height: 238px;" border="0" cellpadding="2" cellspacing="2">
+<tbody>
+<tr align="center">
+	<td colspan="2" rowspan="1" style="vertical-align: top;">
+		<b>
+		Newtonian Diagonal Baffle Calculator</b><br>
+		<br>
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Focal plane diameter =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="focalPlaneDia" value="1.4" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Distance between the bottom of the focuser tube and the focal plane =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="focuserBarrelBottomToFocalPlaneDistance" value="2.5" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Focuser tube inside diameter =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="focuserBarrelID" value="1.8" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Diagonal size =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="diagSize" value="3.1" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Distance between the diagonal and the focal plane =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="diagToFocalPlaneDistance" value="9" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Distance between the diagonal and the focuser's baffle =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="diagtoFocuserBaffleDistance" value="6" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; width: 491px; text-align: right;">
+		 Distance between the diagonal and the baffle on the far side of the upper end =
+	</td>
+	<td style="vertical-align: top; width: 145px;">
+		<input name="diagToOppositeSideBaffleDistance" value="7" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td colspan="2" rowspan="1" style="vertical-align: top;">
+		<br>
+		<div style="text-align: center;">
+			<input ID="btnPlot" value="Update plot" type="button">
+			<br>
+		</div>
+	</td>
+</tr>
+</tbody>
+</table>
+<br>
+<canvas id="myCanvas" width="500" height="500">
+	This browser does not support the canvas element. Please use a more recent browser.
+</canvas>
+<div>
+	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	  <tr>
+		<td style="width: 150px; vertical-align: top; text-align: right;">Dimensions are: </td>
+		<td  id='dimensions' style="width: 500px; text-align: left;"></td>
+	  </tr>
+	</tbody>
+	</table>	
+</div>
+<br>
+Mel Bartels
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/baffle.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.baffle.load;</script>
+</html>

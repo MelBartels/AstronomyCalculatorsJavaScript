@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html><head>
+
+	<meta content="Mel Bartels" name="author">
+	<meta content="Simulate pointing errors across the sky for two star initializations of an altazimuth telescope" name="description"><title>Initialization Error Plot</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" href="Altaz2StarAlignPointingErrors.css"></head><body>
+
+<div>
+<h1>Simulate pointing errors across the sky for two star initializations of an altazimuth telescope</h1>
+<h2>Think you know which initialization is most accurate?</h2>
+<h3>by Mel Bartels</h3>
+</div>
+
+<br>
+
+<div id="DivCanvas">
+	<canvas id="c1">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+</div>
+
+<div id="DivControls">
+
+	Choose the initialization stars	<select id="initStarsList"></select>
+	<br>
+	Set the maximum initialization error in degrees <input id="maxInitErrorDeg" value="0.25" type="text">
+	<br>
+	Set the maximum allowed pointing error in degrees <input id="maxPointErrorDeg" value="0.5" type="text">
+	<br>
+	Set axis mis-alignment in degrees <input id="z1Deg" value="0" type="text">
+	<br>
+	Set azimuth offset in degrees <input id="z2Deg" value="0" type="text">
+	<br>
+	Set the number of Monte Carlo runs <input id="numberTrials" value="10" type="text">
+	<br>
+	<br>
+	<input id="btnPlot" value="Plot" type="button">
+	<br>
+	<br>
+	or <input id="btnStartLoop" value="Start" type="button"> rapid fire random initializations  <input id="btnStopLoop" value="Stop" type="button">
+</div>
+
+<div id="DivFooter">
+	<br>
+	<h3>Notes on the simulation</h3> 
+	Green means pointing accuracy is as good as the initialization accuracy. Red means that pointing errors exceed the maximum allowed pointing error. The two black dots represent the initialization stars.<br>
+	<br>
+	Latitude is set to 35 degrees North; Sidereal time is set at 00:00:00. The circle represents the sky with grid lines every 30 degrees.<br>
+	<br>
+	The pointing errors are averaged for the number of Monte Carlo initializations, where each initialization is given random errors based on the maximum initialization error in degrees set by the user.<br>
+	<br>
+	For example, if the maximum initialization error is set to one degree, then the initialization stars will have their altitude and azimuth altered by a random value between zero and one. The total angular error is the combined altitude and azimuth axis error. For instance, if the randomized altitude error happens to be 0.5 degrees and the randomized azimuth error happens to also be 0.5 degrees, then the angular error will be 0.7 degrees (the square root of 0.5^2 + 0.5^2).<br>	
+	<br>
+	Axis mis-alignment is the non-perpendicularity of the telescope's azimuth axis to its altitude axis. Imagine a Dobsonian styled telescope where one side of the rocker box is lower. The telescope will lean to one side as it is aimed upward. The altitude's pads may need to be shimmed on one side. In an equatorial telescope axis mis-alignment occurs when the Declination axis is not set at exactly 90 degrees to the Right Ascension axis. A shim may be needed in the saddle that holds the optical tube assembly.<br>
+	<br>
+	Interestingly, for an altazimuth aligned telescope, axis mis-alignment can be substituted by azimuth offset, an offset that is often baked into alignment software. For example, an axis mis-alignment of 0.5 degrees can be compensated for by an azimuth offset of 0.2 degrees, reducing the pointing error by an order of magnitude (keeping in mind that we rarely aim at the horizon). For my simulator where you can investigate the relationship between axis mis-alignment and azimuth offset, see <a href="PriAxisMountErrors.htm">PriAxisMountErrors.htm</a><br>
+	
+	<h3>Comments</h3>
+	An altazimuth telescope needs to be aligned or initialized in order to track and find objects. Initialization between the telescope&#8217;s azimuth and altitude axes and the sky&#8217;s Right Ascension and Declination coordinates requires synchronizing on two different points in the sky. Each point is described by its equatorial coordinates (RA, Dec), the telescope&#8217;s coordinates at the moment the synchronization occurred (the telescope&#8217;s azimuth and altitude readings) and the sidereal time of the synchronization.<br>
+	<br>
+	Some believe that the initialization points should avoid the equatorial pole (e.g. the star Polaris for the northern hemisphere). But is this true? Some say that the initialization points should never be at the same telescope&#8217;s altitude. Some say that the init points should be 90 degrees apart. Some say that one init star should be in the general vicinity of where you will observe. Just how accurate do the initializations need to be? How are pointing errors distributed across the sky?<br>
+	<br>
+	Think of the ideal and actual telescope to sky coordinate frames containing longitude and latitude lines like Earth. With real life errors, the ideal and actual frames are translated side to side (azimuth), translated up and down (altitude) and rotated or twisted with respect to each other. I used the matrix transformations with directional cosines as developed by Taki.<br>
+	<br>
+	I chose seven initializations.<br>
+	1.&nbsp;&nbsp;&nbsp; First point at the equatorial pole in the north and the second point on the meridian 90 degrees away facing south (Declination = 0).<br>
+	2.&nbsp;&nbsp;&nbsp; First point at the telescope&#8217;s zenith or azimuth&#8217;s pole and the second point on the southern horizon.<br>
+	3.&nbsp;&nbsp;&nbsp; First point on the northern horizon and second point on the southern horizon, both up one degree in altitude.<br>
+	4.&nbsp;&nbsp;&nbsp; Two points that are as distantly separated as possible in all four coordinates: RA, Dec, azimuth and altitude.<br>
+	5.&nbsp;&nbsp;&nbsp; Two points widely separated but at exactly the same telescope&#8217;s altitude.<br>
+	6.&nbsp;&nbsp;&nbsp; Two points separated by 135 degrees.<br>
+	7.&nbsp;&nbsp;&nbsp; Two points close in together, about 30 degrees apart, with some change in both azimuth and altitude.<br>
+	<br>
+	I introduced errors into the initializations just like occurs at the eyepiece when aligning the telescope as the evening begins. I choose random errors varying from zero to one degree. These random errors are in both the telescope&#8217;s azimuth and altitude coordinates. Each initialization was evaluate for accuracy using 30 points across the sky, roughly separated by 30 degrees, from horizon to zenith, in all cardinal directions. I ran each initialization 100 times so as to build up a solid picture of the resulting telescope pointing errors.<br>
+	<br>
+	<table style="border-collapse: collapse; width: 377pt;" border="0" cellpadding="0" cellspacing="0" width="502">
+		<col style="width: 193pt;" width="257"> <col style="width: 184pt;" width="245"> 
+		<tbody>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt; width: 193pt;" height="20" width="257">Style of initialization&nbsp;</td>
+			<td style="width: 184pt;" width="245">Telescope pointing error in degrees</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">EquatPoleAndMeridian90DegAway&nbsp;&nbsp;</td>
+			<td class="xl65">0.7</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">ZenithSouthHorizon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="xl65">0.6</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">NorthSouthHorizon</td>
+			<td class="xl65">7.9</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">FarthestApart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="xl65">0.7</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">SameAlt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="xl65">0.7</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">initAltaz135Apart</td>
+			<td class="xl65">0.8</td>
+		</tr>
+		<tr style="height: 15pt;" height="20">
+			<td style="height: 15pt;" height="20">30degApart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="xl65">1.2</td>
+		</tr>
+		</tbody>
+	</table>
+	<br>
+	Comments<br>
+	1. The beginning random initialization errors were 0.7 degrees (0.5	degrees in each axis results in 0.7 degree angular error). The ending simulated telescope pointing errors for the best initialization strategies were the same. So, garbage in, garbage out.<br>
+	2. Initializing using the equatorial pole is fine; not a bugaboo to be avoided.<br>
+	3. Ditto for initializations at the same telescope altitude but separated in azimuth.<br>
+	4. Using the horizon with initialization points essentially 180 degrees	apart resulted in astonishing errors.<br>
+	5. Telescope pointing error increases when the initialization points are close to each other.<br>
+	<br>
+	<span style="font-weight: bold;">Since telescope pointing errors increase with small and large initialization distances, is there a best distance?</span><br>
+	<br>
+	<img style="width: 445px; height: 177px;" alt="" src="InitializationPointingErrorsAcrossInitializations.jpg"><br>
+	The idea that the initialization points should be 90 degrees apart is correct, however, initialization distances from 40 to 140 degrees	separation performed nearly as well. As the separation approaches zero or 180 degrees, the error increases sharply. By the way, that small bump at the 55 degree separation point is an artifact of initializing near the telescope's azimuth pole aimed at the zenith.<br>
+	<br> 
+	Since portable altazimuth telescopes are initialized each evening, the errors will vary each night. How greatly the errors vary depends on initialization accuracy and on the angular separation of the initialization stars. Try the rapid fire random initialization to see how much more the pointing errors vary from night to night when the angular separation of the initialization stars is small. In fact the night to night variation is so great that it is the dominant feature.<br>
+	<img style="width: 461px; height: 183px;" alt="" src="InitializationSuccessAcrossAngularSeparation.jpg">
+	<br>
+	This study shows the chance of all sky pointing success across a range of initialization star separations. The dip at 55 degree separation is centered on the telescope's azimuth pole. This study suggests to stay away from the telescope's altazimuth pole and to keep a wide separation between the initialization stars.<br>
+	<br>
+	And there are surprising patterns. Interestingly, the patterns seem to connect at the horizon, i.e., the error at any point on the horizon is mirrored across the sky to a point on the horizon 180 degrees away.<br>
+
+	<h3>Lessons learned from the simuulator to apply in the field at night</h3>
+	--- It is most important is to make the initialization measurements with the two stars as accurately as possible. Use a high powered cross haired eyepiece.<br>
+	--- Best pointing accuracy usually occurs between two initialization stars and best chance of success comes when the stars are widely separated.<br>
+	--- Axis mis-alignment, the non-perpendicularity of the telescope's azimuth axis to its altitude axis, affects pointing as the scope is aimed upward. Azimuth offset may compensate.<br>
+
+	<h3>Background data</h3>
+	My data, code and details are incorporated in my QUnit unit tests available at <a href="http://bbastrodesigns.com/lib/coordLib%20unitTests.htm">http://bbastrodesigns.com/lib/coordLib%20unitTests.htm</a>. See the test moodule named, "investigate different init points for accuracy given realworld errors".<br>
+	<br>
+	Mel Bartels, March 2014
+</div>
+
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/Altaz2StarAlignPointingErrors.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.Altaz2StarAlignPointingErrors.load;</script>
+</body></html>

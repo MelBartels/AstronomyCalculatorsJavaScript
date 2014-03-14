@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>    
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Decodes object descriptions" name="description">	
+	<title>Object Description Decoder</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" href="objectLib.css" />
+</head>  
+<body>
+
+<div id="header">
+	<h1>
+	</h1>
+</div>
+
+<div id="descriptionDiv">
+	<br>
+	Shorthand object description 
+	<input name="codedDescription" value="vF;S;R;*13 mag att f" onfocus="select()" type="text">
+	<input ID="btnTranslate" value="Translate" type="button">
+	 translates to 
+	<input ID="translatedDescription" name="translatedDescription" type="text" readonly>
+	<br>
+	<br>
+</div>
+
+<br>
+
+<div id="fileSelectorDiv">
+	Load SAC CSV file by clicking the button to browse or dragging the file onto the button...<br>
+	<input type="file" id="btnFile" name="files[]" multiple />
+	<div id="selectedFileDropDiv">
+		...or drag and drop the file here.
+	</div>
+	<button id="btnAbortRead">Cancel read</button>
+	<br>
+	<div id="status"></div>
+	<table id="csvResult" border></table>
+</div>
+
+<br>
+
+<div id="footer">
+	<br>
+	 Notes: <br>
+	Mel Bartels
+</div>
+
+<script src="lib/sharedLib.js"></script>
+<script src="lib/objectLib.js"></script>
+<script src="lib/objectLibCalc.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script src='lib/underscore/underscore-min.js'></script>
+<script src='lib/jquery/jquery.csv-0.71.min.js'></script>
+</body>
+</html>

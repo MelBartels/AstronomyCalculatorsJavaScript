@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html><head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Plot of pointing errors across the sky for a given two star initialization of an altazimuth telescope" name="description"><title>Initialization Error Plot</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+</head>
+<body>
+<div>
+<h1>Initialization Error Plot</ha>
+<h3>Plot of pointing errors across the sky for a given two star initialization of an altazimuth telescope</h3>
+</div>
+<div>
+	<canvas id="c1" width="180" height="180">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+	<canvas id="c2" width="180" height="180">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+	<canvas id="c3" width="180" height="180">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+	<canvas id="c4" width="180" height="180">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+</div>
+<div>
+<br>
+Notes:<br>
+Pointing error all sky plots for altazimuth telescope initializations using stars separated by 6, 22, 38 and 81 degrees.<br>
+Green = no additional error beyond the initialization error. Red = twice the initilization error.<br>
+North is pointing up, south is pointing down.<br>
+Stars for plot 1: Deneb and Vega; for plot 2: Deneb and Sadr (Gamma Cygni); for plot 3: Deneb and Altair; for plot 4: Deneb and Fomalhaut.<br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/initializationErrorPlotData.js"></script>
+<script src="lib/initializationErrorPlot.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.initializationErrorPlot.load;</script>
+</html>

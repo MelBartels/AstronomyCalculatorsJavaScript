@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates precession, nutation, annual aberration" name="description">
+	<title>Precession, Nutation, Annual Aberration, Refraction Calculator</title><link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+</head>
+<body>
+<div id="inputParms">
+	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+			<b>
+			Precession, Nutation, Annual Aberration, Refraction Calculator<br><br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Right Ascension =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="RA" value="12:00:00" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Declination =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="Dec" value="-20°00'0&quot;" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Sidereal time =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="SidT" value="12:00:00" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Latitude =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="latitude" value="40°00'0&quot;" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 218px;">
+			 Coordinate year =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="coordYear" value="2000" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 336px;">
+			 Calculate for date =
+		</td>
+		<td style="vertical-align: top; width: 338px;">
+			<input name="calcDate" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="width: 338px; text-align: center; vertical-align: middle;">
+			<br>
+			<input ID="btnCalc" value="Calculate" type="button">
+			<br><br>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<div id="output">
+	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	  <tr>
+		<td style="width: 338px; text-align: right;"></td>
+		<td style="width: 100px; text-align: right;">Right Ascension</td>
+		<td style="width: 100px; text-align: right;">Declination</td>
+	  </tr>
+	  <tr>
+		<td style="width: 338px; text-align: right;">Precession = </td>
+		<td id='precessionRA' style="width: 100px; text-align: right;">00:00:00.000</td>
+		<td  id='precessionDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+	  </tr>
+	  <tr>
+		<td style="width: 338px; text-align: right;">Nutation = </td>
+		<td id='nutationRA' style="width: 100px; text-align: right;">00:00:00.000</td>
+		<td id='nutationDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+	  </tr>
+	  <tr>
+		<td style="width: 338px; text-align: right;">Annual aberration = </td>
+		<td id='annualAberrationRA' style="width: 100px; text-align: right;">00:00:00.000</td>
+		<td id='annualAberrationDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+	  <tr>
+		<td style="width: 338px; text-align: right;">subtotal = </td>
+		<td id='totalRA' style="width: 100px; text-align: right;">00:00:00.000</td>
+		<td id='totalDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+	  </tr>
+	  <tr>
+		<td style="width: 338px; text-align: right;">Refraction = </td>
+		<td id='refractionRA' style="width: 100px; text-align: right;">00:00:00.000</td>
+		<td id='refractionDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+	  <tr>
+	</tbody>
+	</table>
+</div>
+<br>
+ Notes: <br>
+<br>
+Precession depends on the coordinate year and the desired target date. Nutation and annual aberration depend on the target date. Refraction depends upon elevation which depends on the hour angle (sidereal time - Right Ascension), Declination and latitude. Precession dominates the coordinate corrections with refraction when at low elevations. At a minimum, precession should be incorporated into coordinates for use at the telescope along with refraction when pointed near the horizon. Proper motion is ignored.<br>
+<br>
+Right Ascension hours can be entered in a variety of formats. For example, '05h 12m 20.2sec', or '5 12 20.2' or '5:12:20.2' or simply ,'5' for 5 hrs. Decimals can be used anywhere, e.g., '5.5h' is 5h 30m. Any reasonable spelling or shorthand of hours, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+Declination degrees can be entered in a variety of formats. For example, '+41°16'10.0&quot;' or '41d 16m 10s' or '41 16 10' or '41:16:10' or simply '4' for 4 degrees. Decimals can be used anywhere, e.g., '5.5' is 5d 30m. Any reasonable spelling or shorthand of degrees, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+Ditto for Sidereal time and latitude.<br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/coordErrorsCalc.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>$(document).ready(MLB.coordErrorsCalc.load);</script>
+</html>

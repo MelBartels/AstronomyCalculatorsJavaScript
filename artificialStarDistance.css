@@ -1,0 +1,19 @@
+#header
+{
+	 text-align: center;
+}
+
+#ArtificialStarTestingDistanceDiv
+{
+	text-align: center;
+}
+
+#footer
+{
+	clear: both;
+}
+
+input[type="text"]
+{
+	width: 50px;
+}

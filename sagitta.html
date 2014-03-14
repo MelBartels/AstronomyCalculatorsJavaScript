@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>    
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates the sagitta of a telescope mirror" name="description">	
+	<title>Sagitta Calculator</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+</head>  
+<body>
+<div>
+	<table>
+	<tbody>
+	<tr align="center">
+		<td colspan="3" rowspan="1" style="vertical-align: top; width: 350px;">
+			<b>
+			<h2>Sagitta Calculator</h2>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 210px;">
+			 Mirror diameter =
+		</td>
+		<td style="vertical-align: top; width: 150px;">
+			<input name="mirrorDia" value="16" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 210px;">
+			 Mirror focal length =
+		</td>
+		<td style="vertical-align: top; width: 150px;">
+			<input name="focalLen" value="48" onfocus="select()" type="text">
+		</td>
+		<td style="vertical-align: top; text-align: left; width: 210px;">
+			<input ID="btnFocalLength" value="Calculate using focal length" style="width: 210px" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 210px;">
+			 Mirror focal ratio =
+		</td>
+		<td style="vertical-align: top; width: 150px;">
+			<input name="focalRatio" value="3" onfocus="select()" type="text">
+		</td>
+		<td style="vertical-align: top; text-align: left; width: 210px;">
+			<input ID="btnFocalRatio" value="Calculate using focal ratio" style="width: 210px" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 210px;">
+			 Sagitta (parabolic) =
+		</td>
+		<td style="vertical-align: top; width: 150px;">
+			<input name="parabolicSagitta" value="" onfocus="select()" type="text">
+		</td>
+		<td style="vertical-align: top; text-align: left; width: 210px;">
+			<input ID="btnParabolicSagitta" value="Calculate using parabolic sagitta" style="width: 210px" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 210px;">
+			 Sagitta (spherical) =
+		</td>
+		<td style="vertical-align: top; width: 150px;">
+			<input name="sphericalSagitta" value="" onfocus="select()" type="text">
+		</td>
+		<td style="vertical-align: top; text-align: left; width: 210px;">
+			<input ID="btnSphericalSagitta" value="Calculate using spherical sagitta" style="width: 210px" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 210px;">
+			 Sphere - parabola =
+		</td>
+		<td style="vertical-align: top; width: 150px;">
+			<input name="sphereParabolaDifference" value="" onfocus="select()" type="text">
+		</td>
+	</tr>
+	</table>
+	</tbody>
+</div>
+<div>
+	<br>
+	 Notes: <br>
+	<br>
+	Calculates parabolic and spherical sagitta from mirror diameter and either mirror focal length or mirror focal ratio.<br>
+	<br>
+	The difference between the sagitta of a spherical and parabolic curve is very small and is typically ignored. In fact, it is the amount that the center needs to be deepened to bring the mirror from spherical to paraboloidal (though the most common method of parabolizing deepends the center somewhat and deepens the edge somewhat, splitting the difference).<br>
+	<br>
+	Mel Bartels
+</div>
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/sagittaCalc.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.sagittaCalc.load;</script>
+</html>

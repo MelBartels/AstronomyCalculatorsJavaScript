@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html><head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Ronchi test calculator for optics" name="description"><title>Ronchi Calculator</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="lib/calc.css"></head><body>
+<table style="text-align: left; width: 900px;" border="0" cellpadding="2" cellspacing="2">
+<tbody>
+<tr align="center">
+	<td colspan="2" rowspan="1" style="vertical-align: top;">
+		<b>
+		Ronchi Calculator</b><br>
+		<br>
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; text-align: right;">
+		 Mirror diameter =
+	</td>
+	<td style="vertical-align: top;">
+		<input name="mirrorDia" value="12" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; text-align: right;">
+		 Mirror radius of curvature =
+	</td>
+	<td style="vertical-align: top;">
+		<input name="radiusOfCurvature" value="120" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; text-align: right;">
+		 Grating frequency (lines per unit of measurement) =
+	</td>
+	<td style="vertical-align: top;">
+		<input name="gratingFreq" value="100" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td style="vertical-align: top; text-align: right;">
+		 Grating distance inside/outside radius of curvature =&nbsp;
+	</td>
+	<td style="vertical-align: top;">
+		<input name="gratingOffset1" value="-0.1" onfocus="select()" type="text">
+		<input name="gratingOffset2" value="0.0" onfocus="select()" type="text">
+		<input name="gratingOffset3" value="+0.4" onfocus="select()" type="text">
+	</td>
+</tr>
+<tr>
+	<td>
+	<br>
+</td><td>
+		<div style="text-align: left;">
+			<input id="btnPlot" value="Update plot" type="button">
+		</div>
+	</td>
+</tr>
+</tbody>
+</table>
+<canvas id="mainCanvas" width="1200" height="300">
+	This browser does not support the canvas element. Please use a more recent browser.
+</canvas>
+<br>
+Advanced section
+<table border="0">
+<tbody>
+<tr>
+	<td id="acceptableDeviation" style="text-align: left;"><br>
+</td>
+</tr>
+</tbody>
+</table>
+<div style="text-align: left;">
+	Overlay under/over corrected bands (red and blue)? <input name="showDeviation" value="yes" type="radio">yes <input name="showDeviation" value="no" checked="checked" type="radio">no
+</div>
+<div style="text-align: left;">
+	Zero the parabolic deviation at mirror's <input name="zeroDeviationAt" value="center" type="radio">center <input name="zeroDeviationAt" value="edge" type="radio">edge
+</div>
+<div style="text-align: left;">
+	Comparison Ronchigram (1/4 wavefront peak to valley):
+	<input name="compareRonchigram" value="under" type="radio">undercorrected 
+	<input name="compareRonchigram" value="over" checked="checked" type="radio">overcorrected 
+	<input name="compareRonchigram" value="lowZone70" checked="checked" type="radio">low 70% zone 
+	<input name="compareRonchigram" value="highZone70" checked="checked" type="radio">high 70% zone 
+	<input name="compareRonchigram" value="none" checked="checked" type="radio">don't display
+</div>
+<br>Moving inside the radius of curvature is a negative offset; outside
+the radius of curvature is a positive offset. Inside of the radius of
+curvature, the bands bow outward as you center your attention to the
+middle of the mirror. Outside of the radius of curvature, the bands bow
+outward as you move your eye towards the edge of the mirror. I have
+included the option of overlaying quarter wavefront under and
+overcorrection, and I have added an optional fourth Ronchigram where
+you can common defects like under and over correction and a low or high
+70% zone, all set to quarter wavefront deviation (maximum 1/4 wave peak
+to valley on the wavefront). This comparison Ronchigram uses the third
+and last grating offset.<br>
+<br>
+The Ronchi test, discovered by Vasco Ronchi in 1923, is one of the most
+versatile and easy to use tests. It is an interferometer that can be
+used geometrically. There is a large body of literature about the
+Ronchi test. For a review, see Malacara&#8217;s, &#8220;Optical Shop Testing&#8221;,
+second edition, chapter 9, &#8216;Ronchi Test&#8217;. I use the test geometrically
+which measures the transverse aberration (the Foucault test measures
+longitudinal aberration). The Ronchi test excels at measuring a wide
+range of surfaces from spherical to aspherical (non-spherical) surfaces
+such as the paraboloid.<br>
+<br>
+There are a number of variants of the Ronchi test including the Mosby,
+the Null Ronchi, the Ronchi Star Test, the Concentric Grid Ronchi, the
+Phase Shifting Ronchi Test, the Sideband Ronchi Test, the Lower Test,
+and the Ronchi Hartmann and Null Hartmann Tests. I&#8217;m convinced that
+there are variations on the Ronchi Test waiting to be discovered and
+characterized. Inventive amateurs have suggested variants that I hope
+to try in the future.<br>
+<br>
+I've successfully figured dozens of superb mirrors over many years
+using the Ronchi Test with notable examples being 30 inch F4, 20 inch
+F5 and my 13 inch F3 ZipDob and led mirror making classes using the
+Ronchi as the principal test. I had a 6 inch F4 checked with the
+Hartman test. The results were that the surface was 1/20 wave peak to
+valley and the RMS was 1/60 wave (the defect that the Hartmann test
+revealed, a broad high centered on the 50% zone, was also seen in the
+Ronchi test, but I judged it not worth continuing to figure).<br>
+<br>
+One of the most successful practitioners was Dr. Sherman Schultz of
+Macalester College in St Paul Minnesota. He used the Ronchi test in his
+mirror making classes with countless students successfully completing
+their telescopes. <a href="http://digitalcommons.macalester.edu/cgi/viewcontent.cgi?article=1000&amp;context=physics_oralhist"> For a interview with Dr Schultz, select here.</a> See Telescope Making #9 for an article by Dr Schultz on the Ronchi test.<br>
+<br>
+He lists the following advantages of the Ronchi test.<br>
+<ol>
+  <li>Ease of interpretation. Leads to confidence which leads to a better mirror surface. Getting mired down in numbers, spreadsheets and equipment adjustments just isn't confidence inspiring.</li>
+  <li>His students made 275 mirrors. Not a single student gave up or
+quit. Testing can be the point of failure for telescope makers. But not
+with the Ronchi test.</li>
+  <li>The Ronchi test is sensitive enough to distinguish between excellent, good, fair and poor. Every little irregularity is seen.
+It doesn't matter if the error is 1/6 or 1/8 wave - you don't need to
+know the magnitude of the error. A drowning person doesn't need to know
+how deep the water is once he is in over his head. He just needs to
+know how to swim.<br>
+  </li>
+  <li>You work until the curves match. The curves are not a mysterious table of numbers or a grid
+of coefficients. You can see the perfect simulated curve; remember it
+in your mind's eye. Each mirror diameter and focal length combination
+has its own curves (and for that matter, its own set of Foucault zonal
+measurements).<br>
+  </li>
+  <li>You can easily detect, better than any other test, the most
+common issue, that of turned edge. And the next most common issue,
+zonal roughness.</li>
+  <li>The student immediately recognizes the overall curve as compared
+to the sphere. The correct corrective action is quickly devised. There
+is no plotting of the mirror profile as reconstituted from zonal
+measurements, which by the way, misses issues between the arbitrarily
+designated zones.</li>
+  <li>The test image is bright. The Ronchi test can be used in an
+ordinarily lit room in daytime. It's easy to setup, easy to see, easy
+to understand.<br>
+  </li>
+</ol>
+The Ronchi test is the most effective test when the most important
+question to answer quickly after each figuring spell is, "Is it better
+or worse? Do I continue or change?" See my <a href="http://www.bbastrodesigns.com/mirlog.html">20 inch mirror log</a>
+for an example of how to use the Ronchi test. The test is particularly
+useful in mirror making classes where the mirrors come off of short
+figuring spells and must be tested quickly lest a bottleneck builds.
+It's common to have several mirrors waiting to be tested at any one
+time.<br>
+<br>
+The Ronchi test reveals extremely small changes in the mirror's figure
+such as zones and differences in correction from one part of the mirror
+to the other. With care, I have observed defects down to 1/30 wave as
+judged from other tests like the Caustic and interferometer. Turned
+edges and overall smoothness are straightforward to detect.<br>
+<br>
+For best use of the test, compare three Ronchigrams at a series of
+offsets from the radius of curvature. Use a sliding platform with a
+threaded rod so that you can move the Ronchi tester precise distances
+or use an engineering ruler taped to an adjustable platform, sliding
+the Ronchi tester along the edge of the ruler precise distances. I use
+a music stand for quick zeroing in of the Ronchi tester.<br>
+<br>
+Another approach measures the separation between Ronchigrams where the
+inner Ronchigram shows the central bands separated by a precise amount,
+say 1 inch or 2.5cm, and the outer Ronchigram shows the edge bands
+separated by the exact same amount. The separation between Ronchigrams
+should equal r^2/2R (mirror radius squared divided by twice the radius
+of curvature).This can be used to gain a sense of overall correction.
+This can be extended to intermediate zones.<br>
+<br>
+The Ronchi test is sometimes inappropriately applied by eyeing the
+curvature of the bands. But this is difficult because the curvature can
+look very similar for a whole series of situations. For instance, a 10
+inch [25cm] F5, fully parabolized at 0.3 inch outside radius of
+curvature (left image) will look very similar to the bands when a
+quarter wavefront undercorrected at 0.285 inch outside radius of
+curvature (right image). You can also see that for a 10 inch [25cm] F5
+mirror, in order to achieve quarter wavefront accuracy, the tester must
+be positioned to within 0.015 inch [4mm].<br>
+<img style="width: 200px; height: 194px;" alt="" src="JoyOfMirrorMaking/10%20inch%20f5%20perfect%20correction%200.3%20offset.png"> <img style="width: 200px; height: 200px;" alt="" src="JoyOfMirrorMaking/10%20inch%20f5%20quarterwave%20undercorrected%200.285%20offset.png"><br>
+<br>
+How tightly must we judge the curved Ronchi bands? Perhaps
+surprisingly, paraboloidal accuracy is solely dependent on focal ratio
+(mirror size does not matter at all). This is also an indication of the
+difficult of faster focal ratios where an F4 is twice as demanding as
+an F8. The graph is for worse case 1/4 wavefront; for the more
+demanding 1/8 wavefront, halve these values. While slower focal ratios
+have a larger allowable parabolic deviation percentage, because the
+paraboloidal correction is smaller, the deviation in absolute terms is
+also smaller. I've added the capability to see the maximum allowed
+under and over correction impact on the bands. Select 'zero correction
+at edge' to best see center band changes and select 'zero correction at
+center' to best see edge band changes. The conclusion is that
+regardless of mirror diameter and focal ratio, the shape and curve of
+each band must be judged critically from top to bottom.<br>
+<img style="width: 440px; height: 288px;" alt="" src="acceptable%20parabolic%20devision.jpg">
+<br>
+I derived this relationship by using a standard algorithm that
+calculates wave error given a set of zonal readings. I iteratively fed
+it zonal readings smoothly varying by a correction factor, deriving the
+maximum correction factor that fit the quarter wavefront error
+envelope. For more, see the comments, code and unit tests in <a href="lib/Ronchi.js">lib/Ronchi.js</a> and <a href="lib/calcLib%20unitTests.htm">calcLib unitTests.htm</a>.<br>
+<br>
+You can see that zonal errors are easy to detect. Using a 16" [41cm] F5
+mirror, compare a low 70% zone on the left (a common malady when
+figuring large fast mirrors) to perfectly parabolized in the middle to
+a high 70% zone (sometimes seen in commercial optics) on the right.
+Note how the bands curve too sharply in the low 70% zone image,
+particularly at the 70% zone, and in the high 70% zone image do not
+exhibit enough curvature, looking too flat at the 70% zone.
+Additionally, the center looks too flat in the low 70% zone and the
+center looks too curved in the high 70% zone Ronchigrams.<br>
+<img style="width: 200px; height: 205px;" alt="" src="JoyOfMirrorMaking/16%20inch%20f5%20low%2070percent%20zone.png"> 
+<img style="width: 200px; height: 210px;" alt="" src="JoyOfMirrorMaking/16%20inch%20f5%20perfect.png"> 
+<img style="width: 200px; height: 204px;" alt="" src="JoyOfMirrorMaking/16%20inch%20f5%20high%2070percent%20zone.png"><br>
+<br>
+I like a grating of about 100 lines per inch [4 lines per millimeter].
+It gives enough sensitivity without being overwhelmed with diffraction
+effects on large fast mirrors. A spherical mirror returns light
+emanating from the radius of curvature to its origin. The radius of
+curvature is twice the focal length, the focal length is the mirror
+diameter times the focal ratio. Light coming from astronomical objects
+is essentially parallel. This light requires the mirror surface to be
+shaped in the form of a paraboloid in order to bring the reflected
+light to perfect focus. A paraboloid compared to a sphere has an ever
+so slightly deeper center and edge. The result is that the light is
+deformed as it returns from the mirror and passes through the grating
+to the eye. This deformation is what we judge, comparing the mirror's
+Ronchi bands to a computer generated series of Ronchigrams.<br>
+<br>
+Here are some examples to give you an idea how critically the Ronchi bands need to be judged.<br>
+<br>
+Here is a 14 inch [36cm] F5 mirror (1978). The curves look very close
+with no turned edge. This mirror proved an excellent performer both on
+deep sky and on planetary with a reduced size diagonal.<br><img style="width: 200px; height: 184px;" alt="" src="JoyOfMirrorMaking/14%20inch%20F5%20ronchi%20results.png"> <img style="width: 200px; height: 199px;" alt="" src="JoyOfMirrorMaking/14%20inch%20F5%20ronchi%20theoretical.png"><br>
+<br>
+Here's a 10 inch [25cm] F5 mirror (1976). Note that the mirror's bands
+are slightly too curved near the edge, indicating a low 90% zone with
+no turned edge and that the center is somewhat undercorrected.
+Nonetheless, this mirror proved excellent on planetary images.<br>
+<img style="width: 200px; height: 182px;" alt="" src="JoyOfMirrorMaking/10%20inch%20f5%20Ronchi%20results.png"> <img style="width: 200px; height: 207px;" alt="" src="JoyOfMirrorMaking/10%20inch%20F5%20ronchi%20theoretical.png"><br>
+<br>
+Here's a 20.5 inch [52cm] F5 mirror (1993). The curves match nicely
+(somewhat hard to see because of bad seeing). This mirror has proved to
+be one of my best mirrors, used regularly for critical high power
+observing at 800x. One night of perfect seeing we were able to up the
+magnification to 6000x with perfect star images.<br>
+<img style="width: 200px; height: 189px;" alt="" src="JoyOfMirrorMaking/20%20inch%20f5%20Ronchi%20results.png"> <img style="width: 200px; height: 209px;" alt="" src="JoyOfMirrorMaking/20%20inch%20F5%20ronchi%20theoretical.png"><br>
+<br>
+Here's a 4 inch [10cm] F4 mirror (1972).The bands on the mirror's
+surface are slightly under-curved. Nonetheless, this proved to be an
+excellently performing mirror.<br>
+<img style="width: 200px; height: 218px;" alt="" src="JoyOfMirrorMaking/4%20inch%20F4%20ronchi%20results.png"> <img style="width: 200px; height: 203px;" alt="" src="JoyOfMirrorMaking/4%20inch%20F4%20ronchi%20theoretical.png"><br>
+<br>
+Here's a 15.5 inch [39cm] F5.5 mirror (1980). Unfortunately I did not
+record an outside of radius of curvature image, nonetheless, the bands
+look smoothly curving and of proper amplitude with a hint of overall
+undercorrection.<br>
+<img style="width: 200px; height: 197px;" alt="" src="JoyOfMirrorMaking/15.5%20inch%20F5.5%20ronchi%20results.png"> <img style="width: 200px; height: 200px;" alt="" src="JoyOfMirrorMaking/15.5%20inch%20F5.5%20ronchi%20theoretical.png"><br>
+<br>
+Here's a 13.2 inch [34cm] F3.0 mirror (2008). I took great care to
+match the bands exactly including no turned edge, not knowing exactly
+how critical F3.0 required. However, there does appear to be a hint of
+a kink in the bands at the 70% zone. It does not show in the star test
+however. The results at the eyepiece are very pleasing at high powers.<br>
+<img style="width: 200px; height: 186px;" alt="" src="JoyOfMirrorMaking/13%20inch%20F3%20ronchi%20results.png"> <img style="width: 200px; height: 205px;" alt="" src="JoyOfMirrorMaking/13%20inch%20F3%20ronchi%20theoretical.png"><br>
+<br>
+Here's a 6 inch [15cm] F2.8 mirror (2013). The star test looks very
+good: excellent overall correction with a touch of overcorrection in
+the 50-80% zones.<br>
+<img style="width: 200px;" alt="" src="JoyOfMirrorMaking/6%20inch%20final%20Ronchigram%20outside%20RoC.jpg"> <img style="width: 200px;" alt="" src="JoyOfMirrorMaking/6%20inch%20target%20outside%20RoC%20Ronchigram.jpg"><br>
+<br>
+Here's a 10.5 inch [27cm] F2.7 mirror (2013). The star test shows
+diagonal shadow breakout the same in both directions but with the above
+focus position showing a brighter ring around the diagonal and the
+below focus position showing a brighter ring on the outside meaning
+that the outer 15% is very slightly overcorrected and the inner 85% is
+very slightly undercorrected. Star test pattern improves as the mirror
+cools to ambient air temperature. These issues are very slight.<br>
+<img style="width: 200px;" alt="" src="JoyOfMirrorMaking/10.5%20inch%20final%20Ronchigram%20outside%20RoC.jpg"> <img style="width: 200px;" alt="" src="JoyOfMirrorMaking/10%20inch%20target%20outside%20RoC%20Ronchigram.jpg"><br>
+<br>
+Here's Jerry Oltion's 12.5 inch [32cm] f4.5 mirror that's been
+parabolized to high quality: at 50x per inch of aperture [2x per
+millimeter] the mirror focuses sharply and has an essentially perfect
+star test with a slight brightening of the diagonal breakout ring
+outside of focus, indicating a broad high zone between the center and
+edge of the mirror. The third image is composed of the first two images
+laid on top of each other showing that the mirror's 40-80% zone is ever
+so slightly undercorrected. This gives you an idea of how carefully the
+Ronchigram should be judged.<br>
+<img src="JoyOfMirrorMaking/JO12inchRonchigramsActualTheoretical.jpg" alt="" style="width: 403px; height: 200px;"> <img style="width: 200px; height: 200px;" alt="" src="JoyOfMirrorMaking/JO12inchRonchigramComparison.jpg"><br>
+<br>
+Here's my old 24 inch [61cm] f6 from the early 1980's. The Ronchigram
+shows issues including a zonal kink at 50%, flat edge zones and an edge
+problem from the sling (slings are a gift from the Devil). Nonetheless,
+the mirror performed wonderfully at full aperture on planets at the
+highest powers and was tested professsionally at 1/4 wavefront.<br>
+<img style="width: 242px; height: 208px;" alt="" src="JoyOfMirrorMaking/24%20inch%20Ronchigram.jpg"> <img style="width: 187px; height: 194px;" alt="" src="JoyOfMirrorMaking/24%20inch%20Ronchigram%20theoretical.jpg"><br>
+<br>Here's a 36 inch f4 mirror professionally made to 1/4 wave. You can
+see the kink and overcorrection in the outer zones. The star test was
+iffy at highest powers. This demonstrates that the Ronchi test can be
+used successfully on large fast mirrors.<br>
+<img style="width: 200px; height: 198px;" alt="" src="JoyOfMirrorMaking/36%20inch%20f4%20Casino%20Ronchigram.jpg">
+<img style="width: 200px; height: 196px;" alt="" src="JoyOfMirrorMaking/36%20inch%20f4%20Casino%20simulated%20Ronchigram.jpg"><br>
+<br>
+The Ronchi test is best thought of as a part of the figuring process.
+Judging the 'after figure' against the 'before figure' in order to
+decide what to do next is the most important question to ask and
+answer. Perhaps you are concentrating on the 50% zone because it is a
+tad too high (the Ronchi bands look too curvy at the 50% zone as you
+slide your Ronchi tester back and forth, watching the bands expand,
+change shape then contract). So you adopt a figuring stroke or modify
+the pitch lap so as to concentrate on the 50% for a couple of minutes.
+It is straightforward to see if the figuring stroke made the 50% zone
+better (slightly smoother curve). The technique is precisely that:
+slide the focuser back and forth, from inside radius of curvature to
+outside. Judge what zone or zones the figure bends more than not. If
+you are careful and take a modicum of time, then you will become quite
+good at Ronchi testing while figuring your first or second mirror.<br>
+<br>
+Overall correction, that is, is the mirror 100% corrected or is it ever
+so slightly under or overcorrected, is harder to see. That's where the
+star test jumps into the fray. The star test, comparing the inside of
+focus star pattern to the outside of focus star pattern, is exquisitely
+sensitive to overall correction. There is every expectation that a
+mirror can be figured to a standard of 'indistinguishable from perfect'
+when using matching Ronchi test in combination with the star test.
+Usually this only comes into play during the final stage of figuring. I
+use the indoor star test when possible. Once I adjust the overall
+correction then I return to the Ronchi test to get the correct curve in
+each mirror zone.<br>
+<br>
+<img style="width: 500px; height: 375px;" alt="" src="JoyOfMirrorMaking/Ronchi%20frontside.jpg"> <img style="width: 500px; height: 375px;" alt="" src="JoyOfMirrorMaking/Ronchi%20backside.jpg">
+<br>
+As the figure takes shape and errors are no longer obvious, take the
+time and care to judge the bands very critically. Be discriminating to
+a deviation of one-tenth the thickness of a band. Position the tester
+to a hundredth of an inch (1/4 millimeter) using an engineering ruler.
+Testing in the final stages can take many minutes. Finally, regardless
+of the test used, strongly consider verifying results against a second
+test.<br>
+<br>
+See my pages on polishing and parabolizing where I describe the making
+of 20.5 inch [52cm] f5.0, 13.2 inch [34cm] f3.0, 6 inch [15cm] f2.8 and
+10.5 inch [27cm] f2.8 mirrors.<br>
+<a href="http://www.bbastrodesigns.com/JoyOfMirrorMaking/Polishing.html">Polishing</a><br>
+<a href="http://www.bbastrodesigns.com/JoyOfMirrorMaking/Parabolizing.html">Parabolizing</a><br>
+<br>
+Mel Bartels
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/Ronchi.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.ronchi.load;</script></body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates precession, nutation, annual aberration" name="description">
+	<title>Equatorial Mount Tracking Rates Calculator, Includes Refraction (text UI)</title><link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+</head>
+
+<body>
+<div id="inputParms">
+	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="vertical-align: top; width: 350px;">
+			<b>
+			Equatorial Mount Tracking Rates Calculator, Includes Refraction<br><br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 350px;">
+			 Hour angle (Sidereal time - R.A.) =
+		</td>
+		<td style="vertical-align: top; width: 350px;">
+			<input name="HA" value="2:00:00" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 350px;">
+			 Declination =
+		</td>
+		<td style="vertical-align: top; width: 350px;">
+			<input name="Dec" value="20°00'0&quot;" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td style="vertical-align: top; text-align: right; width: 350px;">
+			 Latitude =
+		</td>
+		<td style="vertical-align: top; width: 158px;">
+			<input name="latitude" value="40°00'0&quot;" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr align="center">
+		<td colspan="2" rowspan="1" style="width: 350px; text-align: center; vertical-align: middle;">
+			<br>
+			<input value="Calculate" onclick="MLB.equatTrackingRatesCalc.calc()" type="button">
+			<br><br>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<div id="output">
+	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<tbody>
+	  <tr>
+		<td style="width: 350px; text-align: right;">Refracted elevation above horizon (degrees) = </td>
+		<td  id='elevation' style="width: 125px; text-align: right;"></td>
+		<td id='' style="width: 125px; text-align: right;"></td>
+	  </tr>
+	  <tr>
+		<td style="width: 350px; text-align: right;">Refraction (degrees) = </td>
+		<td  id='refract' style="width: 125px; text-align: right;"></td>
+		<td id='' style="width: 125px; text-align: right;"></td>
+	  </tr>
+	  <tr>
+		<td style="width: 350px; text-align: right;"></td>
+		<td style="width: 125px; text-align: right;">Right Ascension</td>
+		<td style="width: 125px; text-align: right;">Declination</td>
+	  </tr>
+	  <tr>
+		<td style="width: 350px; text-align: right;">Tracking rate (arcseconds/second) = </td>
+		<td id='RARate' style="width: 125px; text-align: right;"></td>
+		<td  id='DecRate' style="width: 125px; text-align: right;"></td>
+	  </tr>
+	  <tr>
+		<td style="width: 350px; text-align: right;">King rate (arcseconds/second) = </td>
+		<td id='KingRARate' style="width: 125px; text-align: right;"></td>
+		<td  id='' style="width: 125px; text-align: right;"></td>
+	  </tr>
+	  <tr>
+		<td style="width: 350px; text-align: right;">Change in tracking rate (arcseconds/second/second) = </td>
+		<td id='RARateChange' style="width: 125px; text-align: right;"></td>
+		<td id='DecRateChange' style="width: 125px; text-align: right;"></td>
+	  </tr>
+	  </tr>
+	</tbody>
+	</table>
+</div>
+<br>
+Notes: <br>
+<br>
+This calculator shows the slow down in tracking due to refraction as the telescope is pointed downward towards the horizon. The uncorrected drive rate is 15.041 arcseconds per second of time. A slight drift in Declination also occurs. The rates and change in rates are calculated by taking three refracted positions, each a small interval of time apart. The rate comes from the first two positions divided by the time interval, and the rate of change comes from comparing to a second rate derived from timed positions number 2 and 3.<br>
+<br>
+Hours can be entered in a variety of formats. For example, '05h 12m 20.2sec', or '5 12 20.2' or '5:12:20.2' or simply ,'5' for 5 hrs. Decimals can be used anywhere, e.g., '5.5h' is 5h 30m. Any reasonable spelling or shorthand of hours, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+Degrees can be entered in a variety of formats. For example, '+41°16'10.0"' or '41d 16m 10s' or '41 16 10' or '41:16:10' or simply '4' for 4 degrees. Decimals can be used anywhere, e.g., '5.5' is 5d 30m. Any reasonable spelling or shorthand of degrees, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+<br>
+Years ago E.S. King developed an algorithm that took into account refraction in calculating a telescope's drive rate. He was able to achieve multi-hour unguided exposures by slightly altering the drive rate of the gravity powered mechanical drive of his refractor at periodic intervals. He would add or remove very small weights. His table of tracking rates was consolidated to one best average rate and become known as the King Rate. You can see that for much of the sky, the tracking rate is slightly less than the sidereal rate of 15.041 arcseconds per second. You can also see curiosities such as the tracking rate under the pole is faster than the sidereal rate. You can also see artifacts caused by the real vs refracted pole when comparing the tracking rate calculated by time interval which uses the real pole, to the King Rate which uses the refracted pole. Today the King Rate is not much discussed because of auto-guiding, periodic error in popular gear sets and computer controlled altazimuth telescopes.<br>
+<br>
+E.S. King was one of our great astronomers, contributing to astrophotography, photometry, telescope drives, mirror testing and the cold camera. His book, "The History of the Telescope", is still the book that others are compared against. You can read some of his writings in the Amateur Telescope Making book series. A crater on the Moon is co-named for him.<br>
+<br>
+For more on refraction, drift aligning and related topics, see <a href="http://canburytech.net/DriftAlign/DriftAlign_3.html">http://canburytech.net/DriftAlign/DriftAlign_3.html</a><br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/equatTrackingRatesCalc.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>$(document).ready(MLB.equatTrackingRatesCalc.calc);</script>
+</html>

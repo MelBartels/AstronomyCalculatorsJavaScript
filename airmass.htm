@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Plots airmass with elevation" name="description">
+	<title>Airmass Calculator</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+</head>
+<body>
+<div id="chart_div">
+</div>
+<div id="myChart" style="margin-top:20px; margin-left:20px; width:500px; height:300px;">
+</div>
+ Interpreting the chart: <br>
+<br>
+ Plots airmass versus elevation in degrees. Airmass is the amount of atmosphere the light travels through. An airmass of one means the light traverses one atmosphere on the way to your eyes. Air mass is important in astronomy because light is not only extinguished at a rate approximately 0.2 magnitudes per atmosphere but also the light is smeared resulting in poor seeing.<br>
+<br>
+ Mel Bartels
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/airmassCalc.js"></script>
+<!--[if lt IE 9]><script src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
+<script src="lib/jqplot/jquery.min.js"></script>
+<script src="lib/jqplot/jquery.jqplot.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script>$(document).ready(MLB.airmassCalc.plot);</script>
+</html>

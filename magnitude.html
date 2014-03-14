@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>    
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates stellar magnitude changes" name="description">	
+	<title>Magnitude Calculator</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" href="magnitude.css" />
+</head>  
+<body>
+
+<div id="header">
+	<h1>
+		Magnitude Calculator
+	</h1>
+</div>
+
+<div id="percent">
+	Percent transmission 
+	<input name="percent" value="90" onfocus="select()" type="text">
+	% = 
+	<input ID="btnCalcPercent" value="Calculate" type="button">
+	<input name="magOutPercent" type="text" readonly>
+	change in magnitude.
+</div>
+
+<br>
+
+<div id="aperture">
+	Compare aperture of
+	<input name="aperture1" value="10" onfocus="select()" type="text">
+	to aperture of 
+	<input name="aperture2" value="14" onfocus="select()" type="text">
+	=
+	<input ID="btnCalcAperture" value="Calculate" type="button">
+	<input name="magOutAperture" type="text" readonly>
+	change in magnitude.	
+</div>
+
+<div id="footer">
+	<br>
+	 Notes: <br>
+	<br>
+	Calculates magnitudes.<br>
+	<br>
+	Mel Bartels
+</div>
+</body>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/magnitudeCalc.js"></script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script>window.onload = MLB.magnitudeCalc.load;</script>
+</html>
