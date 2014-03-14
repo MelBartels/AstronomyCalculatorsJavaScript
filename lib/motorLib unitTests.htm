@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="sharedLib.js"></script>
+        <script src="motorLib.js"></script>
+
+        <script src='jquery/jquery-1.10.2.min.js'></script>
+        <script type='text/javascript' src='qunit/qunit-git.js'></script>
+        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+
+<script>$(document).ready(function () {
+	'use strict';
+	
+	var Trajectory = MLB.motorLib.Trajectory,
+	    timeDistanceFromAccelBegVelEndVel = MLB.motorLib.timeDistanceFromAccelBegVelEndVel,
+		distanceFromTimeAccelBegVelEndVel = MLB.motorLib.distanceFromTimeAccelBegVelEndVel,
+		endVelFromAccelDistanceTimeDiff = MLB.motorLib.endVelFromAccelDistanceTimeDiff,
+		mergeTimeDistanceFromAccelBegVelEndVel = MLB.motorLib.mergeTimeDistanceFromAccelBegVelEndVel,
+		maxVelFromAccelDistanceBegVelEndVel = MLB.motorLib.maxVelFromAccelDistanceBegVelEndVel,
+		maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel = MLB.motorLib.maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel,
+		maxVelFromTimeDistanceBegVelEndVel = MLB.motorLib.maxVelFromTimeDistanceBegVelEndVel,
+		trajFromAccelDistanceMaxVelBegVelEndVel = MLB.motorLib.trajFromAccelDistanceMaxVelBegVelEndVel,
+		trajFromTimeDistanceBegVelEndVel = MLB.motorLib.trajFromTimeDistanceBegVelEndVel,
+		velFromTrajTime = MLB.motorLib.velFromTrajTime,
+		distanceFromTrajTime = MLB.motorLib.distanceFromTrajTime;
+
+	module('timeDistanceFromAccelBegVelEndVel');
+
+	test('velocities: ++', function () {
+		var td, expectedTime, expectedDistance;
+		td = timeDistanceFromAccelBegVelEndVel(2, 3, 6);
+		expectedTime = 1.5;
+		expectedDistance = 6.75;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+
+});
+
+</script>
+    </head>
+    <body>
+        <h1 id="qunit-header">
+            QUnit test for motorLib.js
+        </h1>
+        <h2 id="qunit-banner">
+        </h2>
+        <div id="qunit-testrunner-toolbar">
+        </div>
+        <h2 id="qunit-userAgent">
+        </h2>
+        <ol id="qunit-tests">
+        </ol>
+        <div id="qunit-fixture">
+            test markup, will be hidden
+        </div>
+    </body>
+</html>

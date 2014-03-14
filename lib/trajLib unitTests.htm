@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="sharedLib.js"></script>
+        <script src="trajLib.js"></script>
+
+        <script src='jquery/jquery-1.10.2.min.js'></script>
+        <script type='text/javascript' src='qunit/qunit-git.js'></script>
+        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+
+<script>$(document).ready(function () {
+	'use strict';
+	
+	var Trajectory = MLB.trajLib.Trajectory,
+	    timeDistanceFromAccelBegVelEndVel = MLB.trajLib.timeDistanceFromAccelBegVelEndVel,
+		distanceFromTimeAccelBegVelEndVel = MLB.trajLib.distanceFromTimeAccelBegVelEndVel,
+		endVelFromAccelDistanceTimeDiff = MLB.trajLib.endVelFromAccelDistanceTimeDiff,
+		mergeTimeDistanceFromAccelBegVelEndVel = MLB.trajLib.mergeTimeDistanceFromAccelBegVelEndVel,
+		maxVelFromAccelDistanceBegVelEndVel = MLB.trajLib.maxVelFromAccelDistanceBegVelEndVel,
+		maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel = MLB.trajLib.maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel,
+		maxVelFromTimeDistanceBegVelEndVel = MLB.trajLib.maxVelFromTimeDistanceBegVelEndVel,
+		trajFromAccelDistanceMaxVelBegVelEndVel = MLB.trajLib.trajFromAccelDistanceMaxVelBegVelEndVel,
+		trajFromTimeDistanceBegVelEndVel = MLB.trajLib.trajFromTimeDistanceBegVelEndVel,
+		velFromTrajTime = MLB.trajLib.velFromTrajTime,
+		distanceFromTrajTime = MLB.trajLib.distanceFromTrajTime;
+
+	module('timeDistanceFromAccelBegVelEndVel');
+
+	test('velocities: ++', function () {
+		var td, expectedTime, expectedDistance;
+		td = timeDistanceFromAccelBegVelEndVel(2, 3, 6);
+		expectedTime = 1.5;
+		expectedDistance = 6.75;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+
+	test('velocities: --', function () {
+		var td, expectedTime, expectedDistance;
+		// the '-' part of '2 accel is ignored: accel is calculated from the velocities
+		td = timeDistanceFromAccelBegVelEndVel(-2, -3, -6);
+		expectedTime = 1.5;
+		expectedDistance = -6.75;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+
+	test('velocities: +-', function () {
+		var td, expectedTime, expectedDistance;
+		td = timeDistanceFromAccelBegVelEndVel(2, 3, -6);
+		expectedTime = 4.5;
+		expectedDistance = -6.75;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	test('velocities: -+', function () {
+		var td, expectedTime, expectedDistance;
+		td = timeDistanceFromAccelBegVelEndVel(2, -3, 6);
+		expectedTime = 4.5;
+		expectedDistance = 6.75;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	module('distanceFromTimeAccelBegVelEndVel');
+
+	test('input time = time to reach ending velocity', function () {
+		var distance, expectedDistance;
+		distance = distanceFromTimeAccelBegVelEndVel(1.5, 2, 3, 6);
+		expectedDistance = 6.75;
+		equal(distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + distance);
+	});
+	
+	test('input time > time to reach ending velocity', function () {
+		var distance, expectedDistance;
+		distance = distanceFromTimeAccelBegVelEndVel(2.5, 2, 3, 6);
+		expectedDistance = 6.75 + 6;
+		equal(distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + distance);
+	});
+	
+	test('input time < time to reach ending velocity', function () {
+		var distance, expectedDistance;
+		distance = distanceFromTimeAccelBegVelEndVel(0.5, 2, 3, 6);
+		expectedDistance = 1.75;
+		equal(distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + distance);
+	});
+	
+	module('endVelFromAccelDistanceTimeDiff');
+
+	test('+ values', function () {
+		var endVel, expectedEndVel;
+		endVel = endVelFromAccelDistanceTimeDiff(2, 50, 10);
+		expectedEndVel = 15;
+		equal(endVel, expectedEndVel, 'ending velocity should be ' + expectedEndVel + ', is ' + endVel);
+	});
+	
+	test('- values', function () {
+		var endVel, expectedEndVel;
+		endVel = endVelFromAccelDistanceTimeDiff(-2, -50, 10);
+		expectedEndVel = -15;
+		equal(endVel, expectedEndVel, 'ending velocity should be ' + expectedEndVel + ', is ' + endVel);
+	});
+	
+	module('mergeTimeDistanceFromAccelBegVelEndVel');
+	
+	test('final position has head start of 2.25 and moves 4.5 while initial position moves 6.75', function () {
+		var td, expectedTime, expectedDistance;
+		td = mergeTimeDistanceFromAccelBegVelEndVel(2, 6, 3);
+		expectedTime = 1.5;
+		expectedDistance = 2.25;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	test('final position starts at 20.25 and moves -27 while initial position starts at 0 and moves -6.75, initial position moves 2.25 before stopping to reverse direction', function () {
+		var td, expectedTime, expectedDistance;
+		td = mergeTimeDistanceFromAccelBegVelEndVel(2, 3, -6);
+		expectedTime = 4.5;
+		expectedDistance = 20.25;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	test('... at this point, distance has decreased to 9', function () {
+		var td, expectedTime, expectedDistance;
+		td = mergeTimeDistanceFromAccelBegVelEndVel(2, 0, -6);
+		expectedTime = 3;
+		expectedDistance = 9;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	test('final position has head start of -2.25 and moves -4.5 while initial position moves -6.75', function () {
+		var td, expectedTime, expectedDistance;
+		td = mergeTimeDistanceFromAccelBegVelEndVel(2, -6, -3);
+		expectedTime = 1.5;
+		expectedDistance = -2.25;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	test('final position starts at -20.25 and moves 27 while initial position starts at 0 and moves 6.75, initial position moves -2.25 before stopping to reverse direction', function () {
+		var td, expectedTime, expectedDistance;
+		td = mergeTimeDistanceFromAccelBegVelEndVel(2, -3, 6);
+		expectedTime = 4.5;
+		expectedDistance = -20.25;
+		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
+		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	});
+	
+	module('maxVelFromAccelDistanceBegVelEndVel');
+
+	test('begVel=1, endVel=-1; first leg time=(5-1)/2=2, distance=2*(5+1)/2=6; last leg time=(5-1)/2=2; total distance=6(first leg)+6(second leg)--5(distance target moved during time)=17', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(2, 17, 1, -1);
+		expectedMaxVel = 5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('begVel=1, endVel=1; first leg time=(5-1)/2=2, distance=2*(5+1)/2=6; last leg time=(5-1)/2=2, distance=2*(5+1)/2=6; change in position over total time of 4 = 4; total distance=6(first leg)+6(second leg)-4(distance target moved during time)=8', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(2, 8, 1, 1);
+		expectedMaxVel = 5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('as above but begVel=-1, endVel=1', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(2, -17, -1, 1);
+		expectedMaxVel = -5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('as above but begVel=-1, endVel=-1', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(2, -8, -1, -1);
+		expectedMaxVel = -5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('> merge distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, 17, 2, -2);
+		expectedMaxVel = 3;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('= merge distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, 8, 2, -2);
+		expectedMaxVel = 2;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('< merge distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, 4, 2, -2);
+		expectedMaxVel = -4;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('zero distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, 0, 2, -2);
+		expectedMaxVel = -4.82842712474619;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('-distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, -1, 2, -2);
+		expectedMaxVel = -5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('reverse velocities: > merge distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, -17, -2, 2);
+		expectedMaxVel = -3;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('reverse velocities: = merge distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, -8, -2, 2);
+		expectedMaxVel = -2;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('reverse velocities: < merge distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, -4, -2, 2);
+		expectedMaxVel = 4;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('reverse velocities: zero distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, 0, -2, 2);
+		expectedMaxVel = 4.82842712474619;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('reverse velocities: -distance', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromAccelDistanceBegVelEndVel(1, 1, -2, 2);
+		expectedMaxVel = 5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+
+	module('maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel');
+
+	test('begVel=1, endVel=-1; first leg time=(5-1)/2=2, distance=2*(5+1)/2=6; last leg time=(5--1)/2=3, distance=3*(5+-1)/2=6', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel(5, 12, 1, -1);
+		expectedMaxVel = 5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('as above but begVel=-1, endVel=1', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel(5, -12, -1, 1);
+		expectedMaxVel = -5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	module('maxVelFromTimeDistanceBegVelEndVel');
+
+	test('begVel=1, endVel=-1; first leg time=(5-1)/2=2, distance=2*(5+1)/2=6; last leg time=(5--1)/2=3, distance=3*(5+-1)/2=6; "change in position over total time of 5 = -5; total distance=6(first leg)+6(second leg)--5(distance target moved during time)=17', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromTimeDistanceBegVelEndVel(5, 17, 1, -1);
+		expectedMaxVel = 5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	test('as above but begVel=-1, endVel=1', function () {
+		var maxVel, expectedMaxVel;
+		maxVel = maxVelFromTimeDistanceBegVelEndVel(5, -17, -1, 1);
+		expectedMaxVel = -5;
+		equal(maxVel, expectedMaxVel, 'max velocity should be ' + expectedMaxVel + ', is ' + maxVel);
+	});
+	
+	module('trajFromAccelDistanceMaxVelBegVelEndVel');
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 5;
+		expectedTotalDistance = 12;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, 17, 5, 1, -1);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 5;
+		expectedTotalDistance = 12;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, 17, 9999, 1, -1);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 7;
+		expectedTotalDistance = 22;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, 29, 5, 1, -1);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 11;
+		expectedTotalDistance = 90;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, 68, 10, 6, 2);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 4;
+		expectedTotalDistance = 22;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, 14, 10, 6, 2);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 5;
+		expectedTotalDistance = -12;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, -17, 5, -1, 1);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 7;
+		expectedTotalDistance = -22;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, -29, 5, -1, 1);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 11;
+		expectedTotalDistance = -90;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, -68, 10, -6, -2);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	test('trajFromAccelDistanceMaxVelBegVelEndVel', function () {
+		var traj, expectedTotalTime, expectedTotalDistance;
+		traj = new Trajectory();
+		expectedTotalTime = 4;
+		expectedTotalDistance = -22;
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 2, -14, 10, -6, -2);
+		equal(traj.totalTime, expectedTotalTime, 'total time should be ' + expectedTotalTime + ', is ' + traj.totalTime);
+		equal(traj.totalDistance, expectedTotalDistance, 'total distance should be ' + expectedTotalDistance + ', is ' + traj.totalDistance);
+	});
+	
+	module('trajFromTimeDistanceBegVelEndVel');
+	
+	test('trajFromTimeDistanceBegVelEndVel', function () {
+		var traj, expectedMaxVel, expectedRampUpAccel;
+		traj = new Trajectory();
+		expectedMaxVel = 5;
+		expectedRampUpAccel = 2;
+		trajFromTimeDistanceBegVelEndVel(traj, 5, 17, 1, -1);
+		equal(traj.maxVel.begVel, expectedMaxVel, 'maxVel should be ' + expectedMaxVel + ', is ' + traj.maxVel.begVel);
+		equal(traj.rampUp.accel, expectedRampUpAccel, 'rampUp.accel should be ' + expectedRampUpAccel + ', is ' + traj.rampUp.accel);
+		equal(traj.totalDistance, 12, 'total distance should be 12, is ' + traj.totalDistance);
+	});
+	
+	test('trajFromTimeDistanceBegVelEndVel', function () {
+		var traj, expectedMaxVel, expectedRampUpAccel;
+		traj = new Trajectory();
+		expectedMaxVel = -5;
+		expectedRampUpAccel = -2;
+		trajFromTimeDistanceBegVelEndVel(traj, 5, -17, -1, 1);
+		equal(traj.maxVel.begVel, expectedMaxVel, 'maxVel should be ' + expectedMaxVel + ', is ' + traj.maxVel.begVel);
+		equal(traj.rampUp.accel, expectedRampUpAccel, 'rampUp.accel should be ' + expectedRampUpAccel + ', is ' + traj.rampUp.accel);
+		equal(traj.totalDistance, -12, 'total distance should be -12, is ' + traj.totalDistance);
+	});
+	
+	module('velFromTrajTime');
+	
+	test('velFromTrajTime', function () {
+		var traj, time, expectedVel;
+		traj = new Trajectory();
+		trajFromTimeDistanceBegVelEndVel(traj, 5, 17, 1, -1);
+
+		time = 0;
+		expectedVel = traj.rampUp.begVel;
+		equal(velFromTrajTime(traj, time), expectedVel, 'beginning velocity should be ' + expectedVel);
+
+		time = traj.rampUp.time / 2;
+		expectedVel = (traj.rampUp.begVel + traj.rampUp.endVel) / 2;
+		equal(velFromTrajTime(traj, time), expectedVel, 'half way through ramp up velocity should be ' + expectedVel);
+
+		time = traj.rampUp.time;
+		expectedVel = traj.rampUp.endVel;
+		equal(velFromTrajTime(traj, time), expectedVel, 'ramp up ending velocity should be ' +  expectedVel);
+
+		time = traj.rampUp.time + traj.maxVel.time;
+		expectedVel = traj.maxVel.endVel;
+		equal(velFromTrajTime(traj, time), expectedVel, 'max speed ending velocity should be '  + expectedVel);
+		
+		time = traj.rampUp.time + traj.maxVel.time + traj.rampDown.time / 2;
+		expectedVel = (traj.rampDown.begVel + traj.rampDown.endVel) / 2;
+		equal(velFromTrajTime(traj, time), expectedVel, 'half way through ramp down velocity should be ' + expectedVel);
+		
+		time = traj.totalTime;		
+		expectedVel = traj.rampDown.endVel;
+		equal(velFromTrajTime(traj, time), expectedVel, 'ending velocity should be ' + expectedVel);
+	});
+	
+	// distance of 8 is the critical distance: below that the alternate solution to the max vel is needed
+	
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 0, 4, 2, -2);	
+		equal(velFromTrajTime(traj, 0), 2);
+		equal(velFromTrajTime(traj, 1), 1);
+		equal(velFromTrajTime(traj, 2), 0);
+		equal(velFromTrajTime(traj, 3), -1);
+		equal(velFromTrajTime(traj, 4), -2);
+		equal(velFromTrajTime(traj, 5), -3);
+		equal(velFromTrajTime(traj, 6), -4);
+		equal(velFromTrajTime(traj, 7), -4);
+		equal(velFromTrajTime(traj, 8), -4);
+		equal(velFromTrajTime(traj, 9), -3);
+		equal(velFromTrajTime(traj, 10), -2);
+	});
+
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 2, 4, 2, -2);	
+		equal(velFromTrajTime(traj, 0), 2);
+		equal(velFromTrajTime(traj, 1), 1);
+		equal(velFromTrajTime(traj, 2), 0);
+		equal(velFromTrajTime(traj, 3), -1);
+		equal(velFromTrajTime(traj, 4), -2);
+		equal(velFromTrajTime(traj, 5), -3);
+		equal(velFromTrajTime(traj, 6), -4);
+		equal(velFromTrajTime(traj, 7), -4);
+		equal(velFromTrajTime(traj, 8), -3);
+		equal(velFromTrajTime(traj, 9), -2);
+	});
+
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 8, 4, 2, -2);	
+		equal(velFromTrajTime(traj, 0), 2);
+		equal(velFromTrajTime(traj, 0.5), 1.5);
+		equal(velFromTrajTime(traj, 1), 1);
+		equal(velFromTrajTime(traj, 1.5), 0.5);
+		equal(velFromTrajTime(traj, 2), 0);
+		equal(velFromTrajTime(traj, 2.5), -0.5);
+		equal(velFromTrajTime(traj, 3), -1.0);
+		equal(velFromTrajTime(traj, 3.5), -1.5);
+		equal(velFromTrajTime(traj, 4), -2);
+	});
+	
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 12.25, 4, 2, -2);	
+		equal(velFromTrajTime(traj, 0), 2);
+		equal(velFromTrajTime(traj, 0.5), 2.5);
+		equal(velFromTrajTime(traj, 1), 2);
+		equal(velFromTrajTime(traj, 1.5), 1.5);
+		equal(velFromTrajTime(traj, 2), 1);
+		equal(velFromTrajTime(traj, 2.5), 0.5);
+		equal(velFromTrajTime(traj, 3), 0);
+		equal(velFromTrajTime(traj, 3.5), -0.5);
+		equal(velFromTrajTime(traj, 4), -1);
+		equal(velFromTrajTime(traj, 4.5), -1.5);
+		equal(velFromTrajTime(traj, 5), -2);
+	});
+
+	// and the negatives to the above four tests:
+
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 0, 4, -2, 2);	
+		equal(velFromTrajTime(traj, 0), -2);
+		equal(velFromTrajTime(traj, 1), -1);
+		equal(velFromTrajTime(traj, 2), -0);
+		equal(velFromTrajTime(traj, 3), 1);
+		equal(velFromTrajTime(traj, 4), 2);
+		equal(velFromTrajTime(traj, 5), 3);
+		equal(velFromTrajTime(traj, 6), 4);
+		equal(velFromTrajTime(traj, 7), 4);
+		equal(velFromTrajTime(traj, 8), 4);
+		equal(velFromTrajTime(traj, 9), 3);
+		equal(velFromTrajTime(traj, 10), 2);
+	});
+
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, -2, 4, -2, 2);	
+		equal(velFromTrajTime(traj, 0), -2);
+		equal(velFromTrajTime(traj, 1), -1);
+		equal(velFromTrajTime(traj, 2), -0);
+		equal(velFromTrajTime(traj, 3), 1);
+		equal(velFromTrajTime(traj, 4), 2);
+		equal(velFromTrajTime(traj, 5), 3);
+		equal(velFromTrajTime(traj, 6), 4);
+		equal(velFromTrajTime(traj, 7), 4);
+		equal(velFromTrajTime(traj, 8), 3);
+		equal(velFromTrajTime(traj, 9), 2);
+	});
+
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, -8, 4, -2, 2);	
+		equal(velFromTrajTime(traj, 0), -2);
+		equal(velFromTrajTime(traj, 0.5), -1.5);
+		equal(velFromTrajTime(traj, 1), -1);
+		equal(velFromTrajTime(traj, 1.5), -0.5);
+		equal(velFromTrajTime(traj, 2), 0);
+		equal(velFromTrajTime(traj, 2.5), 0.5);
+		equal(velFromTrajTime(traj, 3), 1.0);
+		equal(velFromTrajTime(traj, 3.5), 1.5);
+		equal(velFromTrajTime(traj, 4), 2);
+	});
+
+	test('velFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, -12.25, 4, -2, 2);	
+		equal(velFromTrajTime(traj, 0), -2);
+		equal(velFromTrajTime(traj, 0.5), -2.5);
+		equal(velFromTrajTime(traj, 1), -2);
+		equal(velFromTrajTime(traj, 1.5), -1.5);
+		equal(velFromTrajTime(traj, 2), -1);
+		equal(velFromTrajTime(traj, 2.5), -0.5);
+		equal(velFromTrajTime(traj, 3), 0);
+		equal(velFromTrajTime(traj, 3.5), 0.5);
+		equal(velFromTrajTime(traj, 4), 1);
+		equal(velFromTrajTime(traj, 4.5), 1.5);
+		equal(velFromTrajTime(traj, 5), 2);
+	});
+
+	module('distanceFromTrajTime');
+	
+	test('distanceFromTrajTime', function () {
+		var traj, time, expectedDistance, rampUpMaxVelDistance, rampUpMaxVelDistance, partialRampDownDistance;
+		traj = new Trajectory();
+		trajFromTimeDistanceBegVelEndVel(traj, 5, 17, 1, -1);
+		
+		time = 0;
+		expectedDistance = distanceFromTimeAccelBegVelEndVel(time, traj.rampUp.accel, traj.rampUp.begVel, traj.rampUp.endVel);
+		equal(distanceFromTrajTime(traj, time), expectedDistance, 'beginning distance should be ' + expectedDistance);
+		
+		time = traj.rampUp.time / 2;
+		expectedDistance = distanceFromTimeAccelBegVelEndVel(time, traj.rampUp.accel, traj.rampUp.begVel, traj.rampUp.endVel);
+		equal(distanceFromTrajTime(traj, time), expectedDistance, 'half way through ramp up distance should be ' + expectedDistance);
+		
+		time = traj.rampUp.time;
+		expectedDistance = distanceFromTimeAccelBegVelEndVel(time, traj.rampUp.accel, traj.rampUp.begVel, traj.rampUp.endVel);
+		equal(distanceFromTrajTime(traj, time), expectedDistance, 'ramp up distance should be ' + expectedDistance);
+		
+		time = traj.rampUp.time + traj.maxVel.time;
+		equal(traj.maxVel.time, 0, 'no time spent at max vel');
+		expectedDistance = distanceFromTimeAccelBegVelEndVel(time, traj.rampUp.accel, traj.rampUp.begVel, traj.rampUp.endVel);
+		equal(distanceFromTrajTime(traj, time), expectedDistance, 'max vel distance should be ' + expectedDistance);
+		
+		time = traj.rampUp.time + traj.maxVel.time + traj.rampDown.time / 2;
+		// ramp up and max vel distance
+		rampUpMaxVelDistance = distanceFromTimeAccelBegVelEndVel(traj.rampUp.time + traj.maxVel.time, traj.rampUp.accel, traj.rampUp.begVel, traj.rampUp.endVel);
+		// distance spent ramping down halfway
+		partialRampDownDistance = distanceFromTimeAccelBegVelEndVel(traj.rampDown.time / 2, traj.rampDown.accel, traj.rampDown.begVel, traj.rampDown.endVel);
+		expectedDistance = rampUpMaxVelDistance + partialRampDownDistance;
+		equal(distanceFromTrajTime(traj, time), expectedDistance, 'half way through ramp down distance should be ' + expectedDistance);
+		
+		time = traj.totalTime;
+		expectedDistance = traj.totalDistance;
+		equal(distanceFromTrajTime(traj, time), expectedDistance, 'ending distance should be ' + expectedDistance);
+	});
+	
+	test('net distanceFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 0, 4, 2, -2);
+		// account for the distance travelled by the target trajectory: time * end vel
+		equal(distanceFromTrajTime(traj, 0), 0); // - 0 * -2
+		equal(2 * -2 - distanceFromTrajTime(traj, 2), -6);
+		equal(4 * -2 - distanceFromTrajTime(traj, 4), -8);
+		equal(6 * -2 - distanceFromTrajTime(traj, 6), -6);
+		equal(8 * -2 - distanceFromTrajTime(traj, 8), -2);
+		equal(10 * -2 - distanceFromTrajTime(traj, 10), 0);
+	});	
+	
+	// negative of above test
+	
+	test('net distanceFromTrajTime', function () {
+		var traj = new Trajectory();
+		trajFromAccelDistanceMaxVelBegVelEndVel(traj, 1, 0, 4, -2, 2);
+		// account for the distance travelled by the target trajectory: time * end vel
+		equal(distanceFromTrajTime(traj, 0), 0); // - 0 * -2
+		equal(2 * 2 - distanceFromTrajTime(traj, 2), 6);
+		equal(4 * 2 - distanceFromTrajTime(traj, 4), 8);
+		equal(6 * 2 - distanceFromTrajTime(traj, 6), 6);
+		equal(8 * 2 - distanceFromTrajTime(traj, 8), 2);
+		equal(10 * 2 - distanceFromTrajTime(traj, 10), 0);
+	});	
+	
+});
+
+</script>
+    </head>
+    <body>
+        <h1 id="qunit-header">
+            QUnit test for trajLib.js
+        </h1>
+        <h2 id="qunit-banner">
+        </h2>
+        <div id="qunit-testrunner-toolbar">
+        </div>
+        <h2 id="qunit-userAgent">
+        </h2>
+        <ol id="qunit-tests">
+        </ol>
+        <div id="qunit-fixture">
+            test markup, will be hidden
+        </div>
+    </body>
+</html>

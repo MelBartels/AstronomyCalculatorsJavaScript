@@ -1,0 +1,111 @@
+The NGC on the Net
+Here's where to find the NGC data:
+* The Interactive NGC Catalog Online by Hartmut Frommert of SEDS
+* The NGC/IC Project - includes a nice version of Dreyer's original catalog
+NGC 2000.0 is also available on paper or diskettes from Sky Publishing.
+
+NGC description codes
+The codes used to describe the objects in the NGC catalog are extremely compact and extremely helpful. But they are a bit cryptic :-)
+Discussion
+The helpfile for Chris Marriott's SkyMap v2.2 (an excellent observer-oriented program capable of printing great charts) contains the following information on the Dreyer Object Descriptions (which I have edited slightly to resolve upper/lower case ambiguities):
+The majority of objects in the deep sky database include the visual descriptions used by Johann Dreyer in his "New General Catalogue", published in 1888. These descriptions are remarkable for their information content, but can be somewhat daunting at first. For example, the Dreyer description of the globular cluster M3 in Canes Venatici is as follows:
+GCL,eB,vL,vsmbM,*11
+This can be translated as "Globular cluster, extremely bright, very large, very suddenly much brighter towards the middle, composed of 11th magnitude stars" - a pretty good description in only 19 characters!
+Similarly the galaxy NGC 2863 in Hydra is described as:
+cF, S, E, bet 2 st 12, 16
+which means "considerably faint, small, elongated, between two stars of magnitude 12 and 16".
+The description normally starts with a description of the object's brightness and size. Dreyer adopted the scale used for this from Sir John Herschel, and the order used may be confusing to modern observers; for example, is "considerably faint" brighter or fainter than merely "faint"? The other possible source of confusion is that 19th century astronomers often called a faint star "small" and a bright star "large", so one always has to be careful to judge whether a description such as "pretty small" refers to size or brightness!
+The scale used is as follows:
+
+Brightness                              Size
+
+eF      Excessively faint               eS      Excessively small
+vF      Very faint                      vS      Very small
+F       Faint                           S       Small
+cF      Considerably faint              cS      Considerably small
+pF      Pretty faint                    pS      Pretty small
+pB      Pretty bright                   pL      Pretty large
+cB      Considerably bright             cL      Considerably large
+B       Bright                          L       Large
+vB      Very bright                     vL      Very large
+eB      Extremely                       eL      Excessively large
+Next normally comes a description of object's general shape. This lies on a scale ranging from "round" to "extremely extended", as follows:
+Code            Shape
+
+R               Round
+vlE             Very little extended
+E               Elliptic or oval
+cE              Considerably extended
+pmE             Pretty much extended
+mE              Much extended
+vmE             Very much extended
+eE              Extremely extended
+By far the most cryptic part of the description, at first glance, is the group of letters giving what Sir John Herschel described as "the degree and rate of condensation". A simple example is "gbM", meaning "gradually brighter towards the middle". Looking, though, at NGC 4725, a galaxy in Coma Berenices, we find the dreadful looking "vsvmbMeBN"! Even this mouthful, though, is fairly easily translated as "very suddenly very much brighter in the middle, with an extremely bright nucleus".
+When the descriptions give directions on the sky, the terms "preceding" and "following" are used for west and easy respectively. To see what is meant by this, picture the way an object drifts across the field of view of a telescope if the drive is switched off. Use of these terms is much more natural at the telescope eyepiece than the very confusing west and east, given the way that optical systems invert and/or reflect the field of view.
+Quite often the notes speak of groups. The "1st of 4" is the first member of a group of four nebulae to drift across the field of view ie, the most western one, preceding all the others. All members of a group will have very nearly the same declination.
+The codes
+The complete list of abbreviations used in the Dreyer description of an object appears below:
+
+                Ab..............about                 n..............north 
+                alm.............almost                neb............nebula 
+                am..............among                 nf.............north following 
+                app.............appended              np.............north preceding 
+                att.............attached              nr.............near 
+                b...............brighter              N..............Nucleus, or to a
+                                                                     Nucleus 
+                be..............between               p..............pretty (before
+                                                                     F,B,L,S) 
+                biN.............binuclear             p..............preceding 
+                bn..............brightest towards     pg.............pretty gradually 
+                                the north side        pm.............pretty much 
+                bs..............brightest towards     ps.............pretty suddenly 
+                                the south side        P..............poor 
+                bp..............brightest towards     quad...........quadrilateral 
+                                the preceding side    quar...........quartile 
+                bf..............brightest towards     r..............resolvable 
+                                the following side                   (mottled,not resolved) 
+                B...............bright                rr.............partially relolved,
+                c...............considerably                         some stars seen 
+                ch..............chevelure             rrr............well resolved, clearly
+                co..............coarse, coarsely                     consisting of stars 
+                com.............cometic               R..............round 
+                cont............in contact            RR.............exactly round 
+                C...............compressed            Ri.............rich 
+                C.G.H...........Cape of Good Hope     s..............suddenly 
+                Cl..............cluster               s..............south 
+                d...............diameter              sp.............south preceding 
+                def.............defined               sf.............south following 
+                dif.............diffused              sc.............scattered 
+                diffic..........difficult             st.............stars 
+                dist............distance or           sev............several 
+                                distant               susp...........suspected 
+                D...............double                sh.............shaped 
+                e...............extremely,            stell..........stellar 
+                                excessively           S..............small 
+                ee..............most extremely        sm.............smaller 
+                er..............easily resolvable     triN...........trinuclear 
+                exc.............excentric             trap...........trapezium 
+                E...............extended              v..............very 
+                f...............following             vv.............very, very 
+                F...............faint                 var............variable 
+                g...............gradually             *..............a star: *10, a star of
+                gr..............group                                10th magnitude 
+                i...............irregular             **.............double star 
+                inv.............involved,involving    ***............triple star 
+                iF..............irregular figure      !..............remarkable 
+                l...............little,long           !!.............very remarkable 
+                L...............large                 !!!............a magnificent or 
+                m...............much                                 otherwise interesting 
+                mm..............mixed magnitudes                     object 
+                mn..............milky nebulosity      st 9...........stars from the 9th 
+                M...............middle, or in the                    magnitude downwards 
+                                middle                st 9 13........stars from the 9th
+                                                                     to 13th magnitude
+
+()              items questioned by Dreyer enclosed in parentheses
+
+"               arc seconds (two "not-equals" in published catalog)
+'               arc minutes (one "not-equals" in published catalog)
+See also NGC Abbreviations from the NGC/IC Project.
+
+Bill Arnett; last updated: 2000 Jun 20 

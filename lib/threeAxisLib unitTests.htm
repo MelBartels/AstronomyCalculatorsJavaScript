@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <script src='sharedLib.js'></script>
+        <script src='coordLib.js'></script>
+        <script src='threeAxisLib.js'></script>
+
+        <script src='jquery/jquery-1.10.2.min.js'></script>
+        <script type='text/javascript' src='qunit/qunit-git.js'></script>
+        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+
+<script>$(document).ready(function () {
+	'use strict';
+	var withinRange = MLB.sharedLib.withinRange,
+	    uom = MLB.sharedLib.uom,
+		validRev = MLB.coordLib.validRev,
+		validHalfRev = MLB.coordLib.validHalfRev,
+		validDec = MLB.coordLib.validDec,
+		model = MLB.threeAxisLib.model,
+		altazToA3 = MLB.threeAxisLib.altazToA3;
+
+	module('convert from one axis system to another');
+	
+	// test values from three axis mount simulation by Steve Joiner:
+	// alt: 56.4, az: 208.1, HA: 15.3, Dec 9.3, FR 353.5, a1: 57.3, a2 -8.2, a3: 195.6, Lat: 40.0
+
+	test('validRev', function () {
+		var allowedErrorDeg = 0.1,
+		    modelAltDeg = 56.4,
+			modelAzDeg = 208.1,
+			modelHADeg = 15.3,
+			modelDecDeg = 9.3,
+			modelFRDeg = 353.5,
+			modelA1Deg = 57.3,
+			modelA2Deg = -8.2,
+			modelA3Deg = 195.6,
+			modelLatDeg = 40.0,
+			result;
+		
+		// test for model's existence
+		equal(model !== 'undefined' && model !== null, true, 'model should be something');
+		
+		// test get/set
+		model.lat = modelLatDeg * uom.degToRad;
+		result = model.lat / uom.degToRad;		
+		equal(withinRange(result, modelLatDeg, allowedErrorDeg), true, 'latitude should be ' + modelLatDeg + ', is ' + result);
+		
+		// test altaz coords changed
+		model.az = modelAzDeg * uom.degToRad;
+		model.alt = modelAltDeg * uom.degToRad;
+		model.FR = modelFRDeg * uom.degToRad;
+		altazToA3();
+		result = model.a1 / uom.degToRad;
+		equal(withinRange(result, modelA1Deg, allowedErrorDeg), true, 'altazChanged: a1 should be ' + modelA1Deg + ', is ' + result);
+		result = model.a2 / uom.degToRad;
+		equal(withinRange(result, modelA2Deg, allowedErrorDeg), true, 'altazChanged: a2 should be ' + modelA2Deg + ', is ' + result);
+		result = model.a3 / uom.degToRad;
+		equal(withinRange(result, modelA3Deg, allowedErrorDeg), true, 'altazChanged: a3 should be ' + modelA3Deg + ', is ' + result);
+		result = model.FR / uom.degToRad;
+		equal(withinRange(result, modelFRDeg, allowedErrorDeg), true, 'altazChanged: FR should be ' + modelFRDeg + ', is ' + result);
+		result = model.HA / uom.degToRad;
+		equal(withinRange(result, modelHADeg, allowedErrorDeg), true, 'altazChanged: HA should be ' + modelHADeg + ', is ' + result);
+		result = model.Dec / uom.degToRad;
+		equal(withinRange(result, modelDecDeg, allowedErrorDeg), true, 'altazChanged: Dec should be ' + modelDecDeg + ', is ' + result);
+		
+	});
+
+});
+
+</script>
+    </head>
+    <body>
+        <h1 id='qunit-header'>
+            QUnit test for threeAxisLib.js
+        </h1>
+        <h2 id='qunit-banner'>
+        </h2>
+        <div id='qunit-testrunner-toolbar'>
+        </div>
+        <h2 id='qunit-userAgent'>
+        </h2>
+        <ol id='qunit-tests'>
+        </ol>
+        <div id='qunit-fixture'>
+            test markup, will be hidden
+        </div>
+    </body>
+</html>
