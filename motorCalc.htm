@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Calculates motor values" name="description">
+<title>Motor Calculator</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+</head>
+<body>
+<div>
+	<table>
+	<tbody>
+	<tr>
+		<td class='title colspan='2'>
+			<b>
+			Motor Calculator<br>
+			<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Motor maximum RPMs =
+		</td>
+		<td>
+			<input class='inputText' name="motorMaxRPM" value="1800" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Quadrature decoded motor encoder ticks =
+		</td>
+		<td>
+			<input class='inputText' name="reduction1" value="2000" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Motor gearhead reduction =
+		</td>
+		<td>
+			<input class='inputText' name="reduction2" value="10.5:1" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Intermediate spur gear reduction =
+		</td>
+		<td>
+			<input class='inputText' name="reduction3" value="none" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Final worm and gear reduction or roller drive reduction =
+		</td>
+		<td>
+			<input class='inputText' name="reduction4" value="360:1" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='title' colspan='2'>
+			<input ID="btnCalcUsingGearReductions" value="Calculate using gear reductions" type="button">
+			or simply enter the total ticks below and press the Enter key<br>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Total ticks per axis revolution are
+		</td>
+		<td>
+			<input class='inputText' name="totalTicksPerAxis" value="" onfocus="select()" type="text">
+		</td>	
+	</tr>
+	<tr>
+		<td class='label'>
+			 Ticks per arcsecond are
+		</td>
+		<td id="ticksPerArcsecond"></td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Motor maximum slew speed is
+		</td>
+		<td id="motorMaxSpeed"></td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 If axis angular speed in arcseconds per second =
+		</td>
+		<td>
+			<input class='inputText' name="axisSpeedArcsecondsPerSec" value="15"" onfocus="select()" type="text">
+			<input ID="btnCalcSpeeds" value="Recalculate speeds" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Then motor speed is
+		</td>
+		<td id="motorSpeed"></td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 And ticks per second are
+		</td>
+		<td id="ticksSecond"></td>
+	</tr>
+	</tbody>
+	</table>
+	<br>
+</div>
+ Notes: <br>
+<br>
+This calculator calculates needed information to plan motorized drives for telescopes.<br>
+<br>
+The encoder resolution and gear reduction need to fit within a range (the Goldilock principle) such that:<br>
+<br>
+1.	There is sufficient encoder resolution and gearing for smooth and accurate tracking <br>
+2.	Yet be not overly geared such that slewing at high speed overruns the capability of the control system to keep up with the encoder pulses.<br>
+<br>
+A good encoder resolution and gear reduction is 10 encoder counts per an angular distance of one arcsecond. Since sky turbulence limits telescope resolution to an arc-second or worse, and since motor control systems are accurate to an encoder count or two, this means more than sufficient positioning and tracking accuracy. This also gives every chance for smooth tracking, e.g., the sidereal tracking rate of 15 arc-seconds angular motion in one second of time results in 150 encoder counts per second, far beyond the resonance of stiff telescopes at 4 to 10 Hertz.<br>
+<br>
+While slewing, more than 10 encoder counts per arc-second can challenge the ability of hardware and software to count every encoder pulse. For instance, if slewing at three degrees per second, the system needs to count 108,000 pulses every second. Systems today can count 30,000 pulses per second up to 3,000,000 pulses per second. Check your system&#39;s specification as you design your gear reduction and select your encoder resolution.<br>
+<br>
+A good worm and gear setup is a 360:1 main gear and worm with a servo motor with a 500 count encoder that quadrature decodes to 2000 counts and with a 10.5:1 motor gearhead. This results in about 6 ticks per arcsecond and maximum slew speed of 3 deg/sec given a maximum motor rpm of 1800.<br>
+<br>
+A good roller drive setup is a servo motor with a 500 count encoder that quadrature decodes to 2000 counts with a 10.5:1 motor gearhead, a main roller drive of 15:1 ratio (say a 1 inch drive roller and a 20 inch diameter rim) and an intermediate small gear reducer of 30:1. This results in about 10 ticks per arcsecond and a maximum slew speed of 2 deg/sec given a maximum motor rpm of 1800.<br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/motorLib.js"></script>
+<script src="lib/motorCalc.js"></script>
+</html>

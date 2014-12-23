@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Precesses astronomical coordinates, Right Ascension and Declination" name="description">
+	<title>Precession Calculator</title><link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
+</head>
+<body>
+
+<div id="header">
+	<h1>
+		Precession Calculator
+	</h1>
+</div>
+
+<div>
+	Right Ascension =
+	<input class='inputText' name="RA" value="12:00:00" onfocus="select()" type="text">
+	Declination =
+	<input class='inputText' name="Dec" value="-20°00'0&quot;" onfocus="select()" type="text">
+	from coordinate year =
+	<input class='inputText' name="fromYear" value="2000" onfocus="select()" type="text">
+	to year =
+	<input class='inputText' name="toYear" onfocus="select()" type="text">
+</div>
+<div>
+	<input ID="btnPrecess" value="Precess" type="button">
+	Precessed Right Ascension = 
+	<input class='inputText' name="RAout" type="text" readonly>
+	Declination = 
+	<input class='inputText' name="Decout" type="text" readonly>
+</div>
+
+<br>
+Notes:<br>
+<br>
+Precession depends on the coordinate year and the desired target date. Proper motion is ignored.<br>
+<br>
+Right Ascension hours can be entered in a variety of formats. For example, '05h 12m 20.2sec', or '5 12 20.2' or '5:12:20.2' or simply ,'5' for 5 hrs. Decimals can be used anywhere, e.g., '5.5h' is 5h 30m. Any reasonable spelling or shorthand of hours, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+Declination degrees can be entered in a variety of formats. For example, '+41°16'10.0&quot;' or '41d 16m 10s' or '41 16 10' or '41:16:10' or simply '4' for 4 degrees. Decimals can be used anywhere, e.g., '5.5' is 5d 30m. Any reasonable spelling or shorthand of degrees, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/precessionCalc.js"></script>
+</html>
