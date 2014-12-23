@@ -1,21 +1,35 @@
 <!DOCTYPE HTML>
 <html>
-    
-    <head>
-        <script src="sharedLib.js"></script>
+<head>
+	<title>QUnit test for sharedLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
 
-        <script src='jquery/jquery-1.10.2.min.js'></script>
-        <script type='text/javascript' src='qunit/qunit-git.js'></script>
-        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
+
+	<script src='sharedLib.js'></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
 
 <script>$(document).ready(function () {
 	'use strict';
 	var withinRange = MLB.sharedLib.withinRange,
 	    uom = MLB.sharedLib.uom;
 
-	module('helpers');
+	QUnit.module('helpers');
 
-	test('withinRange', function () {
+	QUnit.test('withinRange', function () {
 		equal(withinRange(Math.acos(2), 2, 0.0), false, 'Math.acos(2) is not a number');
 		equal(withinRange(Math.acos(-2), -2, 0.0), false, 'Math.acos(-2) is not a number');
 
@@ -36,25 +50,25 @@
 		equal(withinRange(-4.9, -5, 0.1), true, '-4.9 is within a range of -4.9 to -5.1');
 	});
 	
-	test('title case', function () {
+	QUnit.test('title case', function () {
 		var toTitleCase = MLB.sharedLib.toTitleCase;
 
 		equal(toTitleCase('hello world also the Universe.'), 'Hello World also the Universe.', 'title case test');
 	});
 	
-	test('sentence case', function () {
+	QUnit.test('sentence case', function () {
 		var toSentenceCase = MLB.sharedLib.toSentenceCase;
 		
 		equal(toSentenceCase('hello world also the Universe.'), 'Hello world also the Universe.', 'sentence case test');	
 	});
 	
-	test('capitalizeFirstLetterOnly', function () {
+	QUnit.test('capitalizeFirstLetterOnly', function () {
 		var capitalizeFirstLetterOnly = MLB.sharedLib.capitalizeFirstLetterOnly;
 		
 		equal(capitalizeFirstLetterOnly('AXE'), 'Axe', 'capitalizeFirstLetterOnly test');
 	});
 	
-	test('int', function () {
+	QUnit.test('int', function () {
 		var int = MLB.sharedLib.int;
 
 		equal(int(4), 4, 'int(4) should be 4');
@@ -65,7 +79,7 @@
 		equal(int(-0.5), -1, 'int(-0.5) should be -1');
 	});
 	
-	test('isInt, isFloat', function () {
+	QUnit.test('isInt, isFloat', function () {
 		var isInt = MLB.sharedLib.isInt,
 		    isFloat = MLB.sharedLib.isFloat;
 			
@@ -75,7 +89,7 @@
 		equal(isFloat(4), false, '4 is not a float');
 	});
 
-	test('resolveNumberToPrecision', function () {
+	QUnit.test('resolveNumberToPrecision', function () {
 		var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision;
 
 		equal(resolveNumberToPrecision(-4.08, 0.05), -4.1000000000000005, '-4.08 to precision .05 should be -4.10');
@@ -95,7 +109,7 @@
 		equal(resolveNumberToPrecision(1.2345, 0.001), 1.235, '1.2345 to precision 0.001 should be 1.235');
 	});
 
-	test('limitDecimalPlaces', function () {
+	QUnit.test('limitDecimalPlaces', function () {
 		var limitDecimalPlaces = MLB.sharedLib.limitDecimalPlaces,
 		    result = limitDecimalPlaces(1.23456789, 2);
 
@@ -106,7 +120,7 @@
 		equal(result, '123456789', '123456789 limited to 2 decimal places should be 123456789, is ' + result);
 	});
 
-	test('roundToDecimal', function () {
+	QUnit.test('roundToDecimal', function () {
 		var roundToDecimal = MLB.sharedLib.roundToDecimal,
 		    result = roundToDecimal(1.2344, 3),
 		    expected = '1.234';
@@ -117,73 +131,56 @@
 		equal(result, expected, 'should be ' + expected + ', is ' + result);
 	});
 	
-	test('combine resolveNumberToPrecision and limitDecimalPlaces', function () {
+	QUnit.test('combine resolveNumberToPrecision and limitDecimalPlaces', function () {
 		var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision,
 		    limitDecimalPlaces = MLB.sharedLib.limitDecimalPlaces;
 
 		equal(limitDecimalPlaces(resolveNumberToPrecision(7.56, 0.01, 2), 2), 7.56, 'should be 7.56');
 	});
 	
-	test('log10', function () {
+	QUnit.test('log10', function () {
 		var log10 = MLB.sharedLib.log10, 
 		    result = log10(4.5);
 		equal(withinRange(result, 0.6532125137753436, 0.000001), true, 'log10(4.5) should be 0.6532125137753436, is ' + result);
 	});
 
-	module('UOM constants');
+	QUnit.module('UOM constants');
 
-	test('Units.sidRate', function () {
+	QUnit.test('Units.sidRate', function () {
 		var result = uom.sidRate;
 		equal(result, 1.002737909, 'sidRate should be 1.002737909, is ' + result);
 	});
 
-	test('Units.JD2000', function () {
+	QUnit.test('Units.JD2000', function () {
 		var result = uom.JD2000;
 		equal(result, 2451545, 'JD2000 should be 2451545, is ' + result);
 	});
 
-	test('Units.oneRev', function () {
+	QUnit.test('Units.oneRev', function () {
 		var result = uom.oneRev;
 		equal(withinRange(result, 6.283185, 0.000001), true, 'OneRev should be 6.283185, is ' + result);
 	});
 
-	test('Units.HrsTo...', function () {
+	QUnit.test('Units.HrsTo...', function () {
 		var result = uom.hrToRad / uom.hrToRev;
 		equal(withinRange(result, uom.oneRev, 0.000001), true, 'HrToRev / HrToRad should be OneRev, is ' + result);
 	});
 
-	test('Units.SecTo...', function () {
+	QUnit.test('Units.SecTo...', function () {
 		var result = uom.secToRad / uom.secToRev;
 		equal(withinRange(result, uom.oneRev, 0.000001), true, 'SecToRev / SecToRad should be OneRev, is ' + result);
 	});
 
-	test('Units.DegTo...', function () {
+	QUnit.test('Units.DegTo...', function () {
 		var result = uom.degToRad / uom.degToRev;
 		equal(withinRange(result, uom.oneRev, 0.000001), true, 'DegToRev / DegToRad should be OneRev, is ' + result);
 	});
 
-	test('Units.ArcsecTo...', function () {
+	QUnit.test('Units.ArcsecTo...', function () {
 		var result = uom.arcsecToRad / uom.arcsecToRev;
 		equal(withinRange(result, uom.oneRev, 0.000001), true, 'ArcsecToRev / ArcsecToRad should be OneRev, is ' + result);
 	});
 });
 
 </script>
-    </head>   
-    <body>
-        <h1 id="qunit-header">
-            QUnit test for sharedLib.js
-        </h1>
-        <h2 id="qunit-banner">
-        </h2>
-        <div id="qunit-testrunner-toolbar">
-        </div>
-        <h2 id="qunit-userAgent">
-        </h2>
-        <ol id="qunit-tests">
-        </ol>
-        <div id="qunit-fixture">
-            test markup, will be hidden
-        </div>
-    </body>
 </html>

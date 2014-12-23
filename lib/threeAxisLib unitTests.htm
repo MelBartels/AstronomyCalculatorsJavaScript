@@ -1,14 +1,28 @@
 <!DOCTYPE HTML>
 <html>
+<head>
+	<title>QUnit test for threeAxisLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
 
-    <head>
-        <script src='sharedLib.js'></script>
-        <script src='coordLib.js'></script>
-        <script src='threeAxisLib.js'></script>
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
 
-        <script src='jquery/jquery-1.10.2.min.js'></script>
-        <script type='text/javascript' src='qunit/qunit-git.js'></script>
-        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+	<script src='sharedLib.js'></script>
+	<script src='coordLib.js'></script>
+	<script src='threeAxisLib.js'></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
 
 <script>$(document).ready(function () {
 	'use strict';
@@ -20,12 +34,12 @@
 		model = MLB.threeAxisLib.model,
 		altazToA3 = MLB.threeAxisLib.altazToA3;
 
-	module('convert from one axis system to another');
+	QUnit.module('convert from one axis system to another');
 	
 	// test values from three axis mount simulation by Steve Joiner:
 	// alt: 56.4, az: 208.1, HA: 15.3, Dec 9.3, FR 353.5, a1: 57.3, a2 -8.2, a3: 195.6, Lat: 40.0
 
-	test('validRev', function () {
+	QUnit.test('validRev', function () {
 		var allowedErrorDeg = 0.1,
 		    modelAltDeg = 56.4,
 			modelAzDeg = 208.1,
@@ -69,21 +83,4 @@
 });
 
 </script>
-    </head>
-    <body>
-        <h1 id='qunit-header'>
-            QUnit test for threeAxisLib.js
-        </h1>
-        <h2 id='qunit-banner'>
-        </h2>
-        <div id='qunit-testrunner-toolbar'>
-        </div>
-        <h2 id='qunit-userAgent'>
-        </h2>
-        <ol id='qunit-tests'>
-        </ol>
-        <div id='qunit-fixture'>
-            test markup, will be hidden
-        </div>
-    </body>
 </html>

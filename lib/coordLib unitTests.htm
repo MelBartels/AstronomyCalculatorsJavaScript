@@ -1,14 +1,29 @@
 <!DOCTYPE HTML>
 <html>
+<head>
+	<title>QUnit test for coordLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js'></script>
+	
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='underscore/underscore-min.js'></script>
 
-    <head>
-        <script src='sharedLib.js'></script>
-        <script src='coordLib.js'></script>
-
-		<script src='underscore/underscore-min.js'></script>
-        <script src='jquery/jquery-1.10.2.min.js'></script>
-        <script type='text/javascript' src='qunit/qunit-git.js'></script>
-        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+	<script src='sharedLib.js'></script>
+	<script src='coordLib.js'></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
 
 <script>$(document).ready(function () {
 	'use strict';
@@ -104,37 +119,37 @@
 		TrackingRates = MLB.coordLib.TrackingRates,
 		ThreeAxis = MLB.coordLib.ThreeAxis;
 
-	module('conversions');
+	QUnit.module('conversions');
 
-	test('validRev', function () {
+	QUnit.test('validRev', function () {
 		var value = 390 * uom.degToRad,
 		    expected = 30 * uom.degToRad,
 		    result = validRev(value);
 		equal(withinRange(result, expected, 0.000000001), true, 'validRev should be ' + expected + ', is ' + result);
 	});
 
-	test('validRev', function () {
+	QUnit.test('validRev', function () {
 		var value = 570 * uom.degToRad,
 		    expected = 210 * uom.degToRad,
 		    result = validRev(value);
 		equal(withinRange(result, expected, 0.000000001), true, 'validRev should be ' + expected + ', is ' + result);
 	});
 
-	test('validHalfRev', function () {
+	QUnit.test('validHalfRev', function () {
 		var value = 30 * uom.degToRad,
 		    expected = 30 * uom.degToRad,
 		    result = validHalfRev(value);
 		equal(withinRange(result, expected, 0.000000001), true, 'validHalfRev should be ' + expected + ', is ' + result);
 	});
 
-	test('validHalfRev', function () {
+	QUnit.test('validHalfRev', function () {
 		var value = 210 * uom.degToRad,
 		    expected = -150 * uom.degToRad,
 		    result = validHalfRev(value);
 		equal(withinRange(result, expected, 0.000000001), true, 'validHalfRev should be ' + expected + ', is ' + result);
 	});
 
-	test('validDec', function () {
+	QUnit.test('validDec', function () {
 		// 30 degrees maps to 30 degrees
 		var value = 30 * uom.degToRad,
 		    expected = 30 * uom.degToRad,
@@ -157,14 +172,14 @@
 		equal(withinRange(result, expected, 0.000000001), true, 'validDec should be ' + expected + ', is ' + result);
 	});
 	
-	test('reverseRev', function () {
+	QUnit.test('reverseRev', function () {
 		var initialValue = 170 * uom.degToRad,
 		    expectedValue = 190 * uom.degToRad,
 		    result = reverseRev(initialValue);
 		equal(withinRange(result, expectedValue, 0.000000001), true, 'reversed Rev should be ' + expectedValue / uom.degToRad + ', is ' + result / uom.degToRad);
 	});
 
-	test('calcDecIsFlipped', function () {
+	QUnit.test('calcDecIsFlipped', function () {
 		// 30 degrees: not flipped
 		var value = 30 * uom.degToRad,
 		    result = calcDecIsFlipped(value);
@@ -183,14 +198,14 @@
 		equal(result, true, 'calcDecIsFlipped should be true, is ' + result);
 	});
 
-	test('flipRa', function () {
+	QUnit.test('flipRa', function () {
 		var value = 6 * uom.hrToRad,
 		    expected = 18 * uom.hrToRad,
 		    result = flipRa(value);
 		equal(withinRange(result, expected, 0.000000001), true, 'flipRa should be ' + expected + ', is ' + result);
 	});
 
-	test('flipDec', function () {
+	QUnit.test('flipDec', function () {
 		// 30 degrees flips to 150 degrees
 		var value = 30 * uom.degToRad,
 		    expected = 150 * uom.degToRad,
@@ -213,32 +228,32 @@
 		equal(withinRange(result, expected, 0.000000001), true, 'unflipped Dec should be ' + expected + ', is ' + result);
 	});
 
-	test('convertHMSMToRad', function () {
+	QUnit.test('convertHMSMToRad', function () {
 		var result = convertHMSMToRad(1, 2, 3, 4);
 		equal(withinRange(result, 0.270744491, 0.000000001), true, 'time of 01:02:03.004 converted to radians should be 0.270744491, is ' + result);
 	});
 
-	test('convertDMSMToRad', function () {
+	QUnit.test('convertDMSMToRad', function () {
 		var result = convertDMSMToRad(1, 2, 3, 4);
 		equal(withinRange(result, 0.0180496327, 0.000000001), true, 'degrees of 01:02:03.004 converted to radians should be 0.0180496327, is ' + result);
 	});
 
-	test('convertDMSMToRad', function () {
+	QUnit.test('convertDMSMToRad', function () {
 		var result = convertDMSMToRad(1.5, 1.5, 0, 0);
 		equal(withinRange(result, 0.0266162711, 0.000000001), true, 'degrees of 01:02:03.004 converted to radians should be 0.0266162711, is ' + result);
 	});
 
-	test('convertDMSMToRad', function () {
+	QUnit.test('convertDMSMToRad', function () {
 		var result = convertDMSMToRad(-1.5, 1.5, 0, 0);
 		equal(withinRange(result, -0.0266162711, 0.000000001), true, 'degrees of -01:02:03.004 converted to radians should be -0.0266162711, is ' + result);
 	});
 
-	test('convertDMSMToRad', function () {
+	QUnit.test('convertDMSMToRad', function () {
 		var result = convertDMSMToRad(1.5, -1.5, 0, 0);
 		equal(withinRange(result, -0.0266162711, 0.000000001), true, 'degrees of -01:02:03.004 converted to radians should be -0.0266162711, is ' + result);
 	});
 
-	test('convertRadToHMSM', function () {
+	QUnit.test('convertRadToHMSM', function () {
 		var hours = 1 + 2 / 60 + 3 / 3600 + 4 / 3600000,
 		    radians = hours * uom.hrToRad,
 		    result = convertRadToHMSM(radians);
@@ -249,7 +264,7 @@
 		equal(result.milliSeconds, 4, 'milliSeconds should be 4, is ' + result.milliSeconds);
 	});
 
-	test('convertRadToHMSM', function () {
+	QUnit.test('convertRadToHMSM', function () {
 		var hours = -(1 + 2 / 60 + 3 / 3600 + 4 / 3600000),
 		    radians = hours * uom.hrToRad,
 		    result = convertRadToHMSM(radians);
@@ -260,7 +275,7 @@
 		equal(result.milliSeconds, 4, 'milliSeconds should be 4, is ' + result.milliSeconds);
 	});
 
-	test('convertRadToHMS', function () {
+	QUnit.test('convertRadToHMS', function () {
 		var hours = 1 + 2 / 60 + 3 / 3600 + 750 / 3600000,
 		    radians = hours * uom.hrToRad,
 		    result = convertRadToHMS(radians);
@@ -270,7 +285,7 @@
 		equal(result.seconds, 4, 'rounded seconds should be 4, is ' + result.seconds);
 	});
 
-	test('convertRadToHMS', function () {
+	QUnit.test('convertRadToHMS', function () {
 		var hours = -(1 + 2 / 60 + 3 / 3600 + 750 / 3600000),
 		    radians = hours * uom.hrToRad,
 		    result = convertRadToHMS(radians);
@@ -280,7 +295,7 @@
 		equal(result.seconds, 4, 'rounded seconds should be 4, is ' + result.seconds);
 	});
 
-	test('convertRadToDMSM', function () {
+	QUnit.test('convertRadToDMSM', function () {
 		var degrees = 1 + 2 / 60 + 3 / 3600 + 4 / 3600000,
 		    radians = degrees * uom.degToRad,
 		    result = convertRadToDMSM(radians);
@@ -291,7 +306,7 @@
 		equal(result.milliSeconds, 4, 'milliSeconds should be 4, is ' + result.milliSeconds);
 	});
 
-	test('convertRadToDMSM', function () {
+	QUnit.test('convertRadToDMSM', function () {
 		var degrees = -(1 + 2 / 60 + 3 / 3600 + 4 / 3600000),
 		    radians = degrees * uom.degToRad,
 		    result = convertRadToDMSM(radians);
@@ -302,7 +317,7 @@
 		equal(result.milliSeconds, 4, 'milliSeconds should be 4, is ' + result.milliSeconds);
 	});
 
-	test('convertRadToDMS', function () {
+	QUnit.test('convertRadToDMS', function () {
 		var degrees = 1 + 2 / 60 + 3 / 3600 + 750 / 3600000,
 		    radians = degrees * uom.degToRad,
 		    result = convertRadToDMS(radians);
@@ -312,7 +327,7 @@
 		equal(result.seconds, 4, 'rounded seconds should be 4, is ' + result.seconds);
 	});
 
-	test('convertRadToDMS', function () {
+	QUnit.test('convertRadToDMS', function () {
 		var degrees = -(1 + 2 / 60 + 3 / 3600 + 750 / 3600000),
 		    radians = degrees * uom.degToRad,
 		    result = convertRadToDMS(radians);
@@ -322,7 +337,7 @@
 		equal(result.seconds, 4, 'rounded seconds should be 4, is ' + result.seconds);
 	});
 	
-	test('convertHMSMToString', function () {
+	QUnit.test('convertHMSMToString', function () {
 		var hours = 1 + 2 / 60 + 3 / 3600 + 4 / 3600000,
 		    radians = hours * uom.hrToRad,
 			result = convertHMSMToString(convertRadToHMSM(radians)),
@@ -330,7 +345,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertHMSMToString', function () {
+	QUnit.test('convertHMSMToString', function () {
 		var hours = -(1 + 2 / 60 + 3 / 3600 + 4 / 3600000),
 		    radians = hours * uom.hrToRad,
 			result = convertHMSMToString(convertRadToHMSM(radians)),
@@ -338,7 +353,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 	
-	test('convertHMSMToString', function () {
+	QUnit.test('convertHMSMToString', function () {
 		var hours = 1 + 2 / 60 + 3 / 3600,
 		    radians = hours * uom.hrToRad,
 			result = convertHMSMToString(convertRadToHMS(radians)),
@@ -346,7 +361,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertHMSMToString', function () {
+	QUnit.test('convertHMSMToString', function () {
 		var hours = -(1 + 2 / 60 + 3 / 3600),
 		    radians = hours * uom.hrToRad,
 			result = convertHMSMToString(convertRadToHMS(radians)),
@@ -354,7 +369,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertHMSMToString - limit to hundredths of an arcsecond', function () {
+	QUnit.test('convertHMSMToString - limit to hundredths of an arcsecond', function () {
 		var limitToHundredthsArcsec = true,
 		    hours = 1 + 2 / 60 + 3 / 3600 + 449 / 3600000,
 		    radians = hours * uom.hrToRad,
@@ -363,7 +378,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertHMSMToString - limit to hundredths of an arcsecond', function () {
+	QUnit.test('convertHMSMToString - limit to hundredths of an arcsecond', function () {
 		var limitToHundredthsArcsec = true,
 		    hours = -(1 + 2 / 60 + 3 / 3600 + 449 / 3600000),
 		    radians = hours * uom.hrToRad,
@@ -372,7 +387,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 	
-	test('convertDMSMToString', function () {
+	QUnit.test('convertDMSMToString', function () {
 		var degrees = 1 + 2 / 60 + 3 / 3600 + 4 / 3600000,
 		    radians = degrees * uom.degToRad,
 			result = convertDMSMToString(convertRadToDMSM(radians)),
@@ -380,7 +395,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertDMSMToString', function () {
+	QUnit.test('convertDMSMToString', function () {
 		var degrees = -(1 + 2 / 60 + 3 / 3600 + 4 / 3600000),
 		    radians = degrees * uom.degToRad,
 			result = convertDMSMToString(convertRadToDMSM(radians)),
@@ -388,7 +403,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertDMSMToString', function () {
+	QUnit.test('convertDMSMToString', function () {
 		var degrees = 1 + 2 / 60 + 3 / 3600,
 		    radians = degrees * uom.degToRad,
 			result = convertDMSMToString(convertRadToDMS(radians)),
@@ -396,7 +411,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertDMSMToString', function () {
+	QUnit.test('convertDMSMToString', function () {
 		var degrees = -(1 + 2 / 60 + 3 / 3600),
 		    radians = degrees * uom.degToRad,
 			result = convertDMSMToString(convertRadToDMS(radians)),
@@ -404,7 +419,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertDMSMToString - limit to tenths of an arcsecond', function () {
+	QUnit.test('convertDMSMToString - limit to tenths of an arcsecond', function () {
 		var limitToTenthsArcsec = true,
 		    degrees = 1 + 2 / 60 + 3 / 3600 + 460 / 3600000,
 		    radians = degrees * uom.degToRad,
@@ -413,7 +428,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertDMSMToString - limit to tenths of an arcsecond', function () {
+	QUnit.test('convertDMSMToString - limit to tenths of an arcsecond', function () {
 		var limitToTenthsArcsec = true,
 		    degrees = -(1 + 2 / 60 + 3 / 3600 + 460 / 3600000),
 		    radians = degrees * uom.degToRad,
@@ -422,7 +437,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToHMSMString', function () {
+	QUnit.test('convertRadiansToHMSMString', function () {
 		var hours = 1 + 2 / 60 + 3 / 3600 + 4 / 3600000,
 		    radians = hours * uom.hrToRad,
 			result = convertRadiansToHMSMString(radians),
@@ -430,7 +445,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToHMSMString', function () {
+	QUnit.test('convertRadiansToHMSMString', function () {
 		var hours = -(1 + 2 / 60 + 3 / 3600 + 4 / 3600000),
 		    radians = hours * uom.hrToRad,
 			result = convertRadiansToHMSMString(radians),
@@ -438,7 +453,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 	
-	test('convertRadiansToHMSString', function () {
+	QUnit.test('convertRadiansToHMSString', function () {
 		var hours = 1 + 2 / 60 + 3 / 3600,
 		    radians = hours * uom.hrToRad,
 			result = convertRadiansToHMSString(radians),
@@ -446,7 +461,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToHMSString', function () {
+	QUnit.test('convertRadiansToHMSString', function () {
 		var hours = -(1 + 2 / 60 + 3 / 3600),
 		    radians = hours * uom.hrToRad,
 			result = convertRadiansToHMSString(radians),
@@ -454,7 +469,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToHMSMString - limit to hundredths of an arcsecond', function () {
+	QUnit.test('convertRadiansToHMSMString - limit to hundredths of an arcsecond', function () {
 		var limitToHundredthsArcsec = true,
 		    hours = 1 + 2 / 60 + 3 / 3600 + 449 / 3600000,
 		    radians = hours * uom.hrToRad,
@@ -463,7 +478,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToHMSMString - limit to hundredths of an arcsecond', function () {
+	QUnit.test('convertRadiansToHMSMString - limit to hundredths of an arcsecond', function () {
 		var limitToHundredthsArcsec = true,
 		    hours = -(1 + 2 / 60 + 3 / 3600 + 449 / 3600000),
 		    radians = hours * uom.hrToRad,
@@ -472,7 +487,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 	
-	test('convertRadiansToDMSMString', function () {
+	QUnit.test('convertRadiansToDMSMString', function () {
 		var degrees = 1 + 2 / 60 + 3 / 3600 + 4 / 3600000,
 		    radians = degrees * uom.degToRad,
 			result = convertRadiansToDMSMString(radians),
@@ -480,7 +495,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToDMSMString', function () {
+	QUnit.test('convertRadiansToDMSMString', function () {
 		var degrees = -(1 + 2 / 60 + 3 / 3600 + 4 / 3600000),
 		    radians = degrees * uom.degToRad,
 			result = convertRadiansToDMSMString(radians),
@@ -488,7 +503,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToDMSMString - limit to tenths of an arcsecond', function () {
+	QUnit.test('convertRadiansToDMSMString - limit to tenths of an arcsecond', function () {
 		var limitToTenthsArcsec = true,
 		    degrees = 1 + 2 / 60 + 3 / 3600 + 460 / 3600000,
 		    radians = degrees * uom.degToRad,
@@ -497,7 +512,7 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	test('convertRadiansToDMSMString - limit to tenths of an arcsecond', function () {
+	QUnit.test('convertRadiansToDMSMString - limit to tenths of an arcsecond', function () {
 		var limitToTenthsArcsec = true,
 		    degrees = -(1 + 2 / 60 + 3 / 3600 + 460 / 3600000),
 		    radians = degrees * uom.degToRad,
@@ -506,36 +521,36 @@
 		equal(result, expected, 'expected ' + expected + ', result ' + result);
 	});
 
-	module('astro time');
+	QUnit.module('astro time');
 	
-	test('dateFromString', function () {
+	QUnit.test('dateFromString', function () {
 		var result = dateFromString('Mar 1, 2000');
 		equal(result.getFullYear(), 2000, 'year should be 2000');
 		equal(result.getMonth(), 2, 'month should be 2');
 		equal(result.getDate(), 1, 'day should be 1');
 	});
 	
-	test('dateFromString', function () {
+	QUnit.test('dateFromString', function () {
 		var result = dateFromString('May 1, 2012');
 		equal(result.getFullYear(), 2012, 'year should be 2012');
 		equal(result.getMonth(), 4, 'month should be 4');
 		equal(result.getDate(), 1, 'day should be 1');
 	});
 	
-	test('dateToString', function () {
+	QUnit.test('dateToString', function () {
 		var result = dateToString(new Date(2012, 4, 3, 14, 23, 56, 0)),
 		    expected = "May 3, 2012 14:23:56";
 		equal(result, expected, 'string from date should be ' + expected);
 	});
 	
-	test('isLeapYear', function () {
+	QUnit.test('isLeapYear', function () {
 		equal(isLeapYear(2004), true, '2004 is a leap year');
 		equal(isLeapYear(2001), false, '2001 is not a leap year');
 		equal(isLeapYear(2000), true, '2000 is a leap year');
 		equal(isLeapYear(1900), false, '1900 is not a leap year');
 	});
 	
-	test('day of year', function () {
+	QUnit.test('day of year', function () {
 		equal(calcDayOfTheYear(1978, 11, 14, 0, 0, 0, 0), 318, 'day of year should be 318');
 		equal(calcDayOfTheYear(1988, 4, 22, 0, 0, 0, 0), 113, 'day of year should be 113');
 	});
@@ -555,7 +570,7 @@
 	var Meeus1982JD = 2443825.69;
 	var Meeus1998JD = 2462088.69;
 	
-	test('calcJulianYear and calcJDFromJulianYear', function () {
+	QUnit.test('calcJulianYear and calcJDFromJulianYear', function () {
 		var allowedErrorYear = 0.0000001, // ~ 3 seconds
 		    allowedErrorJD = 0.0001, // ~ 9 seconds
 		    JD = Meeus1998JD,
@@ -567,7 +582,7 @@
 		equal(withinRange(resultJD, JD, allowedErrorJD), true, 'expected JD is ' + resultJD + ', actual JD is ' + JD);
 	});
 
-	test('calcJD', function () {
+	QUnit.test('calcJD', function () {
 		var JD;
 
 		// from Meeus
@@ -614,7 +629,7 @@
 		testDateFromJD(2451555.25, -6, 2000, 1, 11, 12, 0, 0, 0);
 	});
 	
-	test('calcSidT', function () {
+	QUnit.test('calcSidT', function () {
 		// test example from Astronomical Algorithms, 2nd edition, Meeus
 		var sidTRad = calcSidT(1987, 4, 10, 19, 21, 0, 0, 0, 0),
 		    sidT = convertRadToHMSM(sidTRad),
@@ -623,7 +638,7 @@
 		equal(result, expected, 'sidereal time for 1987, April 10, 19:21:00 (JD = 2446896.30625) should be ' + expected);
 	});
 
-	test('calcSidT', function () {
+	QUnit.test('calcSidT', function () {
 		// test from http://www2.arnes.si/~gljsentvid10/sidereal.htm
 	    var sidTRad = calcSidT(1994, 6, 16, 18, 0, 0, 0, 0, 0),
 		    sidT = convertRadToHMSM(sidTRad),
@@ -632,7 +647,7 @@
 		equal(result, expected, 'sidereal time should be ' + expected);
 	});
 
-	test('calcSidT realtime', function () {
+	QUnit.test('calcSidT realtime', function () {
 		// local sidereal time for longitude of 120 W (-120 deg)
 	    var date = new Date(),
 		    year = date.getFullYear(),
@@ -677,10 +692,10 @@
 		return calcJD(2028, 11, 13, 4, 33, 36, 0, 0);
 	}
 
-	module('proper motion');
+	QUnit.module('proper motion');
 	
 	// Meeus' test from 2nd edition
-	test('proper motion', function () {
+	QUnit.test('proper motion', function () {
 		var allowedErrorArcsec = 0.01,
 		    expectedDeltaRAArcsec = 0.989 * 15,
 		    expectedDeltaDecArcsec = 2.58,
@@ -691,10 +706,10 @@
 		equal(withinRange(deltaDecArcsec, expectedDeltaDecArcsec, allowedErrorArcsec), true);
 	});
 	
-	module('precession');
+	QUnit.module('precession');
 
 	// change over 5 years (from 2000 to 2005) using position 00:00:00 00:00:00 is 00:00:15.375 00:01:40
-	test('calcPrecessionQuick', function () {
+	QUnit.test('calcPrecessionQuick', function () {
 		var result, precessedRa, precessedRaResult, precessedDec, precessedDecResult;
 		result = calcPrecessionQuick(0, 0, 5);
 		equal(withinRange(result.deltaRA, 0.0011181, 0.000001), true, 'precession in Ra should be 0.0011181, is ' + result.deltaRA);
@@ -717,7 +732,7 @@
        After precession over 5 yrs:
        Ra  00:08:39
        Dec 29:07:06	*/
-	test('calcPrecessionQuick', function () {
+	QUnit.test('calcPrecessionQuick', function () {
 		var startingRa = convertHMSMToRad(0, 8, 23, 0),
 		    startingDec = convertDMSMToRad(29, 5, 26, 0),
 		    result = calcPrecessionQuick(startingRa, startingDec, 5),
@@ -826,25 +841,25 @@
 		equal(withinRange(PolarisJ2100DecRad, precessedDecRad, uom.arcsecToRad), true, 'precession in Dec should be 89:32:22.18, is ' + precessedDecResult);
 	}
 
-	test('testPrecessionRegulus: quick', function () {
+	QUnit.test('testPrecessionRegulus: quick', function () {
 		testPrecessionRegulus('quick');
 	});
 
-	test('testPrecessionRegulus: rigorous', function () {
+	QUnit.test('testPrecessionRegulus: rigorous', function () {
 		testPrecessionRegulus('rigorous');
 	});
 
 	// quick algorithm fails - needs the rigorous algorithm
-	test('testPrecessionThetaPersei: rigorous', function () {
+	QUnit.test('testPrecessionThetaPersei: rigorous', function () {
 		testPrecessionThetaPersei('rigorous');
 	});
 
 	// quick algorithm fails - needs the rigorous algorithm
-	test('testPrecessionPolaris: rigorous', function () {
+	QUnit.test('testPrecessionPolaris: rigorous', function () {
 		testPrecessionPolaris('rigorous');
 	});
 	
-	test('precession - starting year is same as ending year meaning no precession', function () {
+	QUnit.test('precession - starting year is same as ending year meaning no precession', function () {
 		var precession = calcPrecessionQuick(1, 1, 0);
 		equal(precession.deltaRA, 0, 'RA should be zero');
 		equal(precession.deltaDec, 0, 'Dec should be zero');
@@ -858,9 +873,9 @@
 		equal(precession.deltaDec, 0, 'Dec should be zero');
 	});
 	
-	module('nutation');
+	QUnit.module('nutation');
 
-	test('calcNutation', function () {
+	QUnit.test('calcNutation', function () {
 		// nutation test from Astronomical Algorithms, Meeus, 1982
 		var JulianYearsSinceJD2000 = calcJulianYear(Meeus1982JD) - 2000,
 		    cp = celestialParms(JulianYearsSinceJD2000),
@@ -871,7 +886,7 @@
 		equal(withinRange(deltaDecArcsec, nutationMeeusTest1Dec, nutationAnnualAberrationAllowedErrorArcsec), true, 'nutation in Dec should be ' + nutationMeeusTest1Dec + ' (Meeus says -7.096), is ' + deltaDecArcsec);
 	});
 	
-	test('calcNutation', function () {
+	QUnit.test('calcNutation', function () {
         // nutation test #2 from Astronomical Algorithms, 2nd edition, Meeus, 1998
 	    var JulianYearsSinceJD2000 = calcJulianYear(Meeus1998JD) - 2000,
 		    cp = celestialParms(JulianYearsSinceJD2000),
@@ -882,9 +897,9 @@
 		equal(withinRange(deltaDecArcsec, nutationMeeusTest2Dec, nutationAnnualAberrationAllowedErrorArcsec), true, 'nutation in Dec should be ' + nutationMeeusTest2Dec + ' (Meeus says 6.219), is ' + deltaDecArcsec);
 	});
 
-	module('annual aberration');
+	QUnit.module('annual aberration');
 
-	test('calcAnnualAberration', function () {
+	QUnit.test('calcAnnualAberration', function () {
 		// annual aberration test from Astronomical Algorithms, Meeus, 1982
 		var JulianYearsSinceJD2000 = calcJulianYear(Meeus1982JD) - 2000,
 		    cp = celestialParms(JulianYearsSinceJD2000),
@@ -895,7 +910,7 @@
 		equal(withinRange(deltaDecArcsec, AnnualAberrationMeeusTest1Dec, nutationAnnualAberrationAllowedErrorArcsec), true, 'annual aberration in Dec should be ' + AnnualAberrationMeeusTest1Dec + ' (Meeus says 6.554), is ' + deltaDecArcsec);
 	});
 
-	test('calcAnnualAberration', function () {
+	QUnit.test('calcAnnualAberration', function () {
 		// annual aberration test from Astronomical Algorithms, 2nd edition, Meeus, 1998
 	    var JulianYearsSinceJD2000 = calcJulianYear(Meeus1998JD) - 2000,
 		    cp = celestialParms(JulianYearsSinceJD2000),
@@ -906,9 +921,9 @@
 		equal(withinRange(deltaDecArcsec, AnnualAberrationMeeusTest2Dec, nutationAnnualAberrationAllowedErrorArcsec), true, 'annual aberration in Dec should be ' + AnnualAberrationMeeusTest2Dec + ' (Meeus says 6.697), is ' + deltaDecArcsec);
 	});
 	
-	module('facade for precession, nutation and annual aberration');
+	QUnit.module('facade for precession, nutation and annual aberration');
 	
-	test('calcProperMotionPrecessionNutationAnnualAberration - ignore proper motion', function () {
+	QUnit.test('calcProperMotionPrecessionNutationAnnualAberration - ignore proper motion', function () {
         // nutation test #2 and annual aberration test from Astronomical Algorithms, 2nd edition, Meeus, 1998
 		var coordJD = uom.JD2000,
 		    JD = Meeus1998JD,
@@ -933,7 +948,7 @@
 		equal(withinRange(deltaTotalDecArcsec, expectedTotalDeltaDecArcsec, deltaTotalDecArcsec), true, 'total in Dec');
 	});
 	
-	test('calcProperMotionPrecessionNutationAnnualAberration - only proper motion', function () {
+	QUnit.test('calcProperMotionPrecessionNutationAnnualAberration - only proper motion', function () {
 		var allowedErrorArcsec = 0.000001,
 			// 28.86705 Julian Years
 			corrections = calcProperMotionPrecessionNutationAnnualAberration(0, 0, uom.JD2000, calcJD_Nov13_2028_04_33_36(),  MeeusProperMotionTestRAArcsec * uom.secToRad, MeeusProperMotionTestDecArcsec * uom.arcsecToRad),
@@ -943,9 +958,9 @@
 		equal(withinRange(deltaDecArcsec, properMotionMeeusTestDecArcsec, allowedErrorArcsec), true, 'Dec');
 	});
 	
-	module('angular separation routines');
+	QUnit.module('angular separation routines');
 
-	test('calcAngularSep', function () {
+	QUnit.test('calcAngularSep', function () {
 		// Ra 4:44:24.033, Dec -10:10:55, Az 150, Alt 30, SidT 3:00:00
 		var positionA = new Position(convertHMSMToRad(4, 44, 24.033, 0), convertDMSMToRad(-10, 10, 55, 0), 150 * uom.degToRad, 30 * uom.degToRad, convertHMSMToRad(3, 0, 0, 0), 0),
 
@@ -959,40 +974,40 @@
 		equal(withinRange(angularSepDegUsingEquat, angularSepDegUsingAltaz, allowedVariance), true, 'separation (deg) should be ' + angularSepDegUsingEquat + ', is ' + angularSepDegUsingAltaz);
 	});
 
-	module('air mass calc');
+	QUnit.module('air mass calc');
 	
 	function testAirMass(strategy, elevationDegrees, expected, variance) {
 	    var result = strategy(elevationDegrees);
 		equal(withinRange(result, expected, variance), true, 'airmass should be ' + expected + ', is ' + result);		
 	}
 
-	test('calcAirMass', function () {
+	QUnit.test('calcAirMass', function () {
 		testAirMass(calcAirMass, 60, 1.15, 0.01);
 	});
 
-	test('calcAirMass', function () {
+	QUnit.test('calcAirMass', function () {
 		testAirMass(calcAirMass, 30, 1.99, 0.01);
 	});
 	
-	test('calcAirMass', function () {
+	QUnit.test('calcAirMass', function () {
 		testAirMass(calcAirMass, 0, 38, 1);
 	});
 	
-	test('calcAirMass2', function () {
+	QUnit.test('calcAirMass2', function () {
 		testAirMass(calcAirMass2, 60, 1.15, 0.01);
 	});
 
-	test('calcAirMass2', function () {
+	QUnit.test('calcAirMass2', function () {
 		testAirMass(calcAirMass2, 30, 1.99, 0.01);
 	});
 
-	test('calcAirMass2', function () {
+	QUnit.test('calcAirMass2', function () {
 		testAirMass(calcAirMass2, 0, 38, 1);
 	});
 	
-	module('refraction');
+	QUnit.module('refraction');
 	
-	test('calcRefractionFromTrue', function () {
+	QUnit.test('calcRefractionFromTrue', function () {
 	    var trueElevationDegrees = 25,
 		    resultRad = calcRefractionFromTrue(trueElevationDegrees),
 		    resultArcminutes = resultRad / uom.arcminToRad,
@@ -1000,7 +1015,7 @@
 		equal(withinRange(resultArcminutes, expectedArcminutes, 0.01), true, 'refraction in arcminutes should be ' + expectedArcminutes + ', is ' + resultArcminutes);		
 	});
 	
-	test('calcRefractionFromTrue', function () {
+	QUnit.test('calcRefractionFromTrue', function () {
 	    var trueElevationDegrees = 1,
 		    resultRad = calcRefractionFromTrue(trueElevationDegrees),
 		    resultArcminutes = resultRad / uom.arcminToRad,
@@ -1008,7 +1023,7 @@
 		equal(withinRange(resultArcminutes, expectedArcminutes, 0.01), true, 'refraction in arcminutes should be ' + expectedArcminutes + ', is ' + resultArcminutes);		
 	});
 	
-	test('calcRefractionFromApparent', function () {
+	QUnit.test('calcRefractionFromApparent', function () {
 	    var apparentElevationDegrees = 25 + 2.15 / 60,
 		    resultRad = calcRefractionFromApparent(apparentElevationDegrees),
 		    resultArcminutes = resultRad / uom.arcminToRad,
@@ -1016,7 +1031,7 @@
 		equal(withinRange(resultArcminutes, expectedArcminutes, 0.01), true, 'refraction in arcminutes should be ' + expectedArcminutes + ', is ' + resultArcminutes);		
 	});
 	
-	test('calcRefractionFromApparent', function () {
+	QUnit.test('calcRefractionFromApparent', function () {
 	    var apparentElevationDegrees = 1 + 26.25 / 60,
 		    resultRad = calcRefractionFromApparent(apparentElevationDegrees),
 		    resultArcminutes = resultRad / uom.arcminToRad,
@@ -1024,7 +1039,7 @@
 		equal(withinRange(resultArcminutes, expectedArcminutes, 0.01), true, 'refraction in arcminutes should be ' + expectedArcminutes + ', is ' + resultArcminutes);		
 	});
 	
-	module('coordinate parser');
+	QUnit.module('coordinate parser');
 	
 	function testParseCoordinateIntoStringArray(expected, inputString) {
 		var ix, result = parseCoordinateIntoStringArray(inputString);
@@ -1033,7 +1048,7 @@
 		}
 	}
 	
-	test('parseCoordinateIntoStringArray', function () {	
+	QUnit.test('parseCoordinateIntoStringArray', function () {	
 		testParseCoordinateIntoStringArray(['1.2', 'r'], '1.2 r');
 		testParseCoordinateIntoStringArray(['-1.2', 'radians'], ' -1.2radians');
 		testParseCoordinateIntoStringArray(['1', '2.3', '4'], '1:2.3:4');
@@ -1061,7 +1076,7 @@
 		equal(result, expected, inputString + ' error ' + expected + ', is ' + result);
 	}
 	
-	test('parseCoordinate', function () {
+	QUnit.test('parseCoordinate', function () {
 		testParseCoordinate([undefined, undefined, 1, 2, 3], '1 2 3');
 		testParseCoordinate([undefined, undefined, 1, 2, 3], '1d 2m 3s');
 		testParseCoordinate([undefined, 1, undefined, 2, 3], '1h 2m 3s');
@@ -1102,7 +1117,7 @@
 		testParseCoordinateError('I do not know what to do with \'1 x\'', '1x2 3');
 	});
 	
-	test('parseCoordinateGetValueInRadians', function () {
+	QUnit.test('parseCoordinateGetValueInRadians', function () {
 		var input, expected, results;
 		
 		input = '1 radians';
@@ -1191,28 +1206,28 @@
 		equal(results, expected, input);
 	});
 	
-	test('parse coordinates round trip', function () {
+	QUnit.test('parse coordinates round trip', function () {
 		var input = '-08°12\'16.2"',
 		expected = '-  8°12\'16.200"',
 		result = convertDMSMToString(convertRadToDMSM(parseCoordinateGetValueInRadians(input).radians));
 		equal(result, expected, 'input is ' + input + ', expected is ' + expected + ', result is ' + result);
 	});
 	
-	test('parse coordinates round trip', function () {
+	QUnit.test('parse coordinates round trip', function () {
 		var input = '1h 2 3',
 		expected = ' 1:02:03.000',
 		result = convertHMSMToString(convertRadToHMSM(parseCoordinateGetValueInRadians(input).radians));
 		equal(result, expected, 'input is ' + input + ', expected is ' + expected + ', result is ' + result);
 	});
 	
-	test('parse coordinates round trip', function () {
+	QUnit.test('parse coordinates round trip', function () {
 		var input = '0h 2 3',
 		expected = ' 0:02:03.000',
 		result = convertHMSMToString(convertRadToHMSM(parseCoordinateGetValueInRadians(input).radians));
 		equal(result, expected, 'input is ' + input + ', expected is ' + expected + ', result is ' + result);
 	});
 
-	module('position');
+	QUnit.module('position');
 	
 	function testSetPositionDegFromString(position) {
 		equal(position.RA / uom.degToRad, 0.1, 'RA');
@@ -1230,7 +1245,7 @@
 		equal(position.SidT / uom.degToRad, -0.5, 'SidT');
 	}
 	
-	test('setPositionDegFromString', function () {
+	QUnit.test('setPositionDegFromString', function () {
 		var position = new Position();
 
 		setPositionDegFromString('.1 2 3.3 4 0.5', position);
@@ -1241,7 +1256,7 @@
 		testSetPositionDegFromString(position);
 	});
 	
-	test('testSetPositionDegFromStringNegativeNumbers', function () {
+	QUnit.test('testSetPositionDegFromStringNegativeNumbers', function () {
 		var position = new Position();
 
 		setPositionDegFromString('-.1 -2 -3.3 -4 -0.5', position);
@@ -1252,7 +1267,7 @@
 		testSetPositionDegFromStringNegativeNumbers(position);
 	});
 	
-	test('isValidPosition', function () {
+	QUnit.test('isValidPosition', function () {
 		var position = new Position();
 
 		equal(isValidPosition(position), false, 'not a valid position');
@@ -1264,9 +1279,9 @@
 		equal(isValidPosition(position), false, 'not a valid position');
 	});
 	
-	module('flipAltazAcrossPole');
+	QUnit.module('flipAltazAcrossPole');
 
-	test('flipAltazAcrossPole', function () {
+	QUnit.test('flipAltazAcrossPole', function () {
 		var position, expectedAzDeg, expectedAz, expectedAltDeg, expectedAlt;
 
 		position = new Position();
@@ -1280,9 +1295,9 @@
 		equal(position.alt, expectedAlt, 'translated az (deg) should be ' + expectedAltDeg + ', is ' + position.alt / uom.degToRad);
 	});
 	
-	module('meridianFlip');
+	QUnit.module('meridianFlip');
 
-	test('calcMeridianFlipFromCurrentAltaz', function () {
+	QUnit.test('calcMeridianFlipFromCurrentAltaz', function () {
 		var position, fabErrors, flipped, expectedFlip;
 
 		position = new Position();
@@ -1298,7 +1313,7 @@
 		equal(flipped, expectedFlip, 'flipped should be ' + expectedFlip + ', is ' + flipped);
 	});
 
-	test('setFlipState, isFlipped', function () {
+	QUnit.test('setFlipState, isFlipped', function () {
 		var meridianFlip = new MeridianFlip();
 		meridianFlip.canFlip = true;
 		equal(isFlipped(meridianFlip), false, 'flipped should be false');
@@ -1306,7 +1321,7 @@
 		equal(isFlipped(meridianFlip), true, 'flipped should be true');
 	});
 	
-	test('translateAltazAcrossPoleBasedOnMeridianFlip', function () {
+	QUnit.test('translateAltazAcrossPoleBasedOnMeridianFlip', function () {
 		var meridianFlip, position, expectedAzDeg, expectedAz, expectedAltDeg, expectedAlt;
 
 		meridianFlip = new MeridianFlip();
@@ -1325,9 +1340,9 @@
 		equal(position.alt, expectedAlt, 'translated az (deg) should be ' + expectedAltDeg + ', is ' + position.alt / uom.degToRad);
 	});
 
-	module('convertTrig');
+	QUnit.module('convertTrig');
 	
-	test('from Peter Duffet-Smith Practical Astronomy With Your Calculator', function () {
+	QUnit.test('from Peter Duffet-Smith Practical Astronomy With Your Calculator', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg, resultRADeg, resultDecDeg;
 
 		latitudeDeg = 52;
@@ -1361,7 +1376,7 @@
 		equal(withinRange(resultDecDeg, DecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + DecDeg + ', is ' + resultDecDeg);		
 	});
 
-	test('northern hemisphere: altazimuth alignment, latitude = 45 deg, facing directly east on horizon (az=270): on celestial meridian, 6 hr east of meridian', function () {
+	QUnit.test('northern hemisphere: altazimuth alignment, latitude = 45 deg, facing directly east on horizon (az=270): on celestial meridian, 6 hr east of meridian', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg;
 
 		latitudeDeg = 45;
@@ -1388,7 +1403,7 @@
 		equal(withinRange(resultAltDeg, expectedAltDeg, allowedErrorDeg), true, 'alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);
 	});
 
-	test('northern hemisphere: altazimuth alignment, latitude = 45 deg, facing directly south on horizon (az=180): on celestial meridian', function () {
+	QUnit.test('northern hemisphere: altazimuth alignment, latitude = 45 deg, facing directly south on horizon (az=180): on celestial meridian', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg;
 
 		latitudeDeg = 45;
@@ -1415,7 +1430,7 @@
 		equal(withinRange(resultAltDeg, expectedAltDeg, allowedErrorDeg), true, 'alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);
 	});
 
-	test('northern hemisphere: altazimuth alignment, latitude = 45 deg, facing directly west on horizon (az=90): on celestial meridian, 6 hr west of meridian', function () {
+	QUnit.test('northern hemisphere: altazimuth alignment, latitude = 45 deg, facing directly west on horizon (az=90): on celestial meridian, 6 hr west of meridian', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg;
 
 		latitudeDeg = 45;
@@ -1442,7 +1457,7 @@
 		equal(withinRange(resultAltDeg, expectedAltDeg, allowedErrorDeg), true, 'alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);
 	});
 
-	test('southern hemisphere: altazimuth alignment, latitude = -45 deg, facing directly east on horizon (az=270): on celestial meridian, 6 hr east of meridian', function () {
+	QUnit.test('southern hemisphere: altazimuth alignment, latitude = -45 deg, facing directly east on horizon (az=270): on celestial meridian, 6 hr east of meridian', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg;
 
 		latitudeDeg = -45;
@@ -1469,7 +1484,7 @@
 		equal(withinRange(resultAltDeg, expectedAltDeg, allowedErrorDeg), true, 'alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);
 	});
 
-	test('southern hemisphere: altazimuth alignment, latitude = -45 deg, facing directly north on horizion (az=180): on celestial meridian', function () {
+	QUnit.test('southern hemisphere: altazimuth alignment, latitude = -45 deg, facing directly north on horizion (az=180): on celestial meridian', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg;
 
 		latitudeDeg = -45;
@@ -1496,7 +1511,7 @@
 		equal(withinRange(resultAltDeg, expectedAltDeg, allowedErrorDeg), true, 'alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);
 	});
 
-	test('southern hemisphere: altazimuth alignment, latitude = -45 deg, facing directly west on horizon (az=90): on celestial meridian, 6 hr west of meridian', function () {
+	QUnit.test('southern hemisphere: altazimuth alignment, latitude = -45 deg, facing directly west on horizon (az=90): on celestial meridian, 6 hr west of meridian', function () {
 		var latitudeDeg, latitudeRad, meridianFlip, position, sidThrs, HAhrs, degreesPerHr, RAdeg, DecDeg, sidTdeg, allowedErrorArcsecond, allowedErrorDeg, expectedAzDeg, resultAzDeg, expectedAltDeg, resultAltDeg;
 
 		latitudeDeg = -45;
@@ -1523,9 +1538,9 @@
 		equal(withinRange(resultAltDeg, expectedAltDeg, allowedErrorDeg), true, 'alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);
 	});
 	
-	module('create2DArray');
+	QUnit.module('create2DArray');
 	
-	test('create2DArray', function () {
+	QUnit.test('create2DArray', function () {
 		var dimen, a, count, i, j, expectedDimen;
 		
 		dimen = 3;
@@ -1547,9 +1562,9 @@
 		}
 	});
 	
-	module('ConvertMatrix');
+	QUnit.module('ConvertMatrix');
 	
-	test('constructor', function () {
+	QUnit.test('constructor', function () {
 		var cmws = new ConvertMatrixWorkingStorage();
 		equal(cmws, cmws, 'ConvertMatrix successfully constructed');
 	});
@@ -1563,7 +1578,7 @@
 	
 	// from Toshimi Taki's test data, Sky and Telescope magazine, February 1989 (az direction reversed)
 	// Taki rounded his results to 0.01 degree; more precise numbers taken from earlier incantations of the code (C, C++, VB.Net, CSharp.Net)
-	test('getAltazMatrix(), getEquatMatrix() for all ConvertSubroutineTypes', function () {
+	QUnit.test('getAltazMatrix(), getEquatMatrix() for all ConvertSubroutineTypes', function () {
 		// init
 		var cmws, allowedTakiErrorDeg, allowedErrorDeg;
 		
@@ -1639,7 +1654,7 @@
 		equal(withinRange(expectedDecDeg, expectedDecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + expectedDecDeg + ', is ' + resultDecDeg);
 	}
 	
-	module('preset initializations');
+	QUnit.module('preset initializations');
 	
 	function testGetAltaz(latitude, RA, Dec, azDeg, altDeg, allowedErrorDeg, cmws, position, meridianFlip) {
 		var resultAzDeg, resultAltDeg;
@@ -1689,7 +1704,7 @@
 		equal(withinRange(resultRADeg, RADeg, allowedErrorDeg), true, 'trig RA (deg) should be ' + RADeg + ', is ' + resultRADeg);	
 	}
 
-	test('presetEquat, matrix and trig', function () {
+	QUnit.test('presetEquat, matrix and trig', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,	
 		    DecDeg = 10,
@@ -1739,7 +1754,7 @@
 		testGetEquat(-latitudeRad, 150 * uom.degToRad, alt, 150, -DecDeg, allowedErrorDeg, cmws, position, meridianFlip);
 	});
 
-	test('presetAltaz, matrix and trig', function () {
+	QUnit.test('presetAltaz, matrix and trig', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 
@@ -1797,9 +1812,9 @@
 		testGetAltaz(-latitudeRad, uom.halfRev + deltaRA, -Dec - deltaDec, 210, altDeg, allowedErrorDeg, cmws, position, meridianFlip);
 	});
 	
-	module('third init');
+	QUnit.module('third init');
 	
-	test('after presetAltaz() getAltaz(), then add init #3 to verify that subsequent getAltaz() returns same results; finally init #3 with corrupted position and verify that getAltaz() returns a different position', function () {
+	QUnit.test('after presetAltaz() getAltaz(), then add init #3 to verify that subsequent getAltaz() returns same results; finally init #3 with corrupted position and verify that getAltaz() returns a different position', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 		    latitudeRad = 40 * uom.degToRad,
@@ -1855,7 +1870,7 @@
 		equal(withinRange(result3AltDeg, expected3AltDeg, allowedErrorDeg), true, 'alt (deg) should not match above, is ' + result3AltDeg);		
 	});
 	
-	module('init results');
+	QUnit.module('init results');
 	
 	function testInitAltazResults(hemisphere, latitudeDeg, azOffsetDeg, altOffsetDeg, SidTOffsetDeg, cmws) {
 		var allowedErrorDeg, latitudeRad, decDeg, absLatitudeDeg, results, latitudeResultDeg, azOffsetResultDeg, HAOffsetResultDeg;
@@ -1881,7 +1896,7 @@
 		equal(withinRange(HAOffsetResultDeg, SidTOffsetDeg, allowedErrorDeg), true, 'HAOffset (deg) should be ' + SidTOffsetDeg + ', is ' + HAOffsetResultDeg);
 	}
 	
-	test('altazimuth', function () {
+	QUnit.test('altazimuth', function () {
 		var cmws = new ConvertMatrixWorkingStorage();
 		testInitAltazResults(Hemisphere.northern, 40, 0, 0, 0, cmws);
 		testInitAltazResults(Hemisphere.southern, -40, 0, 0, 0, cmws);
@@ -1891,9 +1906,9 @@
 		testInitAltazResults(Hemisphere.southern, -40, 0, -1, 0, cmws);
 	});
 	
-	module('altoffset');
+	QUnit.module('altoffset');
 	
-	test('directly', function () {
+	QUnit.test('directly', function () {
 		testAltOffsetDirectly(40, 10);
 		testAltOffsetDirectly(40, -10);
 		testAltOffsetDirectly(-40, 10);
@@ -1924,7 +1939,7 @@
 		equal(withinRange(resultAltOffset, altOffsetDeg, allowedErrorDeg), true, 'altazimuth preset altOffset (deg) should be ' + altOffsetDeg + ', is ' + resultAltOffset);		
 	}
 	
-	test('iteratively', function () {
+	QUnit.test('iteratively', function () {
 		testAltOffsetIteratively(40, 10);
 		testAltOffsetIteratively(40, -10);
 		testAltOffsetIteratively(-40, 10);
@@ -1955,9 +1970,9 @@
 		equal(withinRange(resultAltOffset, altOffsetDeg, allowedErrorDeg), true, 'altazimuth preset altOffset (deg) should be ' + altOffsetDeg + ', is ' + resultAltOffset);		
 	}
 
-	module('field rotation');
+	QUnit.module('field rotation');
 	
-	test('angle, uses xform facade', function () {
+	QUnit.test('angle, uses xform facade', function () {
 		var allowedErrorDeg, latitudeRad, xform, expectedFRDeg, HAOffset, resultFRDeg;
 
 		// 1 arcsecond
@@ -1979,7 +1994,7 @@
 		equal(withinRange(resultFRDeg, expectedFRDeg, allowedErrorDeg), true, 'FR angle should be ' + expectedFRDeg + ', is ' + resultFRDeg);		
 	});
 
-	module('bestZ123');
+	QUnit.module('bestZ123');
 
 	function loadTakiTestPositions() {
 		var data, ix, row, position, positions;
@@ -2003,7 +2018,7 @@
 
 	// from Taki: z1=-.04, z2=.4, z3=-1.63
 	// this code: 0, 0.47, -1.59
-	test('bestZ3', function () {
+	QUnit.test('bestZ3', function () {
 		var cmws, positions, result;
 		
 		cmws = new ConvertMatrixWorkingStorage();
@@ -2014,7 +2029,7 @@
 		equal(withinRange(result, -1.6, 0.05), true, 'best Z3 (deg) should be -1.63, is ' + result);
 	});
 
-	test('bestZ123', function () {
+	QUnit.test('bestZ123', function () {
 		var allowedErrorDeg, cmws, positions, result, z1, z2, z3;
 
 		allowedErrorDeg = 1 / 10;
@@ -2031,7 +2046,7 @@
 		equal(withinRange(z3, -1.63, allowedErrorDeg), true, 'best Z3 (deg) should be -1.63, is ' + z3);
 	});
 	
-	test('bestZ12 with presetAltaz alignment', function () {
+	QUnit.test('bestZ12 with presetAltaz alignment', function () {
 		// latitudes of 40, 41 etc give different results
 		var allowedErrorDeg, cmws, latitudeRad = 41 * uom.degToRad, positions, result, z1, z2, z3;
 
@@ -2049,7 +2064,7 @@
 		equal(withinRange(z3, 0, allowedErrorDeg), true, 'best Z3 (deg) should be 0, is ' + z3);
 	});
 	
-	module('z1 (axis twist or non-perpendicularity) initialization study');
+	QUnit.module('z1 (axis twist or non-perpendicularity) initialization study');
 
 	/*
 	demonstrates that an axis twist of 1 degree means that the az axis leans to the right when facing its zero point (here, north);
@@ -2058,7 +2073,7 @@
 	   eg, setPositionDeg(0, 35, 0, 90, 0, 0, cmws.one); setPositionDeg(0, -55, 180, 0, 0, 0, cmws.two); xform.setFabErrorsDeg(1, 0, 0);  same as
 	   xform.setFabErrorsDeg(1, 0, 0); setPositionDeg(1.2207, 34.9939, 0, 90, 0, 0, cmws.one); setPositionDeg(0, -55, 180, 0, 0, 0, cmws.two);
 	 */
-	test('altaz values with z1 for zenith, horizon', function () {
+	QUnit.test('altaz values with z1 for zenith, horizon', function () {
 		var allowedErrorDeg = 1/3600,
 		    latitude = 35,
 		    latitudeRad = latitude * uom.degToRad,
@@ -2117,7 +2132,7 @@
 		equal(withinRange(xform.position.alt / uom.degToRad, expectedPosition.alt / uom.degToRad, allowedErrorDeg), true, 'alt (deg) should be ' + expectedPosition.alt / uom.degToRad + ', is ' + xform.position.alt / uom.degToRad);
 	});
 	
-	module('hysteresis: start with altaz, get equat, then get altaz, compare ending to starting altaz');
+	QUnit.module('hysteresis: start with altaz, get equat, then get altaz, compare ending to starting altaz');
 	
 	function hysteresisSubr(cmws, convertSubroutineType, azError, altError) {
 		var startingAz = 140 * uom.degToRad,
@@ -2131,7 +2146,7 @@
 		equal(withinRange(cmws.current.alt, startingAlt, altError), true, convertSubroutineType + ' hysteresis in alt (arcsecond) is ' + (cmws.current.alt - startingAlt) / uom.arcsecToRad);	
 	}
 	
-	test('vary ConvertSubroutineType', function () {
+	QUnit.test('vary ConvertSubroutineType', function () {
 		var cmws = new ConvertMatrixWorkingStorage();
 		setFabErrorsDeg(-0.04, 0.4, -1.63, cmws.fabErrors);
 		initTaki(cmws);
@@ -2152,7 +2167,7 @@
 		hysteresisSubr(cmws, ConvertSubroutineType.BellTaki, 0.0002 * uom.arcsecToRad, 0.00000001 * uom.arcsecToRad);
 	});
 	
-	module('xform: meridian flip (matrix: presetAltaz)');
+	QUnit.module('xform: meridian flip (matrix: presetAltaz)');
 	
 	function testConvertWithMeridianFlip(convertStyle, latitude, azDeg, altDeg, flippedAzDeg, flippedAltDeg, desiredRADeg, desiredDecDeg) {
 		var allowedErrorDeg, latitudeRad, xform, resultRADeg, resultDecDeg, resultAltDeg, resultAzDeg;
@@ -2218,15 +2233,15 @@
 		testConvertWithMeridianFlip(convertStyle, latitude, azDeg, altDeg, flippedAzDeg, flippedAltDeg, desiredRADeg, desiredDecDeg);
 	}
 
-	test('matrix', function () {
+	QUnit.test('matrix', function () {
 		testConvertWithMeridianFlipByConvertStyle(ConvertStyle.matrix);
 	});
 
-	test('trig', function () {
+	QUnit.test('trig', function () {
 		testConvertWithMeridianFlipByConvertStyle(ConvertStyle.trig);
 	});
 	
-	module('xform');
+	QUnit.module('xform');
 	
 	function testXform(xform, priDeg, secDeg, expectedPriDeg, expectedSecDeg, expectedFRAngle) {
 		var allowedErrorDeg, resultPriDeg, resultSecDeg, HAOffset, resultFieldRotationAngle, differenceFieldRotationAngle;
@@ -2255,7 +2270,7 @@
 		equal(withinRange(differenceFieldRotationAngle, 0, allowedErrorDeg), true, 'FR angle(deg) should be ' + expectedFRAngle + ', is ' + resultFieldRotationAngle);		
 	}
 	
-	test('trig, matrix: presetEquat', function () {
+	QUnit.test('trig, matrix: presetEquat', function () {
 		var latitude = 30,
 		    latitudeRad = latitude * uom.degToRad,
 			// 20 degrees east of the meridian
@@ -2291,7 +2306,7 @@
 		testXform(xform, priDeg, secDeg, expectedPriDeg, expectedSecDeg, expectedFRAngle);
 	});
 
-	test('trig, matrix: presetAltaz', function () {
+	QUnit.test('trig, matrix: presetAltaz', function () {
 		var latitude = 30,
 		    latitudeRad = latitude * uom.degToRad,
 			// on meridian
@@ -2326,7 +2341,7 @@
 		testXform(xform, priDeg, secDeg, expectedPriDeg, expectedSecDeg, expectedFRAngle);
 	});
 	
-	test('matrix: post init functions using Taki data', function () {
+	QUnit.test('matrix: post init functions using Taki data', function () {
 		var xform, initAltazResults, bestZ123;
 
 		xform = new XForm(ConvertStyle.matrix, 40 * uom.degToRad);
@@ -2339,7 +2354,7 @@
 		equal(bestZ123.z1 / uom.degToRad, 0, 'z1 (deg)');	
 	});
 
-	test('trig, matrix: meridianFlip=off', function () {
+	QUnit.test('trig, matrix: meridianFlip=off', function () {
 		var latitude = 30,
 		    latitudeRad = latitude * uom.degToRad,
 			// RA=0, Dec=89, expected az=180, alt=89
@@ -2376,7 +2391,7 @@
 		testXform(xform, priDeg, secDeg, expectedPriDeg, expectedSecDeg, expectedFRAngle);
 	});
 	
-	test('trig, matrix: meridianFlip=on', function () {
+	QUnit.test('trig, matrix: meridianFlip=on', function () {
 		var latitude = 30,
 		    latitudeRad = latitude * uom.degToRad,
 			// RA=0, Dec=89, expected az=180, alt=89, flipped az=0, alt=91
@@ -2420,9 +2435,9 @@
 		testXform(xform, priDeg, secDeg, expectedPriDeg, expectedSecDeg, expectedFRAngle);
 	});
 	
-	module('tracking rates');
+	QUnit.module('tracking rates');
 		
-	test('King rate: northern hemisphere, southern hemisphere, near pole', function () {
+	QUnit.test('King rate: northern hemisphere, southern hemisphere, near pole', function () {
 		var allowedErrorDeg, RA, Dec, SidT, latitude, expectedRate, resultRate, expectedRateArcsecPerSec, resultRateArcsecPerSec, expectedRateMinutesPerDayUnderPole;	
 
 		allowedErrorDeg = 1 / 1000;	
@@ -2457,7 +2472,7 @@
 		equal(withinRange(resultRate, expectedRate, allowedErrorDeg), true, 'expected rate under pole should be ' + expectedRate + ', is ' + resultRate);
 	});
 	
-	test('calcFieldRotationRateSidTrackFormula(), matches above test', function () {
+	QUnit.test('calcFieldRotationRateSidTrackFormula(), matches above test', function () {
 		var allowedErrorArcsec = 1 / 1000,
 			// see above test, very slightly slower than calculating by elapsed time
 			expectedFRRateArcsecSec = 0.326, 
@@ -2472,7 +2487,7 @@
 		equal(withinRange(result, expectedFRRateArcsecSec, allowedErrorArcsec), true, 'FR rate ("/sec) should be ' + expectedFRRateArcsecSec + ', is ' + result);
 	});
 	
-	test('calcFieldRotationRateSidTrackFormula()', function () {
+	QUnit.test('calcFieldRotationRateSidTrackFormula()', function () {
 		var allowedErrorArcsec = 1 / 1000,
 			//14.095389311788617 for sidereal second, from ScopeIII test
 			expectedFRRateArcsecSec = 14.1340, 
@@ -2489,7 +2504,7 @@
 		equal(withinRange(result, expectedFRRateArcsecSec, allowedErrorArcsec), true, 'FR rate ("/sec) should be ' + expectedFRRateArcsecSec + ', is ' + result);
 	});
 	
-	test('calcAltazTrackingRates()', function () {
+	QUnit.test('calcAltazTrackingRates()', function () {
 		var allowedErrorArcsec = 1 / 1000,
 			// from test above with RA = 45 deg, Dec = 30 deg
 		    latitudeRad = 40 * uom.degToRad,
@@ -2507,7 +2522,7 @@
 		equal(withinRange(resultArcsecSec.alt, expectedResultArcsecSec.alt, allowedErrorArcsec), true, 'tracking rate in alt expected is ' + expectedResultArcsecSec.alt + ', is ' + resultArcsecSec.alt);	
 	});
 	
-	test('calcRefractionFromTrueEquatorialCorrection', function () {
+	QUnit.test('calcRefractionFromTrueEquatorialCorrection', function () {
 		var allowedErrorDeg = 1/ 360000,
 		    allowedErrorArcsec = 0.02,
 		    latitudeDeg = 40,
@@ -2545,7 +2560,7 @@
 		equal(withinRange(resultDeltaDecArcsec, expectedDeltaDecArcsec, allowedErrorArcsec), true, 'delta (arcsec) Dec should be ' + expectedDeltaDecArcsec + ', is ' + resultDeltaDecArcsec);
 	});
 	
-	test('calcRefractionFromApparentEquatorialCorrection', function () {
+	QUnit.test('calcRefractionFromApparentEquatorialCorrection', function () {
 		var allowedErrorDeg = 1 / 3600,
 		    latitudeDeg = 40,
 			elevationDeg = 1,
@@ -2598,7 +2613,7 @@
 		equal(expectedTrackingRatesStrategy, result.trackingRatesStrategy, 'tracking rates expected strategy is ' + expectedTrackingRatesStrategy + ', is ' + result.trackingRatesStrategy);
 	}
 	
-	test('getRatesViaDeltaTime() equat', function () {
+	QUnit.test('getRatesViaDeltaTime() equat', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2614,7 +2629,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() equat, under pole', function () {
+	QUnit.test('getRatesViaDeltaTime() equat, under pole', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2632,7 +2647,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() altaz, with refraction', function () {
+	QUnit.test('getRatesViaDeltaTime() altaz, with refraction', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2649,7 +2664,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeWithRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 	
-	test('getRatesViaDeltaTime() equat, under pole, with refraction', function () {
+	QUnit.test('getRatesViaDeltaTime() equat, under pole, with refraction', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2668,7 +2683,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeWithRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() altaz', function () {
+	QUnit.test('getRatesViaDeltaTime() altaz', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2684,7 +2699,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 	
-	test('getRatesViaDeltaTime() equat with meridian flip = off', function () {
+	QUnit.test('getRatesViaDeltaTime() equat with meridian flip = off', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2702,7 +2717,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() equat with meridian flip = on', function () {
+	QUnit.test('getRatesViaDeltaTime() equat with meridian flip = on', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2721,7 +2736,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() equat with meridian flip = off, from starting altaz coord', function () {
+	QUnit.test('getRatesViaDeltaTime() equat with meridian flip = off, from starting altaz coord', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2740,7 +2755,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() equat with meridian flip = on, from starting altaz coord', function () {
+	QUnit.test('getRatesViaDeltaTime() equat with meridian flip = on, from starting altaz coord', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2760,7 +2775,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeNoRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaFormulae() equat', function () {
+	QUnit.test('getRatesViaFormulae() equat', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2776,7 +2791,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.formulae, timeIntervalSec, new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 	
-	test('getRatesViaFormulae() altaz', function () {
+	QUnit.test('getRatesViaFormulae() altaz', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2792,7 +2807,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.formulae, timeIntervalSec, new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset));
 	});
 	
-	test('getRatesViaFormulae() equat with meridian flip = off', function () {
+	QUnit.test('getRatesViaFormulae() equat with meridian flip = off', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2810,7 +2825,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.formulae, timeIntervalSec, new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaFormulae() equat with meridian flip = on', function () {
+	QUnit.test('getRatesViaFormulae() equat with meridian flip = on', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2829,7 +2844,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.formulae, timeIntervalSec, new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaFormulae() equat with meridian flip = off, from starting altaz coord', function () {
+	QUnit.test('getRatesViaFormulae() equat with meridian flip = off, from starting altaz coord', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2848,7 +2863,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.formulae, timeIntervalSec, new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaFormulae() equat with meridian flip = on, from starting altaz coord', function () {
+	QUnit.test('getRatesViaFormulae() equat with meridian flip = on, from starting altaz coord', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2868,7 +2883,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.formulae, timeIntervalSec, new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() equat, southern horizon, with refraction (compare with immediately following getKingRates() test)', function () {
+	QUnit.test('getRatesViaDeltaTime() equat, southern horizon, with refraction (compare with immediately following getKingRates() test)', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2886,7 +2901,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeWithRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getKingRates() equat, southern horizon, with refraction (compare with above test)', function () {
+	QUnit.test('getKingRates() equat, southern horizon, with refraction (compare with above test)', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2905,9 +2920,9 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.KingRates, timeIntervalSec, new TrackingRates().getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 	
-	module('trackingRates with meridian flip and refraction comparing matrix to trig to King');
+	QUnit.module('trackingRates with meridian flip and refraction comparing matrix to trig to King');
 
-	test('getRatesViaDeltaTime() equat, southern horizon, with refraction, with meridianFlip using matrix', function () {
+	QUnit.test('getRatesViaDeltaTime() equat, southern horizon, with refraction, with meridianFlip using matrix', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.matrix,
 			xform,
@@ -2928,7 +2943,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeWithRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getRatesViaDeltaTime() equat, southern horizon, with refraction, with meridianFlip using trig', function () {
+	QUnit.test('getRatesViaDeltaTime() equat, southern horizon, with refraction, with meridianFlip using trig', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2949,7 +2964,7 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.deltaTimeWithRefraction, timeIntervalSec, new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	test('getKingRates() equat, southern horizon, with refraction, with meridianFlip using trig', function () {
+	QUnit.test('getKingRates() equat, southern horizon, with refraction, with meridianFlip using trig', function () {
 		var latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
@@ -2969,9 +2984,9 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.KingRates, timeIntervalSec, new TrackingRates().getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 
-	module('investigate different init points for accuracy given realworld errors');
+	QUnit.module('investigate different init points for accuracy given realworld errors');
 	
-	test('init points are altaz zenith and south horizon', function () {
+	QUnit.test('init points are altaz zenith and south horizon', function () {
 		var latitudeRad = 35 * uom.degToRad,
 		    convertStyle = ConvertStyle.matrix,
 			xform,
@@ -2995,7 +3010,7 @@
 		equal(true, true, '(deg) given SidT=' + xform.position.SidT / uom.degToRad + ', AZ=' + xform.position.az / uom.degToRad + ', alt=' + xform.position.alt / uom.degToRad + ', results RA: ' + xform.position.RA / uom.degToRad + ',  Dec: ' + xform.position.Dec / uom.degToRad);
 	});
 	
-	test('find 2 init points as far apart in RA+Dec and az+alt as possible', function () {
+	QUnit.test('find 2 init points as far apart in RA+Dec and az+alt as possible', function () {
 		var latitudeRad = 35 * uom.degToRad,
 		    convertStyle = ConvertStyle.matrix,
 			xform,
@@ -3021,7 +3036,7 @@
 		equal(true, true, 'angular separation (deg) = ' + calcAngularSepUsingAltaz(new Position(0, 0, 45 / uom.degToRad, 60 / uom.degToRad, 0, 0), new Position(0, 0, 235 / uom.degToRad, 30 / uom.degToRad, 0, 0)) / uom.degToRad);
 	});
 	
-	test('find 2 init points with same alt', function () {
+	QUnit.test('find 2 init points with same alt', function () {
 		var latitudeRad = 35 * uom.degToRad,
 		    convertStyle = ConvertStyle.matrix,
 			xform,
@@ -3045,7 +3060,7 @@
 		equal(true, true, '(deg) given SidT=' + xform.position.SidT / uom.degToRad + ', AZ=' + xform.position.az / uom.degToRad + ', alt=' + xform.position.alt / uom.degToRad + ', results RA: ' + xform.position.RA / uom.degToRad + ',  Dec: ' + xform.position.Dec / uom.degToRad);
 	});
 	
-	test('find 2 init points within 30 degrees', function () {
+	QUnit.test('find 2 init points within 30 degrees', function () {
 		var latitudeRad = 35 * uom.degToRad,
 		    convertStyle = ConvertStyle.matrix,
 			xform,
@@ -3069,7 +3084,7 @@
 		equal(true, true, '(deg) given SidT=' + xform.position.SidT / uom.degToRad + ', AZ=' + xform.position.az / uom.degToRad + ', alt=' + xform.position.alt / uom.degToRad + ', results RA: ' + xform.position.RA / uom.degToRad + ',  Dec: ' + xform.position.Dec / uom.degToRad);
 	});
 	
-	test('verify custom init algorithm (uses the find 2 init points within 30 degrees above)', function () {
+	QUnit.test('verify custom init algorithm (uses the find 2 init points within 30 degrees above)', function () {
 		var allowedErrorArcsecond = 0.05,
 		    allowedErrorDeg = allowedErrorArcsecond / 3600,
 		    latitudeRad = 35 * uom.degToRad,
@@ -3198,7 +3213,7 @@
 		return xform;
 	};
 	
-	test('verify northSouthHorizon coordinates init position 1', function () {
+	QUnit.test('verify northSouthHorizon coordinates init position 1', function () {
 		var allowedErrorArcsecond = 0.05,
 		    allowedErrorDeg = allowedErrorArcsecond / 3600,
 		    latitudeRad = 35 * uom.degToRad,
@@ -3222,7 +3237,7 @@
 		equal(withinRange(expectedDecDeg, resultDecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + expectedDecDeg + ', is ' + resultDecDeg);		
 	});
 
-	test('verify northSouthHorizon coordinates init position 2', function () {
+	QUnit.test('verify northSouthHorizon coordinates init position 2', function () {
 		var allowedErrorArcsecond = 0.05,
 		    allowedErrorDeg = allowedErrorArcsecond / 3600,
 		    latitudeRad = 35 * uom.degToRad,
@@ -3246,7 +3261,7 @@
 		equal(withinRange(expectedDecDeg, resultDecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + expectedDecDeg + ', is ' + resultDecDeg);		
 	});
 
-	test('verify initAltaz30degApart', function () {
+	QUnit.test('verify initAltaz30degApart', function () {
 		var allowedErrorArcsecond = 0.05,
 		    allowedErrorDeg = allowedErrorArcsecond / 3600,
 		    latitudeRad = 35 * uom.degToRad,
@@ -3271,7 +3286,7 @@
 		equal(withinRange(expectedAltDeg, resultAltDeg, allowedErrorDeg), true, 'Alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);		
 	});
 
-	test('verify initAltaz30degApart with altaz errors', function () {
+	QUnit.test('verify initAltaz30degApart with altaz errors', function () {
 		var allowedErrorArcsecond = 0.05,
 		    allowedErrorDeg = allowedErrorArcsecond / 3600,
 		    latitudeRad = 35 * uom.degToRad,
@@ -3296,7 +3311,7 @@
 		notEqual(withinRange(expectedAltDeg, resultAltDeg, allowedErrorDeg), true, 'Alt (deg) should be ' + expectedAltDeg + ', is ' + resultAltDeg);		
 	});
 
-	test('verify all inits', function () {
+	QUnit.test('verify all inits', function () {
 		var allowedErrorArcsecond = 0.05,
 		    allowedErrorDeg = allowedErrorArcsecond / 3600,
 		    latitudeRad = 35 * uom.degToRad,
@@ -3325,7 +3340,7 @@
 		}
 	});
 
-	test('createPerfectPositions', function () {
+	QUnit.test('createPerfectPositions', function () {
 		var spacingDeg = 30,
 		    perfectPositions = createPerfectPositions(spacingDeg),
 		    result = perfectPositions.length;
@@ -3353,7 +3368,7 @@
 		init# 5: az error (deg) = 0.4952340007682071, alt error (deg) = 0.6157031948782028, total (deg) = 0.7901564020496896
 		init# 6: az error (deg) = 0.9309159632309724, alt error (deg) = 0.7359943574795378, total (deg) = 1.1867148877636813	
 	*/
-	test('compare various inits for random errors', function () {
+	QUnit.test('compare various inits for random errors', function () {
 		var spacingDeg = 30,
 		    perfectPositions = createPerfectPositions(spacingDeg),
 			lengthPerfectPositions = perfectPositions.length,
@@ -3409,7 +3424,7 @@
 		separation (deg) = 160: az error (deg) = 0.6598710495242899, alt error (deg) = 0.9945162542928601, total (deg) = 1.1935210019320937
 		separation (deg) = 170: az error (deg) = 1.2924314829897554, alt error (deg) = 1.989828362150067, total (deg) = 2.372719125610934
 	*/
-	test('compare inits with range of separation', function () {
+	QUnit.test('compare inits with range of separation', function () {
 		var spacingDeg = 30,
 		    perfectPositions = createPerfectPositions(spacingDeg),
 			lengthPerfectPositions = perfectPositions.length,
@@ -3502,7 +3517,7 @@
 		160	14.4
 	thoughts: the 2nd init point is at the scope's azimuth axis when the separation is 55 deg
 	*/
-	test('volatility of pointing errors over a range of separation between initialization stars', function () {
+	QUnit.test('volatility of pointing errors over a range of separation between initialization stars', function () {
 		var spacingDeg = 30,
 		    perfectPositions = createPerfectPositions(spacingDeg),
 			lengthPerfectPositions = perfectPositions.length,
@@ -3609,7 +3624,7 @@
 			Deneb to Altair = 
 		see initializationErrorPlot.html for polar coordinate plots of errors for various star separations
 	*/
-	test('pointing errors as function of distance from close init stars', function () {
+	QUnit.test('pointing errors as function of distance from close init stars', function () {
 		var VegaRADeg,
 		    VegaDecDeg,
 			expectedVegaRADeg = 279.23333333333335,
@@ -3983,9 +3998,9 @@
 	/*
 	A three axis mount, 'alt-alt-az', can be configured as an horizontal yoke mount on a platter. The platter is parallel to the ground with its axis pointing at the zenith. On the platter is the 'alt-alt' or 'el-el' portion that is most commonly constructed as a yoke mounted horizontally, sometimes with each yoke end in the shape of a horseshoe so that the telescope can swing down to the horizon. The primary axis of the yoke points to the horizon and the secondary axis rotates between the yoke's arms. By calculating the field rotation angle at the focal plane using a standard altazimuth conversion, then setting the platter's rotational angle to the field rotation, then using a new altazimuth conversion where the altazimuth's primary axis points at the horizon (think of a Dobsonian tipped over 90 degrees) and finally taking these azimuth and altitude angles to set the 'alt-alt' or 'el-el' horizonal yoke, the 3-axis telescope can be made to point at the object and maintain a constant field rotation angle at the focal plane.
 	*/
-	module('3 axes');
+	QUnit.module('3 axes');
 	
-	test('3 axes coordinates - unfold algorithm', function () {
+	QUnit.test('3 axes coordinates - unfold algorithm', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 		    XFormSite,
@@ -4081,7 +4096,7 @@
 		equal(withinRange(a3Deg, expectedYokeAltDeg, allowedErrorDeg), true, 'a1 (deg) should be ' + expectedYokeAltDeg + ', is ' + a3Deg);		
 	});
 
-	test('3 axes coordinates - getAltAltAz()', function () {
+	QUnit.test('3 axes coordinates - getAltAltAz()', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4109,7 +4124,7 @@
 		equal(withinRange(resultsA3Deg, expectedA3Deg, allowedErrorDeg), true, 'a3 (deg) should be ' + expectedA3Deg + ', is ' + resultsA3Deg);		
 	});
 
-	test('3 axes coordinates - getAltAltAz() #2', function () {
+	QUnit.test('3 axes coordinates - getAltAltAz() #2', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4137,7 +4152,7 @@
 		equal(withinRange(resultsA3Deg, expectedA3Deg, allowedErrorDeg), true, 'a3 (deg) should be ' + expectedA3Deg + ', is ' + resultsA3Deg);		
 	});
 
-	test('3 axes coordinates - getAltAltAz() #3', function () {
+	QUnit.test('3 axes coordinates - getAltAltAz() #3', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4165,7 +4180,7 @@
 		equal(withinRange(resultsA3Deg, expectedA3Deg, allowedErrorDeg), true, 'a3 (deg) should be ' + expectedA3Deg + ', is ' + resultsA3Deg);		
 	});
 
-	test('3 axes coordinates - getEquat()', function () {
+	QUnit.test('3 axes coordinates - getEquat()', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4189,7 +4204,7 @@
 		equal(withinRange(resultDecDeg, expectedDecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + expectedDecDeg + ', is ' + resultDecDeg);
 	});
 
-	test('3 axes coordinates - getEquat() #2', function () {
+	QUnit.test('3 axes coordinates - getEquat() #2', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4213,7 +4228,7 @@
 		equal(withinRange(resultDecDeg, expectedDecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + expectedDecDeg + ', is ' + resultDecDeg);
 	});
 
-	test('3 axes coordinates - getEquat() #3', function () {
+	QUnit.test('3 axes coordinates - getEquat() #3', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4237,7 +4252,7 @@
 		equal(withinRange(resultDecDeg, expectedDecDeg, allowedErrorDeg), true, 'Dec (deg) should be ' + expectedDecDeg + ', is ' + resultDecDeg);
 	});
 
-	test('3 axes coordinates - getAltAltAzTrackingRates()', function () {
+	QUnit.test('3 axes coordinates - getAltAltAzTrackingRates()', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4278,7 +4293,7 @@
 		equal(withinRange(resultsA3RateArcsecSec, expectedA3RateArcsecSec, allowedErrorDeg), true, 'a3 rate (arcsec/sec) should be ' + expectedA3RateArcsecSec + ', is ' + resultsA3RateArcsecSec);		
 	});
 
-	test('3 axes coordinates - getAltAltAzTrackingRates() #2', function () {
+	QUnit.test('3 axes coordinates - getAltAltAzTrackingRates() #2', function () {
 		// 1 arcsecond
 		var allowedErrorDeg = 1 / 3600,
 			latitudeDeg = 40,
@@ -4322,21 +4337,4 @@
 });
 
 </script>
-    </head>
-    <body>
-        <h1 id='qunit-header'>
-            QUnit test for coordLib.js
-        </h1>
-        <h2 id='qunit-banner'>
-        </h2>
-        <div id='qunit-testrunner-toolbar'>
-        </div>
-        <h2 id='qunit-userAgent'>
-        </h2>
-        <ol id='qunit-tests'>
-        </ol>
-        <div id='qunit-fixture'>
-            test markup, will be hidden
-        </div>
-    </body>
 </html>

@@ -1,25 +1,38 @@
 <!DOCTYPE HTML>
 <html>
-    
-    <head>
-        <script src="sharedLib.js"></script>
-        <script src="coordLib.js"></script>
-        <script src="calcLib.js"></script>
-        <script src="foldedNewtonian.js"></script>
-        <script src="Ronchi.js"></script>
+<head>
+	<title>QUnit test for calcLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
 
-        <script src='jquery/jquery-1.10.2.min.js'></script>
-        <script type='text/javascript' src='qunit/qunit-git.js'></script>
-        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
+
+	<script src="sharedLib.js"></script>
+	<script src="coordLib.js"></script>
+	<script src="calcLib.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
 
 <script>$(document).ready(function () {
 	'use strict';
 	var withinRange = MLB.sharedLib.withinRange,
-	    getFoldedNewtonianScalingFactor = MLB.foldedNewtonian.getFoldedNewtonianScalingFactor,
+	    getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcSagitta = MLB.calcLib.calcSagitta,
 		calcSagittaSpherical = MLB.calcLib.calcSagittaSpherical,
 		calcFocalRatio = MLB.calcLib.calcFocalRatio,
 		calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
+		calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
 		calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
 		magnitudeDrop = MLB.calcLib.magnitudeDrop,
 		magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
@@ -38,16 +51,16 @@
 		calcNewtBaffle = MLB.calcLib.calcNewtBaffle,
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
 		calcSphereParabolaDifference = MLB.calcLib.calcSphereParabolaDifference,
-		wavefrontError = MLB.ronchi.wavefrontError,
-		findAllowableCorrection = MLB.ronchi.findAllowableCorrection,
-		calcAllowableParabolicDeviationForQuarterWavefront = MLB.ronchi.calcAllowableParabolicDeviationForQuarterWavefront,
+		wavefrontError = MLB.calcLib.wavefrontError,
+		findAllowableCorrection = MLB.calcLib.findAllowableCorrection,
+		calcAllowableParabolicDeviationForQuarterWavefront = MLB.calcLib.calcAllowableParabolicDeviationForQuarterWavefront,
 		calcDobFriction = MLB.calcLib.calcDobFriction,
 		SQMtoNELMconverter = MLB.calcLib.SQMtoNELMconverter,
 		NELMtoSQMconverter = MLB.calcLib.NELMtoSQMconverter,
 		artificialStarDistanceMM = MLB.calcLib.artificialStarDistanceMM,
 		artificialStarDistanceInches = MLB.calcLib.artificialStarDistanceInches;
 
-	module('foldedNewtonian.js');
+	QUnit.module('foldedNewtonian.js');
 
 	// example: mirror = 30, focal ratio = 3, diag = 8, tertiary distance = 2, eyepiece to mirror = 50, diag to mirror = 66
 	// therefore maxWidth = diag to mirror = 66, 
@@ -65,24 +78,24 @@
 	// using scaling factor of 1.9230769, width = 1.9230769 * 66 = 126.92308, height = 1.9230769 * 52 = 100:
 	// so some display width wasted since the narrower model has to fit within;
 	// returned scalingFactor made smaller by a margin, eg if scaling factor is 1.9230769 then returned value is 1.53846152;
-	test('getFoldedNewtonianScalingFactor', function () {
+	QUnit.test('getFoldedNewtonianScalingFactor', function () {
 		var result = getFoldedNewtonianScalingFactor(200, 100, 3, 8, 2, 66);
 		equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
 	});	
 	
-	module('sagitta');
+	QUnit.module('sagitta');
 
-	test('calcSagitta', function () {
+	QUnit.test('calcSagitta', function () {
 		var result = calcSagitta(13, 3);
 		equal(withinRange(result, 0.271305, 0.000001), true, 'The sagitta should be 0.271305, is ' + result);
 	});
 
-	test('calcFocalRatio', function () {
+	QUnit.test('calcFocalRatio', function () {
 		var result = calcFocalRatio(13, 0.2713051698409146);
 		equal(withinRange(result, 3, 0.000001), true, 'The focal ratio should be 3.0, is ' + result);
 	});
 	
-	test('calcSagittaSpherical', function () {
+	QUnit.test('calcSagittaSpherical', function () {
 		var mirrorDia = 30,
 		    focalRatio = 0.25,
 			expectedSphericalSagitta = 7.5,
@@ -90,14 +103,27 @@
 		equal(result, expectedSphericalSagitta, 'sagitta is ' + result);
 	});
 
-	test('calcFocalRatioFromSphericalSagitta', function () {
+	QUnit.test('calcFocalRatioFromSphericalSagitta', function () {
 		var result = calcFocalRatioFromSphericalSagitta(30, 7.5);
 		equal(withinRange(result, 0.25, 0.000001), true, 'The focal ratio should be 0.25, is ' + result);
 	});
 	
-	module('diagonal sizing');
+	// http://www.1728.org/sphere.htm and http://www.had2know.com/academics/spherical-cap-volume-surface-area-calculator.html
+	QUnit.test('calcSagittalVolume', function () {
+		var expected = 6.1439,
+		    result = calcSagittalVolume(10, 4);
+		equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 
-	test('calcOffAxisIllumination', function () {
+		expected = 56287;
+		result = calcSagittalVolume(70, 37 / 70 / 2);
+		equal(withinRange(result, expected, 1), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+	});
+	
+	
+	
+	QUnit.module('diagonal sizing');
+
+	QUnit.test('calcOffAxisIllumination', function () {
 		var result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0.5);
 		equal(withinRange(result, 0.878, 0.001), true, 'The off-axis illumination should be .878, is ' + result);
 
@@ -117,52 +143,52 @@
 		equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
 	});
 
-	test('magnitudeDrop', function () {
+	QUnit.test('magnitudeDrop', function () {
 		var result = magnitudeDrop(0.878011030887435);
 		equal(withinRange(result, 0.141, 0.001), true, 'The magnitude drop should be 0.141, is ' + result);
 	});
 
-	test('magnitudeDrop', function () {
+	QUnit.test('magnitudeDrop', function () {
 		var result = magnitudeDrop(0.71);
 		equal(withinRange(result, 0.37, 0.01), true, 'The magnitude drop should be 0.37, is ' + result);
 	});
 
-	test('magnitudeDrop as a percentage', function () {
+	QUnit.test('magnitudeDrop as a percentage', function () {
 		var result = magnitudeDrop(0.96);
 		equal(withinRange(result, 0.04, 0.01), true, 'The magnitude drop should be 0.04, is ' + result);
 	});
 
-	test('magnitudeDrop as a percentage', function () {
+	QUnit.test('magnitudeDrop as a percentage', function () {
 		var result = magnitudeDrop(1.04);
 		equal(withinRange(result, -0.04, 0.01), true, 'The magnitude drop should be -0.04, is ' + result);
 	});
 
-	test('magnitudeDifferenceBetweenApertures', function () {
+	QUnit.test('magnitudeDifferenceBetweenApertures', function () {
 		var result = magnitudeDifferenceBetweenApertures(10, 20);
 		equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
 	});
 	
-	test('inverseMagnitudeDrop', function () {
+	QUnit.test('inverseMagnitudeDrop', function () {
 		var result = inverseMagnitudeDrop(0.37);
 		equal(withinRange(result, 0.71, 0.01), true, 'The inverse magnitude drop should be .71, is ' + result);
 	});
 
-	test('diagObstructionArea', function () {
+	QUnit.test('diagObstructionArea', function () {
 		var result = diagObstructionArea(10, 1);
 		equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
 	});
 
-	test('calcDiagOffset', function () {
+	QUnit.test('calcDiagOffset', function () {
 		var result = calcDiagOffset(42, 121.8, 10, 28);
 		equal(withinRange(result, 0.85, 0.01), true, 'The diagonal offset should be -.85, is ' + result);
 	});
 
-	test('calcDiagOffset', function () {
+	QUnit.test('calcDiagOffset', function () {
 		var result = calcDiagOffset(13.2, 40.3, 3.1, 9);
 		equal(withinRange(result, 0.25, 0.01), true, 'The diagonal offset should be .25, is ' + result);
 	});
 
-	test('calcDiagOffset2', function () {
+	QUnit.test('calcDiagOffset2', function () {
 		var result = calcDiagOffset2(13.2, 40.3, 3.1, 9);
 		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
 	});
@@ -184,7 +210,7 @@
 	0.6000000000000001,0.8444947700225293,
 	0.7000000000000001,0.8109570241529027 
 	*/
-	test('getDiagIllumArray', function () {
+	QUnit.test('getDiagIllumArray', function () {
 		var result = getDiagIllumArray(13.2, 40.3, 3.1, 9, 0.1, 1.38);
 		equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
 		equal(withinRange(result[1][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[1][1]);
@@ -196,9 +222,9 @@
 		equal(withinRange(result[13][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[13][1]);
 	});
 
-	module('folded Newtonian');
+	QUnit.module('folded Newtonian');
 
-	test('calcFoldedNewtonian', function () {
+	QUnit.test('calcFoldedNewtonian', function () {
 		var result = calcFoldedNewtonian(30, 2.9, 7, 3);
 		equal(result.diagTooSmall, false, 'The diagTooSmall should be false, is ' + result.diagTooSmall);
 		equal(result.diagTooLarge, false, 'The diagTooLarge should be false, is ' + result.diagTooLarge);
@@ -208,31 +234,31 @@
 		equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
 	});
 
-	test('calcFoldedNewtonian diagTooSmall error', function () {
+	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
 		var result = calcFoldedNewtonian(30, 2.9, 6, 3);
 		equal(result.diagTooSmall, true, 'The diagTooSmall should be true, is ' + result.diagTooSmall);
 	});
 
-	test('calcFoldedNewtonian diagTooLarge error', function () {
+	QUnit.test('calcFoldedNewtonian diagTooLarge error', function () {
 		var result = calcFoldedNewtonian(30, 2.9, 16, 3);
 		equal(result.diagTooLarge, true, 'The diagTooLarge should be true, is ' + result.diagTooLarge);
 	});
 
-	test('calcFoldedNewtonian mirrorDia=0 et al error', function () {
+	QUnit.test('calcFoldedNewtonian mirrorDia=0 et al error', function () {
 		var result = calcFoldedNewtonian(0, 2.9, 6, 3);
 		equal(result, undefined, 'The result should be undefined, is ' + result);
 	});
 
-	module('visual detection calculator: parms and data');
+	QUnit.module('visual detection calculator: parms and data');
 	
-	test('limiting magnitude', function () {
+	QUnit.test('limiting magnitude', function () {
 		var apertureIn = 13;
 		var expectedLimitingMag = 16.37;
 		var result = limitingMagnitude(apertureIn);
 		equal(withinRange(result, expectedLimitingMag, 0.01), true, 'limiting magnitude of ' + apertureIn +' should be ' + expectedLimitingMag + ', is ' + result);
 	});
 	
-	test('parms.apertureIn', function () {
+	QUnit.test('parms.apertureIn', function () {
 		var parms, result, parms2, result2, originalResult;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 13.2;
@@ -248,7 +274,7 @@
 		equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
 	});
 
-	test('parms.apertureIn', function () {
+	QUnit.test('parms.apertureIn', function () {
 		var parms, result, copiedParms, result2, originalResult;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 13.2;
@@ -264,7 +290,7 @@
 		equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
 	});
 
-	test('visualDetectCalcData.logAngle[1]', function () {
+	QUnit.test('visualDetectCalcData.logAngle[1]', function () {
 		var data, result;
 		data = visualDetectCalcData;
 		result = data.logAngle[1];
@@ -274,7 +300,7 @@
 		equal(result, -1.7747, 'ltc[1][1] should be -1.7747, is ' + result);
 	});
 
-	module('visual detection calculator: the calculator');
+	QUnit.module('visual detection calculator: the calculator');
 
 	var visualDetectCalcParms = new VisualDetectCalcParms();
 	visualDetectCalcParms.apertureIn = 13;
@@ -293,7 +319,7 @@
 
 	var visualDetectCalc = new VisualDetectCalc();
 	            
-	test('visualDetectCalc.calc()', function () {
+	QUnit.test('visualDetectCalc.calc()', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		result = visualDetectCalc.calc(parms);
@@ -303,7 +329,7 @@
 		equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
 	});
 	
-	test('visualDetectCalc.calc()', function () {
+	QUnit.test('visualDetectCalc.calc()', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		parms.eyepieceExitPupilmm = 4;
@@ -314,7 +340,7 @@
 		equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
 	});	
 
-	test('NGC 134 example from Clarke\'s book', function () {
+	QUnit.test('NGC 134 example from Clarke\'s book', function () {
 		var parms, result;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 8;
@@ -334,7 +360,7 @@
 		equal(withinRange(result.logContrastDiff, 0.4, 0.1), true, 'The logContrastDiff should be 0.4, is ' + result.logContrastDiff);
 	});
 	
-	test('Sculptor System example from Clarke\'s book', function () {
+	QUnit.test('Sculptor System example from Clarke\'s book', function () {
 		var parms, result;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 8;
@@ -388,7 +414,7 @@
 		equal(withinRange(result.logContrastDiff, 0.3, 0.1), true, 'The logContrastDiff should be 0.4, is ' + result.logContrastDiff);
 	});
 	
-	test('visualDetectCalc.calc()', function () {
+	QUnit.test('visualDetectCalc.calc()', function () {
 		// compare to my previous C version based on Clark's Visual Astronomy calculates logContrastDiff = 0.51 
 		// because exitPupilmm=6.5, exitPupilmm=9, scope transmission=.85 and missing single eye factor
 		var parms, result;
@@ -409,7 +435,7 @@
 		equal(withinRange(result.logContrastDiff, 0.51, 0.01), true, 'The logContrastDiff should be 0.51, is ' + result.logContrastDiff);
 	});
 	
-	test('visualDetectCalc.fitsFoV', function () {
+	QUnit.test('visualDetectCalc.fitsFoV', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		parms.eyepieceExitPupilmm = 1;
@@ -417,7 +443,7 @@
 		equal(result.fitsFoV, false, 'The object should not fit the field of view, is ' + result.fitsFoV);
 	});	
 
-	test('visualDetectCalc.detectable', function () {
+	QUnit.test('visualDetectCalc.detectable', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		parms.objMag = 10;
@@ -455,16 +481,16 @@
 	  log contrast difference      0.8179367740523606
 	  detectable?                  true
 	*/
-	test('visualDetectCalc.includeResultAsString', function () {
+	QUnit.test('visualDetectCalc.includeResultAsString', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
 		equal(result.length > 0, true, 'result is ' + result);
 	});
 	
-	module('visual detection calculator: eyepiece exit pupil sequence');
+	QUnit.module('visual detection calculator: eyepiece exit pupil sequence');
 		
-	test('ExitPupilSequence', function () {
+	QUnit.test('ExitPupilSequence', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		result = new VisualDetectCalcExitPupils(parms);
@@ -485,9 +511,9 @@
 		equal(withinRange(result[0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[0].actualFoV);
 	});
 	
-	module('visual detection calculator: aperture sequence');
+	QUnit.module('visual detection calculator: aperture sequence');
 		
-	test('VisualDetectCalcApertures', function () {
+	QUnit.test('VisualDetectCalcApertures', function () {
 		var parms, result, halfAperture, dblAperture, halfApertureParms, halfApertureResults, dblApertureParms, dblApertureResults;
 		parms = visualDetectCalcParms.copyFrom();
 		result = new VisualDetectCalcApertures(parms);
@@ -524,27 +550,33 @@
 		equal(dblApertureResults.logContrastDiff, result[0][5].logContrastDiff, 'The log contrast should be ' + result[0][5].logContrastDiff + ', is ' + dblApertureResults.logContrastDiff);
 	});
 	
-	module('calcNewtBaffle');
+	QUnit.module('calcNewtBaffle');
 
 	// test values verified by graph in baffle.html
-	test('calcNewtBaffle', function () {	
-		var focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSize, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, results;
+	QUnit.test('calcNewtBaffle', function () {	
+		var focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorDia, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID, results;
 		focalPlaneDia = 1.4;
 		focuserBarrelBottomToFocalPlaneDistance = 2.5;
 		focuserBarrelID = 1.8;
-		diagSize = 3.1;
+		diagSizeMinorAxis = 3.1;
 		diagToFocalPlaneDistance = 9;
 		diagtoFocuserBaffleDistance = 6;
 		diagToOppositeSideBaffleDistance = 7;
-		results = calcNewtBaffle(focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSize, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance);
-		equal(withinRange(results.focuserBaffleID, 1.66, 0.01), true, 'The focuser baffle ID should be 1.66, is ' + results.focuserBaffleID);
+		primaryMirrorDia = 13.2;
+		primaryMirrorFocalLength = 40.2;
+		primaryToBaffleDistance = 4;
+		tubeID = primaryMirrorDia + 2;
+		results = calcNewtBaffle(focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID);
+		equal(withinRange(results.focuserBaffleID, 1.97, 0.01), true, 'The focuser baffle ID should be 1.97, is ' + results.focuserBaffleID);
 		equal(withinRange(results.focuserBaffleOD, 2.44, 0.01), true, 'The focuser baffle ID should be 2.44, is ' + results.focuserBaffleOD);
-		equal(withinRange(results.oppositeSideBaffleOD, 14.94, 0.01), true, 'The baffle diameter opposite the diagonal should be 14.94, is ' + results.oppositeSideBaffleOD);
+		equal(withinRange(results.diagonalBaffleOD, 16.55, 0.01), true, 'The diagonal baffle OD should be 16.55, is ' + results.diagonalBaffleOD);
+		equal(withinRange(results.primaryBaffleOD, 16.70, 0.01), true, 'The primary mirror baffle OD should be 16.70, is ' + results.primaryBaffleOD);
+		equal(withinRange(results.tubeExtension, 7, 0.01), true, 'The tube extension beyond the primary mirror to act as primary baffle should be 7, is ' + results.tubeExtension);		
 	});
 	
-	module('slumping');
+	QUnit.module('slumping');
 	
-	test('sharply slumped: dia=30, FR=1', function () {
+	QUnit.test('sharply slumped: dia=30, FR=1', function () {
 		var mirrorDia = 30,
 			focalRatio = 1,
 			expectedEffectiveEntranceAperture = 29.688475110542754,
@@ -552,7 +584,7 @@
 		equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
 	});
 	
-	test('barely slumped: dia=30, FR=5', function () {
+	QUnit.test('barely slumped: dia=30, FR=5', function () {
 		var mirrorDia = 30,
 			focalRatio = 5,
 			expectedEffectiveEntranceAperture = 29.987501562406997,
@@ -560,7 +592,7 @@
 		equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
 	});
 	
-	test('13" F3', function () {
+	QUnit.test('13" F3', function () {
 		var mirrorDia = 13.2,
 			focalRatio = 3,
 			expectedEffectiveEntranceAperture = 13.18472752612914,
@@ -572,7 +604,7 @@
 		equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);	
 	});
 	
-	test('42" F2.9', function () {
+	QUnit.test('42" F2.9', function () {
 		var mirrorDia = 42,
 			focalRatio = 2.9,
 			expectedEffectiveEntranceAperture = 41.94799792367687,
@@ -584,9 +616,9 @@
 		equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);	
 	});
 	
-	module('sphere to parabola difference');
+	QUnit.module('sphere to parabola difference');
 	
-	test('6 inch F8', function () {
+	QUnit.test('6 inch F8', function () {
 		var mirrorDia = 6,
 			focalRatio = 8,
 			expectedEffectiveEntranceAperture = 0.0000114,
@@ -594,9 +626,9 @@
 		equal(withinRange(result, expectedEffectiveEntranceAperture, 0.0000001), true, 'result = ' + result);
 	});	
 
-	module('ronchi');
+	QUnit.module('ronchi');
 		
-	test('wavefrontError', function () {
+	QUnit.test('wavefrontError', function () {
 		var mirrorDia = 20,
 			radiusOfCurvature = 200,
 			correctionFactor = 0.86,			
@@ -606,7 +638,7 @@
 	});
 	
 	// parabolic correction tolerances: focalRatio 1: 98.3%; focalRatio 2: 96.7%; focalRatio 3: 95%; focalRatio 4: 93.3%; focalRatio 5: 91.7%; focalRatio 6: 90%; focalRatio 7: 88.4%; focalRatio 8: 86.7%; focalRatio 9: 85%; focalRatio 10: 83.4%;
-	test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', function () {
+	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', function () {
 		var mirrorDia = 10,
 		    focalRatio,
 			results = [],
@@ -624,7 +656,7 @@
 	});
 	
 	// as above, but double the aperture to demonstrate that aperture has no bearing on allowable correction
-	test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 20', function () {
+	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 20', function () {
 		var mirrorDia = 20,
 		    focalRatio,
 			results = [],
@@ -641,14 +673,14 @@
 		equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);	
 	});
 	
-	test('calcAllowableParabolicDeviationForQuarterWavefront for f/10', function () {
+	QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/10', function () {
 		var focalRatio = 10,
 		    expected = 0.16699999999999998,
 			result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
 		equal(result, expected, 'result = ' + result + ', should be ' + expected);	
 	});
 
-	module('Dob friction of movement');
+	QUnit.module('Dob friction of movement');
 		
 	/* 
 	Dob friction, from Telescope Making #8, pg 36-, Richard Berry
@@ -667,7 +699,7 @@
 		ALT radius 4, weight 80 lbs, 60deg bearing angle, moment arm 40inches, f=0.088
 		1.3*80*(1/cos(60))*4/40=2.1
 	*/
-	test('az and alt friction', function () {
+	QUnit.test('az and alt friction', function () {
 		var allowableError = 0.000000000000001,
 		    azimuthFrictionCoefficient = 0.083,
 		    altitudeFrictionCoefficient = 0.13,
@@ -685,29 +717,33 @@
 		equal(withinRange(result.alt, expected[1], allowableError), true, 'alt result = ' + result.alt + ', should be ' + expected[1]);
 	});
 	
-	module('SQM to NELM converter');
+	QUnit.module('SQM to NELM converter');
 	
-	test('SQMtoNELMconverter', function () {
+	// from http://www.unihedron.com/projects/darksky/NELM2BCalc.html
+	
+	QUnit.test('SQMtoNELMconverter', function () {
 		var expected,
-		    result;
+		    result,
+			allowableError = 0.0001;
 
-		expected = '6.805';
-		result = SQMtoNELMconverter('21.5');
-		equal(result, expected, result + ' should be ' + expected);
+		expected = 6;
+		result = SQMtoNELMconverter(20.8);
+		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	test('NELMtoSQMconverter', function () {
+	QUnit.test('NELMtoSQMconverter', function () {
 		var expected,
-		    result;
+		    result,
+			allowableError = 0.0001;
 
-		expected = '21.5';
-		result = NELMtoSQMconverter('6.805');
-		equal(result, expected, result + ' should be ' + expected);
+		expected = 20.8;
+		result = NELMtoSQMconverter(6);
+		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 	
-	module('artificialStarDistance');
+	QUnit.module('artificialStarDistance');
 	
-	test('artificialStarDistanceMM', function () {
+	QUnit.test('artificialStarDistanceMM', function () {
 		var expected,
 		    result;
 			
@@ -716,7 +752,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});		
 
-	test('artificialStarDistanceInches', function () {
+	QUnit.test('artificialStarDistanceInches', function () {
 		var expected,
 		    result;
 			
@@ -725,7 +761,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});		
 
-	test('artificialStarDistanceInches', function () {
+	QUnit.test('artificialStarDistanceInches', function () {
 		var expected,
 		    result;
 			
@@ -737,21 +773,4 @@
 });
 
 </script>
-    </head>   
-    <body>
-        <h1 id="qunit-header">
-            QUnit test for calcLib.js
-        </h1>
-        <h2 id="qunit-banner">
-        </h2>
-        <div id="qunit-testrunner-toolbar">
-        </div>
-        <h2 id="qunit-userAgent">
-        </h2>
-        <ol id="qunit-tests">
-        </ol>
-        <div id="qunit-fixture">
-            test markup, will be hidden
-        </div>
-    </body>
 </html>

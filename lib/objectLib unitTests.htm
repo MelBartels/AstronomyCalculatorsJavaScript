@@ -1,14 +1,29 @@
 <!DOCTYPE HTML>
 <html>
-    
-    <head>
-        <script src="sharedLib.js"></script>
-        <script src="objectLib.js"></script>
+<head>
+	<title>QUnit test for objectLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js'></script>
+	
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='underscore/underscore-min.js'></script>
 
-        <script src='underscore/underscore-min.js'></script>
-        <script src='jquery/jquery-1.10.2.min.js'></script>
-        <script type='text/javascript' src='qunit/qunit-git.js'></script>
-        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+	<script src='sharedLib.js'></script>
+        <script src="objectLib.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
 
 <script>$(document).ready(function () {
 	'use strict';
@@ -20,29 +35,29 @@
 	    getClassificationFrom = MLB.objectLib.getClassificationFrom,
 	    getDescription = MLB.objectLib.getDescription;
 
-	module('underscore js check');
+	QUnit.module('underscore js check');
 
-	test('_.find', function () {
+	QUnit.test('_.find', function () {
 		var expected = 2,
 		    result = _.find([1, 2, 3, 4, 5, 6], function (num) { return num % 2 == 0; });
 		equal(result, expected, result + ' should be ' + expected);
 	});
 	
-	test('_.find of openClusters', function () {
+	QUnit.test('_.find of openClusters', function () {
 		var expected = 'Large range',
 			result = _.find(openClusters, function (keyValue) { return keyValue.key === '3' ? keyValue.value : false; });
 		equal(result.value, expected, result.value + ' should be ' + expected);
 	});
 
-	test('_.findWhere of openClusters', function () {
+	QUnit.test('_.findWhere of openClusters', function () {
 		var expected = 'Large range',
 			result = _.findWhere(openClusters, {key: '3'});
 		equal(result.value, expected, result.value + ' should be ' + expected);
 	});
 	
-	module('roman numerals');
+	QUnit.module('roman numerals');
 	
-	test('roman numerals', function () {
+	QUnit.test('roman numerals', function () {
 		var expected,
 		    result;
 
@@ -75,9 +90,9 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 	
-	module('constellations');
+	QUnit.module('constellations');
 	
-	test('getConstellation', function () {
+	QUnit.test('getConstellation', function () {
 		var expected = 'Cygnus',
 			result = getConstellation('CYG');
 		equal(result, expected, result + ' should be ' + expected);
@@ -87,9 +102,9 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 
-	module('catalogs');
+	QUnit.module('catalogs');
 	
-	test('getCatalogs', function () {
+	QUnit.test('getCatalogs', function () {
 		var expected = 'Uppsala General Catalog (galaxies); 1st and 2nd Index Catalogs to the NGC (All types of objects except dark nebulae)',
 			result = getCatalogs('UGC   174;IC 1539 ');
 		equal(result, expected, result + ' should be ' + expected);
@@ -99,9 +114,9 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 
-	module('object types');
+	QUnit.module('object types');
 	
-	test('getObjectTypes', function () {
+	QUnit.test('getObjectTypes', function () {
 		var expected,
 		    result;
 
@@ -118,9 +133,9 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 	
-	module('classifications');
+	QUnit.module('classifications');
 	
-	test('getClassificationFrom: bad type', function () {
+	QUnit.test('getClassificationFrom: bad type', function () {
 		var expected,
 		    result;
 
@@ -129,7 +144,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 
-	test('getClassificationFrom: empty value', function () {
+	QUnit.test('getClassificationFrom: empty value', function () {
 		var expected,
 		    result;
 
@@ -138,7 +153,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 
-	test('getClassificationFrom open cluster', function () {
+	QUnit.test('getClassificationFrom open cluster', function () {
 		var expected,
 		    result;
 
@@ -187,7 +202,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 		
-	test('getClassificationFrom open galaxy', function () {
+	QUnit.test('getClassificationFrom open galaxy', function () {
 		var expected,
 		    result;
 
@@ -232,7 +247,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 
-	test('getClassificationFrom globular cluster', function () {
+	QUnit.test('getClassificationFrom globular cluster', function () {
 		var expected,
 		    result;
 
@@ -241,7 +256,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 
-	test('getClassificationFrom planetary nebula', function () {
+	QUnit.test('getClassificationFrom planetary nebula', function () {
 		var expected,
 		    result;
 
@@ -258,7 +273,7 @@
 		equal(result, expected, result + ' should be ' + expected);		
 	});
 	
-	test('getClassificationFrom dark nebula', function () {
+	QUnit.test('getClassificationFrom dark nebula', function () {
 		var expected,
 		    result;
 			
@@ -275,7 +290,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 	
-	test('getClassificationFrom star', function () {
+	QUnit.test('getClassificationFrom star', function () {
 		var expected,
 		    result;
 			
@@ -284,7 +299,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});
 	
-	test('getClassificationFrom BRTNB et al', function () {
+	QUnit.test('getClassificationFrom BRTNB et al', function () {
 		var expected,
 		    result;
 			
@@ -293,9 +308,9 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});	
 	
-	module('descriptions');
+	QUnit.module('descriptions');
 	
-	test('descriptions', function () {
+	QUnit.test('descriptions', function () {
 		var expected,
 		    result;
 
@@ -519,9 +534,9 @@
 
 	});
 	
-	module('Saguaro descriptions');
+	QUnit.module('Saguaro descriptions');
 	
-	test('descriptions', function () {
+	QUnit.test('descriptions', function () {
 		var expected,
 		    result;
 
@@ -43314,21 +43329,4 @@
 });
 
 </script>
-    </head>   
-    <body>
-        <h1 id="qunit-header">
-            QUnit test for objectLib.js
-        </h1>
-        <h2 id="qunit-banner">
-        </h2>
-        <div id="qunit-testrunner-toolbar">
-        </div>
-        <h2 id="qunit-userAgent">
-        </h2>
-        <ol id="qunit-tests">
-        </ol>
-        <div id="qunit-fixture">
-            test markup, will be hidden
-        </div>
-    </body>
 </html>

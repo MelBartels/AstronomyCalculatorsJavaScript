@@ -1,60 +1,220 @@
 <!DOCTYPE HTML>
 <html>
+<head>
+	<title>QUnit test for motorLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
 
-    <head>
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="sharedLib.js"></script>
-        <script src="motorLib.js"></script>
-
-        <script src='jquery/jquery-1.10.2.min.js'></script>
-        <script type='text/javascript' src='qunit/qunit-git.js'></script>
-        <link rel='stylesheet' href='qunit/qunit-git.css' type='text/css' media='screen' />
+	<script src="sharedLib.js"></script>
+	<script src="motorLib.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
 
 <script>$(document).ready(function () {
 	'use strict';
 	
-	var Trajectory = MLB.motorLib.Trajectory,
-	    timeDistanceFromAccelBegVelEndVel = MLB.motorLib.timeDistanceFromAccelBegVelEndVel,
-		distanceFromTimeAccelBegVelEndVel = MLB.motorLib.distanceFromTimeAccelBegVelEndVel,
-		endVelFromAccelDistanceTimeDiff = MLB.motorLib.endVelFromAccelDistanceTimeDiff,
-		mergeTimeDistanceFromAccelBegVelEndVel = MLB.motorLib.mergeTimeDistanceFromAccelBegVelEndVel,
-		maxVelFromAccelDistanceBegVelEndVel = MLB.motorLib.maxVelFromAccelDistanceBegVelEndVel,
-		maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel = MLB.motorLib.maxVelIgnoreTraveledDistanceFromTimeDistanceBegVelEndVel,
-		maxVelFromTimeDistanceBegVelEndVel = MLB.motorLib.maxVelFromTimeDistanceBegVelEndVel,
-		trajFromAccelDistanceMaxVelBegVelEndVel = MLB.motorLib.trajFromAccelDistanceMaxVelBegVelEndVel,
-		trajFromTimeDistanceBegVelEndVel = MLB.motorLib.trajFromTimeDistanceBegVelEndVel,
-		velFromTrajTime = MLB.motorLib.velFromTrajTime,
-		distanceFromTrajTime = MLB.motorLib.distanceFromTrajTime;
+	var driveBuilder = MLB.motorLib.driveBuilder,
+	    addReduction = MLB.motorLib.addReduction,
+		calcMotorEncoderTicksPerArcsec = MLB.motorLib.calcMotorEncoderTicksPerArcsec,
+		calcRPMs = MLB.motorLib.calcRPMs,
+		calcTotalReductionUnitsPerSec = MLB.motorLib.calcTotalReductionUnitsPerSec,
+		calcMaxSlewSpeedDegSec = MLB.motorLib.calcMaxSlewSpeedDegSec,
+		getReduction = MLB.motorLib.getReduction;
 
-	module('timeDistanceFromAccelBegVelEndVel');
+	QUnit.module('motorLib');
 
-	test('velocities: ++', function () {
-		var td, expectedTime, expectedDistance;
-		td = timeDistanceFromAccelBegVelEndVel(2, 3, 6);
-		expectedTime = 1.5;
-		expectedDistance = 6.75;
-		equal(td.time, expectedTime, 'time should be ' + expectedTime + ', is ' + td.time);
-		equal(td.distance, expectedDistance, 'distance should be ' + expectedDistance + ', is ' + td.distance);
+	QUnit.test('create', function () {
+		var driveA,
+			driveName = 'drive A',
+		    expected,
+			result;
+
+		driveA = driveBuilder(driveName);
+		expected = driveName;
+		result = driveA.name;
+		equal(result, expected, 'drive name should be ' + expected + ', is ' + result);
 	});
+	
+	var buildDrive = function () {
+		var drive,
+		    driveName = 'drive A',
+		    quadDecodedCountsPerMotorShaftRevolution = 10000,
+		    servoMotorGearhead = 10.5,
+		    wormGear = 360;
+	
+		drive = driveBuilder(driveName);
+		addReduction(drive, 'quadDecodedCountsPerMotorShaftRevolution', quadDecodedCountsPerMotorShaftRevolution);
+		addReduction(drive, 'servo motor gearhead', servoMotorGearhead);
+		addReduction(drive, 'worm gear', wormGear);
+		
+		return drive;
+	};
 
+	QUnit.test('reductions', function () {
+		var driveA,
+		    expected,
+			result;
+
+		driveA = buildDrive();
+		// see above buildDrive() function
+		expected = 10000 * 10.5 * 360;
+		result = driveA.totalReduction;
+		equal(result, expected, 'total reduction should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('a reduction is not a number', function () {
+		var drive,
+		    driveName = 'drive A',
+		    expected,
+			result;
+
+		drive = driveBuilder(driveName);
+		addReduction(drive, 'good reduction 1', 5);
+		addReduction(drive, 'bad reduction', 'foo');
+		addReduction(drive, 'good reduction 2', 10);
+
+		expected = 50;
+		result = drive.totalReduction;
+		equal(result, expected, 'total reduction should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('ticks per arcsec', function () {
+		var driveA,
+		    expected,
+			result;
+
+		driveA = buildDrive();
+		// 37800000 (total reduction) / 1296000 (arcsec/rev) = 29.166666666666666666666666666667
+		expected = 29.166666666666664;
+		result = calcMotorEncoderTicksPerArcsec(driveA);
+		equal(result, expected, 'encoder quad decoded ticks per arcsec should be ' + expected + ', is ' + result);		
+	});
+		
+	QUnit.test('rpms', function () {
+		var driveA,
+		    expected,
+			result,
+			driveAngularSpeedDegreesPerSecond = 3;
+
+		driveA = buildDrive();
+		// 1 rev/360deg * 60 sec/min * 3 deg/sec = 0.5 rev/min (rpm);
+		// 0.5 rpm * 360:1 main gear = 180 rpm
+		expected = 0.5 * 360;
+		result = calcRPMs(driveA, driveAngularSpeedDegreesPerSecond)[2];
+		equal(result, expected, 'rpm for worm gear should be ' + expected + ', is ' + result);		
+		expected *= 10.5;
+		result = calcRPMs(driveA, driveAngularSpeedDegreesPerSecond)[1];
+		equal(result, expected, 'rpm for motor gearhead should be ' + expected + ', is ' + result);		
+		expected *= 10000;
+		result = calcRPMs(driveA, driveAngularSpeedDegreesPerSecond)[0];
+		equal(result, expected, 'rpm for quad decoded encoder ticks should be ' + expected + ', is ' + result);		
+	});
+	
+	QUnit.test('ticks per sec', function () {
+		var driveA,
+		    expected,
+			result,
+			// 15 arcsec angular distance travel per sec of time
+			driveAngularSpeedDegreesPerSecond = 15 / 3600;
+
+		driveA = buildDrive();
+		// 15"/sec * 29.166666666666666666666666666667 from above test where total reduction of 37800000 is divided by 1296000 arcsec/rev
+		expected = 437.5;
+		result = calcTotalReductionUnitsPerSec(driveA, driveAngularSpeedDegreesPerSecond);
+		equal(result, expected, 'ticks per second should be ' + expected + ', is ' + result);			
+	});
+	
+	QUnit.test('max slew speed', function () {
+		var driveA,
+		    expected,
+			result,
+			maxMotorRPM = 1800;
+
+		driveA = buildDrive();
+		expected = 2.8571428571428568;
+		result = calcMaxSlewSpeedDegSec(driveA, maxMotorRPM);
+		equal(result, expected, 'max slew speed should be ' + expected + ', is ' + result);			
+	});
+	
+	QUnit.test('get reduction', function () {
+		var val,
+		    expected,
+			result;
+		
+		val = '5';
+		expected = 5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '34.51';
+		expected = 34.51;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '5.';
+		expected = 5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '.5';
+		expected = 0.5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);					
+
+		val = 'x';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+
+		val = '10 x';
+		expected = 10;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+		val = '10 .';
+		expected = 10;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+		
+		val = '10 2';
+		expected = 5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+
+		val = '10 0';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+
+		val = '10 0.';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+		val = '10 .0';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+		
+		val = '10 2 3';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+	});
 });
 
 </script>
-    </head>
-    <body>
-        <h1 id="qunit-header">
-            QUnit test for motorLib.js
-        </h1>
-        <h2 id="qunit-banner">
-        </h2>
-        <div id="qunit-testrunner-toolbar">
-        </div>
-        <h2 id="qunit-userAgent">
-        </h2>
-        <ol id="qunit-tests">
-        </ol>
-        <div id="qunit-fixture">
-            test markup, will be hidden
-        </div>
-    </body>
 </html>
