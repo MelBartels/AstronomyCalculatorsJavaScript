@@ -5,7 +5,7 @@
 	<meta content="Calculates the artificial star testing distance from a parabolic mirror" name="description">	
 	<title>Artificial Star Testing Distance</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" href="artificialStarDistance.css" />
+	<link rel="stylesheet" href="css/calc.css" />
 </head>  
 <body>
 
@@ -16,16 +16,17 @@
 <div id="ArtificialStarTestingDistanceDiv">
 	<br>
 	Unit of measurement 
-	<input name="uom" value="inches" checked="checked" type="radio">inches <input name="uom" value="millimeters" type="radio">millimeters
+	<input name="uom" value="inches" checked="checked" type="radio">inches 
+	<input name="uom" value="millimeters" type="radio">millimeters
 	<br>
 	Mirror diameter
-	<input name="mirrorDiameter" value="6" onfocus="select()" type="text">
+	<input class='inputText' name="mirrorDiameter" value="6" onfocus="select()" type="text">
 	focal length
-	<input name="focalLength" value="48" onfocus="select()" type="text">
+	<input class='inputText' name="focalLength" value="48" onfocus="select()" type="text">
 	<br>
 	<input ID="btnCalculateDistance" value="Convert" type="button">
 	 distance =   
-	<input name="distance" type="text" readonly>
+	<input class='inputText' name="distance" type="text" readonly>
 	<br>
 	<br>
 </div>
@@ -41,10 +42,9 @@
 </div>
 
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/artificialStarDistanceCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.artificialStarDistanceCalc.load;</script>
 </html>

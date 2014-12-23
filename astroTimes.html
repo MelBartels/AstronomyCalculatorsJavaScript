@@ -4,69 +4,69 @@
 	<meta content="Mel Bartels" name="author">
 	<meta content="Calculates precession, nutation, annual aberration" name="description">
 	<title>Astronomical Times Calculator</title><link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 
 <body>
-<div id="inputParms">
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 200px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Astronomical Times Calculator<br><br>
 			</b>
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Date and time =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
-			<input name="dateTime" size="60" value="" onfocus="select()" type="text">
+		<td>
+			<input name="dateTime" value="" onfocus="select()" type="text">
 		</td>		
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Timezone (hrs) offset from GMT =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
+		<td>
 			<input name="timezone" value="0" onfocus="select()" type="text">
 		</td>		
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Longitude east of GMT =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
+		<td>
 			<input name="longitude" value="0" onfocus="select()" type="text">
 		</td>		
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Local sidereal time =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
+		<td>
 			<input name="SidT" value="" onfocus="select()" type="text">
 		</td>		
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Julian Day =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
+		<td>
 			<input name="JD" value="" onfocus="select()" type="text">
 		</td>		
 	</tr>
 	<tr align="center">
-		<td style="vertical-align: top; text-align: right; width: 200px;">
+		<td>
 			<br>
-			<input ID="btnCalcSidTJD" value="Calculate sidereal time, JD from datetime" type="button">
+			<input ID="btnCalcSidTJD" value="Calculate sidereal time and JD" type="button">
 			<br><br>
 		</td>
-		<td style="vertical-align: top; text-align: left; width: 200px;">
+		<td>
 			<br>
-			<input ID="btnCalcDateTime" value="Calculate datetime from Julian Day" type="button">
+			<input ID="btnCalcDateTime" value="Calculate datetime" type="button">
 			<br><br>
 		</td>
 	</tr>
@@ -80,11 +80,13 @@ Shows relationship between datetime, timezone and Julian Day; as well as Julian 
 <br>
 Both time zone and longitude are positive when east of the prime meridian and negative when west. For instance, the USA has negative timezones and negative longitudes.<br>
 <br>
+Sidereal time and Julian Date are calculated from the input datetime and longitude and the computer's timezone.<br>
+Datetime is calculated from the input Julian Date and timezone. Longitude and local sidereal time are ignored.<br>
+<br>
 Mel Bartels
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/astroTimes.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>$(document).ready(MLB.astroTimes.load);</script>
 </html>

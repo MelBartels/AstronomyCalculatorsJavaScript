@@ -5,19 +5,16 @@
 <meta content="Calculates linear trajectories" name="description">
 <title>Trajectory Calculator</title>
 <link rel="shortcut icon" href="Saucer32.ico">
-<link rel="stylesheet" type="text/css" href="lib/calc.css">
-<script src="lib/sharedLib.js"></script>
-<script src="lib/trajLib.js"></script>
-<script src="lib/trajectoryCalc.js"></script>
-<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+<!--[if lt IE 9]><script language="javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
 <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
 </head>
 <body>
-<div id="inputParms">
-	<table style="text-align: left; width: 694px; height: 274px;" border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Trajectory Calculator<br>
 			<br>
@@ -25,49 +22,49 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Initial distance between positions =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="initialDistance" value="20" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="initialDistance" value="20" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Initial velocity of the first position =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="initialVel" value="3" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="initialVel" value="3" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Velocity of the second position =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="endVel" value="1" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="endVel" value="1" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Maximum possible velocity =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="maxVel" value="4" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="maxVel" value="4" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Acceleration =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="accel" value="2" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="accel" value="2" onfocus="select()" type="text">
 		</td>
 	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<br>
-			<input value="Update plot" onclick="MLB.trajectoryCalc.plot()" type="button"><br>
+			<input ID='btnCalc' value="Update plot" type="button"><br>
 		</td>
 	</tr>
 	</tbody>
@@ -86,13 +83,15 @@ In the 1990s I wanted to add satellite tracking to my computerized telescope. It
 <br>
 Mel Bartels
 </body>
-<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" language="javascript">$(document).ready(MLB.trajectoryCalc.plot);</script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script src="lib/jqplot/jquery.jqplot.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/trajLib.js"></script>
+<script src="lib/trajectoryCalc.js"></script>
 </html>

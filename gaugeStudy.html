@@ -5,21 +5,21 @@
 <meta content="Gauge development scratch canvas" name="description">
 <title>Gauge Study</title>
 <link rel="shortcut icon" href="Saucer32.ico">
-<link rel="stylesheet" type="text/css" href="lib/calc.css">
+<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 <body>
 <div>
 	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="3" rowspan="1" style="vertical-align: top; width: 350px;">
+	<tr>
+		<td class='title' colspan='3'>
 			<b>
 			<h2>Gauge Study</h2>
 			</b>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3" rowspan="1" style="vertical-align: top; width: 350px;">
+		<td class='title' colspan='3'>
 			<center>
 			Select gauge style
 			<select id="gaugeStyle">
@@ -36,17 +36,17 @@
 	</tr>
 	<tr>
 		<td>
-			<table border="0" cellpadding="2" cellspacing="2">
+			<table>
 			<tbody>
-			<tr align="center">
-				<td colspan="3" rowspan="1" style="vertical-align: top;">
+			<tr>
+				<td colspan="3">
 					<canvas id="hourGauge1" width="240" height="200">
 						This browser does not support the canvas element. Please use a more recent browser.
 					</canvas>
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align: right;">
+				<td class='label'>
 					<b>Hours</b>
 				</td>
 				<td>
@@ -64,17 +64,17 @@
 			</table>
 		</td>
 		<td>
-			<table border="0" cellpadding="2" cellspacing="2">
+			<table>
 			<tbody>
-			<tr align="center">
-				<td colspan="3" rowspan="1" style="vertical-align: top;">
+			<tr>
+				<td colspan="3">
 					<canvas id="degreeGauge1" width="240" height="200">
 						This browser does not support the canvas element. Please use a more recent browser.
 					</canvas>
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align: right;">
+				<td class='label'>
 					<b>Degrees</b>
 				</td>
 				<td>
@@ -99,17 +99,17 @@
 	</tr>
 	<tr>
 		<td>
-			<table border="0" cellpadding="2" cellspacing="2">
+			<table>
 			<tbody>
-			<tr align="center">
-				<td colspan="3" rowspan="1" style="vertical-align: top;">
+			<tr>
+				<td colspan="3">
 					<canvas id="negHourGauge1" width="240" height="200">
 						This browser does not support the canvas element. Please use a more recent browser.
 					</canvas>
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align: right;">
+				<td class='label'>
 					<b>Hours</b>
 				</td>
 				<td>
@@ -127,17 +127,17 @@
 			</table>
 		</td>
 		<td>
-			<table border="0" cellpadding="2" cellspacing="2">
+			<table>
 			<tbody>
-			<tr align="center">
-				<td colspan="3" rowspan="1" style="vertical-align: top;">
+			<tr>
+				<td colspan="3">
 					<canvas id="negDegreeGauge1" width="240" height="200">
 						This browser does not support the canvas element. Please use a more recent browser.
 					</canvas>
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align: right;">
+				<td class='label'>
 					<b>Degrees</b>
 				</td>
 				<td>
@@ -155,17 +155,17 @@
 			</table>
 		</td>
 		<td>
-			<table border="0" cellpadding="2" cellspacing="2">
+			<table>
 			<tbody>
-			<tr align="center">
-				<td colspan="3" rowspan="1" style="vertical-align: top;">
+			<tr>
+				<td colspan="3">
 					<canvas id="neg10DegreeGauge1" width="240" height="200">
 						This browser does not support the canvas element. Please use a more recent browser.
 					</canvas>
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align: right;">
+				<td class='label'>
 					<b>Degrees</b>
 				</td>
 				<td>
@@ -189,11 +189,11 @@
 <br>
 Mel Bartels
 </body>
+
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/gaugeLib.js"></script>
 <script src="lib/gaugeStudy.js"></script>
-<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.gaugeStudy.load;</script>
 </html>

@@ -5,14 +5,14 @@
 	<meta content="Calculates the friction of movement for a Dobsonian telescope" name="description">
 	<title>Dobsonian Friction Calculator</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 <body>
-<div id="inputParms">
-	<table style="text-align: left;" border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 500px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Calculates the friction of movement for a Dobsonian telescope<br>
 			<br>
@@ -20,92 +20,93 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Distance from eyepiece to center of gravity or tube's pivot point =
 		</td>
-		<td style="vertical-align: top; width: 500px;">
-			<input name="momentArm" value="40" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="momentArm" value="40" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Weight that the azimuth bearing carries =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="azWeight" value="120" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="azWeight" value="120" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Weight that the altitude bearing carries =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="altWeight" value="80" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="altWeight" value="80" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Azimuth bearing radius =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="azBearingRadius" value="9" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="azBearingRadius" value="9" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Altitude bearing radius =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="altBearingRadius" value="4" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="altBearingRadius" value="4" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Altitude bearing angle from vertical =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="altBearingAngleDegFromVertical" value="60" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="altBearingAngleDegFromVertical" value="60" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Altitude angle up from the horizon =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="altitudeAngleDegFromHorizontal" value="45" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="altitudeAngleDegFromHorizontal" value="45" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Azimuth coefficient of friction =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="azimuthFrictionCoefficient" value="0.083" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="azimuthFrictionCoefficient" value="0.083" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
+		<td class='label'>
 			 Altitude coefficient of friction =
 		</td>
-		<td style="vertical-align: middle; width: 500px;">
-			<input name="altitudeFrictionCoefficient" value="0.13" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 500px;">
-			<br>
-			<input ID="btnCalc" value="Calculate" type="button"><br>
+		<td>
+			<input class='inputText' name="altitudeFrictionCoefficient" value="0.13" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
-			Azimuth axis friction = 
+		<td class='title' colspan='2'>
+			<br>
+			<input ID="btnCalc" value="Calculate" type="button">
+			<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			The calculated azimuth axis friction is
 		</td>
 		<td id='azFriction'></td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 500px;">
-			Altitude axis friction = 
+		<td class='label'>
+			The calculated altitude axis friction is
 		</td>
 		<td id='altFriction'></td>
 	</tr>
@@ -147,10 +148,9 @@
 	<br>
 	Mel Bartels
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/DobFrictionCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.DobFrictionCalc.load;</script>
 </html>

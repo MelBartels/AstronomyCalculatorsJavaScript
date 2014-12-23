@@ -1,0 +1,64 @@
+body {
+	margin: 50px;
+} 
+
+#percent, #aperture
+{
+	clear: both;
+	text-align: left;
+}
+
+#footer
+{
+	clear: both;
+}
+
+.title {
+	text-align: center; 
+}
+
+.label {
+	text-align: right; 
+}
+
+.verticalAlignTop {
+	vertical-align: top; 
+}
+
+.inputText {
+	width: 100px;
+}
+
+.coordText {
+	text-align: right; 
+	width: 100px;
+}
+
+.sagittaButton {
+	width: 220px;
+}
+
+#diagChart {
+	margin-top: 20px; 
+	margin-bottom: 20px; 
+	margin-left: 20px; 
+	width: 800px; 
+	height: 300px;
+}
+
+#visualDetectionCalcChart, #airmassChart, #refractionChart {
+	margin-top: 20px; 
+	margin-left: 20px; 
+	width: 600px; 
+	height: 300px;
+}
+
+#priAxisMountErrorsPlot {
+	margin-top: 20px; 
+	margin-left: 20px; 
+	width: 700px; 
+	height: 400px;
+}
+
+
+

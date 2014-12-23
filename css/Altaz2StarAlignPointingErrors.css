@@ -1,0 +1,25 @@
+#header
+{
+	 text-align: center;
+}
+
+#DivCanvas, #DivControls
+{
+	float: left;
+	margin-left: 30px;
+}
+
+#DivFooter
+{
+	clear: both;
+}
+
+input[type="text"]
+{
+	width: 50px;
+}
+
+#btnPlot
+{
+	width: 200px;
+}

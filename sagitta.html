@@ -5,77 +5,85 @@
 	<meta content="Calculates the sagitta of a telescope mirror" name="description">	
 	<title>Sagitta Calculator</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>  
 <body>
 <div>
 	<table>
 	<tbody>
 	<tr align="center">
-		<td colspan="3" rowspan="1" style="vertical-align: top; width: 350px;">
+		<td class='title' colspan='3'>
 			<b>
 			<h2>Sagitta Calculator</h2>
 			</b>
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 210px;">
+		<td class='label'>
 			 Mirror diameter =
 		</td>
-		<td style="vertical-align: top; width: 150px;">
-			<input name="mirrorDia" value="16" onfocus="select()" type="text">
+		<td >
+			<input class='inputText' name="mirrorDia" value="16" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 210px;">
+		<td class='label'>
 			 Mirror focal length =
 		</td>
-		<td style="vertical-align: top; width: 150px;">
-			<input name="focalLen" value="48" onfocus="select()" type="text">
+		<td >
+			<input class='inputText' name="focalLen" value="48" onfocus="select()" type="text">
 		</td>
-		<td style="vertical-align: top; text-align: left; width: 210px;">
-			<input ID="btnFocalLength" value="Calculate using focal length" style="width: 210px" type="button">
+		<td>
+			<input class='sagittaButton' ID="btnFocalLength" value="Calculate using focal length" type="button">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 210px;">
+		<td class='label'>
 			 Mirror focal ratio =
 		</td>
-		<td style="vertical-align: top; width: 150px;">
-			<input name="focalRatio" value="3" onfocus="select()" type="text">
+		<td >
+			<input class='inputText' name="focalRatio" value="3" onfocus="select()" type="text">
 		</td>
-		<td style="vertical-align: top; text-align: left; width: 210px;">
-			<input ID="btnFocalRatio" value="Calculate using focal ratio" style="width: 210px" type="button">
+		<td>
+			<input class='sagittaButton' ID="btnFocalRatio" value="Calculate using focal ratio" type="button">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 210px;">
+		<td class='label'>
 			 Sagitta (parabolic) =
 		</td>
-		<td style="vertical-align: top; width: 150px;">
-			<input name="parabolicSagitta" value="" onfocus="select()" type="text">
+		<td >
+			<input class='inputText' name="parabolicSagitta" value="" onfocus="select()" type="text">
 		</td>
-		<td style="vertical-align: top; text-align: left; width: 210px;">
-			<input ID="btnParabolicSagitta" value="Calculate using parabolic sagitta" style="width: 210px" type="button">
+		<td>
+			<input class='sagittaButton' ID="btnParabolicSagitta" value="Calculate using parabolic sagitta" type="button">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 210px;">
+		<td class='label'>
 			 Sagitta (spherical) =
 		</td>
-		<td style="vertical-align: top; width: 150px;">
-			<input name="sphericalSagitta" value="" onfocus="select()" type="text">
+		<td >
+			<input class='inputText' name="sphericalSagitta" value="" onfocus="select()" type="text">
 		</td>
-		<td style="vertical-align: top; text-align: left; width: 210px;">
-			<input ID="btnSphericalSagitta" value="Calculate using spherical sagitta" style="width: 210px" type="button">
+		<td>
+			<input class='sagittaButton' ID="btnSphericalSagitta" value="Calculate using spherical sagitta" type="button">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 210px;">
-			 Sphere - parabola =
+		<td class='label'>
+			 Sphere parabola difference =
 		</td>
-		<td style="vertical-align: top; width: 150px;">
-			<input name="sphereParabolaDifference" value="" onfocus="select()" type="text">
+		<td >
+			<input class='inputText' name="sphereParabolaDifference" value="" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Sagittal volume =
+		</td>
+		<td >
+			<input class='inputText' name="sagittalVolume" value="" onfocus="select()" type="text">
 		</td>
 	</tr>
 	</table>
@@ -92,10 +100,9 @@
 	Mel Bartels
 </div>
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/sagittaCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.sagittaCalc.load;</script>
 </html>

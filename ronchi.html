@@ -3,67 +3,69 @@
 	<meta content="Mel Bartels" name="author">
 	<meta content="Ronchi test calculator for optics" name="description"><title>Ronchi Calculator</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css"></head><body>
-<table style="text-align: left; width: 900px;" border="0" cellpadding="2" cellspacing="2">
+	<link rel="stylesheet" type="text/css" href="css/calc.css"></head><body>
+<table>
 <tbody>
-<tr align="center">
-	<td colspan="2" rowspan="1" style="vertical-align: top;">
+<tr>
+	<td class='title' colspan='2'>
 		<b>
 		Ronchi Calculator</b><br>
 		<br>
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right;">
+	<td class='label'>
 		 Mirror diameter =
 	</td>
-	<td style="vertical-align: top;">
-		<input name="mirrorDia" value="12" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="mirrorDia" value="12" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right;">
+	<td class='label'>
 		 Mirror radius of curvature =
 	</td>
-	<td style="vertical-align: top;">
-		<input name="radiusOfCurvature" value="120" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="radiusOfCurvature" value="120" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right;">
+	<td class='label'>
 		 Grating frequency (lines per unit of measurement) =
 	</td>
-	<td style="vertical-align: top;">
-		<input name="gratingFreq" value="100" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="gratingFreq" value="100" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right;">
+	<td class='label'>
 		 Grating distance inside/outside radius of curvature =&nbsp;
 	</td>
-	<td style="vertical-align: top;">
-		<input name="gratingOffset1" value="-0.1" onfocus="select()" type="text">
-		<input name="gratingOffset2" value="0.0" onfocus="select()" type="text">
-		<input name="gratingOffset3" value="+0.4" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="gratingOffset1" value="-0.1" onfocus="select()" type="text">
+		<input class='inputText' name="gratingOffset2" value="0.0" onfocus="select()" type="text">
+		<input class='inputText' name="gratingOffset3" value="+0.4" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
 	<td>
 	<br>
 </td><td>
-		<div style="text-align: left;">
+		<div>
+		<div>
+			<br>
 			<input id="btnPlot" value="Update plot" type="button">
 		</div>
 	</td>
 </tr>
 </tbody>
 </table>
-<canvas id="mainCanvas" width="1200" height="300">
+<canvas id="RonchiCanvas" width="1200" height="300">
 	This browser does not support the canvas element. Please use a more recent browser.
 </canvas>
 <br>
-Advanced section
-<table border="0">
+<b>Advanced section</b>
+<table>
 <tbody>
 <tr>
 	<td id="acceptableDeviation" style="text-align: left;"><br>
@@ -71,13 +73,17 @@ Advanced section
 </tr>
 </tbody>
 </table>
-<div style="text-align: left;">
-	Overlay under/over corrected bands (red and blue)? <input name="showDeviation" value="yes" type="radio">yes <input name="showDeviation" value="no" checked="checked" type="radio">no
+<div>
+	Overlay under/over corrected bands (red and blue)? 
+	<input name="showDeviation" value="yes" type="radio">yes 
+	<input name="showDeviation" value="no" checked="checked" type="radio">no
 </div>
-<div style="text-align: left;">
-	Zero the parabolic deviation at mirror's <input name="zeroDeviationAt" value="center" type="radio">center <input name="zeroDeviationAt" value="edge" type="radio">edge
+<div>
+	Zero the parabolic deviation at mirror's 
+	<input name="zeroDeviationAt" value="center" type="radio">center 
+	<input name="zeroDeviationAt" value="edge" type="radio">edge
 </div>
-<div style="text-align: left;">
+<div>
 	Comparison Ronchigram (1/4 wavefront peak to valley):
 	<input name="compareRonchigram" value="under" type="radio">undercorrected 
 	<input name="compareRonchigram" value="over" checked="checked" type="radio">overcorrected 
@@ -369,9 +375,10 @@ of 20.5 inch [52cm] f5.0, 13.2 inch [34cm] f3.0, 6 inch [15cm] f2.8 and
 <a href="http://www.bbastrodesigns.com/JoyOfMirrorMaking/Parabolizing.html">Parabolizing</a><br>
 <br>
 Mel Bartels
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/Ronchi.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.ronchi.load;</script></body></html>
+</body>
+</html>

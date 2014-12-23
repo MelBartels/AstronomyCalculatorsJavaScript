@@ -5,17 +5,12 @@
 <meta content="Plots refraction with elevation" name="description">
 <title>Refraction Calculator</title>
 <link rel="shortcut icon" href="Saucer32.ico">
-<link rel="stylesheet" type="text/css" href="lib/calc.css">
-<script src="lib/sharedLib.js"></script>
-<script src="lib/coordLib.js"></script>
-<script src="lib/refractionCalc.js"></script>
-<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+<!--[if lt IE 9]><script language="javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
 <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
 </head>
 <body>
-<div id="chart_div">
-</div>
-<div id="myChart" style="margin-top:20px; margin-left:20px; width:500px; height:300px;">
+<div id="refractionChart">
 </div>
  Interpreting the chart: <br>
 <br>
@@ -23,13 +18,15 @@
 <br>
  Mel Bartels
 </body>
-<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" language="javascript">$(document).ready(MLB.refractionCalc.plot);</script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script src="lib/jqplot/jquery.jqplot.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/refractionCalc.js"></script>
 </html>

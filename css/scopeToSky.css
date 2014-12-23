@@ -1,0 +1,42 @@
+#title, #compute {
+	text-align: center;
+}
+#btnComputeTelescope, #btnComputeEquatCoords, #btnInitMatrix, #btnBestZ123, #btnBestZ13, #btnLoadTaki {
+	width: 200px;
+}
+#coordinatesHeader, #setupHeader, #telescopeHeader, #matrixConversionHeader, #notesHeader {
+	background: lightgray;
+	clear: both;
+}
+#coordinatesDetailInput, #setupDetailInput, #telescopeDetailInput, #matrixConversionDetailInput {
+	float: left;
+	margin-left: 2em;
+}
+#coordinatesDetailOutput, #setupDetailOutput, #telescopeDetailOutput, #matrixConversionDetailOutput {
+	margin-left: 35em;
+}
+#coordinatesDetail, #setupDetail, #telescopeDetail, #notesDetail {
+
+}
+#canFlipMeridian, #flippedState, #flipped {
+	background: lightgray;
+}
+td {
+	width: 170px;
+}
+#alignmentCell {
+	width: 190px;
+}
+#notes1 {
+	width: 300px;
+}
+input[type="text"] {
+	width: 75px;
+	background: lightgray;
+}
+input[name="dateTime"] {
+	width: 170px;
+}
+input[name="one"], input[name="two"], input[name="three"], input[name="analysisPosition1"], input[name="analysisPosition2"], input[name="analysisPosition3"] {
+	width: 400px;
+}

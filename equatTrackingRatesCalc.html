@@ -4,86 +4,90 @@
 	<meta content="Mel Bartels" name="author">
 	<meta content="Calculates precession, nutation, annual aberration" name="description">
 	<title>Equatorial Mount Tracking Rates Calculator, Includes Refraction (text UI)</title><link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 
 <body>
-<div id="inputParms">
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 350px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Equatorial Mount Tracking Rates Calculator, Includes Refraction<br><br>
 			</b>
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Hour angle (Sidereal time - R.A.) =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
-			<input name="HA" value="2:00:00" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="HA" value="2:00:00" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Declination =
 		</td>
-		<td style="vertical-align: top; width: 350px;">
-			<input name="Dec" value="20°00'0&quot;" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="Dec" value="20°00'0&quot;" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 350px;">
+		<td class='label'>
 			 Latitude =
 		</td>
-		<td style="vertical-align: top; width: 158px;">
-			<input name="latitude" value="40°00'0&quot;" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="latitude" value="40°00'0&quot;" onfocus="select()" type="text">
 		</td>
 	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="width: 350px; text-align: center; vertical-align: middle;">
+	<tr>
+		<td class='title' colspan='2'>
 			<br>
-			<input value="Calculate" onclick="MLB.equatTrackingRatesCalc.calc()" type="button">
+			<input ID='btnCalc' value="Calculate" type="button">
 			<br><br>
 		</td>
 	</tr>
 	</tbody>
 	</table>
 </div>
-<div id="output">
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
 	  <tr>
-		<td style="width: 350px; text-align: right;">Refracted elevation above horizon (degrees) = </td>
-		<td  id='elevation' style="width: 125px; text-align: right;"></td>
-		<td id='' style="width: 125px; text-align: right;"></td>
+		<td class='label'>Refracted elevation above horizon (degrees) = </td>
+		<td id='elevation' class='coordText'></td>
+		<td class='coordText'></td>
 	  </tr>
 	  <tr>
-		<td style="width: 350px; text-align: right;">Refraction (degrees) = </td>
-		<td  id='refract' style="width: 125px; text-align: right;"></td>
-		<td id='' style="width: 125px; text-align: right;"></td>
+		<td class='label'>Refraction (degrees) = </td>
+		<td id='refract' class='coordText'></td>
+		<td class='coordText'></td>
 	  </tr>
 	  <tr>
-		<td style="width: 350px; text-align: right;"></td>
-		<td style="width: 125px; text-align: right;">Right Ascension</td>
-		<td style="width: 125px; text-align: right;">Declination</td>
+		<td class='label'></td>
+		<td class='coordText'>R.A.</td>
+		<td class='coordText'>Dec.</td>
 	  </tr>
 	  <tr>
-		<td style="width: 350px; text-align: right;">Tracking rate (arcseconds/second) = </td>
-		<td id='RARate' style="width: 125px; text-align: right;"></td>
-		<td  id='DecRate' style="width: 125px; text-align: right;"></td>
+		<td class='label'>Tracking rate (arcseconds/second) = </td>
+		<td id='RARate' class='coordText'></td>
+		<td id='DecRate' class='coordText'></td>
 	  </tr>
 	  <tr>
-		<td style="width: 350px; text-align: right;">King rate (arcseconds/second) = </td>
-		<td id='KingRARate' style="width: 125px; text-align: right;"></td>
-		<td  id='' style="width: 125px; text-align: right;"></td>
+		<td class='label'>King rate (arcseconds/second) = </td>
+		<td id='KingRARate' class='coordText'></td>
+		<td class='coordText'></td>
 	  </tr>
 	  <tr>
-		<td style="width: 350px; text-align: right;">Change in tracking rate (arcseconds/second/second) = </td>
-		<td id='RARateChange' style="width: 125px; text-align: right;"></td>
-		<td id='DecRateChange' style="width: 125px; text-align: right;"></td>
+		<td class='label'>Tracking rate compared to ideal = </td>
+		<td id='RARatePercentage' class='coordText'></td>
+	  </tr>
+	  <tr>
+		<td class='label'>Change in tracking rate (arcseconds/second/second) = </td>
+		<td id='RARateChange' class='coordText'></td>
+		<td id='DecRateChange' class='coordText'></td>
 	  </tr>
 	  </tr>
 	</tbody>
@@ -105,9 +109,8 @@ For more on refraction, drift aligning and related topics, see <a href="http://c
 <br>
 Mel Bartels
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/equatTrackingRatesCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>$(document).ready(MLB.equatTrackingRatesCalc.calc);</script>
 </html>

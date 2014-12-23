@@ -5,7 +5,7 @@
 	<meta content="Converts between SQM (Sky Quality Meter) readings and unaided-eye magnitudes" name="description">	
 	<title>SQM to NELM Converter</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>  
 <body>
 
@@ -16,10 +16,10 @@
 <div id="convertSQMtoNELMDiv">
 	<br>
 	Enter Sky Quality Meter reading
-	<input name="SQMin" value="21.5" onfocus="select()" type="text">
-	<input ID="btnConvertSQMtoNELM" value="Convert" type="button">
+	<input class='inputText' name="SQMin" value="21.5" onfocus="select()" type="text">
+	<input class='inputText' ID="btnConvertSQMtoNELM" value="Convert" type="button">
 	 unaided eye magnitude is  
-	<input name="NELMout" type="text" readonly>
+	<input class='inputText' name="NELMout" type="text" readonly>
 	<br>
 	<br>
 </div>
@@ -27,10 +27,10 @@
 <div id="converterNELMtoSQMDiv">
 	<br>
 	Enter unaided eye magnitude limit
-	<input name="NELMin" value="6.8" onfocus="select()" type="text">
+	<input class='inputText' name="NELMin" value="6.8" onfocus="select()" type="text">
 	<input ID="btnConvertNELMtoSQM" value="Convert" type="button">
 	 SQM reading is   
-	<input name="SQMout" type="text" readonly>
+	<input class='inputText' name="SQMout" type="text" readonly>
 	<br>
 	<br>
 </div>
@@ -39,16 +39,15 @@
 	<br>
 	Notes:<br>
 	<a href = "http://unihedron.com/">Unihedron's SQM website</a><br>
-	<a href = "http://www.cloudynights.com/ubbthreads/showflat.php/Cat/0/Number/3572029/Main/3570104">Formula from Don Pensack (Cloudy Nights posting)</a><br>
 	<br>
 	Mel Bartels
 </div>
 
 </body>
+
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/SQMandNELMconverterCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.SQMandNELMconverterCalc.load;</script>
 </html>

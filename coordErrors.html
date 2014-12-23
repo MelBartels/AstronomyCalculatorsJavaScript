@@ -4,69 +4,69 @@
 	<meta content="Mel Bartels" name="author">
 	<meta content="Calculates precession, nutation, annual aberration" name="description">
 	<title>Precession, Nutation, Annual Aberration, Refraction Calculator</title><link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 <body>
-<div id="inputParms">
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Precession, Nutation, Annual Aberration, Refraction Calculator<br><br>
 			</b>
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Right Ascension =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="RA" value="12:00:00" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="RA" value="12:00:00" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Declination =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="Dec" value="-20°00'0&quot;" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="Dec" value="-20°00'0&quot;" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Sidereal time =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="SidT" value="12:00:00" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="SidT" value="12:00:00" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Latitude =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="latitude" value="40°00'0&quot;" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="latitude" value="40°00'0&quot;" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 218px;">
+		<td class='label'>
 			 Coordinate year =
 		</td>
-		<td style="vertical-align: top; width: 158px;">
-			<input name="coordYear" value="2000" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="coordYear" value="2000" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Calculate for date =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="calcDate" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="calcDate" onfocus="select()" type="text">
 		</td>
 	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="width: 338px; text-align: center; vertical-align: middle;">
+	<tr>
+		<td class='title' colspan='2'>
 			<br>
 			<input ID="btnCalc" value="Calculate" type="button">
 			<br><br>
@@ -75,37 +75,37 @@
 	</tbody>
 	</table>
 </div>
-<div id="output">
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
 	  <tr>
-		<td style="width: 338px; text-align: right;"></td>
-		<td style="width: 100px; text-align: right;">Right Ascension</td>
-		<td style="width: 100px; text-align: right;">Declination</td>
+		<td class='label'>
+		<td class='coordText'>Right Ascension</td>
+		<td class='coordText'>Declination</td>
 	  </tr>
 	  <tr>
-		<td style="width: 338px; text-align: right;">Precession = </td>
-		<td id='precessionRA' style="width: 100px; text-align: right;">00:00:00.000</td>
-		<td  id='precessionDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+		<td class='label'>Precession = </td>
+		<td id='precessionRA' class='coordText'>00:00:00.000</td>
+		<td  id='precessionDec' class='coordText'>00°00'00.000&quot;</td>
 	  </tr>
 	  <tr>
-		<td style="width: 338px; text-align: right;">Nutation = </td>
-		<td id='nutationRA' style="width: 100px; text-align: right;">00:00:00.000</td>
-		<td id='nutationDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+		<td class='label'>Nutation = </td>
+		<td id='nutationRA' class='coordText'>00:00:00.000</td>
+		<td id='nutationDec' class='coordText'>00°00'00.000&quot;</td>
 	  </tr>
 	  <tr>
-		<td style="width: 338px; text-align: right;">Annual aberration = </td>
-		<td id='annualAberrationRA' style="width: 100px; text-align: right;">00:00:00.000</td>
-		<td id='annualAberrationDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+		<td class='label'>Annual aberration = </td>
+		<td id='annualAberrationRA' class='coordText'>00:00:00.000</td>
+		<td id='annualAberrationDec' class='coordText'>00°00'00.000&quot;</td>
 	  <tr>
-		<td style="width: 338px; text-align: right;">subtotal = </td>
-		<td id='totalRA' style="width: 100px; text-align: right;">00:00:00.000</td>
-		<td id='totalDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+		<td class='label'>subtotal = </td>
+		<td id='totalRA' class='coordText'>00:00:00.000</td>
+		<td id='totalDec' class='coordText'>00°00'00.000&quot;</td>
 	  </tr>
 	  <tr>
-		<td style="width: 338px; text-align: right;">Refraction = </td>
-		<td id='refractionRA' style="width: 100px; text-align: right;">00:00:00.000</td>
-		<td id='refractionDec' style="width: 100px; text-align: right;">00°00'00.000&quot;</td>
+		<td class='label'>Refraction = </td>
+		<td id='refractionRA' class='coordText'>00:00:00.000</td>
+		<td id='refractionDec' class='coordText'>00°00'00.000&quot;</td>
 	  <tr>
 	</tbody>
 	</table>
@@ -121,10 +121,9 @@ Ditto for Sidereal time and latitude.<br>
 <br>
 Mel Bartels
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/coordErrorsCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>$(document).ready(MLB.coordErrorsCalc.load);</script>
 </html>

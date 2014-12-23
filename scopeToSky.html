@@ -3,6 +3,8 @@
 <head>
 	<meta content="Mel Bartels" name="author">
 	<meta content="Calculates telescope motor positions from a sky coordinate" name="description">
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="css/scopeToSky.css">
 	<title>Scope to Sky Calculator</title>
 </head>
 
@@ -393,58 +395,10 @@
 
 </body>
 
-<link rel="shortcut icon" href="Saucer32.ico">
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/scopeToSky.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>$(document).ready(MLB.scopeToSky.load);</script>
-
-<style type="text/css" media="all">
-	#title, #compute {
-		text-align: center;
-	}
-	#btnComputeTelescope, #btnComputeEquatCoords, #btnInitMatrix, #btnBestZ123, #btnBestZ13, #btnLoadTaki {
-		width: 200px;
-	}
-	#coordinatesHeader, #setupHeader, #telescopeHeader, #matrixConversionHeader, #notesHeader {
-		background: lightgray;
-		clear: both;
-	}
-	#coordinatesDetailInput, #setupDetailInput, #telescopeDetailInput, #matrixConversionDetailInput {
-		float: left;
-		margin-left: 2em;
-	}
-	#coordinatesDetailOutput, #setupDetailOutput, #telescopeDetailOutput, #matrixConversionDetailOutput {
-		margin-left: 35em;
-	}
-	#coordinatesDetail, #setupDetail, #telescopeDetail, #notesDetail {
-	
-	}
-	#canFlipMeridian, #flippedState, #flipped {
-		background: lightgray;
-	}
-	td {
-		width: 170px;
-	}
-	#alignmentCell {
-		width: 190px;
-	}
-	#notes1 {
-		width: 300px;
-	}
-	input[type="text"] {
-		width: 75px;
-		background: lightgray;
-	}
-	input[name="dateTime"] {
-		width: 170px;
-	}
-	input[name="one"], input[name="two"], input[name="three"], input[name="analysisPosition1"], input[name="analysisPosition2"], input[name="analysisPosition3"] {
-		width: 400px;
-	}
-
-</style>
 
 </html>

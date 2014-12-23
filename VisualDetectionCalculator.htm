@@ -5,20 +5,16 @@
 <meta content="Calculates the visibility of objects in a telescope" name="description">
 <title>Visual Detection Calculator</title>
 <link rel="shortcut icon" href="Saucer32.ico">
-<link rel="stylesheet" type="text/css" href="lib/calc.css">
-<script src="lib/sharedLib.js"></script>
-<script src="lib/coordLib.js"></script>
-<script src="lib/calcLib.js"></script>
-<script src="lib/visualDetectionCalc.js"></script>
-<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+<!--[if lt IE 9]><script language="javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
 <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
 </head>
 <body>
-<div id="inputParms">
-	<table style="text-align: left; width: 694px; height: 274px;" border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Visual Detection Calculator<br>
 			<br>
@@ -26,69 +22,72 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td  class='label'>
 			 Aperture =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="aperture" value="13" onfocus="select()" type="text">
-			<input name="uom" value="inches" checked="checked" type="radio">inches <input name="uom" value="millimeters" type="radio">millimeters
+		<td>
+			<input class='inputText' name="aperture" value="13" onfocus="select()" type="text">
+			<input name="uom" value="inches" checked="checked" type="radio">inches 
+			<input name="uom" value="millimeters" type="radio">millimeters
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
-			 Sky background brightness (from sky brightness meter, dark skies is 21.5, city skies is 18) =
+		<td  class='label'>
+			 Sky background brightness =
 		</td>
-		<td style="vertical-align: middle; width: 338px;">
-			<input name="bkgndBrightEye" value="21.5" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="bkgndBrightEye" value="21.5" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td  class='label'>
 			 Object name =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="objName" value="California Nebula" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="objName" value="California Nebula" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td  class='label'>
 			 Object apparent magnitude =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="objMag" value="5" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="objMag" value="5" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
 		<td style="vertical-align: top; width: 336px; text-align: right;">
 			 Object size (arcminutes) =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="objSize1" value="40" onfocus="select()" type="text">
-			by <input name="objSize2" value="145" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="objSize1" value="40" onfocus="select()" type="text">
+			by <input class='inputText' name="objSize2" value="145" onfocus="select()" type="text">
 		</td>
 	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<br>
 			<input value="Update chart" onclick="MLB.visualDetectionCalc.plot()" type="button"><br>
 			<br>
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Limiting magnitude =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="limitMag" value="" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="limitMag" value="" onfocus="select()" type="text">
 		</td>
 	</tr>
 	</tbody>
 	</table>
 	<br>
 </div>
-<div id="myChart" style="margin-top:20px; margin-left:20px; width:600px; height:300px;">
+<div id="visualDetectionCalcChart">
 </div>
  Interpreting the chart: <br>
+<br>
+Sky background brightness is 21.5 for a dark site, 18.5 for a city site.<br>
 <br>
  The chart plots the visibility of extended objects like nebulae and galaxies. The object is visible when the eye's perceived contrast is greater than zero. However, because of the impreciseness of object magnitudes and object sizes, it is better to divide the log contrast into zones. Log contrasts greater than 0.5 are easy, contrasts down to 0.25 are visible, contrasts between -.25 and 0.25 are difficult and log contrasts under -0.25 are not visible. For comparison, half the aperture and double the aperture are also plotted. The plot stops if the object is too big to fit into a 100 degree apparent field of view eyepiece. <br>
 <br>
@@ -106,13 +105,16 @@ Other calculators and dicussions: <a href = "http://w1.411.telia.com/~u41105032/
  <br>
  Mel Bartels
 </body>
-<script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-<script type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" language="javascript">$(document).ready(MLB.visualDetectionCalc.plot);</script>
+<script src="lib/jqplot/jquery.min.js"></script>
+<script src="lib/jqplot/jquery.jqplot.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/visualDetectionCalc.js"></script>
 </html>

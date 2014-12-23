@@ -1,0 +1,62 @@
+#header 
+{
+	text-align: center;
+}
+
+#footer 
+{
+	clear: both;
+}
+
+#descriptionDiv 
+{
+	clear: both;
+	text-align: left;
+}
+
+#translatedDescription 
+{
+	width: 500px;
+}
+
+#btnFile 
+{
+	width: 800px;
+	height: 50px;
+}
+
+#selectedFileDropDiv 
+{
+	border: 2px dashed #999;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	padding: 30px;
+	text-align: center;
+	color: #000;
+	background-color: #ccc;
+	width: 400px;
+}
+
+#btnAbortRead
+{
+	background-color: #f00;
+}
+
+.thumbStyle 
+{
+	height: 75px;
+	border: 1px solid #000;
+	margin: 10px 5px 0 0;
+}
+
+#descriptionDiv 
+{
+	background-color: #ccc;
+}
+
+#csvResult 
+{
+	width: 100%;
+	background-color: #ccc;
+}

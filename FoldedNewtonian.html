@@ -5,57 +5,55 @@
 	<meta content="Calculates dimensions for a folded Newtonian telescope" name="description">
 	<title>Folded Newtonian Calculator</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 <body>
-<table style="text-align: left; width: 383px; height: 137px;" border="0" cellpadding="2" cellspacing="2">
+<table>
 <tbody>
 <tr>
-	<td colspan="2" rowspan="1" style="vertical-align: top;">
-		<div style="text-align: center;">
-			<b>
-			Folded Newtonian Calculator<br>
-			<br>
-			</b>
+	<td class='title' colspan='2'>
+		<div>
+			<b>Folded Newtonian Calculator</b>
+			<br><br>
 		</div>
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right; width: 227px;">
+	<td class='label'>
 		 Mirror diameter =
 	</td>
-	<td style="vertical-align: top; width: 139px;">
-		<input name="mirrorDia" value="12" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="mirrorDia" value="12" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right; width: 227px;">
+	<td class='label'>
 		 Focal ratio =
 	</td>
-	<td style="vertical-align: top; width: 139px;">
-		<input name="focalRatio" value="8" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="focalRatio" value="8" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right; width: 227px;">
+	<td class='label'>
 		 Diagonal size =
 	</td>
-	<td style="vertical-align: top; width: 139px;">
-		<input name="diagSize" value="3" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="diagSize" value="3" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td style="vertical-align: top; text-align: right; width: 227px;">
+	<td class='label'>
 		 Focal plane to tertiary distance =
 	</td>
-	<td style="vertical-align: top; width: 139px;">
-		<input name="focalPlaneToTertiaryDistance" value="2" onfocus="select()" type="text">
+	<td>
+		<input class='inputText' name="focalPlaneToTertiaryDistance" value="2" onfocus="select()" type="text">
 	</td>
 </tr>
 <tr>
-	<td colspan="2" rowspan="1" style="vertical-align: top;">
-		<br>
-		<div style="text-align: center;">
+	<td class='title' colspan='2'>
+		<div>
+			<br>
 			<input ID="btnPlot" value="Update plot" type="button">
 			<br>
 		</div>
@@ -64,15 +62,15 @@
 </tbody>
 </table>
 <br>
-<canvas id="myCanvas" width="600" height="400">
+<canvas id="foldedNewtCanvas" width="600" height="400">
 	This browser does not support the canvas element. Please use a more recent browser.
 </canvas>
 <div>
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+	<table>
 	<tbody>
 	  <tr>
-		<td style="width: 150px; vertical-align: top; text-align: right;">Dimensions are: </td>
-		<td  id='dimensions' style="width: 500px; text-align: left;"></td>
+		<td class='verticalAlignTop'>Dimensions are: </td>
+		<td  id='dimensions'></td>
 	  </tr>
 	</tbody>
 	</table>	
@@ -81,7 +79,6 @@
 An early example of a folded (or bent) Newtonian is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.<br>
 Ross Robert's folded 16 inch was featured in the Oregon Star Party Walkabout of 2008 here <a href="http://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg">http://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg</a><br>
 Dan Gray's bent 28 inch is a popular scope at the Oregon Star Party. The eyepiece is a couple of feet closer to the ground because of the folded design. <a href="http://www.siderealtechnology.com/28inch/">http://www.siderealtechnology.com/28inch/</a><br>
-Also this scope from CloudyNights <a href="http://www.cloudynights.com/classifieds/data/10/70386-1381158548DSC_0040-large.JPG">http://www.cloudynights.com/classifieds/data/10/70386-1381158548DSC_0040-large.JPG</a><br>
 Pete's 25 inch folded scope as posted on the atm-free discussion group, from 2006. He's since added side panels and a tertiary mirror to angle the eyepiece directly outward.<br>
 <img style="width: 250px; height: 188px;" alt=""src="Peter%2025%20inch%20folded%20scope%20from%202006.jpg"><br>
 You can search on 'low rider telescope', one recent name for this design, to find more examples.<br>
@@ -91,10 +88,9 @@ Why the tiertiary design? First of all, if you want to 'turn off' the tiertiary,
 <br>
 Mel Bartels
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/foldedNewtonian.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.foldedNewtonian.load;</script>
 </html>

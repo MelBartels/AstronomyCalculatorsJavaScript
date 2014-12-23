@@ -5,14 +5,14 @@
 	<meta content="Calculates the visibility of objects in a telescope" name="description">
 	<title>Mirror Slumping Calculator</title>
 	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="lib/calc.css">
+	<link rel="stylesheet" type="text/css" href="css/calc.css">
 </head>
 <body>
-<div id="inputParms">
-	<table style="text-align: left; width: 694px;" border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<b>
 			Mirror Slumping Calculator<br>
 			<br>
@@ -20,30 +20,30 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Mirror diameter =
 		</td>
-		<td style="vertical-align: top; width: 338px;">
-			<input name="mirrorDia" value="20" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="mirrorDia" value="20" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>
-		<td style="vertical-align: top; text-align: right; width: 336px;">
+		<td class='label'>
 			 Focal ratio =
 		</td>
-		<td style="vertical-align: middle; width: 338px;">
-			<input name="focalRatio" value="1" onfocus="select()" type="text">
+		<td>
+			<input class='inputText' name="focalRatio" value="1" onfocus="select()" type="text">
 		</td>
 	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
+	<tr>
+		<td class='title' colspan='2'>
 			<br>
 			<input ID="btnPlot" value="Plot" type="button"><br>
 		</td>
 	</tr>
-	<tr align="center">
-		<td colspan="2" rowspan="1" style="vertical-align: top; width: 338px;">
-			<canvas id="plot" width="350" height="200">
+	<tr>
+		<td colspan='2'>
+			<canvas id="slumpPlot" width="350" height="200">
 				This browser does not support the canvas element. Please use a more recent browser.
 			</canvas>
 		</td>
@@ -51,12 +51,11 @@
 	</tbody>
 	</table>
 </div>
-<div id="results">
-	<table style="text-align: left; border="0" cellpadding="2" cellspacing="2">
+<div>
+	<table>
 	<tbody>
 	  <tr>
-		<td style="width: 150px; text-align: right;"></td>
-		<td id='effectiveAperture' style="width: 500px; text-align: left;"></td>
+		<td id='effectiveAperture'></td>
 	  </tr>
 	</tbody>
 	</table>	
@@ -66,14 +65,13 @@
 <br>
 When a flat piece of glass is slumped, it is bent over a mold. This slightly reduces the effective or entrance aperture. This calculator displays the precise effective aperture, needed in CAD applications. The edge also bends outward, creating a slight angle. This edge angle is also noted. The sagitta is the spherical sagitta, the depth at the center of the mirror. This differs slightly from the parabolic sagitta, the mirror depth necessary for a particular radius of curvature for a parabolic primary.<br>
 <br>
-The equation is simple: effectiveAperture = mirrorDiameter * focalRatio * 4 * Math.sin(1 / (4 * focalRatio). The '1/(4*focalRatio)' is half the angle that the mirror subtends from the radius of curvature and is also the edge angle.<br>
+The equation is simple: effectiveAperture = mirrorDiameter * focalRatio * 4 * Sin(1 / (4 * focalRatio)). The '1/(4*focalRatio)' is half the angle that the mirror subtends from the radius of curvature and is also the edge angle from the mirror center line.<br>
 <br>
  Mel Bartels
 </body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/slumpingCalc.js"></script>
-<script src="lib/jqplot/jquery.min.js"></script>
-<script>window.onload = MLB.slumpingCalc.load;</script>
 </html>
