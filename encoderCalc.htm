@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Calculates encoder values" name="description">
+<title>Encoder Calculator</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+</head>
+<body>
+<div>
+	<table>
+	<tbody>
+	<tr>
+		<td class='title colspan='2'>
+			<b>
+			Encoder Calculator<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td class='title colspan='2'>
+			<b>
+			<br>
+			Encoder Configuration<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Name is
+		</td>
+		<td>
+			<input class='inputText' name="encoderName" value="my encoder" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Minimum possible count =
+		</td>
+		<td>
+			<input class='inputText' name="encoderMinCount" value="0" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Maximum possible count =
+		</td>
+		<td>
+			<input class='inputText' name="encoderMaxCount" value="9999" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Gear reduction, if any =
+		</td>
+		<td>
+			<input class='inputText' name="encoderGearReduction" value="2:1" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='title colspan='2'>
+			<b>
+			<br>
+			Encoder's State<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Encoder's current count =
+		</td>
+		<td>
+			<input class='inputText' name="encoderCurrentCount" value="0" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Encoder's last count =
+		</td>
+		<td>
+			<input class='inputText' name="encoderLastCount" value="0" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Encoder rotations or carries =
+		</td>
+		<td>
+			<input class='inputText' name="encoderRotations" value="0" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Angle offset (deg) =
+		</td>
+		<td>
+			<input class='inputText' name="encoderAngleOffsetDeg" value="0" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr class='title'>
+		<td>
+			<br>
+			<input ID="btnUpdateEncoder" value="Update encoder" type="button">
+			<br>
+		</td>
+		<td>
+			<br>
+			<input ID="btnResetEncoder" value="Reset encoder" type="button">
+			<br>
+		</td>
+	</tr>
+	<tr>
+		<td class='title colspan='2'>
+			<b>
+			<br>
+			Results<br>
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Direction is 
+		</td>
+		<td>
+			<input class='inputText' name="encoderDirection" value="" onfocus="select()" type="text">
+		</td>	
+	</tr>
+	<tr>
+		<td class='label'>
+			 Encoder angle (deg) = 
+		</td>
+		<td>
+			<input class='inputText' name="encoderAngleDeg" value="" onfocus="select()" type="text">
+		</td>	
+	</tr>
+	<tr>
+		<td class='label'>
+			 Geared angle, if applicable (deg) = 
+		</td>
+		<td>
+			<input class='inputText' name="encoderGearAngleDeg" value="" onfocus="select()" type="text">
+		</td>	
+	</tr>
+	<tr>
+		<td class='label'>
+			 Geared angle with offset (deg) = 
+		</td>
+		<td>
+			<input class='inputText' name="encoderGearAngleWithOffsetDeg" value="" onfocus="select()" type="text">
+		</td>	
+	</tr>
+	</tbody>
+	</table>
+	<br>
+</div>
+ Notes: <br>
+<br>
+This calculator demonstrates the computer modeling of an encoder.<br>
+<br>
+Gear ratio can be entered as a decimal like 2.5 or as a ratio like 5:2
+<br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/encoderLib.js"></script>
+<script src="lib/encoderCalc.js"></script>
+</html>

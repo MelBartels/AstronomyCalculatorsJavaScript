@@ -25,7 +25,8 @@
 <script>$(document).ready(function () {
 	'use strict';
 	var withinRange = MLB.sharedLib.withinRange,
-	    uom = MLB.sharedLib.uom;
+	    uom = MLB.sharedLib.uom,
+		getReduction = MLB.sharedLib.getReduction;
 
 	QUnit.module('helpers');
 
@@ -180,6 +181,83 @@
 		var result = uom.arcsecToRad / uom.arcsecToRev;
 		equal(withinRange(result, uom.oneRev, 0.000001), true, 'ArcsecToRev / ArcsecToRad should be OneRev, is ' + result);
 	});
+
+	QUnit.test('get reduction', function () {
+		var val,
+		    expected,
+			result;
+		
+		val = '5';
+		expected = 5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '34.51';
+		expected = 34.51;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '5.';
+		expected = 5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '.5';
+		expected = 0.5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);					
+
+		val = 'x';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+
+		val = '10 x';
+		expected = 10;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+		val = '10 .';
+		expected = 10;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+		
+		val = '10 2';
+		expected = 5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+
+		val = '10 0';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+
+		val = '10 0.';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+		val = '10 .0';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+		
+		val = '10 2 3';
+		expected = undefined;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '10.5:1';
+		expected = 10.5;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+		
+		val = '10.5:2';
+		expected = 5.25;
+		result = getReduction(val);
+		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+	});
+
 });
 
 </script>

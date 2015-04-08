@@ -27,7 +27,7 @@
 <script>$(document).ready(function () {
 	'use strict';
 	var withinRange = MLB.sharedLib.withinRange,
-	    getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
+	    uom = MLB.sharedLib.uom,
 		calcSagitta = MLB.calcLib.calcSagitta,
 		calcSagittaSpherical = MLB.calcLib.calcSagittaSpherical,
 		calcFocalRatio = MLB.calcLib.calcFocalRatio,
@@ -41,6 +41,7 @@
 		calcDiagOffset = MLB.calcLib.calcDiagOffset,
 		calcDiagOffset2 = MLB.calcLib.calcDiagOffset2,
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
+	    getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
 		limitingMagnitude = MLB.calcLib.limitingMagnitude,
 		VisualDetectCalcParms = MLB.calcLib.VisualDetectCalcParms,
@@ -60,29 +61,6 @@
 		artificialStarDistanceMM = MLB.calcLib.artificialStarDistanceMM,
 		artificialStarDistanceInches = MLB.calcLib.artificialStarDistanceInches;
 
-	QUnit.module('foldedNewtonian.js');
-
-	// example: mirror = 30, focal ratio = 3, diag = 8, tertiary distance = 2, eyepiece to mirror = 50, diag to mirror = 66
-	// therefore maxWidth = diag to mirror = 66, 
-	// maxHeight = (diag * focal ratio + tertiary) * 2 = (8*3 + 2)*2 = 52 (primary axis is centered),
-	// model width to height = 66/52 = 1.2692308,
-	// graphics width = 200, height = 100,
-	// graphics width to height = 200/100 = 2,
-	// fit model into graphics:
-	// if model's width/height > graphics width/height, then model wider than display, else display wider than model,
-	// if model w/h > graphics w/h then scale by width: model width / display width, else scale by height: model height / display height,
-	// eg, if model w/h = 1.2692308 and display w/h = 2, then display wider than model, given same height,
-	// given model w = 66, h = 52 and graphics w = 200, h = 100:
-	// therefore scale by height: graphics height of 100 / model height of 52 = scaling factor of 1.9230769,
-	// otherwise would scale by width: graphics width of 200 / model width of 66 = scaling factor of 3.030303,
-	// using scaling factor of 1.9230769, width = 1.9230769 * 66 = 126.92308, height = 1.9230769 * 52 = 100:
-	// so some display width wasted since the narrower model has to fit within;
-	// returned scalingFactor made smaller by a margin, eg if scaling factor is 1.9230769 then returned value is 1.53846152;
-	QUnit.test('getFoldedNewtonianScalingFactor', function () {
-		var result = getFoldedNewtonianScalingFactor(200, 100, 3, 8, 2, 66);
-		equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
-	});	
-	
 	QUnit.module('sagitta');
 
 	QUnit.test('calcSagitta', function () {
@@ -222,31 +200,84 @@
 		equal(withinRange(result[13][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[13][1]);
 	});
 
+	QUnit.module('foldedNewtonian.js');
+
+	// example: mirror = 30, focal ratio = 3, diag = 8, tertiary distance = 2, eyepiece to mirror = 50, diag to mirror = 66
+	// therefore maxWidth = diag to mirror = 66, 
+	// maxHeight = (diag * focal ratio + tertiary) * 2 = (8*3 + 2)*2 = 52 (primary axis is centered),
+	// model width to height = 66/52 = 1.2692308,
+	// graphics width = 200, height = 100,
+	// graphics width to height = 200/100 = 2,
+	// fit model into graphics:
+	// if model's width/height > graphics width/height, then model wider than display, else display wider than model,
+	// if model w/h > graphics w/h then scale by width: model width / display width, else scale by height: model height / display height,
+	// eg, if model w/h = 1.2692308 and display w/h = 2, then display wider than model, given same height,
+	// given model w = 66, h = 52 and graphics w = 200, h = 100:
+	// therefore scale by height: graphics height of 100 / model height of 52 = scaling factor of 1.9230769,
+	// otherwise would scale by width: graphics width of 200 / model width of 66 = scaling factor of 3.030303,
+	// using scaling factor of 1.9230769, width = 1.9230769 * 66 = 126.92308, height = 1.9230769 * 52 = 100:
+	// so some display width wasted since the narrower model has to fit within;
+	// returned scalingFactor made smaller by a margin, eg if scaling factor is 1.9230769 then returned value is 1.53846152;
+	// this test ignores tertiaryOffsetFromEdgeOfPrimary;
+	QUnit.test('getFoldedNewtonianScalingFactor', function () {
+		var result = getFoldedNewtonianScalingFactor(200, 100, 3, 8, 2, 0, 66);
+		equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
+	});	
+	
 	QUnit.module('folded Newtonian');
 
+	// function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary)
 	QUnit.test('calcFoldedNewtonian', function () {
-		var result = calcFoldedNewtonian(30, 2.9, 7, 3);
+		var result = calcFoldedNewtonian(30, 2.9, 7, 3, 0);
 		equal(result.diagTooSmall, false, 'The diagTooSmall should be false, is ' + result.diagTooSmall);
 		equal(result.diagTooLarge, false, 'The diagTooLarge should be false, is ' + result.diagTooLarge);
-		equal(withinRange(result.diagToMirrorDistance, 66.7, 0.01), true, 'The diagToMirrorDistance should be 66.7, is ' + result.diagToMirrorDistance);
-		equal(withinRange(result.eyepieceToMirrorDistance, 58.08, 0.01), true, 'The eyepieceToMirrorDistance should be 55.08, is ' + result.eyepieceToMirrorDistance);
+		equal(withinRange(result.diagToMirrorDistance, 63.7, 0.01), true, 'The diagToMirrorDistance should be 66.7, is ' + result.diagToMirrorDistance);
+		equal(withinRange(result.eyepieceToMirrorDistance, 55.08, 0.01), true, 'The eyepieceToMirrorDistance should be 55.08, is ' + result.eyepieceToMirrorDistance);
 		equal(withinRange(result.elbowAngleDeg, 60.12, 0.01), true, 'The elbowAngleDeg should be 60.12, is ' + result.elbowAngleDeg);
 		equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
 	});
 
 	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
-		var result = calcFoldedNewtonian(30, 2.9, 6, 3);
+		var result = calcFoldedNewtonian(30, 2.9, 6, 3, 0);
 		equal(result.diagTooSmall, true, 'The diagTooSmall should be true, is ' + result.diagTooSmall);
 	});
 
 	QUnit.test('calcFoldedNewtonian diagTooLarge error', function () {
-		var result = calcFoldedNewtonian(30, 2.9, 16, 3);
+		var result = calcFoldedNewtonian(30, 2.9, 16, 3, 0);
 		equal(result.diagTooLarge, true, 'The diagTooLarge should be true, is ' + result.diagTooLarge);
 	});
 
 	QUnit.test('calcFoldedNewtonian mirrorDia=0 et al error', function () {
-		var result = calcFoldedNewtonian(0, 2.9, 6, 3);
+		var result = calcFoldedNewtonian(0, 2.9, 6, 3, 0);
 		equal(result, undefined, 'The result should be undefined, is ' + result);
+	});
+
+	// tertiaryOffsetFromEdgeOfPrimary tests
+	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
+		var result = calcFoldedNewtonian(30, 3, 5, 0, 1),
+		    expected = true;
+		equal(result.diagTooSmall, expected, 'The diagTooSmall should be ' + expected + ', is ' + result.diagTooSmall);
+	});
+
+	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
+		var result = calcFoldedNewtonian(30, 3, 6, 0, 1),
+		    expected = false;
+		equal(result.diagTooSmall, expected, 'The diagTooSmall should be ' + expected + ', is ' + result.diagTooSmall);
+	});
+
+	QUnit.test('calcFoldedNewtonian diagToMirrorDistance and tertiaryOffsetFromEdgeOfPrimary', function () {
+		var result = calcFoldedNewtonian(30, 3, 6, 0, 0),
+		    expected = 72;
+		equal(result.diagToMirrorDistance, expected, 'The diagToMirrorDistance with no tertiary offset should be ' + expected + ', is ' + result.diagToMirrorDistance);
+
+		// tertiaryOffsetFromEdgeOfPrimary of 1 should shrink diagonal to mirror distance by 1
+		result = calcFoldedNewtonian(30, 3, 6, 0, 1),
+		    expected = 73;
+		equal(result.diagToMirrorDistance, expected, 'The diagToMirrorDistance with tertiary offset of 1 should be ' + expected + ', is ' + result.diagToMirrorDistance);
+
+		result = calcFoldedNewtonian(30, 3, 6, 0, -1),
+		    expected = 71;
+		equal(result.diagToMirrorDistance, expected, 'The diagToMirrorDistance with tertiary offset of -1 should be ' + expected + ', is ' + result.diagToMirrorDistance);
 	});
 
 	QUnit.module('visual detection calculator: parms and data');

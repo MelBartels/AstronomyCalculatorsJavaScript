@@ -1,0 +1,360 @@
+<!-- separate from calcLib so that encoders can be included without bringing in all the calculators code -->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>QUnit test for encoderLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
+
+	<script src="sharedLib.js"></script>
+	<script src="coordLib.js"></script>
+	<script src="encoderLib.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
+
+<script>$(document).ready(function () {
+	'use strict';
+	
+	var uom = MLB.sharedLib.uom,
+	    encoderBuilder = MLB.encoderLib.encoderBuilder,
+	    calcMotorEncoderTicksResolution = MLB.encoderLib.calcMotorEncoderTicksResolution,
+		getDirection = MLB.encoderLib.getDirection,
+		setRotations = MLB.encoderLib.setRotations,
+		setAngles = MLB.encoderLib.setAngles,
+		update = MLB.encoderLib.update,
+		reset = MLB.encoderLib.reset;
+
+	QUnit.module('encoderLib');
+
+	QUnit.test('encoderBuilder', function () {
+		var encoder,
+		    name = 'test',
+		    minCount = 0,
+			maxCount = 35999,
+			gearReduction = 0,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		result = encoder.maxCount;
+		expected = maxCount;
+		equal(result, expected, 'maxCounts should be ' + expected + ', is ' + result);
+		result = encoder.totalCounts;
+		expected = maxCount -minCount + 1;
+		equal(result, expected, 'totalCounts should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('calcMotorEncoderTicksResolution', function () {
+		var encoder,
+		    name = 'test',
+			minCount = 0,
+			maxCount = 35999,
+			gearReduction = 0,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		result = calcMotorEncoderTicksResolution(encoder);
+		expected = {countsPerRev: 36000, countsPerDegree: 100, countsPerArcsec: 1/36};
+		equal(result.countsPerRev, expected.countsPerRev, 'countsPerRev should be ' + expected.countsPerRev + ', is ' + result.countsPerRev);
+		equal(result.countsPerDegree, expected.countsPerDegree, 'countsPerDegree should be ' + expected.countsPerDegree + ', is ' + result.countsPerDegree);
+		equal(result.countsPerArcsec, expected.countsPerArcsec, 'countsPerArcsec should be ' + expected.countsPerArcsec + ', is ' + result.countsPerArcsec);
+	});
+	
+	QUnit.test('getDirection', function () {
+		var encoder,
+		    name = 'test',
+			minCount = -5,
+			maxCount = 4,
+			gearReduction = 0,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+
+		// encoder counting forward
+		expected = 1;
+
+		encoder.lastCount = 2;
+		encoder.currentCount = 3;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		encoder.lastCount = -3;
+		encoder.currentCount = -2;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		encoder.lastCount = 4;
+		encoder.currentCount = -4;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		encoder.lastCount = -1;
+		encoder.currentCount = 1;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		// encoder counting backwards
+		expected = -1;
+
+		encoder.lastCount = 3;
+		encoder.currentCount = 2;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		encoder.lastCount = -2;
+		encoder.currentCount = -3;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		encoder.lastCount = -4;
+		encoder.currentCount = 4;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+
+		encoder.lastCount = 1;
+		encoder.currentCount = -1;
+		getDirection(encoder);
+		result = encoder.direction;
+		equal(result, expected, 'direction should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.test('setRotations', function () {
+		var encoder,
+		    name = 'test',
+			minCount = -5,
+			maxCount = 4,
+			gearReduction = 0,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		
+		encoder.rotations = 0;
+		encoder.lastCount = 2;
+		encoder.currentCount = 3;
+		getDirection(encoder);
+		setRotations(encoder);
+		result = encoder.rotations;
+		expected = 0;
+		equal(result, expected, 'rotation should be ' + expected + ', is ' + result);
+
+		encoder.rotations = 0;
+		encoder.lastCount = 4;
+		encoder.currentCount = -4;
+		getDirection(encoder);
+		setRotations(encoder);
+		result = encoder.rotations;
+		expected = 1;
+		equal(result, expected, 'rotation should be ' + expected + ', is ' + result);
+
+		encoder.rotations = 0;
+		encoder.lastCount = 3;
+		encoder.currentCount = 2;
+		getDirection(encoder);
+		setRotations(encoder);
+		result = encoder.rotations;
+		expected = 0;
+		equal(result, expected, 'rotation should be ' + expected + ', is ' + result);
+
+		encoder.rotations = 0;
+		encoder.lastCount = -4;
+		encoder.currentCount = 4;
+		getDirection(encoder);
+		setRotations(encoder);
+		result = encoder.rotations;
+		expected = -1;
+		equal(result, expected, 'rotation should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.test('setAngles', function () {
+		var encoder,
+		    name = 'test',
+			minCount = -5,
+			maxCount = 4,
+			gearReduction = 0,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		
+		// encoder angle
+		
+		encoder.currentCount = 3;
+		setAngles(encoder);
+		result = encoder.encoderAngle;
+		// 3 is 80% of the way between -5 and 4
+		expected = 0.8 * uom.oneRev;
+		equal(result, expected, 'encoderAngle should be ' + expected + ', is ' + result);
+
+		encoder.currentCount = -3;
+		setAngles(encoder);
+		result = encoder.encoderAngle;
+		// -3 is 20% of the way between -5 and 4
+		expected = 0.2 * uom.oneRev;
+		equal(result, expected, 'encoderAngle should be ' + expected + ', is ' + result);
+
+		// geared angle angle
+		encoder.gearReduction = 2;
+		
+		encoder.currentCount = 3;
+		setAngles(encoder);
+		result = encoder.gearAngle;
+		// 3 is 80% of the way between -5 and 4; with gear reduction of 2, expected is .8/2=.4
+		expected = 0.4 * uom.oneRev;
+		equal(result, expected, 'gearAngle should be ' + expected + ', is ' + result);
+
+		encoder.currentCount = -3;
+		setAngles(encoder);
+		result = encoder.gearAngle;
+		// -3 is 20% of the way between -5 and 4; with gear reduction of 2, expected is .2/2=.1
+		expected = 0.1 * uom.oneRev;
+		equal(result, expected, 'gearAngle should be ' + expected + ', is ' + result);
+
+		// as above but with 1 encoder rotations
+		encoder.rotations = 1;
+		
+		encoder.currentCount = 3;
+		setAngles(encoder);
+		result = encoder.gearAngle;
+		// 3 is 80% of the way between -5 and 4; with 1 encoder rotation, encoder total angle is 180%; with gear reduction of 2, expected is 1.8/2=.9
+		expected = 0.9 * uom.oneRev;
+		equal(result, expected, 'gearAngle should be ' + expected + ', is ' + result);
+
+		// as above but with -1 encoder rotations
+		encoder.rotations = -1;
+		
+		encoder.currentCount = -3;
+		setAngles(encoder);
+		result = encoder.gearAngle;
+		// -3 is 20% of the way between -5 and 4; with -1 encoder rotation, encoder total angle is -80%; with gear reduction of 2, expected is -.8/2=-.4, modulus with 0 to 1 is .6
+		expected = 0.6 * uom.oneRev;
+		equal(result, expected, 'gearAngle should be ' + expected + ', is ' + result);
+		
+		// test for undefined gearReduction
+		encoder.gearReduction = undefined;	
+		encoder.currentCount = 3;
+		setAngles(encoder);
+		result = encoder.encoderAngle;
+		// 3 is 80% of the way between -5 and 4
+		expected = 0.8 * uom.oneRev;
+		equal(result, expected, 'undefined gearReduction encoderAngle should be ' + expected + ', is ' + result);
+
+		// and the same for 0 gearReduction
+		encoder.gearReduction = 0;
+		encoder.currentCount = 3;
+		setAngles(encoder);
+		result = encoder.encoderAngle;
+		// 3 is 80% of the way between -5 and 4
+		expected = 0.8 * uom.oneRev;
+		equal(result, expected, '0 gearReduction encoderAngle should be ' + expected + ', is ' + result);
+		
+		// adding in offset
+		encoder.offsetAngle = uom.qtrRev;
+		encoder.gearReduction = 2;
+		encoder.rotations = 1;	
+		encoder.currentCount = 3;
+		setAngles(encoder);
+		result = encoder.gearAngleWithOffset;
+		// 3 is 80% of the way between -5 and 4; with 1 encoder rotation, encoder total angle is 180%; with gear reduction of 2, expected is 1.8/2=.9
+		// adding 1/4 rev 
+		expected = 0.15 * uom.oneRev;
+		equal(result, expected, 'gearAngleWithOffset should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('update', function () {
+		var encoder,
+		    name = 'test',
+			minCount = -5,
+			maxCount = 4,
+			gearReduction = 2,
+			offsetAngle = 10 * uom.degToRad,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		encoder.gearReduction = 2;
+		encoder.offsetAngle = offsetAngle;
+		
+		// go from 0 to 1
+		update(encoder, 1);
+		result = encoder.gearAngleWithOffset;
+		// 1 is 6/10 of the way from -5 to 4; divide by gear reduction; then add in the gear offset
+		expected = 0.6 * uom.oneRev / gearReduction + offsetAngle;
+		equal(result, expected, 'gearAngleWithOffset should be ' + expected + ', is ' + result);	
+		
+		// go to 4 via -2 in order to reverse direction
+		update(encoder, -2)
+		update(encoder, 4)
+		result = encoder.gearAngleWithOffset;
+		// 4 is -1/10 of the way from -5 to 4; with -1 rotations; divide the -.1 difference by gear reduction then normalize to 0-1; finally add the gear offset
+		expected = 0.95 * uom.oneRev + offsetAngle;
+		equal(result, expected, 'gearAngleWithOffset should be ' + expected + ', is ' + result);	
+	});
+		
+	QUnit.test('reset', function () {
+		var encoder,
+		    name = 'test',
+			minCount = -5,
+			maxCount = 4,
+			gearReduction = 2,
+			offsetAngle = 10 * uom.degToRad,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		encoder.gearReduction = 2;
+		encoder.offsetAngle = offsetAngle;
+		
+		// go from 0 to 1
+		update(encoder, 1);
+		result = encoder.gearAngleWithOffset;
+		// 1 is 6/10 of the way from -5 to 4; divide by gear reduction; then add in the gear offset
+		expected = 0.6 * uom.oneRev / gearReduction + offsetAngle;
+		equal(result, expected, 'gearAngleWithOffset should be ' + expected + ', is ' + result);
+		// now execute the reset which moves the gearAngleWithOffset to offsetAngle
+		reset(encoder);
+		result = encoder.offsetAngle;
+		equal(result, expected, 'after reset, offsetAngle should be ' + expected + ', is ' + result);	
+		
+		// go to 4 via -2 in order to reverse direction
+		encoder.offsetAngle = offsetAngle;
+		update(encoder, 1);
+		update(encoder, -2)
+		update(encoder, 4)
+		result = encoder.gearAngleWithOffset;
+		// 4 is -1/10 of the way from -5 to 4; with -1 rotations; divide the -.1 difference by gear reduction then normalize to 0-1; finally add the gear offset
+		expected = 0.95 * uom.oneRev + offsetAngle;
+		equal(result, expected, 'gearAngleWithOffset should be ' + expected + ', is ' + result);	
+		// now execute the reset which moves the gearAngleWithOffset to offsetAngle
+		reset(encoder);
+		result = encoder.offsetAngle;
+		equal(result, expected, 'after reset, offsetAngle should be ' + expected + ', is ' + result);	
+	});
+		
+});
+
+</script>
+</html>
