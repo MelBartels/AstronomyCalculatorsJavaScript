@@ -59,7 +59,9 @@
 		SQMtoNELMconverter = MLB.calcLib.SQMtoNELMconverter,
 		NELMtoSQMconverter = MLB.calcLib.NELMtoSQMconverter,
 		artificialStarDistanceMM = MLB.calcLib.artificialStarDistanceMM,
-		artificialStarDistanceInches = MLB.calcLib.artificialStarDistanceInches;
+		artificialStarDistanceInches = MLB.calcLib.artificialStarDistanceInches,
+		calcApertureFromEyepieceExitPupilFOV = MLB.calcLib.calcApertureFromEyepieceExitPupilFOV,
+		calcFOVFromEyepieceExitPupilMirrorDiameter = MLB.calcLib.calcFOVFromEyepieceExitPupilMirrorDiameter;
 
 	QUnit.module('sagitta');
 
@@ -420,7 +422,7 @@
 			  sky background brightness    24.25
 			  object name                  Sculptor System
 			  object integrated magnitude  8.8
-			  object dimensions            60 x 60
+			  object dimensions arcmin     60 x 60
 			  eyepiece apparent field deg  60
 			calculated values:
 			  magnification                27
@@ -490,7 +492,7 @@
 	  sky background brightness    21.5
 	  object name                  California Nebula
 	  object integrated magnitude  5
-	  object dimensions            145 x 40
+	  object dimensions arcmin     145 x 40
 	  eyepiece apparent field deg  100
 	calculated values:
 	  magnification                55
@@ -515,6 +517,59 @@
 	QUnit.test('visualDetectCalc.includeResultAsString', function () {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
+		result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
+		equal(result.length > 0, true, 'result is ' + result);
+	});
+	
+	var visualDetectCalcParms2 = new VisualDetectCalcParms();
+	visualDetectCalcParms2.apertureIn = 13;
+	visualDetectCalcParms2.bkgndBrightEye = 21.5;
+	visualDetectCalcParms2.objName = 'Sombrero Galaxy';
+	visualDetectCalcParms2.objMag = 8;
+	visualDetectCalcParms2.maxObjArcmin = 9;
+	visualDetectCalcParms2.minObjArcmin = 4;
+	visualDetectCalcParms2.eyepieceExitPupilmm = 6;
+	visualDetectCalcParms2.apparentFoV = 110;
+	// can override defaults if desired
+	//visualDetectCalcParms2.eyeLimitMag = ;
+	//visualDetectCalcParms2.exitPupilmm = ;
+	//visualDetectCalcParms2.scopeTrans = ;
+	//visualDetectCalcParms2.singleEyeFactor = ;
+	
+	/*
+	result is 
+	input values: 
+		aperture (in) 13 
+		eye limiting magnitude 6 
+		eye max exit pupil mm 7 
+		sky background brightness 21.5 
+		object name Sombrero Galaxy object 
+		integrated magnitude 8 
+		object dimensions arcmin 9 x 4 
+		eyepiece apparent field deg 110 
+	calculated values: 
+		magnification 55 
+		minimum useful X 47 
+		maximum useful X varies from 330 to 330 
+		actual field deg 1.9987886129618413 
+		object fits FoV? true 
+		faintest star 16.115820155402638 
+		single eye mag reduction 0.7525749891599529 
+		scope xmit mag reduction 0.24227503252014093 
+		brightness (mag/arcsec^2): 
+			object without telescope 20.519070773142015 
+			brightness reduction at X 0.3347339481530661 
+			object in scope at X 21.84865474297517 
+			background in scope at X 22.82958396983316 
+			object+bkgnd in scope at X 20.48448901600736 
+		log object contrast 0.39237169074319383 
+		log contrast required -0.966861934161181 
+		log contrast difference 1.3592336249043748 
+		detectable? true 
+	*/	
+	QUnit.test('visualDetectCalc.includeResultAsString, Sombrero Galaxy through 13 inch f3', function () {
+		var parms, result;
+		parms = visualDetectCalcParms2.copyFrom();
 		result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
 		equal(result.length > 0, true, 'result is ' + result);
 	});
@@ -799,6 +854,34 @@
 		expected = '4495';
 		result = artificialStarDistanceInches(16, 16 * 4.5);
 		equal(result, expected, result + ' should be ' + expected);
+	});		
+
+	QUnit.module('aperture, FOV, eyepiece');
+	
+	QUnit.test('calcApertureFromEyepieceExitPupilFOV', function () {
+		var desiredFOVdeg = 1.8, 
+		    eyepieceFocalLengthmm = 21, 
+			eyepieceFieldStopmm = 36.2, 
+			exitPupilmm = 6.1,
+		    expected = 13.2,
+			allowableError = 0.1,
+		    result;
+			
+		result = calcApertureFromEyepieceExitPupilFOV(desiredFOVdeg, eyepieceFocalLengthmm, eyepieceFieldStopmm, exitPupilmm);
+		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+
+	QUnit.test('calcFOVFromEyepieceExitPupilMirrorDiameter', function () {
+		var mirrorDiameterInches = 13.2, 
+		    eyepieceFocalLengthmm = 21, 
+			eyepieceFieldStopmm = 36.2, 
+			exitPupilmm = 6.1,
+		    expected = 1.8,
+			allowableError = 0.1,
+		    result;
+			
+		result = calcFOVFromEyepieceExitPupilMirrorDiameter(mirrorDiameterInches, eyepieceFocalLengthmm, eyepieceFieldStopmm, exitPupilmm);
+		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});		
 
 });

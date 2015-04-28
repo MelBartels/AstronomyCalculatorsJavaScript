@@ -2983,6 +2983,64 @@
 		setPositionDeg(180, 180 - DecDeg, 0, 0, SidTDeg, 0, xform.position);
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.KingRates, timeIntervalSec, new TrackingRates().getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
+	
+	QUnit.test('five minute tracking errors', function () {
+		var allowedErrorArcsec = 1 / 100,
+		    // 0.1 arcsec 
+		    allowedErrorDeg = 1 / 360000,
+			latitudeRad = 40 * uom.degToRad,
+		    convertStyle = ConvertStyle.trig,
+			xform,
+			timeIntervalSec = 30,
+			SidTDeg = 0,
+			DecDeg = 0,
+			HAOffset = 0,
+			includeRefraction,
+			expected,
+			results,
+			fiveMinuteAzErrorResults,
+			fiveMinuteAltErrorResultsArcSec,
+			az;
+
+		// delta time w/o refraction
+		includeRefraction = false;
+		xform = new XForm(convertStyle, latitudeRad);
+		xform.presetEquat();
+		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
+		xform.getEquat();
+		results = new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		expected = 0;
+		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) delta time w/o refraction should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
+
+		// delta time w/ refraction
+		includeRefraction = true;
+		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
+		xform.getEquat();
+		results = new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		expected = -16.30;
+		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) delta time w/ refraction should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
+
+		// King rate
+		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
+		xform.getEquat();
+		results = new TrackingRates().getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		expected = 60.329;
+		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) (King rate) should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
+
+		// formula (w/o refraction; formula w/ refraction uses King rate)
+		includeRefraction = false;
+		xform = new XForm(convertStyle, latitudeRad);
+		xform.presetEquat();
+		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
+		xform.getEquat();
+		results = new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		expected = 0;
+		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) formula w/o refraction should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
+	});
 
 	QUnit.module('investigate different init points for accuracy given realworld errors');
 	

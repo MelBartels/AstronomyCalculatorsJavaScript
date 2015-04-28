@@ -36,7 +36,8 @@
 		setRotations = MLB.encoderLib.setRotations,
 		setAngles = MLB.encoderLib.setAngles,
 		update = MLB.encoderLib.update,
-		reset = MLB.encoderLib.reset;
+		reset = MLB.encoderLib.reset,
+		setToAngle = MLB.encoderLib.setToAngle;
 
 	QUnit.module('encoderLib');
 
@@ -352,6 +353,46 @@
 		reset(encoder);
 		result = encoder.offsetAngle;
 		equal(result, expected, 'after reset, offsetAngle should be ' + expected + ', is ' + result);	
+	});
+		
+	QUnit.test('setToAngle', function () {
+		var encoder,
+		    name = 'test',
+			minCount = -5,
+			maxCount = 4,
+			gearReduction = 2,
+			offsetAngle = 10 * uom.degToRad,
+			angleToSetTo,
+		    result,
+			expected;
+
+		encoder = encoderBuilder(name, minCount, maxCount, gearReduction);
+		encoder.gearReduction = 2;
+		encoder.offsetAngle = offsetAngle;
+
+		// set encoder (geared with offset) to 160; if offset = 10, then geared angle = 160-10=150 and since gearReduction=2, encoder angle = 150*2=300; net rotation = 300/360 = .8333 with rotations=0; counts = 10*.8333=8; since 1st count is '-5', counts=3
+		angleToSetTo = 160 * uom.degToRad;
+		setToAngle(encoder, angleToSetTo);
+		expected = 3;
+		result = encoder.currentCount;
+		equal(result, expected, 'after setToAngle, currentCount should be ' + expected + ', is ' + result);			
+
+		// set encoder (geared with offset) to 30; if offset = 10, then geared angle = 30-10=20 and since gearReduction=2, encoder angle = 20*2=40; net rotation = 40/360 = .1111 with rotations=0; counts = 10*.1111=1; since 1st count is '-5', counts=-4
+		angleToSetTo = 30 * uom.degToRad;
+		setToAngle(encoder, angleToSetTo);
+		expected = -4;
+		result = encoder.currentCount;
+		equal(result, expected, 'after setToAngle, currentCount should be ' + expected + ', is ' + result);			
+
+		// set encoder (geared with offset) to 350; if offset = 10, then geared angle = 350-10=340 and since gearReduction=2, encoder angle = 340*2=680; net rotation = 680/360 = .8888 with rotations=1; counts = 10*.8888=8; since 1st count is '-5', counts=3
+		angleToSetTo = 350 * uom.degToRad;
+		setToAngle(encoder, angleToSetTo);
+		expected = 3;
+		result = encoder.currentCount;
+		equal(result, expected, 'after setToAngle, currentCount should be ' + expected + ', is ' + result);			
+		expected = 1;
+		result = encoder.rotations;
+		equal(result, expected, 'after setToAngle, rotations should be ' + expected + ', is ' + result);			
 	});
 		
 });

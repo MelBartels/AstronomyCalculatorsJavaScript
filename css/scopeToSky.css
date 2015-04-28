@@ -1,19 +1,26 @@
-#title, #compute {
+#title, #computeScope, #computeEncoders {
 	text-align: center;
 }
 #btnComputeTelescope, #btnComputeEquatCoords, #btnInitMatrix, #btnBestZ123, #btnBestZ13, #btnLoadTaki {
 	width: 200px;
 }
-#coordinatesHeader, #setupHeader, #telescopeHeader, #matrixConversionHeader, #notesHeader {
+#btnUpdateEncoder1, #btnUpdateEncoder2, #btnUpdateEncoder3, #btnResetEncoder1, #btnResetEncoder2, #btnResetEncoder3 {
+	width: 80px;
+}
+#coordinatesHeader, #setupHeader, #telescopeHeader, #encodersHeader, #matrixConversionHeader, #notesHeader {
+	cursor: pointer;
 	background: lightgray;
 	clear: both;
 }
-#coordinatesDetailInput, #setupDetailInput, #telescopeDetailInput, #matrixConversionDetailInput {
+#coordinatesDetailInput, #setupDetailInput, #telescopeDetailInput, #encodersDetailInput, #matrixConversionDetailInput {
 	float: left;
 	margin-left: 2em;
 }
 #coordinatesDetailOutput, #setupDetailOutput, #telescopeDetailOutput, #matrixConversionDetailOutput {
-	margin-left: 35em;
+	margin-left: 30em;
+}
+#encodersDetailOutput {
+	margin-left: 20em;
 }
 #coordinatesDetail, #setupDetail, #telescopeDetail, #notesDetail {
 
@@ -22,7 +29,7 @@
 	background: lightgray;
 }
 td {
-	width: 170px;
+	width: 160px;
 }
 #alignmentCell {
 	width: 190px;
@@ -35,7 +42,7 @@ input[type="text"] {
 	background: lightgray;
 }
 input[name="dateTime"] {
-	width: 170px;
+	width: 160px;
 }
 input[name="one"], input[name="two"], input[name="three"], input[name="analysisPosition1"], input[name="analysisPosition2"], input[name="analysisPosition3"] {
 	width: 400px;

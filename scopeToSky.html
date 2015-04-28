@@ -14,18 +14,17 @@
 	<h1>Scope To Sky</h1>
 </div>
 
-<div id="compute">
+<div id="computeScope">
 	<input ID="btnComputeTelescope" value="Compute telescope position" type="button">
 	<input ID="btnComputeEquatCoords" value="Compute equatorial coordinates" type="button">
 </div>
 
-<div id="coordinatesHeader">
+<div id="coordinatesHeader" class="collapsableHeader">
 	<h3>Coordinates</h3>
 </div>
 
-<div id="coordinatesDetail">
+<div id="coordinatesDetail" class="collapsableContent">
 	<div id="coordinatesDetailInput">
-		
 		<table>
 		<tbody>
 			<tr>
@@ -48,11 +47,9 @@
 				<td><input name="includeCorrections" value="yes" type="radio">yes <input name="includeCorrections" value="no" checked="checked" type="radio">no</td>
 			</tr>
 		</tbody>
-		</table>	
-		
+		</table>			
 	</div>
 	<div id="coordinatesDetailOutput">
-
 		<table>
 		<tbody>
 			<tr>
@@ -81,17 +78,15 @@
 			</tr>
 		</tbody>
 		</table>
-
 	</div>
 </div>
 
-<div id="setupHeader">
+<div id="setupHeader" class="collapsableHeader">
 	<h3>Setup: date-time and site</h3>
 </div>
 
-<div id="setupDetail">
+<div id="setupDetail" class="collapsableContent">
 	<div id="setupDetailInput">
-
 		<table>
 		<tbody>
 			<tr>
@@ -116,10 +111,8 @@
 			</tr>
 		</tbody>
 		</table>
-		
 	</div>
-	<div id="setupDetailOutput">
-		
+	<div id="setupDetailOutput">		
 		<table>
 		<tbody>
 			<tr>
@@ -139,18 +132,16 @@
 				<td id='altitude'></td>
 			</tr>
 		</tbody>
-		</table>
-		
+		</table>		
 	</div>	
 </div>
 
-<div id="telescopeHeader">
+<div id="telescopeHeader" class="collapsableHeader">
 	<h3>Telescope</h3>
 </div>
 
-<div id="telescopeDetail">
+<div id="telescopeDetail" class="collapsableContent">
 	<div id="telescopeDetailInput">
-
 		<table>
 		<tbody>
 			<tr>
@@ -191,10 +182,8 @@
 			</tr>
 		</tbody>
 		</table>
-
 	</div>
 	<div id="telescopeDetailOutput">
-
 		<table>
 		<tbody>
 			<tr>
@@ -212,6 +201,9 @@
 				<td id='refractionDec'></td>
 			</tr>
 			<tr>
+				<td><br></td>		
+			</tr>
+			<tr>
 				<td></td>
 				<td>primary axis</td>
 				<td>secondary axis</td>
@@ -226,32 +218,216 @@
 				<td id='notes1'></td>
 			</tr>
 			<tr>
-				<td>tracking rate (&quot;/sec)</td>
+				<td>track rate &quot;/sec</td>
 				<td id='azRate'></td>
 				<td id='altRate'></td>
 				<td id='FRRate'></td>
 				<td id='notes2'></td>
 			</tr>
 			<tr>
-				<td>&Delta; tracking rate (&quot;/sec/sec)</td>
+				<td>&Delta;track rate &quot;/sec/sec</td>
 				<td id='azRateChange'></td>
 				<td id='altRateChange'></td>
 				<td id='FRRateChange'></td>
 				<td id='notes3'></td>
 			</tr>
+			<tr>
+				<td>5 minute error &quot;</td>
+				<td id='fiveMinuteAzError'></td>
+				<td id='fiveMinuteAltError'></td>
+			</tr>
 		</tbody>
 		</table>
-
 	</div>
 </div>
 
-<div id="matrixConversionHeader">
+<div id="encodersHeader" class="collapsableHeader">
+	<h3>Encoders</h3>
+</div>
+
+<div id="encodersDetail" class="collapsableContent">
+	<div id="encodersDetailInput">
+	</div>
+	<div id="encodersDetailOutput">
+		<table>
+		<tbody>
+			<tr>
+				<td>Configuration</td>
+				<td>Name</td>
+				<td>primary axis</td>
+				<td>secondary axis</td>
+			</tr>
+			<tr>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Min possible count
+				</td>
+				<td>
+					<input class='inputText' name="encoderMinCount1" value="0" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderMinCount2" value="0" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Max possible count
+				</td>
+				<td>
+					<input class='inputText' name="encoderMaxCount1" value="9999" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderMaxCount2" value="9999" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Gear reduction, if any
+				</td>
+				<td>
+					<input class='inputText' name="encoderGearReduction1" value="2:1" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderGearReduction2" value="2:1" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td>
+					 Current count
+				</td>
+				<td>
+					<input class='inputText' name="encoderCurrentCount1" value="0" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderCurrentCount2" value="0" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Last count
+				</td>
+				<td>
+					<input class='inputText' name="encoderLastCount1" value="0" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderLastCount2" value="0" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Rotations or carries
+				</td>
+				<td>
+					<input class='inputText' name="encoderRotations1" value="0" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderRotations2" value="0" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Angle offset (deg)
+				</td>
+				<td>
+					<input class='inputText' name="encoderAngleOffsetDeg1" value="0" onfocus="select()" type="text">
+				</td>
+				<td>
+					<input class='inputText' name="encoderAngleOffsetDeg2" value="0" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td>Actions</td>
+				<td></td>
+				<td>
+					<input ID="btnUpdateEncoder1" value="Update" type="button">
+				</td>
+				<td>
+					<input ID="btnUpdateEncoder2" value="Update" type="button">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+					<input ID="btnResetEncoder1" value="Reset" type="button">
+				</td>
+				<td>
+					<input ID="btnResetEncoder2" value="Reset" type="button">
+				</td>
+			</tr>
+			<tr>
+				<td>Results (deg)</td>				
+				<td>
+					 Direction is 
+				</td>
+				<td>
+					<input class='inputText' name="encoderDirection1" value="" onfocus="select()" type="text">
+				</td>	
+				<td>
+					<input class='inputText' name="encoderDirection2" value="" onfocus="select()" type="text">
+				</td>	
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Encoder angle
+				</td>
+				<td>
+					<input class='inputText' name="encoderAngleDeg1" value="" onfocus="select()" type="text">
+				</td>	
+				<td>
+					<input class='inputText' name="encoderAngleDeg2" value="" onfocus="select()" type="text">
+				</td>	
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Geared angle
+				</td>
+				<td>
+					<input class='inputText' name="encoderGearAngleDeg1" value="" onfocus="select()" type="text">
+				</td>	
+				<td>
+					<input class='inputText' name="encoderGearAngleDeg2" value="" onfocus="select()" type="text">
+				</td>	
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					 Gear angle + offset
+				</td>
+				<td>
+					<input class='inputText' name="encoderGearAngleWithOffsetDeg1" value="" onfocus="select()" type="text">
+				</td>	
+				<td>
+					<input class='inputText' name="encoderGearAngleWithOffsetDeg2" value="" onfocus="select()" type="text">
+				</td>	
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div id="computeEncoders">
+	<br>
+	<input ID="btnScopeToEncoders" value="Set encoders to telescope's position" type="button">
+	<input ID="btnEncodersToScope" value="Set telescope to encoders' position" type="button">
+</div>
+
+<div id="matrixConversionHeader" class="collapsableHeader">
 	<h3>Matrix coordinate conversion</h3>
 </div>
 
-<div id="matrixConversionDetail">
+<div id="matrixConversionDetail" class="collapsableContent">
 	<div id="matrixConversionDetailInput">
-
 		<table>
 		<tbody>
 			<tr>
@@ -274,10 +450,8 @@
 			</tr>
 		</tbody>
 		</table>
-
 	</div>
 	<div id="matrixConversionDetailOutput">
-
 		<table>
 		<tbody>
 			<tr>
@@ -326,15 +500,14 @@
 			</tr>
 		</tbody>
 		</table>
-
 	</div>
 </div>
 
-<div id="notesHeader">
+<div id="notesHeader" class="collapsableHeader">
 	<h3>Notes:</h3>
 </div>
 
-<div id="notesDetail">
+<div id="notesDetail" class="collapsableContent">
 	This calculator illustrates and tests coordinate corrections, celestial to telescope coordinate conversion methods including the meridian flip, the impact of refraction, calculation of drive rates and their changes over time and the analysis of fabrication errors.<br>
 	<br>
 	There are two methods to convert between celestial and telescope coordinates: standard spherical trigonometry and matrix math as first promulgated by Toshami Taki. The two methods can be compared directly. If using the matrix option, then either two or three inits can be used. Leave the alignment position #3 empty if desiring only two inits.<br>
@@ -348,6 +521,10 @@
 	Fabrication errors include the offset in the primary axis (either Right Ascension or Hour Angle or azimuth, offset in the secondary axis (either Declination or altitude) and the misalignment between primary and secondary axes. Fabrication errors can be calculated when the conversion style is set to matrix. At the telescope, the azimuth offset can be ignored since the two star initialization method uses offsets exclusively. Altitude can be hard to set precisely, so calculation of altitude offset is of great help. And finally, the axes misalignment is a critical factor is slewing accurately. So calculation of altitude offset and axes alignment is can improve positioning.<br>
 	<br>
 	This calculator can be used to study initializations and their errors. For instance, is it true that init points should be 90 degrees apart? It's more important that the init points are accurate then that they scan as large as difference as possible. Moving exact offset distances from an init point, even if the init point was sloppy, is more important than anything else. Chances are though that if the init points were crudely done, then offset distances will be equally crude. And finally, there is no difference between the matrix and trig methods in accuracy<br>
+	<br>
+	The five minute error is the error that occurs if the tracking rates are not updated and instead continue as is. For an altazimuth telescope, the drive rates
+	vary continuously, so an error builds if the rates are not updated. For an equatorial telescope, small errors occur near the horizon due to refraction. The 
+	error displayed is the apparent error as would be seen in the eyepiece or in the digital image.<br>
 	<br>
 	Hours can be entered in a variety of formats. For example, '05h 12m 20.2sec', or '5 12 20.2' or '5:12:20.2' or simply ,'5' for 5 hrs. Decimals can be used anywhere, e.g., '5.5h' is 5h 30m. Any reasonable spelling or shorthand of hours, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
 	Degrees can be entered in a variety of formats. For example, '+41°16'10.0"' or '41d 16m 10s' or '41 16 10' or '41:16:10' or simply '4' for 4 degrees. Decimals can be used anywhere, e.g., '5.5' is 5d 30m. Any reasonable spelling or shorthand of degrees, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
@@ -396,8 +573,10 @@
 </body>
 
 <script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src='lib/underscore/underscore-min.js'></script>
 <script src="lib/sharedLib.js"></script>
 <script src="lib/coordLib.js"></script>
+<script src="lib/encoderLib.js"></script>
 <script src="lib/calcLib.js"></script>
 <script src="lib/scopeToSky.js"></script>
 
