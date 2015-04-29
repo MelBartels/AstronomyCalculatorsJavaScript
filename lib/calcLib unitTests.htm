@@ -14,6 +14,7 @@
 	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
 	<script src='jquery/jquery-2.1.1.min.js'></script>
 	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='underscore/underscore-min.js'></script>
 
 	<script src="sharedLib.js"></script>
 	<script src="coordLib.js"></script>
@@ -50,6 +51,7 @@
 		VisualDetectCalcExitPupils = MLB.calcLib.VisualDetectCalcExitPupils,
 		VisualDetectCalcApertures = MLB.calcLib.VisualDetectCalcApertures,
 		calcNewtBaffle = MLB.calcLib.calcNewtBaffle,
+		createAltazConstantMotionTrackingErrors = MLB.calcLib.createAltazConstantMotionTrackingErrors,
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
 		calcSphereParabolaDifference = MLB.calcLib.calcSphereParabolaDifference,
 		wavefrontError = MLB.calcLib.wavefrontError,
@@ -660,6 +662,19 @@
 		equal(withinRange(results.tubeExtension, 7, 0.01), true, 'The tube extension beyond the primary mirror to act as primary baffle should be 7, is ' + results.tubeExtension);		
 	});
 	
+	QUnit.module('createAltazConstantMotionTrackingErrors');
+	
+	QUnit.test('data return', function () {
+		var latitudeRad = 40 * uom.degToRad, 
+		    constantTrackRateTimeRad = 300 * uom.secToRad, 
+			spacingDeg = 2,
+			expected = 18.985,
+			data = createAltazConstantMotionTrackingErrors(latitudeRad, constantTrackRateTimeRad, spacingDeg),
+			results = data[5][2] / uom.arcsecToRad;
+
+		equal(withinRange(results, expected, 0.001), true, 'The constant track rate error over 5 minutes should be ' + expected, + ', is ' + results);
+	});
+		
 	QUnit.module('slumping');
 	
 	QUnit.test('sharply slumped: dia=30, FR=1', function () {

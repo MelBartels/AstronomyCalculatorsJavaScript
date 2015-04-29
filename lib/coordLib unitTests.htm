@@ -2984,13 +2984,14 @@
 		testTrackingRates(xform, expectedRatesArcsec, expectedSiteDeg, TrackingRatesStrategy.KingRates, timeIntervalSec, new TrackingRates().getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction));
 	});
 	
-	QUnit.test('five minute tracking errors', function () {
+	QUnit.test('altaz constant track rate tracking errors (over 5 minutes)', function () {
 		var allowedErrorArcsec = 1 / 100,
 		    // 0.1 arcsec 
 		    allowedErrorDeg = 1 / 360000,
 			latitudeRad = 40 * uom.degToRad,
 		    convertStyle = ConvertStyle.trig,
 			xform,
+			trackingRates,
 			timeIntervalSec = 30,
 			SidTDeg = 0,
 			DecDeg = 0,
@@ -3002,14 +3003,18 @@
 			fiveMinuteAltErrorResultsArcSec,
 			az;
 
+		trackingRates = new TrackingRates();
+		// 5 minutes
+		trackingRates.setConstantTrackRateTimeRad(300 * uom.secToRad);
+		
 		// delta time w/o refraction
 		includeRefraction = false;
 		xform = new XForm(convertStyle, latitudeRad);
 		xform.presetEquat();
 		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
 		xform.getEquat();
-		results = new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);
-		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		results = trackingRates.getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);		
+		fiveMinuteAltErrorResultsArcSec = results.constantTrackRateAzError / uom.arcsecToRad;
 		expected = 0;
 		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) delta time w/o refraction should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
 
@@ -3017,16 +3022,16 @@
 		includeRefraction = true;
 		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
 		xform.getEquat();
-		results = new TrackingRates().getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);
-		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		results = trackingRates.getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.constantTrackRateAzError / uom.arcsecToRad;
 		expected = -16.30;
 		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) delta time w/ refraction should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
 
 		// King rate
 		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
 		xform.getEquat();
-		results = new TrackingRates().getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction);
-		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		results = trackingRates.getKingRates(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.constantTrackRateAzError / uom.arcsecToRad;
 		expected = 60.329;
 		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) (King rate) should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
 
@@ -3036,8 +3041,8 @@
 		xform.presetEquat();
 		setPositionDeg(0, 0, 270, 10, SidTDeg, 0, xform.position);
 		xform.getEquat();
-		results = new TrackingRates().getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction);
-		fiveMinuteAltErrorResultsArcSec = results.fiveMinuteAzError / uom.arcsecToRad;
+		results = trackingRates.getRatesViaFormulae(xform, timeIntervalSec, HAOffset, includeRefraction);
+		fiveMinuteAltErrorResultsArcSec = results.constantTrackRateAzError / uom.arcsecToRad;
 		expected = 0;
 		equal(withinRange(fiveMinuteAltErrorResultsArcSec, expected, allowedErrorArcsec), true, 'fiveMinuteAzErrorResults (arcsec) formula w/o refraction should be ' + expected + ', is ' + fiveMinuteAltErrorResultsArcSec);
 	});
