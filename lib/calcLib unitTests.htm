@@ -668,11 +668,11 @@
 		var latitudeRad = 40 * uom.degToRad, 
 		    constantTrackRateTimeRad = 300 * uom.secToRad, 
 			spacingDeg = 2,
-			expected = 18.985,
+			expected = 18.969,
 			data = createAltazConstantMotionTrackingErrors(latitudeRad, constantTrackRateTimeRad, spacingDeg),
 			results = data[5][2] / uom.arcsecToRad;
 
-		equal(withinRange(results, expected, 0.001), true, 'The constant track rate error over 5 minutes should be ' + expected, + ', is ' + results);
+		equal(withinRange(results, expected, 0.001), true, 'The constant track rate error over 5 minutes should be ' + expected + ', is ' + results);
 	});
 		
 	QUnit.module('slumping');

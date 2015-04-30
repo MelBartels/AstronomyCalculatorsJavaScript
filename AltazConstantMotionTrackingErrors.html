@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html><head>
+
+	<meta content="Mel Bartels" name="author">
+	<meta content="Investigates altazimuth telescope constant motion tracking errors" name="description">
+	<title>Altazimuth telescope constant motion tracking errors</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" href="css/AltazConstantMotionTrackingErrors.css"></head><body>
+
+<div>
+	<h2>Altazimuth telescope constant motion tracking errors</h2>
+	<h3>by Mel Bartels</h3>
+</div>
+
+<br>
+
+<div id="DivCanvas">
+	<canvas id="canvas">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+</div>
+
+<div id="DivControls">
+	<span class="label">Latitude in degrees </span><input id="latitudeDeg" value="40" type="text">
+	<br>
+	<span class="label">Acceptable drift error in arcseconds </span><input id="acceptableDriftArcseconds" value="60" type="text">
+	<br>
+	<span class="label">Tracking time in seconds </span><input id="trackTimeSeconds" value="300" type="text">
+	<br>
+	<br>
+	<span class="label"><input id="btnPlot" value="Plot" type="button"></span>
+</div>
+
+<div id="DivFooter">
+	<br>
+	<h3>Notes</h3> 
+	How long can an altazimuth telescope track with constant rates of speed in the azimuth and altitude axes?<br>
+	<br>
+	An altazimuth telescope's drive rates vary continuously, more so in certain parts of the sky. Further, the rate of change in the drive rates changes. If the drive rates are left unchanged, eventually the tracking error will build to an unacceptable level. This calculator illustrates tracking errors. The error threshold and the time of constant drive rates can be varied.<br>
+	<br>
+	The calculator shows that, as expected, error increases as the telescope is pointed upward. However, surprisingly a modest pattern emerges. Because of the quasi-exponential increase of the error, the time is more important than an arbitrary error limit.<br>
+	<br>
+	Finally, the calculator shows that it will be difficult to reverse engineer the pointing position from the change in drive rates. For too much of the sky, the drive rates do not vary that greatly. Besides in a polar aligned scope, other than refraction, the drive rate never varies from the sidereal tracking rate.<br>
+	<br>
+	Mel Bartels
+</div>
+
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src='lib/underscore/underscore-min.js'></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/AltazConstantMotionTrackingErrors.js"></script>
+
+</body>
+</html>
