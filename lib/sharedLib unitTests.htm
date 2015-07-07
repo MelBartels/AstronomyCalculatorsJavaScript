@@ -130,7 +130,11 @@
 		result = roundToDecimal(1.2345, 3);
 		expected = '1.235';
 		equal(result, expected, 'should be ' + expected + ', is ' + result);
-	});
+
+		// test that leading zero is present if number less than 1
+		result = roundToDecimal(0.2345, 3);
+		expected = '0.235';
+		equal(result, expected, 'should be ' + expected + ', is ' + result);	});
 	
 	QUnit.test('combine resolveNumberToPrecision and limitDecimalPlaces', function () {
 		var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision,
