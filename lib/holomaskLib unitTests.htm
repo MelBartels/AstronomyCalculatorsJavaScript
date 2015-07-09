@@ -1,0 +1,5021 @@
+<!-- separate from calcLib so that encoders can be included without bringing in all the calculators code -->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>QUnit test for holomaskLib.js</title>
+	
+	<!--
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	
+	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+	-->
+	
+	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<script src='jquery/jquery-2.1.1.min.js'></script>
+	<script src='qunit/qunit-1.16.0.js'></script>
+
+	<script src="sharedLib.js"></script>
+	<script src="phpjs.js"></script>
+	<script src="holomaskLib.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
+
+<script>$(document).ready(function () {
+	'use strict';
+	
+	var withinRange = MLB.sharedLib.withinRange,
+	    inputParms = MLB.holomaskLib.inputParms,
+	    parms = MLB.holomaskLib.parms,
+		output = MLB.holomaskLib.output,
+		setInputParms = MLB.holomaskLib.setInputParms,
+		calcParms = MLB.holomaskLib.calcParms,
+		buildContentPreamble = MLB.holomaskLib.buildContentPreamble,
+		generateEPSfileHeader = MLB.holomaskLib.generateEPSfileHeader,
+		fringes = MLB.holomaskLib.fringes,
+		addCenterSpotAndFooter = MLB.holomaskLib.addCenterSpotAndFooter,
+		extractGraphics = MLB.holomaskLib.extractGraphics;
+
+	QUnit.module('holomask');
+
+	/* from php debugging:
+	$ERRLIM	float	0.001	
+	$R	string	"400"	
+	$SCALE	float	2.8346456692913	
+	$STEP_SIZE	float	1	
+	$a	float	0.1244140625	
+	$center	float	0.8503937007874	
+	$deviation	float	-0.63578287760417	
+	$diam	string	"50"	
+	$k	string	"-1"	
+	$l	float	1.171875	
+	$lamb	float	0.0006	
+	$max_period_on_mirror	float	2.4	
+	$mean_period_on_mirror	float	1.9290423861852	
+	$min_period_on_mirror	float	1.6125984251969	
+	$order	string	"1"	
+	$phs	float	0.25	
+	$r	float	25	
+	$ref_zon	float	0.75	
+	$required_spacing	float	0.0244140625	
+	$slit_size	string	".1"	
+	*/
+
+	QUnit.test('calcParms', function () {
+		var allowedError = 0.0000000000001,
+		    expected = {
+				mirrorRadiusMm: 25,
+				l: 1.171875, 
+				requiredSpacing: 0.0244140625,
+				a: 0.1244140625, 
+				mirrorMeanPeriod: 1.9290423861852,
+				mirrorMaxPeriod: 2.4,
+				mirrorMinPeriod: 1.6125984251969,
+				deviation: -0.63578287760417
+			};
+
+		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
+		calcParms();
+
+		equal(withinRange(parms.mirrorRadiusMm, expected.mirrorRadiusMm, allowedError), true, 'mirrorRadiusMm should be ' + expected.mirrorRadiusMm + ', is ' + parms.mirrorRadiusMm);
+		equal(withinRange(parms.l, expected.l, allowedError), true, 'l (reference zone) should be ' + expected.l + ', is ' + parms.l);
+		equal(withinRange(parms.requiredSpacing, expected.requiredSpacing, allowedError), true, 'requiredSpacing should be ' + expected.requiredSpacing + ', is ' + parms.requiredSpacing);
+		equal(withinRange(parms.a, expected.a, allowedError), true, 'a (diffraction order separation in mm) should be ' + expected.a + ', is ' + parms.a);
+		equal(withinRange(parms.mirrorMeanPeriod, expected.mirrorMeanPeriod, allowedError), true, 'mirrorMeanPeriod should be ' + expected.mirrorMeanPeriod + ', is ' + parms.mirrorMeanPeriod);
+		equal(withinRange(parms.mirrorMaxPeriod, expected.mirrorMaxPeriod, allowedError), true, 'mirrorMaxPeriod should be ' + expected.mirrorMaxPeriod + ', is ' + parms.mirrorMaxPeriod);	
+		equal(withinRange(parms.mirrorMinPeriod, expected.mirrorMinPeriod, allowedError), true, 'mirrorMinPeriod should be ' + expected.mirrorMinPeriod + ', is ' + parms.mirrorMinPeriod);	
+		equal(withinRange(parms.deviation, expected.deviation, allowedError), true, ' deviation should be ' + expected.deviation + ', is ' + parms.deviation);	
+	});
+			
+	/* from php:
+	Results
+	Diffraction order m=	1
+	Mirror diameter (mm) 	50
+	Mirror radius of curvature (mm) 	400
+	Conic 	-1
+	Wavelength (nm) 	600.000000
+	Diffraction order separation (mm)	0.1244140625
+	Max slit size (mm)	.1
+	Resolution on mirror,max period (mm) 	2.4
+	min period (mm)	1.6125984251969
+	Deviation from sphere (lambda)	-0.63578287760417
+	Wavelength and tolerance, PV=lambda/10 (nm)	600 +- 47.18592
+	*/
+	QUnit.test('buildContentPreamble', function () {
+		var expected = "<h3>Results</h3><table><tr><td>Diffraction order m</td><td>1</td></tr><tr><td>Mirror diameter (mm)</td><td>50</td></tr><tr><td>Mirror radius of curvature (mm)</td><td>400</td></tr><tr><td>Conic</td><td>-1<br><tr><td>Wavelength (nm)</td><td>600</td></tr><tr><td>Diffraction order separation (mm)</td><td>0.1244140625</td></tr><tr><td>Max slit size (mm)</td><td>0.1</td></tr><tr><td>Resolution on mirror,max period (mm)</td><td>2.4</td></tr><tr><td>min period (mm)</td><td>1.6125984251968504</td></tr><tr><td>Deviation from sphere (lambda)</td><td>-0.6357828776041663</td></tr><tr><td>Wavelength and tolerance, PV = lambda/10 (nm)</td><td>600 +- 47.185920000000024</td></tr></table>";
+
+		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
+		calcParms();
+		buildContentPreamble();
+
+		equal(output.parms, expected, 'content preamble is ' + output.parms + ' should be ' + expected);
+	});
+	
+	/*
+	%!PS-Adobe-2.0 EPSF-1.2
+	%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels
+	%%Title:HoloMask
+	%%CreationDate: 05/03/102 14:16
+	%%DocumentProcSets:Adobe_Illustrator_1.0 0 0
+	%%DocumentSuppliedProcSets:Adobe_Illustrator_1.0 0 0
+	%%DocumentFonts:Helvetica
+	%%BoundingBox: 0 0 143 143
+	%%TemplateBox:  0 0 143 143
+	%%EndComments
+	%%BeginProcSet:Adobe_Illustrator_1.0 0 0
+	% Copyright (C) 1987 Adobe Systems Incorporated.
+	% All Rights Reserved.
+	% Adobe Illustrator is a trademark of Adobe Systems Incorporated
+	/Adobe_Illustrator_1.0 dup 100 dict def load begin
+	/Version 0 def
+	/Revision 0 def
+	% definition operators
+	/bdef {bind def} bind def
+	/ldef {load def} bdef
+	/xdef {exch def} bdef
+	% graphic state operators
+	/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef
+	/_k /setmybcolor where {/setcmybcolor get} 
+		{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def
+	/g {/_b xdef /p {_b setgray} def} bdef
+	/G {/_B xdef /P {_B setgray} def} bdef
+	/k {/_b xdef /_y xdef /_m xdef /_c xdef /p {_c _m _y _b _k} def} bdef
+	/K {/_B xdef /_Y xdef /_M xdef /_C xdef /P {_C _M _Y _B _K} def} bdef
+	/d /setdash ldef
+	/_i currentflat def
+	/i {dup 0 equ {pop _i} if setflat} bdef
+	/j /setlinejoin ldef
+	/J /setlinecap ldef
+	/M /setmiterlimit ldef
+	/w /setlinewidth ldef
+	% path construction operators
+	/_R {.25 sub round .25 add} bdef
+	/_r {transform _R exch _R exch itransform} bdef
+	/c {_r curveto} bdef
+	/C /c ldef
+	/v {currentpoint 6 2 roll _r curveto} bdef
+	/V /v ldef
+	/y {_r 2 copy curveto} bdef
+	/Y /y ldef
+	/l {_r lineto} bdef
+	/L /l ldef
+	/m {_r moveto} bdef
+	% error operators
+	/_e [] def
+	/_E {_e length 0 ne {gsave 0 g 0 G 0 i 0 J 0 j 1 w 10 M [] 0 d
+		/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966
+		_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]
+		e _f t T grestore} if} bdef
+	/_fill {{fill} stopped {/_e [pathbbox] def /_f 
+		(ERROR: can't fill, increase flatness) def n _E} if} bdef
+	/_stroke {{stroke} stopped {/_e [pathbbox] def /_f 
+		(ERROR: can't stroke, increase flatness) def n _E} if} bdef
+	% path painting operators
+	/n /newpath ldef
+	/N /n ldef
+	/F {p _fill} bdef
+	/f {closepath F} bdef
+	/S {P _stroke} bdef
+	/s {closepath S} bdef
+	/B {gsave F grestore S} bdef
+	/b {closepath B} bdef
+	% text block construction and painting operators
+	/_s /ashow /def
+	/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint 
+		_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall 
+		pop pop pop n} bdef
+	/_A {_a moveto _t exch 0 exch} bdef
+	/_L {0 _l neg translate _G currentmatrix pop} bdef
+	/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef
+	/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} 
+		{dup _w exch neg exch neg}] bdef
+	/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont 
+		setfont} bdef
+	/_g matrix def
+	/_G matrix def
+	/_D {_g currentmatrix pop gsave concat _G currentmatrix pop} bdef
+	/e {_D p /t {_A _s _L} def} bdef
+	/r {_D P /t {_A _S _L} def} bdef
+	/a {_D /t {dup p _A _s P _A _S _L} def} bdef
+	/o {_D /t {pop _L} def} bdef
+	/T {grestore} bdef
+	% group construction operators
+	/u {} bdef
+	/U {} bdef
+	% font construction operators
+	/Z {{findfont begin 
+			currentdict dup length dict begin 
+				1 index /FID ne {def} {pop pop} ifelse
+		} forall 
+		FontName exch def dup length 0 ne 
+		{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq
+		{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop
+		currentdict dup end end /FontName get exch definefont pop} bdef
+		end
+	%%EndProcSet
+	%%EndProlog
+	%%BeginSetup
+	Adobe_Illustrator_1.0 begin
+	n
+	%%EndSetup
+	0 G
+	0 g
+	0 j
+	0 J
+	0 w
+	0.000 0.000 0.000 1.000 k
+	*/	
+	QUnit.test('generateEPSfileHeader', function () {
+		var result, 
+		    expected = 
+			'%!PS-Adobe-2.0 EPSF-1.2' + '\n' +
+			'%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels' + '\n' +
+			'%%Title:HoloMask' + '\n' +
+			'%%CreationDate: 05/03/102 14:16' + '\n' +
+			'%%DocumentProcSets:Adobe_Illustrator_1.0 0 0' + '\n' +
+			'%%DocumentSuppliedProcSets:Adobe_Illustrator_1.0 0 0' + '\n' +
+			'%%DocumentFonts:Helvetica' + '\n' +
+			'%%BoundingBox: 0 0 143 143' + '\n' +
+			'%%TemplateBox: 0 0 143 143' + '\n' +
+			'%%EndComments' + '\n' +
+			'%%BeginProcSet:Adobe_Illustrator_1.0 0 0' + '\n' +
+			'% Copyright (C) 1987 Adobe Systems Incorporated.' + '\n' +
+			'% All Rights Reserved.' + '\n' +
+			'% Adobe Illustrator is a trademark of Adobe Systems Incorporated' + '\n' +
+			'/Adobe_Illustrator_1.0 dup 100 dict def load begin' + '\n' +
+			'/Version 0 def' + '\n' +
+			'/Revision 0 def' + '\n' +
+			'% definition operators' + '\n' +
+			'/bdef {bind def} bind def' + '\n' +
+			'/ldef {load def} bdef' + '\n' +
+			'/xdef {exch def} bdef' + '\n' +
+			'% graphic state operators' + '\n' +
+			'/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef' + '\n' +
+			'/_k /setmybcolor where {/setcmybcolor get} ' + '\n' +
+			'	{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def' + '\n' +
+			'/g {/_b xdef /p {_b setgray} def} bdef' + '\n' +
+			'/G {/_B xdef /P {_B setgray} def} bdef' + '\n' +
+			'/k {/_b xdef /_y xdef /_m xdef /_c xdef /p {_c _m _y _b _k} def} bdef' + '\n' +
+			'/K {/_B xdef /_Y xdef /_M xdef /_C xdef /P {_C _M _Y _B _K} def} bdef' + '\n' +
+			'/d /setdash ldef' + '\n' +
+			'/_i currentflat def' + '\n' +
+			'/i {dup 0 equ {pop _i} if setflat} bdef' + '\n' +
+			'/j /setlinejoin ldef' + '\n' +
+			'/J /setlinecap ldef' + '\n' +
+			'/M /setmiterlimit ldef' + '\n' +
+			'/w /setlinewidth ldef' + '\n' +
+			'% path construction operators' + '\n' +
+			'/_R {.25 sub round .25 add} bdef' + '\n' +
+			'/_r {transform _R exch _R exch itransform} bdef' + '\n' +
+			'/c {_r curveto} bdef' + '\n' +
+			'/C /c ldef' + '\n' +
+			'/v {currentpoint 6 2 roll _r curveto} bdef' + '\n' +
+			'/V /v ldef' + '\n' +
+			'/y {_r 2 copy curveto} bdef' + '\n' +
+			'/Y /y ldef' + '\n' +
+			'/l {_r lineto} bdef' + '\n' +
+			'/L /l ldef' + '\n' +
+			'/m {_r moveto} bdef' + '\n' +
+			'% error operators' + '\n' +
+			'/_e [] def' + '\n' +
+			'/_E {_e length 0 ne {gsave 0 g 0 G 0 i 0 J 0 j 1 w 10 M [] 0 d' + '\n' +
+			'	/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966' + '\n' +
+			'	_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]' + '\n' +
+			'	e _f t T grestore} if} bdef' + '\n' +
+			'/_fill {{fill} stopped {/_e [pathbbox] def /_f ' + '\n' +
+			'	(ERROR: cannot fill, increase flatness) def n _E} if} bdef' + '\n' +
+			'/_stroke {{stroke} stopped {/_e [pathbbox] def /_f ' + '\n' +
+			'	(ERROR: cannot stroke, increase flatness) def n _E} if} bdef' + '\n' +
+			'% path painting operators' + '\n' +
+			'/n /newpath ldef' + '\n' +
+			'/N /n ldef' + '\n' +
+			'/F {p _fill} bdef' + '\n' +
+			'/f {closepath F} bdef' + '\n' +
+			'/S {P _stroke} bdef' + '\n' +
+			'/s {closepath S} bdef' + '\n' +
+			'/B {gsave F grestore S} bdef' + '\n' +
+			'/b {closepath B} bdef' + '\n' +
+			'% text block construction and painting operators' + '\n' +
+			'/_s /ashow /def' + '\n' +
+			'/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint ' + '\n' +
+			'	_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall ' + '\n' +
+			'	pop pop pop n} bdef' + '\n' +
+			'/_A {_a moveto _t exch 0 exch} bdef' + '\n' +
+			'/_L {0 _l neg translate _G currentmatrix pop} bdef' + '\n' +
+			'/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef' + '\n' +
+			'/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} ' + '\n' +
+			'	{dup _w exch neg exch neg}] bdef' + '\n' +
+			'/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont ' + '\n' +
+			'	setfont} bdef' + '\n' +
+			'/_g matrix def' + '\n' +
+			'/_G matrix def' + '\n' +
+			'/_D {_g currentmatrix pop gsave concat _G currentmatrix pop} bdef' + '\n' +
+			'/e {_D p /t {_A _s _L} def} bdef' + '\n' +
+			'/r {_D P /t {_A _S _L} def} bdef' + '\n' +
+			'/a {_D /t {dup p _A _s P _A _S _L} def} bdef' + '\n' +
+			'/o {_D /t {pop _L} def} bdef' + '\n' +
+			'/T {grestore} bdef' + '\n' +
+			'% group construction operators' + '\n' +
+			'/u {} bdef' + '\n' +
+			'/U {} bdef' + '\n' +
+			'% font construction operators' + '\n' +
+			'/Z {{findfont begin ' + '\n' +
+			'		currentdict dup length dict begin ' + '\n' +
+			'			1 index /FID ne {def} {pop pop} ifelse' + '\n' +
+			'	} forall ' + '\n' +
+			'	FontName exch def dup length 0 ne ' + '\n' +
+			'	{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq' + '\n' +
+			'	{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop' + '\n' +
+			'	currentdict dup end end /FontName get exch definefont pop} bdef' + '\n' +
+			'	end' + '\n' +
+			'%%EndProcSet' + '\n' +
+			'%%EndProlog' + '\n' +
+			'%%BeginSetup' + '\n' +
+			'Adobe_Illustrator_1.0 begin' + '\n' +
+			'n' + '\n' +
+			'%%EndSetup' + '\n' +
+			'0 G' + '\n' +
+			'0 g' + '\n' +
+			'0 j' + '\n' +
+			'0 J' + '\n' +
+			'0 w' + '\n' +
+			'0.000 0.000 0.000 1.000 k' + '\n';
+
+		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
+		calcParms();
+		generateEPSfileHeader();
+		result = output.fileContents;
+
+		equal(result, expected, result);
+	});
+
+	/*
+	%!PS-Adobe-2.0 EPSF-1.2
+	%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels
+	%%Title:HoloMask
+	%%CreationDate: 05/03/102 14:16
+	%%DocumentProcSets:Adobe_Illustrator_1.0 0 0
+	%%DocumentSuppliedProcSets:Adobe_Illustrator_1.0 0 0
+	%%DocumentFonts:Helvetica
+	%%BoundingBox: 0 0 143 143
+	%%TemplateBox: 0 0 143 143
+	%%EndComments
+	%%BeginProcSet:Adobe_Illustrator_1.0 0 0
+	% Copyright (C) 1987 Adobe Systems Incorporated.
+	% All Rights Reserved.
+	% Adobe Illustrator is a trademark of Adobe Systems Incorporated
+	/Adobe_Illustrator_1.0 dup 100 dict def load begin
+	/Version 0 def
+	/Revision 0 def
+	% definition operators
+	/bdef {bind def} bind def
+	/ldef {load def} bdef
+	/xdef {exch def} bdef
+	% graphic state operators
+	/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef
+	/_k /setmybcolor where {/setcmybcolor get} 
+		{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def
+	/g {/_b xdef /p {_b setgray} def} bdef
+	/G {/_B xdef /P {_B setgray} def} bdef
+	/k {/_b xdef /_y xdef /_m xdef /_c xdef /p {_c _m _y _b _k} def} bdef
+	/K {/_B xdef /_Y xdef /_M xdef /_C xdef /P {_C _M _Y _B _K} def} bdef
+	/d /setdash ldef
+	/_i currentflat def
+	/i {dup 0 equ {pop _i} if setflat} bdef
+	/j /setlinejoin ldef
+	/J /setlinecap ldef
+	/M /setmiterlimit ldef
+	/w /setlinewidth ldef
+	% path construction operators
+	/_R {.25 sub round .25 add} bdef
+	/_r {transform _R exch _R exch itransform} bdef
+	/c {_r curveto} bdef
+	/C /c ldef
+	/v {currentpoint 6 2 roll _r curveto} bdef
+	/V /v ldef
+	/y {_r 2 copy curveto} bdef
+	/Y /y ldef
+	/l {_r lineto} bdef
+	/L /l ldef
+	/m {_r moveto} bdef
+	% error operators
+	/_e [] def
+	/_E {_e length 0 ne {gsave 0 g 0 G 0 i 0 J 0 j 1 w 10 M [] 0 d
+		/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966
+		_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]
+		e _f t T grestore} if} bdef
+	/_fill {{fill} stopped {/_e [pathbbox] def /_f 
+		(ERROR: cannot fill, increase flatness) def n _E} if} bdef
+	/_stroke {{stroke} stopped {/_e [pathbbox] def /_f 
+		(ERROR: cannot stroke, increase flatness) def n _E} if} bdef
+	% path painting operators
+	/n /newpath ldef
+	/N /n ldef
+	/F {p _fill} bdef
+	/f {closepath F} bdef
+	/S {P _stroke} bdef
+	/s {closepath S} bdef
+	/B {gsave F grestore S} bdef
+	/b {closepath B} bdef
+	% text block construction and painting operators
+	/_s /ashow /def
+	/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint 
+		_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall 
+		pop pop pop n} bdef
+	/_A {_a moveto _t exch 0 exch} bdef
+	/_L {0 _l neg translate _G currentmatrix pop} bdef
+	/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef
+	/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} 
+		{dup _w exch neg exch neg}] bdef
+	/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont 
+		setfont} bdef
+	/_g matrix def
+	/_G matrix def
+	/_D {_g currentmatrix pop gsave concat _G currentmatrix pop} bdef
+	/e {_D p /t {_A _s _L} def} bdef
+	/r {_D P /t {_A _S _L} def} bdef
+	/a {_D /t {dup p _A _s P _A _S _L} def} bdef
+	/o {_D /t {pop _L} def} bdef
+	/T {grestore} bdef
+	% group construction operators
+	/u {} bdef
+	/U {} bdef
+	% font construction operators
+	/Z {{findfont begin 
+			currentdict dup length dict begin 
+				1 index /FID ne {def} {pop pop} ifelse
+		} forall 
+		FontName exch def dup length 0 ne 
+		{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq
+		{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop
+		currentdict dup end end /FontName get exch definefont pop} bdef
+		end
+	%%EndProcSet
+	%%EndProlog
+	%%BeginSetup
+	Adobe_Illustrator_1.0 begin
+	n
+	%%EndSetup
+	0 G
+	0 g
+	0 j
+	0 J
+	0 w
+	0.000 0.000 0.000 1.000 k
+	7.05 72.28 m
+	4.49 72.28 l
+	4.5 75.12 l
+	4.52 77.95 l
+	4.55 80.79 l
+	4.60 83.62 l
+	4.67 86.46 l
+	4.75 89.29 l
+	4.86 92.13 l
+	4.99 94.96 l
+	5.13 97.35 l
+	7.86 103.32 l
+	7.68 100.63 l
+	7.52 97.8 l
+	7.39 94.96 l
+	7.29 92.13 l
+	7.21 89.29 l
+	7.15 86.46 l
+	7.11 83.62 l
+	7.08 80.79 l
+	7.06 77.95 l
+	7.05 75.12 l
+	s
+	7.05 69.45 m
+	4.49 69.45 l
+	4.5 66.61 l
+	4.52 63.78 l
+	4.55 60.94 l
+	4.60 58.11 l
+	4.67 55.28 l
+	4.75 52.44 l
+	4.86 49.61 l
+	4.99 46.77 l
+	5.13 44.39 l
+	7.86 38.42 l
+	7.68 41.1 l
+	7.52 43.94 l
+	7.39 46.77 l
+	7.29 49.61 l
+	7.21 52.44 l
+	7.15 55.28 l
+	7.11 58.11 l
+	7.08 60.94 l
+	7.06 63.78 l
+	7.05 66.61 l
+	s
+	12.54 72.28 m
+	9.73 72.28 l
+	9.73 75.12 l
+	9.73 77.95 l
+	9.73 80.79 l
+	9.74 83.62 l
+	9.75 86.46 l
+	9.78 89.29 l
+	9.82 92.13 l
+	9.89 94.96 l
+	9.97 97.8 l
+	10.09 100.63 l
+	10.25 103.46 l
+	10.45 106.3 l
+	10.6 108.16 l
+	13.33 112.25 l
+	13.31 111.97 l
+	13.06 109.13 l
+	12.86 106.3 l
+	12.72 103.46 l
+	12.61 100.63 l
+	12.54 97.8 l
+	12.49 94.96 l
+	12.47 92.13 l
+	12.46 89.29 l
+	12.47 86.46 l
+	12.48 83.62 l
+	12.5 80.79 l
+	12.52 77.95 l
+	12.53 75.12 l
+	s
+	12.54 69.45 m
+	9.73 69.45 l
+	9.73 66.61 l
+	9.73 63.78 l
+	9.73 60.94 l
+	9.74 58.11 l
+	9.75 55.28 l
+	9.78 52.44 l
+	9.82 49.61 l
+	9.89 46.77 l
+	9.97 43.94 l
+	10.09 41.1 l
+	10.25 38.27 l
+	10.45 35.43 l
+	10.6 33.58 l
+	13.33 29.49 l
+	13.31 29.76 l
+	13.06 32.6 l
+	12.86 35.43 l
+	12.72 38.27 l
+	12.61 41.1 l
+	12.54 43.94 l
+	12.49 46.77 l
+	12.47 49.61 l
+	12.46 52.44 l
+	12.47 55.28 l
+	12.48 58.11 l
+	12.5 60.94 l
+	12.52 63.78 l
+	12.53 66.61 l
+	s
+	18.51 72.28 m
+	15.46 72.28 l
+	15.45 75.12 l
+	15.43 77.95 l
+	15.39 80.79 l
+	15.35 83.62 l
+	15.3 86.46 l
+	15.26 89.29 l
+	15.22 92.13 l
+	15.20 94.96 l
+	15.20 97.8 l
+	15.22 100.63 l
+	15.28 103.46 l
+	15.38 106.3 l
+	15.52 109.13 l
+	15.71 111.97 l
+	15.96 114.8 l
+	16.07 115.81 l
+	18.8 118.95 l
+	18.66 117.64 l
+	18.40 114.8 l
+	18.2 111.97 l
+	18.06 109.13 l
+	17.98 106.3 l
+	17.94 103.46 l
+	17.94 100.63 l
+	17.96 97.8 l
+	18.02 94.96 l
+	18.09 92.13 l
+	18.16 89.29 l
+	18.25 86.46 l
+	18.32 83.62 l
+	18.39 80.79 l
+	18.45 77.95 l
+	18.49 75.12 l
+	s
+	18.51 69.45 m
+	15.46 69.45 l
+	15.45 66.61 l
+	15.43 63.78 l
+	15.39 60.94 l
+	15.35 58.11 l
+	15.3 55.28 l
+	15.26 52.44 l
+	15.22 49.61 l
+	15.20 46.77 l
+	15.20 43.94 l
+	15.22 41.1 l
+	15.28 38.27 l
+	15.38 35.43 l
+	15.52 32.6 l
+	15.71 29.76 l
+	15.96 26.93 l
+	16.07 25.92 l
+	18.8 22.78 l
+	18.66 24.09 l
+	18.40 26.93 l
+	18.2 29.76 l
+	18.06 32.6 l
+	17.98 35.43 l
+	17.94 38.27 l
+	17.94 41.1 l
+	17.96 43.94 l
+	18.02 46.77 l
+	18.09 49.61 l
+	18.16 52.44 l
+	18.25 55.28 l
+	18.32 58.11 l
+	18.39 60.94 l
+	18.45 63.78 l
+	18.49 66.61 l
+	s
+	24.90 72.28 m
+	21.66 72.28 l
+	21.63 75.12 l
+	21.58 77.95 l
+	21.5 80.79 l
+	21.40 83.62 l
+	21.29 86.46 l
+	21.17 89.29 l
+	21.05 92.13 l
+	20.93 94.96 l
+	20.82 97.8 l
+	20.74 100.63 l
+	20.68 103.46 l
+	20.67 106.3 l
+	20.69 109.13 l
+	20.77 111.97 l
+	20.91 114.8 l
+	21.11 117.64 l
+	21.39 120.47 l
+	21.54 121.75 l
+	24.27 124.27 l
+	24.15 123.31 l
+	23.85 120.47 l
+	23.63 117.64 l
+	23.49 114.8 l
+	23.42 111.97 l
+	23.40 109.13 l
+	23.44 106.3 l
+	23.52 103.46 l
+	23.63 100.63 l
+	23.77 97.8 l
+	23.93 94.96 l
+	24.1 92.13 l
+	24.27 89.29 l
+	24.43 86.46 l
+	24.58 83.62 l
+	24.7 80.79 l
+	24.8 77.95 l
+	24.87 75.12 l
+	s
+	24.90 69.45 m
+	21.66 69.45 l
+	21.63 66.61 l
+	21.58 63.78 l
+	21.5 60.94 l
+	21.40 58.11 l
+	21.29 55.28 l
+	21.17 52.44 l
+	21.05 49.61 l
+	20.93 46.77 l
+	20.82 43.94 l
+	20.74 41.1 l
+	20.68 38.27 l
+	20.67 35.43 l
+	20.69 32.6 l
+	20.77 29.76 l
+	20.91 26.93 l
+	21.11 24.09 l
+	21.39 21.26 l
+	21.54 19.98 l
+	24.27 17.46 l
+	24.15 18.43 l
+	23.85 21.26 l
+	23.63 24.09 l
+	23.49 26.93 l
+	23.42 29.76 l
+	23.40 32.6 l
+	23.44 35.43 l
+	23.52 38.27 l
+	23.63 41.1 l
+	23.77 43.94 l
+	23.93 46.77 l
+	24.1 49.61 l
+	24.27 52.44 l
+	24.43 55.28 l
+	24.58 58.11 l
+	24.7 60.94 l
+	24.8 63.78 l
+	24.87 66.61 l
+	s
+	31.59 72.28 m
+	28.22 72.28 l
+	28.18 75.12 l
+	28.1 77.95 l
+	27.98 80.79 l
+	27.82 83.62 l
+	27.64 86.46 l
+	27.44 89.29 l
+	27.23 92.13 l
+	27.01 94.96 l
+	26.8 97.8 l
+	26.6 100.63 l
+	26.43 103.46 l
+	26.28 106.3 l
+	26.19 109.13 l
+	26.14 111.97 l
+	26.15 114.8 l
+	26.23 117.64 l
+	26.38 120.47 l
+	26.62 123.31 l
+	26.95 126.14 l
+	27 126.53 l
+	29.74 128.58 l
+	29.43 126.14 l
+	29.16 123.31 l
+	28.98 120.47 l
+	28.89 117.64 l
+	28.87 114.8 l
+	28.92 111.97 l
+	29.04 109.13 l
+	29.2 106.3 l
+	29.40 103.46 l
+	29.64 100.63 l
+	29.89 97.8 l
+	30.16 94.96 l
+	30.42 92.13 l
+	30.68 89.29 l
+	30.92 86.46 l
+	31.13 83.62 l
+	31.31 80.79 l
+	31.45 77.95 l
+	31.54 75.12 l
+	s
+	31.59 69.45 m
+	28.22 69.45 l
+	28.18 66.61 l
+	28.1 63.78 l
+	27.98 60.94 l
+	27.82 58.11 l
+	27.64 55.28 l
+	27.44 52.44 l
+	27.23 49.61 l
+	27.01 46.77 l
+	26.8 43.94 l
+	26.6 41.1 l
+	26.43 38.27 l
+	26.28 35.43 l
+	26.19 32.6 l
+	26.14 29.76 l
+	26.15 26.93 l
+	26.23 24.09 l
+	26.38 21.26 l
+	26.62 18.43 l
+	26.95 15.59 l
+	27 15.20 l
+	29.74 13.15 l
+	29.43 15.59 l
+	29.16 18.43 l
+	28.98 21.26 l
+	28.89 24.09 l
+	28.87 26.93 l
+	28.92 29.76 l
+	29.04 32.6 l
+	29.2 35.43 l
+	29.40 38.27 l
+	29.64 41.1 l
+	29.89 43.94 l
+	30.16 46.77 l
+	30.42 49.61 l
+	30.68 52.44 l
+	30.92 55.28 l
+	31.13 58.11 l
+	31.31 60.94 l
+	31.45 63.78 l
+	31.54 66.61 l
+	s
+	38.38 72.28 m
+	34.99 72.28 l
+	34.93 75.12 l
+	34.82 77.95 l
+	34.67 80.79 l
+	34.47 83.62 l
+	34.22 86.46 l
+	33.95 89.29 l
+	33.66 92.13 l
+	33.35 94.96 l
+	33.03 97.8 l
+	32.72 100.63 l
+	32.43 103.46 l
+	32.17 106.3 l
+	31.94 109.13 l
+	31.77 111.97 l
+	31.65 114.8 l
+	31.6 117.64 l
+	31.63 120.47 l
+	31.75 123.31 l
+	31.96 126.14 l
+	32.27 128.98 l
+	32.47 130.44 l
+	35.21 132.11 l
+	35.16 131.81 l
+	34.79 128.98 l
+	34.54 126.14 l
+	34.39 123.31 l
+	34.34 120.47 l
+	34.37 117.64 l
+	34.48 114.8 l
+	34.66 111.97 l
+	34.9 109.13 l
+	35.18 106.3 l
+	35.5 103.46 l
+	35.84 100.63 l
+	36.2 97.8 l
+	36.56 94.96 l
+	36.91 92.13 l
+	37.24 89.29 l
+	37.55 86.46 l
+	37.81 83.62 l
+	38.04 80.79 l
+	38.21 77.95 l
+	38.32 75.12 l
+	s
+	38.38 69.45 m
+	34.99 69.45 l
+	34.93 66.61 l
+	34.82 63.78 l
+	34.67 60.94 l
+	34.47 58.11 l
+	34.22 55.28 l
+	33.95 52.44 l
+	33.66 49.61 l
+	33.35 46.77 l
+	33.03 43.94 l
+	32.72 41.1 l
+	32.43 38.27 l
+	32.17 35.43 l
+	31.94 32.6 l
+	31.77 29.76 l
+	31.65 26.93 l
+	31.6 24.09 l
+	31.63 21.26 l
+	31.75 18.43 l
+	31.96 15.59 l
+	32.27 12.76 l
+	32.47 11.29 l
+	35.21 9.62 l
+	35.16 9.92 l
+	34.79 12.76 l
+	34.54 15.59 l
+	34.39 18.43 l
+	34.34 21.26 l
+	34.37 24.09 l
+	34.48 26.93 l
+	34.66 29.76 l
+	34.9 32.6 l
+	35.18 35.43 l
+	35.5 38.27 l
+	35.84 41.1 l
+	36.2 43.94 l
+	36.56 46.77 l
+	36.91 49.61 l
+	37.24 52.44 l
+	37.55 55.28 l
+	37.81 58.11 l
+	38.04 60.94 l
+	38.21 63.78 l
+	38.32 66.61 l
+	s
+	45.11 72.28 m
+	41.76 72.28 l
+	41.7 75.12 l
+	41.57 77.95 l
+	41.39 80.79 l
+	41.15 83.62 l
+	40.86 86.46 l
+	40.54 89.29 l
+	40.17 92.13 l
+	39.79 94.96 l
+	39.39 97.8 l
+	38.99 100.63 l
+	38.59 103.46 l
+	38.22 106.3 l
+	37.88 109.13 l
+	37.59 111.97 l
+	37.35 114.8 l
+	37.18 117.64 l
+	37.09 120.47 l
+	37.08 123.31 l
+	37.17 126.14 l
+	37.37 128.98 l
+	37.68 131.81 l
+	37.94 133.63 l
+	40.67 134.98 l
+	40.62 134.65 l
+	40.24 131.81 l
+	39.98 128.98 l
+	39.84 126.14 l
+	39.81 123.31 l
+	39.87 120.47 l
+	40.02 117.64 l
+	40.25 114.8 l
+	40.54 111.97 l
+	40.89 109.13 l
+	41.28 106.3 l
+	41.7 103.46 l
+	42.13 100.63 l
+	42.57 97.8 l
+	43.01 94.96 l
+	43.42 92.13 l
+	43.81 89.29 l
+	44.16 86.46 l
+	44.46 83.62 l
+	44.71 80.79 l
+	44.91 77.95 l
+	45.04 75.12 l
+	s
+	45.11 69.45 m
+	41.76 69.45 l
+	41.7 66.61 l
+	41.57 63.78 l
+	41.39 60.94 l
+	41.15 58.11 l
+	40.86 55.28 l
+	40.54 52.44 l
+	40.17 49.61 l
+	39.79 46.77 l
+	39.39 43.94 l
+	38.99 41.1 l
+	38.59 38.27 l
+	38.22 35.43 l
+	37.88 32.6 l
+	37.59 29.76 l
+	37.35 26.93 l
+	37.18 24.09 l
+	37.09 21.26 l
+	37.08 18.43 l
+	37.17 15.59 l
+	37.37 12.76 l
+	37.68 9.92 l
+	37.94 8.11 l
+	40.67 6.75 l
+	40.62 7.09 l
+	40.24 9.92 l
+	39.98 12.76 l
+	39.84 15.59 l
+	39.81 18.43 l
+	39.87 21.26 l
+	40.02 24.09 l
+	40.25 26.93 l
+	40.54 29.76 l
+	40.89 32.6 l
+	41.28 35.43 l
+	41.7 38.27 l
+	42.13 41.1 l
+	42.57 43.94 l
+	43.01 46.77 l
+	43.42 49.61 l
+	43.81 52.44 l
+	44.16 55.28 l
+	44.46 58.11 l
+	44.71 60.94 l
+	44.91 63.78 l
+	45.04 66.61 l
+	s
+	51.62 72.28 m
+	48.4 72.28 l
+	48.33 75.12 l
+	48.19 77.95 l
+	47.99 80.79 l
+	47.73 83.62 l
+	47.41 86.46 l
+	47.05 89.29 l
+	46.64 92.13 l
+	46.2 94.96 l
+	45.74 97.8 l
+	45.27 100.63 l
+	44.80 103.46 l
+	44.34 106.3 l
+	43.91 109.13 l
+	43.51 111.97 l
+	43.17 114.8 l
+	42.89 117.64 l
+	42.68 120.47 l
+	42.56 123.31 l
+	42.54 126.14 l
+	42.63 128.98 l
+	42.83 131.81 l
+	43.17 134.65 l
+	43.41 136.2 l
+	46.14 137.28 l
+	45.75 134.65 l
+	45.47 131.81 l
+	45.31 128.98 l
+	45.27 126.14 l
+	45.35 123.31 l
+	45.51 120.47 l
+	45.77 117.64 l
+	46.1 114.8 l
+	46.48 111.97 l
+	46.92 109.13 l
+	47.39 106.3 l
+	47.88 103.46 l
+	48.38 100.63 l
+	48.88 97.8 l
+	49.36 94.96 l
+	49.82 92.13 l
+	50.24 89.29 l
+	50.62 86.46 l
+	50.94 83.62 l
+	51.21 80.79 l
+	51.42 77.95 l
+	51.55 75.12 l
+	s
+	51.62 69.45 m
+	48.4 69.45 l
+	48.33 66.61 l
+	48.19 63.78 l
+	47.99 60.94 l
+	47.73 58.11 l
+	47.41 55.28 l
+	47.05 52.44 l
+	46.64 49.61 l
+	46.2 46.77 l
+	45.74 43.94 l
+	45.27 41.1 l
+	44.80 38.27 l
+	44.34 35.43 l
+	43.91 32.6 l
+	43.51 29.76 l
+	43.17 26.93 l
+	42.89 24.09 l
+	42.68 21.26 l
+	42.56 18.43 l
+	42.54 15.59 l
+	42.63 12.76 l
+	42.83 9.92 l
+	43.17 7.09 l
+	43.41 5.53 l
+	46.14 4.45 l
+	45.75 7.09 l
+	45.47 9.92 l
+	45.31 12.76 l
+	45.27 15.59 l
+	45.35 18.43 l
+	45.51 21.26 l
+	45.77 24.09 l
+	46.1 26.93 l
+	46.48 29.76 l
+	46.92 32.6 l
+	47.39 35.43 l
+	47.88 38.27 l
+	48.38 41.1 l
+	48.88 43.94 l
+	49.36 46.77 l
+	49.82 49.61 l
+	50.24 52.44 l
+	50.62 55.28 l
+	50.94 58.11 l
+	51.21 60.94 l
+	51.42 63.78 l
+	51.55 66.61 l
+	s
+	57.87 72.28 m
+	54.78 72.28 l
+	54.71 75.12 l
+	54.57 77.95 l
+	54.36 80.79 l
+	54.09 83.62 l
+	53.76 86.46 l
+	53.38 89.29 l
+	52.95 92.13 l
+	52.48 94.96 l
+	51.98 97.8 l
+	51.46 100.63 l
+	50.94 103.46 l
+	50.42 106.3 l
+	49.92 109.13 l
+	49.45 111.97 l
+	49.02 114.8 l
+	48.66 117.64 l
+	48.36 120.47 l
+	48.14 123.31 l
+	48.03 126.14 l
+	48.02 128.98 l
+	48.13 131.81 l
+	48.37 134.65 l
+	48.75 137.48 l
+	48.88 138.24 l
+	51.61 139.07 l
+	51.35 137.48 l
+	51.01 134.65 l
+	50.81 131.81 l
+	50.74 128.98 l
+	50.79 126.14 l
+	50.95 123.31 l
+	51.21 120.47 l
+	51.54 117.64 l
+	51.95 114.8 l
+	52.4 111.97 l
+	52.9 109.13 l
+	53.43 106.3 l
+	53.96 103.46 l
+	54.51 100.63 l
+	55.03 97.8 l
+	55.54 94.96 l
+	56.02 92.13 l
+	56.46 89.29 l
+	56.84 86.46 l
+	57.18 83.62 l
+	57.45 80.79 l
+	57.66 77.95 l
+	57.80 75.12 l
+	s
+	57.87 69.45 m
+	54.78 69.45 l
+	54.71 66.61 l
+	54.57 63.78 l
+	54.36 60.94 l
+	54.09 58.11 l
+	53.76 55.28 l
+	53.38 52.44 l
+	52.95 49.61 l
+	52.48 46.77 l
+	51.98 43.94 l
+	51.46 41.1 l
+	50.94 38.27 l
+	50.42 35.43 l
+	49.92 32.6 l
+	49.45 29.76 l
+	49.02 26.93 l
+	48.66 24.09 l
+	48.36 21.26 l
+	48.14 18.43 l
+	48.03 15.59 l
+	48.02 12.76 l
+	48.13 9.92 l
+	48.37 7.09 l
+	48.75 4.25 l
+	48.88 3.49 l
+	51.61 2.66 l
+	51.35 4.25 l
+	51.01 7.09 l
+	50.81 9.92 l
+	50.74 12.76 l
+	50.79 15.59 l
+	50.95 18.43 l
+	51.21 21.26 l
+	51.54 24.09 l
+	51.95 26.93 l
+	52.4 29.76 l
+	52.9 32.6 l
+	53.43 35.43 l
+	53.96 38.27 l
+	54.51 41.1 l
+	55.03 43.94 l
+	55.54 46.77 l
+	56.02 49.61 l
+	56.46 52.44 l
+	56.84 55.28 l
+	57.18 58.11 l
+	57.45 60.94 l
+	57.66 63.78 l
+	57.80 66.61 l
+	s
+	63.82 72.28 m
+	60.88 72.28 l
+	60.81 75.12 l
+	60.67 77.95 l
+	60.46 80.79 l
+	60.19 83.62 l
+	59.86 86.46 l
+	59.47 89.29 l
+	59.03 92.13 l
+	58.55 94.96 l
+	58.04 97.8 l
+	57.5 100.63 l
+	56.95 103.46 l
+	56.4 106.3 l
+	55.85 109.13 l
+	55.33 111.97 l
+	54.85 114.8 l
+	54.42 117.64 l
+	54.05 120.47 l
+	53.76 123.31 l
+	53.57 126.14 l
+	53.48 128.98 l
+	53.51 131.81 l
+	53.67 134.65 l
+	53.98 137.48 l
+	54.34 139.78 l
+	57.08 140.38 l
+	57.07 140.31 l
+	56.63 137.48 l
+	56.35 134.65 l
+	56.22 131.81 l
+	56.23 128.98 l
+	56.35 126.14 l
+	56.57 123.31 l
+	56.89 120.47 l
+	57.28 117.64 l
+	57.73 114.8 l
+	58.24 111.97 l
+	58.77 109.13 l
+	59.33 106.3 l
+	59.89 103.46 l
+	60.45 100.63 l
+	60.99 97.8 l
+	61.5 94.96 l
+	61.98 92.13 l
+	62.42 89.29 l
+	62.80 86.46 l
+	63.13 83.62 l
+	63.4 80.79 l
+	63.61 77.95 l
+	63.75 75.12 l
+	s
+	63.82 69.45 m
+	60.88 69.45 l
+	60.81 66.61 l
+	60.67 63.78 l
+	60.46 60.94 l
+	60.19 58.11 l
+	59.86 55.28 l
+	59.47 52.44 l
+	59.03 49.61 l
+	58.55 46.77 l
+	58.04 43.94 l
+	57.5 41.1 l
+	56.95 38.27 l
+	56.4 35.43 l
+	55.85 32.6 l
+	55.33 29.76 l
+	54.85 26.93 l
+	54.42 24.09 l
+	54.05 21.26 l
+	53.76 18.43 l
+	53.57 15.59 l
+	53.48 12.76 l
+	53.51 9.92 l
+	53.67 7.09 l
+	53.98 4.25 l
+	54.34 1.95 l
+	57.08 1.35 l
+	57.07 1.42 l
+	56.63 4.25 l
+	56.35 7.09 l
+	56.22 9.92 l
+	56.23 12.76 l
+	56.35 15.59 l
+	56.57 18.43 l
+	56.89 21.26 l
+	57.28 24.09 l
+	57.73 26.93 l
+	58.24 29.76 l
+	58.77 32.6 l
+	59.33 35.43 l
+	59.89 38.27 l
+	60.45 41.1 l
+	60.99 43.94 l
+	61.5 46.77 l
+	61.98 49.61 l
+	62.42 52.44 l
+	62.80 55.28 l
+	63.13 58.11 l
+	63.4 60.94 l
+	63.61 63.78 l
+	63.75 66.61 l
+	s
+	69.48 72.28 m
+	66.68 72.28 l
+	66.62 75.12 l
+	66.48 77.95 l
+	66.28 80.79 l
+	66.01 83.62 l
+	65.68 86.46 l
+	65.3 89.29 l
+	64.87 92.13 l
+	64.39 94.96 l
+	63.88 97.8 l
+	63.34 100.63 l
+	62.78 103.46 l
+	62.22 106.3 l
+	61.65 109.13 l
+	61.11 111.97 l
+	60.59 114.8 l
+	60.12 117.64 l
+	59.71 120.47 l
+	59.37 123.31 l
+	59.12 126.14 l
+	58.98 128.98 l
+	58.95 131.81 l
+	59.05 134.65 l
+	59.30 137.48 l
+	59.71 140.31 l
+	59.81 140.87 l
+	62.55 141.24 l
+	62.38 140.31 l
+	61.99 137.48 l
+	61.76 134.65 l
+	61.68 131.81 l
+	61.73 128.98 l
+	61.9 126.14 l
+	62.16 123.31 l
+	62.52 120.47 l
+	62.94 117.64 l
+	63.43 114.8 l
+	63.95 111.97 l
+	64.5 109.13 l
+	65.06 106.3 l
+	65.63 103.46 l
+	66.18 100.63 l
+	66.72 97.8 l
+	67.23 94.96 l
+	67.7 92.13 l
+	68.12 89.29 l
+	68.5 86.46 l
+	68.82 83.62 l
+	69.08 80.79 l
+	69.28 77.95 l
+	69.42 75.12 l
+	s
+	69.48 69.45 m
+	66.68 69.45 l
+	66.62 66.61 l
+	66.48 63.78 l
+	66.28 60.94 l
+	66.01 58.11 l
+	65.68 55.28 l
+	65.3 52.44 l
+	64.87 49.61 l
+	64.39 46.77 l
+	63.88 43.94 l
+	63.34 41.1 l
+	62.78 38.27 l
+	62.22 35.43 l
+	61.65 32.6 l
+	61.11 29.76 l
+	60.59 26.93 l
+	60.12 24.09 l
+	59.71 21.26 l
+	59.37 18.43 l
+	59.12 15.59 l
+	58.98 12.76 l
+	58.95 9.92 l
+	59.05 7.09 l
+	59.30 4.25 l
+	59.71 1.42 l
+	59.81 0.87 l
+	62.55 0.49 l
+	62.38 1.42 l
+	61.99 4.25 l
+	61.76 7.09 l
+	61.68 9.92 l
+	61.73 12.76 l
+	61.9 15.59 l
+	62.16 18.43 l
+	62.52 21.26 l
+	62.94 24.09 l
+	63.43 26.93 l
+	63.95 29.76 l
+	64.5 32.6 l
+	65.06 35.43 l
+	65.63 38.27 l
+	66.18 41.1 l
+	66.72 43.94 l
+	67.23 46.77 l
+	67.7 49.61 l
+	68.12 52.44 l
+	68.5 55.28 l
+	68.82 58.11 l
+	69.08 60.94 l
+	69.28 63.78 l
+	69.42 66.61 l
+	s
+	74.89 72.28 m
+	72.22 72.28 l
+	72.15 75.12 l
+	72.02 77.95 l
+	71.83 80.79 l
+	71.57 83.62 l
+	71.26 86.46 l
+	70.89 89.29 l
+	70.47 92.13 l
+	70.01 94.96 l
+	69.5 97.8 l
+	68.97 100.63 l
+	68.42 103.46 l
+	67.86 106.3 l
+	67.3 109.13 l
+	66.75 111.97 l
+	66.23 114.8 l
+	65.74 117.64 l
+	65.31 120.47 l
+	64.94 123.31 l
+	64.66 126.14 l
+	64.48 128.98 l
+	64.41 131.81 l
+	64.48 134.65 l
+	64.69 137.48 l
+	65.07 140.31 l
+	65.28 141.51 l
+	68.01 141.68 l
+	67.77 140.31 l
+	67.4 137.48 l
+	67.2 134.65 l
+	67.15 131.81 l
+	67.22 128.98 l
+	67.41 126.14 l
+	67.7 123.31 l
+	68.07 120.47 l
+	68.51 117.64 l
+	69 114.8 l
+	69.52 111.97 l
+	70.07 109.13 l
+	70.62 106.3 l
+	71.18 103.46 l
+	71.72 100.63 l
+	72.24 97.8 l
+	72.73 94.96 l
+	73.18 92.13 l
+	73.59 89.29 l
+	73.95 86.46 l
+	74.26 83.62 l
+	74.51 80.79 l
+	74.7 77.95 l
+	74.83 75.12 l
+	s
+	74.89 69.45 m
+	72.22 69.45 l
+	72.15 66.61 l
+	72.02 63.78 l
+	71.83 60.94 l
+	71.57 58.11 l
+	71.26 55.28 l
+	70.89 52.44 l
+	70.47 49.61 l
+	70.01 46.77 l
+	69.5 43.94 l
+	68.97 41.1 l
+	68.42 38.27 l
+	67.86 35.43 l
+	67.3 32.6 l
+	66.75 29.76 l
+	66.23 26.93 l
+	65.74 24.09 l
+	65.31 21.26 l
+	64.94 18.43 l
+	64.66 15.59 l
+	64.48 12.76 l
+	64.41 9.92 l
+	64.48 7.09 l
+	64.69 4.25 l
+	65.07 1.42 l
+	65.28 0.22 l
+	68.01 0.06 l
+	67.77 1.42 l
+	67.4 4.25 l
+	67.2 7.09 l
+	67.15 9.92 l
+	67.22 12.76 l
+	67.41 15.59 l
+	67.7 18.43 l
+	68.07 21.26 l
+	68.51 24.09 l
+	69 26.93 l
+	69.52 29.76 l
+	70.07 32.6 l
+	70.62 35.43 l
+	71.18 38.27 l
+	71.72 41.1 l
+	72.24 43.94 l
+	72.73 46.77 l
+	73.18 49.61 l
+	73.59 52.44 l
+	73.95 55.28 l
+	74.26 58.11 l
+	74.51 60.94 l
+	74.7 63.78 l
+	74.83 66.61 l
+	s
+	80.08 72.28 m
+	77.51 72.28 l
+	77.45 75.12 l
+	77.32 77.95 l
+	77.14 80.79 l
+	76.9 83.62 l
+	76.60 86.46 l
+	76.25 89.29 l
+	75.85 92.13 l
+	75.4 94.96 l
+	74.92 97.8 l
+	74.41 100.63 l
+	73.88 103.46 l
+	73.34 106.3 l
+	72.79 109.13 l
+	72.25 111.97 l
+	71.74 114.8 l
+	71.25 117.64 l
+	70.82 120.47 l
+	70.45 123.31 l
+	70.16 126.14 l
+	69.96 128.98 l
+	69.88 131.81 l
+	69.93 134.65 l
+	70.13 137.48 l
+	70.49 140.31 l
+	70.75 141.73 l
+	73.48 141.68 l
+	73.24 140.31 l
+	72.86 137.48 l
+	72.66 134.65 l
+	72.61 131.81 l
+	72.7 128.98 l
+	72.89 126.14 l
+	73.18 123.31 l
+	73.54 120.47 l
+	73.97 117.64 l
+	74.45 114.8 l
+	74.95 111.97 l
+	75.48 109.13 l
+	76.02 106.3 l
+	76.55 103.46 l
+	77.07 100.63 l
+	77.56 97.8 l
+	78.03 94.96 l
+	78.46 92.13 l
+	78.85 89.29 l
+	79.19 86.46 l
+	79.48 83.62 l
+	79.72 80.79 l
+	79.9 77.95 l
+	80.02 75.12 l
+	s
+	80.08 69.45 m
+	77.51 69.45 l
+	77.45 66.61 l
+	77.32 63.78 l
+	77.14 60.94 l
+	76.9 58.11 l
+	76.60 55.28 l
+	76.25 52.44 l
+	75.85 49.61 l
+	75.4 46.77 l
+	74.92 43.94 l
+	74.41 41.1 l
+	73.88 38.27 l
+	73.34 35.43 l
+	72.79 32.6 l
+	72.25 29.76 l
+	71.74 26.93 l
+	71.25 24.09 l
+	70.82 21.26 l
+	70.45 18.43 l
+	70.16 15.59 l
+	69.96 12.76 l
+	69.88 9.92 l
+	69.93 7.09 l
+	70.13 4.25 l
+	70.49 1.42 l
+	70.75 0 l
+	73.48 0.05 l
+	73.24 1.42 l
+	72.86 4.25 l
+	72.66 7.09 l
+	72.61 9.92 l
+	72.7 12.76 l
+	72.89 15.59 l
+	73.18 18.43 l
+	73.54 21.26 l
+	73.97 24.09 l
+	74.45 26.93 l
+	74.95 29.76 l
+	75.48 32.6 l
+	76.02 35.43 l
+	76.55 38.27 l
+	77.07 41.1 l
+	77.56 43.94 l
+	78.03 46.77 l
+	78.46 49.61 l
+	78.85 52.44 l
+	79.19 55.28 l
+	79.48 58.11 l
+	79.72 60.94 l
+	79.9 63.78 l
+	80.02 66.61 l
+	s
+	85.08 72.28 m
+	82.60 72.28 l
+	82.54 75.12 l
+	82.42 77.95 l
+	82.25 80.79 l
+	82.02 83.62 l
+	81.74 86.46 l
+	81.41 89.29 l
+	81.03 92.13 l
+	80.62 94.96 l
+	80.16 97.8 l
+	79.68 100.63 l
+	79.18 103.46 l
+	78.66 106.3 l
+	78.14 109.13 l
+	77.62 111.97 l
+	77.13 114.8 l
+	76.66 117.64 l
+	76.25 120.47 l
+	75.89 123.31 l
+	75.61 126.14 l
+	75.42 128.98 l
+	75.35 131.81 l
+	75.4 134.65 l
+	75.61 137.48 l
+	75.99 140.31 l
+	76.22 141.53 l
+	78.95 141.27 l
+	78.77 140.31 l
+	78.37 137.48 l
+	78.15 134.65 l
+	78.08 131.81 l
+	78.14 128.98 l
+	78.32 126.14 l
+	78.59 123.31 l
+	78.93 120.47 l
+	79.33 117.64 l
+	79.78 114.8 l
+	80.26 111.97 l
+	80.76 109.13 l
+	81.26 106.3 l
+	81.77 103.46 l
+	82.25 100.63 l
+	82.72 97.8 l
+	83.16 94.96 l
+	83.56 92.13 l
+	83.93 89.29 l
+	84.25 86.46 l
+	84.52 83.62 l
+	84.74 80.79 l
+	84.91 77.95 l
+	85.02 75.12 l
+	s
+	85.08 69.45 m
+	82.60 69.45 l
+	82.54 66.61 l
+	82.42 63.78 l
+	82.25 60.94 l
+	82.02 58.11 l
+	81.74 55.28 l
+	81.41 52.44 l
+	81.03 49.61 l
+	80.62 46.77 l
+	80.16 43.94 l
+	79.68 41.1 l
+	79.18 38.27 l
+	78.66 35.43 l
+	78.14 32.6 l
+	77.62 29.76 l
+	77.13 26.93 l
+	76.66 24.09 l
+	76.25 21.26 l
+	75.89 18.43 l
+	75.61 15.59 l
+	75.42 12.76 l
+	75.35 9.92 l
+	75.4 7.09 l
+	75.61 4.25 l
+	75.99 1.42 l
+	76.22 0.2 l
+	78.95 0.47 l
+	78.77 1.42 l
+	78.37 4.25 l
+	78.15 7.09 l
+	78.08 9.92 l
+	78.14 12.76 l
+	78.32 15.59 l
+	78.59 18.43 l
+	78.93 21.26 l
+	79.33 24.09 l
+	79.78 26.93 l
+	80.26 29.76 l
+	80.76 32.6 l
+	81.26 35.43 l
+	81.77 38.27 l
+	82.25 41.1 l
+	82.72 43.94 l
+	83.16 46.77 l
+	83.56 49.61 l
+	83.93 52.44 l
+	84.25 55.28 l
+	84.52 58.11 l
+	84.74 60.94 l
+	84.91 63.78 l
+	85.02 66.61 l
+	s
+	89.93 72.28 m
+	87.52 72.28 l
+	87.47 75.12 l
+	87.36 77.95 l
+	87.19 80.79 l
+	86.98 83.62 l
+	86.72 86.46 l
+	86.41 89.29 l
+	86.06 92.13 l
+	85.67 94.96 l
+	85.25 97.8 l
+	84.8 100.63 l
+	84.32 103.46 l
+	83.84 106.3 l
+	83.35 109.13 l
+	82.88 111.97 l
+	82.41 114.8 l
+	81.98 117.64 l
+	81.60 120.47 l
+	81.27 123.31 l
+	81.02 126.14 l
+	80.86 128.98 l
+	80.82 131.81 l
+	80.9 134.65 l
+	81.15 137.48 l
+	81.57 140.31 l
+	81.68 140.9 l
+	84.42 140.42 l
+	84.4 140.31 l
+	83.94 137.48 l
+	83.67 134.65 l
+	83.56 131.81 l
+	83.58 128.98 l
+	83.71 126.14 l
+	83.94 123.31 l
+	84.25 120.47 l
+	84.61 117.64 l
+	85.02 114.8 l
+	85.47 111.97 l
+	85.92 109.13 l
+	86.39 106.3 l
+	86.85 103.46 l
+	87.31 100.63 l
+	87.74 97.8 l
+	88.15 94.96 l
+	88.52 92.13 l
+	88.86 89.29 l
+	89.16 86.46 l
+	89.41 83.62 l
+	89.61 80.79 l
+	89.77 77.95 l
+	89.88 75.12 l
+	s
+	89.93 69.45 m
+	87.52 69.45 l
+	87.47 66.61 l
+	87.36 63.78 l
+	87.19 60.94 l
+	86.98 58.11 l
+	86.72 55.28 l
+	86.41 52.44 l
+	86.06 49.61 l
+	85.67 46.77 l
+	85.25 43.94 l
+	84.8 41.1 l
+	84.32 38.27 l
+	83.84 35.43 l
+	83.35 32.6 l
+	82.88 29.76 l
+	82.41 26.93 l
+	81.98 24.09 l
+	81.60 21.26 l
+	81.27 18.43 l
+	81.02 15.59 l
+	80.86 12.76 l
+	80.82 9.92 l
+	80.9 7.09 l
+	81.15 4.25 l
+	81.57 1.42 l
+	81.68 0.83 l
+	84.42 1.31 l
+	84.4 1.42 l
+	83.94 4.25 l
+	83.67 7.09 l
+	83.56 9.92 l
+	83.58 12.76 l
+	83.71 15.59 l
+	83.94 18.43 l
+	84.25 21.26 l
+	84.61 24.09 l
+	85.02 26.93 l
+	85.47 29.76 l
+	85.92 32.6 l
+	86.39 35.43 l
+	86.85 38.27 l
+	87.31 41.1 l
+	87.74 43.94 l
+	88.15 46.77 l
+	88.52 49.61 l
+	88.86 52.44 l
+	89.16 55.28 l
+	89.41 58.11 l
+	89.61 60.94 l
+	89.77 63.78 l
+	89.88 66.61 l
+	s
+	94.66 72.28 m
+	92.31 72.28 l
+	92.26 75.12 l
+	92.15 77.95 l
+	92 80.79 l
+	91.81 83.62 l
+	91.57 86.46 l
+	91.28 89.29 l
+	90.96 92.13 l
+	90.60 94.96 l
+	90.21 97.8 l
+	89.79 100.63 l
+	89.36 103.46 l
+	88.92 106.3 l
+	88.47 109.13 l
+	88.04 111.97 l
+	87.62 114.8 l
+	87.23 117.64 l
+	86.89 120.47 l
+	86.61 123.31 l
+	86.41 126.14 l
+	86.3 128.98 l
+	86.3 131.81 l
+	86.45 134.65 l
+	86.75 137.48 l
+	87.15 139.83 l
+	89.89 139.13 l
+	89.59 137.48 l
+	89.24 134.65 l
+	89.06 131.81 l
+	89.02 128.98 l
+	89.10 126.14 l
+	89.27 123.31 l
+	89.52 120.47 l
+	89.84 117.64 l
+	90.2 114.8 l
+	90.59 111.97 l
+	91 109.13 l
+	91.42 106.3 l
+	91.84 103.46 l
+	92.26 100.63 l
+	92.65 97.8 l
+	93.02 94.96 l
+	93.37 92.13 l
+	93.68 89.29 l
+	93.95 86.46 l
+	94.18 83.62 l
+	94.37 80.79 l
+	94.51 77.95 l
+	94.61 75.12 l
+	s
+	94.66 69.45 m
+	92.31 69.45 l
+	92.26 66.61 l
+	92.15 63.78 l
+	92 60.94 l
+	91.81 58.11 l
+	91.57 55.28 l
+	91.28 52.44 l
+	90.96 49.61 l
+	90.60 46.77 l
+	90.21 43.94 l
+	89.79 41.1 l
+	89.36 38.27 l
+	88.92 35.43 l
+	88.47 32.6 l
+	88.04 29.76 l
+	87.62 26.93 l
+	87.23 24.09 l
+	86.89 21.26 l
+	86.61 18.43 l
+	86.41 15.59 l
+	86.3 12.76 l
+	86.3 9.92 l
+	86.45 7.09 l
+	86.75 4.25 l
+	87.15 1.90 l
+	89.89 2.61 l
+	89.59 4.25 l
+	89.24 7.09 l
+	89.06 9.92 l
+	89.02 12.76 l
+	89.10 15.59 l
+	89.27 18.43 l
+	89.52 21.26 l
+	89.84 24.09 l
+	90.2 26.93 l
+	90.59 29.76 l
+	91 32.6 l
+	91.42 35.43 l
+	91.84 38.27 l
+	92.26 41.1 l
+	92.65 43.94 l
+	93.02 46.77 l
+	93.37 49.61 l
+	93.68 52.44 l
+	93.95 55.28 l
+	94.18 58.11 l
+	94.37 60.94 l
+	94.51 63.78 l
+	94.61 66.61 l
+	s
+	99.3 72.28 m
+	96.99 72.28 l
+	96.94 75.12 l
+	96.85 77.95 l
+	96.71 80.79 l
+	96.53 83.62 l
+	96.31 86.46 l
+	96.05 89.29 l
+	95.76 92.13 l
+	95.43 94.96 l
+	95.08 97.8 l
+	94.7 100.63 l
+	94.31 103.46 l
+	93.91 106.3 l
+	93.52 109.13 l
+	93.13 111.97 l
+	92.77 114.8 l
+	92.44 117.64 l
+	92.15 120.47 l
+	91.93 123.31 l
+	91.79 126.14 l
+	91.75 128.98 l
+	91.83 131.81 l
+	92.06 134.65 l
+	92.47 137.48 l
+	92.62 138.3 l
+	95.35 137.37 l
+	94.91 134.65 l
+	94.63 131.81 l
+	94.5 128.98 l
+	94.5 126.14 l
+	94.60 123.31 l
+	94.78 120.47 l
+	95.03 117.64 l
+	95.33 114.8 l
+	95.66 111.97 l
+	96.02 109.13 l
+	96.39 106.3 l
+	96.76 103.46 l
+	97.13 100.63 l
+	97.49 97.8 l
+	97.82 94.96 l
+	98.13 92.13 l
+	98.41 89.29 l
+	98.66 86.46 l
+	98.87 83.62 l
+	99.04 80.79 l
+	99.17 77.95 l
+	99.26 75.12 l
+	s
+	99.3 69.45 m
+	96.99 69.45 l
+	96.94 66.61 l
+	96.85 63.78 l
+	96.71 60.94 l
+	96.53 58.11 l
+	96.31 55.28 l
+	96.05 52.44 l
+	95.76 49.61 l
+	95.43 46.77 l
+	95.08 43.94 l
+	94.7 41.1 l
+	94.31 38.27 l
+	93.91 35.43 l
+	93.52 32.6 l
+	93.13 29.76 l
+	92.77 26.93 l
+	92.44 24.09 l
+	92.15 21.26 l
+	91.93 18.43 l
+	91.79 15.59 l
+	91.75 12.76 l
+	91.83 9.92 l
+	92.06 7.09 l
+	92.47 4.25 l
+	92.62 3.43 l
+	95.35 4.37 l
+	94.91 7.09 l
+	94.63 9.92 l
+	94.5 12.76 l
+	94.5 15.59 l
+	94.60 18.43 l
+	94.78 21.26 l
+	95.03 24.09 l
+	95.33 26.93 l
+	95.66 29.76 l
+	96.02 32.6 l
+	96.39 35.43 l
+	96.76 38.27 l
+	97.13 41.1 l
+	97.49 43.94 l
+	97.82 46.77 l
+	98.13 49.61 l
+	98.41 52.44 l
+	98.66 55.28 l
+	98.87 58.11 l
+	99.04 60.94 l
+	99.17 63.78 l
+	99.26 66.61 l
+	s
+	103.9 72.28 m
+	101.60 72.28 l
+	101.56 75.12 l
+	101.48 77.95 l
+	101.35 80.79 l
+	101.19 83.62 l
+	100.99 86.46 l
+	100.76 89.29 l
+	100.49 92.13 l
+	100.2 94.96 l
+	99.89 97.8 l
+	99.55 100.63 l
+	99.21 103.46 l
+	98.86 106.3 l
+	98.52 109.13 l
+	98.2 111.97 l
+	97.89 114.8 l
+	97.63 117.64 l
+	97.42 120.47 l
+	97.28 123.31 l
+	97.22 126.14 l
+	97.27 128.98 l
+	97.46 131.81 l
+	97.8 134.65 l
+	98.09 136.28 l
+	100.82 135.08 l
+	100.74 134.65 l
+	100.32 131.81 l
+	100.07 128.98 l
+	99.96 126.14 l
+	99.97 123.31 l
+	100.07 120.47 l
+	100.24 117.64 l
+	100.46 114.8 l
+	100.73 111.97 l
+	101.02 109.13 l
+	101.34 106.3 l
+	101.65 103.46 l
+	101.97 100.63 l
+	102.28 97.8 l
+	102.58 94.96 l
+	102.85 92.13 l
+	103.10 89.29 l
+	103.32 86.46 l
+	103.51 83.62 l
+	103.66 80.79 l
+	103.78 77.95 l
+	103.86 75.12 l
+	s
+	103.9 69.45 m
+	101.60 69.45 l
+	101.56 66.61 l
+	101.48 63.78 l
+	101.35 60.94 l
+	101.19 58.11 l
+	100.99 55.28 l
+	100.76 52.44 l
+	100.49 49.61 l
+	100.2 46.77 l
+	99.89 43.94 l
+	99.55 41.1 l
+	99.21 38.27 l
+	98.86 35.43 l
+	98.52 32.6 l
+	98.2 29.76 l
+	97.89 26.93 l
+	97.63 24.09 l
+	97.42 21.26 l
+	97.28 18.43 l
+	97.22 15.59 l
+	97.27 12.76 l
+	97.46 9.92 l
+	97.8 7.09 l
+	98.09 5.45 l
+	100.82 6.65 l
+	100.74 7.09 l
+	100.32 9.92 l
+	100.07 12.76 l
+	99.96 15.59 l
+	99.97 18.43 l
+	100.07 21.26 l
+	100.24 24.09 l
+	100.46 26.93 l
+	100.73 29.76 l
+	101.02 32.6 l
+	101.34 35.43 l
+	101.65 38.27 l
+	101.97 41.1 l
+	102.28 43.94 l
+	102.58 46.77 l
+	102.85 49.61 l
+	103.10 52.44 l
+	103.32 55.28 l
+	103.51 58.11 l
+	103.66 60.94 l
+	103.78 63.78 l
+	103.86 66.61 l
+	s
+	108.47 72.28 m
+	106.18 72.28 l
+	106.14 75.12 l
+	106.07 77.95 l
+	105.96 80.79 l
+	105.82 83.62 l
+	105.64 86.46 l
+	105.43 89.29 l
+	105.2 92.13 l
+	104.95 94.96 l
+	104.67 97.8 l
+	104.39 100.63 l
+	104.10 103.46 l
+	103.81 106.3 l
+	103.53 109.13 l
+	103.27 111.97 l
+	103.04 114.8 l
+	102.86 117.64 l
+	102.73 120.47 l
+	102.69 123.31 l
+	102.74 126.14 l
+	102.91 128.98 l
+	103.23 131.81 l
+	103.56 133.73 l
+	106.29 132.24 l
+	106.21 131.81 l
+	105.8 128.98 l
+	105.56 126.14 l
+	105.44 123.31 l
+	105.43 120.47 l
+	105.5 117.64 l
+	105.64 114.8 l
+	105.83 111.97 l
+	106.05 109.13 l
+	106.29 106.3 l
+	106.55 103.46 l
+	106.81 100.63 l
+	107.07 97.8 l
+	107.32 94.96 l
+	107.56 92.13 l
+	107.77 89.29 l
+	107.96 86.46 l
+	108.13 83.62 l
+	108.26 80.79 l
+	108.36 77.95 l
+	108.43 75.12 l
+	s
+	108.47 69.45 m
+	106.18 69.45 l
+	106.14 66.61 l
+	106.07 63.78 l
+	105.96 60.94 l
+	105.82 58.11 l
+	105.64 55.28 l
+	105.43 52.44 l
+	105.2 49.61 l
+	104.95 46.77 l
+	104.67 43.94 l
+	104.39 41.1 l
+	104.10 38.27 l
+	103.81 35.43 l
+	103.53 32.6 l
+	103.27 29.76 l
+	103.04 26.93 l
+	102.86 24.09 l
+	102.73 21.26 l
+	102.69 18.43 l
+	102.74 15.59 l
+	102.91 12.76 l
+	103.23 9.92 l
+	103.56 8 l
+	106.29 9.5 l
+	106.21 9.92 l
+	105.8 12.76 l
+	105.56 15.59 l
+	105.44 18.43 l
+	105.43 21.26 l
+	105.5 24.09 l
+	105.64 26.93 l
+	105.83 29.76 l
+	106.05 32.6 l
+	106.29 35.43 l
+	106.55 38.27 l
+	106.81 41.1 l
+	107.07 43.94 l
+	107.32 46.77 l
+	107.56 49.61 l
+	107.77 52.44 l
+	107.96 55.28 l
+	108.13 58.11 l
+	108.26 60.94 l
+	108.36 63.78 l
+	108.43 66.61 l
+	s
+	113.06 72.28 m
+	110.76 72.28 l
+	110.73 75.12 l
+	110.66 77.95 l
+	110.57 80.79 l
+	110.44 83.62 l
+	110.29 86.46 l
+	110.12 89.29 l
+	109.92 92.13 l
+	109.71 94.96 l
+	109.48 97.8 l
+	109.25 100.63 l
+	109.02 103.46 l
+	108.79 106.3 l
+	108.58 109.13 l
+	108.4 111.97 l
+	108.26 114.8 l
+	108.18 117.64 l
+	108.16 120.47 l
+	108.24 123.31 l
+	108.43 126.14 l
+	108.76 128.98 l
+	109.02 130.57 l
+	111.76 128.74 l
+	111.37 126.14 l
+	111.09 123.31 l
+	110.94 120.47 l
+	110.89 117.64 l
+	110.92 114.8 l
+	111.01 111.97 l
+	111.14 109.13 l
+	111.31 106.3 l
+	111.5 103.46 l
+	111.7 100.63 l
+	111.91 97.8 l
+	112.11 94.96 l
+	112.3 92.13 l
+	112.48 89.29 l
+	112.63 86.46 l
+	112.77 83.62 l
+	112.89 80.79 l
+	112.97 77.95 l
+	113.03 75.12 l
+	s
+	113.06 69.45 m
+	110.76 69.45 l
+	110.73 66.61 l
+	110.66 63.78 l
+	110.57 60.94 l
+	110.44 58.11 l
+	110.29 55.28 l
+	110.12 52.44 l
+	109.92 49.61 l
+	109.71 46.77 l
+	109.48 43.94 l
+	109.25 41.1 l
+	109.02 38.27 l
+	108.79 35.43 l
+	108.58 32.6 l
+	108.4 29.76 l
+	108.26 26.93 l
+	108.18 24.09 l
+	108.16 21.26 l
+	108.24 18.43 l
+	108.43 15.59 l
+	108.76 12.76 l
+	109.02 11.17 l
+	111.76 12.99 l
+	111.37 15.59 l
+	111.09 18.43 l
+	110.94 21.26 l
+	110.89 24.09 l
+	110.92 26.93 l
+	111.01 29.76 l
+	111.14 32.6 l
+	111.31 35.43 l
+	111.5 38.27 l
+	111.7 41.1 l
+	111.91 43.94 l
+	112.11 46.77 l
+	112.3 49.61 l
+	112.48 52.44 l
+	112.63 55.28 l
+	112.77 58.11 l
+	112.89 60.94 l
+	112.97 63.78 l
+	113.03 66.61 l
+	s
+	117.72 72.28 m
+	115.38 72.28 l
+	115.35 75.12 l
+	115.3 77.95 l
+	115.22 80.79 l
+	115.12 83.62 l
+	114.99 86.46 l
+	114.85 89.29 l
+	114.7 92.13 l
+	114.53 94.96 l
+	114.35 97.8 l
+	114.18 100.63 l
+	114.02 103.46 l
+	113.87 106.3 l
+	113.74 109.13 l
+	113.66 111.97 l
+	113.62 114.8 l
+	113.66 117.64 l
+	113.78 120.47 l
+	114.02 123.31 l
+	114.4 126.14 l
+	114.49 126.7 l
+	117.22 124.45 l
+	117.05 123.31 l
+	116.71 120.47 l
+	116.5 117.64 l
+	116.39 114.8 l
+	116.36 111.97 l
+	116.39 109.13 l
+	116.46 106.3 l
+	116.57 103.46 l
+	116.69 100.63 l
+	116.83 97.8 l
+	116.98 94.96 l
+	117.12 92.13 l
+	117.25 89.29 l
+	117.38 86.46 l
+	117.49 83.62 l
+	117.58 80.79 l
+	117.65 77.95 l
+	117.69 75.12 l
+	s
+	117.72 69.45 m
+	115.38 69.45 l
+	115.35 66.61 l
+	115.3 63.78 l
+	115.22 60.94 l
+	115.12 58.11 l
+	114.99 55.28 l
+	114.85 52.44 l
+	114.7 49.61 l
+	114.53 46.77 l
+	114.35 43.94 l
+	114.18 41.1 l
+	114.02 38.27 l
+	113.87 35.43 l
+	113.74 32.6 l
+	113.66 29.76 l
+	113.62 26.93 l
+	113.66 24.09 l
+	113.78 21.26 l
+	114.02 18.43 l
+	114.4 15.59 l
+	114.49 15.03 l
+	117.22 17.29 l
+	117.05 18.43 l
+	116.71 21.26 l
+	116.5 24.09 l
+	116.39 26.93 l
+	116.36 29.76 l
+	116.39 32.6 l
+	116.46 35.43 l
+	116.57 38.27 l
+	116.69 41.1 l
+	116.83 43.94 l
+	116.98 46.77 l
+	117.12 49.61 l
+	117.25 52.44 l
+	117.38 55.28 l
+	117.49 58.11 l
+	117.58 60.94 l
+	117.65 63.78 l
+	117.69 66.61 l
+	s
+	122.49 72.28 m
+	120.09 72.28 l
+	120.06 75.12 l
+	120.02 77.95 l
+	119.96 80.79 l
+	119.89 83.62 l
+	119.8 86.46 l
+	119.69 89.29 l
+	119.58 92.13 l
+	119.47 94.96 l
+	119.36 97.8 l
+	119.25 100.63 l
+	119.17 103.46 l
+	119.11 106.3 l
+	119.09 109.13 l
+	119.13 111.97 l
+	119.23 114.8 l
+	119.43 117.64 l
+	119.74 120.47 l
+	119.96 121.95 l
+	122.69 119.18 l
+	122.48 117.64 l
+	122.18 114.8 l
+	121.98 111.97 l
+	121.88 109.13 l
+	121.83 106.3 l
+	121.83 103.46 l
+	121.87 100.63 l
+	121.93 97.8 l
+	122.01 94.96 l
+	122.09 92.13 l
+	122.17 89.29 l
+	122.26 86.46 l
+	122.33 83.62 l
+	122.39 80.79 l
+	122.44 77.95 l
+	122.48 75.12 l
+	s
+	122.49 69.45 m
+	120.09 69.45 l
+	120.06 66.61 l
+	120.02 63.78 l
+	119.96 60.94 l
+	119.89 58.11 l
+	119.8 55.28 l
+	119.69 52.44 l
+	119.58 49.61 l
+	119.47 46.77 l
+	119.36 43.94 l
+	119.25 41.1 l
+	119.17 38.27 l
+	119.11 35.43 l
+	119.09 32.6 l
+	119.13 29.76 l
+	119.23 26.93 l
+	119.43 24.09 l
+	119.74 21.26 l
+	119.96 19.78 l
+	122.69 22.55 l
+	122.48 24.09 l
+	122.18 26.93 l
+	121.98 29.76 l
+	121.88 32.6 l
+	121.83 35.43 l
+	121.83 38.27 l
+	121.87 41.1 l
+	121.93 43.94 l
+	122.01 46.77 l
+	122.09 49.61 l
+	122.17 52.44 l
+	122.26 55.28 l
+	122.33 58.11 l
+	122.39 60.94 l
+	122.44 63.78 l
+	122.48 66.61 l
+	s
+	127.47 72.28 m
+	124.95 72.28 l
+	124.94 75.12 l
+	124.91 77.95 l
+	124.87 80.79 l
+	124.82 83.62 l
+	124.77 86.46 l
+	124.71 89.29 l
+	124.66 92.13 l
+	124.61 94.96 l
+	124.57 97.8 l
+	124.56 100.63 l
+	124.58 103.46 l
+	124.64 106.3 l
+	124.76 109.13 l
+	124.96 111.97 l
+	125.25 114.8 l
+	125.43 116.07 l
+	128.16 112.55 l
+	128.08 111.97 l
+	127.78 109.13 l
+	127.57 106.3 l
+	127.43 103.46 l
+	127.35 100.63 l
+	127.31 97.8 l
+	127.29 94.96 l
+	127.3 92.13 l
+	127.33 89.29 l
+	127.36 86.46 l
+	127.39 83.62 l
+	127.42 80.79 l
+	127.44 77.95 l
+	127.46 75.12 l
+	s
+	127.47 69.45 m
+	124.95 69.45 l
+	124.94 66.61 l
+	124.91 63.78 l
+	124.87 60.94 l
+	124.82 58.11 l
+	124.77 55.28 l
+	124.71 52.44 l
+	124.66 49.61 l
+	124.61 46.77 l
+	124.57 43.94 l
+	124.56 41.1 l
+	124.58 38.27 l
+	124.64 35.43 l
+	124.76 32.6 l
+	124.96 29.76 l
+	125.25 26.93 l
+	125.43 25.66 l
+	128.16 29.18 l
+	128.08 29.76 l
+	127.78 32.6 l
+	127.57 35.43 l
+	127.43 38.27 l
+	127.35 41.1 l
+	127.31 43.94 l
+	127.29 46.77 l
+	127.3 49.61 l
+	127.33 52.44 l
+	127.36 55.28 l
+	127.39 58.11 l
+	127.42 60.94 l
+	127.44 63.78 l
+	127.46 66.61 l
+	s
+	132.77 72.28 m
+	130.07 72.28 l
+	130.06 75.12 l
+	130.05 77.95 l
+	130.04 80.79 l
+	130.03 83.62 l
+	130.03 86.46 l
+	130.03 89.29 l
+	130.05 92.13 l
+	130.09 94.96 l
+	130.15 97.8 l
+	130.26 100.63 l
+	130.42 103.46 l
+	130.65 106.3 l
+	130.9 108.51 l
+	133.63 103.76 l
+	133.6 103.46 l
+	133.34 100.63 l
+	133.15 97.8 l
+	133.02 94.96 l
+	132.92 92.13 l
+	132.86 89.29 l
+	132.82 86.46 l
+	132.79 83.62 l
+	132.78 80.79 l
+	132.77 77.95 l
+	132.77 75.12 l
+	s
+	132.77 69.45 m
+	130.07 69.45 l
+	130.06 66.61 l
+	130.05 63.78 l
+	130.04 60.94 l
+	130.03 58.11 l
+	130.03 55.28 l
+	130.03 52.44 l
+	130.05 49.61 l
+	130.09 46.77 l
+	130.15 43.94 l
+	130.26 41.1 l
+	130.42 38.27 l
+	130.65 35.43 l
+	130.9 33.22 l
+	133.63 37.97 l
+	133.6 38.27 l
+	133.34 41.1 l
+	133.15 43.94 l
+	133.02 46.77 l
+	132.92 49.61 l
+	132.86 52.44 l
+	132.82 55.28 l
+	132.79 58.11 l
+	132.78 60.94 l
+	132.77 63.78 l
+	132.77 66.61 l
+	s
+	138.61 72.28 m
+	135.6 72.28 l
+	135.6 75.12 l
+	135.62 77.95 l
+	135.65 80.79 l
+	135.69 83.62 l
+	135.76 86.46 l
+	135.85 89.29 l
+	135.97 92.13 l
+	136.13 94.96 l
+	136.35 97.8 l
+	136.37 97.91 l
+	139.1 89.99 l
+	139.06 89.29 l
+	138.91 86.46 l
+	138.79 83.62 l
+	138.71 80.79 l
+	138.66 77.95 l
+	138.62 75.12 l
+	s
+	138.61 69.45 m
+	135.6 69.45 l
+	135.6 66.61 l
+	135.62 63.78 l
+	135.65 60.94 l
+	135.69 58.11 l
+	135.76 55.28 l
+	135.85 52.44 l
+	135.97 49.61 l
+	136.13 46.77 l
+	136.35 43.94 l
+	136.37 43.82 l
+	139.1 51.75 l
+	139.06 52.44 l
+	138.91 55.28 l
+	138.79 58.11 l
+	138.71 60.94 l
+	138.66 63.78 l
+	138.62 66.61 l
+	s
+	70.01574803149606 70.01574803149606 m
+	71.71653543307087 70.01574803149606 l
+	71.71653543307087 71.71653543307087 l
+	70.01574803149606 71.71653543307087 l
+	70.01574803149606 70.01574803149606 l
+	f
+	0 0 m
+	8.503937007874017 0 l
+	0 8.503937007874017 l
+	f
+
+	%%Trailer
+	_E end
+	*/
+	QUnit.test('fringes', function () {
+		var result,
+		    expected = 
+		'%!PS-Adobe-2.0 EPSF-1.2' + '\n' +
+		'%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels' + '\n' +
+		'%%Title:HoloMask' + '\n' +
+		'%%CreationDate: 05/03/102 14:16' + '\n' +
+		'%%DocumentProcSets:Adobe_Illustrator_1.0 0 0' + '\n' +
+		'%%DocumentSuppliedProcSets:Adobe_Illustrator_1.0 0 0' + '\n' +
+		'%%DocumentFonts:Helvetica' + '\n' +
+		'%%BoundingBox: 0 0 143 143' + '\n' +
+		'%%TemplateBox: 0 0 143 143' + '\n' +
+		'%%EndComments' + '\n' +
+		'%%BeginProcSet:Adobe_Illustrator_1.0 0 0' + '\n' +
+		'% Copyright (C) 1987 Adobe Systems Incorporated.' + '\n' +
+		'% All Rights Reserved.' + '\n' +
+		'% Adobe Illustrator is a trademark of Adobe Systems Incorporated' + '\n' +
+		'/Adobe_Illustrator_1.0 dup 100 dict def load begin' + '\n' +
+		'/Version 0 def' + '\n' +
+		'/Revision 0 def' + '\n' +
+		'% definition operators' + '\n' +
+		'/bdef {bind def} bind def' + '\n' +
+		'/ldef {load def} bdef' + '\n' +
+		'/xdef {exch def} bdef' + '\n' +
+		'% graphic state operators' + '\n' +
+		'/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef' + '\n' +
+		'/_k /setmybcolor where {/setcmybcolor get} ' + '\n' +
+		'	{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def' + '\n' +
+		'/g {/_b xdef /p {_b setgray} def} bdef' + '\n' +
+		'/G {/_B xdef /P {_B setgray} def} bdef' + '\n' +
+		'/k {/_b xdef /_y xdef /_m xdef /_c xdef /p {_c _m _y _b _k} def} bdef' + '\n' +
+		'/K {/_B xdef /_Y xdef /_M xdef /_C xdef /P {_C _M _Y _B _K} def} bdef' + '\n' +
+		'/d /setdash ldef' + '\n' +
+		'/_i currentflat def' + '\n' +
+		'/i {dup 0 equ {pop _i} if setflat} bdef' + '\n' +
+		'/j /setlinejoin ldef' + '\n' +
+		'/J /setlinecap ldef' + '\n' +
+		'/M /setmiterlimit ldef' + '\n' +
+		'/w /setlinewidth ldef' + '\n' +
+		'% path construction operators' + '\n' +
+		'/_R {.25 sub round .25 add} bdef' + '\n' +
+		'/_r {transform _R exch _R exch itransform} bdef' + '\n' +
+		'/c {_r curveto} bdef' + '\n' +
+		'/C /c ldef' + '\n' +
+		'/v {currentpoint 6 2 roll _r curveto} bdef' + '\n' +
+		'/V /v ldef' + '\n' +
+		'/y {_r 2 copy curveto} bdef' + '\n' +
+		'/Y /y ldef' + '\n' +
+		'/l {_r lineto} bdef' + '\n' +
+		'/L /l ldef' + '\n' +
+		'/m {_r moveto} bdef' + '\n' +
+		'% error operators' + '\n' +
+		'/_e [] def' + '\n' +
+		'/_E {_e length 0 ne {gsave 0 g 0 G 0 i 0 J 0 j 1 w 10 M [] 0 d' + '\n' +
+		'	/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966' + '\n' +
+		'	_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]' + '\n' +
+		'	e _f t T grestore} if} bdef' + '\n' +
+		'/_fill {{fill} stopped {/_e [pathbbox] def /_f ' + '\n' +
+		'	(ERROR: cannot fill, increase flatness) def n _E} if} bdef' + '\n' +
+		'/_stroke {{stroke} stopped {/_e [pathbbox] def /_f ' + '\n' +
+		'	(ERROR: cannot stroke, increase flatness) def n _E} if} bdef' + '\n' +
+		'% path painting operators' + '\n' +
+		'/n /newpath ldef' + '\n' +
+		'/N /n ldef' + '\n' +
+		'/F {p _fill} bdef' + '\n' +
+		'/f {closepath F} bdef' + '\n' +
+		'/S {P _stroke} bdef' + '\n' +
+		'/s {closepath S} bdef' + '\n' +
+		'/B {gsave F grestore S} bdef' + '\n' +
+		'/b {closepath B} bdef' + '\n' +
+		'% text block construction and painting operators' + '\n' +
+		'/_s /ashow /def' + '\n' +
+		'/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint ' + '\n' +
+		'	_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall ' + '\n' +
+		'	pop pop pop n} bdef' + '\n' +
+		'/_A {_a moveto _t exch 0 exch} bdef' + '\n' +
+		'/_L {0 _l neg translate _G currentmatrix pop} bdef' + '\n' +
+		'/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef' + '\n' +
+		'/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} ' + '\n' +
+		'	{dup _w exch neg exch neg}] bdef' + '\n' +
+		'/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont ' + '\n' +
+		'	setfont} bdef' + '\n' +
+		'/_g matrix def' + '\n' +
+		'/_G matrix def' + '\n' +
+		'/_D {_g currentmatrix pop gsave concat _G currentmatrix pop} bdef' + '\n' +
+		'/e {_D p /t {_A _s _L} def} bdef' + '\n' +
+		'/r {_D P /t {_A _S _L} def} bdef' + '\n' +
+		'/a {_D /t {dup p _A _s P _A _S _L} def} bdef' + '\n' +
+		'/o {_D /t {pop _L} def} bdef' + '\n' +
+		'/T {grestore} bdef' + '\n' +
+		'% group construction operators' + '\n' +
+		'/u {} bdef' + '\n' +
+		'/U {} bdef' + '\n' +
+		'% font construction operators' + '\n' +
+		'/Z {{findfont begin ' + '\n' +
+		'		currentdict dup length dict begin ' + '\n' +
+		'			1 index /FID ne {def} {pop pop} ifelse' + '\n' +
+		'	} forall ' + '\n' +
+		'	FontName exch def dup length 0 ne ' + '\n' +
+		'	{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq' + '\n' +
+		'	{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop' + '\n' +
+		'	currentdict dup end end /FontName get exch definefont pop} bdef' + '\n' +
+		'	end' + '\n' +
+		'%%EndProcSet' + '\n' +
+		'%%EndProlog' + '\n' +
+		'%%BeginSetup' + '\n' +
+		'Adobe_Illustrator_1.0 begin' + '\n' +
+		'n' + '\n' +
+		'%%EndSetup' + '\n' +
+		'0 G' + '\n' +
+		'0 g' + '\n' +
+		'0 j' + '\n' +
+		'0 J' + '\n' +
+		'0 w' + '\n' +
+		'0.000 0.000 0.000 1.000 k' + '\n' +
+		'7.05 72.28 m' + '\n' +
+		'4.49 72.28 l' + '\n' +
+		'4.5 75.12 l' + '\n' +
+		'4.52 77.95 l' + '\n' +
+		'4.55 80.79 l' + '\n' +
+		'4.60 83.62 l' + '\n' +
+		'4.67 86.46 l' + '\n' +
+		'4.75 89.29 l' + '\n' +
+		'4.86 92.13 l' + '\n' +
+		'4.99 94.96 l' + '\n' +
+		'5.13 97.35 l' + '\n' +
+		'7.86 103.32 l' + '\n' +
+		'7.68 100.63 l' + '\n' +
+		'7.52 97.8 l' + '\n' +
+		'7.39 94.96 l' + '\n' +
+		'7.29 92.13 l' + '\n' +
+		'7.21 89.29 l' + '\n' +
+		'7.15 86.46 l' + '\n' +
+		'7.11 83.62 l' + '\n' +
+		'7.08 80.79 l' + '\n' +
+		'7.06 77.95 l' + '\n' +
+		'7.05 75.12 l' + '\n' +
+		's' + '\n' +
+		'7.05 69.45 m' + '\n' +
+		'4.49 69.45 l' + '\n' +
+		'4.5 66.61 l' + '\n' +
+		'4.52 63.78 l' + '\n' +
+		'4.55 60.94 l' + '\n' +
+		'4.60 58.11 l' + '\n' +
+		'4.67 55.28 l' + '\n' +
+		'4.75 52.44 l' + '\n' +
+		'4.86 49.61 l' + '\n' +
+		'4.99 46.77 l' + '\n' +
+		'5.13 44.39 l' + '\n' +
+		'7.86 38.42 l' + '\n' +
+		'7.68 41.1 l' + '\n' +
+		'7.52 43.94 l' + '\n' +
+		'7.39 46.77 l' + '\n' +
+		'7.29 49.61 l' + '\n' +
+		'7.21 52.44 l' + '\n' +
+		'7.15 55.28 l' + '\n' +
+		'7.11 58.11 l' + '\n' +
+		'7.08 60.94 l' + '\n' +
+		'7.06 63.78 l' + '\n' +
+		'7.05 66.61 l' + '\n' +
+		's' + '\n' +
+		'12.54 72.28 m' + '\n' +
+		'9.73 72.28 l' + '\n' +
+		'9.73 75.12 l' + '\n' +
+		'9.73 77.95 l' + '\n' +
+		'9.73 80.79 l' + '\n' +
+		'9.74 83.62 l' + '\n' +
+		'9.75 86.46 l' + '\n' +
+		'9.78 89.29 l' + '\n' +
+		'9.82 92.13 l' + '\n' +
+		'9.89 94.96 l' + '\n' +
+		'9.97 97.8 l' + '\n' +
+		'10.09 100.63 l' + '\n' +
+		'10.25 103.46 l' + '\n' +
+		'10.45 106.3 l' + '\n' +
+		'10.6 108.16 l' + '\n' +
+		'13.33 112.25 l' + '\n' +
+		'13.31 111.97 l' + '\n' +
+		'13.06 109.13 l' + '\n' +
+		'12.86 106.3 l' + '\n' +
+		'12.72 103.46 l' + '\n' +
+		'12.61 100.63 l' + '\n' +
+		'12.54 97.8 l' + '\n' +
+		'12.49 94.96 l' + '\n' +
+		'12.47 92.13 l' + '\n' +
+		'12.46 89.29 l' + '\n' +
+		'12.47 86.46 l' + '\n' +
+		'12.48 83.62 l' + '\n' +
+		'12.5 80.79 l' + '\n' +
+		'12.52 77.95 l' + '\n' +
+		'12.53 75.12 l' + '\n' +
+		's' + '\n' +
+		'12.54 69.45 m' + '\n' +
+		'9.73 69.45 l' + '\n' +
+		'9.73 66.61 l' + '\n' +
+		'9.73 63.78 l' + '\n' +
+		'9.73 60.94 l' + '\n' +
+		'9.74 58.11 l' + '\n' +
+		'9.75 55.28 l' + '\n' +
+		'9.78 52.44 l' + '\n' +
+		'9.82 49.61 l' + '\n' +
+		'9.89 46.77 l' + '\n' +
+		'9.97 43.94 l' + '\n' +
+		'10.09 41.1 l' + '\n' +
+		'10.25 38.27 l' + '\n' +
+		'10.45 35.43 l' + '\n' +
+		'10.6 33.58 l' + '\n' +
+		'13.33 29.49 l' + '\n' +
+		'13.31 29.76 l' + '\n' +
+		'13.06 32.6 l' + '\n' +
+		'12.86 35.43 l' + '\n' +
+		'12.72 38.27 l' + '\n' +
+		'12.61 41.1 l' + '\n' +
+		'12.54 43.94 l' + '\n' +
+		'12.49 46.77 l' + '\n' +
+		'12.47 49.61 l' + '\n' +
+		'12.46 52.44 l' + '\n' +
+		'12.47 55.28 l' + '\n' +
+		'12.48 58.11 l' + '\n' +
+		'12.5 60.94 l' + '\n' +
+		'12.52 63.78 l' + '\n' +
+		'12.53 66.61 l' + '\n' +
+		's' + '\n' +
+		'18.51 72.28 m' + '\n' +
+		'15.46 72.28 l' + '\n' +
+		'15.45 75.12 l' + '\n' +
+		'15.43 77.95 l' + '\n' +
+		'15.39 80.79 l' + '\n' +
+		'15.35 83.62 l' + '\n' +
+		'15.3 86.46 l' + '\n' +
+		'15.26 89.29 l' + '\n' +
+		'15.22 92.13 l' + '\n' +
+		'15.20 94.96 l' + '\n' +
+		'15.20 97.8 l' + '\n' +
+		'15.22 100.63 l' + '\n' +
+		'15.28 103.46 l' + '\n' +
+		'15.38 106.3 l' + '\n' +
+		'15.52 109.13 l' + '\n' +
+		'15.71 111.97 l' + '\n' +
+		'15.96 114.8 l' + '\n' +
+		'16.07 115.81 l' + '\n' +
+		'18.8 118.95 l' + '\n' +
+		'18.66 117.64 l' + '\n' +
+		'18.40 114.8 l' + '\n' +
+		'18.2 111.97 l' + '\n' +
+		'18.06 109.13 l' + '\n' +
+		'17.98 106.3 l' + '\n' +
+		'17.94 103.46 l' + '\n' +
+		'17.94 100.63 l' + '\n' +
+		'17.96 97.8 l' + '\n' +
+		'18.02 94.96 l' + '\n' +
+		'18.09 92.13 l' + '\n' +
+		'18.16 89.29 l' + '\n' +
+		'18.25 86.46 l' + '\n' +
+		'18.32 83.62 l' + '\n' +
+		'18.39 80.79 l' + '\n' +
+		'18.45 77.95 l' + '\n' +
+		'18.49 75.12 l' + '\n' +
+		's' + '\n' +
+		'18.51 69.45 m' + '\n' +
+		'15.46 69.45 l' + '\n' +
+		'15.45 66.61 l' + '\n' +
+		'15.43 63.78 l' + '\n' +
+		'15.39 60.94 l' + '\n' +
+		'15.35 58.11 l' + '\n' +
+		'15.3 55.28 l' + '\n' +
+		'15.26 52.44 l' + '\n' +
+		'15.22 49.61 l' + '\n' +
+		'15.20 46.77 l' + '\n' +
+		'15.20 43.94 l' + '\n' +
+		'15.22 41.1 l' + '\n' +
+		'15.28 38.27 l' + '\n' +
+		'15.38 35.43 l' + '\n' +
+		'15.52 32.6 l' + '\n' +
+		'15.71 29.76 l' + '\n' +
+		'15.96 26.93 l' + '\n' +
+		'16.07 25.92 l' + '\n' +
+		'18.8 22.78 l' + '\n' +
+		'18.66 24.09 l' + '\n' +
+		'18.40 26.93 l' + '\n' +
+		'18.2 29.76 l' + '\n' +
+		'18.06 32.6 l' + '\n' +
+		'17.98 35.43 l' + '\n' +
+		'17.94 38.27 l' + '\n' +
+		'17.94 41.1 l' + '\n' +
+		'17.96 43.94 l' + '\n' +
+		'18.02 46.77 l' + '\n' +
+		'18.09 49.61 l' + '\n' +
+		'18.16 52.44 l' + '\n' +
+		'18.25 55.28 l' + '\n' +
+		'18.32 58.11 l' + '\n' +
+		'18.39 60.94 l' + '\n' +
+		'18.45 63.78 l' + '\n' +
+		'18.49 66.61 l' + '\n' +
+		's' + '\n' +
+		'24.90 72.28 m' + '\n' +
+		'21.66 72.28 l' + '\n' +
+		'21.63 75.12 l' + '\n' +
+		'21.58 77.95 l' + '\n' +
+		'21.5 80.79 l' + '\n' +
+		'21.40 83.62 l' + '\n' +
+		'21.29 86.46 l' + '\n' +
+		'21.17 89.29 l' + '\n' +
+		'21.05 92.13 l' + '\n' +
+		'20.93 94.96 l' + '\n' +
+		'20.82 97.8 l' + '\n' +
+		'20.74 100.63 l' + '\n' +
+		'20.68 103.46 l' + '\n' +
+		'20.67 106.3 l' + '\n' +
+		'20.69 109.13 l' + '\n' +
+		'20.77 111.97 l' + '\n' +
+		'20.91 114.8 l' + '\n' +
+		'21.11 117.64 l' + '\n' +
+		'21.39 120.47 l' + '\n' +
+		'21.54 121.75 l' + '\n' +
+		'24.27 124.27 l' + '\n' +
+		'24.15 123.31 l' + '\n' +
+		'23.85 120.47 l' + '\n' +
+		'23.63 117.64 l' + '\n' +
+		'23.49 114.8 l' + '\n' +
+		'23.42 111.97 l' + '\n' +
+		'23.40 109.13 l' + '\n' +
+		'23.44 106.3 l' + '\n' +
+		'23.52 103.46 l' + '\n' +
+		'23.63 100.63 l' + '\n' +
+		'23.77 97.8 l' + '\n' +
+		'23.93 94.96 l' + '\n' +
+		'24.1 92.13 l' + '\n' +
+		'24.27 89.29 l' + '\n' +
+		'24.43 86.46 l' + '\n' +
+		'24.58 83.62 l' + '\n' +
+		'24.7 80.79 l' + '\n' +
+		'24.8 77.95 l' + '\n' +
+		'24.87 75.12 l' + '\n' +
+		's' + '\n' +
+		'24.90 69.45 m' + '\n' +
+		'21.66 69.45 l' + '\n' +
+		'21.63 66.61 l' + '\n' +
+		'21.58 63.78 l' + '\n' +
+		'21.5 60.94 l' + '\n' +
+		'21.40 58.11 l' + '\n' +
+		'21.29 55.28 l' + '\n' +
+		'21.17 52.44 l' + '\n' +
+		'21.05 49.61 l' + '\n' +
+		'20.93 46.77 l' + '\n' +
+		'20.82 43.94 l' + '\n' +
+		'20.74 41.1 l' + '\n' +
+		'20.68 38.27 l' + '\n' +
+		'20.67 35.43 l' + '\n' +
+		'20.69 32.6 l' + '\n' +
+		'20.77 29.76 l' + '\n' +
+		'20.91 26.93 l' + '\n' +
+		'21.11 24.09 l' + '\n' +
+		'21.39 21.26 l' + '\n' +
+		'21.54 19.98 l' + '\n' +
+		'24.27 17.46 l' + '\n' +
+		'24.15 18.43 l' + '\n' +
+		'23.85 21.26 l' + '\n' +
+		'23.63 24.09 l' + '\n' +
+		'23.49 26.93 l' + '\n' +
+		'23.42 29.76 l' + '\n' +
+		'23.40 32.6 l' + '\n' +
+		'23.44 35.43 l' + '\n' +
+		'23.52 38.27 l' + '\n' +
+		'23.63 41.1 l' + '\n' +
+		'23.77 43.94 l' + '\n' +
+		'23.93 46.77 l' + '\n' +
+		'24.1 49.61 l' + '\n' +
+		'24.27 52.44 l' + '\n' +
+		'24.43 55.28 l' + '\n' +
+		'24.58 58.11 l' + '\n' +
+		'24.7 60.94 l' + '\n' +
+		'24.8 63.78 l' + '\n' +
+		'24.87 66.61 l' + '\n' +
+		's' + '\n' +
+		'31.59 72.28 m' + '\n' +
+		'28.22 72.28 l' + '\n' +
+		'28.18 75.12 l' + '\n' +
+		'28.1 77.95 l' + '\n' +
+		'27.98 80.79 l' + '\n' +
+		'27.82 83.62 l' + '\n' +
+		'27.64 86.46 l' + '\n' +
+		'27.44 89.29 l' + '\n' +
+		'27.23 92.13 l' + '\n' +
+		'27.01 94.96 l' + '\n' +
+		'26.8 97.8 l' + '\n' +
+		'26.6 100.63 l' + '\n' +
+		'26.43 103.46 l' + '\n' +
+		'26.28 106.3 l' + '\n' +
+		'26.19 109.13 l' + '\n' +
+		'26.14 111.97 l' + '\n' +
+		'26.15 114.8 l' + '\n' +
+		'26.23 117.64 l' + '\n' +
+		'26.38 120.47 l' + '\n' +
+		'26.62 123.31 l' + '\n' +
+		'26.95 126.14 l' + '\n' +
+		'27 126.53 l' + '\n' +
+		'29.74 128.58 l' + '\n' +
+		'29.43 126.14 l' + '\n' +
+		'29.16 123.31 l' + '\n' +
+		'28.98 120.47 l' + '\n' +
+		'28.89 117.64 l' + '\n' +
+		'28.87 114.8 l' + '\n' +
+		'28.92 111.97 l' + '\n' +
+		'29.04 109.13 l' + '\n' +
+		'29.2 106.3 l' + '\n' +
+		'29.40 103.46 l' + '\n' +
+		'29.64 100.63 l' + '\n' +
+		'29.89 97.8 l' + '\n' +
+		'30.16 94.96 l' + '\n' +
+		'30.42 92.13 l' + '\n' +
+		'30.68 89.29 l' + '\n' +
+		'30.92 86.46 l' + '\n' +
+		'31.13 83.62 l' + '\n' +
+		'31.31 80.79 l' + '\n' +
+		'31.45 77.95 l' + '\n' +
+		'31.54 75.12 l' + '\n' +
+		's' + '\n' +
+		'31.59 69.45 m' + '\n' +
+		'28.22 69.45 l' + '\n' +
+		'28.18 66.61 l' + '\n' +
+		'28.1 63.78 l' + '\n' +
+		'27.98 60.94 l' + '\n' +
+		'27.82 58.11 l' + '\n' +
+		'27.64 55.28 l' + '\n' +
+		'27.44 52.44 l' + '\n' +
+		'27.23 49.61 l' + '\n' +
+		'27.01 46.77 l' + '\n' +
+		'26.8 43.94 l' + '\n' +
+		'26.6 41.1 l' + '\n' +
+		'26.43 38.27 l' + '\n' +
+		'26.28 35.43 l' + '\n' +
+		'26.19 32.6 l' + '\n' +
+		'26.14 29.76 l' + '\n' +
+		'26.15 26.93 l' + '\n' +
+		'26.23 24.09 l' + '\n' +
+		'26.38 21.26 l' + '\n' +
+		'26.62 18.43 l' + '\n' +
+		'26.95 15.59 l' + '\n' +
+		'27 15.20 l' + '\n' +
+		'29.74 13.15 l' + '\n' +
+		'29.43 15.59 l' + '\n' +
+		'29.16 18.43 l' + '\n' +
+		'28.98 21.26 l' + '\n' +
+		'28.89 24.09 l' + '\n' +
+		'28.87 26.93 l' + '\n' +
+		'28.92 29.76 l' + '\n' +
+		'29.04 32.6 l' + '\n' +
+		'29.2 35.43 l' + '\n' +
+		'29.40 38.27 l' + '\n' +
+		'29.64 41.1 l' + '\n' +
+		'29.89 43.94 l' + '\n' +
+		'30.16 46.77 l' + '\n' +
+		'30.42 49.61 l' + '\n' +
+		'30.68 52.44 l' + '\n' +
+		'30.92 55.28 l' + '\n' +
+		'31.13 58.11 l' + '\n' +
+		'31.31 60.94 l' + '\n' +
+		'31.45 63.78 l' + '\n' +
+		'31.54 66.61 l' + '\n' +
+		's' + '\n' +
+		'38.38 72.28 m' + '\n' +
+		'34.99 72.28 l' + '\n' +
+		'34.93 75.12 l' + '\n' +
+		'34.82 77.95 l' + '\n' +
+		'34.67 80.79 l' + '\n' +
+		'34.47 83.62 l' + '\n' +
+		'34.22 86.46 l' + '\n' +
+		'33.95 89.29 l' + '\n' +
+		'33.66 92.13 l' + '\n' +
+		'33.35 94.96 l' + '\n' +
+		'33.03 97.8 l' + '\n' +
+		'32.72 100.63 l' + '\n' +
+		'32.43 103.46 l' + '\n' +
+		'32.17 106.3 l' + '\n' +
+		'31.94 109.13 l' + '\n' +
+		'31.77 111.97 l' + '\n' +
+		'31.65 114.8 l' + '\n' +
+		'31.6 117.64 l' + '\n' +
+		'31.63 120.47 l' + '\n' +
+		'31.75 123.31 l' + '\n' +
+		'31.96 126.14 l' + '\n' +
+		'32.27 128.98 l' + '\n' +
+		'32.47 130.44 l' + '\n' +
+		'35.21 132.11 l' + '\n' +
+		'35.16 131.81 l' + '\n' +
+		'34.79 128.98 l' + '\n' +
+		'34.54 126.14 l' + '\n' +
+		'34.39 123.31 l' + '\n' +
+		'34.34 120.47 l' + '\n' +
+		'34.37 117.64 l' + '\n' +
+		'34.48 114.8 l' + '\n' +
+		'34.66 111.97 l' + '\n' +
+		'34.9 109.13 l' + '\n' +
+		'35.18 106.3 l' + '\n' +
+		'35.5 103.46 l' + '\n' +
+		'35.84 100.63 l' + '\n' +
+		'36.2 97.8 l' + '\n' +
+		'36.56 94.96 l' + '\n' +
+		'36.91 92.13 l' + '\n' +
+		'37.24 89.29 l' + '\n' +
+		'37.55 86.46 l' + '\n' +
+		'37.81 83.62 l' + '\n' +
+		'38.04 80.79 l' + '\n' +
+		'38.21 77.95 l' + '\n' +
+		'38.32 75.12 l' + '\n' +
+		's' + '\n' +
+		'38.38 69.45 m' + '\n' +
+		'34.99 69.45 l' + '\n' +
+		'34.93 66.61 l' + '\n' +
+		'34.82 63.78 l' + '\n' +
+		'34.67 60.94 l' + '\n' +
+		'34.47 58.11 l' + '\n' +
+		'34.22 55.28 l' + '\n' +
+		'33.95 52.44 l' + '\n' +
+		'33.66 49.61 l' + '\n' +
+		'33.35 46.77 l' + '\n' +
+		'33.03 43.94 l' + '\n' +
+		'32.72 41.1 l' + '\n' +
+		'32.43 38.27 l' + '\n' +
+		'32.17 35.43 l' + '\n' +
+		'31.94 32.6 l' + '\n' +
+		'31.77 29.76 l' + '\n' +
+		'31.65 26.93 l' + '\n' +
+		'31.6 24.09 l' + '\n' +
+		'31.63 21.26 l' + '\n' +
+		'31.75 18.43 l' + '\n' +
+		'31.96 15.59 l' + '\n' +
+		'32.27 12.76 l' + '\n' +
+		'32.47 11.29 l' + '\n' +
+		'35.21 9.62 l' + '\n' +
+		'35.16 9.92 l' + '\n' +
+		'34.79 12.76 l' + '\n' +
+		'34.54 15.59 l' + '\n' +
+		'34.39 18.43 l' + '\n' +
+		'34.34 21.26 l' + '\n' +
+		'34.37 24.09 l' + '\n' +
+		'34.48 26.93 l' + '\n' +
+		'34.66 29.76 l' + '\n' +
+		'34.9 32.6 l' + '\n' +
+		'35.18 35.43 l' + '\n' +
+		'35.5 38.27 l' + '\n' +
+		'35.84 41.1 l' + '\n' +
+		'36.2 43.94 l' + '\n' +
+		'36.56 46.77 l' + '\n' +
+		'36.91 49.61 l' + '\n' +
+		'37.24 52.44 l' + '\n' +
+		'37.55 55.28 l' + '\n' +
+		'37.81 58.11 l' + '\n' +
+		'38.04 60.94 l' + '\n' +
+		'38.21 63.78 l' + '\n' +
+		'38.32 66.61 l' + '\n' +
+		's' + '\n' +
+		'45.11 72.28 m' + '\n' +
+		'41.76 72.28 l' + '\n' +
+		'41.7 75.12 l' + '\n' +
+		'41.57 77.95 l' + '\n' +
+		'41.39 80.79 l' + '\n' +
+		'41.15 83.62 l' + '\n' +
+		'40.86 86.46 l' + '\n' +
+		'40.54 89.29 l' + '\n' +
+		'40.17 92.13 l' + '\n' +
+		'39.79 94.96 l' + '\n' +
+		'39.39 97.8 l' + '\n' +
+		'38.99 100.63 l' + '\n' +
+		'38.59 103.46 l' + '\n' +
+		'38.22 106.3 l' + '\n' +
+		'37.88 109.13 l' + '\n' +
+		'37.59 111.97 l' + '\n' +
+		'37.35 114.8 l' + '\n' +
+		'37.18 117.64 l' + '\n' +
+		'37.09 120.47 l' + '\n' +
+		'37.08 123.31 l' + '\n' +
+		'37.17 126.14 l' + '\n' +
+		'37.37 128.98 l' + '\n' +
+		'37.68 131.81 l' + '\n' +
+		'37.94 133.63 l' + '\n' +
+		'40.67 134.98 l' + '\n' +
+		'40.62 134.65 l' + '\n' +
+		'40.24 131.81 l' + '\n' +
+		'39.98 128.98 l' + '\n' +
+		'39.84 126.14 l' + '\n' +
+		'39.81 123.31 l' + '\n' +
+		'39.87 120.47 l' + '\n' +
+		'40.02 117.64 l' + '\n' +
+		'40.25 114.8 l' + '\n' +
+		'40.54 111.97 l' + '\n' +
+		'40.89 109.13 l' + '\n' +
+		'41.28 106.3 l' + '\n' +
+		'41.7 103.46 l' + '\n' +
+		'42.13 100.63 l' + '\n' +
+		'42.57 97.8 l' + '\n' +
+		'43.01 94.96 l' + '\n' +
+		'43.42 92.13 l' + '\n' +
+		'43.81 89.29 l' + '\n' +
+		'44.16 86.46 l' + '\n' +
+		'44.46 83.62 l' + '\n' +
+		'44.71 80.79 l' + '\n' +
+		'44.91 77.95 l' + '\n' +
+		'45.04 75.12 l' + '\n' +
+		's' + '\n' +
+		'45.11 69.45 m' + '\n' +
+		'41.76 69.45 l' + '\n' +
+		'41.7 66.61 l' + '\n' +
+		'41.57 63.78 l' + '\n' +
+		'41.39 60.94 l' + '\n' +
+		'41.15 58.11 l' + '\n' +
+		'40.86 55.28 l' + '\n' +
+		'40.54 52.44 l' + '\n' +
+		'40.17 49.61 l' + '\n' +
+		'39.79 46.77 l' + '\n' +
+		'39.39 43.94 l' + '\n' +
+		'38.99 41.1 l' + '\n' +
+		'38.59 38.27 l' + '\n' +
+		'38.22 35.43 l' + '\n' +
+		'37.88 32.6 l' + '\n' +
+		'37.59 29.76 l' + '\n' +
+		'37.35 26.93 l' + '\n' +
+		'37.18 24.09 l' + '\n' +
+		'37.09 21.26 l' + '\n' +
+		'37.08 18.43 l' + '\n' +
+		'37.17 15.59 l' + '\n' +
+		'37.37 12.76 l' + '\n' +
+		'37.68 9.92 l' + '\n' +
+		'37.94 8.11 l' + '\n' +
+		'40.67 6.75 l' + '\n' +
+		'40.62 7.09 l' + '\n' +
+		'40.24 9.92 l' + '\n' +
+		'39.98 12.76 l' + '\n' +
+		'39.84 15.59 l' + '\n' +
+		'39.81 18.43 l' + '\n' +
+		'39.87 21.26 l' + '\n' +
+		'40.02 24.09 l' + '\n' +
+		'40.25 26.93 l' + '\n' +
+		'40.54 29.76 l' + '\n' +
+		'40.89 32.6 l' + '\n' +
+		'41.28 35.43 l' + '\n' +
+		'41.7 38.27 l' + '\n' +
+		'42.13 41.1 l' + '\n' +
+		'42.57 43.94 l' + '\n' +
+		'43.01 46.77 l' + '\n' +
+		'43.42 49.61 l' + '\n' +
+		'43.81 52.44 l' + '\n' +
+		'44.16 55.28 l' + '\n' +
+		'44.46 58.11 l' + '\n' +
+		'44.71 60.94 l' + '\n' +
+		'44.91 63.78 l' + '\n' +
+		'45.04 66.61 l' + '\n' +
+		's' + '\n' +
+		'51.62 72.28 m' + '\n' +
+		'48.4 72.28 l' + '\n' +
+		'48.33 75.12 l' + '\n' +
+		'48.19 77.95 l' + '\n' +
+		'47.99 80.79 l' + '\n' +
+		'47.73 83.62 l' + '\n' +
+		'47.41 86.46 l' + '\n' +
+		'47.05 89.29 l' + '\n' +
+		'46.64 92.13 l' + '\n' +
+		'46.2 94.96 l' + '\n' +
+		'45.74 97.8 l' + '\n' +
+		'45.27 100.63 l' + '\n' +
+		'44.80 103.46 l' + '\n' +
+		'44.34 106.3 l' + '\n' +
+		'43.91 109.13 l' + '\n' +
+		'43.51 111.97 l' + '\n' +
+		'43.17 114.8 l' + '\n' +
+		'42.89 117.64 l' + '\n' +
+		'42.68 120.47 l' + '\n' +
+		'42.56 123.31 l' + '\n' +
+		'42.54 126.14 l' + '\n' +
+		'42.63 128.98 l' + '\n' +
+		'42.83 131.81 l' + '\n' +
+		'43.17 134.65 l' + '\n' +
+		'43.41 136.2 l' + '\n' +
+		'46.14 137.28 l' + '\n' +
+		'45.75 134.65 l' + '\n' +
+		'45.47 131.81 l' + '\n' +
+		'45.31 128.98 l' + '\n' +
+		'45.27 126.14 l' + '\n' +
+		'45.35 123.31 l' + '\n' +
+		'45.51 120.47 l' + '\n' +
+		'45.77 117.64 l' + '\n' +
+		'46.1 114.8 l' + '\n' +
+		'46.48 111.97 l' + '\n' +
+		'46.92 109.13 l' + '\n' +
+		'47.39 106.3 l' + '\n' +
+		'47.88 103.46 l' + '\n' +
+		'48.38 100.63 l' + '\n' +
+		'48.88 97.8 l' + '\n' +
+		'49.36 94.96 l' + '\n' +
+		'49.82 92.13 l' + '\n' +
+		'50.24 89.29 l' + '\n' +
+		'50.62 86.46 l' + '\n' +
+		'50.94 83.62 l' + '\n' +
+		'51.21 80.79 l' + '\n' +
+		'51.42 77.95 l' + '\n' +
+		'51.55 75.12 l' + '\n' +
+		's' + '\n' +
+		'51.62 69.45 m' + '\n' +
+		'48.4 69.45 l' + '\n' +
+		'48.33 66.61 l' + '\n' +
+		'48.19 63.78 l' + '\n' +
+		'47.99 60.94 l' + '\n' +
+		'47.73 58.11 l' + '\n' +
+		'47.41 55.28 l' + '\n' +
+		'47.05 52.44 l' + '\n' +
+		'46.64 49.61 l' + '\n' +
+		'46.2 46.77 l' + '\n' +
+		'45.74 43.94 l' + '\n' +
+		'45.27 41.1 l' + '\n' +
+		'44.80 38.27 l' + '\n' +
+		'44.34 35.43 l' + '\n' +
+		'43.91 32.6 l' + '\n' +
+		'43.51 29.76 l' + '\n' +
+		'43.17 26.93 l' + '\n' +
+		'42.89 24.09 l' + '\n' +
+		'42.68 21.26 l' + '\n' +
+		'42.56 18.43 l' + '\n' +
+		'42.54 15.59 l' + '\n' +
+		'42.63 12.76 l' + '\n' +
+		'42.83 9.92 l' + '\n' +
+		'43.17 7.09 l' + '\n' +
+		'43.41 5.53 l' + '\n' +
+		'46.14 4.45 l' + '\n' +
+		'45.75 7.09 l' + '\n' +
+		'45.47 9.92 l' + '\n' +
+		'45.31 12.76 l' + '\n' +
+		'45.27 15.59 l' + '\n' +
+		'45.35 18.43 l' + '\n' +
+		'45.51 21.26 l' + '\n' +
+		'45.77 24.09 l' + '\n' +
+		'46.1 26.93 l' + '\n' +
+		'46.48 29.76 l' + '\n' +
+		'46.92 32.6 l' + '\n' +
+		'47.39 35.43 l' + '\n' +
+		'47.88 38.27 l' + '\n' +
+		'48.38 41.1 l' + '\n' +
+		'48.88 43.94 l' + '\n' +
+		'49.36 46.77 l' + '\n' +
+		'49.82 49.61 l' + '\n' +
+		'50.24 52.44 l' + '\n' +
+		'50.62 55.28 l' + '\n' +
+		'50.94 58.11 l' + '\n' +
+		'51.21 60.94 l' + '\n' +
+		'51.42 63.78 l' + '\n' +
+		'51.55 66.61 l' + '\n' +
+		's' + '\n' +
+		'57.87 72.28 m' + '\n' +
+		'54.78 72.28 l' + '\n' +
+		'54.71 75.12 l' + '\n' +
+		'54.57 77.95 l' + '\n' +
+		'54.36 80.79 l' + '\n' +
+		'54.09 83.62 l' + '\n' +
+		'53.76 86.46 l' + '\n' +
+		'53.38 89.29 l' + '\n' +
+		'52.95 92.13 l' + '\n' +
+		'52.48 94.96 l' + '\n' +
+		'51.98 97.8 l' + '\n' +
+		'51.46 100.63 l' + '\n' +
+		'50.94 103.46 l' + '\n' +
+		'50.42 106.3 l' + '\n' +
+		'49.92 109.13 l' + '\n' +
+		'49.45 111.97 l' + '\n' +
+		'49.02 114.8 l' + '\n' +
+		'48.66 117.64 l' + '\n' +
+		'48.36 120.47 l' + '\n' +
+		'48.14 123.31 l' + '\n' +
+		'48.03 126.14 l' + '\n' +
+		'48.02 128.98 l' + '\n' +
+		'48.13 131.81 l' + '\n' +
+		'48.37 134.65 l' + '\n' +
+		'48.75 137.48 l' + '\n' +
+		'48.88 138.24 l' + '\n' +
+		'51.61 139.07 l' + '\n' +
+		'51.35 137.48 l' + '\n' +
+		'51.01 134.65 l' + '\n' +
+		'50.81 131.81 l' + '\n' +
+		'50.74 128.98 l' + '\n' +
+		'50.79 126.14 l' + '\n' +
+		'50.95 123.31 l' + '\n' +
+		'51.21 120.47 l' + '\n' +
+		'51.54 117.64 l' + '\n' +
+		'51.95 114.8 l' + '\n' +
+		'52.4 111.97 l' + '\n' +
+		'52.9 109.13 l' + '\n' +
+		'53.43 106.3 l' + '\n' +
+		'53.96 103.46 l' + '\n' +
+		'54.51 100.63 l' + '\n' +
+		'55.03 97.8 l' + '\n' +
+		'55.54 94.96 l' + '\n' +
+		'56.02 92.13 l' + '\n' +
+		'56.46 89.29 l' + '\n' +
+		'56.84 86.46 l' + '\n' +
+		'57.18 83.62 l' + '\n' +
+		'57.45 80.79 l' + '\n' +
+		'57.66 77.95 l' + '\n' +
+		'57.80 75.12 l' + '\n' +
+		's' + '\n' +
+		'57.87 69.45 m' + '\n' +
+		'54.78 69.45 l' + '\n' +
+		'54.71 66.61 l' + '\n' +
+		'54.57 63.78 l' + '\n' +
+		'54.36 60.94 l' + '\n' +
+		'54.09 58.11 l' + '\n' +
+		'53.76 55.28 l' + '\n' +
+		'53.38 52.44 l' + '\n' +
+		'52.95 49.61 l' + '\n' +
+		'52.48 46.77 l' + '\n' +
+		'51.98 43.94 l' + '\n' +
+		'51.46 41.1 l' + '\n' +
+		'50.94 38.27 l' + '\n' +
+		'50.42 35.43 l' + '\n' +
+		'49.92 32.6 l' + '\n' +
+		'49.45 29.76 l' + '\n' +
+		'49.02 26.93 l' + '\n' +
+		'48.66 24.09 l' + '\n' +
+		'48.36 21.26 l' + '\n' +
+		'48.14 18.43 l' + '\n' +
+		'48.03 15.59 l' + '\n' +
+		'48.02 12.76 l' + '\n' +
+		'48.13 9.92 l' + '\n' +
+		'48.37 7.09 l' + '\n' +
+		'48.75 4.25 l' + '\n' +
+		'48.88 3.49 l' + '\n' +
+		'51.61 2.66 l' + '\n' +
+		'51.35 4.25 l' + '\n' +
+		'51.01 7.09 l' + '\n' +
+		'50.81 9.92 l' + '\n' +
+		'50.74 12.76 l' + '\n' +
+		'50.79 15.59 l' + '\n' +
+		'50.95 18.43 l' + '\n' +
+		'51.21 21.26 l' + '\n' +
+		'51.54 24.09 l' + '\n' +
+		'51.95 26.93 l' + '\n' +
+		'52.4 29.76 l' + '\n' +
+		'52.9 32.6 l' + '\n' +
+		'53.43 35.43 l' + '\n' +
+		'53.96 38.27 l' + '\n' +
+		'54.51 41.1 l' + '\n' +
+		'55.03 43.94 l' + '\n' +
+		'55.54 46.77 l' + '\n' +
+		'56.02 49.61 l' + '\n' +
+		'56.46 52.44 l' + '\n' +
+		'56.84 55.28 l' + '\n' +
+		'57.18 58.11 l' + '\n' +
+		'57.45 60.94 l' + '\n' +
+		'57.66 63.78 l' + '\n' +
+		'57.80 66.61 l' + '\n' +
+		's' + '\n' +
+		'63.82 72.28 m' + '\n' +
+		'60.88 72.28 l' + '\n' +
+		'60.81 75.12 l' + '\n' +
+		'60.67 77.95 l' + '\n' +
+		'60.46 80.79 l' + '\n' +
+		'60.19 83.62 l' + '\n' +
+		'59.86 86.46 l' + '\n' +
+		'59.47 89.29 l' + '\n' +
+		'59.03 92.13 l' + '\n' +
+		'58.55 94.96 l' + '\n' +
+		'58.04 97.8 l' + '\n' +
+		'57.5 100.63 l' + '\n' +
+		'56.95 103.46 l' + '\n' +
+		'56.4 106.3 l' + '\n' +
+		'55.85 109.13 l' + '\n' +
+		'55.33 111.97 l' + '\n' +
+		'54.85 114.8 l' + '\n' +
+		'54.42 117.64 l' + '\n' +
+		'54.05 120.47 l' + '\n' +
+		'53.76 123.31 l' + '\n' +
+		'53.57 126.14 l' + '\n' +
+		'53.48 128.98 l' + '\n' +
+		'53.51 131.81 l' + '\n' +
+		'53.67 134.65 l' + '\n' +
+		'53.98 137.48 l' + '\n' +
+		'54.34 139.78 l' + '\n' +
+		'57.08 140.38 l' + '\n' +
+		'57.07 140.31 l' + '\n' +
+		'56.63 137.48 l' + '\n' +
+		'56.35 134.65 l' + '\n' +
+		'56.22 131.81 l' + '\n' +
+		'56.23 128.98 l' + '\n' +
+		'56.35 126.14 l' + '\n' +
+		'56.57 123.31 l' + '\n' +
+		'56.89 120.47 l' + '\n' +
+		'57.28 117.64 l' + '\n' +
+		'57.73 114.8 l' + '\n' +
+		'58.24 111.97 l' + '\n' +
+		'58.77 109.13 l' + '\n' +
+		'59.33 106.3 l' + '\n' +
+		'59.89 103.46 l' + '\n' +
+		'60.45 100.63 l' + '\n' +
+		'60.99 97.8 l' + '\n' +
+		'61.5 94.96 l' + '\n' +
+		'61.98 92.13 l' + '\n' +
+		'62.42 89.29 l' + '\n' +
+		'62.80 86.46 l' + '\n' +
+		'63.13 83.62 l' + '\n' +
+		'63.4 80.79 l' + '\n' +
+		'63.61 77.95 l' + '\n' +
+		'63.75 75.12 l' + '\n' +
+		's' + '\n' +
+		'63.82 69.45 m' + '\n' +
+		'60.88 69.45 l' + '\n' +
+		'60.81 66.61 l' + '\n' +
+		'60.67 63.78 l' + '\n' +
+		'60.46 60.94 l' + '\n' +
+		'60.19 58.11 l' + '\n' +
+		'59.86 55.28 l' + '\n' +
+		'59.47 52.44 l' + '\n' +
+		'59.03 49.61 l' + '\n' +
+		'58.55 46.77 l' + '\n' +
+		'58.04 43.94 l' + '\n' +
+		'57.5 41.1 l' + '\n' +
+		'56.95 38.27 l' + '\n' +
+		'56.4 35.43 l' + '\n' +
+		'55.85 32.6 l' + '\n' +
+		'55.33 29.76 l' + '\n' +
+		'54.85 26.93 l' + '\n' +
+		'54.42 24.09 l' + '\n' +
+		'54.05 21.26 l' + '\n' +
+		'53.76 18.43 l' + '\n' +
+		'53.57 15.59 l' + '\n' +
+		'53.48 12.76 l' + '\n' +
+		'53.51 9.92 l' + '\n' +
+		'53.67 7.09 l' + '\n' +
+		'53.98 4.25 l' + '\n' +
+		'54.34 1.95 l' + '\n' +
+		'57.08 1.35 l' + '\n' +
+		'57.07 1.42 l' + '\n' +
+		'56.63 4.25 l' + '\n' +
+		'56.35 7.09 l' + '\n' +
+		'56.22 9.92 l' + '\n' +
+		'56.23 12.76 l' + '\n' +
+		'56.35 15.59 l' + '\n' +
+		'56.57 18.43 l' + '\n' +
+		'56.89 21.26 l' + '\n' +
+		'57.28 24.09 l' + '\n' +
+		'57.73 26.93 l' + '\n' +
+		'58.24 29.76 l' + '\n' +
+		'58.77 32.6 l' + '\n' +
+		'59.33 35.43 l' + '\n' +
+		'59.89 38.27 l' + '\n' +
+		'60.45 41.1 l' + '\n' +
+		'60.99 43.94 l' + '\n' +
+		'61.5 46.77 l' + '\n' +
+		'61.98 49.61 l' + '\n' +
+		'62.42 52.44 l' + '\n' +
+		'62.80 55.28 l' + '\n' +
+		'63.13 58.11 l' + '\n' +
+		'63.4 60.94 l' + '\n' +
+		'63.61 63.78 l' + '\n' +
+		'63.75 66.61 l' + '\n' +
+		's' + '\n' +
+		'69.48 72.28 m' + '\n' +
+		'66.68 72.28 l' + '\n' +
+		'66.62 75.12 l' + '\n' +
+		'66.48 77.95 l' + '\n' +
+		'66.28 80.79 l' + '\n' +
+		'66.01 83.62 l' + '\n' +
+		'65.68 86.46 l' + '\n' +
+		'65.3 89.29 l' + '\n' +
+		'64.87 92.13 l' + '\n' +
+		'64.39 94.96 l' + '\n' +
+		'63.88 97.8 l' + '\n' +
+		'63.34 100.63 l' + '\n' +
+		'62.78 103.46 l' + '\n' +
+		'62.22 106.3 l' + '\n' +
+		'61.65 109.13 l' + '\n' +
+		'61.11 111.97 l' + '\n' +
+		'60.59 114.8 l' + '\n' +
+		'60.12 117.64 l' + '\n' +
+		'59.71 120.47 l' + '\n' +
+		'59.37 123.31 l' + '\n' +
+		'59.12 126.14 l' + '\n' +
+		'58.98 128.98 l' + '\n' +
+		'58.95 131.81 l' + '\n' +
+		'59.05 134.65 l' + '\n' +
+		'59.30 137.48 l' + '\n' +
+		'59.71 140.31 l' + '\n' +
+		'59.81 140.87 l' + '\n' +
+		'62.55 141.24 l' + '\n' +
+		'62.38 140.31 l' + '\n' +
+		'61.99 137.48 l' + '\n' +
+		'61.76 134.65 l' + '\n' +
+		'61.68 131.81 l' + '\n' +
+		'61.73 128.98 l' + '\n' +
+		'61.9 126.14 l' + '\n' +
+		'62.16 123.31 l' + '\n' +
+		'62.52 120.47 l' + '\n' +
+		'62.94 117.64 l' + '\n' +
+		'63.43 114.8 l' + '\n' +
+		'63.95 111.97 l' + '\n' +
+		'64.5 109.13 l' + '\n' +
+		'65.06 106.3 l' + '\n' +
+		'65.63 103.46 l' + '\n' +
+		'66.18 100.63 l' + '\n' +
+		'66.72 97.8 l' + '\n' +
+		'67.23 94.96 l' + '\n' +
+		'67.7 92.13 l' + '\n' +
+		'68.12 89.29 l' + '\n' +
+		'68.5 86.46 l' + '\n' +
+		'68.82 83.62 l' + '\n' +
+		'69.08 80.79 l' + '\n' +
+		'69.28 77.95 l' + '\n' +
+		'69.42 75.12 l' + '\n' +
+		's' + '\n' +
+		'69.48 69.45 m' + '\n' +
+		'66.68 69.45 l' + '\n' +
+		'66.62 66.61 l' + '\n' +
+		'66.48 63.78 l' + '\n' +
+		'66.28 60.94 l' + '\n' +
+		'66.01 58.11 l' + '\n' +
+		'65.68 55.28 l' + '\n' +
+		'65.3 52.44 l' + '\n' +
+		'64.87 49.61 l' + '\n' +
+		'64.39 46.77 l' + '\n' +
+		'63.88 43.94 l' + '\n' +
+		'63.34 41.1 l' + '\n' +
+		'62.78 38.27 l' + '\n' +
+		'62.22 35.43 l' + '\n' +
+		'61.65 32.6 l' + '\n' +
+		'61.11 29.76 l' + '\n' +
+		'60.59 26.93 l' + '\n' +
+		'60.12 24.09 l' + '\n' +
+		'59.71 21.26 l' + '\n' +
+		'59.37 18.43 l' + '\n' +
+		'59.12 15.59 l' + '\n' +
+		'58.98 12.76 l' + '\n' +
+		'58.95 9.92 l' + '\n' +
+		'59.05 7.09 l' + '\n' +
+		'59.30 4.25 l' + '\n' +
+		'59.71 1.42 l' + '\n' +
+		'59.81 0.87 l' + '\n' +
+		'62.55 0.49 l' + '\n' +
+		'62.38 1.42 l' + '\n' +
+		'61.99 4.25 l' + '\n' +
+		'61.76 7.09 l' + '\n' +
+		'61.68 9.92 l' + '\n' +
+		'61.73 12.76 l' + '\n' +
+		'61.9 15.59 l' + '\n' +
+		'62.16 18.43 l' + '\n' +
+		'62.52 21.26 l' + '\n' +
+		'62.94 24.09 l' + '\n' +
+		'63.43 26.93 l' + '\n' +
+		'63.95 29.76 l' + '\n' +
+		'64.5 32.6 l' + '\n' +
+		'65.06 35.43 l' + '\n' +
+		'65.63 38.27 l' + '\n' +
+		'66.18 41.1 l' + '\n' +
+		'66.72 43.94 l' + '\n' +
+		'67.23 46.77 l' + '\n' +
+		'67.7 49.61 l' + '\n' +
+		'68.12 52.44 l' + '\n' +
+		'68.5 55.28 l' + '\n' +
+		'68.82 58.11 l' + '\n' +
+		'69.08 60.94 l' + '\n' +
+		'69.28 63.78 l' + '\n' +
+		'69.42 66.61 l' + '\n' +
+		's' + '\n' +
+		'74.89 72.28 m' + '\n' +
+		'72.22 72.28 l' + '\n' +
+		'72.15 75.12 l' + '\n' +
+		'72.02 77.95 l' + '\n' +
+		'71.83 80.79 l' + '\n' +
+		'71.57 83.62 l' + '\n' +
+		'71.26 86.46 l' + '\n' +
+		'70.89 89.29 l' + '\n' +
+		'70.47 92.13 l' + '\n' +
+		'70.01 94.96 l' + '\n' +
+		'69.5 97.8 l' + '\n' +
+		'68.97 100.63 l' + '\n' +
+		'68.42 103.46 l' + '\n' +
+		'67.86 106.3 l' + '\n' +
+		'67.3 109.13 l' + '\n' +
+		'66.75 111.97 l' + '\n' +
+		'66.23 114.8 l' + '\n' +
+		'65.74 117.64 l' + '\n' +
+		'65.31 120.47 l' + '\n' +
+		'64.94 123.31 l' + '\n' +
+		'64.66 126.14 l' + '\n' +
+		'64.48 128.98 l' + '\n' +
+		'64.41 131.81 l' + '\n' +
+		'64.48 134.65 l' + '\n' +
+		'64.69 137.48 l' + '\n' +
+		'65.07 140.31 l' + '\n' +
+		'65.28 141.51 l' + '\n' +
+		'68.01 141.68 l' + '\n' +
+		'67.77 140.31 l' + '\n' +
+		'67.4 137.48 l' + '\n' +
+		'67.2 134.65 l' + '\n' +
+		'67.15 131.81 l' + '\n' +
+		'67.22 128.98 l' + '\n' +
+		'67.41 126.14 l' + '\n' +
+		'67.7 123.31 l' + '\n' +
+		'68.07 120.47 l' + '\n' +
+		'68.51 117.64 l' + '\n' +
+		'69 114.8 l' + '\n' +
+		'69.52 111.97 l' + '\n' +
+		'70.07 109.13 l' + '\n' +
+		'70.62 106.3 l' + '\n' +
+		'71.18 103.46 l' + '\n' +
+		'71.72 100.63 l' + '\n' +
+		'72.24 97.8 l' + '\n' +
+		'72.73 94.96 l' + '\n' +
+		'73.18 92.13 l' + '\n' +
+		'73.59 89.29 l' + '\n' +
+		'73.95 86.46 l' + '\n' +
+		'74.26 83.62 l' + '\n' +
+		'74.51 80.79 l' + '\n' +
+		'74.7 77.95 l' + '\n' +
+		'74.83 75.12 l' + '\n' +
+		's' + '\n' +
+		'74.89 69.45 m' + '\n' +
+		'72.22 69.45 l' + '\n' +
+		'72.15 66.61 l' + '\n' +
+		'72.02 63.78 l' + '\n' +
+		'71.83 60.94 l' + '\n' +
+		'71.57 58.11 l' + '\n' +
+		'71.26 55.28 l' + '\n' +
+		'70.89 52.44 l' + '\n' +
+		'70.47 49.61 l' + '\n' +
+		'70.01 46.77 l' + '\n' +
+		'69.5 43.94 l' + '\n' +
+		'68.97 41.1 l' + '\n' +
+		'68.42 38.27 l' + '\n' +
+		'67.86 35.43 l' + '\n' +
+		'67.3 32.6 l' + '\n' +
+		'66.75 29.76 l' + '\n' +
+		'66.23 26.93 l' + '\n' +
+		'65.74 24.09 l' + '\n' +
+		'65.31 21.26 l' + '\n' +
+		'64.94 18.43 l' + '\n' +
+		'64.66 15.59 l' + '\n' +
+		'64.48 12.76 l' + '\n' +
+		'64.41 9.92 l' + '\n' +
+		'64.48 7.09 l' + '\n' +
+		'64.69 4.25 l' + '\n' +
+		'65.07 1.42 l' + '\n' +
+		'65.28 0.22 l' + '\n' +
+		'68.01 0.06 l' + '\n' +
+		'67.77 1.42 l' + '\n' +
+		'67.4 4.25 l' + '\n' +
+		'67.2 7.09 l' + '\n' +
+		'67.15 9.92 l' + '\n' +
+		'67.22 12.76 l' + '\n' +
+		'67.41 15.59 l' + '\n' +
+		'67.7 18.43 l' + '\n' +
+		'68.07 21.26 l' + '\n' +
+		'68.51 24.09 l' + '\n' +
+		'69 26.93 l' + '\n' +
+		'69.52 29.76 l' + '\n' +
+		'70.07 32.6 l' + '\n' +
+		'70.62 35.43 l' + '\n' +
+		'71.18 38.27 l' + '\n' +
+		'71.72 41.1 l' + '\n' +
+		'72.24 43.94 l' + '\n' +
+		'72.73 46.77 l' + '\n' +
+		'73.18 49.61 l' + '\n' +
+		'73.59 52.44 l' + '\n' +
+		'73.95 55.28 l' + '\n' +
+		'74.26 58.11 l' + '\n' +
+		'74.51 60.94 l' + '\n' +
+		'74.7 63.78 l' + '\n' +
+		'74.83 66.61 l' + '\n' +
+		's' + '\n' +
+		'80.08 72.28 m' + '\n' +
+		'77.51 72.28 l' + '\n' +
+		'77.45 75.12 l' + '\n' +
+		'77.32 77.95 l' + '\n' +
+		'77.14 80.79 l' + '\n' +
+		'76.9 83.62 l' + '\n' +
+		'76.60 86.46 l' + '\n' +
+		'76.25 89.29 l' + '\n' +
+		'75.85 92.13 l' + '\n' +
+		'75.4 94.96 l' + '\n' +
+		'74.92 97.8 l' + '\n' +
+		'74.41 100.63 l' + '\n' +
+		'73.88 103.46 l' + '\n' +
+		'73.34 106.3 l' + '\n' +
+		'72.79 109.13 l' + '\n' +
+		'72.25 111.97 l' + '\n' +
+		'71.74 114.8 l' + '\n' +
+		'71.25 117.64 l' + '\n' +
+		'70.82 120.47 l' + '\n' +
+		'70.45 123.31 l' + '\n' +
+		'70.16 126.14 l' + '\n' +
+		'69.96 128.98 l' + '\n' +
+		'69.88 131.81 l' + '\n' +
+		'69.93 134.65 l' + '\n' +
+		'70.13 137.48 l' + '\n' +
+		'70.49 140.31 l' + '\n' +
+		'70.75 141.73 l' + '\n' +
+		'73.48 141.68 l' + '\n' +
+		'73.24 140.31 l' + '\n' +
+		'72.86 137.48 l' + '\n' +
+		'72.66 134.65 l' + '\n' +
+		'72.61 131.81 l' + '\n' +
+		'72.7 128.98 l' + '\n' +
+		'72.89 126.14 l' + '\n' +
+		'73.18 123.31 l' + '\n' +
+		'73.54 120.47 l' + '\n' +
+		'73.97 117.64 l' + '\n' +
+		'74.45 114.8 l' + '\n' +
+		'74.95 111.97 l' + '\n' +
+		'75.48 109.13 l' + '\n' +
+		'76.02 106.3 l' + '\n' +
+		'76.55 103.46 l' + '\n' +
+		'77.07 100.63 l' + '\n' +
+		'77.56 97.8 l' + '\n' +
+		'78.03 94.96 l' + '\n' +
+		'78.46 92.13 l' + '\n' +
+		'78.85 89.29 l' + '\n' +
+		'79.19 86.46 l' + '\n' +
+		'79.48 83.62 l' + '\n' +
+		'79.72 80.79 l' + '\n' +
+		'79.9 77.95 l' + '\n' +
+		'80.02 75.12 l' + '\n' +
+		's' + '\n' +
+		'80.08 69.45 m' + '\n' +
+		'77.51 69.45 l' + '\n' +
+		'77.45 66.61 l' + '\n' +
+		'77.32 63.78 l' + '\n' +
+		'77.14 60.94 l' + '\n' +
+		'76.9 58.11 l' + '\n' +
+		'76.60 55.28 l' + '\n' +
+		'76.25 52.44 l' + '\n' +
+		'75.85 49.61 l' + '\n' +
+		'75.4 46.77 l' + '\n' +
+		'74.92 43.94 l' + '\n' +
+		'74.41 41.1 l' + '\n' +
+		'73.88 38.27 l' + '\n' +
+		'73.34 35.43 l' + '\n' +
+		'72.79 32.6 l' + '\n' +
+		'72.25 29.76 l' + '\n' +
+		'71.74 26.93 l' + '\n' +
+		'71.25 24.09 l' + '\n' +
+		'70.82 21.26 l' + '\n' +
+		'70.45 18.43 l' + '\n' +
+		'70.16 15.59 l' + '\n' +
+		'69.96 12.76 l' + '\n' +
+		'69.88 9.92 l' + '\n' +
+		'69.93 7.09 l' + '\n' +
+		'70.13 4.25 l' + '\n' +
+		'70.49 1.42 l' + '\n' +
+		'70.75 0 l' + '\n' +
+		'73.48 0.05 l' + '\n' +
+		'73.24 1.42 l' + '\n' +
+		'72.86 4.25 l' + '\n' +
+		'72.66 7.09 l' + '\n' +
+		'72.61 9.92 l' + '\n' +
+		'72.7 12.76 l' + '\n' +
+		'72.89 15.59 l' + '\n' +
+		'73.18 18.43 l' + '\n' +
+		'73.54 21.26 l' + '\n' +
+		'73.97 24.09 l' + '\n' +
+		'74.45 26.93 l' + '\n' +
+		'74.95 29.76 l' + '\n' +
+		'75.48 32.6 l' + '\n' +
+		'76.02 35.43 l' + '\n' +
+		'76.55 38.27 l' + '\n' +
+		'77.07 41.1 l' + '\n' +
+		'77.56 43.94 l' + '\n' +
+		'78.03 46.77 l' + '\n' +
+		'78.46 49.61 l' + '\n' +
+		'78.85 52.44 l' + '\n' +
+		'79.19 55.28 l' + '\n' +
+		'79.48 58.11 l' + '\n' +
+		'79.72 60.94 l' + '\n' +
+		'79.9 63.78 l' + '\n' +
+		'80.02 66.61 l' + '\n' +
+		's' + '\n' +
+		'85.08 72.28 m' + '\n' +
+		'82.60 72.28 l' + '\n' +
+		'82.54 75.12 l' + '\n' +
+		'82.42 77.95 l' + '\n' +
+		'82.25 80.79 l' + '\n' +
+		'82.02 83.62 l' + '\n' +
+		'81.74 86.46 l' + '\n' +
+		'81.41 89.29 l' + '\n' +
+		'81.03 92.13 l' + '\n' +
+		'80.62 94.96 l' + '\n' +
+		'80.16 97.8 l' + '\n' +
+		'79.68 100.63 l' + '\n' +
+		'79.18 103.46 l' + '\n' +
+		'78.66 106.3 l' + '\n' +
+		'78.14 109.13 l' + '\n' +
+		'77.62 111.97 l' + '\n' +
+		'77.13 114.8 l' + '\n' +
+		'76.66 117.64 l' + '\n' +
+		'76.25 120.47 l' + '\n' +
+		'75.89 123.31 l' + '\n' +
+		'75.61 126.14 l' + '\n' +
+		'75.42 128.98 l' + '\n' +
+		'75.35 131.81 l' + '\n' +
+		'75.4 134.65 l' + '\n' +
+		'75.61 137.48 l' + '\n' +
+		'75.99 140.31 l' + '\n' +
+		'76.22 141.53 l' + '\n' +
+		'78.95 141.27 l' + '\n' +
+		'78.77 140.31 l' + '\n' +
+		'78.37 137.48 l' + '\n' +
+		'78.15 134.65 l' + '\n' +
+		'78.08 131.81 l' + '\n' +
+		'78.14 128.98 l' + '\n' +
+		'78.32 126.14 l' + '\n' +
+		'78.59 123.31 l' + '\n' +
+		'78.93 120.47 l' + '\n' +
+		'79.33 117.64 l' + '\n' +
+		'79.78 114.8 l' + '\n' +
+		'80.26 111.97 l' + '\n' +
+		'80.76 109.13 l' + '\n' +
+		'81.26 106.3 l' + '\n' +
+		'81.77 103.46 l' + '\n' +
+		'82.25 100.63 l' + '\n' +
+		'82.72 97.8 l' + '\n' +
+		'83.16 94.96 l' + '\n' +
+		'83.56 92.13 l' + '\n' +
+		'83.93 89.29 l' + '\n' +
+		'84.25 86.46 l' + '\n' +
+		'84.52 83.62 l' + '\n' +
+		'84.74 80.79 l' + '\n' +
+		'84.91 77.95 l' + '\n' +
+		'85.02 75.12 l' + '\n' +
+		's' + '\n' +
+		'85.08 69.45 m' + '\n' +
+		'82.60 69.45 l' + '\n' +
+		'82.54 66.61 l' + '\n' +
+		'82.42 63.78 l' + '\n' +
+		'82.25 60.94 l' + '\n' +
+		'82.02 58.11 l' + '\n' +
+		'81.74 55.28 l' + '\n' +
+		'81.41 52.44 l' + '\n' +
+		'81.03 49.61 l' + '\n' +
+		'80.62 46.77 l' + '\n' +
+		'80.16 43.94 l' + '\n' +
+		'79.68 41.1 l' + '\n' +
+		'79.18 38.27 l' + '\n' +
+		'78.66 35.43 l' + '\n' +
+		'78.14 32.6 l' + '\n' +
+		'77.62 29.76 l' + '\n' +
+		'77.13 26.93 l' + '\n' +
+		'76.66 24.09 l' + '\n' +
+		'76.25 21.26 l' + '\n' +
+		'75.89 18.43 l' + '\n' +
+		'75.61 15.59 l' + '\n' +
+		'75.42 12.76 l' + '\n' +
+		'75.35 9.92 l' + '\n' +
+		'75.4 7.09 l' + '\n' +
+		'75.61 4.25 l' + '\n' +
+		'75.99 1.42 l' + '\n' +
+		'76.22 0.2 l' + '\n' +
+		'78.95 0.47 l' + '\n' +
+		'78.77 1.42 l' + '\n' +
+		'78.37 4.25 l' + '\n' +
+		'78.15 7.09 l' + '\n' +
+		'78.08 9.92 l' + '\n' +
+		'78.14 12.76 l' + '\n' +
+		'78.32 15.59 l' + '\n' +
+		'78.59 18.43 l' + '\n' +
+		'78.93 21.26 l' + '\n' +
+		'79.33 24.09 l' + '\n' +
+		'79.78 26.93 l' + '\n' +
+		'80.26 29.76 l' + '\n' +
+		'80.76 32.6 l' + '\n' +
+		'81.26 35.43 l' + '\n' +
+		'81.77 38.27 l' + '\n' +
+		'82.25 41.1 l' + '\n' +
+		'82.72 43.94 l' + '\n' +
+		'83.16 46.77 l' + '\n' +
+		'83.56 49.61 l' + '\n' +
+		'83.93 52.44 l' + '\n' +
+		'84.25 55.28 l' + '\n' +
+		'84.52 58.11 l' + '\n' +
+		'84.74 60.94 l' + '\n' +
+		'84.91 63.78 l' + '\n' +
+		'85.02 66.61 l' + '\n' +
+		's' + '\n' +
+		'89.93 72.28 m' + '\n' +
+		'87.52 72.28 l' + '\n' +
+		'87.47 75.12 l' + '\n' +
+		'87.36 77.95 l' + '\n' +
+		'87.19 80.79 l' + '\n' +
+		'86.98 83.62 l' + '\n' +
+		'86.72 86.46 l' + '\n' +
+		'86.41 89.29 l' + '\n' +
+		'86.06 92.13 l' + '\n' +
+		'85.67 94.96 l' + '\n' +
+		'85.25 97.8 l' + '\n' +
+		'84.8 100.63 l' + '\n' +
+		'84.32 103.46 l' + '\n' +
+		'83.84 106.3 l' + '\n' +
+		'83.35 109.13 l' + '\n' +
+		'82.88 111.97 l' + '\n' +
+		'82.41 114.8 l' + '\n' +
+		'81.98 117.64 l' + '\n' +
+		'81.60 120.47 l' + '\n' +
+		'81.27 123.31 l' + '\n' +
+		'81.02 126.14 l' + '\n' +
+		'80.86 128.98 l' + '\n' +
+		'80.82 131.81 l' + '\n' +
+		'80.9 134.65 l' + '\n' +
+		'81.15 137.48 l' + '\n' +
+		'81.57 140.31 l' + '\n' +
+		'81.68 140.9 l' + '\n' +
+		'84.42 140.42 l' + '\n' +
+		'84.4 140.31 l' + '\n' +
+		'83.94 137.48 l' + '\n' +
+		'83.67 134.65 l' + '\n' +
+		'83.56 131.81 l' + '\n' +
+		'83.58 128.98 l' + '\n' +
+		'83.71 126.14 l' + '\n' +
+		'83.94 123.31 l' + '\n' +
+		'84.25 120.47 l' + '\n' +
+		'84.61 117.64 l' + '\n' +
+		'85.02 114.8 l' + '\n' +
+		'85.47 111.97 l' + '\n' +
+		'85.92 109.13 l' + '\n' +
+		'86.39 106.3 l' + '\n' +
+		'86.85 103.46 l' + '\n' +
+		'87.31 100.63 l' + '\n' +
+		'87.74 97.8 l' + '\n' +
+		'88.15 94.96 l' + '\n' +
+		'88.52 92.13 l' + '\n' +
+		'88.86 89.29 l' + '\n' +
+		'89.16 86.46 l' + '\n' +
+		'89.41 83.62 l' + '\n' +
+		'89.61 80.79 l' + '\n' +
+		'89.77 77.95 l' + '\n' +
+		'89.88 75.12 l' + '\n' +
+		's' + '\n' +
+		'89.93 69.45 m' + '\n' +
+		'87.52 69.45 l' + '\n' +
+		'87.47 66.61 l' + '\n' +
+		'87.36 63.78 l' + '\n' +
+		'87.19 60.94 l' + '\n' +
+		'86.98 58.11 l' + '\n' +
+		'86.72 55.28 l' + '\n' +
+		'86.41 52.44 l' + '\n' +
+		'86.06 49.61 l' + '\n' +
+		'85.67 46.77 l' + '\n' +
+		'85.25 43.94 l' + '\n' +
+		'84.8 41.1 l' + '\n' +
+		'84.32 38.27 l' + '\n' +
+		'83.84 35.43 l' + '\n' +
+		'83.35 32.6 l' + '\n' +
+		'82.88 29.76 l' + '\n' +
+		'82.41 26.93 l' + '\n' +
+		'81.98 24.09 l' + '\n' +
+		'81.60 21.26 l' + '\n' +
+		'81.27 18.43 l' + '\n' +
+		'81.02 15.59 l' + '\n' +
+		'80.86 12.76 l' + '\n' +
+		'80.82 9.92 l' + '\n' +
+		'80.9 7.09 l' + '\n' +
+		'81.15 4.25 l' + '\n' +
+		'81.57 1.42 l' + '\n' +
+		'81.68 0.83 l' + '\n' +
+		'84.42 1.31 l' + '\n' +
+		'84.4 1.42 l' + '\n' +
+		'83.94 4.25 l' + '\n' +
+		'83.67 7.09 l' + '\n' +
+		'83.56 9.92 l' + '\n' +
+		'83.58 12.76 l' + '\n' +
+		'83.71 15.59 l' + '\n' +
+		'83.94 18.43 l' + '\n' +
+		'84.25 21.26 l' + '\n' +
+		'84.61 24.09 l' + '\n' +
+		'85.02 26.93 l' + '\n' +
+		'85.47 29.76 l' + '\n' +
+		'85.92 32.6 l' + '\n' +
+		'86.39 35.43 l' + '\n' +
+		'86.85 38.27 l' + '\n' +
+		'87.31 41.1 l' + '\n' +
+		'87.74 43.94 l' + '\n' +
+		'88.15 46.77 l' + '\n' +
+		'88.52 49.61 l' + '\n' +
+		'88.86 52.44 l' + '\n' +
+		'89.16 55.28 l' + '\n' +
+		'89.41 58.11 l' + '\n' +
+		'89.61 60.94 l' + '\n' +
+		'89.77 63.78 l' + '\n' +
+		'89.88 66.61 l' + '\n' +
+		's' + '\n' +
+		'94.66 72.28 m' + '\n' +
+		'92.31 72.28 l' + '\n' +
+		'92.26 75.12 l' + '\n' +
+		'92.15 77.95 l' + '\n' +
+		'92 80.79 l' + '\n' +
+		'91.81 83.62 l' + '\n' +
+		'91.57 86.46 l' + '\n' +
+		'91.28 89.29 l' + '\n' +
+		'90.96 92.13 l' + '\n' +
+		'90.60 94.96 l' + '\n' +
+		'90.21 97.8 l' + '\n' +
+		'89.79 100.63 l' + '\n' +
+		'89.36 103.46 l' + '\n' +
+		'88.92 106.3 l' + '\n' +
+		'88.47 109.13 l' + '\n' +
+		'88.04 111.97 l' + '\n' +
+		'87.62 114.8 l' + '\n' +
+		'87.23 117.64 l' + '\n' +
+		'86.89 120.47 l' + '\n' +
+		'86.61 123.31 l' + '\n' +
+		'86.41 126.14 l' + '\n' +
+		'86.3 128.98 l' + '\n' +
+		'86.3 131.81 l' + '\n' +
+		'86.45 134.65 l' + '\n' +
+		'86.75 137.48 l' + '\n' +
+		'87.15 139.83 l' + '\n' +
+		'89.89 139.13 l' + '\n' +
+		'89.59 137.48 l' + '\n' +
+		'89.24 134.65 l' + '\n' +
+		'89.06 131.81 l' + '\n' +
+		'89.02 128.98 l' + '\n' +
+		'89.10 126.14 l' + '\n' +
+		'89.27 123.31 l' + '\n' +
+		'89.52 120.47 l' + '\n' +
+		'89.84 117.64 l' + '\n' +
+		'90.2 114.8 l' + '\n' +
+		'90.59 111.97 l' + '\n' +
+		'91 109.13 l' + '\n' +
+		'91.42 106.3 l' + '\n' +
+		'91.84 103.46 l' + '\n' +
+		'92.26 100.63 l' + '\n' +
+		'92.65 97.8 l' + '\n' +
+		'93.02 94.96 l' + '\n' +
+		'93.37 92.13 l' + '\n' +
+		'93.68 89.29 l' + '\n' +
+		'93.95 86.46 l' + '\n' +
+		'94.18 83.62 l' + '\n' +
+		'94.37 80.79 l' + '\n' +
+		'94.51 77.95 l' + '\n' +
+		'94.61 75.12 l' + '\n' +
+		's' + '\n' +
+		'94.66 69.45 m' + '\n' +
+		'92.31 69.45 l' + '\n' +
+		'92.26 66.61 l' + '\n' +
+		'92.15 63.78 l' + '\n' +
+		'92 60.94 l' + '\n' +
+		'91.81 58.11 l' + '\n' +
+		'91.57 55.28 l' + '\n' +
+		'91.28 52.44 l' + '\n' +
+		'90.96 49.61 l' + '\n' +
+		'90.60 46.77 l' + '\n' +
+		'90.21 43.94 l' + '\n' +
+		'89.79 41.1 l' + '\n' +
+		'89.36 38.27 l' + '\n' +
+		'88.92 35.43 l' + '\n' +
+		'88.47 32.6 l' + '\n' +
+		'88.04 29.76 l' + '\n' +
+		'87.62 26.93 l' + '\n' +
+		'87.23 24.09 l' + '\n' +
+		'86.89 21.26 l' + '\n' +
+		'86.61 18.43 l' + '\n' +
+		'86.41 15.59 l' + '\n' +
+		'86.3 12.76 l' + '\n' +
+		'86.3 9.92 l' + '\n' +
+		'86.45 7.09 l' + '\n' +
+		'86.75 4.25 l' + '\n' +
+		'87.15 1.90 l' + '\n' +
+		'89.89 2.61 l' + '\n' +
+		'89.59 4.25 l' + '\n' +
+		'89.24 7.09 l' + '\n' +
+		'89.06 9.92 l' + '\n' +
+		'89.02 12.76 l' + '\n' +
+		'89.10 15.59 l' + '\n' +
+		'89.27 18.43 l' + '\n' +
+		'89.52 21.26 l' + '\n' +
+		'89.84 24.09 l' + '\n' +
+		'90.2 26.93 l' + '\n' +
+		'90.59 29.76 l' + '\n' +
+		'91 32.6 l' + '\n' +
+		'91.42 35.43 l' + '\n' +
+		'91.84 38.27 l' + '\n' +
+		'92.26 41.1 l' + '\n' +
+		'92.65 43.94 l' + '\n' +
+		'93.02 46.77 l' + '\n' +
+		'93.37 49.61 l' + '\n' +
+		'93.68 52.44 l' + '\n' +
+		'93.95 55.28 l' + '\n' +
+		'94.18 58.11 l' + '\n' +
+		'94.37 60.94 l' + '\n' +
+		'94.51 63.78 l' + '\n' +
+		'94.61 66.61 l' + '\n' +
+		's' + '\n' +
+		'99.3 72.28 m' + '\n' +
+		'96.99 72.28 l' + '\n' +
+		'96.94 75.12 l' + '\n' +
+		'96.85 77.95 l' + '\n' +
+		'96.71 80.79 l' + '\n' +
+		'96.53 83.62 l' + '\n' +
+		'96.31 86.46 l' + '\n' +
+		'96.05 89.29 l' + '\n' +
+		'95.76 92.13 l' + '\n' +
+		'95.43 94.96 l' + '\n' +
+		'95.08 97.8 l' + '\n' +
+		'94.7 100.63 l' + '\n' +
+		'94.31 103.46 l' + '\n' +
+		'93.91 106.3 l' + '\n' +
+		'93.52 109.13 l' + '\n' +
+		'93.13 111.97 l' + '\n' +
+		'92.77 114.8 l' + '\n' +
+		'92.44 117.64 l' + '\n' +
+		'92.15 120.47 l' + '\n' +
+		'91.93 123.31 l' + '\n' +
+		'91.79 126.14 l' + '\n' +
+		'91.75 128.98 l' + '\n' +
+		'91.83 131.81 l' + '\n' +
+		'92.06 134.65 l' + '\n' +
+		'92.47 137.48 l' + '\n' +
+		'92.62 138.3 l' + '\n' +
+		'95.35 137.37 l' + '\n' +
+		'94.91 134.65 l' + '\n' +
+		'94.63 131.81 l' + '\n' +
+		'94.5 128.98 l' + '\n' +
+		'94.5 126.14 l' + '\n' +
+		'94.60 123.31 l' + '\n' +
+		'94.78 120.47 l' + '\n' +
+		'95.03 117.64 l' + '\n' +
+		'95.33 114.8 l' + '\n' +
+		'95.66 111.97 l' + '\n' +
+		'96.02 109.13 l' + '\n' +
+		'96.39 106.3 l' + '\n' +
+		'96.76 103.46 l' + '\n' +
+		'97.13 100.63 l' + '\n' +
+		'97.49 97.8 l' + '\n' +
+		'97.82 94.96 l' + '\n' +
+		'98.13 92.13 l' + '\n' +
+		'98.41 89.29 l' + '\n' +
+		'98.66 86.46 l' + '\n' +
+		'98.87 83.62 l' + '\n' +
+		'99.04 80.79 l' + '\n' +
+		'99.17 77.95 l' + '\n' +
+		'99.26 75.12 l' + '\n' +
+		's' + '\n' +
+		'99.3 69.45 m' + '\n' +
+		'96.99 69.45 l' + '\n' +
+		'96.94 66.61 l' + '\n' +
+		'96.85 63.78 l' + '\n' +
+		'96.71 60.94 l' + '\n' +
+		'96.53 58.11 l' + '\n' +
+		'96.31 55.28 l' + '\n' +
+		'96.05 52.44 l' + '\n' +
+		'95.76 49.61 l' + '\n' +
+		'95.43 46.77 l' + '\n' +
+		'95.08 43.94 l' + '\n' +
+		'94.7 41.1 l' + '\n' +
+		'94.31 38.27 l' + '\n' +
+		'93.91 35.43 l' + '\n' +
+		'93.52 32.6 l' + '\n' +
+		'93.13 29.76 l' + '\n' +
+		'92.77 26.93 l' + '\n' +
+		'92.44 24.09 l' + '\n' +
+		'92.15 21.26 l' + '\n' +
+		'91.93 18.43 l' + '\n' +
+		'91.79 15.59 l' + '\n' +
+		'91.75 12.76 l' + '\n' +
+		'91.83 9.92 l' + '\n' +
+		'92.06 7.09 l' + '\n' +
+		'92.47 4.25 l' + '\n' +
+		'92.62 3.43 l' + '\n' +
+		'95.35 4.37 l' + '\n' +
+		'94.91 7.09 l' + '\n' +
+		'94.63 9.92 l' + '\n' +
+		'94.5 12.76 l' + '\n' +
+		'94.5 15.59 l' + '\n' +
+		'94.60 18.43 l' + '\n' +
+		'94.78 21.26 l' + '\n' +
+		'95.03 24.09 l' + '\n' +
+		'95.33 26.93 l' + '\n' +
+		'95.66 29.76 l' + '\n' +
+		'96.02 32.6 l' + '\n' +
+		'96.39 35.43 l' + '\n' +
+		'96.76 38.27 l' + '\n' +
+		'97.13 41.1 l' + '\n' +
+		'97.49 43.94 l' + '\n' +
+		'97.82 46.77 l' + '\n' +
+		'98.13 49.61 l' + '\n' +
+		'98.41 52.44 l' + '\n' +
+		'98.66 55.28 l' + '\n' +
+		'98.87 58.11 l' + '\n' +
+		'99.04 60.94 l' + '\n' +
+		'99.17 63.78 l' + '\n' +
+		'99.26 66.61 l' + '\n' +
+		's' + '\n' +
+		'103.9 72.28 m' + '\n' +
+		'101.60 72.28 l' + '\n' +
+		'101.56 75.12 l' + '\n' +
+		'101.48 77.95 l' + '\n' +
+		'101.35 80.79 l' + '\n' +
+		'101.19 83.62 l' + '\n' +
+		'100.99 86.46 l' + '\n' +
+		'100.76 89.29 l' + '\n' +
+		'100.49 92.13 l' + '\n' +
+		'100.2 94.96 l' + '\n' +
+		'99.89 97.8 l' + '\n' +
+		'99.55 100.63 l' + '\n' +
+		'99.21 103.46 l' + '\n' +
+		'98.86 106.3 l' + '\n' +
+		'98.52 109.13 l' + '\n' +
+		'98.2 111.97 l' + '\n' +
+		'97.89 114.8 l' + '\n' +
+		'97.63 117.64 l' + '\n' +
+		'97.42 120.47 l' + '\n' +
+		'97.28 123.31 l' + '\n' +
+		'97.22 126.14 l' + '\n' +
+		'97.27 128.98 l' + '\n' +
+		'97.46 131.81 l' + '\n' +
+		'97.8 134.65 l' + '\n' +
+		'98.09 136.28 l' + '\n' +
+		'100.82 135.08 l' + '\n' +
+		'100.74 134.65 l' + '\n' +
+		'100.32 131.81 l' + '\n' +
+		'100.07 128.98 l' + '\n' +
+		'99.96 126.14 l' + '\n' +
+		'99.97 123.31 l' + '\n' +
+		'100.07 120.47 l' + '\n' +
+		'100.24 117.64 l' + '\n' +
+		'100.46 114.8 l' + '\n' +
+		'100.73 111.97 l' + '\n' +
+		'101.02 109.13 l' + '\n' +
+		'101.34 106.3 l' + '\n' +
+		'101.65 103.46 l' + '\n' +
+		'101.97 100.63 l' + '\n' +
+		'102.28 97.8 l' + '\n' +
+		'102.58 94.96 l' + '\n' +
+		'102.85 92.13 l' + '\n' +
+		'103.10 89.29 l' + '\n' +
+		'103.32 86.46 l' + '\n' +
+		'103.51 83.62 l' + '\n' +
+		'103.66 80.79 l' + '\n' +
+		'103.78 77.95 l' + '\n' +
+		'103.86 75.12 l' + '\n' +
+		's' + '\n' +
+		'103.9 69.45 m' + '\n' +
+		'101.60 69.45 l' + '\n' +
+		'101.56 66.61 l' + '\n' +
+		'101.48 63.78 l' + '\n' +
+		'101.35 60.94 l' + '\n' +
+		'101.19 58.11 l' + '\n' +
+		'100.99 55.28 l' + '\n' +
+		'100.76 52.44 l' + '\n' +
+		'100.49 49.61 l' + '\n' +
+		'100.2 46.77 l' + '\n' +
+		'99.89 43.94 l' + '\n' +
+		'99.55 41.1 l' + '\n' +
+		'99.21 38.27 l' + '\n' +
+		'98.86 35.43 l' + '\n' +
+		'98.52 32.6 l' + '\n' +
+		'98.2 29.76 l' + '\n' +
+		'97.89 26.93 l' + '\n' +
+		'97.63 24.09 l' + '\n' +
+		'97.42 21.26 l' + '\n' +
+		'97.28 18.43 l' + '\n' +
+		'97.22 15.59 l' + '\n' +
+		'97.27 12.76 l' + '\n' +
+		'97.46 9.92 l' + '\n' +
+		'97.8 7.09 l' + '\n' +
+		'98.09 5.45 l' + '\n' +
+		'100.82 6.65 l' + '\n' +
+		'100.74 7.09 l' + '\n' +
+		'100.32 9.92 l' + '\n' +
+		'100.07 12.76 l' + '\n' +
+		'99.96 15.59 l' + '\n' +
+		'99.97 18.43 l' + '\n' +
+		'100.07 21.26 l' + '\n' +
+		'100.24 24.09 l' + '\n' +
+		'100.46 26.93 l' + '\n' +
+		'100.73 29.76 l' + '\n' +
+		'101.02 32.6 l' + '\n' +
+		'101.34 35.43 l' + '\n' +
+		'101.65 38.27 l' + '\n' +
+		'101.97 41.1 l' + '\n' +
+		'102.28 43.94 l' + '\n' +
+		'102.58 46.77 l' + '\n' +
+		'102.85 49.61 l' + '\n' +
+		'103.10 52.44 l' + '\n' +
+		'103.32 55.28 l' + '\n' +
+		'103.51 58.11 l' + '\n' +
+		'103.66 60.94 l' + '\n' +
+		'103.78 63.78 l' + '\n' +
+		'103.86 66.61 l' + '\n' +
+		's' + '\n' +
+		'108.47 72.28 m' + '\n' +
+		'106.18 72.28 l' + '\n' +
+		'106.14 75.12 l' + '\n' +
+		'106.07 77.95 l' + '\n' +
+		'105.96 80.79 l' + '\n' +
+		'105.82 83.62 l' + '\n' +
+		'105.64 86.46 l' + '\n' +
+		'105.43 89.29 l' + '\n' +
+		'105.2 92.13 l' + '\n' +
+		'104.95 94.96 l' + '\n' +
+		'104.67 97.8 l' + '\n' +
+		'104.39 100.63 l' + '\n' +
+		'104.10 103.46 l' + '\n' +
+		'103.81 106.3 l' + '\n' +
+		'103.53 109.13 l' + '\n' +
+		'103.27 111.97 l' + '\n' +
+		'103.04 114.8 l' + '\n' +
+		'102.86 117.64 l' + '\n' +
+		'102.73 120.47 l' + '\n' +
+		'102.69 123.31 l' + '\n' +
+		'102.74 126.14 l' + '\n' +
+		'102.91 128.98 l' + '\n' +
+		'103.23 131.81 l' + '\n' +
+		'103.56 133.73 l' + '\n' +
+		'106.29 132.24 l' + '\n' +
+		'106.21 131.81 l' + '\n' +
+		'105.8 128.98 l' + '\n' +
+		'105.56 126.14 l' + '\n' +
+		'105.44 123.31 l' + '\n' +
+		'105.43 120.47 l' + '\n' +
+		'105.5 117.64 l' + '\n' +
+		'105.64 114.8 l' + '\n' +
+		'105.83 111.97 l' + '\n' +
+		'106.05 109.13 l' + '\n' +
+		'106.29 106.3 l' + '\n' +
+		'106.55 103.46 l' + '\n' +
+		'106.81 100.63 l' + '\n' +
+		'107.07 97.8 l' + '\n' +
+		'107.32 94.96 l' + '\n' +
+		'107.56 92.13 l' + '\n' +
+		'107.77 89.29 l' + '\n' +
+		'107.96 86.46 l' + '\n' +
+		'108.13 83.62 l' + '\n' +
+		'108.26 80.79 l' + '\n' +
+		'108.36 77.95 l' + '\n' +
+		'108.43 75.12 l' + '\n' +
+		's' + '\n' +
+		'108.47 69.45 m' + '\n' +
+		'106.18 69.45 l' + '\n' +
+		'106.14 66.61 l' + '\n' +
+		'106.07 63.78 l' + '\n' +
+		'105.96 60.94 l' + '\n' +
+		'105.82 58.11 l' + '\n' +
+		'105.64 55.28 l' + '\n' +
+		'105.43 52.44 l' + '\n' +
+		'105.2 49.61 l' + '\n' +
+		'104.95 46.77 l' + '\n' +
+		'104.67 43.94 l' + '\n' +
+		'104.39 41.1 l' + '\n' +
+		'104.10 38.27 l' + '\n' +
+		'103.81 35.43 l' + '\n' +
+		'103.53 32.6 l' + '\n' +
+		'103.27 29.76 l' + '\n' +
+		'103.04 26.93 l' + '\n' +
+		'102.86 24.09 l' + '\n' +
+		'102.73 21.26 l' + '\n' +
+		'102.69 18.43 l' + '\n' +
+		'102.74 15.59 l' + '\n' +
+		'102.91 12.76 l' + '\n' +
+		'103.23 9.92 l' + '\n' +
+		'103.56 8 l' + '\n' +
+		'106.29 9.5 l' + '\n' +
+		'106.21 9.92 l' + '\n' +
+		'105.8 12.76 l' + '\n' +
+		'105.56 15.59 l' + '\n' +
+		'105.44 18.43 l' + '\n' +
+		'105.43 21.26 l' + '\n' +
+		'105.5 24.09 l' + '\n' +
+		'105.64 26.93 l' + '\n' +
+		'105.83 29.76 l' + '\n' +
+		'106.05 32.6 l' + '\n' +
+		'106.29 35.43 l' + '\n' +
+		'106.55 38.27 l' + '\n' +
+		'106.81 41.1 l' + '\n' +
+		'107.07 43.94 l' + '\n' +
+		'107.32 46.77 l' + '\n' +
+		'107.56 49.61 l' + '\n' +
+		'107.77 52.44 l' + '\n' +
+		'107.96 55.28 l' + '\n' +
+		'108.13 58.11 l' + '\n' +
+		'108.26 60.94 l' + '\n' +
+		'108.36 63.78 l' + '\n' +
+		'108.43 66.61 l' + '\n' +
+		's' + '\n' +
+		'113.06 72.28 m' + '\n' +
+		'110.76 72.28 l' + '\n' +
+		'110.73 75.12 l' + '\n' +
+		'110.66 77.95 l' + '\n' +
+		'110.57 80.79 l' + '\n' +
+		'110.44 83.62 l' + '\n' +
+		'110.29 86.46 l' + '\n' +
+		'110.12 89.29 l' + '\n' +
+		'109.92 92.13 l' + '\n' +
+		'109.71 94.96 l' + '\n' +
+		'109.48 97.8 l' + '\n' +
+		'109.25 100.63 l' + '\n' +
+		'109.02 103.46 l' + '\n' +
+		'108.79 106.3 l' + '\n' +
+		'108.58 109.13 l' + '\n' +
+		'108.4 111.97 l' + '\n' +
+		'108.26 114.8 l' + '\n' +
+		'108.18 117.64 l' + '\n' +
+		'108.16 120.47 l' + '\n' +
+		'108.24 123.31 l' + '\n' +
+		'108.43 126.14 l' + '\n' +
+		'108.76 128.98 l' + '\n' +
+		'109.02 130.57 l' + '\n' +
+		'111.76 128.74 l' + '\n' +
+		'111.37 126.14 l' + '\n' +
+		'111.09 123.31 l' + '\n' +
+		'110.94 120.47 l' + '\n' +
+		'110.89 117.64 l' + '\n' +
+		'110.92 114.8 l' + '\n' +
+		'111.01 111.97 l' + '\n' +
+		'111.14 109.13 l' + '\n' +
+		'111.31 106.3 l' + '\n' +
+		'111.5 103.46 l' + '\n' +
+		'111.7 100.63 l' + '\n' +
+		'111.91 97.8 l' + '\n' +
+		'112.11 94.96 l' + '\n' +
+		'112.3 92.13 l' + '\n' +
+		'112.48 89.29 l' + '\n' +
+		'112.63 86.46 l' + '\n' +
+		'112.77 83.62 l' + '\n' +
+		'112.89 80.79 l' + '\n' +
+		'112.97 77.95 l' + '\n' +
+		'113.03 75.12 l' + '\n' +
+		's' + '\n' +
+		'113.06 69.45 m' + '\n' +
+		'110.76 69.45 l' + '\n' +
+		'110.73 66.61 l' + '\n' +
+		'110.66 63.78 l' + '\n' +
+		'110.57 60.94 l' + '\n' +
+		'110.44 58.11 l' + '\n' +
+		'110.29 55.28 l' + '\n' +
+		'110.12 52.44 l' + '\n' +
+		'109.92 49.61 l' + '\n' +
+		'109.71 46.77 l' + '\n' +
+		'109.48 43.94 l' + '\n' +
+		'109.25 41.1 l' + '\n' +
+		'109.02 38.27 l' + '\n' +
+		'108.79 35.43 l' + '\n' +
+		'108.58 32.6 l' + '\n' +
+		'108.4 29.76 l' + '\n' +
+		'108.26 26.93 l' + '\n' +
+		'108.18 24.09 l' + '\n' +
+		'108.16 21.26 l' + '\n' +
+		'108.24 18.43 l' + '\n' +
+		'108.43 15.59 l' + '\n' +
+		'108.76 12.76 l' + '\n' +
+		'109.02 11.17 l' + '\n' +
+		'111.76 12.99 l' + '\n' +
+		'111.37 15.59 l' + '\n' +
+		'111.09 18.43 l' + '\n' +
+		'110.94 21.26 l' + '\n' +
+		'110.89 24.09 l' + '\n' +
+		'110.92 26.93 l' + '\n' +
+		'111.01 29.76 l' + '\n' +
+		'111.14 32.6 l' + '\n' +
+		'111.31 35.43 l' + '\n' +
+		'111.5 38.27 l' + '\n' +
+		'111.7 41.1 l' + '\n' +
+		'111.91 43.94 l' + '\n' +
+		'112.11 46.77 l' + '\n' +
+		'112.3 49.61 l' + '\n' +
+		'112.48 52.44 l' + '\n' +
+		'112.63 55.28 l' + '\n' +
+		'112.77 58.11 l' + '\n' +
+		'112.89 60.94 l' + '\n' +
+		'112.97 63.78 l' + '\n' +
+		'113.03 66.61 l' + '\n' +
+		's' + '\n' +
+		'117.72 72.28 m' + '\n' +
+		'115.38 72.28 l' + '\n' +
+		'115.35 75.12 l' + '\n' +
+		'115.3 77.95 l' + '\n' +
+		'115.22 80.79 l' + '\n' +
+		'115.12 83.62 l' + '\n' +
+		'114.99 86.46 l' + '\n' +
+		'114.85 89.29 l' + '\n' +
+		'114.7 92.13 l' + '\n' +
+		'114.53 94.96 l' + '\n' +
+		'114.35 97.8 l' + '\n' +
+		'114.18 100.63 l' + '\n' +
+		'114.02 103.46 l' + '\n' +
+		'113.87 106.3 l' + '\n' +
+		'113.74 109.13 l' + '\n' +
+		'113.66 111.97 l' + '\n' +
+		'113.62 114.8 l' + '\n' +
+		'113.66 117.64 l' + '\n' +
+		'113.78 120.47 l' + '\n' +
+		'114.02 123.31 l' + '\n' +
+		'114.4 126.14 l' + '\n' +
+		'114.49 126.7 l' + '\n' +
+		'117.22 124.45 l' + '\n' +
+		'117.05 123.31 l' + '\n' +
+		'116.71 120.47 l' + '\n' +
+		'116.5 117.64 l' + '\n' +
+		'116.39 114.8 l' + '\n' +
+		'116.36 111.97 l' + '\n' +
+		'116.39 109.13 l' + '\n' +
+		'116.46 106.3 l' + '\n' +
+		'116.57 103.46 l' + '\n' +
+		'116.69 100.63 l' + '\n' +
+		'116.83 97.8 l' + '\n' +
+		'116.98 94.96 l' + '\n' +
+		'117.12 92.13 l' + '\n' +
+		'117.25 89.29 l' + '\n' +
+		'117.38 86.46 l' + '\n' +
+		'117.49 83.62 l' + '\n' +
+		'117.58 80.79 l' + '\n' +
+		'117.65 77.95 l' + '\n' +
+		'117.69 75.12 l' + '\n' +
+		's' + '\n' +
+		'117.72 69.45 m' + '\n' +
+		'115.38 69.45 l' + '\n' +
+		'115.35 66.61 l' + '\n' +
+		'115.3 63.78 l' + '\n' +
+		'115.22 60.94 l' + '\n' +
+		'115.12 58.11 l' + '\n' +
+		'114.99 55.28 l' + '\n' +
+		'114.85 52.44 l' + '\n' +
+		'114.7 49.61 l' + '\n' +
+		'114.53 46.77 l' + '\n' +
+		'114.35 43.94 l' + '\n' +
+		'114.18 41.1 l' + '\n' +
+		'114.02 38.27 l' + '\n' +
+		'113.87 35.43 l' + '\n' +
+		'113.74 32.6 l' + '\n' +
+		'113.66 29.76 l' + '\n' +
+		'113.62 26.93 l' + '\n' +
+		'113.66 24.09 l' + '\n' +
+		'113.78 21.26 l' + '\n' +
+		'114.02 18.43 l' + '\n' +
+		'114.4 15.59 l' + '\n' +
+		'114.49 15.03 l' + '\n' +
+		'117.22 17.29 l' + '\n' +
+		'117.05 18.43 l' + '\n' +
+		'116.71 21.26 l' + '\n' +
+		'116.5 24.09 l' + '\n' +
+		'116.39 26.93 l' + '\n' +
+		'116.36 29.76 l' + '\n' +
+		'116.39 32.6 l' + '\n' +
+		'116.46 35.43 l' + '\n' +
+		'116.57 38.27 l' + '\n' +
+		'116.69 41.1 l' + '\n' +
+		'116.83 43.94 l' + '\n' +
+		'116.98 46.77 l' + '\n' +
+		'117.12 49.61 l' + '\n' +
+		'117.25 52.44 l' + '\n' +
+		'117.38 55.28 l' + '\n' +
+		'117.49 58.11 l' + '\n' +
+		'117.58 60.94 l' + '\n' +
+		'117.65 63.78 l' + '\n' +
+		'117.69 66.61 l' + '\n' +
+		's' + '\n' +
+		'122.49 72.28 m' + '\n' +
+		'120.09 72.28 l' + '\n' +
+		'120.06 75.12 l' + '\n' +
+		'120.02 77.95 l' + '\n' +
+		'119.96 80.79 l' + '\n' +
+		'119.89 83.62 l' + '\n' +
+		'119.8 86.46 l' + '\n' +
+		'119.69 89.29 l' + '\n' +
+		'119.58 92.13 l' + '\n' +
+		'119.47 94.96 l' + '\n' +
+		'119.36 97.8 l' + '\n' +
+		'119.25 100.63 l' + '\n' +
+		'119.17 103.46 l' + '\n' +
+		'119.11 106.3 l' + '\n' +
+		'119.09 109.13 l' + '\n' +
+		'119.13 111.97 l' + '\n' +
+		'119.23 114.8 l' + '\n' +
+		'119.43 117.64 l' + '\n' +
+		'119.74 120.47 l' + '\n' +
+		'119.96 121.95 l' + '\n' +
+		'122.69 119.18 l' + '\n' +
+		'122.48 117.64 l' + '\n' +
+		'122.18 114.8 l' + '\n' +
+		'121.98 111.97 l' + '\n' +
+		'121.88 109.13 l' + '\n' +
+		'121.83 106.3 l' + '\n' +
+		'121.83 103.46 l' + '\n' +
+		'121.87 100.63 l' + '\n' +
+		'121.93 97.8 l' + '\n' +
+		'122.01 94.96 l' + '\n' +
+		'122.09 92.13 l' + '\n' +
+		'122.17 89.29 l' + '\n' +
+		'122.26 86.46 l' + '\n' +
+		'122.33 83.62 l' + '\n' +
+		'122.39 80.79 l' + '\n' +
+		'122.44 77.95 l' + '\n' +
+		'122.48 75.12 l' + '\n' +
+		's' + '\n' +
+		'122.49 69.45 m' + '\n' +
+		'120.09 69.45 l' + '\n' +
+		'120.06 66.61 l' + '\n' +
+		'120.02 63.78 l' + '\n' +
+		'119.96 60.94 l' + '\n' +
+		'119.89 58.11 l' + '\n' +
+		'119.8 55.28 l' + '\n' +
+		'119.69 52.44 l' + '\n' +
+		'119.58 49.61 l' + '\n' +
+		'119.47 46.77 l' + '\n' +
+		'119.36 43.94 l' + '\n' +
+		'119.25 41.1 l' + '\n' +
+		'119.17 38.27 l' + '\n' +
+		'119.11 35.43 l' + '\n' +
+		'119.09 32.6 l' + '\n' +
+		'119.13 29.76 l' + '\n' +
+		'119.23 26.93 l' + '\n' +
+		'119.43 24.09 l' + '\n' +
+		'119.74 21.26 l' + '\n' +
+		'119.96 19.78 l' + '\n' +
+		'122.69 22.55 l' + '\n' +
+		'122.48 24.09 l' + '\n' +
+		'122.18 26.93 l' + '\n' +
+		'121.98 29.76 l' + '\n' +
+		'121.88 32.6 l' + '\n' +
+		'121.83 35.43 l' + '\n' +
+		'121.83 38.27 l' + '\n' +
+		'121.87 41.1 l' + '\n' +
+		'121.93 43.94 l' + '\n' +
+		'122.01 46.77 l' + '\n' +
+		'122.09 49.61 l' + '\n' +
+		'122.17 52.44 l' + '\n' +
+		'122.26 55.28 l' + '\n' +
+		'122.33 58.11 l' + '\n' +
+		'122.39 60.94 l' + '\n' +
+		'122.44 63.78 l' + '\n' +
+		'122.48 66.61 l' + '\n' +
+		's' + '\n' +
+		'127.47 72.28 m' + '\n' +
+		'124.95 72.28 l' + '\n' +
+		'124.94 75.12 l' + '\n' +
+		'124.91 77.95 l' + '\n' +
+		'124.87 80.79 l' + '\n' +
+		'124.82 83.62 l' + '\n' +
+		'124.77 86.46 l' + '\n' +
+		'124.71 89.29 l' + '\n' +
+		'124.66 92.13 l' + '\n' +
+		'124.61 94.96 l' + '\n' +
+		'124.57 97.8 l' + '\n' +
+		'124.56 100.63 l' + '\n' +
+		'124.58 103.46 l' + '\n' +
+		'124.64 106.3 l' + '\n' +
+		'124.76 109.13 l' + '\n' +
+		'124.96 111.97 l' + '\n' +
+		'125.25 114.8 l' + '\n' +
+		'125.43 116.07 l' + '\n' +
+		'128.16 112.55 l' + '\n' +
+		'128.08 111.97 l' + '\n' +
+		'127.78 109.13 l' + '\n' +
+		'127.57 106.3 l' + '\n' +
+		'127.43 103.46 l' + '\n' +
+		'127.35 100.63 l' + '\n' +
+		'127.31 97.8 l' + '\n' +
+		'127.29 94.96 l' + '\n' +
+		'127.3 92.13 l' + '\n' +
+		'127.33 89.29 l' + '\n' +
+		'127.36 86.46 l' + '\n' +
+		'127.39 83.62 l' + '\n' +
+		'127.42 80.79 l' + '\n' +
+		'127.44 77.95 l' + '\n' +
+		'127.46 75.12 l' + '\n' +
+		's' + '\n' +
+		'127.47 69.45 m' + '\n' +
+		'124.95 69.45 l' + '\n' +
+		'124.94 66.61 l' + '\n' +
+		'124.91 63.78 l' + '\n' +
+		'124.87 60.94 l' + '\n' +
+		'124.82 58.11 l' + '\n' +
+		'124.77 55.28 l' + '\n' +
+		'124.71 52.44 l' + '\n' +
+		'124.66 49.61 l' + '\n' +
+		'124.61 46.77 l' + '\n' +
+		'124.57 43.94 l' + '\n' +
+		'124.56 41.1 l' + '\n' +
+		'124.58 38.27 l' + '\n' +
+		'124.64 35.43 l' + '\n' +
+		'124.76 32.6 l' + '\n' +
+		'124.96 29.76 l' + '\n' +
+		'125.25 26.93 l' + '\n' +
+		'125.43 25.66 l' + '\n' +
+		'128.16 29.18 l' + '\n' +
+		'128.08 29.76 l' + '\n' +
+		'127.78 32.6 l' + '\n' +
+		'127.57 35.43 l' + '\n' +
+		'127.43 38.27 l' + '\n' +
+		'127.35 41.1 l' + '\n' +
+		'127.31 43.94 l' + '\n' +
+		'127.29 46.77 l' + '\n' +
+		'127.3 49.61 l' + '\n' +
+		'127.33 52.44 l' + '\n' +
+		'127.36 55.28 l' + '\n' +
+		'127.39 58.11 l' + '\n' +
+		'127.42 60.94 l' + '\n' +
+		'127.44 63.78 l' + '\n' +
+		'127.46 66.61 l' + '\n' +
+		's' + '\n' +
+		'132.77 72.28 m' + '\n' +
+		'130.07 72.28 l' + '\n' +
+		'130.06 75.12 l' + '\n' +
+		'130.05 77.95 l' + '\n' +
+		'130.04 80.79 l' + '\n' +
+		'130.03 83.62 l' + '\n' +
+		'130.03 86.46 l' + '\n' +
+		'130.03 89.29 l' + '\n' +
+		'130.05 92.13 l' + '\n' +
+		'130.09 94.96 l' + '\n' +
+		'130.15 97.8 l' + '\n' +
+		'130.26 100.63 l' + '\n' +
+		'130.42 103.46 l' + '\n' +
+		'130.65 106.3 l' + '\n' +
+		'130.9 108.51 l' + '\n' +
+		'133.63 103.76 l' + '\n' +
+		'133.6 103.46 l' + '\n' +
+		'133.34 100.63 l' + '\n' +
+		'133.15 97.8 l' + '\n' +
+		'133.02 94.96 l' + '\n' +
+		'132.92 92.13 l' + '\n' +
+		'132.86 89.29 l' + '\n' +
+		'132.82 86.46 l' + '\n' +
+		'132.79 83.62 l' + '\n' +
+		'132.78 80.79 l' + '\n' +
+		'132.77 77.95 l' + '\n' +
+		'132.77 75.12 l' + '\n' +
+		's' + '\n' +
+		'132.77 69.45 m' + '\n' +
+		'130.07 69.45 l' + '\n' +
+		'130.06 66.61 l' + '\n' +
+		'130.05 63.78 l' + '\n' +
+		'130.04 60.94 l' + '\n' +
+		'130.03 58.11 l' + '\n' +
+		'130.03 55.28 l' + '\n' +
+		'130.03 52.44 l' + '\n' +
+		'130.05 49.61 l' + '\n' +
+		'130.09 46.77 l' + '\n' +
+		'130.15 43.94 l' + '\n' +
+		'130.26 41.1 l' + '\n' +
+		'130.42 38.27 l' + '\n' +
+		'130.65 35.43 l' + '\n' +
+		'130.9 33.22 l' + '\n' +
+		'133.63 37.97 l' + '\n' +
+		'133.6 38.27 l' + '\n' +
+		'133.34 41.1 l' + '\n' +
+		'133.15 43.94 l' + '\n' +
+		'133.02 46.77 l' + '\n' +
+		'132.92 49.61 l' + '\n' +
+		'132.86 52.44 l' + '\n' +
+		'132.82 55.28 l' + '\n' +
+		'132.79 58.11 l' + '\n' +
+		'132.78 60.94 l' + '\n' +
+		'132.77 63.78 l' + '\n' +
+		'132.77 66.61 l' + '\n' +
+		's' + '\n' +
+		'138.61 72.28 m' + '\n' +
+		'135.6 72.28 l' + '\n' +
+		'135.6 75.12 l' + '\n' +
+		'135.62 77.95 l' + '\n' +
+		'135.65 80.79 l' + '\n' +
+		'135.69 83.62 l' + '\n' +
+		'135.76 86.46 l' + '\n' +
+		'135.85 89.29 l' + '\n' +
+		'135.97 92.13 l' + '\n' +
+		'136.13 94.96 l' + '\n' +
+		'136.35 97.8 l' + '\n' +
+		'136.37 97.91 l' + '\n' +
+		'139.1 89.99 l' + '\n' +
+		'139.06 89.29 l' + '\n' +
+		'138.91 86.46 l' + '\n' +
+		'138.79 83.62 l' + '\n' +
+		'138.71 80.79 l' + '\n' +
+		'138.66 77.95 l' + '\n' +
+		'138.62 75.12 l' + '\n' +
+		's' + '\n' +
+		'138.61 69.45 m' + '\n' +
+		'135.6 69.45 l' + '\n' +
+		'135.6 66.61 l' + '\n' +
+		'135.62 63.78 l' + '\n' +
+		'135.65 60.94 l' + '\n' +
+		'135.69 58.11 l' + '\n' +
+		'135.76 55.28 l' + '\n' +
+		'135.85 52.44 l' + '\n' +
+		'135.97 49.61 l' + '\n' +
+		'136.13 46.77 l' + '\n' +
+		'136.35 43.94 l' + '\n' +
+		'136.37 43.82 l' + '\n' +
+		'139.1 51.75 l' + '\n' +
+		'139.06 52.44 l' + '\n' +
+		'138.91 55.28 l' + '\n' +
+		'138.79 58.11 l' + '\n' +
+		'138.71 60.94 l' + '\n' +
+		'138.66 63.78 l' + '\n' +
+		'138.62 66.61 l' + '\n' +
+		's' + '\n' +
+		'70.01574803149606 70.01574803149606 m' + '\n' +
+		'71.71653543307087 70.01574803149606 l' + '\n' +
+		'71.71653543307087 71.71653543307087 l' + '\n' +
+		'70.01574803149606 71.71653543307087 l' + '\n' +
+		'70.01574803149606 70.01574803149606 l' + '\n' +
+		'f' + '\n' +
+		'0 0 m' + '\n' +
+		'8.503937007874017 0 l' + '\n' +
+		'0 8.503937007874017 l' + '\n' +
+		'f' + '\n' +
+		'' + '\n' +
+		'%%Trailer' + '\n' +
+		'_E end' + '\n';
+
+		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
+		calcParms();
+		generateEPSfileHeader();
+		buildContentPreamble();
+		fringes();
+		addCenterSpotAndFooter();
+
+		result = output.fileContents;
+		equal(result, expected, 'result is ' + result + ' should be ' + expected);
+		// save MLB.holomaskLib.output.fileContents to a file, *.eps, then convert to Adobe PDF to view/print or go online http://convertepstojpg.com/
+	});	
+
+	QUnit.test('fringe count', function () {
+		var result,
+		    expected = '<table><tr><td>Number of fringes</td><td>25</td></tr></table>';
+
+		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
+		calcParms();
+		generateEPSfileHeader();
+		buildContentPreamble();
+		fringes();
+		addCenterSpotAndFooter();
+
+		result = output.fringeCount;
+		equal(result, expected, 'result is ' + result + ' should be ' + expected);
+	});
+	
+	QUnit.test('extractGraphics', function () {
+		var result,
+		    expected;
+
+		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
+		calcParms();
+		generateEPSfileHeader();
+		buildContentPreamble();
+		fringes();
+		addCenterSpotAndFooter();
+		
+		extractGraphics();
+
+		result = output.graphicLines.length;
+		expected = 2184;
+		equal(result, expected, 'graphicLines length is ' + result + ' should be ' + expected);
+
+		result = output.graphicLines[0];
+		expected = '7.05 72.28 m';
+		equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);
+
+		result = output.graphicLines[2157];
+		expected = '135.62 63.78 l';
+		equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);		
+
+		result = output.graphicLines[output.graphicLines.length - 1];
+		expected = 'f';
+		equal(result, expected, 'graphicLines last line is ' + result + ' should be ' + expected);
+	});
+	
+});
+
+</script>
+</html>

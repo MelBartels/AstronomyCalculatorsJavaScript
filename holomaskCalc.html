@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Calculates a holomask suitable for testing optics" name="description">
+	<title>Holomask Calculator</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<link rel="stylesheet" type="text/css" href="css/holomaskCalc.css">
+</head>
+<body>
+
+<div id="intro">
+<h3>Holomask Calculator</h3>
+The holographic Foucault null test is a Foucault null test that uses a computer generated holographic mask in front of the mirror.<br>
+<br>
+Mauritz Andersson has developed the ground-breaking mirror test at <a href="http://xiluma.se/holomask/">http://xiluma.se/holomask/</a>. He's made the source code open source under the MIT License at <a href="https://github.com/ztiruam/holomask">https://github.com/ztiruam/holomask</a>.<br>
+<br>
+Mauritz's application requires access to a server running PHP. I determined to write a version in JavaScript that calculates the holomask entirely in the browser.<br>
+<br>
+For information on the test itself, please see Mauritz's webpage. And thanks to Mauritz for making the code open source.<br>
+<br>
+</div>
+
+<div>
+	<h3>Inputs</h3>
+	<table>
+	<tbody>
+	<tr>
+		<td class='label'>
+			 Diffraction order =
+		</td>
+		<td>
+			<input class='inputText' name="diffractionOrder" value="1" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Mirror diameter (mm) =
+		</td>
+		<td>
+			<input class='inputText' name="mirrorDiameterMm" value="50" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Radius of curvature (mm) =
+		</td>
+		<td>
+			<input class='inputText' name="radiusCurvatureMm" value="400" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Conic (-1 parabola) =
+		</td>
+		<td>
+			<input class='inputText' name="conic" value="-1" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Wavelength (nm) =
+		</td>
+		<td>
+			<input class='inputText' name="wavelengthNm" value="600" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Slit size (mm) =
+		</td>
+		<td>
+			<input class='inputText' name="slitSizeMm" value="0.1" onfocus="select()" type="text">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<br>
+	<input ID="btnCalc" value="Re-calculate" type="button"><br>
+	<br>
+</div>
+
+<div id="parms">
+</div>
+
+<div id="saveFile">
+	<br>
+	<button id="createFile">Create 'holomask.eps' file</button><br><br>
+	<a download="holomask.eps" id="downloadlink" style="display: none">Download the file</a><br>
+	<a href="http://convertepstojpg.com/">Online converter for EPS files</a><br><br>
+</div>
+
+<div id="graphics">
+	<h3>Graphics</h3>
+	<canvas class='holomaskCanvas' id="holomaskCanvas">
+		This browser does not support the canvas element. Please use a more recent browser.
+	</canvas>
+</div>
+
+Notes: <br>
+<br>
+I applied minimal refracting, mainly namespaces and scope, mirroring Mauritz's PHP code as much as possible. This helps others understand my port, helps with debugging and will help when updating the JS code when the PHP side changes.<br>
+
+<br>
+ Mel Bartels
+</body>
+
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/phpjs.js"></script>
+<script src="lib/holomaskLib.js"></script>
+<script src="lib/holomaskCalc.js"></script>
+
+</html>
