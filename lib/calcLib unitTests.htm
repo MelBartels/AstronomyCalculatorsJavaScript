@@ -62,8 +62,11 @@
 		NELMtoSQMconverter = MLB.calcLib.NELMtoSQMconverter,
 		artificialStarDistanceMM = MLB.calcLib.artificialStarDistanceMM,
 		artificialStarDistanceInches = MLB.calcLib.artificialStarDistanceInches,
-		calcApertureFromEyepieceExitPupilFOV = MLB.calcLib.calcApertureFromEyepieceExitPupilFOV,
-		calcFOVFromEyepieceExitPupilMirrorDiameter = MLB.calcLib.calcFOVFromEyepieceExitPupilMirrorDiameter;
+		calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil,
+		calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil,
+		calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop = MLB.calcLib.calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop,
+		calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil,
+		calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil = MLB.calcLib.calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil;
 
 	QUnit.module('sagitta');
 
@@ -873,32 +876,61 @@
 
 	QUnit.module('aperture, FOV, eyepiece');
 	
-	QUnit.test('calcApertureFromEyepieceExitPupilFOV', function () {
-		var desiredFOVdeg = 1.8, 
-		    eyepieceFocalLengthmm = 21, 
-			eyepieceFieldStopmm = 36.2, 
-			exitPupilmm = 6.1,
-		    expected = 13.2,
-			allowableError = 0.1,
+	var scopeTestParms = function () {
+		this.apertureInches = 13.2,
+		this.FOVdeg = 1.8, 
+		this.eyepieceFocalLengthmm = 21, 
+		this.eyepieceFieldStopmm = 36.2, 
+		this.eyePupilmm = 6.1,
+		this.expected = undefined,
+		this.allowableError = 0.1
+	};
+	
+	QUnit.test('calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
+		var parms = new scopeTestParms(),
+		    expected = parms.apertureInches,
 		    result;
 			
-		result = calcApertureFromEyepieceExitPupilFOV(desiredFOVdeg, eyepieceFocalLengthmm, eyepieceFieldStopmm, exitPupilmm);
-		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+		result = calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil(parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm, parms.eyePupilmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});		
 
-	QUnit.test('calcFOVFromEyepieceExitPupilMirrorDiameter', function () {
-		var mirrorDiameterInches = 13.2, 
-		    eyepieceFocalLengthmm = 21, 
-			eyepieceFieldStopmm = 36.2, 
-			exitPupilmm = 6.1,
-		    expected = 1.8,
-			allowableError = 0.1,
+	QUnit.test('calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
+		var parms = new scopeTestParms(),
+		    expected = parms.FOVdeg,
 		    result;
 			
-		result = calcFOVFromEyepieceExitPupilMirrorDiameter(mirrorDiameterInches, eyepieceFocalLengthmm, eyepieceFieldStopmm, exitPupilmm);
-		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+		result = calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil(parms.apertureInches, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm, parms.eyePupilmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});		
 
+	QUnit.test('calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop', function () {
+		var parms = new scopeTestParms(),
+		    expected = parms.eyePupilmm,
+		    result;
+			
+		result = calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop(parms.apertureInches, parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+	
+	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil', function () {
+		var parms = new scopeTestParms(),
+		    expected = parms.eyepieceFieldStopmm,
+		    result;
+			
+		result = calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyePupilmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+	
+	QUnit.test('calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil', function () {
+		var parms = new scopeTestParms(),
+		    expected = parms.eyepieceFocalLengthmm,
+		    result;
+			
+		result = calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm, parms.eyePupilmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+	
 });
 
 </script>

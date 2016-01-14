@@ -6,6 +6,7 @@
 <title>Aperture Calculator</title>
 <link rel="shortcut icon" href="Saucer32.ico">
 <link rel="stylesheet" type="text/css" href="css/calc.css">
+<link rel="stylesheet" type="text/css" href="css/apertureCalc.css">
 </head>
 <body>
 <div>
@@ -13,19 +14,19 @@
 	<tbody>
 	<tr>
 		<td class='title colspan='2'>
-			<b>Aperture Calculator</b>
+			<b>Aperture and Field of View Calculator</b>
 			<br>
 			<br>			
 		</td>
 	</tr>
 	<tr>
 		<td class='title colspan='2'>
-			Enter the exit pupil below or use the calculator.
+			Enter the pupil below or calculate it.
 		</td>
 	</tr>
 	<tr>
 		<td class='title colspan='2'>
-			<b>Exit Pupil Calculator</b>
+			<b>Pupil Calculator</b>
 		</td>
 	</tr>
 	<tr>
@@ -62,7 +63,7 @@
 	<tr>
 		<td class='title colspan='2'>
 			<br>
-			<b>Aperture Calculator</b>
+			Enter the eyepiece's field stop and FOV or aperture.
 		</td>
 	</tr>
 	<tr>
@@ -71,6 +72,8 @@
 		</td>
 		<td>
 			<input class='inputText' name="eyepieceFieldStopmm" value="36.2" onfocus="select()" type="text">
+			<input ID="btnCalcEyepieceFieldStop" value="or guess from" type="button">
+			apparent field (deg) = <input class='inputText' name="eyepieceApparentFielddeg" value="100" onfocus="select()" type="text">		
 		</td>
 	</tr>
 	<tr>
@@ -79,11 +82,7 @@
 		</td>
 		<td>
 			<input class='inputText' name="FOVdeg" value="1.8" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='title colspan='2'>
-			<input ID="btnCalcAperture" value="Calculate aperture" type="button">
+			<input ID="btnCalcAperture" value="Calculate aperture from field of view" type="button">
 		</td>
 	</tr>
 	<tr>
@@ -92,19 +91,24 @@
 		</td>
 		<td>
 			<input class='inputText' name="apertureInches" value="" onfocus="select()" type="text">
+			<input ID="btnCalcFOV" value="Calculate field of view from aperture" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td class='title' colspan='2' id="details">
 		</td>
 	</tr>
 	</tbody>
 	</table>
 	<br>
 </div>
- Notes: <br>
-<br>
-This handy calculator demonstrates the relationship between exit pupil, desired field of view and aperture.<br>
+Notes: <br>
+This handy calculator demonstrates the relationship between pupil, field of view and aperture.<br>
 Get the eyepiece field stop from the manufacturer specifications.<br>
-Here's a graph showing the relationship between aperture and field of view for three eyepieces with different apparent field of views. The focal ratios are adjusted so that all eyepieces give the same exit pupil. You can see that the 100 degree Ethos eyepiece allows a greater aperture and field of view than the 82 degree Nagler eyepiece or the older Erfle.<br>
+Resolution is based our eye's ability to resolve 2 arc minutes.<br>
+Here's a graph showing the relationship between aperture and field of view for three eyepieces with different apparent field of views. The focal ratios are adjusted so that all eyepieces give the same exit pupil. You can see that the 100 degree Ethos eyepiece allows a greater aperture and field of view than the 82 degree Nagler eyepiece or the older Erfle if you can get down to F3.<br>
 <img alt="" src="aperture vs field of view for selected eyepieces.jpg"><br>
-For more, <a href="ZipDob/ZipDob.html">see my ZipDob article</a> and <a href="rft.html">my Richest Field Telescope article</a>.<br>
+For more, see my <a href="ZipDob/ZipDob.html">ZipDob article</a>, my <a href="rft.html">Richest Field Telescope article</a>, and my <a href="apertureCalc.html">sketches of rarely observed objects</a>.<br>
 <br>
 Mel Bartels
 </body>
