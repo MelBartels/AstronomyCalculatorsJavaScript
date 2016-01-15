@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Calculates and compares criteria for a telescope" name="description">
+<title>Telescope Criteria Calculator</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+<link rel="stylesheet" type="text/css" href="css/telescopeCriteriaCalc.css">
+</head>
+<body>
+<div>
+	<table>
+	<tbody>
+	<tr>
+		<td class='title colspan='2'>
+			<b>Telescope Criteria Calculator</b>
+			<br>
+			<br>			
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Aperture (inches) = 
+		</td>
+		<td>
+			<input class='inputText' name="apertureInches" value="13.2" onfocus="select()" type="text">
+			<input ID="btnCalcAperture" value="Calculate aperture" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 True field of view (degrees) = 
+		</td>
+		<td>
+			<input class='inputText' name="FOVdeg" value="1.8" onfocus="select()" type="text">
+			<input ID="btnCalcFOV" value="Calculate true field of view" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 eye pupil (mm) = 
+		</td>
+		<td>
+			<input class='inputText' name="eyePupilmm" value="6.1" onfocus="select()" type="text">
+			<input ID="btnCalcEyePupil" value="Calculate eye pupil" type="button">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Eyepiece focal length (mm) =
+		</td>
+		<td>
+			<input class='inputText' name="eyepieceFocalLengthmm" value="21" onfocus="select()" type="text">
+			<input ID="btnCalcEyepieceFL" value="Calculate eyepiece focal length" type="button">
+		</td>
+		<td class='label'>
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Eyepiece field stop diameter (mm) = 
+		</td>
+		<td>
+			<input class='inputText' name="eyepieceFieldStopmm" value="36.2" onfocus="select()" type="text">
+			<input ID="btnCalcEyepieceFieldStop" value="Calculate eyepiece field stop" type="button">
+		</td>
+	</tr>
+
+	<tr><td><br></td></tr>
+	<tr><td><br></td></tr>
+	<tr><td><br></td></tr>
+
+	<tr>
+		<td class='label'>
+			 Coma corrector magnification factor =
+		</td>
+		<td>
+			<input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='label'>
+			 Mirror focal ratio =
+		</td>
+		<td>
+			<input class='inputText' name="focalRatio" value="3" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class='title' colspan='2' id="details">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<br>
+</div>
+<br>
+<br>
+Notes: <br>
+<br>
+From: mirror diameter = eyepiece field stop * exit pupil * 57.3 / (field of view * eyepiece focal length * 25.4)<br>
+<br>
+For example: 21mm Ethos with 36.2mm field stop, coma corrector with 1.15x factor, desired FOV of 1.8 deg and 13.2 inch primary mirror at F3 with focal length = 13*3.2=39.6:<br>
+exit pupil = 21/3/1.15=6.1, therefore aperture = 2.256 * 36.2 * 6.1 / 1.8 / 21 = 13.2<Br>
+<br>
+Mel Bartels
+</body>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/telescopeCriteriaCalc.js"></script>
+</html>
