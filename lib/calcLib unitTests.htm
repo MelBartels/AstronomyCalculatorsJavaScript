@@ -877,13 +877,13 @@
 	QUnit.module('aperture, FOV, eyepiece');
 	
 	var scopeTestParms = function () {
-		this.apertureInches = 13.2,
-		this.FOVdeg = 1.8, 
+		this.apertureInches = 13.1,
+		this.FOVdeg = 1.762, 
 		this.eyepieceFocalLengthmm = 21, 
 		this.eyepieceFieldStopmm = 36.2, 
-		this.eyePupilmm = 6.1,
+		this.eyePupilmm = 5.936,
 		this.expected = undefined,
-		this.allowableError = 0.1
+		this.allowableError = 0.01
 	};
 	
 	QUnit.test('calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
