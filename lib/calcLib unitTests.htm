@@ -66,7 +66,11 @@
 		calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil,
 		calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop = MLB.calcLib.calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop,
 		calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil,
-		calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil = MLB.calcLib.calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil;
+		calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil = MLB.calcLib.calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil,
+		calcApertureFromFOV_FocalRatio_EyepieceFieldStop = MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop,
+		calcFOVFromAperture_FocalRatio_EyepieceFieldStop = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop,
+		calcFocalRatioFromAperture_FOV_EyepieceFieldStop = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop,
+		calcEyepieceFieldStopFromAperture_FOV_FocalRatio = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio;
 
 	QUnit.module('sagitta');
 
@@ -874,20 +878,20 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});		
 
-	QUnit.module('aperture, FOV, eyepiece');
+	QUnit.module('telescope criteria relationships');
 	
-	var scopeTestParms = function () {
+	var MLBScopeTest5Parms = function () {
 		this.apertureInches = 13.1,
 		this.FOVdeg = 1.762, 
 		this.eyepieceFocalLengthmm = 21, 
 		this.eyepieceFieldStopmm = 36.2, 
-		this.eyePupilmm = 5.936,
+		this.eyePupilmm = 5.936,    // adjusted for coma corrector mag factor of 1.15x
 		this.expected = undefined,
 		this.allowableError = 0.01
 	};
 	
 	QUnit.test('calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
-		var parms = new scopeTestParms(),
+		var parms = new MLBScopeTest5Parms(),
 		    expected = parms.apertureInches,
 		    result;
 			
@@ -896,7 +900,7 @@
 	});		
 
 	QUnit.test('calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
-		var parms = new scopeTestParms(),
+		var parms = new MLBScopeTest5Parms(),
 		    expected = parms.FOVdeg,
 		    result;
 			
@@ -905,7 +909,7 @@
 	});		
 
 	QUnit.test('calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop', function () {
-		var parms = new scopeTestParms(),
+		var parms = new MLBScopeTest5Parms(),
 		    expected = parms.eyePupilmm,
 		    result;
 			
@@ -914,7 +918,7 @@
 	});		
 	
 	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil', function () {
-		var parms = new scopeTestParms(),
+		var parms = new MLBScopeTest5Parms(),
 		    expected = parms.eyepieceFieldStopmm,
 		    result;
 			
@@ -923,14 +927,59 @@
 	});		
 	
 	QUnit.test('calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil', function () {
-		var parms = new scopeTestParms(),
+		var parms = new MLBScopeTest5Parms(),
 		    expected = parms.eyepieceFocalLengthmm,
 		    result;
 			
 		result = calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm, parms.eyePupilmm);
 		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});		
+
+	var MLBScopeTest4Parms = function () {
+		this.apertureInches = 13.1,
+		this.FOVdeg = 1.762, 
+		this.focalRatio = 3.54,    // adjusted for coma corrector mag factor of 1.15x
+		this.eyepieceFieldStopmm = 36.2, 
+		this.expected = undefined,
+		this.allowableError = 0.02
+	};
 	
+	QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop', function () {
+		var parms = new MLBScopeTest4Parms(),
+		    expected = parms.apertureInches,
+		    result;
+			
+		result = calcApertureFromFOV_FocalRatio_EyepieceFieldStop(parms.FOVdeg, parms.focalRatio, parms.eyepieceFieldStopmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+	
+	QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop', function () {
+		var parms = new MLBScopeTest4Parms(),
+		    expected = parms.FOVdeg,
+		    result;
+			
+		result = calcFOVFromAperture_FocalRatio_EyepieceFieldStop(parms.apertureInches, parms.focalRatio, parms.eyepieceFieldStopmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+	
+	QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop', function () {
+		var parms = new MLBScopeTest4Parms(),
+		    expected = parms.focalRatio,
+		    result;
+			
+		result = calcFocalRatioFromAperture_FOV_EyepieceFieldStop(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+	
+	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio', function () {
+		var parms = new MLBScopeTest4Parms(),
+		    expected = parms.eyepieceFieldStopmm,
+		    result;
+			
+		result = calcEyepieceFieldStopFromAperture_FOV_FocalRatio(parms.apertureInches, parms.FOVdeg, parms.focalRatio);
+		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+	});		
+
 });
 
 </script>
