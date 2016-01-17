@@ -45,6 +45,7 @@
 	    getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
 		limitingMagnitude = MLB.calcLib.limitingMagnitude,
+		apertureInchesFromMagnitude = MLB.calcLib.apertureInchesFromMagnitude,
 		VisualDetectCalcParms = MLB.calcLib.VisualDetectCalcParms,
 		visualDetectCalcData = MLB.calcLib.visualDetectCalcData,
 	    VisualDetectCalc = MLB.calcLib.VisualDetectCalc,
@@ -297,9 +298,16 @@
 		var apertureIn = 13;
 		var expectedLimitingMag = 16.37;
 		var result = limitingMagnitude(apertureIn);
-		equal(withinRange(result, expectedLimitingMag, 0.01), true, 'limiting magnitude of ' + apertureIn +' should be ' + expectedLimitingMag + ', is ' + result);
+		equal(withinRange(result, expectedLimitingMag, 0.01), true, 'limiting magnitude from ' + apertureIn +' apertureIn should be ' + expectedLimitingMag + ', is ' + result);
 	});
 	
+	QUnit.test('apertureInchesFromMagnitude', function () {
+		var magnitude = 16.37;
+		var expectedApertureIn = 13;
+		var result = apertureInchesFromMagnitude(magnitude);
+		equal(withinRange(result, expectedApertureIn, 0.01), true, 'aperture from ' + magnitude +' magnitude should be ' + expectedApertureIn + ', is ' + result);
+	});
+
 	QUnit.test('parms.apertureIn', function () {
 		var parms, result, parms2, result2, originalResult;
 		parms = new VisualDetectCalcParms();
