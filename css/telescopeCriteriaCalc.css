@@ -1,0 +1,16 @@
+.inputText {
+	width: 35px;
+}
+.eyepieceTable {
+	background-color: #ddecef;
+}
+.apertureRow {
+	background-color: #bfd9da;
+}
+.fieldOfViewRow {
+	background-color: #bdcccf;
+}
+.focalRatioRow, .eyePupilRow {
+	background-color: #9decbf;
+}
+ 
