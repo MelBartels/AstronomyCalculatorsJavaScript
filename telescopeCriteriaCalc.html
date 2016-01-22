@@ -12,7 +12,15 @@
 <body>
 <div>
 	<h2>Telescope Criteria Calculators</h2>
-	<b>Compare criteria: eye -> eyepiece -> telescope -> sky</b><br><br>
+	<p>The five telescope design criteria:
+		<ul>
+			<li>the eye's pupil diameter</li>
+			<li>the eyepiece's focal length</li>
+			<li>the eyepiece's field stop diameter</li>
+			<li>the telescope's aperture</li>
+			<li>the telescope's real field of view</li>
+		</ul>
+		Set any four to compute the fifth. This calculator compares criteria in the order of eye -> eyepiece -> telescope.</p>
 </div>
 <div>
 	<table>
@@ -101,7 +109,14 @@
 <br>
 <br>
 <div>
-	<b>Compare criteria: telescope -> eyepiece -> sky</b><br><br>
+	<p>The four telescope design criteria:
+		<ul>
+			<li>the telescope's aperture</li>
+			<li>the telescope's focal ratio</li>
+			<li>the telescope's real field of view</li>
+			<li>the eyepiece's field stop diameter</li>
+		</ul>
+		This calculator compares criteria in the order of telescope -> eyepiece.</p>
 </div>
 <div>
 	<table>
@@ -124,6 +139,15 @@
 		<td>
 			<input class='inputText' name="focalRatioT" value="3.4" onfocus="select()" type="text">
 			<input ID="btnCalcFocalRatioT" value="Calculate focal ratio" type="button">
+		</td>
+	</tr>
+	<tr class='fieldOfViewRow'>
+		<td class='label'>
+			 True field of view (degrees) = 
+		</td>
+		<td>
+			<input class='inputText' name="FOVdegT" value="1.8" onfocus="select()" type="text">
+			<input ID="btnCalcFOVT" value="Calculate true field of view" type="button">
 		</td>
 	</tr>
 	<tr>
@@ -159,15 +183,6 @@
 			</tr>
 			</tbody>
 			</table>
-		</td>
-	</tr>
-	<tr class='fieldOfViewRow'>
-		<td class='label'>
-			 True field of view (degrees) = 
-		</td>
-		<td>
-			<input class='inputText' name="FOVdegT" value="1.8" onfocus="select()" type="text">
-			<input ID="btnCalcFOVT" value="Calculate true field of view" type="button">
 		</td>
 	</tr>
 	<tr>
