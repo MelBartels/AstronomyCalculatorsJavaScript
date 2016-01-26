@@ -12,7 +12,25 @@
 <body>
 <div>
 	<h2>Telescope Criteria Calculators</h2>
-	<p>The five telescope design criteria:
+
+	<p>Specifying a telescope is a matter of compromise. Greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account.</p>
+
+	<p>We are familiar with the standard relationships such as:<br>
+	<br>
+	telescope focal length = focal ratio * mirror diameter, and<br>
+	focal ratio = eyepiece focal length / eye pupil</p>
+	 
+	<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum set of criteria?</p>
+	 
+	<p>The master equation should involve our eye; the eyepiece; and the telescope's aperture and true field of view. Doing so results in two master relationships. The second relationship substitutes focal ratio for both the eyepiece's focal length and our eye's pupil:<br>
+	<br>
+ 	1) aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil<br>
+	&nbsp &nbsp - or -<br>
+	2) aperture * true field of view * focal ratio = eyepiece field stop<br>
+	<br>
+	Note that the first relationship involves five criteria and the second relationship just four criteria.</p>
+
+	<p>Specifically, the five telescope design criteria are:
 		<ul>
 			<li>the eye's pupil diameter</li>
 			<li>the eyepiece's focal length</li>
@@ -20,7 +38,9 @@
 			<li>the telescope's aperture</li>
 			<li>the telescope's real field of view</li>
 		</ul>
-		Set any four to compute the fifth. This calculator compares criteria in the order of eye -> eyepiece -> telescope.</p>
+		Set any four of the criteria to compute the fifth.</p>
+	
+	<h3>Five Criteria Calculator</h3>
 </div>
 <div>
 	<table>
@@ -85,7 +105,8 @@
 			<input class='inputText' name="apertureInches" value="13.2" onfocus="select()" type="text">
 			<input ID="btnCalcAperture" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
-			limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.4" onfocus="select()" type="text">			
+			limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.4" onfocus="select()" type="text">
+			down to <input class='inputText' name="limitingMagnitudeHighMagnification" value="16.4" type="text" readonly> at high magnification			
 		</td>
 	</tr>
 	<tr class='fieldOfViewRow'>
@@ -106,17 +127,21 @@
 	</tbody>
 	</table>
 </div>
-<br>
-<br>
 <div>
-	<p>The four telescope design criteria:
+	<p>For more, see 
+	<a href="Telescope%20Magnification.html">magnification and its relationship</a> and
+	<a href="visual.html">visual detection and its relationship</a>.</p>
+
+	<h3>Four Criteria Calculator</h3>
+	<p>Alternatively, the telescope's focal ratio can be substituted for the eyepiece's focal length and our eye's pupil:<br>
+	We get four telescope design criteria:
 		<ul>
 			<li>the telescope's aperture</li>
 			<li>the telescope's focal ratio</li>
 			<li>the telescope's real field of view</li>
 			<li>the eyepiece's field stop diameter</li>
 		</ul>
-		This calculator compares criteria in the order of telescope -> eyepiece.</p>
+		Set any three to compute the fourth.</p>
 </div>
 <div>
 	<table>
@@ -130,6 +155,7 @@
 			<input ID="btnCalcApertureT" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitudeT" value="or set from" type="button">
 			limiting magnitude<input class='inputText' name="limitingMagnitudeT" value="15.4" onfocus="select()" type="text">			
+			down to <input class='inputText' name="limitingMagnitudeHighMagnificationT" value="16.4" type="text" readonly> at high magnification			
 		</td>
 	</tr>
 	<tr class='focalRatioRow'>
@@ -194,14 +220,7 @@
 	</tbody>
 	</table>
 </div>
-<br>
-<br>
-Notes:<br>
-<br>
-From: aperture = eyepiece field stop * eye pupil * 57.3 / (true field of view * eyepiece focal length * 25.4)<br>
-and from: aperture = eyepiece field stop / (true field of view * focal ratio * 25.4 / 57.3)<br>
-<br>
-Mel Bartels
+by Mel Bartels
 </body>
 <script src="lib/jquery/jquery-2.1.1.min.js"></script>
 <script src="lib/sharedLib.js"></script>
