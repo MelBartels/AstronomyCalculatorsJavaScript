@@ -33,11 +33,11 @@
 
 	<p>Specifically, the five telescope design criteria are:
 		<ul>
+			<li>the telescope's aperture</li>
+			<li>the telescope's real field of view</li>
 			<li>the eye's pupil diameter</li>
 			<li>the eyepiece's focal length</li>
 			<li>the eyepiece's field stop diameter</li>
-			<li>the telescope's aperture</li>
-			<li>the telescope's real field of view</li>
 		</ul>
 		Set any four of the criteria to compute the fifth.</p>
 	
@@ -46,58 +46,6 @@
 <div>
 	<table>
 	<tbody>
-	<tr class='eyePupilRow'>
-		<td class='label'>
-			 Eye pupil (mm) = 
-		</td>
-		<td>
-			<input class='inputText' name="eyePupilmm" value="6.1" onfocus="select()" type="text">
-			<input ID="btnCalcEyePupil" value="Calculate eye pupil" type="button">
-		</td>
-	</tr>
-	<tr>
-		<td colspan='2'>
-			<table class='eyepieceTable'>
-			<tbody>
-			<tr>
-				<td class='label'>
-					Select an eyepiece &nbsp;
-				</td>
-				<td>
-					<select id='eyepieces'>
-					</select>
-				</td>		
-				<td colspan='2'>
-					<table>
-					<tbody>
-					<tr>
-						<td class='label'>
-							 or enter focal length (mm) =
-						</td>
-						<td>
-							<input class='inputText' name="eyepieceFocalLengthmm" value="21" onfocus="select()" type="text">
-							<input ID="btnCalcEyepieceFL" value="Calculate focal length" type="button">
-						</td>
-					</tr>
-					<tr>
-						<td class='label'>
-							 and field stop diameter (mm) = 
-						</td>
-						<td>
-							<input class='inputText' name="eyepieceFieldStopmm" value="36.2" onfocus="select()" type="text">
-							<input ID="btnCalcEyepieceFieldStop" value="Calculate field stop" type="button">
-							<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFL" value="or guess from" type="button">
-							apparent field (deg)<input class='inputText' name="eyepieceApparentFielddeg" value="100" onfocus="select()" type="text">		
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</td>
-			</tr>
-			</tbody>
-			</table>
-		</td>
-	</tr>
 	<tr class='apertureRow'>
 		<td class='label'>
 			 Aperture (inches) = 
@@ -107,7 +55,7 @@
 			<input ID="btnCalcAperture" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
 			limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.4" onfocus="select()" type="text">
-			down to <input class='inputText' name="limitingMagnitudeHighMagnification" value="16.4" type="text" readonly> at high magnification			
+			to <input class='inputText' name="limitingMagnitudeHighMagnification" value="16.4" type="text" readonly>
 		</td>
 	</tr>
 	<tr class='fieldOfViewRow'>
@@ -117,6 +65,44 @@
 		<td>
 			<input class='inputText' name="FOVdeg" value="1.8" onfocus="select()" type="text">
 			<input ID="btnCalcFOV" value="Calculate true field of view" type="button">
+		</td>
+	</tr>
+	<tr class='eyePupilRow'>
+		<td class='label'>
+			 Eye pupil (mm) = 
+		</td>
+		<td>
+			<input class='inputText' name="eyePupilmm" value="6.1" onfocus="select()" type="text">
+			<input ID="btnCalcEyePupil" value="Calculate eye pupil" type="button">
+		</td>
+	</tr>
+	<tr class='eyepieceRow'>
+		<td class='label'>
+			Select an eyepiece
+		</td>
+		<td>
+			<select id='eyepieces'>
+			</select>
+		</td>
+	</tr>
+	<tr class='eyepieceRow'>
+		<td class='label'>
+			 or enter focal length (mm) =
+		</td>
+		<td>
+			<input class='inputText' name="eyepieceFocalLengthmm" value="21" onfocus="select()" type="text">
+			<input ID="btnCalcEyepieceFL" value="Calculate focal length" type="button">
+		</td>
+	</tr>
+	<tr class='eyepieceRow'>
+		<td class='label'>
+			 and field stop diameter (mm) = 
+		</td>
+		<td>
+			<input class='inputText' name="eyepieceFieldStopmm" value="36.2" onfocus="select()" type="text">
+			<input ID="btnCalcEyepieceFieldStop" value="Calculate field stop" type="button">
+			<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFL" value="or guess from" type="button">
+			apparent field (deg)<input class='inputText' name="eyepieceApparentFielddeg" value="100" onfocus="select()" type="text">		
 		</td>
 	</tr>
 	<tr>
@@ -138,8 +124,8 @@
 	We get four telescope design criteria:
 		<ul>
 			<li>the telescope's aperture</li>
-			<li>the telescope's focal ratio</li>
 			<li>the telescope's real field of view</li>
+			<li>the telescope's focal ratio</li>
 			<li>the eyepiece's field stop diameter</li>
 		</ul>
 		Set any three to compute the fourth.</p>
@@ -156,16 +142,7 @@
 			<input ID="btnCalcApertureT" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitudeT" value="or set from" type="button">
 			limiting magnitude<input class='inputText' name="limitingMagnitudeT" value="15.4" onfocus="select()" type="text">			
-			down to <input class='inputText' name="limitingMagnitudeHighMagnificationT" value="16.4" type="text" readonly> at high magnification			
-		</td>
-	</tr>
-	<tr class='focalRatioRow'>
-		<td class='label'>
-			 Focal ratio = 
-		</td>
-		<td>
-			<input class='inputText' name="focalRatioT" value="3.4" onfocus="select()" type="text">
-			<input ID="btnCalcFocalRatioT" value="Calculate focal ratio" type="button">
+			to <input class='inputText' name="limitingMagnitudeHighMagnificationT" value="16.4" type="text" readonly>
 		</td>
 	</tr>
 	<tr class='fieldOfViewRow'>
@@ -177,39 +154,34 @@
 			<input ID="btnCalcFOVT" value="Calculate true field of view" type="button">
 		</td>
 	</tr>
-	<tr>
-		<td colspan='2'>
-			<table class='eyepieceTable'>
-			<tbody>
-			<tr>
-				<td class='label'>
-					Select an eyepiece &nbsp;
-				</td>
-				<td>
-					<select id='eyepiecesT'>
-					</select>
-				</td>		
-				<td colspan='2'>
-					<table>
-					<tbody>
-					<tr>
-						<td class='label'>
-							 or enter field stop diameter (mm) = 
-						</td>
-						<td>
-							<input class='inputText' name="eyepieceFieldStopmmT" value="36.2" onfocus="select()" type="text">
-							<input ID="btnCalcEyepieceFieldStopT" value="Calculate field stop" type="button">
-							<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFLT" value="or guess from" type="button">
-							apparent field (deg)<input class='inputText' name="eyepieceApparentFielddegT" value="100" onfocus="select()" type="text">	
-							, focal length (mm)<input class='inputText' name="eyepieceFocalLengthmmT" value="21" onfocus="select()" type="text">
-						</td>
-					</tr>
-					</tbody>
-					</table>
-				</td>
-			</tr>
-			</tbody>
-			</table>
+	<tr class='focalRatioRow'>
+		<td class='label'>
+			 Focal ratio = 
+		</td>
+		<td>
+			<input class='inputText' name="focalRatioT" value="3.4" onfocus="select()" type="text">
+			<input ID="btnCalcFocalRatioT" value="Calculate focal ratio" type="button">
+		</td>
+	</tr>
+	<tr class='eyepieceRow'>
+		<td class='label'>
+			Select an eyepiece
+		</td>
+		<td>
+			<select id='eyepiecesT'>
+			</select>
+		</td>
+	</tr>
+	<tr class='eyepieceRow'>
+		<td class='label'>
+			 or enter field stop diameter (mm) = 
+		</td>
+		<td>
+			<input class='inputText' name="eyepieceFieldStopmmT" value="36.2" onfocus="select()" type="text">
+			<input ID="btnCalcEyepieceFieldStopT" value="Calculate field stop" type="button">
+			<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFLT" value="or guess from" type="button">
+			apparent field (deg)<input class='inputText' name="eyepieceApparentFielddegT" value="100" onfocus="select()" type="text">	
+			, focal length (mm)<input class='inputText' name="eyepieceFocalLengthmmT" value="21" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr>

@@ -1,7 +1,7 @@
 .inputText {
 	width: 35px;
 }
-.eyepieceTable {
+.eyepieceRow {
 	background-color: #ddecef;
 }
 .apertureRow {
@@ -13,4 +13,17 @@
 .focalRatioRow, .eyePupilRow {
 	background-color: #9decbf;
 }
- 
+input[type='button'] {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+	background-color: #ff6060;
+}
+.inputText {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+	width: 50px;
+}
+#eyepieces, #eyepiecesT {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+}
