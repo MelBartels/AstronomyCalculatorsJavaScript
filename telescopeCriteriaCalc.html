@@ -40,7 +40,8 @@
 			<li>the eyepiece's focal length</li>
 			<li>the eyepiece's field stop diameter (defines the edge of the field of view at the focal plane)</li>
 		</ul>
-		Set any four of the criteria to compute the fifth.</p>
+		Set any four of the criteria to compute the fifth.<br>
+		Note that the coma corrector is ignored by the five criteria: the coma corrector's magnification only matters for the focal ratio and focal length.</p>
 </div>
 <div>
 	<table>
@@ -54,7 +55,6 @@
 			<input ID="btnCalcAperture" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
 			limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.4" onfocus="select()" type="text">
-			to <input class='inputText' name="limitingMagnitudeHighMagnification" value="16.4" type="text" readonly>
 		</td>
 	</tr>
 	<tr class='fieldOfViewRow'>
@@ -82,6 +82,8 @@
 		<td>
 			<select id='eyepieces'>
 			</select>
+			<input name="chBoxUseComaCorrector" type="checkbox">use coma corrector, 
+			x factor = <input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr class='eyepieceRow'>
@@ -141,7 +143,6 @@
 			<input ID="btnCalcApertureT" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitudeT" value="or set from" type="button">
 			limiting magnitude<input class='inputText' name="limitingMagnitudeT" value="15.4" onfocus="select()" type="text">			
-			to <input class='inputText' name="limitingMagnitudeHighMagnificationT" value="16.4" type="text" readonly>
 		</td>
 	</tr>
 	<tr class='fieldOfViewRow'>
@@ -169,6 +170,8 @@
 		<td>
 			<select id='eyepiecesT'>
 			</select>
+			<input name="chBoxUseComaCorrectorT" type="checkbox">use coma corrector, 
+			x factor = <input class='inputText' name="comaCorrectorMagT" value="1.15" onfocus="select()" type="text">
 		</td>
 	</tr>
 	<tr class='eyepieceRow'>
@@ -194,7 +197,11 @@
 	</table>
 </div>
 <br>
-by Mel Bartels
+by Mel Bartels<br>
+<br>
+<b>Notes:</b><br>
+<br>
+Stellar limiting magnitude calculated for low power. An additional magnitude can be gained by going to high power.<br>
 <br>
 <br>
 </body>
