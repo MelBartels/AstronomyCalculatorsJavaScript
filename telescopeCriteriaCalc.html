@@ -11,9 +11,10 @@
 </head>
 <body>
 <div>
-	<h2>Telescope Criteria Calculators</h2>
+	<h2>Telescope Criteria Calculator</h2>
+	<h3>by Mel Bartels</h3>
 
-	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account.</p>
+	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions.</p>
 
 	<p>We are familiar with the standard relationships such as:<br>
 	<br>
@@ -28,33 +29,42 @@
  	&nbsp &nbsp aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil<br>
 	&nbsp &nbsp aperture * true field of view * focal ratio = eyepiece field stop<br>
 	<br>
-	Note that the first relationship involves five criteria and the second relationship just four criteria, substituting focal ratio for both the eyepiece's focal length and our eye's pupil.</p>
-	<br>
-	<h3>Five Criteria Calculator</h3>
+	Note that the second relationship uses focal ratio in place of eye pupil and eyepiece focal length.<br>
+	Also, the coma corrector is ignored by the first relationship: the coma corrector's magnification only matters for focal ratio and focal length.</p>
+</p>
 
-	<p>Specifically, the five telescope design criteria are:
-		<ul>
-			<li>the telescope's aperture</li>
-			<li>the telescope's real field of view</li>
-			<li>the eye's pupil diameter</li>
-			<li>the eyepiece's focal length</li>
-			<li>the eyepiece's field stop diameter (defines the edge of the field of view at the focal plane)</li>
-		</ul>
-		Set any four of the criteria to compute the fifth.<br>
-		Note that the coma corrector is ignored by the five criteria: the coma corrector's magnification only matters for the focal ratio and focal length.</p>
+	<h3>Calculator</h3>
+
+	<p>Set all but one of the criteria to compute the desired criteria.</p>
 </div>
 <div>
 	<table>
 	<tbody>
+	<tr>
+		<td>
+		</td>
+		<td class='calculatorChoiceRow'>
+			<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="FR" type="radio" checked="checked">Use focal ratio or &nbsp 
+			<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="EE" type="radio">Use eye pupil, eyepiece focal length
+		</td>
 	<tr class='apertureRow'>
 		<td class='label'>
 			 Aperture (inches) = 
 		</td>
 		<td>
-			<input class='inputText' name="apertureInches" value="13.2" onfocus="select()" type="text">
+			<input class='inputText' name="apertureInches" value="13.1" onfocus="select()" type="text">
 			<input ID="btnCalcAperture" value="Calculate aperture" type="button">
 			<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
 			limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.4" onfocus="select()" type="text">
+		</td>
+	</tr>
+	<tr class='focalRatioRow'>
+		<td class='label'>
+			 Focal ratio = 
+		</td>
+		<td>
+			<input class='inputText' name="focalRatio" value="3.54" onfocus="select()" type="text">
+			<input ID="btnCalcFocalRatio" value="Calculate focal ratio" type="button">
 		</td>
 	</tr>
 	<tr class='fieldOfViewRow'>
@@ -62,7 +72,7 @@
 			 True field of view (degrees) = 
 		</td>
 		<td>
-			<input class='inputText' name="FOVdeg" value="1.8" onfocus="select()" type="text">
+			<input class='inputText' name="FOVdeg" value="1.76" onfocus="select()" type="text">
 			<input ID="btnCalcFOV" value="Calculate true field of view" type="button">
 		</td>
 	</tr>
@@ -71,11 +81,11 @@
 			 Eye pupil (mm) = 
 		</td>
 		<td>
-			<input class='inputText' name="eyePupilmm" value="6.1" onfocus="select()" type="text">
+			<input class='inputText' name="eyePupilmm" value="5.94" onfocus="select()" type="text">
 			<input ID="btnCalcEyePupil" value="Calculate eye pupil" type="button">
 		</td>
 	</tr>
-	<tr class='eyepieceRow'>
+	<tr class='selectEyepieceRow'>
 		<td class='label'>
 			Select an eyepiece
 		</td>
@@ -86,23 +96,23 @@
 			x factor = <input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
 		</td>
 	</tr>
-	<tr class='eyepieceRow'>
+	<tr class='eyepieceFocalLengthRow'>
 		<td class='label'>
 			 or enter focal length (mm) =
 		</td>
 		<td>
 			<input class='inputText' name="eyepieceFocalLengthmm" value="21" onfocus="select()" type="text">
-			<input ID="btnCalcEyepieceFL" value="Calculate focal length" type="button">
+			<input ID="btnCalcEyepieceFocalLength" value="Calculate focal length" type="button">
 		</td>
 	</tr>
-	<tr class='eyepieceRow'>
+	<tr class='eyepieceFieldStopRow'>
 		<td class='label'>
 			 and field stop diameter (mm) = 
 		</td>
 		<td>
 			<input class='inputText' name="eyepieceFieldStopmm" value="36.2" onfocus="select()" type="text">
 			<input ID="btnCalcEyepieceFieldStop" value="Calculate field stop" type="button">
-			<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFL" value="or guess from" type="button">
+			<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
 			apparent field (deg)<input class='inputText' name="eyepieceApparentFielddeg" value="100" onfocus="select()" type="text">		
 		</td>
 	</tr>
@@ -116,92 +126,17 @@
 	</tbody>
 	</table>
 </div>
-<div>
-	<p>For more, see 
-	<a href="Telescope%20Magnification.html">magnification and its relationship</a> and
-	<a href="visual.html">visual detection and its relationship</a>.</p>
-	<br>
-	<h3>Four Criteria Calculator</h3>
-	<p>Alternatively, the telescope's focal ratio can be substituted for the eyepiece's focal length and our eye's pupil, giving four telescope design criteria:
-		<ul>
-			<li>the telescope's aperture</li>
-			<li>the telescope's real field of view</li>
-			<li>the telescope's focal ratio</li>
-			<li>the eyepiece's field stop diameter (defines the edge of the field of view at the focal plane)</li>
-		</ul>
-		Set any three of the criteria to compute the fourth.</p>
-</div>
-<div>
-	<table>
-	<tbody>
-	<tr class='apertureRow'>
-		<td class='label'>
-			 Aperture (inches) = 
-		</td>
-		<td>
-			<input class='inputText' name="apertureInchesT" value="13.2" onfocus="select()" type="text">
-			<input ID="btnCalcApertureT" value="Calculate aperture" type="button">
-			<input ID="btnCalcApertureFromLimitingMagnitudeT" value="or set from" type="button">
-			limiting magnitude<input class='inputText' name="limitingMagnitudeT" value="15.4" onfocus="select()" type="text">			
-		</td>
-	</tr>
-	<tr class='fieldOfViewRow'>
-		<td class='label'>
-			 True field of view (degrees) = 
-		</td>
-		<td>
-			<input class='inputText' name="FOVdegT" value="1.8" onfocus="select()" type="text">
-			<input ID="btnCalcFOVT" value="Calculate true field of view" type="button">
-		</td>
-	</tr>
-	<tr class='focalRatioRow'>
-		<td class='label'>
-			 Focal ratio = 
-		</td>
-		<td>
-			<input class='inputText' name="focalRatioT" value="3.4" onfocus="select()" type="text">
-			<input ID="btnCalcFocalRatioT" value="Calculate focal ratio" type="button">
-		</td>
-	</tr>
-	<tr class='eyepieceRow'>
-		<td class='label'>
-			Select an eyepiece
-		</td>
-		<td>
-			<select id='eyepiecesT'>
-			</select>
-			<input name="chBoxUseComaCorrectorT" type="checkbox">use coma corrector, 
-			x factor = <input class='inputText' name="comaCorrectorMagT" value="1.15" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr class='eyepieceRow'>
-		<td class='label'>
-			 or enter field stop diameter (mm) = 
-		</td>
-		<td>
-			<input class='inputText' name="eyepieceFieldStopmmT" value="36.2" onfocus="select()" type="text">
-			<input ID="btnCalcEyepieceFieldStopT" value="Calculate field stop" type="button">
-			<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFLT" value="or guess from" type="button">
-			apparent field (deg)<input class='inputText' name="eyepieceApparentFielddegT" value="100" onfocus="select()" type="text">	
-			, focal length (mm)<input class='inputText' name="eyepieceFocalLengthmmT" value="21" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			details are: 
-		</td>
-		<td id="detailsT">
-		</td>
-	</tr>
-	</tbody>
-	</table>
-</div>
-<br>
-by Mel Bartels<br>
 <br>
 <b>Notes:</b><br>
 <br>
+For more, see 
+<a href="The%20analyzed%20telescope.html">the analyzed telescope</a>, 
+<a href="Telescope%20Magnification.html">magnification</a> and
+<a href="visual.html">visual detection</a>.<br>
+<br>
 Stellar limiting magnitude calculated for low power. An additional magnitude can be gained by going to high power.<br>
+<br>
+eod
 <br>
 <br>
 </body>

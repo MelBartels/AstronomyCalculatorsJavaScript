@@ -1,22 +1,31 @@
-.inputText {
-	width: 35px;
-}
-.eyepieceRow {
-	background-color: #ddecef;
+.calculatorChoiceRow {
+	background-color: #e3e3e3;
 }
 .apertureRow {
-	background-color: #bfd9da;
+	background-color: #9ad3de;
+}
+.focalRatioRow {
+	background-color: #9ad3de;
 }
 .fieldOfViewRow {
-	background-color: #bdcccf;
+	background-color: #9ad3de;
 }
-.focalRatioRow, .eyePupilRow {
-	background-color: #9decbf;
+.eyePupilRow {
+	background-color: #c9c9c9;
+}
+.selectEyepieceRow {
+	background-color: #e3e3e3;
+}
+.eyepieceFocalLengthRow {
+	background-color: #e3e3e3;
+}
+.eyepieceFieldStopRow {
+	background-color: #e3e3e3;
 }
 input[type='button'] {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
-	background-color: #ff6060;
+	background-color: #89bdd3;
 }
 .inputText {
 	font-family: Verdana, Geneva, sans-serif;
@@ -27,3 +36,4 @@ input[type='button'] {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
 }
+
