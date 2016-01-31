@@ -31,7 +31,22 @@
 	<br>
 	Note that the second relationship uses focal ratio in place of eye pupil and eyepiece focal length.<br>
 	Also, the coma corrector is ignored by the first relationship: the coma corrector's magnification only matters for focal ratio and focal length.</p>
-</p>
+	
+	<p>Let's look at the relationships by comparing criteria.<br>
+	<br>
+	Example 1: Since <b>aperture</b>, <b>true field of view</b>, <b>eyepiece focal length</b> or <b>focal ratio</b> are all on one side of the equation, they oppose each other. That is, if one increases, another must decrease. Try it: increase <b>aperture</b> then press the 'Calculate true field of view' button. You'll see the <b>true field of view</b> decrease in response (be sure to turn on 'Use eye pupil, eyepiece focal length' first).<br>
+	<br>
+	Example 2: Similarly since <b>eyepiece field stop</b> and <b>eye pupil</b> are on the same side of the equation, they oppose each other. That is, if one increases then the other must decrease. Try it: increase the <b>eye pupil</b> then press the 'Calculate eyepiece field stop'. You'll see the <b>eyepiece field stop</b> decrease.<br>
+	<br>
+	Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'Calculate eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br>
+	<br>
+	We can use the criteria calculator in general to see how we need to change the telescope's specifications. If we want to increase aperture, then using the first relationship, we need to decrease either true field of view or eyepiece focal length, or, we need to increase the eyepiece field stop or eye pupil. If using the second relationship, then increasing aperture means decreasing either true field of view or the focal ratio (which changes the eye pupil) or increasing the eyepiece field stop.</p>
+	
+	<img src="telescopeCriteriaGraph1.jpg">
+	<img src="telescopeCriteriaGraph2.jpg">
+	<img src="telescopeCriteriaGraph3.jpg">
+	<img src="telescopeCriteriaGraph4.jpg">
+	<img src="telescopeCriteriaGraph5.jpg">
 
 	<h3>Calculator</h3>
 
@@ -103,6 +118,7 @@
 		<td>
 			<input class='inputText' name="eyepieceFocalLengthmm" value="21" onfocus="select()" type="text">
 			<input ID="btnCalcEyepieceFocalLength" value="Calculate focal length" type="button">
+			<input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calculate from focal ratio, eye pupil" type="button">			
 		</td>
 	</tr>
 	<tr class='eyepieceFieldStopRow'>
