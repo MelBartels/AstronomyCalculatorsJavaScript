@@ -14,23 +14,24 @@
 	<h2>Telescope Criteria Calculator</h2>
 	<h3>by Mel Bartels</h3>
 
-	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions.</p>
+	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Particularly frustrating for me has been optimizing for say, focal ratio, then being forced to accept whatever field of view comes from an eyepiece. I want to optimize any criteria against any other criteria to get the best of aperture, true field of view, focal ratio and eyepiece.</p>
 
 	<p>We are familiar with the standard relationships such as:<br>
 	<br>
-	&nbsp &nbsp focal ratio = eyepiece focal length / eye pupil &nbsp &nbsp (or eye pupil = eyepiece focal length / focal ratio)<br>
-	&nbsp &nbsp telescope focal length = focal ratio * mirror diameter &nbsp &nbsp (or focal ratio = telescope focal length / mirror diameter)</p>
+	&nbsp &nbsp &nbsp &nbsp    focal ratio = eyepiece focal length / eye pupil &nbsp &nbsp (or eye pupil = eyepiece focal length / focal ratio)<br>
+	&nbsp &nbsp &nbsp &nbsp    telescope focal length = focal ratio * mirror diameter &nbsp &nbsp (or focal ratio = telescope focal length / mirror diameter)</p>
 	 
 	<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum number of criteria?</p>
 	 
 	<p>The master equation should involve our eye; the eyepiece; and the telescope's aperture and true field of view. Adding the relationship:<br>
 	<br>
-	&nbsp &nbsp eyepiece field stop = telescope focal length * true field of view<br>
+	&nbsp &nbsp &nbsp &nbsp    eyepiece field stop = telescope focal length * true field of view<br>
+
+	<h4>Results in the two master relationships:</h4>
+
+ 	&nbsp &nbsp &nbsp &nbsp    aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil<br>
 	<br>
-	results in two master relationships:<br>
-	<br>
- 	&nbsp &nbsp aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil<br>
-	&nbsp &nbsp aperture * true field of view * focal ratio = eyepiece field stop<br>
+	&nbsp &nbsp &nbsp &nbsp    aperture * true field of view * focal ratio = eyepiece field stop<br>
 	<br>
 	Note that the second relationship uses focal ratio in place of eye pupil and eyepiece focal length.<br>
 	Also, the coma corrector is ignored by the first relationship: the coma corrector's magnification only matters for focal ratio and focal length.</p>
@@ -115,6 +116,14 @@
 			<input ID="btnCalcEyePupil" value="Calculate eye pupil" type="button">
 		</td>
 	</tr>
+	<tr>
+		<td>
+		</td>
+		<td class='comaCorrectorRow'>
+			<input name="chBoxUseComaCorrector" type="checkbox">use coma corrector, 
+			x factor = <input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
+		</td>
+	</tr>
 	<tr class='selectEyepieceRow'>
 		<td class='label'>
 			Select an eyepiece
@@ -122,13 +131,12 @@
 		<td>
 			<select id='eyepieces'>
 			</select>
-			<input name="chBoxUseComaCorrector" type="checkbox">use coma corrector, 
-			x factor = <input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
+			<input ID="btnCalcBestFitEyepiece" value="or calculate from focal ratio, eye pupil" type="button">
 		</td>
 	</tr>
 	<tr class='eyepieceFocalLengthRow'>
 		<td class='label'>
-			 or enter focal length (mm) =
+			 ...or enter focal length (mm) =
 		</td>
 		<td>
 			<input class='inputText' name="eyepieceFocalLengthmm" value="21" onfocus="select()" type="text">
@@ -169,7 +177,7 @@ Stellar limiting magnitude calculated for low power via the equation, 9.8 + 5 * 
 <br>
 I calculate resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
 <br>
-I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Instead I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.<br>
+I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Magnification is defined as the ratio of the object's size to its actual size. I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.<br>
 <br>
 eod
 <br>
