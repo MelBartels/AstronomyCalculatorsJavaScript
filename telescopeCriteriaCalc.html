@@ -72,12 +72,23 @@
 	<table>
 	<tbody>
 	<tr>
+		<td class="calcSectionHeader">
+			Select calculator style
+		</td>
+	</tr>
+	<tr class='calculatorChoiceRow'>
 		<td>
 		</td>
-		<td class='calculatorChoiceRow'>
+		<td>
 			<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="FR" type="radio" checked="checked">Use focal ratio or &nbsp 
 			<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="EE" type="radio">Use eye pupil, eyepiece focal length
 		</td>
+	</tr>
+	<tr>
+		<td class="calcSectionHeader">
+			Select telescope criteria
+		</td>
+	</tr>
 	<tr class='apertureRow'>
 		<td class='label'>
 			 Aperture (inches) = 
@@ -107,6 +118,11 @@
 			<input ID="btnCalcFOV" value="Calculate true field of view" type="button">
 		</td>
 	</tr>
+	<tr>
+		<td class="calcSectionHeader">
+			Select eye criteria
+		</td>
+	</tr>
 	<tr class='eyePupilRow'>
 		<td class='label'>
 			 Eye pupil (mm) = 
@@ -117,9 +133,14 @@
 		</td>
 	</tr>
 	<tr>
+		<td class="calcSectionHeader">
+			Select eyepiece criteria
+		</td>
+	</tr>
+	<tr class='comaCorrectorRow'>
 		<td>
 		</td>
-		<td class='comaCorrectorRow'>
+		<td>
 			<input name="chBoxUseComaCorrector" type="checkbox">use coma corrector, 
 			x factor = <input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
 		</td>
@@ -156,7 +177,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class='label'>
+		<td class='label calcSectionHeader'>
 			details are: 
 		</td>
 		<td id="details">
@@ -167,6 +188,8 @@
 </div>
 <br>
 <b>Notes:</b><br>
+<br>
+After selecting an eyepiece or having the calculator select an eyepiece, then continue by choosing an action such as calculating the new true field of view or the new aperture.<br>
 <br>
 For more, see 
 <a href="The%20analyzed%20telescope.html">the analyzed telescope</a>, also

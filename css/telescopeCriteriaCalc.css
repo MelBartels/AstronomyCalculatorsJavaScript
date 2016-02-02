@@ -1,34 +1,37 @@
+.calcSectionHeader {
+	font-weight: bold;
+}
 .calculatorChoiceRow {
-	background-color: #e3e3e3;
+	background-color: #dddddd;
 }
 .apertureRow {
-	background-color: #9ad3de;
+	background-color: #dddddd;
 }
 .focalRatioRow {
-	background-color: #9ad3de;
+	background-color: #dddddd;
 }
 .fieldOfViewRow {
-	background-color: #9ad3de;
+	background-color: #dddddd;
 }
 .eyePupilRow {
-	background-color: #c9c9c9;
+	background-color: #dddddd;
 }
 .comaCorrectorRow {
-	background-color: #c9c9c9;
+	background-color: #dddddd;
 }
 .selectEyepieceRow {
-	background-color: #e3e3e3;
+	background-color: #dddddd;
 }
 .eyepieceFocalLengthRow {
-	background-color: #e3e3e3;
+	background-color: #dddddd;
 }
 .eyepieceFieldStopRow {
-	background-color: #e3e3e3;
+	background-color: #dddddd;
 }
 input[type='button'] {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
-	background-color: #89bdd3;
+	background-color: #dd8888;
 }
 .inputText {
 	font-family: Verdana, Geneva, sans-serif;
