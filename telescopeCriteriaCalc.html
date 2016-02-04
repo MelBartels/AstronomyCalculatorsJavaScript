@@ -17,7 +17,7 @@
 		<tbody>
 		<tr>
 			<td class="calcSectionHeader">
-				Select calculator
+				Select calculator...
 			</td>
 		</tr>
 		<tr class='calculatorChoiceRow'>
@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<td class="calcSectionHeader">
-				Select telescope criteria
+				Select telescope...
 			</td>
 		</tr>
 		<tr class='apertureRow'>
@@ -39,7 +39,7 @@
 			</td>
 			<td>
 				<input class='inputText' name="apertureInches" value="12" onfocus="select()" type="text">
-				<input ID="btnCalcAperture" value="Calculate aperture" type="button">
+				<input ID="btnCalcAperture" value="Calc aperture" type="button">
 				<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
 				limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.2" onfocus="select()" type="text">
 			</td>
@@ -50,7 +50,7 @@
 			</td>
 			<td>
 				<input class='inputText' name="focalRatio" value="4" onfocus="select()" type="text">
-				<input ID="btnCalcFocalRatio" value="Calculate focal ratio" type="button">
+				<input ID="btnCalcFocalRatio" value="Calc focal ratio" type="button">
 			</td>
 		</tr>
 		<tr class='fieldOfViewRow'>
@@ -59,12 +59,12 @@
 			</td>
 			<td>
 				<input class='inputText' name="FOVdeg" value="1.57" onfocus="select()" type="text">
-				<input ID="btnCalcFOV" value="Calculate true field of view" type="button">
+				<input ID="btnCalcFOV" value="Calc true field of view" type="button">
 			</td>
 		</tr>
 		<tr>
 			<td class="calcSectionHeader">
-				Select eye criteria
+				Select eye...
 			</td>
 		</tr>
 		<tr class='eyePupilRow'>
@@ -73,12 +73,12 @@
 			</td>
 			<td>
 				<input class='inputText' name="eyePupilmm" value="6" onfocus="select()" type="text">
-				<input ID="btnCalcEyePupil" value="Calculate eye pupil" type="button">
+				<input ID="btnCalcEyePupil" value="Calc eye pupil" type="button">
 			</td>
 		</tr>
 		<tr>
 			<td class="calcSectionHeader">
-				Select eyepiece criteria
+				Select eyepiece...
 			</td>
 		</tr>
 		<tr class='comaCorrectorRow'>
@@ -96,7 +96,7 @@
 			<td>
 				<select id='eyepieces'>
 				</select>
-				<input ID="btnCalcBestFitEyepiece" value="or calculate from focal ratio, eye pupil" type="button">
+				<input ID="btnCalcBestFitEyepiece" value="or calc from focal ratio, eye pupil" type="button">
 			</td>
 		</tr>
 		<tr class='eyepieceFocalLengthRow'>
@@ -105,8 +105,8 @@
 			</td>
 			<td>
 				<input class='inputText' name="eyepieceFocalLengthmm" value="24" onfocus="select()" type="text">
-				<input ID="btnCalcEyepieceFocalLength" value="Calculate focal length" type="button">
-				<input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calculate from focal ratio, eye pupil" type="button">			
+				<input ID="btnCalcEyepieceFocalLength" value="Calc focal length" type="button">
+				<input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calc from focal ratio, eye pupil" type="button">			
 			</td>
 		</tr>
 		<tr class='eyepieceFieldStopRow'>
@@ -115,20 +115,18 @@
 			</td>
 			<td>
 				<input class='inputText' name="eyepieceFieldStopmm" value="33.5" onfocus="select()" type="text">
-				<input ID="btnCalcEyepieceFieldStop" value="Calculate field stop" type="button">
+				<input ID="btnCalcEyepieceFieldStop" value="Calc field stop" type="button">
 				<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
 				apparent field (deg)<input class='inputText' name="eyepieceApparentFielddeg" value="82" onfocus="select()" type="text">		
 			</td>
 		</tr>
 		<tr class='calcSectionHeader'>
 			<td>
-				Details are 
+				Specifications: 
 			</td>
 		</tr>
-		<tr class='detailsRow'>
-			<td>
-			</td>
-			<td id="details">
+		<tr class='specsRow'>
+			<td id="specs" colspan='2'>
 			</td>
 		</tr>
 		</tbody>
@@ -139,42 +137,43 @@
 
 		<p>We are familiar with the standard relationships such as:<br>
 		<br>
-		&nbsp &nbsp &nbsp &nbsp    focal ratio = eyepiece focal length / eye pupil &nbsp &nbsp (or eye pupil = eyepiece focal length / focal ratio)<br>
+		<span class='indent equation'>focal ratio = eyepiece focal length / eye pupil</span><span class='indent equation'>(or eye pupil = eyepiece focal length / focal ratio)</span><br>
 		<br>
-		&nbsp &nbsp &nbsp &nbsp    telescope focal length = focal ratio * mirror diameter &nbsp &nbsp (or focal ratio = telescope focal length / mirror diameter)</p>
+		<span class='indent equation'>telescope focal length = focal ratio * mirror diameter</span><span class='indent equation'>(or focal ratio = telescope focal length / mirror diameter)</span></p>
 		 
 		<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum number of criteria?</p>
 		 
 		<p>The master equation should involve our eye; the eyepiece; and the telescope's aperture and true field of view. Adding the relationship:<br>
 		<br>
-		&nbsp &nbsp &nbsp &nbsp    eyepiece field stop = telescope focal length * true field of view<br>
+		<span class='indent equation'>eyepiece field stop = telescope focal length * true field of view</span><br>
 
 		<h4>Results in the two master relationships:</h4>
 
-		&nbsp &nbsp &nbsp &nbsp    aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil<br>
+		<span class='indent equation'>aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil</span><br>
 		<br>
-		&nbsp &nbsp &nbsp &nbsp    aperture * true field of view * focal ratio = eyepiece field stop<br>
+		<span class='indent equation'>aperture * true field of view * focal ratio = eyepiece field stop</span><br>
 		<br>
 		Note that the second relationship uses focal ratio in place of eye pupil and eyepiece focal length.<br>
 		Also, the coma corrector is ignored by the first relationship: the coma corrector's magnification only matters for focal ratio and focal length.</p>
 		
 		<h4>Definitions</h4>
 		
-		<p>Aperture is the diameter of the telescope's main mirror or lens.<br>
-		True field of view is the angle of the sky as seen through the eyepiece when used with the telescope.<br>
-		Eyepiece focal length is the distance from the entrance of the eyepiece (where the parallel rays of light begin to converge) to its focal point.<br>
-		Eyepiece field stop is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
-		Eye pupil is the diameter of the opening of the eye's iris.</p>
+		<p><b>Aperture</b> is the diameter of the telescope's main mirror or lens.<br>
+		<b>True field of view</b> is the angle of the sky as seen through the eyepiece when used with the telescope.<br>
+		<b>Focal ratio</b> is found by dividing the telescope focal length by the diameter of the mirror or lens.<br>
+		<b>Eyepiece focal length</b> is the distance from the entrance of the eyepiece (where the parallel rays of light begin to converge) to its focal point.<br>
+		<b>Eyepiece field stop</b> is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
+		<b>Eye pupil</b> is the diameter of the opening of the eye's iris.</p>
 		
 		<h4>Comparing criteria</h4>
 		
 		<p>Let's look at the relationships by comparing criteria.<br>
 		<br>
-		Example 1: Since <b>aperture</b>, <b>true field of view</b>, <b>eyepiece focal length</b> or <b>focal ratio</b> are all on one side of the equation, they oppose each other. That is, if one increases, another must decrease. Try it: increase <b>aperture</b> then press the 'Calculate true field of view' button. You'll see the <b>true field of view</b> decrease in response (be sure to turn on 'Use eye pupil, eyepiece focal length' first).<br>
+		Example 1: Since <b>aperture</b>, <b>true field of view</b>, <b>eyepiece focal length</b> or <b>focal ratio</b> are all on one side of the equation, they oppose each other. That is, if one increases, another must decrease. Try it: increase <b>aperture</b> then press the 'Calc true field of view' button. You'll see the <b>true field of view</b> decrease in response (be sure to turn on 'Use eye pupil, eyepiece focal length' first).<br>
 		<br>
-		Example 2: Similarly since <b>eyepiece field stop</b> and <b>eye pupil</b> are on the same side of the equation, they oppose each other. That is, if one increases then the other must decrease. Try it: increase the <b>eye pupil</b> then press the 'Calculate eyepiece field stop'. You'll see the <b>eyepiece field stop</b> decrease.<br>
+		Example 2: Similarly since <b>eyepiece field stop</b> and <b>eye pupil</b> are on the same side of the equation, they oppose each other. That is, if one increases then the other must decrease. Try it: increase the <b>eye pupil</b> then press the 'Calc eyepiece field stop'. You'll see the <b>eyepiece field stop</b> decrease.<br>
 		<br>
-		Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'Calculate eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br>
+		Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'Calc eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br>
 		<br>
 
 		<img src="telescopeCriteriaGraph1.jpg">
@@ -191,7 +190,7 @@
 
 		<p>Stellar limiting magnitude calculated for low power via the equation, 9.8 + 5 * log10(aperture inches). An additional magnitude or more can be gained by going to high power.<br>
 		<br>
-		I calculate resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
+		I calc resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
 		<br>
 		I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Magnification is defined as the ratio of the object's size to its actual size. I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.</p>
 
@@ -204,11 +203,11 @@
 		<br>
 		<br>
 	</div>
+	<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+	<script src="lib/sharedLib.js"></script>
+	<script src="lib/coordLib.js"></script>
+	<script src="lib/calcLib.js"></script>
+	<script src="lib/telescopeCriteriaCalc.js"></script>
+	<script src="lib/json/eyepieces.js"></script>
 </body>
-<script src="lib/jquery/jquery-2.1.1.min.js"></script>
-<script src="lib/sharedLib.js"></script>
-<script src="lib/coordLib.js"></script>
-<script src="lib/calcLib.js"></script>
-<script src="lib/telescopeCriteriaCalc.js"></script>
-<script src="lib/json/eyepieces.js"></script>
 </html>

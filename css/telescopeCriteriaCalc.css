@@ -28,13 +28,19 @@
 .eyepieceFieldStopRow {
 	background-color: #dddddd;
 }
-.detailsRow {
+.specsRow {
 	background-color: #dddddd;
 }	
 input[type='button'] {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
 	background-color: #dd8888;
+}
+.indent {
+	padding-left: 50px;
+}
+.equation {
+	font-style: italic;
 }
 .inputText {
 	font-family: Verdana, Geneva, sans-serif;
