@@ -40,7 +40,8 @@
 			<td>
 				<input class='inputText' name="apertureInches" value="12" onfocus="select()" type="text">
 				<input ID="btnCalcAperture" value="Calc aperture" type="button">
-				<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
+				<br><span class='indent equation'></span><input ID="btnCalcApertureFromFocalRatio_FocalLength" value="or calc from focal ratio, focal length" type="button">
+				<br><span class='indent equation'></span><input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
 				limiting magnitude<input class='inputText' name="limitingMagnitude" value="15.2" onfocus="select()" type="text">
 			</td>
 		</tr>
@@ -51,6 +52,16 @@
 			<td>
 				<input class='inputText' name="focalRatio" value="4" onfocus="select()" type="text">
 				<input ID="btnCalcFocalRatio" value="Calc focal ratio" type="button">
+				<br><span class='indent equation'></span><input ID="btnCalcFocalRatioFromAperture_FocalLength" value="or calc from aperture, focal length" type="button">
+			</td>
+		</tr>
+		<tr class='telescopeFocalLengthRow'>
+			<td class='label'>
+				 Focal length = 
+			</td>
+			<td>
+				<input class='inputText' name="telescopeFocalLength" value="48" onfocus="select()" type="text">
+				<input ID="btnCalcTelescopeFocalLengthFromAperture_FocalRatio" value="Calc from aperture, focal ratio" type="button">
 			</td>
 		</tr>
 		<tr class='fieldOfViewRow'>
@@ -96,7 +107,8 @@
 			<td>
 				<select id='eyepieces'>
 				</select>
-				<input ID="btnCalcBestFitEyepiece" value="or calc from focal ratio, eye pupil" type="button">
+				<br><span class='indent equation'></span><input ID="btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil" value="or calc from focal ratio, eye pupil" type="button">
+				<br><span class='indent equation'></span><input ID="btnCalcEyepieceWidestFieldForEyePupil" value="or find widest field for eye pupil" type="button">			
 			</td>
 		</tr>
 		<tr class='eyepieceFocalLengthRow'>
@@ -106,7 +118,7 @@
 			<td>
 				<input class='inputText' name="eyepieceFocalLengthmm" value="24" onfocus="select()" type="text">
 				<input ID="btnCalcEyepieceFocalLength" value="Calc focal length" type="button">
-				<input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calc from focal ratio, eye pupil" type="button">			
+				<br><span class='indent equation'></span><input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calc from focal ratio, eye pupil" type="button">			
 			</td>
 		</tr>
 		<tr class='eyepieceFieldStopRow'>
@@ -116,7 +128,7 @@
 			<td>
 				<input class='inputText' name="eyepieceFieldStopmm" value="33.5" onfocus="select()" type="text">
 				<input ID="btnCalcEyepieceFieldStop" value="Calc field stop" type="button">
-				<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
+				<br><span class='indent equation'></span><input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
 				apparent field (deg)<input class='inputText' name="eyepieceApparentFielddeg" value="82" onfocus="select()" type="text">		
 			</td>
 		</tr>
@@ -135,11 +147,11 @@
 	<div>
 		<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Particularly frustrating for me has been optimizing for say, focal ratio, then being forced to accept whatever field of view comes from an eyepiece. I want to optimize any criteria against any other criteria to get the best of aperture, true field of view, focal ratio and eyepiece.</p>
 
-		<p>We are familiar with the standard relationships such as:<br>
+		<p>We are familiar with the standard relationships:<br>
 		<br>
-		<span class='indent equation'>focal ratio = eyepiece focal length / eye pupil</span><span class='indent equation'>(or eye pupil = eyepiece focal length / focal ratio)</span><br>
+		<span class='indent equation'>telescope focal length = focal ratio * aperture</span><span class='indent equation'>(better known as, focal ratio = telescope focal length / aperture)</span><br>
 		<br>
-		<span class='indent equation'>telescope focal length = focal ratio * mirror diameter</span><span class='indent equation'>(or focal ratio = telescope focal length / mirror diameter)</span></p>
+		<span class='indent equation'>eyepiece focal length = focal ratio * eye pupil</span><span class='indent equation'>(better known as, eye pupil = eyepiece focal length / focal ratio)</span></p>
 		 
 		<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum number of criteria?</p>
 		 

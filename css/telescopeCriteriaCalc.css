@@ -1,33 +1,16 @@
 .calcSectionHeader {
 	font-weight: bold;
 }
-.calculatorChoiceRow {
-	background-color: #dddddd;
-}
-.apertureRow {
-	background-color: #dddddd;
-}
-.focalRatioRow {
-	background-color: #dddddd;
-}
-.fieldOfViewRow {
-	background-color: #dddddd;
-}
-.eyePupilRow {
-	background-color: #dddddd;
-}
-.comaCorrectorRow {
-	background-color: #dddddd;
-}
-.selectEyepieceRow {
-	background-color: #dddddd;
-}
-.eyepieceFocalLengthRow {
-	background-color: #dddddd;
-}
-.eyepieceFieldStopRow {
-	background-color: #dddddd;
-}
+.calculatorChoiceRow,
+.apertureRow,
+.focalRatioRow,
+.telescopeFocalLengthRow,
+.fieldOfViewRow,
+.eyePupilRow,
+.comaCorrectorRow,
+.selectEyepieceRow,
+.eyepieceFocalLengthRow,
+.eyepieceFieldStopRow,
 .specsRow {
 	background-color: #dddddd;
 }	
@@ -37,10 +20,14 @@ input[type='button'] {
 	background-color: #dd8888;
 }
 .indent {
-	padding-left: 50px;
+	padding-left: 56px;
 }
 .equation {
 	font-style: italic;
+}
+.label {
+	text-align: right; 
+	vertical-align: top;
 }
 .inputText {
 	font-family: Verdana, Geneva, sans-serif;
