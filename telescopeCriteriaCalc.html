@@ -12,6 +12,9 @@
 <body>
 	<h2>Telescope Criteria Calculator</h2>
 	<h3>by Mel Bartels</h3>
+	
+	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any criteria against any other criteria to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
+
 	<div>
 		<table>
 		<tbody>
@@ -107,8 +110,8 @@
 			<td>
 				<select id='eyepieces'>
 				</select>
-				<br><span class='indent equation'></span><input ID="btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil" value="or calc from focal ratio, eye pupil" type="button">
-				<br><span class='indent equation'></span><input ID="btnCalcEyepieceWidestFieldForEyePupil" value="or find widest field for eye pupil" type="button">			
+				<br><span class='indent'></span><input ID="btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil" value="or calc from focal ratio, eye pupil" type="button">
+				<br><span class='indent'></span><input ID="btnCalcEyepieceWidestFieldForEyePupil" value="or find widest field for eye pupil" type="button">			
 			</td>
 		</tr>
 		<tr class='eyepieceFocalLengthRow'>
@@ -118,7 +121,7 @@
 			<td>
 				<input class='inputText' name="eyepieceFocalLengthmm" value="24" onfocus="select()" type="text">
 				<input ID="btnCalcEyepieceFocalLength" value="Calc focal length" type="button">
-				<br><span class='indent equation'></span><input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calc from focal ratio, eye pupil" type="button">			
+				<br><span class='indent'></span><input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calc from focal ratio, eye pupil" type="button">			
 			</td>
 		</tr>
 		<tr class='eyepieceFieldStopRow'>
@@ -128,7 +131,7 @@
 			<td>
 				<input class='inputText' name="eyepieceFieldStopmm" value="33.5" onfocus="select()" type="text">
 				<input ID="btnCalcEyepieceFieldStop" value="Calc field stop" type="button">
-				<br><span class='indent equation'></span><input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
+				<br><span class='indent'></span><input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
 				apparent field (deg)<input class='inputText' name="eyepieceApparentFielddeg" value="82" onfocus="select()" type="text">		
 			</td>
 		</tr>
@@ -145,10 +148,8 @@
 		</table>
 	</div>
 	<div>
-		<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Particularly frustrating for me has been optimizing for say, focal ratio, then being forced to accept whatever field of view comes from an eyepiece. I want to optimize any criteria against any other criteria to get the best of aperture, true field of view, focal ratio and eyepiece.</p>
+		<h4>We are familiar with the standard relationships:</h4>
 
-		<p>We are familiar with the standard relationships:<br>
-		<br>
 		<span class='indent equation'>telescope focal length = focal ratio * aperture</span><span class='indent equation'>(better known as, focal ratio = telescope focal length / aperture)</span><br>
 		<br>
 		<span class='indent equation'>eyepiece focal length = focal ratio * eye pupil</span><span class='indent equation'>(better known as, eye pupil = eyepiece focal length / focal ratio)</span></p>
@@ -202,7 +203,7 @@
 
 		<p>Stellar limiting magnitude calculated for low power via the equation, 9.8 + 5 * log10(aperture inches). An additional magnitude or more can be gained by going to high power.<br>
 		<br>
-		I calc resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
+		I calculate resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
 		<br>
 		I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Magnification is defined as the ratio of the object's size to its actual size. I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.</p>
 
