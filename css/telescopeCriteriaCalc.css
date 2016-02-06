@@ -17,13 +17,27 @@
 input[type='button'] {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
-	background-color: #dd8888;
 }
-.indent {
-	padding-left: 56px;
+#btnCalcAperture, 
+#btnCalcFocalRatio, 
+#btnCalcFOV, 
+#btnCalcEyePupil, 
+#btnCalcEyepieceFocalLength, 
+#btnCalcEyepieceFieldStop {
+	background-color: #ffcccc;
 }
-.equation {
-	font-style: italic;
+#btnCalcApertureFromFocalRatio_FocalLength, 
+#btnCalcFocalRatioFromAperture_FocalLength, 
+#btnCalcTelescopeFocalLengthFromAperture_FocalRatio,
+input[name=telescopeFocalLength] {
+	background-color: #ccccff;
+}}
+#btnCalcApertureFromLimitingMagnitude, 
+#btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil, 
+#btnCalcEyepieceWidestFieldForEyePupil, 
+#btnCalcEyepieceFocalLengthFromFocalRatioEyePupil, 
+#btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength {
+	//background-color: #dd8888;
 }
 .label {
 	text-align: right; 
@@ -38,4 +52,9 @@ input[type='button'] {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
 }
-
+.indent {
+	padding-left: 56px;
+}
+.equation {
+	font-style: italic;
+}
