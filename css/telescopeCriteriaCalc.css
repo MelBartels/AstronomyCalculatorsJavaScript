@@ -14,7 +14,27 @@
 .specsRow {
 	background-color: #dddddd;
 }	
+.inputText {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+	width: 50px;
+}
+#eyepieces {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+}
+.label {
+	text-align: right; 
+	vertical-align: top;
+}
+.indent {
+	padding-left: 56px;
+}
+.equation {
+	font-style: italic;
+}
 input[type='button'] {
+	text-align: left;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
 }
@@ -31,30 +51,32 @@ input[type='button'] {
 #btnCalcTelescopeFocalLengthFromAperture_FocalRatio,
 input[name=telescopeFocalLength] {
 	background-color: #ccccff;
-}}
+}
 #btnCalcApertureFromLimitingMagnitude, 
 #btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil, 
 #btnCalcEyepieceWidestFieldForEyePupil, 
 #btnCalcEyepieceFocalLengthFromFocalRatioEyePupil, 
+#btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength,
+input[name=limitingMagnitude],
+input[name=eyepieceApparentFielddeg] {
+	background-color: #ccffcc;
+}
+#btnCalcAperture, 
+#btnCalcFocalRatio, 
+#btnCalcFOV, 
+#btnCalcEyePupil, 
+#btnCalcEyepieceFocalLength, 
+#btnCalcEyepieceFieldStop,
+#btnCalcApertureFromFocalRatio_FocalLength, 
+#btnCalcFocalRatioFromAperture_FocalLength, 
+#btnCalcTelescopeFocalLengthFromAperture_FocalRatio,
+#btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil, 
+#btnCalcEyepieceWidestFieldForEyePupil, 
+#btnCalcEyepieceFocalLengthFromFocalRatioEyePupil {
+	width: 450px;
+}
+#btnCalcApertureFromLimitingMagnitude, 
 #btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength {
-	//background-color: #dd8888;
+	width: 130px;
 }
-.label {
-	text-align: right; 
-	vertical-align: top;
-}
-.inputText {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1em;
-	width: 50px;
-}
-#eyepieces {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1em;
-}
-.indent {
-	padding-left: 56px;
-}
-.equation {
-	font-style: italic;
-}
+	
