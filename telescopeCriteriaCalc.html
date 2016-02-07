@@ -29,7 +29,7 @@
 			</td>
 			<td>
 				<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="FR" type="radio" checked="checked">Use focal ratio or &nbsp 
-				<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="EE" type="radio">Use eye pupil, eyepiece focal length
+				<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="EE" type="radio">Use eye pupil, eyepiece FL
 			</td>
 		</tr>
 		<tr>
@@ -70,7 +70,7 @@
 		</tr>
 		<tr class='fieldOfViewRow'>
 			<td class='label'>
-				 True field of view (degrees) = 
+				 True field of view (FOV) (degrees) = 
 			</td>
 			<td>
 				<input class='inputText' name="FOVdeg" value="1.57" onfocus="select()" type="text">
@@ -112,12 +112,12 @@
 				<select id='eyepieces'>
 				</select>
 				<input ID="btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil" value="or calc from focal ratio, eye pupil" type="button">
-				<input ID="btnCalcEyepieceWidestFieldForEyePupil" value="or find widest field from eye pupil" type="button">			
+				<input ID="btnCalcEyepieceWidestFieldForEyePupil" value="or find widest FOV from eye pupil" type="button">			
 			</td>
 		</tr>
 		<tr class='eyepieceFocalLengthRow'>
 			<td class='label'>
-				 ...or enter focal length (mm) =
+				 ...or enter focal length (FL) (mm) =
 			</td>
 			<td>
 				<input class='inputText' name="eyepieceFocalLengthmm" value="24" onfocus="select()" type="text">
@@ -200,11 +200,11 @@
 		<img src="telescopeCriteriaGraph4.jpg">
 		<img src="telescopeCriteriaGraph5.jpg">
 		
-		<p>Increase aperture: increase eyepiece field stop, eye pupil, decrease true field of view, eyepiece focal length, focal ratio<br>
-		Increase true field of view: increase eyepiece field stop, eye pupil, decrease aperture, eyepiece focal length, focal ratio<br>
-		Increase focal ratio: increase eyepiece field stop, decrease aperture, true field of view<br>
-		Increase eyepiece focal length: increase eyepiece field stop, eye pupil, decrease aperture, true field of view<br>		
-		Increase eyepiece field stop: increase aperture, true field of view, eyepiece focal length, focal ratio, decrease eye pupil</p>
+		<p>Increase aperture: increase eyepiece field stop, increase eye pupil, decrease true field of view, decrease eyepiece focal length, decrease focal ratio<br>
+		Increase true field of view: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease eyepiece focal length, decrease focal ratio<br>
+		Increase focal ratio: increase eyepiece field stop, decrease aperture, decrease true field of view<br>
+		Increase eyepiece focal length: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease true field of view<br>		
+		Increase eyepiece field stop: increase aperture, increase true field of view, increase eyepiece focal length, increase focal ratio, decrease eye pupil</p>
 
 		<br>
 		<p>Stellar limiting magnitude calculated for low power via the equation, 9.8 + 5 * log10(aperture inches). An additional magnitude or more can be gained by going to high power.<br>
