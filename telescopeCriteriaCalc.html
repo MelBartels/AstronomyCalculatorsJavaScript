@@ -44,8 +44,8 @@
 			<td>
 				<input class='inputText' name="apertureInches" value="12" onfocus="select()" type="text">
 				<input ID="btnCalcAperture" value="Calc aperture" type="button">
-				<!----><input ID="btnCalcApertureFromFocalRatio_FocalLength" value="or calc from focal ratio, focal length" type="button">
-				<!----><input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
+				<input ID="btnCalcApertureFromFocalRatio_FocalLength" value="or calc from focal ratio, focal length" type="button">
+				<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
 				limiting magnitude <input class='inputText' name="limitingMagnitude" value="15.2" onfocus="select()" type="text">
 			</td>
 		</tr>
@@ -56,7 +56,7 @@
 			<td>
 				<input class='inputText' name="focalRatio" value="4" onfocus="select()" type="text">
 				<input ID="btnCalcFocalRatio" value="Calc focal ratio" type="button">
-				<!----><input ID="btnCalcFocalRatioFromAperture_FocalLength" value="or calc from aperture, focal length" type="button">
+				<input ID="btnCalcFocalRatioFromAperture_FocalLength" value="or calc from aperture, focal length" type="button">
 			</td>
 		</tr>
 		<tr class='telescopeFocalLengthRow'>
@@ -138,11 +138,14 @@
 		</tr>
 		<tr class='calcSectionHeader'>
 			<td>
-				Specifications: 
+				<br>
 			</td>
 		</tr>
 		<tr class='specsRow'>
-			<td id="specs" colspan='2'>
+			<td class='label'>
+				Specifications: 
+			</td>
+			<td id="specs">
 			</td>
 		</tr>
 		</tbody>
