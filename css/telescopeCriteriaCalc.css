@@ -6,13 +6,16 @@
 	font-size: 1em;
 	width: 50px;
 }
-#eyepieces {
+#eyepieceSelect {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
 }
-.label {
-	text-align: right; 
-	vertical-align: top;
+/* match with JavaScript generated css */
+.columnHeaders {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 1em;
+	font-weight: bold;
+	padding-right: 10px;
 }
 .indent {
 	padding-left: 56px;
@@ -24,4 +27,37 @@ input[type='button'] {
 	text-align: left;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 1em;
+}
+.label {
+	text-align: right; 
+	vertical-align: top;
+}
+.titleFlexArea {
+	display: flex; 
+	align-items: center;
+}
+@media all and (min-width: 0px) {
+	.titleSection {
+		clear: both;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.titleImg {
+		float: left;
+		padding: 1%; 
+		width: 60%;
+		height: 60%;
+	}
+@media all and (min-width: 768px) {
+	.titleSection {
+		clear: both;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.titleImg {
+		float: left;
+		padding: 1%; 
+		width: 30%;
+		height: 30%;
+	}
 }

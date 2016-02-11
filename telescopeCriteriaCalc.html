@@ -1,165 +1,204 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta content="Mel Bartels" name="author">
-	<meta content="Calculates and compares criteria for a telescope" name="description">
-	<title>Telescope Criteria Calculator</title>
-	<meta content="initial-scale=1" name="viewport">
-	<link href="Saucer32.ico" rel="shortcut icon">
-	<link rel="stylesheet" type="text/css" href="css/calc.css">
-	<link rel="stylesheet" type="text/css" href="css/telescopeCriteriaCalc.css">
+	<meta content='Mel Bartels' name='author'>
+	<meta content='Optimizers a (reflecting) telescope design' name='description'>
+	<title>Telescope Design Optimizer</title>
+	<meta content='initial-scale=1' name='viewport'>
+	<link href='Saucer32.ico' rel='shortcut icon'>
+	<link rel='stylesheet' type='text/css' href='css/calc.css'>
+	<link rel='stylesheet' type='text/css' href='css/telescopeCriteriaCalc.css'>
 </head>
 <body>
-	<h2>Telescope Criteria Calculator</h2>
-	<h3>by Mel Bartels</h3>
-	
-	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any criteria against any other criteria to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
 
-	<br>
+    <div class="titleSection">
+        <div class="titleFlexArea">
+            <div>
+                <h2>Telescope and Eyepiece Optimizer</h2>
+                <h3>by Mel Bartels</h3>
+            </div>
+            <div>
+				<img class="titleImg" 
+				src="10.5inchF2.7/10.5 inch finished 4.JPG">
+			</div>
+        </div>
+    </div>
+	
+	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any parameter against any other parameter to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
+
+	<h3>Telescope Optimizer</h3>
+
 	<div>
 		<table>
 		<tbody>
 		<tr>
-			<td class="calcSectionHeader">
+			<td class='calcSectionHeader'>
 				Select calculator...
 			</td>
-		</tr>
-		<tr class='calculatorChoiceRow'>
 			<td>
-			</td>
-			<td>
-				<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="FR" type="radio" checked="checked">Use focal ratio or &nbsp 
-				<input name="focalRatioOrEyePupil_EyepieceFocalLength" value="EE" type="radio">Use eye pupil, eyepiece FL
+				<input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='FR' type='radio' checked='checked'>Use focal ratio or &nbsp 
+				<input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='EE' type='radio'>Use eye pupil, eyepiece FL
 			</td>
 		</tr>
 		<tr>
-			<td class="calcSectionHeader">
-				Select telescope...
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Telescope...
 			</td>
 		</tr>
-		<tr class='apertureRow'>
+		<tr>
 			<td class='label'>
 				 Aperture (inches) = 
 			</td>
 			<td>
-				<input class='inputText' name="apertureInches" value="12" onfocus="select()" type="text">
-				<input ID="btnCalcAperture" value="Calc aperture" type="button">
-				<input ID="btnCalcApertureFromFocalRatio_FocalLength" value="or calc from focal ratio, focal length" type="button">
-				<input ID="btnCalcApertureFromLimitingMagnitude" value="or set from" type="button">
-				limiting magnitude <input class='inputText' name="limitingMagnitude" value="15.2" onfocus="select()" type="text">
+				<input class='inputText' name='apertureInches' value='12' onfocus='select()' type='text'>
+				<input ID='btnCalcAperture' value='calc aperture' type='button'>
+				<input ID='btnCalcApertureFromFocalRatio_FocalLength' value='calc from focal ratio, focal length' type='button'>
+				<input ID='btnCalcApertureFromLimitingMagnitude' value='set from' type='button'>
+				limiting magnitude <input class='inputText' name='limitingMagnitude' value='15.2' onfocus='select()' type='text'>
 			</td>
 		</tr>
-		<tr class='focalRatioRow'>
+		<tr>
 			<td class='label'>
 				 Focal ratio = 
 			</td>
 			<td>
-				<input class='inputText' name="focalRatio" value="4" onfocus="select()" type="text">
-				<input ID="btnCalcFocalRatio" value="Calc focal ratio" type="button">
-				<input ID="btnCalcFocalRatioFromAperture_FocalLength" value="or calc from aperture, focal length" type="button">
+				<input class='inputText' name='focalRatio' value='4' onfocus='select()' type='text'>
+				<input ID='btnCalcFocalRatio' value='calc focal ratio' type='button'>
+				<input ID='btnCalcFocalRatioFromAperture_FocalLength' value='calc from aperture, focal length' type='button'>
 			</td>
 		</tr>
-		<tr class='telescopeFocalLengthRow'>
+		<tr>
 			<td class='label'>
 				 Focal length = 
 			</td>
 			<td>
-				<input class='inputText' name="telescopeFocalLength" value="48" onfocus="select()" type="text">
-				<input ID="btnCalcTelescopeFocalLengthFromAperture_FocalRatio" value="Calc from aperture, focal ratio" type="button">
-			</td>
-		</tr>
-		<tr class='fieldOfViewRow'>
-			<td class='label'>
-				 True field of view (FOV) (degrees) = 
-			</td>
-			<td>
-				<input class='inputText' name="FOVdeg" value="1.57" onfocus="select()" type="text">
-				<input ID="btnCalcFOV" value="Calc true field of view" type="button">
+				<input class='inputText' name='telescopeFocalLength' value='48' onfocus='select()' type='text'>
+				<input ID='btnCalcTelescopeFocalLengthFromAperture_FocalRatio' value='calc from aperture, focal ratio' type='button'>
 			</td>
 		</tr>
 		<tr>
-			<td class="calcSectionHeader">
-				Select eye...
+			<td class='label'>
+				 True field of view (FOV) (deg) = 
+			</td>
+			<td>
+				<input class='inputText' name='FOVdeg' value='1.57' onfocus='select()' type='text'>
+				<input ID='btnCalcFOV' value='calc true field of view' type='button'>
 			</td>
 		</tr>
-		<tr class='eyePupilRow'>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Eye...
+			</td>
+		</tr>
+		<tr>
 			<td class='label'>
 				 Eye pupil (mm) = 
 			</td>
 			<td>
-				<input class='inputText' name="eyePupilmm" value="6" onfocus="select()" type="text">
-				<input ID="btnCalcEyePupil" value="Calc eye pupil" type="button">
+				<input class='inputText' name='eyePupilmm' value='6' onfocus='select()' type='text'>
+				<input ID='btnCalcEyePupil' value='calc eye pupil' type='button'>
 			</td>
 		</tr>
 		<tr>
-			<td class="calcSectionHeader">
-				Select eyepiece...
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Eyepiece...
+			</td>
+			<td>
+				<input name='chBoxUseComaCorrector' type='checkbox'>use coma corrector, 
+				x factor = <input class='inputText' name='comaCorrectorMag' value='1.15' onfocus='select()' type='text'>
 			</td>
 		</tr>
-		<tr class='comaCorrectorRow'>
-			<td>
-			</td>
-			<td>
-				<input name="chBoxUseComaCorrector" type="checkbox">use coma corrector, 
-				x factor = <input class='inputText' name="comaCorrectorMag" value="1.15" onfocus="select()" type="text">
-			</td>
+		<tr>
+			<td><br></td>
 		</tr>
-		<tr class='selectEyepieceRow'>
+		<tr>
 			<td class='label'>
 				Select an eyepiece
 			</td>
 			<td>
-				<select id='eyepieces'>
+				<select id='eyepieceSelect'>
 				</select>
-				<input ID="btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil" value="or calc from focal ratio, eye pupil" type="button">
-				<input ID="btnCalcEyepieceWidestFieldForEyePupil" value="or find widest FOV from eye pupil" type="button">			
+				<input ID='btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil' value='calc from focal ratio, eye pupil' type='button'>
+				<input ID='btnCalcEyepieceWidestFieldForEyePupil' value='find widest FOV from eye pupil' type='button'>			
 			</td>
 		</tr>
-		<tr class='eyepieceFocalLengthRow'>
+		<tr>
 			<td class='label'>
-				 ...or enter focal length (FL) (mm) =
+				 Focal length (FL) (mm) =
 			</td>
 			<td>
-				<input class='inputText' name="eyepieceFocalLengthmm" value="24" onfocus="select()" type="text">
-				<input ID="btnCalcEyepieceFocalLength" value="Calc focal length" type="button">
-				<input ID="btnCalcEyepieceFocalLengthFromFocalRatioEyePupil" value="or calc from focal ratio, eye pupil" type="button">			
+				<input class='inputText' name='eyepieceFocalLengthmm' value='24' onfocus='select()' type='text'>
+				<input ID='btnCalcEyepieceFocalLength' value='calc focal length' type='button'>
+				<input ID='btnCalcEyepieceFocalLengthFromFocalRatioEyePupil' value='calc from focal ratio, eye pupil' type='button'>			
 			</td>
 		</tr>
-		<tr class='eyepieceFieldStopRow'>
+		<tr>
 			<td class='label'>
-				 and field stop diameter (mm) = 
+				 Field stop diameter (mm) = 
 			</td>
 			<td>
-				<input class='inputText' name="eyepieceFieldStopmm" value="33.5" onfocus="select()" type="text">
-				<input ID="btnCalcEyepieceFieldStop" value="Calc field stop" type="button">
-				<input ID="btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength" value="or guess from" type="button">
-				apparent field (deg) <input class='inputText' name="eyepieceApparentFielddeg" value="82" onfocus="select()" type="text">		
+				<input class='inputText' name='eyepieceFieldStopmm' value='33.5' onfocus='select()' type='text'>
+				<input ID='btnCalcEyepieceFieldStop' value='calc field stop' type='button'>
+				<input ID='btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength' value='guess from' type='button'>
+				apparent field (deg) <input class='inputText' name='eyepieceApparentFielddeg' value='82' onfocus='select()' type='text'>		
 			</td>
 		</tr>
-		<tr class='calcSectionHeader'>
-			<td>
-				<br>
-			</td>
+		<tr>
+			<td><br></td>
 		</tr>
-		<tr class='specsRow'>
+		<tr>
 			<td class='label'>
 				Specifications: 
 			</td>
-			<td id="specs">
+			<td id='specs'>
 			</td>
 		</tr>
 		</tbody>
 		</table>
 	</div>
+
+	<h3>Eyepiece Optimizer</h3>
+
+	<div>
+		<table id='eyeOptTable'>
+		<tbody id='eyeOptTableBody'>
+		<tr>
+			<td class='columnHeaders'>Select</td>
+			<td class='columnHeaders'>Manufacturer</td>
+			<td class='columnHeaders'>Type</td>
+			<td class='columnHeaders'>FocalLength</td>
+			<td class='columnHeaders'>FieldStop</td>
+			<td class='columnHeaders'>ApparentField</td>
+			<td class='columnHeaders'>ExitPupil</td>
+			<td class='columnHeaders'>TrueFOV</td>
+			<td class='columnHeaders'>Magnification</td>
+			<td class='columnHeaders'>Resolution</td>
+		</tr>
+		<!--detail rows added in JavaScript-->
+		</tbody>
+		</table>
+	</div>
+
 	<br>
 	<div>
+		<h3>Discussion</h3>
+		
 		<h4>We are familiar with the standard relationships:</h4>
 
 		<span class='indent equation'>telescope focal length = focal ratio * aperture</span><span class='indent equation'>(better known as, focal ratio = telescope focal length / aperture)</span><br>
 		<br>
 		<span class='indent equation'>eyepiece focal length = focal ratio * eye pupil</span><span class='indent equation'>(better known as, eye pupil = eyepiece focal length / focal ratio)</span></p>
 		 
-		<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum number of criteria?</p>
+		<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum number of parameters?</p>
 		 
 		<p>The master equation should involve our eye; the eyepiece; and the telescope's aperture and true field of view. Adding the relationship:<br>
 		<br>
@@ -183,22 +222,22 @@
 		<b>Eyepiece field stop</b> is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
 		<b>Eye pupil</b> is the diameter of the opening of the eye's iris.</p>
 		
-		<h4>Comparing criteria</h4>
+		<h4>Comparing parameters</h4>
 		
-		<p>Let's look at the relationships by comparing criteria.<br>
+		<p>Let's look at the relationships by comparing parameters.<br>
 		<br>
-		Example 1: Since <b>aperture</b>, <b>true field of view</b>, <b>eyepiece focal length</b> or <b>focal ratio</b> are all on one side of the equation, they oppose each other. That is, if one increases, another must decrease. Try it: increase <b>aperture</b> then press the 'Calc true field of view' button. You'll see the <b>true field of view</b> decrease in response (be sure to turn on 'Use eye pupil, eyepiece focal length' first).<br>
+		Example 1: Since <b>aperture</b>, <b>true field of view</b>, <b>eyepiece focal length</b> or <b>focal ratio</b> are all on one side of the equation, they oppose each other. That is, if one increases, another must decrease. Try it: increase <b>aperture</b> then press the 'calc true field of view' button. You'll see the <b>true field of view</b> decrease in response (be sure to turn on 'Use eye pupil, eyepiece focal length' first).<br>
 		<br>
-		Example 2: Similarly since <b>eyepiece field stop</b> and <b>eye pupil</b> are on the same side of the equation, they oppose each other. That is, if one increases then the other must decrease. Try it: increase the <b>eye pupil</b> then press the 'Calc eyepiece field stop'. You'll see the <b>eyepiece field stop</b> decrease.<br>
+		Example 2: Similarly since <b>eyepiece field stop</b> and <b>eye pupil</b> are on the same side of the equation, they oppose each other. That is, if one increases then the other must decrease. Try it: increase the <b>eye pupil</b> then press the 'calc eyepiece field stop'. You'll see the <b>eyepiece field stop</b> decrease.<br>
 		<br>
-		Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'Calc eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br>
+		Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'calc eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br>
 		<br>
 
-		<img src="telescopeCriteriaGraph1.jpg">
-		<img src="telescopeCriteriaGraph2.jpg">
-		<img src="telescopeCriteriaGraph3.jpg">
-		<img src="telescopeCriteriaGraph4.jpg">
-		<img src="telescopeCriteriaGraph5.jpg">
+		<img src='telescopeCriteriaGraph1.jpg'>
+		<img src='telescopeCriteriaGraph2.jpg'>
+		<img src='telescopeCriteriaGraph3.jpg'>
+		<img src='telescopeCriteriaGraph4.jpg'>
+		<img src='telescopeCriteriaGraph5.jpg'>
 		
 		<p>Increase aperture: increase eyepiece field stop, increase eye pupil, decrease true field of view, decrease eyepiece focal length, decrease focal ratio<br>
 		Increase true field of view: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease eyepiece focal length, decrease focal ratio<br>
@@ -214,19 +253,20 @@
 		I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Magnification is defined as the ratio of the object's size to its actual size. I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.</p>
 
 		<p>For more, see 
-		<a href="The%20analyzed%20telescope.html">the analyzed telescope</a>, also
-		<a href="Telescope%20Magnification.html">magnification</a> and
-		<a href="visual.html">visual detection</a>.</p>
+		<a href='The%20analyzed%20telescope.html'>the analyzed telescope</a>, also
+		<a href='Telescope%20Magnification.html'>magnification</a> and
+		<a href='visual.html'>visual detection</a>.</p>
 
 		eod
 		<br>
 		<br>
 	</div>
-	<script src="lib/jquery/jquery-2.1.1.min.js"></script>
-	<script src="lib/sharedLib.js"></script>
-	<script src="lib/coordLib.js"></script>
-	<script src="lib/calcLib.js"></script>
-	<script src="lib/telescopeCriteriaCalc.js"></script>
-	<script src="lib/json/eyepieces.js"></script>
+
+	<script src='lib/jquery/jquery-2.1.1.min.js'></script>
+	<script src='lib/sharedLib.js'></script>
+	<script src='lib/coordLib.js'></script>
+	<script src='lib/calcLib.js'></script>
+	<script src='lib/telescopeCriteriaCalc.js'></script>
+	<script src='lib/json/eyepieces.js'></script>
 </body>
 </html>
