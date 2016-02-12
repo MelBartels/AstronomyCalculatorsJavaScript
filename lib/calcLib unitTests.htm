@@ -76,7 +76,8 @@
 		calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
 		calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
 		calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor,
-		calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor;
+		calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor,
+		resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification;
 
 	QUnit.module('sagitta');
 
@@ -1030,13 +1031,32 @@
 		equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
 	});		
 
-		QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor', function () {
+	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor', function () {
 		var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
 		    expected = parms.eyepieceFieldStopmm,
 		    result;
 			
 		result = calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor(parms.apertureInches, parms.FOVdeg, parms.focalRatio, parms.comaCorrectorFactor);
 		equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+	});		
+
+	QUnit.test('resolutionFromAperture_Magnification', function () {
+		var apertureInches = 5,
+			magnification,
+		    result,
+			expected;
+		
+		// can't reach DawesLimit: resolution limited by magnification
+		magnification = 30;
+		expected = 8;
+		result = resolutionFromAperture_Magnification(apertureInches, magnification);
+		equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+
+		// reaches DawesLimit: magnification limited by Dawes Limit
+		magnification = 300;
+		expected = 0.92;
+		result = resolutionFromAperture_Magnification(apertureInches, magnification);
+		equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 	});		
 
 });
