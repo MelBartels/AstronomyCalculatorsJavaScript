@@ -36,8 +36,8 @@
 				Select calculator...
 			</td>
 			<td>
-				<input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='FR' type='radio' checked='checked'>Use focal ratio or &nbsp 
-				<input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='EE' type='radio'>Use eye pupil, eyepiece FL
+				<input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='FR' type='radio' checked='checked'>Use focal ratio
+				<span class='indent'></span><input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='EE' type='radio'>Use eye pupil, eyepiece FL
 			</td>
 		</tr>
 		<tr>
@@ -112,13 +112,17 @@
 			<td class='calcSectionHeader'>
 				Eyepiece...
 			</td>
-			<td>
-				<input name='chBoxUseComaCorrector' type='checkbox'>use coma corrector, 
-				x factor = <input class='inputText' name='comaCorrectorMag' value='1.15' onfocus='select()' type='text'>
-			</td>
 		</tr>
 		<tr>
-			<td><br></td>
+			<td class='label'>
+				Select a coma corrector
+			</td>
+			<td>
+				<select id='comaCorrectorSelect'>						
+				</select>
+				<span class='indent'></span><input name='chBoxUseComaCorrector' type='checkbox'>Use coma corrector, 
+				x factor = <input class='inputText' name='comaCorrectorMag' value='' onfocus='select()' type='text'>
+			</td>
 		</tr>
 		<tr>
 			<td class='label'>
@@ -268,5 +272,6 @@
 	<script src='lib/calcLib.js'></script>
 	<script src='lib/telescopeCriteriaCalc.js'></script>
 	<script src='lib/json/eyepieces.js'></script>
+	<script src='lib/json/comaCorrectors.js'></script>
 </body>
 </html>
