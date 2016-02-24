@@ -1,41 +1,98 @@
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-weight: bold;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	margin-left: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.links {
+	background-color: lightgray;
+	padding: 5px;
+}
+
 .calcSectionHeader {
 	font-weight: bold;
 }
-.inputText {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1em;
-	width: 50px;
-}
-#comaCorrectorSelect, #eyepieceSelect {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1em;
-}
+
 /* match with JavaScript generated css */
 .columnHeaders {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1em;
 	font-weight: bold;
 	padding-right: 10px;
 }
+
+.inputText {
+	width: 70px;
+}
+
+.inputDiags {
+	width: 500px;
+}
+
+#diagChart {
+	margin-top: 20px; 
+	margin-bottom: 20px; 
+	margin-left: 20px; 
+	width: 800px; 
+	height: 300px;
+}
+
+#comaCorrectorSelect, #eyepieceSelect, #focuserSelect {
+}
+
+input[type='button'] {
+	text-align: left;
+}
+
 .indent {
 	padding-left: 56px;
 }
+
 .equation {
 	font-style: italic;
 }
-input[type='button'] {
-	text-align: left;
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 1em;
+
+.title {
+	text-align: center; 
 }
+
 .label {
 	text-align: right; 
 	vertical-align: top;
 }
+
 .titleFlexArea {
 	display: flex; 
 	align-items: center;
 }
+
 @media all and (min-width: 0px) {
 	.titleSection {
 		clear: both;
@@ -48,6 +105,11 @@ input[type='button'] {
 		width: 60%;
 		height: 60%;
 	}
+	.genImage {
+		width: 100%; 
+		height: 100%;
+	}
+}
 @media all and (min-width: 768px) {
 	.titleSection {
 		clear: both;
@@ -59,5 +121,9 @@ input[type='button'] {
 		padding: 1%; 
 		width: 30%;
 		height: 30%;
+	}
+	.genImage {
+		width: 50%; 
+		height: 50%;
 	}
 }
