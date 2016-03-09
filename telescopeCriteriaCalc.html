@@ -7,7 +7,7 @@
 	<meta content='initial-scale=1' name='viewport'>
 	<link href='Saucer32.ico' rel='shortcut icon'>
 	<link rel='stylesheet' type='text/css' href='css/telescopeCriteriaCalc.css'>
-	<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
+	<link rel='stylesheet' type='text/css' href='lib/jqplot/jquery.jqplot.min.css' />
 </head>
 <body>
 
@@ -249,6 +249,22 @@
 			</td>
 		</tr>
 		<tr>
+			<td class='label' name='barrelTubeInsideDiameterLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='barrelTubeInsideDiameter' value='' onfocus='select()' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='barrelTubeLengthLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='barrelTubeLength' value='' onfocus='select()' type='text'>
+			</td>
+		</tr>
+		<tr>
 			<td class='label' name='focuserInwardFocusingDistanceLabel'>
 				<!-- label html set in JavaScript -->
 			</td>
@@ -289,11 +305,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td class='label' name='diagToFocalPlaneDistanceLabel'>
+			<td class='label' name='focalPlaneToDiagDistanceLabel'>
 				<!-- label html set in JavaScript -->
 			</td>
 			<td>
-				<input class='inputText' name='diagToFocalPlaneDistance' value='9.7' onfocus='select()' type='text'>
+				<input class='inputText' name='focalPlaneToDiagDistance' value='9.7' onfocus='select()' type='text'>
 			</td>
 		</tr>
 		<tr>
@@ -325,7 +341,7 @@
 	<div id='diagChart'>
 	</div>
 	<div>
-		<table class='diagNotesTable'>
+		<table>
 		<tbody>
 		<tr>
 			<td class='label'>
@@ -336,7 +352,67 @@
 		</tr>
 		</tbody>
 		</table>	
-	</div>	
+	</div>
+	
+	<br>
+	<h3>Baffle Optimizer</h3>
+	
+	<p>Uses unit of measurement, aperture, focal length, eyepiece field stop, telescope tube outside diameter, telescope tube wall thickness, focal plane to diagonal distance, optimized diagonal and diagonal offset from above.</p>
+
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label' name='optimizedDiagSizeLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='optimizedDiagSize' value='' onfocus='select()' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='diagOffsetLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='diagOffset' value='' onfocus='select()' type='text'>
+			</td>
+		<tr>
+			<td class='label' name='focalPlaneToFocuserBarrelBottomDistanceLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focalPlaneToFocuserBarrelBottomDistance' value='' onfocus='select()' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2' class='title'>
+				<br>
+				<input ID='btnUpdateBaffles' value='update baffle layout' type='button'>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div>
+		<canvas id='baffleCanvas' width='1000' height='400'>
+			This browser does not support the canvas element. Please use a more recent browser.
+		</canvas>
+	</div>
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label'>
+				Notes: 
+			</td>
+			<td id='baffleNotes'>
+			</td>
+		</tr>
+		</tbody>
+		</table>	
+	</div>
 
 	<br><br><i>Work in progress...</i><br><br>
 
@@ -415,6 +491,16 @@
 		<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field. Read more on <a href='visual.html'>visual detection and limits at the eyepiece</a>.</p>
 		
 		<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by one-sixth wave (less than what is commonly quoted - see <a href='http://www.telescope-optics.net/obstruction.htm'>http://www.telescope-optics.net/obstruction.htm</a> for an explanation). Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The%201974%20Telescope%20Secondary%20Experiment.html'>Check out my secondary size experiment</a>.</p>
+		
+		<h4>Baffles</h4>
+		
+		<p>We want the 'good' light to reach our eye, the 'rogue' light to be blocked. Some rogue light we simply cannot block because it comes from the upper atmosphere exactly between the object and our telescope. This includes sky glow and reflected light pollution. Other rogue light strays into our eyes. This we can block with a hood or by cupping the eyepiece. The remaining rogue light can sneak past the diagonal into the eyepiece and sneak past from behind the primary mirror, bouncing off the diagonal to fog the eyepiece.<p>
+		
+		<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror upward. These baffles are called the primary mirror baffle. The baffle optimizer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the other baffles.<p>
+		
+		<p>Here's an image showing the focuser baffle and diagonal baffle for a 20.5 inch [52cm] f4.8 reflector.<br>
+		Not pictured is the primary mirror's baffle, which can be either a baffle surrounding the primary mirror or an extension of the telescope tube.<br>
+		<img src="baffles.jpg"></p>
 				
 		<p>For more, see 
 		<a href='The%20analyzed%20telescope.html'>the analyzed telescope</a>, also

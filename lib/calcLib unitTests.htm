@@ -77,7 +77,9 @@
 		calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
 		calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor,
 		calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor,
-		resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification;
+		resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
+		calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
+		baffleScalingFactor = MLB.calcLib.baffleScalingFactor;
 
 	QUnit.module('sagitta');
 
@@ -892,7 +894,7 @@
 		equal(result, expected, result + ' should be ' + expected);
 	});		
 
-	QUnit.module('telescope criteria relationships');
+	QUnit.module('telescope optimizer');
 	
 	var MLBScopeTest5Parms = function () {
 		this.apertureInches = 13.1,
@@ -1059,6 +1061,31 @@
 		equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 	});		
 
+	QUnit.test('calcProjectedFocuserBaffleRadius', function () {
+		var eyepieceFieldStop = 2,
+		    barrelTubeID = 3,
+			focalPlaneToFocuserBarrelBottomDistance = 3,
+			focalPlaneToDiagDistance = 10,
+			telescopeTubeOD = 17,
+			telescopeTubeThickness = 0.5,
+			expected = 14,
+			result = calcProjectedFocuserBaffleRadius(eyepieceFieldStop, barrelTubeID, focalPlaneToFocuserBarrelBottomDistance, focalPlaneToDiagDistance, telescopeTubeOD, telescopeTubeThickness);
+			
+		equal(withinRange(result, expected, 0.001), true, 'The projected focuser baffle radius should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('baffleScalingFactor', function () {
+		var maxWidth = 1020,
+		    maxHeight = 420,
+			modelWidth = 40,
+			modelHeight = 5,
+			border = 10,
+			expected = 25,
+			result = baffleScalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border);
+			
+		equal(withinRange(result, expected, 0.001), true, 'The scaling factor should be ' + expected + ', is ' + result);
+	});
+	
 });
 
 </script>
