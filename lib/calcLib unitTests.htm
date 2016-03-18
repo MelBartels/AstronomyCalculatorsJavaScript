@@ -249,55 +249,21 @@
 	// function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary)
 	QUnit.test('calcFoldedNewtonian', function () {
 		var result = calcFoldedNewtonian(30, 2.9, 7, 3, 0);
-		equal(result.diagTooSmall, false, 'The diagTooSmall should be false, is ' + result.diagTooSmall);
-		equal(result.diagTooLarge, false, 'The diagTooLarge should be false, is ' + result.diagTooLarge);
-		equal(withinRange(result.diagToMirrorDistance, 63.7, 0.01), true, 'The diagToMirrorDistance should be 66.7, is ' + result.diagToMirrorDistance);
-		equal(withinRange(result.eyepieceToMirrorDistance, 55.08, 0.01), true, 'The eyepieceToMirrorDistance should be 55.08, is ' + result.eyepieceToMirrorDistance);
+		equal(withinRange(result.diagToPrimaryMirrorDistance, 66.7, 0.01), true, 'The diagToPrimaryMirrorDistance should be 66.7, is ' + result.diagToPrimaryMirrorDistance);
+		equal(withinRange(result.focalPointToPrimaryMirrorDistance, 58.08, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 55.08, is ' + result.focalPointToPrimaryMirrorDistance);
 		equal(withinRange(result.elbowAngleDeg, 60.12, 0.01), true, 'The elbowAngleDeg should be 60.12, is ' + result.elbowAngleDeg);
 		equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
 	});
 
-	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
-		var result = calcFoldedNewtonian(30, 2.9, 6, 3, 0);
-		equal(result.diagTooSmall, true, 'The diagTooSmall should be true, is ' + result.diagTooSmall);
-	});
+	QUnit.test('calcFoldedNewtonian focalPointToPrimaryMirrorDistance and focalPlaneToTertiaryDistance', function () {
+		var result = calcFoldedNewtonian(30, 3, 10, 0, 0),
+		    expected = 34.02;
+		equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.diagToPrimaryMirrorDistance);
 
-	QUnit.test('calcFoldedNewtonian diagTooLarge error', function () {
-		var result = calcFoldedNewtonian(30, 2.9, 16, 3, 0);
-		equal(result.diagTooLarge, true, 'The diagTooLarge should be true, is ' + result.diagTooLarge);
-	});
-
-	QUnit.test('calcFoldedNewtonian mirrorDia=0 et al error', function () {
-		var result = calcFoldedNewtonian(0, 2.9, 6, 3, 0);
-		equal(result, undefined, 'The result should be undefined, is ' + result);
-	});
-
-	// tertiaryOffsetFromEdgeOfPrimary tests
-	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
-		var result = calcFoldedNewtonian(30, 3, 5, 0, 1),
-		    expected = true;
-		equal(result.diagTooSmall, expected, 'The diagTooSmall should be ' + expected + ', is ' + result.diagTooSmall);
-	});
-
-	QUnit.test('calcFoldedNewtonian diagTooSmall error', function () {
-		var result = calcFoldedNewtonian(30, 3, 6, 0, 1),
-		    expected = false;
-		equal(result.diagTooSmall, expected, 'The diagTooSmall should be ' + expected + ', is ' + result.diagTooSmall);
-	});
-
-	QUnit.test('calcFoldedNewtonian diagToMirrorDistance and tertiaryOffsetFromEdgeOfPrimary', function () {
-		var result = calcFoldedNewtonian(30, 3, 6, 0, 0),
-		    expected = 72;
-		equal(result.diagToMirrorDistance, expected, 'The diagToMirrorDistance with no tertiary offset should be ' + expected + ', is ' + result.diagToMirrorDistance);
-
-		// tertiaryOffsetFromEdgeOfPrimary of 1 should shrink diagonal to mirror distance by 1
-		result = calcFoldedNewtonian(30, 3, 6, 0, 1),
-		    expected = 73;
-		equal(result.diagToMirrorDistance, expected, 'The diagToMirrorDistance with tertiary offset of 1 should be ' + expected + ', is ' + result.diagToMirrorDistance);
-
-		result = calcFoldedNewtonian(30, 3, 6, 0, -1),
-		    expected = 71;
-		equal(result.diagToMirrorDistance, expected, 'The diagToMirrorDistance with tertiary offset of -1 should be ' + expected + ', is ' + result.diagToMirrorDistance);
+		// tertiaryOffsetFromEdgeOfPrimary of 1 should shrink diagonal to mirror distance by about 1, give a sufficiently sharp angle (result of a very large diagonal)
+		result = calcFoldedNewtonian(30, 3, 10, 1, 0);
+		expected = 35.18;
+		equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.diagToPrimaryMirrorDistance);
 	});
 
 	QUnit.module('visual detection calculator: parms and data');
