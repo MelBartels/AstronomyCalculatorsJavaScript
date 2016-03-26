@@ -1,2031 +1,597 @@
-// copyright Mel Bartels, 2016
-
-'use strict';
-
-MLB.telescopeCriteriaCalc = {};
-
-MLB.telescopeCriteriaCalc.state = {
-    focalRatioChecked: undefined,
-    eyeOptRowSet: [],
-	scalingFactor: undefined
-};
-
-MLB.telescopeCriteriaCalc.config = {
-    drawCanvasOutline: false,
-    drawTestLines: false,
-
-    inchesLit: ' (inches)',
-    mmLit: ' (mm)',
-    equalsLit: ' = ',
-
-    calcAperture4ParmsLit: 'calc from FOV, focal ratio, field stop',
-    calcFOV4ParmsLit: 'calc from aperture, focal ratio, field stop',
-    calcEyepieceFieldStop4ParmsLit: 'calc from aperture, FOV, focal ratio',
-    calcAperture5ParmsLit: 'calc from FOV, eye pupil, eyepiece FL, field stop',
-    calcFOV5ParmsLit: 'calc from aperture, eye pupil, eyepiece FL, field stop',
-    calcEyepieceFieldStop5ParmsLit: 'calc from aperture, FOV, eye pupil, eyepiece FL',
-
-    apertureLabelLit: 'Aperture',
-    focalLengthLabelLit: 'Focal length',
-    focuserRackedInHeightLabelLit: 'Racked in height',
-    focuserTravelLabelLit: 'Focuser tube travel',
-    barrelTubeInsideDiameterLabelLit: 'Barrel tube inside diameter',
-    barrelTubeLengthLabelLit: 'Barrel tube length',
-    focuserInwardFocusingDistanceLabelLit: 'Desired inward focusing distance',
-    tubeODLabelLit: 'Outside diameter',
-    tubeThicknessLabelLit: 'Thickness',
-    focalPlaneToDiagDistanceLabelLit: 'Focal plane to diagonal distance',
-    diagSizesLabelLit: 'Sizes (m.a.) to select from are',
-    optimizedDiagSizeLabelLit: 'Diagonal (m.a.) size',
-    focalPlaneToFocuserBarrelBottomDistanceLabelLit: 'Focal plane to bottom of focuser barrel distance',
-    diagOffsetLabelLit: 'Diagonal offset (towards primary mirror and away from focuser)',
-    foldingSecondaryMirrorSizeLabelLit: 'Folding secondary mirror size (m.a.)',
-	focalPlaneToSecondaryDistanceLabelLit: 'Focal plane to folding secondary mirror distance',
-    focalPlaneToTertiaryDistanceLabelLit: 'Focal plane to tertiary mirror distance',
-    tertiaryOffsetFromEdgeOfPrimaryLabelLit: 'Tertiary offset from vertical edge of primary',
-
-    decimalPointsAperture: 1,
-    decimalPointsLimitingMagnitude: 1,
-    decimalPointsFocalRatio: 2,
-    decimalPointsTelescopeFocalLength: 1,
-    decimalPointsFOV: 2,
-    decimalPointsEyePupil: 2,
-    decimalPointsEyepieceFL: 1,
-    decimalPointsEyepieceFieldStop: 1,
-    decimalPointsEyepieceApparentFOV: 0,
-    decimalPointsMagnification: 0,
-    decimalPointsResolution: 1,
-    decimalPointsFocuser: 3,
-    decimalPointsTube: 3,
-    decimalPointsDiag: 2,
-    decimalPointsDimension: 1,
-
-    eyepieceRows: 5,
-
-    diagonalsInches: [1, 1.3, 1.52, 1.83, 2.14, 2.6, 3.1, 3.5, 4, 4.5, 5, 6, 7, 8, 9, 10, 12],
-    diagonalsMm: [25, 35, 44, 50, 63, 75, 82, 100, 110, 120, 130, 140, 150, 160, 175, 200, 225, 250, 300],
-
-    primaryMirrorThicknessInches: 1.5,
-    primaryMirrorCellThicknessInches: 2,
-
-	canvasWidth: 1000,
-	canvasHeight: 400,
-    canvasBorder: 10,
-    canvasDimensionHeight: 50,
-    canvasDimensionHalfHeight: 5,
-    canvasTextBorder: 4,
-    canvasLineWidth: 1,
-    canvasTestLineLength: 1000,
-    canvasFont: '10pt arial',
-    canvasGlassStyle: 'blue',
-    canvasOpticalPathStyle: '#aaaaff',
-    canvasStructureStyle: 'black',
-    canvasStructureLightStyle: 'gray',
-    canvasBaffleStyle: 'red',
-    canvasTestStyle: 'orange',
-    projectedFocuserBaffleDimensionText: 'baffle dia = ',
-    primaryMirrorBaffleDimensionText: 'baffle length = ',
-	primaryMirrorToText: 'primary mirror front edge to ',
-    primaryMirrorToFocalPlaneDimensionText: 'primary mirror front edge to focal plane = ',
-    primaryMirrorToTubeEndDimensionText: 'primary mirror front edge to end of tube = ',
-	primaryMirrorToFoldingMirrorText: 'primary mirror front edge to folding mirror = '
-};
-
-MLB.telescopeCriteriaCalc.common = {
-    EyeOptSelectID: 'EyeOptSelect',
-    EyeOptManufacturerID: 'EyeOptManufacturer',
-    EyeOptTypeID: 'EyeOptType',
-    EyeOptFocalLengthID: 'EyeOptFocalLength',
-    EyeOptFieldStopID: 'EyeOptFieldStop',
-    EyeOptApparentFieldID: 'EyeOptApparentField',
-    EyeOptExitPupilID: 'EyeOptExitPupil',
-    EyeOptFOVID: 'EyeOptFOV',
-    EyeOptMagnificationID: 'EyeOptMagnification',
-    EyeOptResolutionID: 'EyeOptResolution',
-
-    EyeOptElement: function (ID, idIx) {
-        return $('[id=' + ID + idIx + ']');
-    },
-
-    radBtnFocalRatioOrEyePupil_EyepieceFocalLength: function () {
-        return $('[name=radBtnFocalRatioOrEyePupil_EyepieceFocalLength]');
-    },
-    btnUom: function () {
-        return $('[name=uom]');
-    },
-    btnCalcAperture: function () {
-        return $('[id=btnCalcAperture]');
-    },
-    btnCalcApertureFromFocalRatio_FocalLength: function () {
-        return $('[id=btnCalcApertureFromFocalRatio_FocalLength]');
-    },
-    btnCalcFocalRatio: function () {
-        return $('[id=btnCalcFocalRatio]');
-    },
-    btnCalcFocalRatioFromAperture_FocalLength: function () {
-        return $('[id=btnCalcFocalRatioFromAperture_FocalLength]');
-    },
-    btnCalcTelescopeFocalLengthFromAperture_FocalRatio: function () {
-        return $('[id=btnCalcTelescopeFocalLengthFromAperture_FocalRatio]');
-    },
-    btnCalcFOV: function () {
-        return $('[id=btnCalcFOV]');
-    },
-    btnCalcEyePupil: function () {
-        return $('[id=btnCalcEyePupil]');
-    },
-    btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil: function () {
-        return $('[id=btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil]');
-    },
-    btnCalcEyepieceWidestFieldForEyePupil: function () {
-        return $('[id=btnCalcEyepieceWidestFieldForEyePupil]');
-    },
-    btnCalcEyepieceFocalLength: function () {
-        return $('[id=btnCalcEyepieceFocalLength]');
-    },
-    btnCalcEyepieceFieldStop: function () {
-        return $('[id=btnCalcEyepieceFieldStop]');
-    },
-    btnCalcEyepieceFocalLengthFromFocalRatioEyePupil: function () {
-        return $('[id=btnCalcEyepieceFocalLengthFromFocalRatioEyePupil]');
-    },
-    btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength: function () {
-        return $('[id=btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength]');
-    },
-    btnCalcApertureFromLimitingMagnitude: function () {
-        return $('[id=btnCalcApertureFromLimitingMagnitude]');
-    },
-    btnUpdateDiagIllum: function () {
-        return $('[id=btnUpdateDiagIllum]');
-    },
-    btnUpdateBaffles: function () {
-        return $('[id=btnUpdateBaffles]');
-    },
-    btnUpdateFoldingReflector: function () {
-        return $('[id=btnUpdateFoldingReflector]');
-    },
-	btnCalcMinFoldingMirrorSize: function () {
-		return $('[id=btnCalcMinFoldingMirrorSize]');
-	},
-	btnCalcMinFocalPlaneToSecondaryDistance: function () {
-		return $('[id=btnCalcMinFocalPlaneToSecondaryDistance]');
-	},
-
-    apertureLabel: function () {
-        return $('[name=apertureLabel]');
-    },
-    focalLengthLabel: function () {
-        return $('[name=focalLengthLabel]');
-    },
-    focuserRackedInHeightLabel: function () {
-        return $('[name=focuserRackedInHeightLabel]');
-    },
-    focuserTravelLabel: function () {
-        return $('[name=focuserTravelLabel]');
-    },
-    barrelTubeInsideDiameterLabel: function () {
-        return $('[name=barrelTubeInsideDiameterLabel]');
-    },
-    barrelTubeLengthLabel: function () {
-        return $('[name=barrelTubeLengthLabel]');
-    },
-    focuserInwardFocusingDistanceLabel: function () {
-        return $('[name=focuserInwardFocusingDistanceLabel]');
-    },
-    tubeODLabel: function () {
-        return $('[name=tubeODLabel]');
-    },
-    tubeThicknessLabel: function () {
-        return $('[name=tubeThicknessLabel]');
-    },
-    focalPlaneToDiagDistanceLabel: function () {
-        return $('[name=focalPlaneToDiagDistanceLabel]');
-    },
-    diagSizesLabel: function () {
-        return $('[name=diagSizesLabel]');
-    },
-    diagNotes: function () {
-        return $('[id=diagNotes]');
-    },
-    optimizedDiagSizeLabel: function () {
-        return $('[name=optimizedDiagSizeLabel]');
-    },
-    focalPlaneToFocuserBarrelBottomDistanceLabel: function () {
-        return $('[name=focalPlaneToFocuserBarrelBottomDistanceLabel]');
-    },
-    diagOffsetLabel: function () {
-        return $('[name=diagOffsetLabel]');
-    },
-    baffleNotes: function () {
-        return $('[id=baffleNotes]');
-    },
-    foldingSecondaryMirrorSizeLabel: function () {
-        return $('[name=foldingSecondaryMirrorSizeLabel]');
-    },
-    focalPlaneToSecondaryDistanceLabel: function () {
-        return $('[name=focalPlaneToSecondaryDistanceLabel]');
-    },
-    focalPlaneToTertiaryDistanceLabel: function () {
-        return $('[name=focalPlaneToTertiaryDistanceLabel]');
-    },
-    tertiaryOffsetFromEdgeOfPrimaryLabel: function () {
-        return $('[name=tertiaryOffsetFromEdgeOfPrimaryLabel]');
-    },
-    foldingReflectorNotes: function () {
-        return $('[id=foldingReflectorNotes]');
-    },
-
-    aperture: function () {
-        return $('[name=aperture]');
-    },
-    focalRatio: function () {
-        return $('[name=focalRatio]');
-    },
-    telescopeFocalLength: function () {
-        return $('[name=telescopeFocalLength]');
-    },
-    FOVdeg: function () {
-        return $('[name=FOVdeg]');
-    },
-    eyePupilmm: function () {
-        return $('[name=eyePupilmm]');
-    },
-    eyepieceFocalLengthmm: function () {
-        return $('[name=eyepieceFocalLengthmm]');
-    },
-    eyepieceFieldStopmm: function () {
-        return $('[name=eyepieceFieldStopmm]');
-    },
-    eyepieceApparentFielddeg: function () {
-        return $('[name=eyepieceApparentFielddeg]');
-    },
-    limitingMagnitude: function () {
-        return $('[name=limitingMagnitude]');
-    },
-    useComaCorrectorMagVal: function () {
-        return $('[name=chBoxUseComaCorrector]').is(':checked');
-    },
-    comaCorrectorMag: function () {
-        return $('[name=comaCorrectorMag]');
-    },
-    specs: function () {
-        return $('[id=specs]');
-    },
-    comaCorrectorSelect: function () {
-        return $('#comaCorrectorSelect');
-    },
-    eyepieceSelect: function () {
-        return $('#eyepieceSelect');
-    },
-    eyeOptTableBody: function () {
-        return $('#eyeOptTableBody');
-    },
-    focuserSelect: function () {
-        return $('#focuserSelect');
-    },
-    focuserRackedInHeight: function () {
-        return $('[name=focuserRackedInHeight]');
-    },
-    focuserTravel: function () {
-        return $('[name=focuserTravel]');
-    },
-    barrelTubeInsideDiameter: function () {
-        return $('[name=barrelTubeInsideDiameter]');
-    },
-    barrelTubeLength: function () {
-        return $('[name=barrelTubeLength]');
-    },
-    focuserInwardFocusingDistance: function () {
-        return $('[name=focuserInwardFocusingDistance]');
-    },
-    telescopeTubeOD: function () {
-        return $('[name=telescopeTubeOD]');
-    },
-    telescopeTubeThickness: function () {
-        return $('[name=telescopeTubeThickness]');
-    },
-    focalPlaneToDiagDistance: function () {
-        return $('[name=focalPlaneToDiagDistance]');
-    },
-    acceptableMagLoss: function () {
-        return $('[name=acceptableMagLoss]');
-    },
-    diagSizes: function () {
-        return $('[name=diagSizes]');
-    },
-    diagChartID: function () {
-        return 'diagChart';
-    },
-    optimizedDiagSize: function () {
-        return $('[name=optimizedDiagSize]');
-    },
-    focalPlaneToFocuserBarrelBottomDistance: function () {
-        return $('[name=focalPlaneToFocuserBarrelBottomDistance]');
-    },
-    diagOffset: function () {
-        return $('[name=diagOffset]');
-    },
-    baffleCanvasID: function () {
-        return $('#baffleCanvas');
-    },
-    foldingSecondaryMirrorSize: function () {
-        return $('[name=foldingSecondaryMirrorSize]');
-    },
-    focalPlaneToSecondaryDistance: function () {
-        return $('[name=focalPlaneToSecondaryDistance]');
-    },
-    focalPlaneToTertiaryDistance: function () {
-        return $('[name=focalPlaneToTertiaryDistance]');
-    },
-    tertiaryOffsetFromEdgeOfPrimary: function () {
-        return $('[name=tertiaryOffsetFromEdgeOfPrimary]');
-    },
-    foldingReflectorCanvasID: function () {
-        return $('#foldingReflectorCanvas');
-    },
-
-    focalRatioChecked: function () {
-        return this.radBtnFocalRatioOrEyePupil_EyepieceFocalLength()[0].checked;
-    },
-
-    inInches: function () {
-        return this.btnUom()[0].checked;
-    },
-    convertToInches: function (value) {
-        if (this.inInches()) {
-            return value;
-        }
-        return value / 25.4;
-    },
-    convertInchesToUom: function (inches) {
-        if (this.inInches()) {
-            return inches;
-        }
-        return inches * 25.4;
-    },
-    convertmmToUom: function (mm) {
-        if (this.inInches()) {
-            return mm / 25.4;
-        }
-        return mm;
-    },
-
-	apertureVal: function () {
-		return +this.aperture().val();
-	},
-    apertureInchesVal: function () {
-        return this.convertToInches(this.apertureVal());
-    },
-    focalRatioVal: function () {
-        return +this.focalRatio().val();
-    },
-    telescopeFocalLengthVal: function () {
-        return +this.telescopeFocalLength().val();
-    },
-    telescopeFocalLengthInchesVal: function () {
-        return this.convertToInches(+this.telescopeFocalLengthVal());
-    },
-    FOVdegVal: function () {
-        return +this.FOVdeg().val();
-    },
-    eyePupilmmVal: function () {
-        return +this.eyePupilmm().val();
-    },
-    eyepieceFocalLengthmmVal: function () {
-        return +this.eyepieceFocalLengthmm().val();
-    },
-    eyepieceFieldStopmmVal: function () {
-        return +this.eyepieceFieldStopmm().val();
-    },
-    eyepieceApparentFielddegVal: function () {
-        return +this.eyepieceApparentFielddeg().val();
-    },
-    limitingMagnitudeVal: function () {
-        return +this.limitingMagnitude().val();
-    },
-    comaCorrectorMagVal: function () {
-        return +this.comaCorrectorMag().val();
-    },
-	focuserRackedInHeightVal: function () {
-		return +this.focuserRackedInHeight().val();
-	},
-	focuserTravelVal: function () {
-		return +this.focuserTravel().val();
-	},
-	barrelTubeInsideDiameterVal: function () {
-		return +this.barrelTubeInsideDiameter().val();
-	},
-	barrelTubeLengthVal: function () {
-		return +this.barrelTubeLength().val();
-	},
-	telescopeTubeODVal: function () {
-		return +this.telescopeTubeOD().val();
-	},
-	focuserInwardFocusingDistanceVal: function () {
-		return +this.focuserInwardFocusingDistance().val();
-	},
-	telescopeTubeThicknessVal: function () {
-		return +this.telescopeTubeThickness().val();
-	},
-    focalPlaneToDiagDistanceVal: function () {
-        return +this.focalPlaneToDiagDistance().val();
-    },
-    acceptableMagLossVal: function () {
-        return +this.acceptableMagLoss().val();
-    },
-    diagSizesVal: function () {
-        return this.diagSizes().val();
-    },
-    optimizedDiagSizeVal: function () {
-        return +this.optimizedDiagSize().val();
-    },
-    focalPlaneToFocuserBarrelBottomDistanceVal: function () {
-        return +this.focalPlaneToFocuserBarrelBottomDistance().val();
-    },
-    diagOffsetVal: function () {
-        return +this.diagOffset().val();
-    },
-    foldingSecondaryMirrorSizeVal: function () {
-        return +this.foldingSecondaryMirrorSize().val();
-    },
-    focalPlaneToSecondaryDistanceVal: function () {
-        return +this.focalPlaneToSecondaryDistance().val();
-    },
-    focalPlaneToTertiaryDistanceVal: function () {
-        return +this.focalPlaneToTertiaryDistance().val();
-    },
-    tertiaryOffsetFromEdgeOfPrimaryVal: function () {
-        return +this.tertiaryOffsetFromEdgeOfPrimary().val();
-    }
-};
-
-MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor = function (common) {
-    if (common.useComaCorrectorMagVal()) {
-        return common.comaCorrectorMagVal();
-    }
-    return 1;
-};
-
-MLB.telescopeCriteriaCalc.updateEyepieceOptimizerRows = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        state = MLB.telescopeCriteriaCalc.state,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        eyepieceFocalLengthmm,
-        eyepieceFieldStopmm,
-        exitPupil,
-        resultFOV,
-        magnification,
-        resolutionArcsec,
-        ix;
-
-    // update eixt pupil, true field of view, magnification, resolution for each eyepiece row that's been selected
-    for (ix = 0; ix < config.eyepieceRows; ix++) {
-        if (state.eyeOptRowSet[ix] === true) {
-            // get reused vars from page
-            eyepieceFocalLengthmm = parseFloat(common.EyeOptElement(common.EyeOptFocalLengthID, ix).html());
-            eyepieceFieldStopmm = parseFloat(common.EyeOptElement(common.EyeOptFieldStopID, ix).html());
-            // calc
-            exitPupil = eyepieceFocalLengthmm / common.focalRatioVal();
-            magnification = common.telescopeFocalLengthInchesVal() / eyepieceFocalLengthmm * 25.4 * comaCorrectorMag;
-            resolutionArcsec = resolutionFromAperture_Magnification(common.apertureInchesVal(), magnification);
-            // ensure that focal ratio has been calculated and updated prior
-            resultFOV = calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(common.apertureInchesVal(), common.focalRatioVal(), eyepieceFieldStopmm, comaCorrectorMag);
-            // display
-            common.EyeOptElement(common.EyeOptExitPupilID, ix).html(roundToDecimal(exitPupil, config.decimalPointsEyePupil) + 'mm');
-            common.EyeOptElement(common.EyeOptFOVID, ix).html(roundToDecimal(resultFOV, config.decimalPointsFOV) + ' deg');
-            common.EyeOptElement(common.EyeOptMagnificationID, ix).html(roundToDecimal(magnification, config.decimalPointsMagnification) + 'x');
-            common.EyeOptElement(common.EyeOptResolutionID, ix).html(roundToDecimal(resolutionArcsec, config.decimalPointsResolution) + '"');
-        }
-    }
-};
-
-MLB.telescopeCriteriaCalc.calcDisplayLimitingMagnitude = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        common = MLB.telescopeCriteriaCalc.common,
-        config = MLB.telescopeCriteriaCalc.config,
-        limitingMagnitude = MLB.calcLib.limitingMagnitude,
-        highMagnificationMagnitudeLimit = limitingMagnitude(common.apertureInchesVal()),
-        lowMagnificationMagnitudeLimit = highMagnificationMagnitudeLimit - 1;
-
-    common.limitingMagnitude().val(roundToDecimal(lowMagnificationMagnitudeLimit, config.decimalPointsLimitingMagnitude));
-};
-
-MLB.telescopeCriteriaCalc.updateSpecs = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        focalRatioChecked = common.focalRatioChecked(),
-        calcDisplayLimitingMagnitude = MLB.telescopeCriteriaCalc.calcDisplayLimitingMagnitude,
-        resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        focalRatio,
-        telescopeFocalLength,
-        eyePupilmm,
-        magnification,
-        maxMagnification,
-        resolutionArcsec,
-        theoreticalResolutionArcsec;
-
-    calcDisplayLimitingMagnitude();
-
-    if (focalRatioChecked) {
-        // ignore eyepiece focal length here
-        // must calc eyePupilmm
-        eyePupilmm = common.eyepieceFocalLengthmmVal() / common.focalRatioVal() / comaCorrectorMag;
-        common.eyePupilmm().val(roundToDecimal(eyePupilmm, config.decimalPointsEyePupil));
-    } else {
-        // must calc focalRatio
-        focalRatio = common.eyepieceFocalLengthmmVal() / common.eyePupilmmVal() / comaCorrectorMag;
-        common.focalRatio().val(roundToDecimal(focalRatio, config.decimalPointsFocalRatio));
-    }
-
-    telescopeFocalLength = common.focalRatioVal() * common.apertureInchesVal();
-    common.telescopeFocalLength().val(roundToDecimal(common.convertInchesToUom(telescopeFocalLength), config.decimalPointsTelescopeFocalLength));
-
-    magnification = common.apertureInchesVal() / common.eyePupilmmVal() * 25.4;
-    maxMagnification = 27 * common.apertureInchesVal();
-    resolutionArcsec = resolutionFromAperture_Magnification(common.apertureInchesVal(), magnification);
-    theoreticalResolutionArcsec = 4.6 / common.apertureInchesVal();
-
-    common.specs().html('magnification = '
-        + roundToDecimal(magnification, config.decimalPointsMagnification)
-        + 'x, max = '
-        + roundToDecimal(maxMagnification, config.decimalPointsMagnification)
-        + 'x<Br>'
-        + 'resolution = '
-        + roundToDecimal(resolutionArcsec, config.decimalPointsResolution)
-        + ' arc seconds (theoretical = '
-        + roundToDecimal(theoreticalResolutionArcsec, config.decimalPointsResolution)
-        + ')');
-};
-
-MLB.telescopeCriteriaCalc.graphDiagIllum = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        minIllum,
-        diagonals,
-        uomLit,
-        offAxisIncrement,
-        formatString,
-        focalPlaneToDiagDistance,
-        focalLen,
-        aperture,
-        maxField,
-        acceptableMagLoss,
-        minDiag,
-        suitableDiags,
-        diagonalsLength,
-        ix,
-        offAxisIllum,
-        diagSize,
-        calcs,
-        lossDueToDiagonals,
-        suitableDiagsLength,
-        offAxisPts,
-        inverseIncr,
-        diagIx,
-        illumIx,
-        series,
-        tickLabel,
-        drop,
-        maxDrop,
-        offset,
-        minDiagWhenOffset,
-        seriesLabels,
-        seriesLabel = MLB.sharedLib.seriesLabel,
-        calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
-        magnitudeDrop = MLB.calcLib.magnitudeDrop,
-        inverseMagnitudeDrop = MLB.calcLib.inverseMagnitudeDrop,
-        diagObstructionArea = MLB.calcLib.diagObstructionArea,
-        getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
-        calcDiagOffset = MLB.calcLib.calcDiagOffset;
-
-    if (common.inInches()) {
-        uomLit = config.inchesLit;
-        offAxisIncrement = 0.1;
-        formatString = '%3.1f';
-    } else {
-        uomLit = config.mmLit;
-        offAxisIncrement = 2;
-        formatString = '%1d';
-    }
-    maxField = common.convertmmToUom(common.eyepieceFieldStopmmVal());
-    diagonals = common.diagSizesVal().split(',').map(Number);
-    focalPlaneToDiagDistance = common.focalPlaneToDiagDistanceVal();
-    focalLen = common.telescopeFocalLengthVal();
-    aperture = common.apertureVal();
-    acceptableMagLoss = common.acceptableMagLossVal();
-
-    minDiag = focalPlaneToDiagDistance / (focalLen / aperture);
-    minIllum = inverseMagnitudeDrop(acceptableMagLoss);
-
-    suitableDiags = [];
-    diagonalsLength = diagonals.length;
-    for (ix = 0; ix < diagonalsLength; ix++) {
-        diagSize = diagonals[ix];
-        offAxisIllum = calcOffAxisIllumination(aperture, focalLen, diagSize, focalPlaneToDiagDistance, maxField / 2);
-        if (diagSize >= minDiag && offAxisIllum >= minIllum) {
-            suitableDiags.push(diagSize);
-        }
-        if (offAxisIllum === 1) {
-            break;
-        }
-    }
-
-    /* calcs[] is: array[diagonals], each element consisting of:
-                    array[off-axis points], each element consisting of:
-                     array[2]: 1st element is the off-axis distance and 2nd element the illumination value */
-    calcs = [];
-    lossDueToDiagonals = [];
-    suitableDiagsLength = suitableDiags.length;
-    for (ix = 0; ix < suitableDiagsLength; ix++) {
-        calcs.push(getDiagIllumArray(aperture, focalLen, suitableDiags[ix], focalPlaneToDiagDistance, offAxisIncrement, maxField));
-        lossDueToDiagonals.push(diagObstructionArea(aperture, suitableDiags[ix]));
-    }
-
-    // generate plot data
-    offAxisPts = calcs[0].length;
-    inverseIncr = 1 / offAxisIncrement;
-    series = [];
-    // include array for maxDrop
-    suitableDiagsLength = suitableDiags.length;
-    for (diagIx = 0; diagIx <= suitableDiagsLength; diagIx++) {
-        series.push([]);
-    }
-
-    // for each offaxis distance, push the illuminations of the various diagonals followed by the max allowed illum drop
-    for (illumIx = 0; illumIx < offAxisPts; illumIx++) {
-        tickLabel = Math.round(calcs[0][illumIx][0] * inverseIncr) / inverseIncr;
-        maxDrop = magnitudeDrop(minIllum);
-        suitableDiagsLength = suitableDiags.length;
-        for (diagIx = 0; diagIx < suitableDiagsLength; diagIx++) {
-            drop = magnitudeDrop(calcs[diagIx][illumIx][1] - lossDueToDiagonals[diagIx]);
-            series[diagIx].push([tickLabel, drop]);
-        }
-        series[diagIx].push([tickLabel, maxDrop]);
-    }
-
-    // build the series labels: each series label represents a diagonal size, ending with the max allowed illum drop label
-    seriesLabels = [];
-    suitableDiagsLength = suitableDiags.length;
-    for (diagIx = 0; diagIx < suitableDiagsLength; diagIx++) {
-        seriesLabels.push(seriesLabel(suitableDiags[diagIx] + uomLit + ' m.a. diagonal'));
-    }
-    seriesLabels.push(seriesLabel('max allowed drop'));
-
-    $.jqplot.config.enablePlugins = true;
-    $.jqplot(common.diagChartID(), series, {
-        title: 'Diagonal off-axis illumination',
-        legend: {
-            show: true,
-            placement: 'outsideGrid'
-        },
-        axes: {
-            xaxis: {
-                tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                label: 'off-axis distance' + uomLit,
-                labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-                numberTicks: offAxisPts,
-                tickOptions: {formatString: formatString},
-                min: series[0][0][0],
-                max: series[0][offAxisPts - 1][0]
-            },
-            yaxis: {
-                tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                label: 'magnitude drop',
-                labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-                max: 0,
-                min: acceptableMagLoss
-            }
-        },
-        series: seriesLabels
-    }).replot();
-
-    offset = calcDiagOffset(aperture, focalLen, diagSize, focalPlaneToDiagDistance);
-    minDiagWhenOffset = minDiag + offset / (parseFloat(focalLen) / parseFloat(aperture));
-
-    common.diagNotes().html('minimum m.a. size = '
-        + roundToDecimal(minDiag, config.decimalPointsDiag)
-        + uomLit
-        + ', '
-        + roundToDecimal(minDiagWhenOffset, config.decimalPointsDiag)
-        + uomLit
-        + ' when offset<br>'
-        + 'offset towards primary mirror = '
-        + roundToDecimal(offset, config.decimalPointsDiag)
-        + uomLit);
-
-    common.optimizedDiagSize().val(roundToDecimal(suitableDiags[0], config.decimalPointsDiag));
-    common.diagOffset().val(roundToDecimal(offset, config.decimalPointsDiag));
-	common.foldingSecondaryMirrorSize().val(roundToDecimal(common.optimizedDiagSizeVal(), config.decimalPointsDiag));
-	common.focalPlaneToSecondaryDistance().val(roundToDecimal(common.optimizedDiagSizeVal() * common.focalRatioVal(), config.decimalPointsDimension));
-};
-
-MLB.telescopeCriteriaCalc.setCanvasScalingFactor = function () {
-    var state = MLB.telescopeCriteriaCalc.state,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-		baffleScalingFactor = MLB.calcLib.baffleScalingFactor;
-
-    state.scalingFactor = baffleScalingFactor(config.canvasWidth, config.canvasHeight, common.telescopeFocalLengthVal(), common.apertureVal() * 2, config.canvasBorder);
-};
-
-MLB.telescopeCriteriaCalc.graphBaffles = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        state = MLB.telescopeCriteriaCalc.state,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        setCanvasScalingFactor = MLB.telescopeCriteriaCalc.setCanvasScalingFactor,
-        point = MLB.sharedLib.point,
-        drawLine = MLB.sharedLib.drawLine,
-        uom = MLB.sharedLib.uom,
-        calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
-        calcSagitta = MLB.calcLib.calcSagitta,
-        canvas,
-        context,
-        aperture,
-        telescopeFocalLength,
-        focalRatio,
-        eyepieceFieldStop,
-        barrelTubeInsideDiameter,
-        barrelTubeLength,
-        telescopeTubeOD,
-        telescopeTubeThickness,
-        focalPlaneToDiagDistance,
-        diagSize,
-        diagOffset,
-        focalPlaneToFocuserBarrelBottomDistance,
-        projectedFocuserBaffleRadius,
-        primaryMirrorThicknessInUom,
-        primaryMirrorCellThicknessInUom,
-        scaledAperture,
-        scaledMirrorRadius,
-        scaledTelescopeFocalLength,
-        scaledEyepieceFieldStop,
-        scaledBarrelTubeInsideDiameter,
-        scaledBarrelTubeLength,
-        scaledTelescopeTubeOD,
-        scaledTelescopeTubeThickness,
-        scaledFocalPlaneToDiagDistance,
-        scaledDiagSize,
-        scaledHalfDiagSize,
-        scaledFocalPlaneToFocuserBarrelBottomDistance,
-        scaledProjectedFocuserBaffleRadius,
-        scaledPrimaryMirrorThicknessInUom,
-        scaledPrimaryMirrorCellThicknessInUom,
-        scaledDiagOffset,
-        scaledHalfTubeID,
-        scaledRadiusCurvature,
-        scaledSagitta,
-        mirrorCenterPt,
-        tubeRearEndFrontCenterPt,
-        primaryFocusPt,
-        mirrorRadian,
-        mirrorUpperFacePt,
-        mirrorLowerFacePt,
-        mirrorUpperBackPt,
-        mirrorLowerBackPt,
-        diagCenterPt,
-        diagUpperPt,
-        diagLowerPt,
-        focalPlaneCenterPt,
-        focalPlaneLeftPt,
-        focalPlaneRightPt,
-        focuserBarreltubeLowerRearPt,
-        focuserBarreltubeLowerFrontPt,
-        focuserBarreltubeUpperRearPt,
-        focuserBarreltubeUpperFrontPt,
-        projectedFocuserBaffleLeftPt,
-        projectedFocuserBaffleRightPt,
-        projectedFocuserBaffleLeftTubeODPt,
-        projectedFocuserBaffleRightTubeODPt,
-        tubeLowerRearPt,
-        tubeLowerFrontPt,
-        tubeUpperRearPt,
-        tubeUpperFrontPt,
-        diagUpperToLeftFocalPlaneYDelta,
-        diagUpperToLeftEyepieceFieldStopXDelta,
-        diagLowerToRightFocalPlaneYDelta,
-        diagLowerToRightEyepieceFieldStopXDelta,
-        diagUpperToLeftFocalPlaneAngleRad,
-        diagLowerToRightFocalPlaneAngleRad,
-        diagUpperToLeftFocalPlaneReflectedAngleRad,
-        diagLowerToRightFocalPlaneReflectedAngleRad,
-        diagUpperToLeftFocalPlaneReflectedCanvasAngleRad,
-        diagLowerToRightFocalPlaneReflectedCanvasAngleRad,
-        diagUpperToTubeUpperInsideYDelta,
-        diagLowerToTubeLowerInsideYDelta,
-        aTanDiagUpperToLeftFocalPlaneReflectedAngle,
-        aTanDiagLowerToRightFocalPlaneReflectedAngle,
-        diagUpperToTubeUpperInsideXDelta,
-        diagLowerToTubeLowerInsideXDelta,
-        primaryMirrorBaffleUpperFrontPt,
-        primaryMirrorBaffleLowerIntersectPt,
-        primaryMirrorBaffleLowerFrontPt,
-        primaryMirrorBaffleUpperRearPt,
-        primaryMirrorBaffleLowerRearPt,
-        primaryMirrorBaffleUpperRearTopPt,
-        primaryMirrorBaffleUpperFrontTopPt,
-        primaryMirrorBaffleLowerRearBottomPt,
-        primaryMirrorBaffleLowerFrontBottomPt,
-        primaryMirrorBaffleBehindPrimaryTopPt,
-        primaryMirrorBaffleBehindPrimaryBottomPt,
-        a,
-        uomLit = common.inInches() ? config.inchesLit : config.mmLit,
-        dimension,
-        dimensionLeftPt,
-        dimensionRightPt,
-        dimensionY;
-
-    canvas = common.baffleCanvasID()[0];
-    context = canvas.getContext('2d');
-
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    aperture = common.apertureVal();
-    telescopeFocalLength = common.telescopeFocalLengthVal();
-    focalRatio = telescopeFocalLength / aperture;
-    eyepieceFieldStop = common.convertmmToUom(common.eyepieceFieldStopmmVal());
-    barrelTubeInsideDiameter = common.barrelTubeInsideDiameterVal();
-    barrelTubeLength = common.barrelTubeLengthVal();
-    telescopeTubeOD = common.telescopeTubeODVal();
-    telescopeTubeThickness = common.telescopeTubeThicknessVal();
-    focalPlaneToDiagDistance = common.focalPlaneToDiagDistanceVal();
-    diagSize = common.optimizedDiagSizeVal();
-    diagOffset = common.diagOffsetVal();
-    focalPlaneToFocuserBarrelBottomDistance = common.focalPlaneToFocuserBarrelBottomDistanceVal();
-
-    projectedFocuserBaffleRadius = calcProjectedFocuserBaffleRadius(eyepieceFieldStop, barrelTubeInsideDiameter, common.focalPlaneToFocuserBarrelBottomDistanceVal(), focalPlaneToDiagDistance, telescopeTubeOD, telescopeTubeThickness);
-
-    primaryMirrorThicknessInUom = common.convertInchesToUom(config.primaryMirrorThicknessInches);
-    primaryMirrorCellThicknessInUom = common.convertInchesToUom(config.primaryMirrorCellThicknessInches);
-
-	setCanvasScalingFactor();
-    scaledAperture = state.scalingFactor * aperture;
-    scaledMirrorRadius = scaledAperture / 2;
-    scaledTelescopeFocalLength = state.scalingFactor * telescopeFocalLength;
-    scaledEyepieceFieldStop = state.scalingFactor * eyepieceFieldStop;
-    scaledBarrelTubeInsideDiameter = state.scalingFactor * barrelTubeInsideDiameter;
-    scaledBarrelTubeLength = state.scalingFactor * barrelTubeLength;
-    scaledTelescopeTubeOD = state.scalingFactor * telescopeTubeOD;
-    scaledTelescopeTubeThickness = state.scalingFactor * telescopeTubeThickness;
-    scaledFocalPlaneToDiagDistance = state.scalingFactor * focalPlaneToDiagDistance;
-    scaledDiagSize = state.scalingFactor * diagSize;
-    scaledHalfDiagSize = scaledDiagSize / 2;
-    scaledFocalPlaneToFocuserBarrelBottomDistance = state.scalingFactor * focalPlaneToFocuserBarrelBottomDistance;
-    scaledProjectedFocuserBaffleRadius = state.scalingFactor * projectedFocuserBaffleRadius;
-    scaledPrimaryMirrorThicknessInUom = state.scalingFactor * primaryMirrorThicknessInUom;
-    scaledPrimaryMirrorCellThicknessInUom = state.scalingFactor * primaryMirrorCellThicknessInUom;
-    scaledDiagOffset = state.scalingFactor * diagOffset;
-    scaledHalfTubeID = scaledTelescopeTubeOD / 2 - scaledTelescopeTubeThickness;
-    scaledRadiusCurvature = scaledAperture * focalRatio * 2;
-    scaledSagitta = state.scalingFactor * calcSagitta(aperture, focalRatio);
-
-    // calc primary mirror angle from mirror edge to radius of curvature:
-    // circumference = 2 * PI * RoC;RoC = MD * FR * 2; circumference = 2 * PI * Radian
-    // circumference = 2 * PI * MD * FR * 2; Radian = MD * FR * 2; MD = Radian / (FR * 2); MD / Radian = 1 / (FR * 2)
-    mirrorRadian = 1 / (2 * focalRatio);
-
-    // canvas 0,0 is upper left
-    mirrorCenterPt = point(config.canvasBorder + scaledPrimaryMirrorThicknessInUom + scaledPrimaryMirrorCellThicknessInUom + scaledTelescopeTubeThickness, canvas.height / 2);
-    tubeRearEndFrontCenterPt = point(config.canvasBorder + scaledTelescopeTubeThickness, mirrorCenterPt.y);
-    primaryFocusPt = point(mirrorCenterPt.x + scaledTelescopeFocalLength, mirrorCenterPt.y);
-
-    // calc mirror edges, back
-    mirrorUpperFacePt = point(mirrorCenterPt.x + scaledSagitta, mirrorCenterPt.y - scaledMirrorRadius);
-    mirrorLowerFacePt = point(mirrorCenterPt.x + scaledSagitta, mirrorCenterPt.y + scaledMirrorRadius);
-    mirrorUpperBackPt = point(mirrorCenterPt.x - scaledPrimaryMirrorThicknessInUom, mirrorUpperFacePt.y);
-    mirrorLowerBackPt = point(mirrorCenterPt.x - scaledPrimaryMirrorThicknessInUom, mirrorLowerFacePt.y);
-
-    // calc diagonal
-    diagCenterPt = point(mirrorCenterPt.x + scaledTelescopeFocalLength - scaledFocalPlaneToDiagDistance, mirrorCenterPt.y);
-    // diag angle of 45 deg means that m.a. is the delta
-    diagUpperPt = point(diagCenterPt.x + scaledHalfDiagSize - scaledDiagOffset, diagCenterPt.y - scaledHalfDiagSize + scaledDiagOffset);
-    diagLowerPt = point(diagCenterPt.x - scaledHalfDiagSize - scaledDiagOffset, diagCenterPt.y + scaledHalfDiagSize + scaledDiagOffset);
-
-    // calc focal plane field
-    focalPlaneCenterPt = point(diagCenterPt.x, diagCenterPt.y - scaledFocalPlaneToDiagDistance);
-    focalPlaneLeftPt = point(focalPlaneCenterPt.x - scaledEyepieceFieldStop / 2, focalPlaneCenterPt.y);
-    focalPlaneRightPt = point(focalPlaneCenterPt.x + scaledEyepieceFieldStop / 2, focalPlaneCenterPt.y);
-
-    // calc focuser barrel tube
-    focuserBarreltubeLowerRearPt = point(focalPlaneCenterPt.x - scaledBarrelTubeInsideDiameter / 2, focalPlaneCenterPt.y + scaledFocalPlaneToFocuserBarrelBottomDistance);
-    focuserBarreltubeLowerFrontPt = point(focalPlaneCenterPt.x + scaledBarrelTubeInsideDiameter / 2, focalPlaneCenterPt.y + scaledFocalPlaneToFocuserBarrelBottomDistance);
-    focuserBarreltubeUpperRearPt = point(focuserBarreltubeLowerRearPt.x, focuserBarreltubeLowerRearPt.y - scaledBarrelTubeLength);
-    focuserBarreltubeUpperFrontPt = point(focuserBarreltubeLowerFrontPt.x, focuserBarreltubeLowerFrontPt.y - scaledBarrelTubeLength);
-
-    // calc projected focuser baffle on opposite side of tube
-    projectedFocuserBaffleLeftPt = point(focalPlaneCenterPt.x - scaledProjectedFocuserBaffleRadius,  tubeRearEndFrontCenterPt.y + scaledHalfTubeID);
-    projectedFocuserBaffleRightPt = point(focalPlaneCenterPt.x + scaledProjectedFocuserBaffleRadius,  tubeRearEndFrontCenterPt.y + scaledHalfTubeID);
-    projectedFocuserBaffleLeftTubeODPt = point(projectedFocuserBaffleLeftPt.x, projectedFocuserBaffleLeftPt.y + scaledTelescopeTubeThickness);
-    projectedFocuserBaffleRightTubeODPt = point(projectedFocuserBaffleRightPt.x, projectedFocuserBaffleRightPt.y + scaledTelescopeTubeThickness);
-
-    // calc telescope tube
-    tubeLowerRearPt = point(tubeRearEndFrontCenterPt.x, tubeRearEndFrontCenterPt.y + scaledTelescopeTubeOD / 2);
-    tubeUpperRearPt = point(tubeRearEndFrontCenterPt.x, tubeRearEndFrontCenterPt.y - scaledTelescopeTubeOD / 2);
-    tubeLowerFrontPt = point(projectedFocuserBaffleRightPt.x, tubeLowerRearPt.y);
-    tubeUpperFrontPt = point(projectedFocuserBaffleRightPt.x, tubeLowerRearPt.y - scaledTelescopeTubeOD);
-
-    /* calc primary mirror baffle ---
-        canvas x is the horizontal coordinate, canvas y is the vertical coordinate;
-        diagonal upper to left focal plane is -x, -y; diagonal lower to right focal plane is +x, -y;
-        atan2(y,x): y is the horizontal coordinate, x is the vertical coordinate
-            atan2(1,0) aims to the right; atan2(0,1) aims to the top; atan2(0,-1) aims to the bottom; atan2(-1,-1) aims to the left;
-            or, 0deg aims to the right, 90deg aims to the top, -90deg aims to the bottom and 180/180deg aims to the left;
-        canvas x,y changes for diagonal upper to left focal plane are -36,175,
-        canvas x,y changes for diagonal lower to right focal plane are 36,229;
-        using the atan2 coordinate system (y to the right, x to the top, 0 deg to the right, grows counter-clockwise:
-        atan2 of diagonal upper to left focal plane points is an angle slightly greater than 90 (aimed upward slightly to the left);
-        atan2 of diagonal lower to right focal plane points is an angle slightly less than 90 (aimed upward slightly to the right);
-        the diagonal axis is 135deg when 'to the right' is 0deg;
-        to reflect about the diagonal axis, double the diagonal axis and subtract the angle;
-        to convert to canvas coordinates where 0deg is to the right, but grows clockwise, subtract from 360deg;
-        note that the two angles are essentially reflections about the horizontal plane but starting from the upper/lower diagonal points;
-        to get canvas 'x' values for given 'y' range, tan(180 - reflected ray angle);
-        then use starting point + cos for 'x' coordinate and starting point + sin for 'y' coordinate to draw lines using distance and angle;    
-        for atan() to project the primary baffle rays, subtract from 180 to make 0deg aim to the left;
-    */
-    diagUpperToLeftFocalPlaneYDelta = scaledFocalPlaneToDiagDistance - scaledDiagSize / 2 + scaledDiagOffset;
-    diagLowerToRightFocalPlaneYDelta = scaledFocalPlaneToDiagDistance + scaledDiagSize / 2 + scaledDiagOffset;
-    diagLowerToRightEyepieceFieldStopXDelta = (scaledEyepieceFieldStop + scaledDiagSize) / 2 - scaledDiagOffset;
-    diagUpperToLeftEyepieceFieldStopXDelta = -diagLowerToRightEyepieceFieldStopXDelta;
-    diagUpperToLeftFocalPlaneAngleRad = Math.atan2(diagUpperToLeftFocalPlaneYDelta, diagUpperToLeftEyepieceFieldStopXDelta);
-    diagLowerToRightFocalPlaneAngleRad = Math.atan2(diagLowerToRightFocalPlaneYDelta, diagLowerToRightEyepieceFieldStopXDelta);
-    diagUpperToLeftFocalPlaneReflectedAngleRad = 270 * uom.degToRad - diagUpperToLeftFocalPlaneAngleRad;
-    diagLowerToRightFocalPlaneReflectedAngleRad = 270 * uom.degToRad - diagLowerToRightFocalPlaneAngleRad;
-    diagUpperToLeftFocalPlaneReflectedCanvasAngleRad = uom.oneRev - diagUpperToLeftFocalPlaneReflectedAngleRad;
-    diagLowerToRightFocalPlaneReflectedCanvasAngleRad = uom.oneRev - diagLowerToRightFocalPlaneReflectedAngleRad;
-    // calc the intersect points with the inner tube for the primary mirror baffle
-    diagUpperToTubeUpperInsideYDelta = scaledHalfTubeID - scaledHalfDiagSize + scaledDiagOffset;
-    diagLowerToTubeLowerInsideYDelta = scaledHalfTubeID - scaledHalfDiagSize - scaledDiagOffset;
-    aTanDiagUpperToLeftFocalPlaneReflectedAngle = Math.tan(uom.halfRev - diagUpperToLeftFocalPlaneReflectedAngleRad);
-    aTanDiagLowerToRightFocalPlaneReflectedAngle = Math.tan(uom.halfRev - diagLowerToRightFocalPlaneReflectedAngleRad);
-    diagUpperToTubeUpperInsideXDelta = diagUpperToTubeUpperInsideYDelta / aTanDiagUpperToLeftFocalPlaneReflectedAngle;
-    diagLowerToTubeLowerInsideXDelta = diagLowerToTubeLowerInsideYDelta / aTanDiagLowerToRightFocalPlaneReflectedAngle;
-
-    // set the primary mirror baffle points: make the lower baffle the same length as the upper baffle for simplicity but do calculate the lower intercept point for drawing the lower light ray
-    primaryMirrorBaffleUpperFrontPt = point(diagUpperPt.x - diagUpperToTubeUpperInsideXDelta, diagUpperPt.y - diagUpperToTubeUpperInsideYDelta);
-    primaryMirrorBaffleLowerIntersectPt = point(diagLowerPt.x + diagLowerToTubeLowerInsideXDelta, diagLowerPt.y + diagLowerToTubeLowerInsideYDelta);
-    primaryMirrorBaffleUpperRearPt = point(tubeUpperRearPt.x, tubeRearEndFrontCenterPt.y - scaledHalfTubeID);
-    primaryMirrorBaffleUpperRearTopPt = point(tubeUpperRearPt.x, primaryMirrorBaffleUpperRearPt.y - scaledTelescopeTubeThickness);
-    primaryMirrorBaffleUpperFrontTopPt = point(primaryMirrorBaffleUpperFrontPt.x, primaryMirrorBaffleUpperFrontPt.y - scaledTelescopeTubeThickness);
-    primaryMirrorBaffleLowerFrontPt = point(primaryMirrorBaffleUpperFrontPt.x, diagLowerPt.y + diagLowerToTubeLowerInsideYDelta);
-    primaryMirrorBaffleLowerRearPt = point(primaryMirrorBaffleUpperRearPt.x, tubeRearEndFrontCenterPt.y + scaledHalfTubeID);
-    primaryMirrorBaffleLowerRearBottomPt = point(primaryMirrorBaffleUpperRearTopPt.x, primaryMirrorBaffleLowerRearPt.y + scaledTelescopeTubeThickness);
-    primaryMirrorBaffleLowerFrontBottomPt = point(primaryMirrorBaffleUpperFrontTopPt.x, primaryMirrorBaffleLowerFrontPt.y + scaledTelescopeTubeThickness);
-    // calc primary mirror baffle points behind primary
-    primaryMirrorBaffleBehindPrimaryTopPt = point(primaryMirrorBaffleUpperRearTopPt.x - scaledTelescopeTubeThickness, primaryMirrorBaffleUpperRearTopPt.y);
-    primaryMirrorBaffleBehindPrimaryBottomPt = point(primaryMirrorBaffleLowerRearBottomPt.x - scaledTelescopeTubeThickness, primaryMirrorBaffleLowerRearBottomPt.y);
-
-    if (config.drawCanvasOutline) {
-        context.rect(0, 0, canvas.width, canvas.height);
-        context.stroke();
-        context.rect(config.canvasBorder, config.canvasBorder, canvas.width - 2 * config.canvasBorder, canvas.height - 2 * config.canvasBorder);
-        context.stroke();
-    }
-    // draw test rays for primary mirror baffle  using line, angle; these lines should exactly overlay the lines calculated above using coordinate rotation and tan()
-    if (config.drawTestLines) {
-        context.strokeStyle = config.canvasTestStyle;
-        context.beginPath();
-        context.moveTo(diagUpperPt.x, diagUpperPt.y);
-        context.lineTo(diagUpperPt.x + config.canvasTestLineLength * Math.cos(diagUpperToLeftFocalPlaneReflectedCanvasAngleRad), diagUpperPt.y + config.canvasTestLineLength * Math.sin(diagUpperToLeftFocalPlaneReflectedCanvasAngleRad));
-        context.stroke();
-        context.beginPath();
-        context.moveTo(diagLowerPt.x, diagLowerPt.y);
-        context.lineTo(diagLowerPt.x + config.canvasTestLineLength * Math.cos(diagLowerToRightFocalPlaneReflectedCanvasAngleRad), diagLowerPt.y + config.canvasTestLineLength * Math.sin(diagLowerToRightFocalPlaneReflectedCanvasAngleRad));
-        context.stroke();
-        // draw test diagonal axis lines from upper, lower diag points
-        a = 225 * uom.degToRad;
-        context.beginPath();
-        context.moveTo(diagUpperPt.x, diagUpperPt.y);
-        context.lineTo(diagUpperPt.x + config.canvasTestLineLength * Math.cos(a), diagUpperPt.y + config.canvasTestLineLength * Math.sin(a));
-        context.stroke();
-        context.beginPath();
-        context.moveTo(diagLowerPt.x, diagLowerPt.y);
-        context.lineTo(diagLowerPt.x + config.canvasTestLineLength * Math.cos(a), diagLowerPt.y + config.canvasTestLineLength * Math.sin(a));
-        context.stroke();
-        // draw focal plane to diagonal crossing light rays
-        drawLine(context, config.canvasTestStyle, config.canvasLineWidth, focalPlaneLeftPt, diagUpperPt);
-        drawLine(context, config.canvasTestStyle, config.canvasLineWidth, focalPlaneRightPt, diagLowerPt);
-    }
-    // draw primary mirror to primary focus light rays
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, mirrorUpperFacePt, primaryFocusPt);
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, mirrorLowerFacePt, primaryFocusPt);
-    // draw focal plane edges to cross diagonal edges
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, focalPlaneLeftPt, diagUpperPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, focalPlaneRightPt, diagLowerPt);
-    // draw primary mirror baffle diagonal to inner tube lines
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleUpperFrontPt, diagUpperPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleLowerIntersectPt, diagLowerPt);
-    // draw focal plane to projected focuser baffle light rays
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, focalPlaneLeftPt, projectedFocuserBaffleRightPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, focalPlaneRightPt, projectedFocuserBaffleLeftPt);
-    // draw optical paths
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, mirrorCenterPt, diagCenterPt);
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, diagCenterPt, focalPlaneCenterPt);
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, diagCenterPt, primaryFocusPt);
-    // draw telescope tube
-    drawLine(context, config.canvasStructureLightStyle, config.canvasLineWidth, tubeLowerRearPt, tubeLowerFrontPt);
-    drawLine(context, config.canvasStructureLightStyle, config.canvasLineWidth, tubeUpperRearPt, tubeUpperFrontPt);
-    drawLine(context, config.canvasStructureLightStyle, config.canvasLineWidth, tubeLowerRearPt, tubeUpperRearPt);
-    drawLine(context, config.canvasStructureLightStyle, config.canvasLineWidth, tubeUpperFrontPt, tubeLowerFrontPt);
-    // draw projected focuser baffle on opposite side of tube
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, projectedFocuserBaffleLeftPt, projectedFocuserBaffleRightPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, projectedFocuserBaffleLeftTubeODPt, projectedFocuserBaffleRightTubeODPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, projectedFocuserBaffleLeftTubeODPt, projectedFocuserBaffleLeftPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, projectedFocuserBaffleRightTubeODPt, projectedFocuserBaffleRightPt);
-    // draw primary mirror baffles
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleUpperRearPt, primaryMirrorBaffleUpperFrontPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleUpperRearTopPt, primaryMirrorBaffleUpperFrontTopPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleUpperRearTopPt, primaryMirrorBaffleUpperRearPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleUpperFrontTopPt, primaryMirrorBaffleUpperFrontPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleLowerRearPt, primaryMirrorBaffleLowerFrontPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleLowerRearBottomPt, primaryMirrorBaffleLowerFrontBottomPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleLowerRearPt, primaryMirrorBaffleLowerRearBottomPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleLowerFrontPt, primaryMirrorBaffleLowerFrontBottomPt);
-    // draw primary mirror baffle behind mirror
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleBehindPrimaryTopPt, primaryMirrorBaffleUpperRearTopPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleBehindPrimaryTopPt, primaryMirrorBaffleBehindPrimaryBottomPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, tubeLowerRearPt, tubeUpperRearPt);
-    drawLine(context, config.canvasBaffleStyle, config.canvasLineWidth, primaryMirrorBaffleBehindPrimaryBottomPt, primaryMirrorBaffleLowerRearBottomPt);
-    // draw focuser barrel tube
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, focuserBarreltubeLowerRearPt, focuserBarreltubeLowerFrontPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, focuserBarreltubeLowerFrontPt, focuserBarreltubeUpperFrontPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, focuserBarreltubeUpperFrontPt, focuserBarreltubeUpperRearPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, focuserBarreltubeUpperRearPt, focuserBarreltubeLowerRearPt);
-    // draw focal plane field
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, focalPlaneLeftPt, focalPlaneRightPt);
-    // draw diagonal
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, diagUpperPt, diagLowerPt);
-    // draw mirror edges, back
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, mirrorUpperFacePt, mirrorUpperBackPt);
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, mirrorLowerFacePt, mirrorLowerBackPt);
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, mirrorUpperBackPt, mirrorLowerBackPt);
-    // draw primary mirror curved face
-    context.beginPath();
-    context.arc(mirrorCenterPt.x + scaledRadiusCurvature, mirrorCenterPt.y, scaledRadiusCurvature, uom.halfRev - mirrorRadian / 2, uom.halfRev + mirrorRadian / 2);
-    context.lineWidth = config.canvasLineWidth;
-    context.strokeStyle = config.canvasGlassStyle;
-    context.stroke();
-    // write dimension for projected focuser baffle
-    context.font = config.canvasFont;
-    dimension = roundToDecimal(scaledProjectedFocuserBaffleRadius * 2 / state.scalingFactor, config.decimalPointsDimension) + uomLit;
-    dimensionY = projectedFocuserBaffleRightPt.y + 4 * config.canvasDimensionHalfHeight;
-    dimensionRightPt = point(projectedFocuserBaffleRightPt.x, dimensionY);
-    dimensionLeftPt = point(projectedFocuserBaffleLeftPt.x, dimensionY);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, dimensionLeftPt, dimensionRightPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionLeftPt.x, dimensionLeftPt.y - config.canvasDimensionHalfHeight), point(dimensionLeftPt.x, dimensionLeftPt.y + config.canvasDimensionHalfHeight));
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionRightPt.x, dimensionRightPt.y - config.canvasDimensionHalfHeight), point(dimensionRightPt.x, dimensionRightPt.y + config.canvasDimensionHalfHeight));
-    context.fillText(config.projectedFocuserBaffleDimensionText + dimension, dimensionLeftPt.x + config.canvasTextBorder, dimensionY - config.canvasTextBorder);
-    // write dimension for primary mirror baffle
-    dimension = roundToDecimal((primaryMirrorBaffleLowerFrontPt.x - mirrorLowerFacePt.x) / state.scalingFactor, config.decimalPointsDimension) + uomLit;
-    dimensionRightPt = point(primaryMirrorBaffleLowerFrontPt.x, dimensionY);
-    dimensionLeftPt = point(mirrorLowerFacePt.x, dimensionY);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, dimensionLeftPt, dimensionRightPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionLeftPt.x, dimensionLeftPt.y - config.canvasDimensionHalfHeight), point(dimensionLeftPt.x, dimensionLeftPt.y + config.canvasDimensionHalfHeight));
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionRightPt.x, dimensionRightPt.y - config.canvasDimensionHalfHeight), point(dimensionRightPt.x, dimensionRightPt.y + config.canvasDimensionHalfHeight));
-    context.fillText(config.primaryMirrorBaffleDimensionText + dimension, dimensionLeftPt.x + config.canvasTextBorder, dimensionY - config.canvasTextBorder);
-    // write mirror front edge to focal plane center line dimension
-    dimensionY += 4 * config.canvasDimensionHalfHeight;
-    dimension = roundToDecimal((focalPlaneCenterPt.x - mirrorLowerFacePt.x) / state.scalingFactor, config.decimalPointsDimension) + uomLit;
-    dimensionRightPt = point(focalPlaneCenterPt.x, dimensionY);
-    dimensionLeftPt = point(mirrorLowerFacePt.x, dimensionY);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, dimensionLeftPt, dimensionRightPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionLeftPt.x, dimensionLeftPt.y - config.canvasDimensionHalfHeight), point(dimensionLeftPt.x, dimensionLeftPt.y + config.canvasDimensionHalfHeight));
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionRightPt.x, dimensionRightPt.y - config.canvasDimensionHalfHeight), point(dimensionRightPt.x, dimensionRightPt.y + config.canvasDimensionHalfHeight));
-    context.fillText(config.primaryMirrorToFocalPlaneDimensionText + dimension, dimensionLeftPt.x + config.canvasTextBorder, dimensionY - config.canvasTextBorder);
-    // write mirror front edge to tube front dimension
-    dimensionY += 4 * config.canvasDimensionHalfHeight;
-    dimension = roundToDecimal((projectedFocuserBaffleRightPt.x - mirrorLowerFacePt.x) / state.scalingFactor, config.decimalPointsDimension) + uomLit;
-    dimensionRightPt = point(projectedFocuserBaffleRightPt.x, dimensionY);
-    dimensionLeftPt = point(mirrorLowerFacePt.x, dimensionY);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, dimensionLeftPt, dimensionRightPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionLeftPt.x, dimensionLeftPt.y - config.canvasDimensionHalfHeight), point(dimensionLeftPt.x, dimensionLeftPt.y + config.canvasDimensionHalfHeight));
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionRightPt.x, dimensionRightPt.y - config.canvasDimensionHalfHeight), point(dimensionRightPt.x, dimensionRightPt.y + config.canvasDimensionHalfHeight));
-    context.fillText(config.primaryMirrorToTubeEndDimensionText + dimension, dimensionLeftPt.x + config.canvasTextBorder, dimensionY - config.canvasTextBorder);
-    // write out notes
-    common.baffleNotes().html('mirror sagitta = '
-        + roundToDecimal(scaledSagitta / state.scalingFactor, config.decimalPointsDimension)
-        + uomLit);
-};
-
-MLB.telescopeCriteriaCalc.graphFoldingReflector = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        state = MLB.telescopeCriteriaCalc.state,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        setCanvasScalingFactor = MLB.telescopeCriteriaCalc.setCanvasScalingFactor,
-        canvas,
-        context,
-        aperture,
-		telescopeFocalLength,
-        focalRatio,
-		eyepieceFieldStop,
-        barrelTubeInsideDiameter,
-        barrelTubeLength,
-		telescopeTubeOD,
-        telescopeTubeThickness,
-        foldingSecondaryMirrorSize,
-		focalPlaneToSecondaryDistance,
-        focalPlaneToTertiaryDistance,
-        tertiaryOffsetFromEdgeOfPrimary,
-        model,
-        primaryMirrorThicknessInUom,
-        primaryMirrorCellThicknessInUom,
-        scaledAperture,
-        scaledMirrorRadius,
-        scaledTelescopeFocalLength,
-        scaledEyepieceFieldStop,
-        scaledBarrelTubeInsideDiameter,
-        scaledBarrelTubeLength,
-        scaledTelescopeTubeOD,
-        scaledTelescopeTubeThickness,
-        scaledPrimaryMirrorThicknessInUom,
-        scaledPrimaryMirrorCellThicknessInUom,
-        scaledHalfTubeID,
-        scaledRadiusCurvature,
-        scaledSagitta,
-		highestY,
-        mirrorCenterPt,
-        primaryFocusPt,
-        mirrorRadian,
-        mirrorUpperFacePt,
-        mirrorLowerFacePt,
-        mirrorUpperBackPt,
-        mirrorLowerBackPt,
-        mainAxisLength,
-        diagPt,
-        elbowEndPt,
-        focalPlanePt,
-        diagAngleRad,
-        halfDiagLen,
-        xDelta,
-        yDelta,
-        diagUpperLeftPt,
-        diagLowerRightPt,
-		endPointString,
-        eyepieceMirrorString,
-        dimensionY,
-        dimensionLeftPt,
-        dimensionRightPt,
-        diagonalToMirrorString,
-        diagonalString,
-        point = MLB.sharedLib.point,
-        drawLine = MLB.sharedLib.drawLine,
-        uom = MLB.sharedLib.uom,
-        calcSagitta = MLB.calcLib.calcSagitta,
-        calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
-        uomLit = common.inInches() ? config.inchesLit : config.mmLit;
-
-    canvas = common.foldingReflectorCanvasID()[0];
-    context = canvas.getContext('2d');
-
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    aperture = common.apertureVal();
-    telescopeFocalLength = common.telescopeFocalLengthVal();
-    focalRatio = telescopeFocalLength / aperture;
-    eyepieceFieldStop = common.convertmmToUom(common.eyepieceFieldStopmmVal());
-    barrelTubeInsideDiameter = common.barrelTubeInsideDiameterVal();
-    barrelTubeLength = common.barrelTubeLengthVal();
-    telescopeTubeOD = common.telescopeTubeODVal();
-    telescopeTubeThickness = common.telescopeTubeThicknessVal();
-    foldingSecondaryMirrorSize = common.foldingSecondaryMirrorSizeVal();
-	focalPlaneToSecondaryDistance = common.focalPlaneToSecondaryDistanceVal();
-    focalPlaneToTertiaryDistance = common.focalPlaneToTertiaryDistanceVal();
-    tertiaryOffsetFromEdgeOfPrimary = common.tertiaryOffsetFromEdgeOfPrimaryVal();
-
-    primaryMirrorThicknessInUom = common.convertInchesToUom(config.primaryMirrorThicknessInches);
-    primaryMirrorCellThicknessInUom = common.convertInchesToUom(config.primaryMirrorCellThicknessInches);
-
-    model = calcFoldedNewtonian(aperture, focalRatio, foldingSecondaryMirrorSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance);
-	setCanvasScalingFactor();
-
-    scaledAperture = state.scalingFactor * aperture;
-    scaledMirrorRadius = scaledAperture / 2;
-    scaledTelescopeFocalLength = state.scalingFactor * telescopeFocalLength;
-    scaledEyepieceFieldStop = state.scalingFactor * eyepieceFieldStop;
-    scaledBarrelTubeInsideDiameter = state.scalingFactor * barrelTubeInsideDiameter;
-    scaledBarrelTubeLength = state.scalingFactor * barrelTubeLength;
-    scaledTelescopeTubeOD = state.scalingFactor * telescopeTubeOD;
-    scaledTelescopeTubeThickness = state.scalingFactor * telescopeTubeThickness;
-    scaledPrimaryMirrorThicknessInUom = state.scalingFactor * primaryMirrorThicknessInUom;
-    scaledPrimaryMirrorCellThicknessInUom = state.scalingFactor * primaryMirrorCellThicknessInUom;
-    scaledHalfTubeID = scaledTelescopeTubeOD / 2 - scaledTelescopeTubeThickness;
-    scaledRadiusCurvature = scaledAperture * focalRatio * 2;
-    scaledSagitta = state.scalingFactor * calcSagitta(aperture, focalRatio);
-
-    // canvas 0,0 is upper left
-    // calc mirror
-	highestY = tertiaryOffsetFromEdgeOfPrimary > 0 ? tertiaryOffsetFromEdgeOfPrimary : 0;
-    mirrorCenterPt = point(config.canvasBorder + scaledPrimaryMirrorThicknessInUom + scaledPrimaryMirrorCellThicknessInUom + scaledTelescopeTubeThickness, canvas.height / 2);
-    primaryFocusPt = point(mirrorCenterPt.x + scaledTelescopeFocalLength, mirrorCenterPt.y);
-    scaledSagitta = state.scalingFactor * calcSagitta(aperture, focalRatio);
-    scaledMirrorRadius = state.scalingFactor * aperture / 2;
-    mirrorUpperFacePt = point(mirrorCenterPt.x + scaledSagitta, mirrorCenterPt.y - scaledMirrorRadius);
-    mirrorLowerFacePt = point(mirrorCenterPt.x + scaledSagitta, mirrorCenterPt.y + scaledMirrorRadius);
-    mirrorUpperBackPt = point(mirrorCenterPt.x - scaledPrimaryMirrorThicknessInUom, mirrorUpperFacePt.y);
-    mirrorLowerBackPt = point(mirrorCenterPt.x - scaledPrimaryMirrorThicknessInUom, mirrorLowerFacePt.y);
-
-    // calc diag to primary axis
-    mainAxisLength = state.scalingFactor * model.diagToPrimaryMirrorDistance;
-    diagPt = point(mirrorCenterPt.x + mainAxisLength, mirrorCenterPt.y);
-
-    // calc primary mirror
-    // circumference = 2 * PI * RoC;RoC = MD * FR * 2; circumference = 2 * PI * Radian
-    // circumference = 2 * PI * MD * FR * 2; Radian = MD * FR * 2; MD = Radian / (FR * 2); MD / Radian = 1 / (FR * 2)
-    mirrorRadian = 1 / (2 * focalRatio);
-    scaledRadiusCurvature = state.scalingFactor * aperture * focalRatio * 2;
-
-    // calc elbow bend: position of elbow end is at eyepiece to primary mirror distance, at projection of mirror edge (mirror radius distance)
-    elbowEndPt = point(mirrorCenterPt.x + state.scalingFactor * model.focalPointToPrimaryMirrorDistance, mirrorCenterPt.y - state.scalingFactor * (aperture / 2 + tertiaryOffsetFromEdgeOfPrimary));
-
-    // calc tertiary path
-    focalPlanePt = point(elbowEndPt.x, elbowEndPt.y - state.scalingFactor * focalPlaneToTertiaryDistance);
-
-    // calc diagonal
-    diagAngleRad = model.elbowAngleDeg / 2 * uom.degToRad;
-    halfDiagLen = state.scalingFactor * model.diagMajorAxisSize / 2;
-    xDelta = Math.sin(diagAngleRad) * halfDiagLen;
-    yDelta = Math.cos(diagAngleRad) * halfDiagLen;
-    diagUpperLeftPt = point(diagPt.x + xDelta, diagPt.y - yDelta);
-    diagLowerRightPt = point(diagPt.x - xDelta, diagPt.y + yDelta);
-
-    // draw primary mirror to prime focus
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, mirrorCenterPt, primaryFocusPt);
-    // draw primary mirror to primary focus light rays
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, mirrorUpperFacePt, primaryFocusPt);
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, mirrorLowerFacePt, primaryFocusPt);
-    // draw primary mirror curved face
-    context.beginPath();
-    context.arc(mirrorCenterPt.x + scaledRadiusCurvature, mirrorCenterPt.y, scaledRadiusCurvature, uom.halfRev - mirrorRadian / 2, uom.halfRev + mirrorRadian / 2);
-    context.strokeStyle = config.canvasGlassStyle;
-    context.stroke();
-    // draw mirror edges, back
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, mirrorUpperFacePt, mirrorUpperBackPt);
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, mirrorLowerFacePt, mirrorLowerBackPt);
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, mirrorUpperBackPt, mirrorLowerBackPt);
-    // draw elbow bend: position of elbow end is at eyepiece to primary mirror distance, at projection of mirror edge (mirror radius distance)
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, diagPt, elbowEndPt);
-    // draw tertiary path
-    drawLine(context, config.canvasOpticalPathStyle, config.canvasLineWidth, elbowEndPt, focalPlanePt);
-    // draw diagonal
-    drawLine(context, config.canvasGlassStyle, config.canvasLineWidth, diagUpperLeftPt, diagLowerRightPt);
-    // draw eyepiece to mirror dimension line
-    dimensionY = mirrorLowerFacePt.y + 4 * config.canvasDimensionHalfHeight;
-    dimensionLeftPt = point(mirrorUpperFacePt.x, dimensionY);
-    dimensionRightPt = point(elbowEndPt.x, dimensionY);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, dimensionLeftPt, dimensionRightPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionLeftPt.x, dimensionLeftPt.y - config.canvasDimensionHalfHeight / 2), point(dimensionLeftPt.x, dimensionLeftPt.y + config.canvasDimensionHalfHeight / 2));
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionRightPt.x, dimensionRightPt.y - config.canvasDimensionHalfHeight / 2), point(dimensionRightPt.x, dimensionRightPt.y + config.canvasDimensionHalfHeight / 2));
-    // write primary mirror front edge to eyepiece dimension
-    context.font = config.canvasFont;
-    context.fillStyle = config.canvasStructureStyle;
-	endPointString = focalPlaneToTertiaryDistance > 0 ? 'tiertiary mirror ' : 'focal plane ';
-    eyepieceMirrorString = config.primaryMirrorToText + endPointString + roundToDecimal(model.focalPointToPrimaryMirrorDistance, config.canvasLineWidth) + uomLit;
-    context.fillText(eyepieceMirrorString, dimensionLeftPt.x + config.canvasTextBorder, dimensionY - config.canvasTextBorder);
-    // draw diagonal to mirror dimension line
-    dimensionY += 4 * config.canvasDimensionHalfHeight;
-    dimensionLeftPt = point(mirrorUpperFacePt.x, dimensionY);
-    dimensionRightPt = point(diagPt.x, dimensionY);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, dimensionLeftPt, dimensionRightPt);
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionLeftPt.x, dimensionLeftPt.y - config.canvasDimensionHalfHeight / 2), point(dimensionLeftPt.x, dimensionLeftPt.y + config.canvasDimensionHalfHeight / 2));
-    drawLine(context, config.canvasStructureStyle, config.canvasLineWidth, point(dimensionRightPt.x, dimensionRightPt.y - config.canvasDimensionHalfHeight / 2), point(dimensionRightPt.x, dimensionRightPt.y + config.canvasDimensionHalfHeight / 2));
-    // write primary mirror front edge to folding mirror dimension
-    context.fillStyle = config.canvasStructureStyle;
-    diagonalToMirrorString = config.primaryMirrorToFoldingMirrorText + roundToDecimal(model.diagToPrimaryMirrorDistance, config.canvasLineWidth) + uomLit;
-    context.fillText(diagonalToMirrorString, dimensionLeftPt.x + config.canvasTextBorder, dimensionY - config.canvasTextBorder);
-
-    // write diagonal dimensions
-    diagonalString = 'folding mirror: '
-        + roundToDecimal(foldingSecondaryMirrorSize + 0.05, config.canvasLineWidth)
-        + 'x'
-        + roundToDecimal(model.diagMajorAxisSize, config.canvasLineWidth)
-		+ uomLit
-        + '; angle = '
-        // diagonal angle is half that of the elbow optical angle
-        + roundToDecimal(model.elbowAngleDeg / 2, config.canvasLineWidth)
-        + ' deg';
-    common.foldingReflectorNotes().html(diagonalString
-	    + '<br>'
-	    + 'mirror sagitta = '
-		+ roundToDecimal(scaledSagitta / state.scalingFactor, config.decimalPointsDimension) + uomLit);
-};
-
-MLB.telescopeCriteriaCalc.updateFieldsDependentOnAperture = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        newTubeOD = common.apertureVal() + common.telescopeTubeThicknessVal() * 2 + common.convertmmToUom(common.eyepieceFieldStopmmVal()),
-        newFocalPlaneToDiagDistance = newTubeOD / 2 + common.focuserRackedInHeightVal() + common.focuserInwardFocusingDistanceVal();
-
-    common.telescopeTubeOD().val(roundToDecimal(newTubeOD, config.decimalPointsTube));
-    common.focalPlaneToDiagDistance().val(roundToDecimal(newFocalPlaneToDiagDistance, config.decimalPointsTube));
-};
-
-/* 
-called from
-    calcAperture()
-    calcFOV()
-    calcEyepieceFieldStop()
-    calcFocalRatio()
-    calcEyePupil()
-    calcEyepieceFocalLength()
-*/
-MLB.telescopeCriteriaCalc.updateFollowOnFields = function () {
-    var updateFieldsDependentOnAperture = MLB.telescopeCriteriaCalc.updateFieldsDependentOnAperture,
-        updateSpecs = MLB.telescopeCriteriaCalc.updateSpecs,
-        updateEyepieceOptimizerRows = MLB.telescopeCriteriaCalc.updateEyepieceOptimizerRows,
-        graphDiagIllum = MLB.telescopeCriteriaCalc.graphDiagIllum,
-        graphBaffles = MLB.telescopeCriteriaCalc.graphBaffles,
-        graphFoldingReflector = MLB.telescopeCriteriaCalc.graphFoldingReflector;
-
-    updateFieldsDependentOnAperture();
-    updateSpecs();
-    updateEyepieceOptimizerRows();
-    graphDiagIllum();
-    graphBaffles();
-    graphFoldingReflector();
-};
-
-MLB.telescopeCriteriaCalc.calcAperture = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil,
-        calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        focalRatioChecked = common.focalRatioChecked(),
-        resultApertureInches;
-
-    if (focalRatioChecked) {
-        resultApertureInches = calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(common.FOVdegVal(), common.focalRatioVal(), common.eyepieceFieldStopmmVal(), comaCorrectorMag);
-    } else {
-        resultApertureInches = calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil(common.FOVdegVal(), common.eyepieceFocalLengthmmVal(), common.eyepieceFieldStopmmVal(), common.eyePupilmmVal());
-    }
-    common.aperture().val(roundToDecimal(common.convertInchesToUom(resultApertureInches), config.decimalPointsAperture));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcFOV = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil,
-        calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        focalRatioChecked = common.focalRatioChecked(),
-        resultFOV;
-
-    if (focalRatioChecked) {
-        resultFOV = calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(common.apertureInchesVal(), common.focalRatioVal(), common.eyepieceFieldStopmmVal(), comaCorrectorMag);
-    } else {
-        resultFOV = calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil(common.apertureInchesVal(), common.eyepieceFocalLengthmmVal(), common.eyepieceFieldStopmmVal(), common.eyePupilmmVal());
-    }
-
-    common.FOVdeg().val(roundToDecimal(resultFOV, config.decimalPointsFOV));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcEyepieceFieldStop = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil,
-        calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        focalRatioChecked = common.focalRatioChecked(),
-        resultEyepieceFieldStop;
-
-    if (focalRatioChecked) {
-        resultEyepieceFieldStop = calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor(common.apertureInchesVal(), common.FOVdegVal(), common.focalRatioVal(), comaCorrectorMag);
-    } else {
-        resultEyepieceFieldStop = calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil(common.apertureInchesVal(), common.FOVdegVal(), common.eyepieceFocalLengthmmVal(), common.eyePupilmmVal());
-    }
-    common.eyepieceFieldStopmm().val(roundToDecimal(resultEyepieceFieldStop, config.decimalPointsEyepieceFieldStop));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcApertureFromLimitingMagnitude = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        apertureInchesFromMagnitude = MLB.calcLib.apertureInchesFromMagnitude,
-        // lower power reduces limiting magnitude by ~1 mag
-        resultApertureInches = apertureInchesFromMagnitude(common.limitingMagnitudeVal() + 1);
-
-    common.aperture().val(roundToDecimal(common.convertInchesToUom(resultApertureInches), config.decimalPointsAperture));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcEyepieceFieldStopFromApparentFOV_EyepieceFL = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        resultEyepieceFieldStopmm = common.eyepieceFocalLengthmmVal() * common.eyepieceApparentFielddegVal() / 57.3;
-
-    common.eyepieceFieldStopmm().val(roundToDecimal(resultEyepieceFieldStopmm, config.decimalPointsEyepieceFieldStop));
-};
-
-MLB.telescopeCriteriaCalc.calcEyepieceFocalLengthFromFocalRatioEyePupil = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        resultEyepieceFocalLengthmm = common.focalRatioVal() * common.eyePupilmmVal() * comaCorrectorMag;
-
-    common.eyepieceFocalLengthmm().val(roundToDecimal(resultEyepieceFocalLengthmm, config.decimalPointsEyepieceFL));
-};
-
-MLB.telescopeCriteriaCalc.calcFocalRatio = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        common = MLB.telescopeCriteriaCalc.common,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        resultFocalRatio = calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor(common.apertureInchesVal(), common.FOVdegVal(), common.eyepieceFieldStopmmVal(), comaCorrectorMag);
-
-    common.focalRatio().val(roundToDecimal(resultFocalRatio, config.decimalPointsFocalRatio));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcEyePupil = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop = MLB.calcLib.calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        common = MLB.telescopeCriteriaCalc.common,
-        resultEyePupilmm = calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop(common.apertureInchesVal(), common.FOVdegVal(), common.eyepieceFocalLengthmmVal(), common.eyepieceFieldStopmmVal());
-
-    common.eyePupilmm().val(roundToDecimal(resultEyePupilmm, config.decimalPointsEyePupil));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcEyepieceFocalLength = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil = MLB.calcLib.calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        common = MLB.telescopeCriteriaCalc.common,
-        resultEyepieceFocalLengthmm = calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil(common.apertureInchesVal(), common.FOVdegVal(), common.eyepieceFieldStopmmVal(), common.eyePupilmmVal());
-
-    common.eyepieceFocalLengthmm().val(roundToDecimal(resultEyepieceFocalLengthmm, config.decimalPointsEyepieceFL));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcApertureFromFocalRatio_FocalLength = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        resultApertureInches = common.telescopeFocalLengthInchesVal() / common.focalRatioVal();
-
-    common.aperture().val(roundToDecimal(common.convertInchesToUom(resultApertureInches), config.decimalPointsAperture));
-    updateFollowOnFields();
-};
-
-MLB.telescopeCriteriaCalc.calcFocalRatioFromAperture_FocalLength = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        resultFocalRatio = common.telescopeFocalLengthInchesVal() / common.apertureInchesVal();
-
-    common.focalRatio().val(roundToDecimal(resultFocalRatio, config.decimalPointsFocalRatio));
-};
-
-MLB.telescopeCriteriaCalc.calcTelescopeFocalLengthFromAperture_FocalRatio = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        resultTelescopeFocalLengthInches = common.apertureInchesVal() * common.focalRatioVal();
-
-    common.telescopeFocalLength().val(roundToDecimal(common.convertInchesToUom(resultTelescopeFocalLengthInches), config.decimalPointsTelescopeFocalLength));
-};
-
-MLB.telescopeCriteriaCalc.setSelectedComaCorrector = function (comaCorrectorsIx) {
-    var common = MLB.telescopeCriteriaCalc.common,
-        comaCorrectorsJson = MLB.comaCorrectorsJson,
-        comaCorrector = comaCorrectorsJson.comaCorrectors[comaCorrectorsIx];
-
-    common.comaCorrectorMag().val(comaCorrector.magnification);
-};
-
-MLB.telescopeCriteriaCalc.setSelectedEyepiece = function (eyepiecesIx) {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        eyepiecesJson = MLB.eyepiecesJson,
-        eyepiece = eyepiecesJson.eyepieces[eyepiecesIx];
-
-    common.eyepieceFocalLengthmm().val(roundToDecimal(+eyepiece.focalLengthmm, config.decimalPointsEyepieceFL));
-    common.eyepieceFieldStopmm().val(roundToDecimal(+eyepiece.fieldStopmm, config.decimalPointsEyepieceFieldStop));
-    common.eyepieceApparentFielddeg().val(roundToDecimal(+eyepiece.apparentField, config.decimalPointsEyepieceApparentFOV));
-};
-
-MLB.telescopeCriteriaCalc.setEyeOptSelectedEyepiece = function (idIx, selectedIndex) {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        state = MLB.telescopeCriteriaCalc.state,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        eyepiecesJson = MLB.eyepiecesJson,
-        eyepiece = eyepiecesJson.eyepieces[selectedIndex],
-        calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
-        resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        // uses aperture, focal ratio
-        magnification = common.apertureInchesVal() * common.focalRatioVal() / +eyepiece.focalLengthmm * 25.4 * comaCorrectorMag,
-        resolutionArcsec = resolutionFromAperture_Magnification(common.apertureInchesVal(), magnification),
-        exitPupil = +eyepiece.focalLengthmm / common.focalRatioVal(),
-        resultFOV = calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(common.apertureInchesVal(), common.focalRatioVal(), +eyepiece.fieldStopmm, comaCorrectorMag);
-
-    common.EyeOptElement(common.EyeOptManufacturerID, idIx).html(eyepiece.manufacturer);
-    common.EyeOptElement(common.EyeOptTypeID, idIx).html(eyepiece.type);
-    common.EyeOptElement(common.EyeOptFocalLengthID, idIx).html(roundToDecimal(+eyepiece.focalLengthmm, config.decimalPointsEyepieceFL) + 'mm');
-    common.EyeOptElement(common.EyeOptFieldStopID, idIx).html(roundToDecimal(+eyepiece.fieldStopmm, config.decimalPointsEyepieceFieldStop) + 'mm');
-    common.EyeOptElement(common.EyeOptExitPupilID, idIx).html(roundToDecimal(exitPupil, config.decimalPointsEyePupil) + 'mm');
-    common.EyeOptElement(common.EyeOptApparentFieldID, idIx).html(roundToDecimal(+eyepiece.apparentField, config.decimalPointsEyepieceApparentFOV) + ' deg');
-    common.EyeOptElement(common.EyeOptFOVID, idIx).html(roundToDecimal(resultFOV, config.decimalPointsFOV) + ' deg');
-    common.EyeOptElement(common.EyeOptMagnificationID, idIx).html(roundToDecimal(magnification, config.decimalPointsMagnification) + 'x');
-    common.EyeOptElement(common.EyeOptResolutionID, idIx).html(roundToDecimal(resolutionArcsec, config.decimalPointsResolution) + '"');
-
-    state.eyeOptRowSet[idIx] = true;
-};
-
-MLB.telescopeCriteriaCalc.calcEyepieceWidestFieldFromFocalRatio_EyePupil = function () {
-    var common = MLB.telescopeCriteriaCalc.common,
-        eyepiecesJson = MLB.eyepiecesJson,
-        setSelectedEyepiece = MLB.telescopeCriteriaCalc.setSelectedEyepiece,
-        calcFOV = MLB.telescopeCriteriaCalc.calcFOV,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        targetEyepieceFLmm = common.focalRatioVal() * common.eyePupilmmVal() * comaCorrectorMag,
-        bestFitEyepiece,
-        bestFitDeviation,
-        bestIx,
-        eyepieceDeviation;
-
-    $.each(eyepiecesJson.eyepieces, function (i, v) {
-        eyepieceDeviation = Math.abs(v.focalLengthmm - targetEyepieceFLmm);
-        if (bestFitDeviation === undefined || eyepieceDeviation < bestFitDeviation || (eyepieceDeviation === bestFitDeviation && +v.apparentField > +bestFitEyepiece.apparentField)) {
-            bestFitDeviation = eyepieceDeviation;
-            bestFitEyepiece = v;
-            bestIx = i;
-        }
-    });
-    common.eyepieceSelect().get(0).selectedIndex = bestIx;
-    setSelectedEyepiece(bestIx);
-    // update FOV to view widest field results
-    calcFOV();
-};
-
-MLB.telescopeCriteriaCalc.calcEyepieceWidestFieldForEyePupil = function () {
-    var common = MLB.telescopeCriteriaCalc.common,
-        eyepiecesJson = MLB.eyepiecesJson,
-        calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
-        calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop = MLB.calcLib.calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop,
-        setSelectedEyepiece = MLB.telescopeCriteriaCalc.setSelectedEyepiece,
-        calcFOV = MLB.telescopeCriteriaCalc.calcFOV,
-        getComaCorrectorMagnificationFactor = MLB.telescopeCriteriaCalc.getComaCorrectorMagnificationFactor,
-        comaCorrectorMag = getComaCorrectorMagnificationFactor(common),
-        bestFitEyepiece,
-        bestFOV,
-        bestIx,
-        eyePupil,
-        FOV;
-
-    $.each(eyepiecesJson.eyepieces, function (i, v) {
-        FOV = calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(common.apertureInchesVal(), common.focalRatioVal(), +v.fieldStopmm, comaCorrectorMag);
-        eyePupil = calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop(common.apertureInchesVal(), FOV, +v.focalLengthmm, +v.fieldStopmm);
-        if (eyePupil <= common.eyePupilmmVal() && (bestFOV === undefined || bestFOV < FOV)) {
-            bestFOV = FOV;
-            bestFitEyepiece = v;
-            bestIx = i;
-        }
-    });
-    common.eyepieceSelect().get(0).selectedIndex = bestIx;
-    setSelectedEyepiece(bestIx);
-    // update FOV to view widest field results
-    calcFOV();
-};
-
-MLB.telescopeCriteriaCalc.setSelectedFocuser = function (focusersIx) {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        focusersJson = MLB.focusersJson,
-        focuser = focusersJson.focusers[focusersIx];
-
-    common.focuserRackedInHeight().val(roundToDecimal(common.convertInchesToUom(+focuser.rackedInHeightInches), config.decimalPointsFocuser));
-    common.focuserTravel().val(roundToDecimal(common.convertInchesToUom(+focuser.travelInches), config.decimalPointsFocuser));
-    common.barrelTubeInsideDiameter().val(roundToDecimal(common.convertInchesToUom(+focuser.barrelInsideDiameterInches), config.decimalPointsFocuser));
-    common.barrelTubeLength().val(roundToDecimal(common.convertInchesToUom(+focuser.barrelLengthInches), config.decimalPointsFocuser));
-
-    common.focalPlaneToFocuserBarrelBottomDistance().val(roundToDecimal(common.convertInchesToUom(+focuser.barrelLengthInches) + common.focuserInwardFocusingDistanceVal(), config.decimalPointsFocuser));
-};
-
-MLB.telescopeCriteriaCalc.processCalculatorType = function () {
-    var config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        state = MLB.telescopeCriteriaCalc.state,
-        focalRatioChecked = common.focalRatioChecked();
-
-    if (focalRatioChecked !== state.focalRatioChecked) {
-        if (focalRatioChecked) {
-            common.btnCalcAperture().val(config.calcAperture4ParmsLit);
-            common.btnCalcFOV().val(config.calcFOV4ParmsLit);
-            common.btnCalcEyepieceFieldStop().val(config.calcEyepieceFieldStop4ParmsLit);
-
-            common.btnCalcFocalRatio().removeAttr('disabled');
-            common.btnCalcEyePupil().attr('disabled', 'disabled');
-            common.btnCalcEyepieceFocalLength().attr('disabled', 'disabled');
-        } else {
-            common.btnCalcAperture().val(config.calcAperture5ParmsLit);
-            common.btnCalcFOV().val(config.calcFOV5ParmsLit);
-            common.btnCalcEyepieceFieldStop().val(config.calcEyepieceFieldStop5ParmsLit);
-
-            common.btnCalcFocalRatio().attr('disabled', 'disabled');
-            common.btnCalcEyePupil().removeAttr('disabled');
-            common.btnCalcEyepieceFocalLength().removeAttr('disabled');
-        }
-        state.focalRatioChecked = common.focalRatioChecked();
-    }
-};
-
-MLB.telescopeCriteriaCalc.processUomChange = function (startup) {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        graphDiagIllum = MLB.telescopeCriteriaCalc.graphDiagIllum,
-        graphBaffles = MLB.telescopeCriteriaCalc.graphBaffles,
-        graphFoldingReflector = MLB.telescopeCriteriaCalc.graphFoldingReflector,
-        uomLit = common.inInches() ? config.inchesLit : config.mmLit,
-        // no conversion at startup!
-        conversionFactor = startup !== undefined ? 1 : common.inInches() ? 0.03937 : 25.4,
-        diags = common.inInches() ? config.diagonalsInches.join(',') : config.diagonalsMm.join(',');
-
-    // update labels to include uom
-    common.apertureLabel().html(config.apertureLabelLit + uomLit + config.equalsLit);
-    common.focalLengthLabel().html(config.focalLengthLabelLit + uomLit + config.equalsLit);
-    common.focuserRackedInHeightLabel().html(config.focuserRackedInHeightLabelLit + uomLit + config.equalsLit);
-    common.focuserTravelLabel().html(config.focuserTravelLabelLit + uomLit + config.equalsLit);
-    common.barrelTubeInsideDiameterLabel().html(config.barrelTubeInsideDiameterLabelLit + uomLit + config.equalsLit);
-    common.barrelTubeLengthLabel().html(config.barrelTubeLengthLabelLit + uomLit + config.equalsLit);
-    common.focuserInwardFocusingDistanceLabel().html(config.focuserInwardFocusingDistanceLabelLit + uomLit + config.equalsLit);
-    common.tubeODLabel().html(config.tubeODLabelLit + uomLit + config.equalsLit);
-    common.tubeThicknessLabel().html(config.tubeThicknessLabelLit + uomLit + config.equalsLit);
-    common.focalPlaneToDiagDistanceLabel().html(config.focalPlaneToDiagDistanceLabelLit + uomLit + config.equalsLit);
-    common.diagSizesLabel().html(config.diagSizesLabelLit + uomLit);
-    common.optimizedDiagSizeLabel().html(config.optimizedDiagSizeLabelLit + uomLit + config.equalsLit);
-    common.focalPlaneToFocuserBarrelBottomDistanceLabel().html(config.focalPlaneToFocuserBarrelBottomDistanceLabelLit + uomLit + config.equalsLit);
-    common.diagOffsetLabel().html(config.diagOffsetLabelLit + uomLit + config.equalsLit);
-    common.foldingSecondaryMirrorSizeLabel().html(config.foldingSecondaryMirrorSizeLabelLit + uomLit + config.equalsLit);
-    common.focalPlaneToSecondaryDistanceLabel().html(config.focalPlaneToSecondaryDistanceLabelLit + uomLit + config.equalsLit);
-    common.focalPlaneToTertiaryDistanceLabel().html(config.focalPlaneToTertiaryDistanceLabelLit + uomLit + config.equalsLit);
-    common.tertiaryOffsetFromEdgeOfPrimaryLabel().html(config.tertiaryOffsetFromEdgeOfPrimaryLabelLit + uomLit + config.equalsLit);
-
-    // replace field values with new uom values; uom state already switched
-    common.aperture().val(roundToDecimal(common.apertureVal() * conversionFactor, config.decimalPointsAperture));
-    common.telescopeFocalLength().val(roundToDecimal(common.telescopeFocalLengthVal() * conversionFactor, config.decimalPointsTelescopeFocalLength));
-
-    common.focuserRackedInHeight().val(roundToDecimal(common.focuserRackedInHeightVal() * conversionFactor, config.decimalPointsFocuser));
-    common.focuserTravel().val(roundToDecimal(common.focuserTravelVal() * conversionFactor, config.decimalPointsFocuser));
-    common.barrelTubeInsideDiameter().val(roundToDecimal(common.barrelTubeInsideDiameterVal() * conversionFactor, config.decimalPointsFocuser));
-    common.barrelTubeLength().val(roundToDecimal(common.barrelTubeLengthVal() * conversionFactor, config.decimalPointsFocuser));
-    common.focuserInwardFocusingDistance().val(roundToDecimal(common.focuserInwardFocusingDistanceVal() * conversionFactor, config.decimalPointsFocuser));
-
-    common.telescopeTubeOD().val(roundToDecimal(common.telescopeTubeODVal() * conversionFactor, config.decimalPointsTube));
-    common.telescopeTubeThickness().val(roundToDecimal(common.telescopeTubeThicknessVal() * conversionFactor, config.decimalPointsTube));
-    common.focalPlaneToDiagDistance().val(roundToDecimal(common.focalPlaneToDiagDistanceVal() * conversionFactor, config.decimalPointsTube));
-
-    common.diagSizes().val(diags);
-    common.optimizedDiagSize().val(roundToDecimal(common.optimizedDiagSizeVal() * conversionFactor, config.decimalPointsDiag));
-    common.focalPlaneToFocuserBarrelBottomDistance().val(roundToDecimal(common.focalPlaneToFocuserBarrelBottomDistanceVal() * conversionFactor, config.decimalPointsFocuser));
-    common.diagOffset().val(roundToDecimal(common.diagOffsetVal() * conversionFactor, config.decimalPointsDiag));
-
-    common.foldingSecondaryMirrorSize().val(roundToDecimal(common.foldingSecondaryMirrorSizeVal() * conversionFactor, config.decimalPointsDiag));
-    common.focalPlaneToSecondaryDistance().val(roundToDecimal(common.focalPlaneToSecondaryDistanceVal() * conversionFactor, config.decimalPointsDiag));
-    common.focalPlaneToTertiaryDistance().val(roundToDecimal(common.focalPlaneToTertiaryDistanceVal() * conversionFactor, config.decimalPointsTelescopeFocalLength));
-    common.tertiaryOffsetFromEdgeOfPrimary().val(roundToDecimal(common.tertiaryOffsetFromEdgeOfPrimaryVal() * conversionFactor, config.decimalPointsTelescopeFocalLength));
-
-    if (startup === undefined) {
-        // update the diagonal and baffle charts
-        graphDiagIllum();
-        graphBaffles();
-        graphFoldingReflector();
-    }
-};
-
-MLB.telescopeCriteriaCalc.buildEyepieceHtmlTable = function () {
-    var config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        ix,
-        htmlStr;
-
-    for (ix = 0; ix < config.eyepieceRows; ix++) {
-        htmlStr = "<tr>\r\n"
-            + "<td><select id='" + common.EyeOptSelectID + ix + "'></select></td>\r\n"
-            + "<td id='" + common.EyeOptManufacturerID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptTypeID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptFocalLengthID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptFieldStopID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptApparentFieldID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptExitPupilID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptFOVID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptMagnificationID + ix + "'></td>\r\n"
-            + "<td id='" + common.EyeOptResolutionID + ix + "'></td>\r\n"
-            + "</tr>\r\n";
-        common.eyeOptTableBody().append(htmlStr);
-    }
-};
-
-MLB.telescopeCriteriaCalc.seedComaCorrector = function (manufacturer, model) {
-    var common = MLB.telescopeCriteriaCalc.common,
-        setSelectedComaCorrector = MLB.telescopeCriteriaCalc.setSelectedComaCorrector,
-        comaCorrectorsJson = MLB.comaCorrectorsJson,
-        e,
-        row;
-
-    common.comaCorrectorSelect().val(manufacturer + ' ' + model);
-
-    for (row = 0; row < comaCorrectorsJson.comaCorrectors.length; row++) {
-        e = comaCorrectorsJson.comaCorrectors[row];
-        if (e.manufacturer === manufacturer && e.model === model) {
-            break;
-        }
-    }
-    setSelectedComaCorrector(row);
-};
-
-MLB.telescopeCriteriaCalc.seedEyepiece = function (manufacturer, type, focalLengthmm) {
-    var common = MLB.telescopeCriteriaCalc.common,
-        setSelectedEyepiece = MLB.telescopeCriteriaCalc.setSelectedEyepiece,
-        eyepiecesJson = MLB.eyepiecesJson,
-        e,
-        row;
-
-    common.eyepieceSelect().val(manufacturer + ' ' + type  + ' ' + focalLengthmm + 'mm');
-    for (row = 0; row < eyepiecesJson.eyepieces.length; row++) {
-        e = eyepiecesJson.eyepieces[row];
-        if (e.manufacturer === manufacturer && e.type === type && e.focalLengthmm === focalLengthmm) {
-            break;
-        }
-    }
-    setSelectedEyepiece(row);
-};
-
-MLB.telescopeCriteriaCalc.seedEyeOptEyepiece = function (idIx, manufacturer, type, focalLengthmm) {
-    var common = MLB.telescopeCriteriaCalc.common,
-        setEyeOptSelectedEyepiece = MLB.telescopeCriteriaCalc.setEyeOptSelectedEyepiece,
-        eyepiecesJson = MLB.eyepiecesJson,
-        e,
-        row;
-
-    $('#' + common.EyeOptSelectID + idIx).val(manufacturer + ' ' + type  + ' ' + focalLengthmm + 'mm');
-    for (row = 0; row < eyepiecesJson.eyepieces.length; row++) {
-        e = eyepiecesJson.eyepieces[row];
-        if (e.manufacturer === manufacturer && e.type === type && e.focalLengthmm === focalLengthmm) {
-            break;
-        }
-    }
-    setEyeOptSelectedEyepiece(idIx, row);
-};
-
-MLB.telescopeCriteriaCalc.seedFocuser = function (manufacturer, model) {
-    var common = MLB.telescopeCriteriaCalc.common,
-        setSelectedFocuser = MLB.telescopeCriteriaCalc.setSelectedFocuser,
-        focusersJson = MLB.focusersJson,
-        e,
-        row;
-
-    common.focuserSelect().val(manufacturer + ' ' + model);
-
-    for (row = 0; row < focusersJson.focusers.length; row++) {
-        e = focusersJson.focusers[row];
-        if (e.manufacturer === manufacturer && e.model === model) {
-            break;
-        }
-    }
-    setSelectedFocuser(row);
-};
-
-MLB.telescopeCriteriaCalc.calcMinFoldingMirrorSize = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common;
-
-    common.foldingSecondaryMirrorSize().val(roundToDecimal(common.focalPlaneToSecondaryDistanceVal() / common.focalRatioVal(), config.decimalPointsDiag));
-};
-
-MLB.telescopeCriteriaCalc.calcMinFocalPlaneToSecondaryDistance = function () {
-    var roundToDecimal = MLB.sharedLib.roundToDecimal,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common;
-
-    common.focalPlaneToSecondaryDistance().val(roundToDecimal(common.foldingSecondaryMirrorSizeVal() * common.focalRatioVal(), config.decimalPointsDimension));
-};
-
-$(window).ready(function () {
-    var buildEyepieceHtmlTable = MLB.telescopeCriteriaCalc.buildEyepieceHtmlTable,
-        calcAperture = MLB.telescopeCriteriaCalc.calcAperture,
-        calcApertureFromFocalRatio_FocalLength = MLB.telescopeCriteriaCalc.calcApertureFromFocalRatio_FocalLength,
-        calcFocalRatio = MLB.telescopeCriteriaCalc.calcFocalRatio,
-        calcFocalRatioFromAperture_FocalLength = MLB.telescopeCriteriaCalc.calcFocalRatioFromAperture_FocalLength,
-        calcTelescopeFocalLengthFromAperture_FocalRatio = MLB.telescopeCriteriaCalc.calcTelescopeFocalLengthFromAperture_FocalRatio,
-        calcFOV = MLB.telescopeCriteriaCalc.calcFOV,
-        calcEyePupil = MLB.telescopeCriteriaCalc.calcEyePupil,
-        calcEyepieceWidestFieldFromFocalRatio_EyePupil = MLB.telescopeCriteriaCalc.calcEyepieceWidestFieldFromFocalRatio_EyePupil,
-        calcEyepieceWidestFieldForEyePupil = MLB.telescopeCriteriaCalc.calcEyepieceWidestFieldForEyePupil,
-        calcEyepieceFocalLength = MLB.telescopeCriteriaCalc.calcEyepieceFocalLength,
-        calcEyepieceFieldStop = MLB.telescopeCriteriaCalc.calcEyepieceFieldStop,
-        calcEyepieceFocalLengthFromFocalRatioEyePupil = MLB.telescopeCriteriaCalc.calcEyepieceFocalLengthFromFocalRatioEyePupil,
-        updateFollowOnFields = MLB.telescopeCriteriaCalc.updateFollowOnFields,
-        calcEyepieceFieldStopFromApparentFOV_EyepieceFL = MLB.telescopeCriteriaCalc.calcEyepieceFieldStopFromApparentFOV_EyepieceFL,
-        calcApertureFromLimitingMagnitude = MLB.telescopeCriteriaCalc.calcApertureFromLimitingMagnitude,
-        processCalculatorType = MLB.telescopeCriteriaCalc.processCalculatorType,
-        processUomChange = MLB.telescopeCriteriaCalc.processUomChange,
-        graphDiagIllum = MLB.telescopeCriteriaCalc.graphDiagIllum,
-        graphBaffles = MLB.telescopeCriteriaCalc.graphBaffles,
-        graphFoldingReflector = MLB.telescopeCriteriaCalc.graphFoldingReflector,
-		calcMinFoldingMirrorSize = MLB.telescopeCriteriaCalc.calcMinFoldingMirrorSize,
-		calcMinFocalPlaneToSecondaryDistance = MLB.telescopeCriteriaCalc.calcMinFocalPlaneToSecondaryDistance,
-        setSelectedComaCorrector = MLB.telescopeCriteriaCalc.setSelectedComaCorrector,
-        setSelectedEyepiece = MLB.telescopeCriteriaCalc.setSelectedEyepiece,
-        setSelectedFocuser = MLB.telescopeCriteriaCalc.setSelectedFocuser,
-        setEyeOptSelectedEyepiece = MLB.telescopeCriteriaCalc.setEyeOptSelectedEyepiece,
-        seedComaCorrector = MLB.telescopeCriteriaCalc.seedComaCorrector,
-        seedEyepiece = MLB.telescopeCriteriaCalc.seedEyepiece,
-        seedEyeOptEyepiece = MLB.telescopeCriteriaCalc.seedEyeOptEyepiece,
-        seedFocuser = MLB.telescopeCriteriaCalc.seedFocuser,
-        config = MLB.telescopeCriteriaCalc.config,
-        common = MLB.telescopeCriteriaCalc.common,
-        comaCorrectorsJson = MLB.comaCorrectorsJson,
-        eyepiecesJson = MLB.eyepiecesJson,
-        focusersJson = MLB.focusersJson,
-        comaCorrectorStr,
-        eyepieceStr,
-        focuserStr,
-        optionStr,
-        ix;
-
-    // event hookups/subscribes
-    common.btnCalcAperture().click(function () {
-        calcAperture();
-    });
-    common.btnCalcApertureFromFocalRatio_FocalLength().click(function () {
-        calcApertureFromFocalRatio_FocalLength();
-    });
-    common.btnCalcFocalRatio().click(function () {
-        calcFocalRatio();
-    });
-    common.btnCalcFocalRatioFromAperture_FocalLength().click(function () {
-        calcFocalRatioFromAperture_FocalLength();
-    });
-    common.btnCalcTelescopeFocalLengthFromAperture_FocalRatio().click(function () {
-        calcTelescopeFocalLengthFromAperture_FocalRatio();
-    });
-    common.btnCalcFOV().click(function () {
-        calcFOV();
-    });
-    common.btnCalcEyePupil().click(function () {
-        calcEyePupil();
-    });
-    common.btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil().click(function () {
-        calcEyepieceWidestFieldFromFocalRatio_EyePupil();
-    });
-    common.btnCalcEyepieceWidestFieldForEyePupil().click(function () {
-        calcEyepieceWidestFieldForEyePupil();
-    });
-    common.btnCalcEyepieceFocalLength().click(function () {
-        calcEyepieceFocalLength();
-    });
-    common.btnCalcEyepieceFieldStop().click(function () {
-        calcEyepieceFieldStop();
-    });
-    common.btnCalcEyepieceFocalLengthFromFocalRatioEyePupil().click(function () {
-        calcEyepieceFocalLengthFromFocalRatioEyePupil();
-    });
-    common.btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength().click(function () {
-        calcEyepieceFieldStopFromApparentFOV_EyepieceFL();
-    });
-    common.btnCalcApertureFromLimitingMagnitude().click(function () {
-        calcApertureFromLimitingMagnitude();
-    });
-    common.radBtnFocalRatioOrEyePupil_EyepieceFocalLength().click(function () {
-        processCalculatorType();
-    });
-    common.btnUom().click(function () {
-        processUomChange();
-    });
-    common.btnUpdateDiagIllum().click(function () {
-        graphDiagIllum();
-        graphBaffles();
-    });
-    common.btnUpdateBaffles().click(function () {
-        graphBaffles();
-    });
-    common.btnUpdateFoldingReflector().click(function () {
-        graphFoldingReflector();
-    });
-	common.btnCalcMinFoldingMirrorSize().click(function () {
-		calcMinFoldingMirrorSize();
-	});
-	common.btnCalcMinFocalPlaneToSecondaryDistance().click(function () {
-		calcMinFocalPlaneToSecondaryDistance();
-	});
-
-    // fill select coma corrector drop down box
-    $.each(comaCorrectorsJson.comaCorrectors, function (i, v) {
-        comaCorrectorStr = v.manufacturer + ' ' + v.model;
-        optionStr = '<option value="' + comaCorrectorStr + '">' + comaCorrectorStr + '</option>';
-        common.comaCorrectorSelect().append(optionStr);
-    });
-    // wire up selected comaCorrector change for telescope optimizer
-    common.comaCorrectorSelect().change(function () {
-        setSelectedComaCorrector(this.selectedIndex);
-    });
-
-    // sort eyepieces: manufacturer, type, descending focal length;
-    eyepiecesJson.eyepieces = eyepiecesJson.eyepieces.sort(function (x, y) {
-        var xFL = +x.focalLengthmm,
-            yFL = +y.focalLengthmm;
-
-        if (x.manufacturer === y.manufacturer) {
-            if (x.type === y.type) {
-                return xFL > yFL ? -1 : xFL < yFL ? 1 : 0;
-            }
-            return x.type > y.type ? 1 : -1;
-        }
-        return x.manufacturer > y.manufacturer ? 1 : -1;
-    });
-
-    buildEyepieceHtmlTable();
-    // fill select eyepiece drop down box and eyepiece optimizer table rows
-    $.each(eyepiecesJson.eyepieces, function (i, v) {
-        // fill in missing field stops
-        if (v.fieldStopmm === '') {
-            v.fieldStopmm = +v.focalLengthmm * +v.apparentField / 57.3;
-        }
-        eyepieceStr = v.manufacturer + ' ' + v.type + ' ' + v.focalLengthmm + 'mm';
-        optionStr = '<option value="' + eyepieceStr + '">' + eyepieceStr + '</option>';
-        // eyepiece drop down box for telescope optimizer
-        common.eyepieceSelect().append(optionStr);
-        // drop down boxes for eyepiece optimizer
-        for (ix = 0; ix < config.eyepieceRows; ix++) {
-            $('#' + common.EyeOptSelectID + ix).append(optionStr);
-        }
-    });
-    // wire up selected eyepiece change for telescope optimizer
-    common.eyepieceSelect().change(function () {
-        setSelectedEyepiece(this.selectedIndex);
-    });
-    // wire up selected eyepiece change for eyepiece optimizer
-    $('[id^=' + common.EyeOptSelectID + ']').each(function (idIx) {
-		$(this).change(function (e) {
-			setEyeOptSelectedEyepiece(idIx, e.currentTarget.selectedIndex);
-		});
-	});
-
-    // fill select focuser drop down box
-    $.each(focusersJson.focusers, function (i, v) {
-        focuserStr = v.manufacturer + ' ' + v.model;
-        optionStr = '<option value="' + focuserStr + '">' + focuserStr + '</option>';
-        common.focuserSelect().append(optionStr);
-    });
-    // wire up selected focuser change for telescope optimizer
-    common.focuserSelect().change(function () {
-        setSelectedFocuser(this.selectedIndex);
-    });
-
-    processCalculatorType();
-    // calc and display specs for form default
-    seedComaCorrector('TeleVue', 'Paracorr II');
-    seedEyepiece('Explore Scientific', '82 series', '24');
-    seedEyeOptEyepiece(0, 'Celestron', 'Axiom', '40');
-    seedEyeOptEyepiece(1, 'TeleVue', 'Ethos', '17');
-    seedEyeOptEyepiece(2, 'Clave', 'Plossl', '6');
-    seedFocuser('MoonLite', 'CR 1.5');
-
-    // must wait for seeded focuser et al
-    processUomChange('startup');
-    updateFollowOnFields();
-});
-
-// end of file
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content='Mel Bartels' name='author'>
+	<meta content='Optimizers a (reflecting) telescope design' name='description'>
+	<title>Telescope Design Optimizer</title>
+	<meta content='initial-scale=1' name='viewport'>
+	<link href='Saucer32.ico' rel='shortcut icon'>
+	<link rel='stylesheet' type='text/css' href='css/telescopeCriteriaCalc.css'>
+	<link rel='stylesheet' type='text/css' href='lib/jqplot/jquery.jqplot.min.css' />
+</head>
+<body>
+
+    <div class='titleSection'>
+        <div class='titleFlexArea'>
+            <div>
+                <h2>Telescope, Eyepiece and Diagonal Optimizer</h2>
+                <h3>by Mel Bartels</h3>
+            </div>
+            <div>
+				<img class='titleImg' src='10.5inchF2.7/10.5 inch finished 4.JPG'>
+			</div>
+        </div>
+    </div>
+	
+	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any parameter against any other parameter to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
+
+	<br>
+	<h3>Telescope Optimizer</h3>
+
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='calcSectionHeader'>
+				Select calculator
+			</td>
+			<td>
+				<input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='FR' type='radio' checked='checked'>Use focal ratio
+				<span class='indent'></span><input name='radBtnFocalRatioOrEyePupil_EyepieceFocalLength' value='EE' type='radio'>Use eye pupil, eyepiece FL
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Unit of measurement =
+			</td>	
+			<td>
+				<input name='uom' value='inches' checked='checked' type='radio'>
+				inches 
+				<input name='uom' value='millimeters' type='radio'>
+				millimeters
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Telescope...
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='apertureLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='aperture' value='12' onfocus='select();' type='text'>
+				<input id='btnCalcAperture' value='calc aperture' type='button'>
+				<input id='btnCalcApertureFromFocalRatio_FocalLength' value='calc from focal ratio, focal length' type='button'>
+				<input id='btnCalcApertureFromLimitingMagnitude' value='set from' type='button'>
+				limiting magnitude <input class='inputText' name='limitingMagnitude' value='15.2' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Focal ratio = 
+			</td>
+			<td>
+				<input class='inputText' name='focalRatio' value='4' onfocus='select();' type='text'>
+				<input id='btnCalcFocalRatio' value='calc from aperture, FOV, field stop' type='button'>
+				<input id='btnCalcFocalRatioFromAperture_FocalLength' value='calc from aperture, focal length' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focalLengthLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='telescopeFocalLength' value='48' onfocus='select();' type='text'>
+				<input id='btnCalcTelescopeFocalLengthFromAperture_FocalRatio' value='calc from aperture, focal ratio' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Field of view (FOV) (deg) = 
+			</td>
+			<td>
+				<input class='inputText' name='FOVdeg' value='1.57' onfocus='select();' type='text'>
+				<input id='btnCalcFOV' value='calc true field of view' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Eye...
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Eye pupil (mm) = 
+			</td>
+			<td>
+				<input class='inputText' name='eyePupilmm' value='6' onfocus='select();' type='text'>
+				<input id='btnCalcEyePupil' value='calc from aperture, FOV, eyepiece FL, field stop' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Eyepiece...
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Select a coma corrector
+			</td>
+			<td>
+				<select id='comaCorrectorSelect'>						
+				</select>
+				<span class='indent'></span><input name='chBoxUseComaCorrector' type='checkbox'>Use coma corrector, 
+				x factor = <input class='inputText' name='comaCorrectorMag' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Select an eyepiece
+			</td>
+			<td>
+				<select id='eyepieceSelect'>
+				</select>
+				<input id='btnCalcEyepieceWidestFieldFromFocalRatio_EyePupil' value='calc from focal ratio, eye pupil' type='button'>
+				<input id='btnCalcEyepieceWidestFieldForEyePupil' value='find widest FOV from eye pupil' type='button'>			
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Focal length (FL) (mm) =
+			</td>
+			<td>
+				<input class='inputText' name='eyepieceFocalLengthmm' value='' onfocus='select();' type='text'>
+				<input id='btnCalcEyepieceFocalLength' value='calc from aperture, FOV, eye pupil, field stop' type='button'>
+				<input id='btnCalcEyepieceFocalLengthFromFocalRatioEyePupil' value='calc from focal ratio, eye pupil' type='button'>			
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Field stop diameter (mm) = 
+			</td>
+			<td>
+				<input class='inputText' name='eyepieceFieldStopmm' value='' onfocus='select();' type='text'>
+				<input id='btnCalcEyepieceFieldStop' value='calc field stop' type='button'>
+				<input id='btnCalcEyepieceFieldStopFromApparentFOV_EyepieceFocalLength' value='guess from' type='button'>
+				apparent field (deg) <input class='inputText' name='eyepieceApparentFielddeg' value='82' onfocus='select();' type='text'>		
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Specifications: 
+			</td>
+			<td id='specs'>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<br>
+	<h3>Eyepiece Optimizer</h3>
+
+	<p>Uses unit of measurement, aperture and focal ratio from above.</p>
+
+	<div>
+		<table id='eyeOptTable'>
+		<tbody id='eyeOptTableBody'>
+		<tr>
+			<td class='columnHeaders'>Select</td>
+			<td class='columnHeaders'>Manufacturer</td>
+			<td class='columnHeaders'>Type</td>
+			<td class='columnHeaders'>FocalLength</td>
+			<td class='columnHeaders'>FieldStop</td>
+			<td class='columnHeaders'>ApparentField</td>
+			<td class='columnHeaders'>ExitPupil</td>
+			<td class='columnHeaders'>TrueFOV</td>
+			<td class='columnHeaders'>Magnification</td>
+			<td class='columnHeaders'>Resolution</td>
+		</tr>
+		<!--detail rows added in JavaScript-->
+		</tbody>
+		</table>
+	</div>
+
+	<br>
+	<h3>Diagonal Optimizer</h3>
+	
+	<p>Uses unit of measurement, aperture, focal length and eyepiece field stop from above.</p>
+
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='calcSectionHeader'>
+				Focuser...
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Select a focuser
+			</td>
+			<td>
+				<select id='focuserSelect'>						
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focuserRackedInHeightLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focuserRackedInHeight' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focuserTravelLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focuserTravel' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='barrelTubeInsideDiameterLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='barrelTubeInsideDiameter' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='barrelTubeLengthLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='barrelTubeLength' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focuserInwardFocusingDistanceLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focuserInwardFocusingDistance' value='1' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Telescope tube...
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='tubeODLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='telescopeTubeOD' value='14.5' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='tubeThicknessLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Diagonal...
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focalPlaneToDiagDistanceLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focalPlaneToDiagDistance' value='9.7' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Acceptable magnitude loss =
+			</td>
+			<td>
+				<input class='inputText' name='acceptableMagLoss' value='0.4' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='diagSizesLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputDiags' name='diagSizes' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2' class='title'>
+				<br>
+				<input id='btnUpdateDiagIllum' value='update diagonal illumination' type='button'>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+	
+	<div id='diagChart'>
+	</div>
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label'>
+				Notes: 
+			</td>
+			<td id='diagNotes'>
+			</td>
+		</tr>
+		</tbody>
+		</table>	
+	</div>
+	
+	<br>
+	<h3>Baffle Optimizer</h3>
+	
+	<p>Uses unit of measurement, aperture, focal length, eyepiece field stop, telescope tube outside diameter, telescope tube wall thickness, focal plane to diagonal distance, optimized diagonal and diagonal offset from above.</p>
+
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label' name='optimizedDiagSizeLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='optimizedDiagSize' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='diagOffsetLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='diagOffset' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focalPlaneToFocuserBarrelBottomDistanceLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focalPlaneToFocuserBarrelBottomDistance' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2' class='title'>
+				<br>
+				<input id='btnUpdateBaffles' value='update baffle layout' type='button'>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div>
+		<!-- width, height also stored in JavaScript -->
+		<canvas id='baffleCanvas' width='1000' height='400'>
+			This browser does not support the canvas element. Please use a more recent browser.
+		</canvas>
+	</div>
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label'>
+				Notes: 
+			</td>
+			<td id='baffleNotes'>
+			</td>
+		</tr>
+		</tbody>
+		</table>	
+	</div>
+
+	<br>
+	<h3>Folding Reflector Optimizer</h3>
+	
+	<p>Uses unit of measurement, aperture and focal length from above.</p>
+
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label' name='foldingSecondaryMirrorSizeLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='foldingSecondaryMirrorSize' value='' onfocus='select();' type='text'>
+				<input id='btnCalcMinFoldingMirrorSize' value='calc minimum size' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focalPlaneToSecondaryDistanceLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focalPlaneToSecondaryDistance' value='' onfocus='select();' type='text'>
+				<input id='btnCalcMinFocalPlaneToSecondaryDistance' value='calc minimum length' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='focalPointOffsetFromEdgeOfPrimaryLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='focalPointOffsetFromEdgeOfPrimary' value='3' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2' class='title'>
+				<br>
+				<input id='btnUpdateFoldingReflector' value='update folding layout' type='button'>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div>
+		<!-- width, height also stored in JavaScript -->
+		<canvas id='foldingReflectorCanvas' width='1000' height='400'>
+			This browser does not support the canvas element. Please use a more recent browser.
+		</canvas>
+	</div>
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label'>
+				Notes: 
+			</td>
+			<td id='foldingReflectorNotes'>
+			</td>
+		</tr>
+		</tbody>
+		</table>	
+	</div>
+
+	<br><br><i>Work in progress...</i><br><br>
+
+	<br>
+	<div>
+		<h3>Discussion</h3>
+		
+		<h4>We are familiar with the standard relationships:</h4>
+
+		<p><span class='indent equation'>telescope focal length = focal ratio * aperture</span><span class='indent equation'>(better known as, focal ratio = telescope focal length / aperture)</span><br>
+		<br>
+		<span class='indent equation'>eyepiece focal length = focal ratio * eye pupil</span><span class='indent equation'>(better known as, eye pupil = eyepiece focal length / focal ratio)</span></p>
+		 
+		<p>Is there a master relationship that allows us to compare essential telescope specifications? And what is the minimum number of parameters?</p>
+		 
+		<p>The master equation should involve our eye; the eyepiece; and the telescope's aperture and true field of view. Adding the relationship:<br>
+		<br>
+		<span class='indent equation'>eyepiece field stop = telescope focal length * true field of view</span><br></p>
+
+		<h4>Results in the two master relationships:</h4>
+
+		<p><span class='indent equation'>aperture * true field of view * focal ratio = eyepiece field stop</span><br>
+		<br>
+		<span class='indent equation'>aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil</span><br>
+		<br>
+		Note that the second relationship replaces focal ratio with eye pupil and eyepiece focal length.<br>
+		Also, the coma corrector is ignored by the second relationship: the coma corrector's magnification only matters for focal ratio and focal length.</p>
+		
+		<h4>Definitions</h4>
+		
+		<p><b>Aperture</b> is the diameter of the telescope's main mirror or lens.<br>
+		<b>True field of view</b> is the angle of the sky as seen through the eyepiece when used with the telescope.<br>
+		<b>Focal ratio</b> is found by dividing the telescope focal length by the diameter of the mirror or lens.<br>
+		<b>Eyepiece focal length</b> is the distance from the entrance of the eyepiece (where the parallel rays of light begin to converge) to its focal point.<br>
+		<b>Eyepiece field stop</b> is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
+		<b>Eye pupil</b> is the diameter of the opening of the eye's iris.</p>
+		
+		<h4>Comparing parameters</h4>
+		
+		<p>Let's look at the relationships by comparing parameters.<br>
+		<br>
+		Example 1: Since <b>aperture</b>, <b>true field of view</b>, <b>eyepiece focal length</b> or <b>focal ratio</b> are all on one side of the equation, they oppose each other. That is, if one increases, another must decrease. Try it: increase <b>aperture</b> then press the 'calc true field of view' button. You'll see the <b>true field of view</b> decrease in response (be sure to turn on 'Use eye pupil, eyepiece focal length' first).<br>
+		<br>
+		Example 2: Similarly since <b>eyepiece field stop</b> and <b>eye pupil</b> are on the same side of the equation, they oppose each other. That is, if one increases then the other must decrease. Try it: increase the <b>eye pupil</b> then press the 'calc eyepiece field stop'. You'll see the <b>eyepiece field stop</b> decrease.<br>
+		<br>
+		Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'calc eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br></p>
+
+		<img src='telescopeCriteriaGraph1.jpg'>
+		<img src='telescopeCriteriaGraph2.jpg'>
+		<img src='telescopeCriteriaGraph3.jpg'>
+		<img src='telescopeCriteriaGraph4.jpg'>
+		<img src='telescopeCriteriaGraph5.jpg'>
+		
+		<p>Increase aperture: increase eyepiece field stop, increase eye pupil, decrease true field of view, decrease eyepiece focal length, decrease focal ratio<br>
+		Increase true field of view: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease eyepiece focal length, decrease focal ratio<br>
+		Increase focal ratio: increase eyepiece field stop, decrease aperture, decrease true field of view<br>
+		Increase eyepiece focal length: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease true field of view<br>		
+		Increase eyepiece field stop: increase aperture, increase true field of view, increase eyepiece focal length, increase focal ratio, decrease eye pupil</p>
+
+		<h4>Magnitudes and resolution</h4>
+		
+		<p>Stellar limiting magnitude calculated for low power via the equation, 9.8 + 5 * log10(aperture inches). An additional magnitude or more can be gained by going to high power.<br>
+		<br>
+		I calculate resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
+		<br>
+		I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Magnification is defined as the ratio of the object's size to its actual size. I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.</p>
+
+		<h4>Interpreting diagonal sizes</h4>
+
+		<p>For the complete picture, the chart includes light lost from the diagonal obstruction. Larger diagonals improve off-axis illumination but cost light across the entire field.</p>
+		
+		<p>Use the magnitude scale; avoid percentages of illumination: the eye responds logarithmically, not linearly. It's a mistake to be upset over a 5% light loss when in fact from the eye's perspective the light loss is an imperceptible 1/20 magnitude.</p>
+
+		<p>I find light loss of less than 0.3 magnitude hardly noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects.  A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 10 inch and a 11 inch telescope is much smaller at 0.2 magnitudes and not readily apparent.</p>
+
+		<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field. Read more on <a href='visual.html'>visual detection and limits at the eyepiece</a>.</p>
+		
+		<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by one-sixth wave. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The%201974%20Telescope%20Secondary%20Experiment.html'>Check out my secondary size experiment</a>.</p>
+		
+		<h4>Baffles</h4>
+		
+		<p>We want the 'good' light to reach our eye, the 'rogue' light to be blocked. Some rogue light we simply cannot block because it comes from the upper atmosphere exactly between the object and our telescope. This includes sky glow and reflected light pollution. Other rogue light strays into our eyes. This we can block with a hood or by cupping the eyepiece. The remaining rogue light can sneak past the diagonal into the eyepiece and sneak past from behind the primary mirror, bouncing off the diagonal to fog the eyepiece.</p>
+		
+		<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror upward. These baffles are called the primary mirror baffle. The baffle optimizer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the projected focuser or diagonal baffle.</p>
+				
+		<p>For more, see:<br>
+		<a href='The%20analyzed%20telescope.html'>the analyzed telescope</a>,<br>
+		<a href='Telescope%20Magnification.html'>magnification</a>,<br>
+		<a href='visual.html'>visual detection</a>.</p>
+
+		eod
+		<br>
+		<br>
+	</div>
+
+	<!-- these libraries first because my libraries reference them -->
+	<script src='lib/jquery/jquery-2.1.1.min.js'></script>
+	<script src='lib/jqplot/jquery.min.js'></script>
+	<script src='lib/jqplot/jquery.jqplot.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.logAxisRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js'></script>
+
+	<script src='lib/sharedLib.js'></script>
+	<script src='lib/coordLib.js'></script>
+	<script src='lib/calcLib.js'></script>
+	<script src='lib/telescopeCriteriaCalc.js'></script>
+
+	<script src='lib/json/comaCorrectors.js'></script>
+	<script src='lib/json/eyepieces.js'></script>
+	<script src='lib/json/focusers.js'></script>
+
+</body>
+</html>
