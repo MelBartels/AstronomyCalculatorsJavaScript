@@ -14,7 +14,7 @@
     <div class='titleSection'>
         <div class='titleFlexArea'>
             <div>
-                <h2>Telescope, Eyepiece and Diagonal Optimizer</h2>
+                <h2>Telescope, Eyepiece, Diagonal and Baffle Optimizer</h2>
                 <h3>by Mel Bartels</h3>
             </div>
             <div>
@@ -23,8 +23,40 @@
         </div>
     </div>
 	
-	<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any parameter against any other parameter to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
+	<div>
+		<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any parameter against any other parameter to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
 
+		<p>We can optimize the telescope design by starting with the fundamental factors. The fundamental factors fall into two approaches:</p>
+		<table id='fundamentalParms'>
+		<tbody>
+			<tr>
+				<td class='calcSectionHeader'>
+					Focal ratio
+				</td>
+				<td class='calcSectionHeader'>
+					Eye pupil, eyepiece FL
+				</td>
+			</tr>		
+			<tr>
+				<td>
+					aperture<br>
+					focal ratio<br>
+					true field of view (FOV)<br>
+					eyepiece field stop
+				</td>
+				<td>
+					aperture<br>
+					true field of view (FOV)<br>
+					eyepiece FL<br>
+					eyepiece field stop<br>
+					eye pupil
+				</td>
+			</tr>
+		</tbody>
+		</table>
+		<p>Note that the first set excludes eyepiece FL and eye pupil while the second set excludes focal ratio.</p>
+	</div>
+		
 	<br>
 	<h3>Telescope Optimizer</h3>
 
@@ -418,7 +450,7 @@
 	<br>
 	<h3>Folding Reflector Optimizer</h3>
 	
-	<p>Uses unit of measurement, aperture and focal length from above.</p>
+	<p>Uses unit of measurement, aperture, focal length, eyepiece field stop, telescope tube outside diameter and telescope tube wall thickness from above.</p>
 
 	<div>
 		<table>

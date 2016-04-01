@@ -38,6 +38,11 @@ a:hover {
 	padding: 5px;
 }
 
+#fundamentalParms td {
+	vertical-align: top;
+	padding-left: 25px;
+}
+
 .calcSectionHeader {
 	font-weight: bold;
 }
