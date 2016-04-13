@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta content='Mel Bartels' name='author'>
-	<meta content='Optimizers a (reflecting) telescope design' name='description'>
 	<title>Telescope Design Optimizer</title>
+	<meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity and friction of movement' name='description'>
+	<meta content='Mel Bartels' name='author'>
 	<meta content='initial-scale=1' name='viewport'>
 	<link href='Saucer32.ico' rel='shortcut icon'>
 	<link rel='stylesheet' type='text/css' href='css/telescopeCriteriaCalc.css'>
@@ -14,7 +14,10 @@
     <div class='titleSection'>
         <div class='titleFlexArea'>
             <div>
-                <h2>Telescope, Eyepiece, Diagonal and Baffle Optimizer</h2>
+                <h2>Reflecting Telescope Optimizer</h2>
+				<h3>Optimizes for:<br>
+					<span class='indent'>telescope, eyepiece, diagonal, baffle, lowrider,</span><br>
+					<span class='indent'>center of gravity and friction of movement.</span></h3>
                 <h3>by Mel Bartels</h3>
             </div>
             <div>
@@ -24,37 +27,45 @@
     </div>
 	
 	<div>
-		<p>Specifying a telescope is a matter of compromise. For example, greater aperture results in restricted field of view; increasing the focal ratio increases the telescope's length; and the eye's pupil must always be taken into account. Before we get into the details of diagonal size and focusers, we stand to profit from looking at our compromises and assumptions. Shouldn't we be able to optimize any parameter against any other parameter to get the best of aperture, true field of view, focal ratio and eyepiece?</p>
+		<p>Specifying a telescope is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
+		
+		<p>To investigate the compromises we need a comprehensive telescope optimizer that allows us to compare any parameter against any other parameter. Shouldn't you be able to pick what you consider the most important factors? Perhaps you care most about the telescope's overall size and weight; perhaps you care most about aperture; perhaps you care most about high magnification views.</p>
+		
+		<p>I wrote this telescope optimizer so that I can quickly compare parameters and fine tune the major aspects of telescope design. Perhaps you will find it useful too.</p>
 
-		<p>We can optimize the telescope design by starting with the fundamental factors. The fundamental factors fall into two approaches:</p>
+		<p>We begin optimizing the telescope design by starting with the fundamental design parameters of optical performance. These parameters fall into two approaches:</p>
 		<table id='fundamentalParms'>
 		<tbody>
 			<tr>
 				<td class='calcSectionHeader'>
-					Focal ratio
+					Telescope first
 				</td>
 				<td class='calcSectionHeader'>
-					Eye pupil, eyepiece FL
+					Eye and eyepiece first
 				</td>
 			</tr>		
 			<tr>
 				<td>
-					aperture<br>
 					focal ratio<br>
+					aperture<br>
 					true field of view (FOV)<br>
-					eyepiece field stop
+					eyepiece field stop<br>
 				</td>
 				<td>
-					aperture<br>
-					true field of view (FOV)<br>
+					eye pupil<br>
 					eyepiece FL<br>
 					eyepiece field stop<br>
-					eye pupil
+					aperture<br>
+					true field of view (FOV)<br>
 				</td>
 			</tr>
 		</tbody>
 		</table>
 		<p>Note that the first set excludes eyepiece FL and eye pupil while the second set excludes focal ratio.</p>
+		
+		<p>With these factors we optimize for our set of eyepieces, then optimize the diagonal size and look at the lowrider option. Then we optimize for baffles, then tube assembly weight and center of gravity. Finally we optimize for desired friction of movement at the eyepiece.</p>
+		
+		<p>With the full panoply of the telescope design in front of us, we are free to alter the design, trading less important parameters for the parameters that are most important to us.</p>
 	</div>
 		
 	<br>
@@ -81,9 +92,9 @@
 			</td>	
 			<td>
 				<input name='uom' value='inches' checked='checked' type='radio'>
-				inches 
+				imperial 
 				<input name='uom' value='millimeters' type='radio'>
-				millimeters
+				metric
 			</td>
 		</tr>
 		<tr>
@@ -448,7 +459,7 @@
 	</div>
 
 	<br>
-	<h3>Folding Reflector Optimizer</h3>
+	<h3>Lowrider Optimizer</h3>
 	
 	<p>Uses unit of measurement, aperture, focal length, eyepiece field stop, telescope tube outside diameter and telescope tube wall thickness from above.</p>
 
@@ -519,6 +530,46 @@
 		</tbody>
 		</table>	
 	</div>
+
+	<br>
+	<h3>Center of Gravity Optimizer</h3>
+	
+	<p>Uses unit of measurement, aperture, telescope focal length and placement of the focuser, diagonal, spider and eyepiece from above.</p>
+
+	<div>
+		<table id='CGTable'>
+		<tbody id='CGTableBody'>
+		<tr>
+			<td class='columnHeaders'>Part</td>
+			<td class='columnHeaders'>Weight</td>
+			<td class='columnHeaders'>Distance</td>
+		</tr>
+		<!--part rows added in JavaScript-->
+		</tbody>
+		</table>
+	</div>
+	<br>
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td colspan='2' class='title'>
+				<input id='btnCalcCG' value='calculate weight and center of gravity' type='button'>
+				<br>
+				<br>
+			</td>		
+		</tr>
+		<tr>
+			<td class='label'>
+				Notes: 
+			</td>
+			<td id='CGNotes'>
+			</td>
+		</tr>
+		</tbody>
+		</table>	
+	</div>
+
 
 	<br><br><i>Work in progress...</i><br><br>
 
