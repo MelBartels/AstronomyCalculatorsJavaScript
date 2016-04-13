@@ -47,6 +47,11 @@ a:hover {
 	font-weight: bold;
 }
 
+.highlightBar {
+	background-color: #aaddff;
+	padding: 5px;
+}
+
 /* match with JavaScript generated css */
 .columnHeaders {
 	font-weight: bold;
