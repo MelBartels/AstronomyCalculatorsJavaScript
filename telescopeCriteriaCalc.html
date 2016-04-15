@@ -15,9 +15,7 @@
         <div class='titleFlexArea'>
             <div>
                 <h2>Reflecting Telescope Optimizer</h2>
-				<h3>Optimizes for:<br>
-					<span class='indent'>telescope, eyepiece, diagonal, baffle, lowrider,</span><br>
-					<span class='indent'>center of gravity and friction of movement.</span></h3>
+				<h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity and friction of movement.</h3>
                 <h3>by Mel Bartels</h3>
             </div>
             <div>
@@ -63,7 +61,9 @@
 		</table>
 		<p>Note that the first set excludes eyepiece FL and eye pupil while the second set excludes focal ratio.</p>
 		
-		<p>With these factors we optimize for our set of eyepieces, then optimize the diagonal size and look at the lowrider option. Then we optimize for baffles, then tube assembly weight and center of gravity. Finally we optimize for desired friction of movement at the eyepiece.</p>
+		<p>The 'focal ratio' approach means choosing aperture and focal ratio, then optimizing for best eyepiece by using the 'find widest FOV from eye pupil'. The 'eye pupil, eyepiece FL' approach entails choosing pupil and eyepiece, then optimizing for aperture, focal ratio and FOV.</p>
+		
+		<p>With these factors set, we continue by optimize our set of eyepieces, then optimize the diagonal size and look at the lowrider option. Then we optimize for baffles, then tube assembly weight and center of gravity. Finally we optimize for desired friction of movement at the eyepiece.</p>
 		
 		<p>With the full panoply of the telescope design in front of us, we are free to alter the design, trading less important parameters for the parameters that are most important to us.</p>
 	</div>
@@ -112,7 +112,6 @@
 			<td>
 				<input class='inputText' name='aperture' value='12' onfocus='select();' type='text'>
 				<input id='btnCalcAperture' value='calc aperture' type='button'>
-				<input id='btnCalcApertureFromFocalRatio_FocalLength' value='calc from focal ratio, focal length' type='button'>
 				<input id='btnCalcApertureFromLimitingMagnitude' value='set from' type='button'>
 				limiting magnitude <input class='inputText' name='limitingMagnitude' value='15.2' onfocus='select();' type='text'>
 			</td>
@@ -124,16 +123,6 @@
 			<td>
 				<input class='inputText' name='focalRatio' value='4' onfocus='select();' type='text'>
 				<input id='btnCalcFocalRatio' value='calc from aperture, FOV, field stop' type='button'>
-				<input id='btnCalcFocalRatioFromAperture_FocalLength' value='calc from aperture, focal length' type='button'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label' name='focalLengthLabel'>
-				<!-- label html set in JavaScript -->
-			</td>
-			<td>
-				<input class='inputText' name='telescopeFocalLength' value='48' onfocus='select();' type='text'>
-				<input id='btnCalcTelescopeFocalLengthFromAperture_FocalRatio' value='calc from aperture, focal ratio' type='button'>
 			</td>
 		</tr>
 		<tr>
@@ -175,7 +164,7 @@
 				Select a coma corrector
 			</td>
 			<td>
-				<select id='comaCorrectorSelect'>						
+				<select id='comaCorrectorSelect'>	
 				</select>
 				<span class='indent'></span><input name='chBoxUseComaCorrector' type='checkbox'>Use coma corrector, 
 				x factor = <input class='inputText' name='comaCorrectorMag' value='' onfocus='select();' type='text'>
@@ -548,13 +537,13 @@
 		</tbody>
 		</table>
 	</div>
-	<br>
 	<div>
 		<table>
 		<tbody>
 		<tr>
 			<td colspan='2' class='title'>
-				<input id='btnCalcCG' value='calculate weight and center of gravity' type='button'>
+				<br>
+				<input id='btnCalcCG' value='calc weight and center of gravity' type='button'>
 				<br>
 				<br>
 			</td>		
@@ -570,6 +559,115 @@
 		</table>	
 	</div>
 
+	<br>
+	<h3 class='highlightBar'>Friction of Movement</h3>
+
+	<p>Uses tube weight and center of gravity to eyepiece from above.</p>
+
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td class='label' name='CGToEyepieceDistanceLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='CGToEyepieceDistance' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='tubeWeightLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='tubeWeight' value='' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='rockerWeightLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='rockerWeight' value='20' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Altitude movement...
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Altitude bearing separation (deg) = 
+			</td>
+			<td>
+				<input class='inputText' name='altBearingSeparationDeg' value='90' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='altBearingRadiusLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='altBearingRadius' value='5' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Altitude bearing materials
+			</td>
+			<td>
+				<select id='altBearingMaterialsSelect'>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class='calcSectionHeader'>
+				Azimuth movement...
+			</td>
+		</tr>
+		<tr>
+			<td class='label' name='azBearingRadiusLabel'>
+				<!-- label html set in JavaScript -->
+			</td>
+			<td>
+				<input class='inputText' name='azBearingRadius' value='5' onfocus='select();' type='text'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Azimuth bearing materials
+			</td>
+			<td>
+				<select id='azBearingMaterialsSelect'>
+				</select>
+			</td>
+		</tr>
+		</table>
+		</tbody>	
+	</div>
+	<div>
+		<table>
+		<tbody>
+		<tr>
+			<td colspan='2' class='title'>
+				<br>
+				<input id='btnUpdateFrictionOfMovement' value='calc friction of movements' type='button'>
+				<br>
+				<br>
+			</td>		
+		</tr>
+		<tr>
+			<td class='label'>
+				Notes: 
+			</td>
+			<td id='frictionOfMovementNotes'>
+			</td>
+		</tr>
+		</table>
+		</tbody>	
+	</div>
+	
 	<br>
 	<h3 class='highlightBar'><i>Work in progress...</i></h3>
 
@@ -617,17 +715,11 @@
 		<br>
 		Example 3: Since <b>aperture</b> and <b>eye pupil</b> are on opposite sides of the equation, if one increases, the other must increase too. Try it: increase <b>aperture</b> then press the 'calc eye pupil'. You'll see the <b>eye pupil</b> increase in response.<br></p>
 
-		<img src='telescopeCriteriaGraph1.jpg'>
-		<img src='telescopeCriteriaGraph2.jpg'>
-		<img src='telescopeCriteriaGraph3.jpg'>
-		<img src='telescopeCriteriaGraph4.jpg'>
-		<img src='telescopeCriteriaGraph5.jpg'>
-		
-		<p>Increase aperture: increase eyepiece field stop, increase eye pupil, decrease true field of view, decrease eyepiece focal length, decrease focal ratio<br>
-		Increase true field of view: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease eyepiece focal length, decrease focal ratio<br>
-		Increase focal ratio: increase eyepiece field stop, decrease aperture, decrease true field of view<br>
-		Increase eyepiece focal length: increase eyepiece field stop, increase eye pupil, decrease aperture, decrease true field of view<br>		
-		Increase eyepiece field stop: increase aperture, increase true field of view, increase eyepiece focal length, increase focal ratio, decrease eye pupil</p>
+		<p>Increase aperture: increase eyepiece field stop, increase eye pupil ... decrease true field of view, decrease eyepiece focal length, decrease focal ratio<br>
+		Increase true field of view: increase eyepiece field stop, increase eye pupil ... decrease aperture, decrease eyepiece focal length, decrease focal ratio<br>
+		Increase focal ratio: increase eyepiece field stop ... decrease aperture, decrease true field of view<br>
+		Increase eyepiece focal length: increase eyepiece field stop, increase eye pupil ... decrease aperture, decrease true field of view<br>		
+		Increase eyepiece field stop: increase aperture, increase true field of view, increase eyepiece focal length, increase focal ratio ... decrease eye pupil</p>
 
 		<h4>Magnitudes and resolution</h4>
 		
@@ -655,7 +747,38 @@
 		
 		<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror upward. These baffles are called the primary mirror baffle. The baffle optimizer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the projected focuser or diagonal baffle.</p>
 				
-		<p>For more, see:<br>
+		<h4>Lowrider design</h4>
+		
+		<p>By increasing the diagonal's angle, we can aim move the focuser a little closer to the primary mirror, lessening the eyepiece's height above the ground.</p>
+		
+		<p>Why a folded reflector? It's all about convenience: the eyepiece height above ground is shortened. This can make the difference between ladder and no ladder or between high up a ladder and stepping up onto a stool.</p>
+
+		<p>An early example of a folded (or bent) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.<br>
+		Ross Robert's folded 16 inch was featured in the Oregon Star Party Walkabout of 2008 here <a href="http://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg">http://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg</a>.<Br>
+		Dan Gray's bent 28 inch is a popular scope at the Oregon Star Party. The eyepiece is a couple of feet closer to the ground because of the folded design. <a href="http://www.siderealtechnology.com/28inch/">http://www.siderealtechnology.com/28inch/</a>.<Br>
+		Pete's 25 inch folded scope as posted on the atm-free discussion group, from 2006. He's since added side panels and a tertiary mirror to angle the eyepiece directly outward.<br>
+		
+		<img src="Peter%2025%20inch%20folded%20scope%20from%202006.jpg"></p>
+		
+		<h4>Friction of movement</h4>
+		
+		<p>An essential feature of John Dobson's telescope design is that the telescope moves smoothly and precisely about the sky, staying put once the operator let's go. There is no clamping or locking down. Tracking an object across the sky consists of periodic adjustments by pushing the scope very small distances while looking through the eyepiece. His design depends on an interesting property of Teflon on pebbly Formica, namely that the friction of movement is about the same as the friction that begins a movement. In other words, the dynamic friction equals static friction. Most materials stick worse than they move, leading to jerky motions.</p>
+
+		<p>The force to move the telescope should not be so great as to demand a great deal of effort, particularly when making very tiny high magnification adjustments by hand, nor should the force be so slight that wind can move the telescope. Ideally the force in both azimuth and altitude axes is roughly the same so that the axes 'disappear' as the scope is moved to and fro.</p>
+
+		<p>The force to move the scope in azimuth increases as the scope is pointed upward. I set the angle at 48 degrees or halfway up the sky. This is the optimum pointing angle given the range of altitude movement, area of sky and seeing conditions.
+			
+		<p>I like a frictional force of two to three pounds (1 to 1.5 kilos). This gives me a smooth and not-too-stiff touch at the upper end of the scope, avoids balancing issues with heavy eyepieces and resists weathervaning from wind gusts.</p>
+
+		<p>The altitude friction can be adjusted by varying the bearing angle and the altitude bearing radius. The azimuth friction can be adjusted by varying the distance from the pads to the pivot (the azimuth bearing radius) and by changing the material pairing. Bearings can be substituted for one or more of the bearing points with a proportionate reduction in friction. For instance, the azimuth friction can be reduced by two-thirds if two of the three bearing pads are replaced with roller bearings.</p>
+
+		<p>The formula and concept is from Richard Berry's article in Telescope Making 8, page 36-.</p>
+
+		<p>The size of the pads modestly affects the quality of motion. It's a long standing rule of thumb that 15 PSI (pounds per square inch) is idea.</p>
+		
+		<p>The key here is to have a favorable static to dynamic friction ratio where the friction to begin the movement is less than the friction to continue the movement. This feels like 'butter' at the eyepiece.</p>
+		
+		<h4>For more, see:</h4>
 		<a href='The%20analyzed%20telescope.html'>the analyzed telescope</a>,<br>
 		<a href='Telescope%20Magnification.html'>magnification</a>,<br>
 		<a href='visual.html'>visual detection</a>.</p>
@@ -684,6 +807,7 @@
 	<script src='lib/json/comaCorrectors.js'></script>
 	<script src='lib/json/eyepieces.js'></script>
 	<script src='lib/json/focusers.js'></script>
+	<script src='lib/json/materialFriction.js'></script>
 
 </body>
 </html>
