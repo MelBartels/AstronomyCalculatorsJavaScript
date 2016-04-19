@@ -103,6 +103,15 @@ input[type='button'] {
 	align-items: center;
 }
 
+.discussionHeader {
+	margin-top: 10px;
+    font-style: italic;
+}
+
+.discussionDetail {
+	display: none;
+}
+
 @media all and (min-width: 0px) {
 	.titleSection {
 		clear: both;
