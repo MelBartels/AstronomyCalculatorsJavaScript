@@ -43,11 +43,40 @@ a:hover {
 	padding-left: 25px;
 }
 
+.magnificationTable {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.magnificationTable td {
+	border: 1px solid black;
+}
+
+.tableHeaderRow {
+	font-weight: bold;
+}
+
+.tableColumnsFirstColor {
+	background-color: rgb(204, 255, 255);
+}
+
+.tableColumnsSecondColor {
+	background-color: rgb(204, 204, 204);
+}
+
+.tableColumnsThirdColor {
+	background-color: rgb(255, 255, 204);
+}
+
+.tableColumnsFourthColor {
+	background-color: rgb(153, 255, 153);
+}
+
 .calcSectionHeader {
 	font-weight: bold;
 }
 
-.highlightBar {
+.optimizerTitleBar {
 	background-color: #aaddff;
 	padding: 5px;
 }
@@ -105,7 +134,11 @@ input[type='button'] {
 
 .discussionHeader {
 	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 5px; 
+	padding-bottom: 5px;
     font-style: italic;
+	background: lightgray;
 }
 
 .discussionDetail {
