@@ -76,15 +76,32 @@ a:hover {
 	font-weight: bold;
 }
 
+/* match with JavaScript generated css */
+.columnHeaders {
+	font-weight: bold;
+	padding-right: 10px;
+}
+
 .optimizerTitleBar {
 	background-color: #aaddff;
 	padding: 5px;
 }
 
-/* match with JavaScript generated css */
-.columnHeaders {
-	font-weight: bold;
-	padding-right: 10px;
+div[id^='optimizerDetail'] {
+	display: none;
+}
+
+.discussionHeader {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 5px; 
+	padding-bottom: 5px;
+    font-style: italic;
+	background: lightgray;
+}
+
+.discussionDetail {
+	display: none;
 }
 
 .inputText {
@@ -130,19 +147,6 @@ input[type='button'] {
 .titleFlexArea {
 	display: flex; 
 	align-items: center;
-}
-
-.discussionHeader {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding-top: 5px; 
-	padding-bottom: 5px;
-    font-style: italic;
-	background: lightgray;
-}
-
-.discussionDetail {
-	display: none;
 }
 
 @media all and (min-width: 0px) {
