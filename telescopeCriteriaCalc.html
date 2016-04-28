@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Telescope Design Optimizer</title>
-	<meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity and friction of movement' name='description'>
+	<title>Telescope Design Optimizer Suite</title>
+	<meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement and rocker' name='description'>
 	<meta content='Mel Bartels' name='author'>
 	<meta content='initial-scale=1' name='viewport'>
 	<link href='Saucer32.ico' rel='shortcut icon'>
@@ -14,8 +14,8 @@
     <div class='titleSection'>
         <div class='titleFlexArea'>
             <div>
-                <h2>Reflecting Telescope Optimizer</h2>
-				<h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity and friction of movement.</h3>
+                <h2>Reflecting Telescope Optimizer Suite</h2>
+				<h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement and rocker.</h3>
                 <h3>by Mel Bartels</h3>
             </div>
             <div>
@@ -63,13 +63,13 @@
 		
 		<p>The 'focal ratio' approach means choosing aperture and focal ratio, then optimizing for best eyepiece by using the 'find widest FOV from eye pupil'. The 'eye pupil, eyepiece FL' approach entails choosing pupil and eyepiece, then optimizing for aperture, focal ratio and FOV.</p>
 		
-		<p>With these factors set, we continue by optimize our set of eyepieces, then optimize the diagonal size and look at the lowrider option. Then we optimize for baffles, then tube assembly weight and center of gravity. Finally we optimize for desired friction of movement at the eyepiece.</p>
+		<p>With these factors set, we continue by optimize our set of eyepieces, then optimize the diagonal size and look at the lowrider option. Then we optimize for baffles, then tube assembly weight and center of gravity. Finally we optimize for desired friction of movement at the eyepiece and check the rocker dimensions.</p>
 		
 		<p>With the full panoply of the telescope design in front of us, we are free to alter the design, trading less important parameters for the parameters that are most important to us.</p>
 		
-		<p>Each optimizer in turn builds on values entered and calculated in previous calculators. To begin, open the 'Telescope Optimizer', then continue by opening each optimizer in turn (the 'Lowrider Optimizer' can be ignored).</p>
+		<p>Each optimizer in turn builds on values entered and calculated in previous calculators. Open the 'Telescope Optimizer', then continue by opening each optimizer in turn (the 'Lowrider Optimizer' can be ignored).</p>
 	</div>
-		
+	
 	<div ID='optimizerHeader0'>
 		<h3 class='optimizerTitleBar'><a href='#'>Telescope Optimizer...</a></h3>
 	</div>
@@ -210,9 +210,9 @@
 			</tr>
 			<tr>
 				<td class='label'>
-					Specifications: 
+					Results: 
 				</td>
-				<td id='specs'>
+				<td id='telescopeResults'>
 				</td>
 			</tr>
 			</tbody>
@@ -276,6 +276,18 @@
 			I calculate resolution based on the unaided-eye's ability to just barely resolve two arc-minutes.<br>
 			<br>
 			I avoid the equation, magnification = eyepiece apparent field of view / true field of view, because of the occasional slight inaccuracy in eyepiece specifications. Magnification is defined as the ratio of the object's size to its actual size. I use the equation, magnification = aperture / eye pupil. Also useful is magnification = telescope focal length / eyepiece focal length.</p>
+			
+			<h4>Focusing tolerance</h4>
+			
+			<p>Defocus worsens the wave rating of the optical system. Selecting a degradation of 1/4 wavefront means that focus must be kept within the calculated tolerance.</p>
+			
+			<h4>Etendue and radiance</h4>
+			
+			<p>Etendue is the flux gathering capability of the telescope. The greater the aperture, the greater the true field of view, the greater the etendue, or light flowing through the telescope. If the edge of the field is not sharp, then etendue is wasted. A difference of 20% is probably the minimally meaningful change. While there is a great deal of room to improve etendue in popular amateur telescope designs, ultimately, etendue is limited by the eye's pupil and the eyepiece's apparent field of view. Radiance is the brightness factor: more aperture means brighter stars and a more zoomed in view. A difference in radiance of 1 is significant, differences less than 0.3 are hardly noticeable.</p>
+			
+			<h4>Summary</h4>
+			
+			<p>Check magnification for image scale; look at the resolution in arc seconds for ability to resolve tight detail, up to your local seeing conditions; look at the etendue for the scope's ability to deliver larger scale nebulae; and look at the radiance for the brightness of small nebulae, galaxies and stars.</p>
 		</div>
 	</div>
 	
@@ -327,7 +339,7 @@
 
 			<p>Magnification above this is termed <b>empty magnification</b>: the object is made larger but nothing more can be resolved. In certain cases such as double star observing increasing magnification above this amount makes measuring the separation between the stars easier, but otherwise the image becomes softer, fuzzier and displeasing to the eye.</p>
 
-			<p>Shimmering in the atmosphere, called <b>seeing</b> also limits magnification. If the jet stream is overhead or the upper atmosphere otherwise disturbed, magnification can be limited to 250x regardless of aperture. Steadier nights allow for increased magnification. The number of nights where 500x or higher can be employed are few in number and highly prized by observers. Nights where 2000x and higher can be used come once a decade. For example see <a href='6000X.html'>The Night of 6000x at the 1997 Oregon Star Party</a>. For more on seeing and the atmosphere, see my article on <a href='Seeing%20and%20Atmospheric%20Turbulence.html'> atmospheric turbulence</a>.</p>
+			<p>Shimmering in the atmosphere, called <b>seeing</b> also limits magnification. If the jet stream is overhead or the upper atmosphere otherwise disturbed, magnification can be limited to 250x regardless of aperture. Steadier nights allow for increased magnification. The number of nights where 500x or higher can be employed are few in number and highly prized by observers. Nights where 2000x and higher can be used come once a decade. For example see <a href='6000X.html'>The Night of 6000x at the 1997 Oregon Star Party</a>. For more on seeing and the atmosphere, see my article on <a href='Seeing and Atmospheric Turbulence.html'> atmospheric turbulence</a>.</p>
 
 			<p>A <b>useful range of magnification</b> for many telescopes is <b>50x to 250x</b>. <b>Richest Field Telescopes</b> and binoculars employ lowest power for the widest fields.</p>
 
@@ -335,7 +347,7 @@
 
 			<p>Let's use the <a href='https://en.wikipedia.org/wiki/Andromeda_Galaxy'>Andromeda Galaxy</a>, visible as an elongated smear in dark skies to the unaided-eye. It's about 3x1 degrees apparent size with an integrated or overall magnitude of 3.5. The galaxy has an average surface brightness of 22.2 magnitudes per arc-second square. Let's use our 6 inch, 15cm, aperture at lowest magnification of 22x. At 22x the Andromeda Galaxy now appears 66x22 degrees in size and will comfortably fit within a 80 degree field of view eyepiece. The telescope brightens the galaxy by the ratio of the square of the telescope's aperture to the eye's aperture, or (6 inches of aperture * 25.4 mm/inch / 7mm eye-pupil) squared or 484 times. But the magnification of 22x decreases the object's brightness by the identical 484 times amount, leaving the apparent average surface brightness unchanged at 22.2 magnitudes per arc-second. Yet the view through the 6 inch is immeasurably richer. Why?</p>
 
-			<p>Balancing aperture with magnification is as if a rocket ship takes us 22 times closer. We see more detail and the object overall is much brighter. But fly too close and the eyepiece can no longer fit the object into the field of view. Using the same telescope at increasing magnification means more detail at the cost of brightness. See my comparison of the Sombrero Galaxy, M104, with 6 inch and 13 inch telescopes at <a href='Is%20Aperture%20King.html'> is aperture king?</a></p>
+			<p>Balancing aperture with magnification is as if a rocket ship takes us 22 times closer. We see more detail and the object overall is much brighter. But fly too close and the eyepiece can no longer fit the object into the field of view. Using the same telescope at increasing magnification means more detail at the cost of brightness. See my comparison of the Sombrero Galaxy, M104, with 6 inch and 13 inch telescopes at <a href='Is Aperture King.html'> is aperture king?</a></p>
 
 			<h4>Table of lowest and highest magnifications per aperture.</h4>
 
@@ -692,7 +704,7 @@
 
 			<p><b>The strategy</b> is to select the highest magnification that frames the object in the eyepiece's field of view, subject to seeing conditions and telescope capabilities. Then select the largest aperture available. Starting with a given aperture, select for the highest magnification that frames the object, subject to seeing. If the object is invisible, then try a lower magnification. This rarely happens. Much more common is a  failure to properly frame the object. Use filters, go to dark skies and improve your observational skills.</p>
 
-			<p>Should you ever select for <b>less aperture</b>? That's equivalent to stopping down the aperture to improve the view. Stopping down by using an off-axis mask to reduce the deleterious effects of bad seeing helps. Stopping down to improve deep-sky views does not help. While objects can be detected at diminished apertures, there is a general loss of detail. See my results at <a href="Is%20Aperture%20King.html">Is aperture king?</a></p>
+			<p>Should you ever select for <b>less aperture</b>? That's equivalent to stopping down the aperture to improve the view. Stopping down by using an off-axis mask to reduce the deleterious effects of bad seeing helps. Stopping down to improve deep-sky views does not help. While objects can be detected at diminished apertures, there is a general loss of detail. See my results at <a href="Is Aperture King.html">Is aperture king?</a></p>
 
 			<p>As long as you can select for the largest aperture, you are in <b>telescope mode</b>. Once aperture is constrained, you are in <b>eyepiece mode</b>. Well equipped amateurs who have a number of eyepieces should also consider equipping themselves with a range of apertures.</p>
 
@@ -834,9 +846,9 @@
 			<tbody>
 			<tr>
 				<td class='label'>
-					Notes: 
+					Results: 
 				</td>
-				<td id='diagNotes'>
+				<td id='diagResults'>
 				</td>
 			</tr>
 			<tr>
@@ -844,9 +856,9 @@
 			</tr>
 			<tr>
 				<td class='label'>
-					Off-axis mask calculator: 
+					Off-axis mask results: 
 				</td>
-				<td id='offaxisMaskNotes'>
+				<td id='offaxisMaskResults'>
 				</td>
 			</tr>
 			</tbody>
@@ -865,7 +877,7 @@
 
 			<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field. Read more on <a href='visual.html'>visual detection and limits at the eyepiece</a>.</p>
 			
-			<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by one-sixth wave. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The%201974%20Telescope%20Secondary%20Experiment.html'>Check out my secondary size experiment</a>.</p>
+			<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by one-sixth wave. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The 1974 Telescope Secondary Experiment.html'>Check out my secondary size experiment</a>.</p>
 		</div>
 		<div class='discussionHeader' ID='discussionHeader3'>
 			<a href='#'>Thoughts on an off-axis mask...</a>
@@ -938,18 +950,16 @@
 
 		<div>
 			<!-- width, height also stored in JavaScript -->
-			<canvas id='baffleCanvas' width='1000' height='400'>
-				This browser does not support the canvas element. Please use a more recent browser.
-			</canvas>
+			<canvas id='baffleCanvas' width='1000' height='400'></canvas>
 		</div>
 		<div>
 			<table>
 			<tbody>
 			<tr>
 				<td class='label'>
-					Notes: 
+					Results: 
 				</td>
-				<td id='baffleNotes'>
+				<td id='baffleResults'>
 				</td>
 			</tr>
 			</tbody>
@@ -1020,18 +1030,16 @@
 
 		<div>
 			<!-- width, height also stored in JavaScript -->
-			<canvas id='foldingReflectorCanvas' width='1000' height='400'>
-				This browser does not support the canvas element. Please use a more recent browser.
-			</canvas>
+			<canvas id='foldingReflectorCanvas' width='1000' height='400'></canvas>
 		</div>
 		<div>
 			<table>
 			<tbody>
 			<tr>
 				<td class='label'>
-					Notes: 
+					Results: 
 				</td>
-				<td id='foldingReflectorNotes'>
+				<td id='foldingReflectorResults'>
 				</td>
 			</tr>
 			</tbody>
@@ -1051,7 +1059,7 @@
 			Dan Gray's bent 28 inch is a popular scope at the Oregon Star Party. The eyepiece is a couple of feet closer to the ground because of the folded design. <a href="http://www.siderealtechnology.com/28inch/">http://www.siderealtechnology.com/28inch/</a>.<Br>
 			Pete's 25 inch folded scope as posted on the atm-free discussion group, from 2006. He's since added side panels and a tertiary mirror to angle the eyepiece directly outward.<br>
 			
-			<img src="Peter%2025%20inch%20folded%20scope%20from%202006.jpg"></p>
+			<img src="Peter 25 inch folded scope from 2006.jpg"></p>
 		</div>
 	</div>
 
@@ -1084,9 +1092,9 @@
 			</tr>
 			<tr>
 				<td class='label'>
-					Notes: 
+					Results: 
 				</td>
-				<td id='CGNotes'>
+				<td id='CGResults'>
 				</td>
 			</tr>
 			</tbody>
@@ -1095,7 +1103,7 @@
 	</div>
 		
 	<div ID='optimizerHeader6'>
-		<h3 class='optimizerTitleBar'><a href='#'>Friction of Movement Optimizer...</a></h3>
+		<h3 class='optimizerTitleBar'><a href='#'>Friction of Movement and Rocker Optimizer...</a></h3>
 	</div>
 	<div ID='optimizerDetail6'>
 		<div>
@@ -1193,15 +1201,33 @@
 			</tr>
 			<tr>
 				<td class='label'>
-					Notes: 
+					Results: 
 				</td>
-				<td id='frictionOfMovementNotes'>
+				<td id='frictionOfMovementResults'>
 				</td>
 			</tr>
 			</table>
 			</tbody>	
 		</div>
 		
+		<div>
+			<!-- width, height not used in JavaScript -->
+			<canvas id='rockerCanvas' width='800' height='500'></canvas>
+		</div>
+		<div>
+			<table>
+			<tbody>
+			<tr>
+				<td class='label'>
+					Results: 
+				</td>
+				<td id='rockerResults'>
+				</td>
+			</tr>
+			</tbody>
+			</table>	
+		</div>
+
 		<div class='discussionHeader' ID='discussionHeader6'>
 			<a href='#'>Discussion on friction of movement...</a>
 		</div>
@@ -1230,10 +1256,10 @@
 	<div ID='optimizerDetail7'>	
 		<div>
 			<a href="truths/Bartels equation for telescope value.html">Bartels' equation for telescope value</a><br>
-			<a href='The%20analyzed%20telescope.html'>The analyzed telescope</a>,<br>
+			<a href='The analyzed telescope.html'>The analyzed telescope</a><br>
 			<a href="TipsToImproveTelescopePerformance.html">Tips to improve your telescope</a><br>
-			<a href="The%20New%20Sub-F3%20Richest%20Field%20Telescopes.html">Richest Field Telescopes</a><br>
-			<a href="A%20New%20Way%20to%20Look%20at%20Things.pdf">A new way to look at things</a><br>
+			<a href="The New Sub-F3 Richest Field Telescopes.html">Richest Field Telescopes</a><br>
+			<a href="A New Way to Look at Things.pdf">A new way to look at things</a><br>
 			<a href='visual.html'>Visual detection</a>
 
 			<p>For my telescopes and more articles, see my <a href="tm.html">Telescope Making page</a>.</p>
