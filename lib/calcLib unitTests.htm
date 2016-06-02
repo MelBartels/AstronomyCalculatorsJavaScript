@@ -80,7 +80,9 @@
 		resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
 		calcTheoreticalResolutionArcsec = MLB.calcLib.calcTheoreticalResolutionArcsec,
 		calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
-		baffleScalingFactor = MLB.calcLib.baffleScalingFactor;
+		baffleScalingFactor = MLB.calcLib.baffleScalingFactor,
+		calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
+		calcMinMagnification = MLB.calcLib.calcMinMagnification;
 
 	QUnit.module('sagitta');
 
@@ -1073,6 +1075,22 @@
 		equal(withinRange(result, expected, 0.001), true, 'The scaling factor should be ' + expected + ', is ' + result);
 	});
 	
+	QUnit.test('calcMaxMagnification', function () {
+		var apertureInces = 2.5,
+			expected = 67.5,
+			result = calcMaxMagnification(apertureInces);
+
+		equal(withinRange(result, expected, 0.001), true, 'Max magnification should be ' + expected + ', is ' + result);	
+	});
+	
+	QUnit.test('calcMinMagnification', function () {
+		var apertureInces = 2.5,
+			expected = 9,
+			result = calcMinMagnification(apertureInces);
+
+		equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);	
+	});
+
 });
 
 </script>
