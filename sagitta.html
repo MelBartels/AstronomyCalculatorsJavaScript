@@ -77,6 +77,9 @@
 		<td >
 			<input class='inputText' name="sphereParabolaDifference" value="" onfocus="select()" type="text">
 		</td>
+		<td >
+			<input class='inputText' name="wavesCorrection" value="" onfocus="select()" type="text" readonly>
+		</td>
 	</tr>
 	<tr>
 		<td class='label'>
@@ -96,6 +99,8 @@
 	Calculates parabolic and spherical sagitta from mirror diameter and either mirror focal length or mirror focal ratio.<br>
 	<br>
 	The difference between the sagitta of a spherical and parabolic curve is very small and is typically ignored. In fact, it is the amount that the center needs to be deepened to bring the mirror from spherical to paraboloidal (though the most common method of parabolizing deepends the center somewhat and deepens the edge somewhat, splitting the difference).<br>
+	<br>
+	The waves of correction uses inches as the unit of measurement. If you are using another unit of measurement, then convert. For instance, if entering values in millimeters, then divide the resulting waves of correction by 25.4.<br>
 	<br>
 	Mel Bartels
 </div>

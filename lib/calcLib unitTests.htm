@@ -34,6 +34,7 @@
 		calcFocalRatio = MLB.calcLib.calcFocalRatio,
 		calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
 		calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
+		calcWavesCorrection = MLB.calcLib.calcWavesCorrection,
 		calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
 		magnitudeDrop = MLB.calcLib.magnitudeDrop,
 		magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
@@ -120,7 +121,12 @@
 		equal(withinRange(result, expected, 1), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 	});
 	
-	
+	QUnit.test('calcWavesCorrection', function () {
+		var sphereParabolaDifferenceInches = 0.000579, // 16" f3
+			expected = 26.32,
+			result = calcWavesCorrection(sphereParabolaDifferenceInches);
+		equal(withinRange(result, expected, 0.01), true, 'difference between sphere and parabola in waves of green light should be ' + expected + ', is ' + result);
+	});
 	
 	QUnit.module('diagonal sizing');
 
