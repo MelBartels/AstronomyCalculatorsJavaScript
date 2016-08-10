@@ -12,57 +12,73 @@
 <div>
 	<table>
 	<tbody>
-	<tr>
-		<td class='title' colspan='2'>
-			<h4>Ronchi Calculator</h4>
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Mirror diameter =
-		</td>
-		<td>
-			<input class='inputText' name="mirrorDia" value="12" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Mirror radius of curvature =
-		</td>
-		<td>
-			<input class='inputText' name="radiusOfCurvature" value="120" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Grating frequency (lines per unit of measurement) =
-		</td>
-		<td>
-			<input class='inputText' name="gratingFreq" value="100" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Grating offsets from radius of curvature = 
-		</td>
-		<td>
-			<input class='inputTextGratingOffsets' name="gratingOffsetSeries" value="-0.3, -0.1, 0.1, 0.3, 0.5, 0.7" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td colspan='2'>
-			Entering more offsets will add more Ronchigrams. A negative offset is inside the radius of curvature.
-		</td>
-	<tr>
-	<tr>
-		<td>
-		</td>
-		<td>
-			<div>
-				<input id="btnPlot" value="Update Ronchigrams" type="button">
-			</div>
-		</td>
-	</tr>
+		<tr>
+			<td class='title' colspan='2'>
+				<h4>Ronchi Calculator</h4>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Mirror diameter =
+			</td>
+			<td>
+				<input class='inputText' name="mirrorDia" value="12" onfocus="select()" type="text">
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Mirror radius of curvature =
+			</td>
+			<td>
+				<input class='inputText' name="radiusOfCurvature" value="120" onfocus="select()" type="text">
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Grating frequency (lines per unit of measurement) =
+			</td>
+			<td>
+				<input class='inputText' name="gratingFreq" value="100" onfocus="select()" type="text">
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Grating offsets from radius of curvature = 
+			</td>
+			<td>
+				<input class='inputTextGratingOffsets' name="gratingOffsetSeries" value="-0.3, -0.1, 0.1, 0.3, 0.5, 0.7" onfocus="select()" type="text">
+				Entering more offsets will add more Ronchigrams. A negative offset is inside the radius of curvature.
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Invert bands?
+			</td>
+			<td>
+				<input name="invertBands" value="yes" type="radio">yes
+				<input name="invertBands" value="no" type="radio">no
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Ronchigram size in pixels = 
+			</td>
+			<td>
+				<input class='inputText' name="RonchigramSize" value="250" onfocus="select()" type="text">
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<div>
+					<br>
+					<input id="btnPlot" value="Update Ronchigrams" type="button">
+					<br>
+					<br>
+				</div>
+			</td>
+		</tr>
 	</tbody>
 	</table>
 </div>
@@ -73,11 +89,117 @@
 	<table>
 	<tbody>
 		<tr>
-			<td id="acceptableDeviation">
+			<td id="waveNotes">
 			</td>
 		</tr>
 	</tbody>
 	</table>
+</div>
+<div>
+	<table>
+	<tbody>
+		<tr>
+			<td class='title' colspan='2'>
+				<h4>Ronchigrams with Errors</h4>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Display?
+			</td>
+			<td>
+				<input name="displayErrorRonchigrams" value="yes" type="radio">yes
+				<input name="displayErrorRonchigrams" value="no" type="radio">no
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Zone with error =
+			</td>
+			<td>
+				<input class='inputText' name="errorZone" value="0.7" onfocus="select()" type="text">
+				Enter the zone from 0.0 (center of mirror) to 1.0 (edge of mirror).
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Wavefront deviation =
+			</td>
+			<td>
+				<input class='inputText' name="wavefrontDeviation" value="0.25" onfocus="select()" type="text">
+				Enter minus for undercorrected zone (e.g. -0.25), plus for overcorrected zone (e.g. 0.25).
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<div>
+					<br>
+					<input id="btnPlot2" value="Update Ronchigrams" type="button">
+					<br>
+					<br>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+<div id='errorRonchigrams'>
+	<!-- canvases added in JavaScript -->
+</div>
+<div>
+	<table>
+	<tbody>
+		<tr>
+			<td class='title' colspan='2'>
+				<h4>Ronchigrams with Errors 2</h4>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				Display?
+			</td>
+			<td>
+				<input name="displayErrorRonchigrams2" value="yes" type="radio">yes
+				<input name="displayErrorRonchigrams2" value="no" type="radio">no
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Zone with error =
+			</td>
+			<td>
+				<input class='inputText' name="errorZone2" value="0.7" onfocus="select()" type="text">
+				Enter the zone from 0.0 (center of mirror) to 1.0 (edge of mirror).
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Wavefront deviation =
+			</td>
+			<td>
+				<input class='inputText' name="wavefrontDeviation2" value="-0.25" onfocus="select()" type="text">
+				Enter minus for undercorrected zone (e.g. -0.25), plus for overcorrected zone (e.g. 0.25).
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<div>
+					<br>
+					<input id="btnPlot3" value="Update Ronchigrams" type="button">
+					<br>
+					<br>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+<div id='errorRonchigrams2'>
+	<!-- canvases added in JavaScript -->
 </div>
 <div>
 	<h4>Discussion</h4>

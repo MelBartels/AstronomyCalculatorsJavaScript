@@ -34,7 +34,8 @@
 		calcFocalRatio = MLB.calcLib.calcFocalRatio,
 		calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
 		calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
-		calcWavesCorrection = MLB.calcLib.calcWavesCorrection,
+		inchesToWavesGreenLight = MLB.calcLib.inchesToWavesGreenLight,
+		calcSphereParabolaDiff = MLB.calcLib.calcSphereParabolaDiff,
 		calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
 		magnitudeDrop = MLB.calcLib.magnitudeDrop,
 		magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
@@ -42,6 +43,9 @@
 		diagObstructionArea = MLB.calcLib.diagObstructionArea,
 		calcDiagOffset = MLB.calcLib.calcDiagOffset,
 		calcDiagOffset2 = MLB.calcLib.calcDiagOffset2,
+		calcDiagOffset3 = MLB.calcLib.calcDiagOffset3,
+		calcDiagOffset4 = MLB.calcLib.calcDiagOffset4,
+		calcDiagOffset5 = MLB.calcLib.calcDiagOffset5,
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
 	    getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
@@ -121,10 +125,18 @@
 		equal(withinRange(result, expected, 1), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 	});
 	
-	QUnit.test('calcWavesCorrection', function () {
+	QUnit.test('inchesToWavesGreenLight', function () {
 		var sphereParabolaDifferenceInches = 0.000579, // 16" f3
-			expected = 26.32,
-			result = calcWavesCorrection(sphereParabolaDifferenceInches);
+			expected = 26.31,
+			result = inchesToWavesGreenLight(sphereParabolaDifferenceInches);
+		equal(withinRange(result, expected, 0.01), true, 'converting from inches to waves of green light should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('calcSphereParabolaDiff', function () {
+		var mirrorDia = 16,
+			radiusOfCurvature = 96, // 16" f3
+			expected = 26.31,
+			result = calcSphereParabolaDiff(mirrorDia, radiusOfCurvature);
 		equal(withinRange(result, expected, 0.01), true, 'difference between sphere and parabola in waves of green light should be ' + expected + ', is ' + result);
 	});
 	
@@ -198,6 +210,26 @@
 	QUnit.test('calcDiagOffset2', function () {
 		var result = calcDiagOffset2(13.2, 40.3, 3.1, 9);
 		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
+	});
+
+	QUnit.test('calcDiagOffset3', function () {
+		var result = calcDiagOffset3(3.1, 13);
+		equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset should be -.18, is ' + result);
+
+		result = calcDiagOffset3(3.1, 9);
+		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
+	});
+
+	QUnit.test('calcDiagOffset4', function () {
+		var result = calcDiagOffset4(3.1, 9, 1.4, 3);
+		equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset should be -.18, is ' + result);
+	});
+
+	QUnit.test('calcDiagOffset5', function () {
+		// parms are: diagMinorAxis, diagToFocalPlaneDistance, fieldDia, focalRatio
+		var result = calcDiagOffset5(3.1, 9, 1.4, 3);
+		equal(withinRange(result.focalPlaneOffset, -0.26, 0.01), true, 'The diagonal focal plane offset should be -.26, is ' + result.focalPlaneOffset);
+		equal(withinRange(result.fieldDiaOffset, -0.18, 0.01), true, 'The diagonal field dia offset should be -.18, is ' + result.fieldDiaOffset);
 	});
 
 	/* eg, 
