@@ -27,7 +27,7 @@
 	<div id='intro'>
 		<p>Selecting a telescope depends on knowing what you want and what you are willing to spend. What telescope will you use the most? Will you use it visually or for digital imaging? Are you planning to observe planets or deep-sky? What type of deep-sky objects? How hefty of a telescope do you want to carry (not, can carry), setup and adjust? Do you need motorized tracking or goto (if imaging, then a resounding yes)? Once you select a telescope then its design can be optimized.</p>
 		
-		<p>Telescope performance depends on radiance (how bright will the object appear); etendue (the light throughput across the entire field of view or Richest Field effect); resolution (how detailed will the object appear) and on image scale (how big will the object appear).</p>
+		<p>Telescope performance depends on radiance (how bright will the object appear); luminance (the light throughput across the entire field of view or Richest Field effect); resolution (how detailed will the object appear) and on image scale (how big will the object appear).</p>
 		
 		<p>Telescope design is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
 
@@ -283,13 +283,13 @@
 
 			<p>Defocus worsens the wave rating of the optical system. Selecting a degradation of 1/4 wavefront means that focus must be kept within the calculated tolerance.</p>
 
-			<h4>Etendue and radiance</h4>
+			<h4>Luminance and radiance</h4>
 
-			<p>Etendue is the flux gathering capability of the telescope. The greater the aperture, the greater the true field of view, the greater the etendue, or light flowing through the telescope. If the edge of the field is not sharp, then etendue is wasted. A difference of 20% is probably the minimally meaningful change. While there is a great deal of room to improve etendue in popular amateur telescope designs, ultimately, etendue is limited by the eye's pupil and the eyepiece's apparent field of view. Etendue is calculated in the 'Telescope Optimizer' and vignetted etendue is calculated in the 'Baffle Optimizer'. Radiance is the brightness factor: more aperture means brighter stars and a more zoomed in view. A difference in radiance of 1 is significant, differences less than 0.3 are hardly noticeable.</p>
+			<p>Luminance or etendue is the flux gathering capability of the telescope. The greater the aperture, the greater the true field of view, the greater the luminance, or light flowing through the telescope. If the edge of the field is not sharp, then luminance is wasted. A difference of 20% is probably the minimally meaningful change. While there is a great deal of room to improve luminance in popular amateur telescope designs, ultimately, luminance is limited by the eye's pupil and the eyepiece's apparent field of view. Luminance is calculated in the 'Telescope Optimizer' and vignetted luminance is calculated in the 'Baffle Optimizer'. Radiance is the brightness factor: more aperture means brighter stars and a more zoomed in view. A difference in radiance of 1 is significant, differences less than 0.3 are hardly noticeable.</p>
 
 			<h4>Summary</h4>
 
-			<p>Check magnification for image scale; look at the resolution in arc seconds for ability to resolve tight detail, up to your local seeing conditions; look at the etendue for the scope's ability to deliver larger scale nebulae; and look at the radiance for the brightness of small nebulae, galaxies and stars.</p>
+			<p>Check magnification for image scale; look at the resolution in arc seconds for ability to resolve tight detail, up to your local seeing conditions; look at the luminance for the scope's ability to deliver larger scale nebulae; and look at the radiance for the brightness of small nebulae, galaxies and stars.</p>
 		</div>
 	</div>
 
@@ -981,10 +981,10 @@
 			<p>Using an idea by Larry Shaper in Amateur Astronomy magazine, Issue #91, Summer 2016, page 52-53, the edges of the baffle can be tilted to direct light away from the focuser's tube bottom aperture. Larry concludes that the flattest black paint always looks gray while a baffle painted in gloss black with tilted sides looks truly black. You can see that the tilt angles light past the focuser tube and is long enough that light reflected at a narrow angle face on is also directed away from the focuser tube. Since the optical tube assembly can be open, I tilt the projected focuser baffle on both sides.</p>
 		</div>
 		<div class='discussionHeader' ID='discussionHeader5'>
-			<a href='#'>Discussion on vignetted etendue...</a>
+			<a href='#'>Discussion on vignetted luminance...</a>
 		</div>
 		<div class='discussionDetail' ID='discussionDetail5'>
-			<p>The telescope's light flux or throughput is vignetted by the diagonal, both from the diagonal's obstruction and from falling off-axis illumination. The vignetted etendue integrates the light loss to arrive at a vignetted etendue value. For comparisons, since all telescopes have two reflecting surfaces with minor light loss from each coating and a token light loss caused by the eyepiece's lenses, it's not necessary to adjust the etendue. The actual etendue or light flux or throughput can be calculated by multiplying the vignetted etendue by the reflectance of the coatings and subtracting the eyepiece's light loss, e.g., let's say that the theoretical etendue is 2000 and after diagonal vignetting does to 1680. If the coatings reflect 90% each and the eyepiece absorbs 5%, then the actual etendue is 1600*0.9*0.9*0.95=1293.</p>
+			<p>The telescope's light flux or throughput is vignetted by the diagonal, both from the diagonal's obstruction and from falling off-axis illumination. The vignetted luminance integrates the light loss to arrive at a vignetted luminance value. For comparisons, since all telescopes have two reflecting surfaces with minor light loss from each coating and a token light loss caused by the eyepiece's lenses, it's not necessary to adjust the luminance. The actual luminance or light flux or throughput can be calculated by multiplying the vignetted luminance by the reflectance of the coatings and subtracting the eyepiece's light loss, e.g., let's say that the theoretical luminance is 2000 and after diagonal vignetting does to 1680. If the coatings reflect 90% each and the eyepiece absorbs 5%, then the actual luminance is 1600*0.9*0.9*0.95=1293.</p>
 		</div>
 	</div>
 
@@ -1264,7 +1264,7 @@
 			<a href='#'>Discussion on telescope value...</a>
 		</div>
 		<div class='discussionDetail' ID='discussionDetail8'>
-			<p>Initially telescopes were judged by their focal length culminating with Helvelius' 150 foot. Since then telescopes have been rated by their aperture initially in inches now in meters. But I don't feel that this completely captures a telescope's value. A combination of telescope performance factors along with ergonomic factors seems more comprehensive. combining etendue, radiance and telescope weight seems to capture the comparative value better. This combined value explains the lasting popularity of the Astroscan, Edmund Scientific's little red ballscope. It has an etendue-radiance-weight value (in pounds) of roughly a 1000. Many amateur scopes are closer to a value of 300. It's important that each amateur understand what will maximize their value. For some it is the most transportable aperture, for others it's wide fields, for many it's aperture regardless of the cost. Time under the stars is precious. Use it wisely by optimizing your telescope design.</p>
+			<p>Initially telescopes were judged by their focal length culminating with Helvelius' 150 foot. Since then telescopes have been rated by their aperture initially in inches now in meters. But I don't feel that this completely captures a telescope's value. A combination of telescope performance factors along with ergonomic factors seems more comprehensive. combining luminance, radiance and telescope weight seems to capture the comparative value better. This combined value explains the lasting popularity of the Astroscan, Edmund Scientific's little red ballscope. It has an luminance-radiance-weight value (in pounds) of roughly a 1000. Many amateur scopes are closer to a value of 300. It's important that each amateur understand what will maximize their value. For some it is the most transportable aperture, for others it's wide fields, for many it's aperture regardless of the cost. Time under the stars is precious. Use it wisely by optimizing your telescope design.</p>
 		</div>
 	</div>
 
@@ -1297,23 +1297,23 @@
 			</tr>
 			<tr>
 				<td class='label'>
-					Etendue (Richest Field effect) =
+					Luminance (Richest Field effect) =
 				</td>
-				<td id='summaryEtendue'>
-				</td>
-			</tr>
-			<tr>
-				<td class='label'>
-					Vignetted etendue =
-				</td>
-				<td id='summaryVignettedEtendue'>
+				<td id='summaryLuminance'>
 				</td>
 			</tr>
 			<tr>
 				<td class='label'>
-					Vignetted etendue-radiance-weight =
+					Vignetted luminance =
 				</td>
-				<td id='summaryVignettedEtendueRadiancePerWeight'>
+				<td id='summaryVignettedLuminance'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					Vignetted luminance-radiance-weight =
+				</td>
+				<td id='summaryVignettedLuminanceRadiancePerWeight'>
 				</td>
 			</tr>
 			<tr>
@@ -1376,6 +1376,13 @@
 					Coma corrector =
 				</td>
 				<td id='summaryComaCorrector'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					Coma free diameter =
+				</td>
+				<td id='summaryComaFreeDiameter'>
 				</td>
 			</tr>
 			<tr>

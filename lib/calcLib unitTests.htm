@@ -87,7 +87,8 @@
 		calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
 		baffleScalingFactor = MLB.calcLib.baffleScalingFactor,
 		calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
-		calcMinMagnification = MLB.calcLib.calcMinMagnification;
+		calcMinMagnification = MLB.calcLib.calcMinMagnification,
+		calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches;
 
 	QUnit.module('sagitta');
 
@@ -1114,19 +1115,27 @@
 	});
 	
 	QUnit.test('calcMaxMagnification', function () {
-		var apertureInces = 2.5,
+		var apertureInches = 2.5,
 			expected = 67.5,
-			result = calcMaxMagnification(apertureInces);
+			result = calcMaxMagnification(apertureInches);
 
 		equal(withinRange(result, expected, 0.001), true, 'Max magnification should be ' + expected + ', is ' + result);	
 	});
 	
 	QUnit.test('calcMinMagnification', function () {
-		var apertureInces = 2.5,
+		var apertureInches = 2.5,
 			expected = 9,
-			result = calcMinMagnification(apertureInces);
+			result = calcMinMagnification(apertureInches);
 
 		equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);	
+	});
+
+	QUnit.test('calcComaFreeDiaInches', function () {
+		var focalRatio = 5,
+			expected = 0.0875,
+			result = calcComaFreeDiaInches(focalRatio);
+
+		equal(withinRange(result, expected, 0.001), true, 'coma free diameter in inches should be ' + expected + ', is ' + result);	
 	});
 
 });
