@@ -199,11 +199,6 @@
 	});
 
 	QUnit.test('calcDiagOffset', function () {
-		var result = calcDiagOffset(42, 121.8, 10, 28);
-		equal(withinRange(result, 0.85, 0.01), true, 'The diagonal offset should be -.85, is ' + result);
-	});
-
-	QUnit.test('calcDiagOffset', function () {
 		var result = calcDiagOffset(13.2, 40.3, 3.1, 9);
 		equal(withinRange(result, 0.25, 0.01), true, 'The diagonal offset should be .25, is ' + result);
 	});
@@ -214,23 +209,8 @@
 	});
 
 	QUnit.test('calcDiagOffset3', function () {
-		var result = calcDiagOffset3(3.1, 13);
-		equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset should be -.18, is ' + result);
-
-		result = calcDiagOffset3(3.1, 9);
+		var result = calcDiagOffset3(3.1, 9);
 		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
-	});
-
-	QUnit.test('calcDiagOffset4', function () {
-		var result = calcDiagOffset4(3.1, 9, 1.4, 3);
-		equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset should be -.18, is ' + result);
-	});
-
-	QUnit.test('calcDiagOffset5', function () {
-		// parms are: diagMinorAxis, diagToFocalPlaneDistance, fieldDia, focalRatio
-		var result = calcDiagOffset5(3.1, 9, 1.4, 3);
-		equal(withinRange(result.focalPlaneOffset, -0.26, 0.01), true, 'The diagonal focal plane offset should be -.26, is ' + result.focalPlaneOffset);
-		equal(withinRange(result.fieldDiaOffset, -0.18, 0.01), true, 'The diagonal field dia offset should be -.18, is ' + result.fieldDiaOffset);
 	});
 
 	/* eg, 
