@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Telescope Design Optimizer Suite</title>
-    <meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement with rocker, and flex rocker' name='description'>
+    <meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement with rocker, flex rocker and equatorial table.' name='description'>
     <meta content='Mel Bartels' name='author'>
     <meta content='initial-scale=1' name='viewport'>
     <link href='Saucer32.ico' rel='shortcut icon'>
@@ -15,7 +15,7 @@
         <div class='titleFlexArea'>
             <div>
                 <h2>Reflecting Telescope Optimizer Suite</h2>
-                <h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement with rocker, and flex rocker.</h3>
+                <h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement with rocker, flex rocker and equatorial table.</h3>
                 <h3>by Mel Bartels</h3>
             </div>
             <div>
@@ -722,6 +722,7 @@
         </div>
     </div>
 
+	<!-- if changing the number, update the config.optimizerHeaderDiagonal value in telescopeCriteriaCalc.js -->
     <div ID='optimizerHeader2'>
         <h3 class='optimizerTitleBar'><a href='#'>Diagonal Optimizer (and off-axis mask calculator)...</a></h3>
     </div>
@@ -1379,11 +1380,67 @@
     </div>
 
     <div ID='optimizerHeader8'>
-        <h3 class='optimizerTitleBar'><a href='#'>Optimizer summary...</a></h3>
+        <h3 class='optimizerTitleBar'><a href='#'>Equatorial table optimizer...</a></h3>
     </div>
     <div ID='optimizerDetail8'>
+	
+		Equatorial table optimizer work in progress...
+		
+		<div>
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Latitude (deg) =
+					</td>
+					<td>
+                        <input class='inputText' name='latitudeDeg' value='40' onfocus='select();' type='text'>
+					</td>
+				</tr>
+                <tr>
+                    <td colspan='2' class='title'>
+                        <br>
+                        <input id='btnUpdateET' value='Optimize equatorial table' type='button'>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+			</table>
+			</tbody>
+		</div>
+
+        <div>
+            <table>
+            <tbody>
+                <tr>
+                    <td class='label'>
+                        Results:
+                    </td>
+                    <td id='ETResults'>
+                    </td>
+                </tr>
+            </table>
+            </tbody>
+        </div>
+
+		<div class='discussionHeader' ID='discussionHeader10'>
+            <a href='#'>Discussion on equatorial tables...</a>
+        </div>
+        <div class='discussionDetail' ID='discussionDetail10'>
+            <p>Equatorial table discission...</p>
+        </div>
+    </div>
+
+	<!-- if changing the number, update the config.optimizerHeaderSummary value in telescopeCriteriaCalc.js -->
+    <div ID='optimizerHeader9'>
+        <h3 class='optimizerTitleBar'><a href='#'>Optimizer summary...</a></h3>
+    </div>
+    <div ID='optimizerDetail9'>
         <table>
         <tbody>
+            <tr>
+                <td>Telescope...</td>
+            </tr>
             <tr>
                 <td class='label'>
                     Magnitude limit =
@@ -1527,6 +1584,9 @@
                 <td><br></td>
             </tr>
             <tr>
+                <td>Diagonal and focuser...</td>
+            </tr>
+            <tr>
                 <td class='label'>
                     Focal plane to diagonal distance =
                 </td>
@@ -1652,35 +1712,41 @@
         <table>
         <tbody>
             <tr>
+                <td>Off axis mask...</td>
+            </tr>
+            <tr>
                 <td class='label'>
-                    Off axis mask maximum diameter =
+                    Maximum diameter =
                 </td>
                 <td id='summaryOffaxisMaskDia'>
                 </td>
             </tr>
             <tr>
                 <td class='label'>
-                    Off axis mask highest magnification =
+                    Highest magnification =
                 </td>
                 <td id='summaryOffaxisMaskHighestMagnification'>
                 </td>
             </tr>
             <tr>
                 <td class='label'>
-                    Off axis mask Dawe's Limit =
+                    Dawe's Limit =
                 </td>
                 <td id='summaryOffaxisMaskResolution'>
                 </td>
             </tr>
             <tr>
                 <td class='label'>
-                    Off axis mask magnitude limit =
+                    Magnitude limit =
                 </td>
                 <td id='summaryOffaxisMaskMagnitudeLimit'>
                 </td>
             </tr>
             <tr>
                 <td><br></td>
+            </tr>
+            <tr>
+                <td>Baffle...</td>
             </tr>
             <tr>
                 <td class='label'>
@@ -1705,6 +1771,50 @@
             </tr>
             <tr>
                 <td><br></td>
+            </tr>
+            <tr>
+                <td>Low rider...</td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Primary mirror front edge to eyepiece distance =
+                </td>
+                <td id='summaryLowriderPrimaryMirrorFrontEdgeToEyepiece'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Primary mirror front edge to folding mirror distance =
+                </td>
+                <td id='summaryLowriderPrimaryMirrorFrontEdgeToFoldingMirror'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Primary mirror front edge to end of tube distance =
+                </td>
+                <td id='summaryLowriderPrimaryMirrorFrontEdgeToEndOfTube'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Bending angle =
+                </td>
+                <td id='summaryLowriderBendingAngle'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Folding mirror size =
+                </td>
+                <td id='summaryLowriderFoldingMirrorSize'>
+                </td>
+            </tr>
+            <tr>
+                <td><br></td>
+            </tr>
+            <tr>
+                <td>Weight and center of gravity...</td>
             </tr>
             <tr>
                 <td class='label'>
