@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Telescope Design Optimizer Suite</title>
-    <meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement with rocker, flex rocker and equatorial table.' name='description'>
+    <meta content='Optimizes a reflecting telescope for: eyepiece, diagonal, baffle, lowrider, center of gravity, rocker including friction of movement, flex rocker and equatorial table.' name='description'>
     <meta content='Mel Bartels' name='author'>
     <meta content='initial-scale=1' name='viewport'>
     <link href='Saucer32.ico' rel='shortcut icon'>
@@ -15,7 +15,7 @@
         <div class='titleFlexArea'>
             <div>
                 <h2>Reflecting Telescope Optimizer Suite</h2>
-                <h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity, friction of movement with rocker, flex rocker and equatorial table.</h3>
+                <h3>Optimizes for telescope, eyepiece, diagonal, baffle, lowrider, center of gravity, rocker including friction of movement, flex rocker and equatorial table.</h3>
                 <h3>by Mel Bartels</h3>
             </div>
             <div>
@@ -849,7 +849,6 @@
             </tbody>
             </table>
         </div>
-
         <div id='diagChart'>
         </div>
         <div>
@@ -960,9 +959,8 @@
             </tbody>
             </table>
         </div>
-        <div>
-            <!-- width, height also stored in JavaScript -->
-            <canvas id='baffleCanvas' width='1000' height='400'></canvas>
+        <div ID='baffleCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
         <div>
             <table>
@@ -1047,9 +1045,8 @@
             </tbody>
             </table>
         </div>
-        <div>
-            <!-- width, height also stored in JavaScript -->
-            <canvas id='foldingReflectorCanvas' width='1000' height='400'></canvas>
+        <div ID='foldingReflectorCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
         <div>
             <table>
@@ -1122,7 +1119,7 @@
     </div>
 
     <div ID='optimizerHeader6'>
-        <h3 class='optimizerTitleBar'><a href='#'>Friction of Movement and Rocker Optimizer...</a></h3>
+        <h3 class='optimizerTitleBar'><a href='#'>Rocker Including Friction of Movement Optimizer...</a></h3>
     </div>
     <div ID='optimizerDetail6'>
         <div>
@@ -1142,14 +1139,6 @@
                     </td>
                     <td>
                         <input class='inputText' name='tubeWeight' onfocus='select();' type='text'>
-                    </td>
-                </tr>
-                <tr>
-                    <td class='label' name='rockerWeightLabel'>
-                        <!-- label html set in JavaScript -->
-                    </td>
-                    <td>
-                        <input class='inputText' name='rockerWeight' value='20' onfocus='select();' type='text'>
                     </td>
                 </tr>
                 <tr>
@@ -1204,33 +1193,19 @@
                         </select>
                     </td>
                 </tr>
-            </table>
-            </tbody>
-        </div>
-        <div>
-            <table>
-            <tbody>
                 <tr>
                     <td colspan='2' class='title'>
                         <br>
-                        <input id='btnUpdateFrictionOfMovement' value='calc friction of movements' type='button'>
+                        <input id='btnUpdateRocker' value='optimize rocker' type='button'>
                         <br>
                         <br>
-                    </td>
-                </tr>
-                <tr>
-                    <td class='label'>
-                        Results:
-                    </td>
-                    <td id='frictionOfMovementResults'>
                     </td>
                 </tr>
             </table>
             </tbody>
         </div>
-        <div>
-            <!-- width, height not used in JavaScript -->
-            <canvas id='rockerCanvas' width='1200' height='500'></canvas>
+        <div ID='rockerCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
         <div>
             <table>
@@ -1298,14 +1273,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class='label' name='flexRockerRockerWeightLabel'>
-                        <!-- label html set in JavaScript -->
-                    </td>
-                    <td>
-                        <input class='inputText' name='flexRockerRockerWeight' value='3' onfocus='select();' type='text'>
-                    </td>
-                </tr>
-                <tr>
                     <td class='label' name='flexRockerCGToBackEdgeOfTubeClearanceLabel'>
                         <!-- label html set in JavaScript -->
                     </td>
@@ -1342,7 +1309,7 @@
                 <tr>
                     <td colspan='2' class='title'>
                         <br>
-                        <input id='btnUpdateFlexRocker' value='Optimize flex rocker' type='button'>
+                        <input id='btnUpdateFlexRocker' value='optimize flex rocker' type='button'>
                         <br>
                         <br>
                     </td>
@@ -1350,9 +1317,8 @@
             </table>
             </tbody>
         </div>
-        <div>
-            <!-- width, height not used in JavaScript -->
-            <canvas id='flexRockerCanvas' width='1200' height='500'></canvas>
+        <div ID='flexRockerCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
         <div>
             <table>
@@ -1390,7 +1356,15 @@
 						Latitude (deg) =
 					</td>
 					<td>
-                        <input class='inputText' name='latitudeDeg' value='40' onfocus='select();' type='text'>
+                        <input class='inputText' name='ETLatitudeDeg' value='40' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Tracking time (minutes) =
+					</td>
+					<td>
+                        <input class='inputText' name='ETTrackingTimeMin' value='45' onfocus='select();' type='text'>
 					</td>
 				</tr>
                 <tr>
@@ -1404,7 +1378,6 @@
 			</table>
 			</tbody>
 		</div>
-
         <div>
             <table>
             <tbody>
@@ -1605,10 +1578,8 @@
             </tr>
         </tbody>
         </table>
-
         <div id='summaryDiagChart'>
         </div>
-
         <table>
         <tbody>
             <tr>
@@ -1767,9 +1738,8 @@
             </tr>
 		</tbody>
 		</table>
-        <div>
-            <!-- width, height also stored in JavaScript -->
-            <canvas id='summaryBaffleCanvas' width='1000' height='400'></canvas>
+        <div ID='summaryBaffleCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
 		<table>
 		<tbody>
@@ -1816,9 +1786,8 @@
             </tr>
 		</tbody>
 		</table>
-        <div>
-            <!-- width, height also stored in JavaScript -->
-            <canvas id='summaryFoldingReflectorCanvas' width='1000' height='400'></canvas>
+        <div ID='summaryFoldingReflectorCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
 		<table>
 		<tbody>
@@ -1833,20 +1802,6 @@
                     Tube assembly weight =
                 </td>
                 <td id='summaryOTAWeight'>
-                </td>
-            </tr>
-            <tr>
-                <td class='label'>
-                    Mounting weight =
-                </td>
-                <td id='summaryMountWeight'>
-                </td>
-            </tr>
-            <tr>
-                <td class='label'>
-                    Total weight =
-                </td>
-                <td id='summaryTotalWeight'>
                 </td>
             </tr>
             <tr>
@@ -1892,6 +1847,13 @@
             </tr>
             <tr>
                 <td class='label'>
+                    Rocker weight:
+                </td>
+                <td id='summaryRockerWeight'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
                     Altitude friction of movement at eyepiece =
                 </td>
                 <td id='summaryAltFrictionAtEyepiece'>
@@ -1913,9 +1875,8 @@
             </tr>
 		</tbody>
 		</table>
-        <div>
-            <!-- width, height also stored in JavaScript -->
-            <canvas id='summaryRockerCanvas' width='1000' height='400'></canvas>
+        <div ID='summaryRockerCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
 		<table>
 		<tbody>
@@ -1941,6 +1902,13 @@
             </tr>
             <tr>
                 <td class='label'>
+                    Rocker weight:
+                </td>
+                <td id='summaryFlexRockerWeight'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
                     Altitude friction of movement at eyepiece =
                 </td>
                 <td id='summaryFlexRockerAltFrictionAtEyepiece'>
@@ -1962,9 +1930,8 @@
             </tr>
 		</tbody>
 		</table>
-        <div>
-            <!-- width, height not used in JavaScript -->
-            <canvas id='summaryFlexRockerCanvas' width='1200' height='500'></canvas>
+        <div ID='summaryFlexRockerCanvasDiv'>
+            <!-- canvas created in JavaScript -->
         </div>
     </div>
 
