@@ -44,8 +44,7 @@
 		calcDiagOffset = MLB.calcLib.calcDiagOffset,
 		calcDiagOffset2 = MLB.calcLib.calcDiagOffset2,
 		calcDiagOffset3 = MLB.calcLib.calcDiagOffset3,
-		calcDiagOffset4 = MLB.calcLib.calcDiagOffset4,
-		calcDiagOffset5 = MLB.calcLib.calcDiagOffset5,
+		areaIntersectingCircles = MLB.calcLib.areaIntersectingCircles,
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
 	    getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
@@ -88,7 +87,8 @@
 		baffleScalingFactor = MLB.calcLib.baffleScalingFactor,
 		calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
 		calcMinMagnification = MLB.calcLib.calcMinMagnification,
-		calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches;
+		calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches,
+		calcDiopter = MLB.calcLib.calcDiopter;
 
 	QUnit.module('sagitta');
 
@@ -211,6 +211,13 @@
 	QUnit.test('calcDiagOffset3', function () {
 		var result = calcDiagOffset3(3.1, 9);
 		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
+	});
+
+	QUnit.test('areaIntersectingCircles', function () {
+		var result = areaIntersectingCircles(100, 0, 100, 200, 0, 100) / (Math.PI * 100 * 100),
+		    expected = 0.391;
+			
+		equal(withinRange(result, expected, 0.001), true, 'The intersecting circle area should be, ' + expected + ', is ' + result);
 	});
 
 	/* eg, 
@@ -1088,10 +1095,17 @@
 			modelWidth = 40,
 			modelHeight = 5,
 			border = 10,
-			expected = 25,
-			result = baffleScalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border);
+			expectedScalingFactor = 25,
+			expectedWidth = 1020,
+			expectedHeight = 145,
+			result = baffleScalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border),
+			scalingFactor = result.scalingFactor,
+			width = result.width,
+			height = result.height;
 			
-		equal(withinRange(result, expected, 0.001), true, 'The scaling factor should be ' + expected + ', is ' + result);
+		equal(withinRange(scalingFactor, expectedScalingFactor, 0.001), true, 'The scaling factor should be ' + expectedScalingFactor + ', is ' + scalingFactor);
+		equal(withinRange(width, expectedWidth, 0.001), true, 'The width should be ' + expectedWidth + ', is ' + width);
+		equal(withinRange(height, expectedHeight, 0.001), true, 'The height should be ' + expectedHeight + ', is ' + height);
 	});
 	
 	QUnit.test('calcMaxMagnification', function () {
@@ -1116,6 +1130,14 @@
 			result = calcComaFreeDiaInches(focalRatio);
 
 		equal(withinRange(result, expected, 0.001), true, 'coma free diameter in inches should be ' + expected + ', is ' + result);	
+	});
+
+	QUnit.test('calcDiopter', function () {
+		var focalLengthInches = 17,
+			expected = 2.32,
+			result = calcDiopter(focalLengthInches);
+
+		equal(withinRange(result, expected, 0.01), true, 'diopter should be ' + expected + ', is ' + result);	
 	});
 
 });

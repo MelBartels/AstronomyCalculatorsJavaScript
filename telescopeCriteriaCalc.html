@@ -98,9 +98,9 @@
                         Unit of measurement =
                     </td>
                     <td>
-                        <input name='uom' value='inches' checked='checked' type='radio'>
+                        <input name='btnUom' value='inches' checked='checked' type='radio'>
                         imperial
-                        <input name='uom' value='millimeters' type='radio'>
+                        <input name='btnUom' value='millimeters' type='radio'>
                         metric
                     </td>
                 </tr>
@@ -1002,21 +1002,21 @@
             <table>
             <tbody>
                 <tr>
-                    <td class='label' name='foldingSecondaryMirrorSizeLabel'>
+                    <td class='label' name='lowriderSecondaryMirrorSizeLabel'>
                         <!-- label html set in JavaScript -->
                     </td>
                     <td>
-                        <input class='inputText' name='foldingSecondaryMirrorSize' onfocus='select();' type='text'>
-                        <input id='btnCalcMinFoldingMirrorSize' value='calc minimum size' type='button'>
+                        <input class='inputText' name='lowriderSecondaryMirrorSize' onfocus='select();' type='text'>
+                        <input id='btnCalcMinLowriderSecondaryMirrorSize' value='calc minimum size' type='button'>
                     </td>
                 </tr>
                 <tr>
-                    <td class='label' name='foldingSecondaryOffsetLabel'>
+                    <td class='label' name='lowriderSecondaryOffsetLabel'>
                         <!-- label html set in JavaScript -->
                     </td>
                     <td>
-                        <input class='inputText' name='foldingSecondaryOffset' onfocus='select();' type='text'>
-                        <input id='btnCalcFoldingSecondaryOffset' value='calc' type='button'>
+                        <input class='inputText' name='lowriderSecondaryOffset' onfocus='select();' type='text'>
+                        <input id='btnCalclowriderSecondaryOffset' value='calc' type='button'>
                     </td>
                 </tr>
                 <tr>
@@ -1039,13 +1039,13 @@
                 <tr>
                     <td colspan='2' class='title'>
                         <br>
-                        <input id='btnUpdateFoldingReflector' value='update folding layout' type='button'>
+                        <input id='btnUpdateLowrider' value='update low rider' type='button'>
                     </td>
                 </tr>
             </tbody>
             </table>
         </div>
-        <div ID='foldingReflectorCanvasDiv'>
+        <div ID='lowriderCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
         <div>
@@ -1055,7 +1055,7 @@
                     <td class='label'>
                         Results:
                     </td>
-                    <td id='foldingReflectorResults'>
+                    <td id='lowriderResults'>
                     </td>
                 </tr>
             </tbody>
@@ -1068,9 +1068,9 @@
         <div class='discussionDetail' ID='discussionDetail6'>
             <p>By increasing the diagonal's angle, we can aim move the focuser a little closer to the primary mirror, lessening the eyepiece's height above the ground.</p>
 
-            <p>Why a folded reflector? It's all about convenience: the eyepiece height above ground is shortened. This can make the difference between ladder and no ladder or between high up a ladder and stepping up onto a stool.</p>
+            <p>Why a folded reflector (popular name, 'low rider')? It's all about convenience: the eyepiece height above ground is shortened. This can make the difference between ladder and no ladder or between high up a ladder and stepping up onto a stool.</p>
 
-            <p>An early example of a folded (or bent) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.<br>
+            <p>An early example of a folded (or low rider) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.<br>
             Ross Robert's folded 16 inch was featured in the Oregon Star Party Walkabout of 2008 here <a href="http://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg">http://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg</a>.<Br>
             Dan Gray's bent 28 inch is a popular scope at the Oregon Star Party. The eyepiece is a couple of feet closer to the ground because of the folded design. <a href="http://www.siderealtechnology.com/28inch/">http://www.siderealtechnology.com/28inch/</a>.<Br>
             Pete's 25 inch folded scope as posted on the atm-free discussion group, from 2006. He's since added side panels and a tertiary mirror to angle the eyepiece directly outward.<br>
@@ -1368,6 +1368,15 @@
 					</td>
 				</tr>
                 <tr>
+                    <td class='label'>
+                        Rocker type = 
+                    </td>
+                    <td>
+                        <input name='radBtnETRockerType' value='Standard' type='radio' checked='checked'>standard rocker
+                        <input name='radBtnETRockerType' value='flexRocker' type='radio'>flex rocker
+                    </td>
+                </tr>
+                <tr>
                     <td colspan='2' class='title'>
                         <br>
                         <input id='btnUpdateET' value='Optimize equatorial table' type='button'>
@@ -1474,6 +1483,13 @@
                     Telescope focal length =
                 </td>
                 <td id='summaryTelescopeFocalLength'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Telescope diopter =
+                </td>
+                <td id='summaryTelescopeDiopter'>
                 </td>
             </tr>
             <tr>
@@ -1758,9 +1774,9 @@
             </tr>
             <tr>
                 <td class='label'>
-                    Primary mirror front edge to folding mirror distance =
+                    Primary mirror front edge to secondary mirror distance =
                 </td>
-                <td id='summaryLowriderPrimaryMirrorFrontEdgeToFoldingMirror'>
+                <td id='summaryLowriderPrimaryMirrorFrontEdgeToSecondaryMirror'>
                 </td>
             </tr>
             <tr>
@@ -1779,14 +1795,14 @@
             </tr>
             <tr>
                 <td class='label'>
-                    Folding mirror size =
+                    Secondary mirror size =
                 </td>
-                <td id='summaryLowriderFoldingMirrorSize'>
+                <td id='summaryLowriderSecondaryMirrorSize'>
                 </td>
             </tr>
 		</tbody>
 		</table>
-        <div ID='summaryFoldingReflectorCanvasDiv'>
+        <div ID='summaryLowriderCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
 		<table>
