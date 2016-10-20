@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>    
+<head>
+	<meta content="Mel Bartels" name="author">
+	<meta content="Converts between diopters and focal length" name="description">	
+	<title>Diopter to Focal Length Converter</title>
+	<link rel="shortcut icon" href="Saucer32.ico">
+	<!--<link rel="stylesheet" type="text/css" href="css/calc.css">-->
+</head>  
+<body>
+
+<div id="header">
+	<h2>Converts between diopters and focal length</h2>
+</div>
+
+<div>
+	<h3>Telescope</h3>
+	Diopter	<input class='inputText' name="diopterT" value="2.32" onfocus="select()" type="text">
+	<input class='inputText' ID="btnConvertDiopterToFocalLengthT" value="Convert diopter to focal length" type="button">
+	<br>
+	Focal length <input class='inputText' name="focalLengthT" type="text">
+    <input name='btnUomT' value='inches' checked='checked' type='radio'> inches <input name='btnUomT' value='millimeters' type='radio'> millimeters
+	<input class='inputText' ID="btnConvertFocalLengthToDiopterT" value="Convert focal length to diopter" type="button">
+</div>
+
+<div>
+	<h3>Eyepiece</h3>
+	Diopter	<input class='inputText' name="diopterE" value="50" onfocus="select()" type="text">
+	<input class='inputText' ID="btnConvertDiopterToFocalLengthE" value="Convert diopter to focal length" type="button">
+	<br>
+	Focal length <input class='inputText' name="focalLengthE" type="text">
+    <input name='btnUomE' value='inches' type='radio'> inches <input name='btnUomE' value='millimeters' type='radio' checked='checked'> millimeters
+	<input class='inputText' ID="btnConvertFocalLengthToDiopterE" value="Convert focal length to diopter" type="button">
+</div>
+
+<div>
+	<h3>Result</h3>
+	<div id='results'>
+	</div>
+</div>
+
+<div id="footer">
+    <br>
+	Notes:<br>
+	by Mel Bartels
+</div>
+
+</body>
+
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/diopterToFocalLengthConverter.js"></script>
+</html>
