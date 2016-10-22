@@ -89,7 +89,8 @@
 		calcMinMagnification = MLB.calcLib.calcMinMagnification,
 		calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches,
 		calcDiopter = MLB.calcLib.calcDiopter,
-		calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches;
+		calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches,
+		calcMagnifyingLensPower = MLB.calcLib.calcMagnifyingLensPower;
 
 	QUnit.module('sagitta');
 
@@ -1147,6 +1148,14 @@
 			result = calcFocalLengthInches(diopter);
 
 		equal(withinRange(result, expected, 0.01), true, 'telescope focal length should be ' + expected + ', is ' + result);	
+	});
+
+	QUnit.test('calcMagnifyingLensPower', function () {
+		var diopter = 4,
+			expected = 2,
+			result = calcMagnifyingLensPower(diopter).lensHeldCloseToEye;
+
+		equal(withinRange(result, expected, 0.01), true, 'lens magnifying power should be ' + expected + ', is ' + result);	
 	});
 
 });
