@@ -90,7 +90,11 @@
 		calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches,
 		calcDiopter = MLB.calcLib.calcDiopter,
 		calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches,
-		calcMagnifyingLensPower = MLB.calcLib.calcMagnifyingLensPower;
+		calcMagnifyingLensPower = MLB.calcLib.calcMagnifyingLensPower,
+		calcStrehlFromRMS = MLB.calcLib.calcStrehlFromRMS,
+		calcRMSFromStrehl = MLB.calcLib.calcRMSFromStrehl,
+		calcPVFromRMS = MLB.calcLib.calcPVFromRMS,
+		calcRMSFromPV = MLB.calcLib.calcRMSFromPV;
 
 	QUnit.module('sagitta');
 
@@ -1158,6 +1162,39 @@
 		equal(withinRange(result, expected, 0.01), true, 'lens magnifying power should be ' + expected + ', is ' + result);	
 	});
 
+	// http://www.rfroyce.com/standards.htm
+
+	QUnit.test('calcStrehlFromRMS', function () {
+		var rms = 0.028,
+			expected = 0.969,
+			result = calcStrehlFromRMS(rms);
+
+		equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);	
+	});
+
+	QUnit.test('calcRMSFromStrehl', function () {
+		var Strehl = 0.969,
+			expected = 0.028,
+			result = calcRMSFromStrehl(Strehl);
+
+		equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);	
+	});
+
+	QUnit.test('calcPVFromRMS', function () {
+		var rms = 0.071,
+			expected = 1 / 4,
+			result = calcPVFromRMS(rms);
+
+		equal(withinRange(result, expected, 0.001), true, 'PV should be ' + expected + ', is ' + result);	
+	});
+
+	QUnit.test('calcRMSFromPV', function () {
+		var PV = 1 / 4,
+			expected = 0.071,
+			result = calcRMSFromPV(PV);
+
+		equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);	
+	});
 });
 
 </script>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>    
+<head>
+	<meta content='Mel Bartels' name='author'>
+	<meta content='Calculates RMS, Peak-Valley and Strehl' name='description'>	
+	<title>Strehl, RMS and Peak-Valley Calculator</title>
+	<link rel='shortcut icon' href='Saucer32.ico'>
+	<link rel='stylesheet' type='text/css' href='css/calc.css'>
+</head>  
+<body>
+<div>
+	<h2>Strehl, RMS and Peak-Valley Calculator</h2>
+	<p>Enter either a Strehl, RMS or Peak-Valley. Press the corresponding button to calculate the other values.</p>
+	<table>
+	<tbody>
+		<tr>
+			<td class='label'>
+				 Strehl =
+			</td>
+			<td >
+				<input class='inputText' name='Strehl' value='0.80' onfocus='select()' type='text'>
+			</td>
+			<td>
+				<input ID='btnCalcFromStrehl' value='Calculate RMS and Peak-Valley' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 RMS =
+			</td>
+			<td >
+				<input class='inputText' name='RMS' value='' onfocus='select()' type='text'>
+			</td>
+			<td>
+				<input ID='btnCalcFromRMS' value='Calculate Strehl and Peak-Valley' type='button'>
+			</td>
+		</tr>
+		<tr>
+			<td class='label'>
+				 Peak-Valley =
+			</td>
+			<td >
+				<input class='inputText' name='PeakValley' value='' onfocus='select()' type='text'>
+			</td>
+			<td>
+				<input ID='btnCalcFromPeakValley' value='Calculate Strehl and RMS' type='button'>
+			</td>
+		</tr>
+	</table>
+	</tbody>
+</div>
+<div>
+	<br>
+	 Notes: <br>
+	<br>
+	The conversions assume a smooth optical figure.<br>
+	<br>
+	A Strehl of 1.0 means that all the light is focused to a point. Because of diffraction caused by the finite aperture, at least 16% of the light will be thrown outside the point in the form of surrounding rings of diminishing brightness, and the point will become a disk containing at most 84% of the light. The linear size of this Airy Disk depends on the focal ratio.<br>
+	<br>
+	A quarter-wave optic has a Strehl of 0.80, an RMS of 1/14 wave and a Peak-Valley of 1/4 wave. The Airy Disk will contain 64% of the light and the surrounding diffractions rings 36% of the light.<br>
+	<br>
+	See my <a href='ratemirrors.html'>Rating Mirrors webpage</a> for more.<br>
+	<br>
+	Mel Bartels
+</div>
+</body>
+<script src='lib/jquery/jquery-2.1.1.min.js'></script>
+<script src='lib/sharedLib.js'></script>
+<script src='lib/coordLib.js'></script>
+<script src='lib/calcLib.js'></script>
+<script src='lib/Strehl RMS PV calc.js'></script>
+</html>
