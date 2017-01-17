@@ -1346,7 +1346,7 @@
     </div>
     <div ID='optimizerDetail8'>
 	
-		Equatorial table optimizer work in progress...
+		<h4><i>Equatorial table optimizer work in progress...</i></h4>
 		
 		<div>
 			<table>
@@ -1364,18 +1364,9 @@
 						Tracking time (minutes) =
 					</td>
 					<td>
-                        <input class='inputText' name='ETTrackingTimeMin' value='45' onfocus='select();' type='text'>
+                        <input class='inputText' name='ETTrackingTimeMin' value='60' onfocus='select();' type='text'>
 					</td>
 				</tr>
-                <tr>
-                    <td class='label'>
-                        Rocker type = 
-                    </td>
-                    <td>
-                        <input name='radBtnETRockerType' value='Standard' type='radio' checked='checked'>standard rocker
-                        <input name='radBtnETRockerType' value='flexRocker' type='radio'>flex rocker
-                    </td>
-                </tr>
                 <tr>
                     <td colspan='2' class='title'>
                         <br>
@@ -1387,6 +1378,9 @@
 			</table>
 			</tbody>
 		</div>
+        <div ID='ETCanvasDiv'>
+            <!-- canvas created in JavaScript -->
+        </div>
         <div>
             <table>
             <tbody>
@@ -1406,6 +1400,8 @@
         </div>
         <div class='discussionDetail' ID='discussionDetail10'>
             <p>Equatorial table discission...</p>
+            <p>The polar axis must pass through the combined center of gravity of the tube assembly, rocker and the equatorial table's platform.</p>
+			<p>Values for a four corner equatorial table are calculated where a tracking arc is situated at each corner of the equatorial table.</p>
         </div>
     </div>
 
