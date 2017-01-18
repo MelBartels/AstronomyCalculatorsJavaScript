@@ -722,7 +722,7 @@
         </div>
     </div>
 
-	<!-- if changing the number, update the config.optimizerHeaderDiagonal value in telescopeCriteriaCalc.js -->
+    <!-- if changing the number, update the config.optimizerHeaderDiagonal value in telescopeCriteriaCalc.js -->
     <div ID='optimizerHeader2'>
         <h3 class='optimizerTitleBar'><a href='#'>Diagonal Optimizer (and off-axis mask calculator)...</a></h3>
     </div>
@@ -1345,28 +1345,28 @@
         <h3 class='optimizerTitleBar'><a href='#'>Equatorial table optimizer...</a></h3>
     </div>
     <div ID='optimizerDetail8'>
-	
-		<h4><i>Equatorial table optimizer work in progress...</i></h4>
-		
-		<div>
-			<table>
-			<tbody>
-				<tr>
-					<td class='label'>
-						Latitude (deg) =
-					</td>
-					<td>
+
+        <h4><i>Equatorial table optimizer work in progress...</i></h4>
+
+        <div>
+            <table>
+            <tbody>
+                <tr>
+                    <td class='label'>
+                        Latitude (deg) =
+                    </td>
+                    <td>
                         <input class='inputText' name='ETLatitudeDeg' value='40' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label'>
-						Tracking time (minutes) =
-					</td>
-					<td>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='label'>
+                        Tracking time (minutes) =
+                    </td>
+                    <td>
                         <input class='inputText' name='ETTrackingTimeMin' value='60' onfocus='select();' type='text'>
-					</td>
-				</tr>
+                    </td>
+                </tr>
                 <tr>
                     <td colspan='2' class='title'>
                         <br>
@@ -1375,9 +1375,9 @@
                         <br>
                     </td>
                 </tr>
-			</table>
-			</tbody>
-		</div>
+            </table>
+            </tbody>
+        </div>
         <div ID='ETCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
@@ -1395,17 +1395,18 @@
             </tbody>
         </div>
 
-		<div class='discussionHeader' ID='discussionHeader10'>
+        <div class='discussionHeader' ID='discussionHeader10'>
             <a href='#'>Discussion on equatorial tables...</a>
         </div>
         <div class='discussionDetail' ID='discussionDetail10'>
             <p>Equatorial table discission...</p>
             <p>The polar axis must pass through the combined center of gravity of the tube assembly, rocker and the equatorial table's platform.</p>
-			<p>Values for a four corner equatorial table are calculated where a tracking arc is situated at each corner of the equatorial table.</p>
+            <p>Values for a four corner equatorial table are calculated where a tracking arc is situated at each corner of the equatorial table.</p>
+            <p>Other table designs include three arcs (two on the north side of the platform, one on the south side), two arcs on the north side and a pivot on the south side, and finally, two pivots, one on the north side and one on the south side.</p>
         </div>
     </div>
 
-	<!-- if changing the number, update the config.optimizerHeaderSummary value in telescopeCriteriaCalc.js -->
+    <!-- if changing the number, update the config.optimizerHeaderSummary value in telescopeCriteriaCalc.js -->
     <div ID='optimizerHeader9'>
         <h3 class='optimizerTitleBar'><a href='#'>Optimizer summary...</a></h3>
     </div>
@@ -1748,13 +1749,13 @@
                 <td id='summaryBafflePrimaryMirrorExtension'>
                 </td>
             </tr>
-		</tbody>
-		</table>
+        </tbody>
+        </table>
         <div ID='summaryBaffleCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
-		<table>
-		<tbody>
+        <table>
+        <tbody>
             <tr>
                 <td><br></td>
             </tr>
@@ -1796,13 +1797,13 @@
                 <td id='summaryLowriderSecondaryMirrorSize'>
                 </td>
             </tr>
-		</tbody>
-		</table>
+        </tbody>
+        </table>
         <div ID='summaryLowriderCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
-		<table>
-		<tbody>
+        <table>
+        <tbody>
             <tr>
                 <td><br></td>
             </tr>
@@ -1885,13 +1886,13 @@
                 <td id='summaryAzPadSize'>
                 </td>
             </tr>
-		</tbody>
-		</table>
+        </tbody>
+        </table>
         <div ID='summaryRockerCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
-		<table>
-		<tbody>
+        <table>
+        <tbody>
             <tr>
                 <td><br></td>
             </tr>
@@ -1940,9 +1941,78 @@
                 <td id='summaryFlexRockerAzPadSize'>
                 </td>
             </tr>
-		</tbody>
-		</table>
+        </tbody>
+        </table>
         <div ID='summaryFlexRockerCanvasDiv'>
+            <!-- canvas created in JavaScript -->
+        </div>
+        <table>
+        <tbody>
+            <tr>
+                <td><br></td>
+            </tr>
+            <tr>
+                <td>Equatorial table...</td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Latitude (deg) =
+                </td>
+                <td id='summaryETLatitudeDeg'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Tracking time (minutes) =
+                </td>
+                <td id='summaryETTrackingTimeMin'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Max tilt:
+                </td>
+                <td id='summaryETMaxTilt'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    South tracking arc:
+                </td>
+                <td id='summaryETSouthTrack'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    North tracking arc:
+                </td>
+                <td id='summaryETNorthTrack'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Platform size:
+                </td>
+                <td id='summaryETPlatformSize'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Platform weight =
+                </td>
+                <td id='summaryETPlatformWeight'>
+                </td>
+            </tr>
+            <tr>
+                <td class='label'>
+                    Total weight =
+                </td>
+                <td id='summaryETTotalWeight'>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        <div ID='summaryETCanvasDiv'>
             <!-- canvas created in JavaScript -->
         </div>
     </div>
