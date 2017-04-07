@@ -35,7 +35,6 @@
 		calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
 		calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
 		inchesToWavesGreenLight = MLB.calcLib.inchesToWavesGreenLight,
-		calcSphereParabolaDiff = MLB.calcLib.calcSphereParabolaDiff,
 		calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
 		magnitudeDrop = MLB.calcLib.magnitudeDrop,
 		magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
@@ -94,7 +93,11 @@
 		calcStrehlFromRMS = MLB.calcLib.calcStrehlFromRMS,
 		calcRMSFromStrehl = MLB.calcLib.calcRMSFromStrehl,
 		calcPVFromRMS = MLB.calcLib.calcPVFromRMS,
-		calcRMSFromPV = MLB.calcLib.calcRMSFromPV;
+		calcRMSFromPV = MLB.calcLib.calcRMSFromPV,
+		calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize = MLB.calcLib.calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize,
+		calcComa = MLB.calcLib.calcComa,
+		calcGreaterComa = MLB.calcLib.calcGreaterComa,
+		calcGreaterComaWithComaCorrector = MLB.calcLib.calcGreaterComaWithComaCorrector;
 
 	QUnit.module('sagitta');
 
@@ -137,14 +140,6 @@
 			expected = 26.31,
 			result = inchesToWavesGreenLight(sphereParabolaDifferenceInches);
 		equal(withinRange(result, expected, 0.01), true, 'converting from inches to waves of green light should be ' + expected + ', is ' + result);
-	});
-	
-	QUnit.test('calcSphereParabolaDiff', function () {
-		var mirrorDia = 16,
-			radiusOfCurvature = 96, // 16" f3
-			expected = 26.31,
-			result = calcSphereParabolaDiff(mirrorDia, radiusOfCurvature);
-		equal(withinRange(result, expected, 0.01), true, 'difference between sphere and parabola in waves of green light should be ' + expected + ', is ' + result);
 	});
 	
 	QUnit.module('diagonal sizing');
@@ -1194,6 +1189,79 @@
 			result = calcRMSFromPV(PV);
 
 		equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);	
+	});
+	
+	QUnit.test('calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize', function () {
+		var eyepieceApparentFOVdegs = [100, 80, 60, 40],
+			pupilInches = 7 / 25.4, // keep it all in inches - could just as well use mm
+			objectSizeArcmin1 = 60,
+			objectSizeArcmin2 = 30,
+			expectedApertures = [27.56, 22.05, 16.54, 11.02],
+			expectedAperture,
+			expectedLuminances = [759.50, 486.08, 273.42, 121.52],
+			expectedLuminance,
+			result = calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize(eyepieceApparentFOVdegs, pupilInches, objectSizeArcmin1, objectSizeArcmin2),
+			resultFOV,
+			resultAperture,
+			resultLuminance;
+		
+		expectedApertures.forEach(function (e, ix) {
+			resultFOV = result[ix]['apparentFOVdegs'];
+			resultAperture = result[ix]['aperture'];
+			resultLuminance = result[ix]['luminance'];
+			expectedAperture = expectedApertures[ix];
+			expectedLuminance = expectedLuminances[ix];
+			equal(withinRange(resultAperture, expectedAperture, 0.01), true, 'for ' + resultFOV + ' field of view in degrees, aperture should be ' + expectedAperture + ', is ' + resultAperture);	
+			equal(withinRange(resultLuminance, expectedLuminance, 0.01), true, '... and luminance should be ' + expectedLuminance + ' in^2deg^2, is ' + resultLuminance);	
+		});
+	});
+	
+	QUnit.test('calcComa', function () {
+		var eyepieceFieldStopmm = 6.85,
+		focalRatio = 6.85,
+		expected = {
+			lowOrderComaRMS: 0.07, // per Nils Olaf's example
+			linearComaRMS: 0.22
+		},
+		allowableError = 0.01,
+		result = calcComa(eyepieceFieldStopmm, focalRatio);
+		
+		equal(withinRange(result.lowOrderComaRMS, expected.lowOrderComaRMS, allowableError), true, 'lowOrderComaRMS should be ' + expected.lowOrderComaRMS + ', is ' + result.lowOrderComaRMS);
+		equal(withinRange(result.linearComaRMS, expected.linearComaRMS, allowableError), true, 'linearComaRMS should be ' + expected.linearComaRMS + ', is ' + result.linearComaRMS);
+	});
+
+	QUnit.test('calcGreaterComa', function () {
+		var eyepieceFieldStopmm = 3,
+		focalRatio = 6,
+		expected = 0.13,
+		allowableError = 0.01,
+		result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
+		
+		// selects for linearComaRMS
+		equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
+		
+		// selects for lowOrderComaRMS
+		eyepieceFieldStopmm = 20,
+		focalRatio = 2,
+		expected = 8.38,
+		result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);	
+		equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.test('calcGreaterComaWithComaCorrector', function () {
+		var eyepieceFieldStopmm = 20,
+		focalRatio = 3,
+		useComaCorrector = false,
+		expected = 3.33,
+		allowableError = 0.01,
+		result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
+		
+		equal(withinRange(result, expected, allowableError), true, 'coma without coma corrector should be ' + expected + ', is ' + result);
+		
+		useComaCorrector = true;
+		expected = 0.21,
+		result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);	
+		equal(withinRange(result, expected, allowableError), true, 'coma with coma corrector should be ' + expected + ', is ' + result);
 	});
 });
 
