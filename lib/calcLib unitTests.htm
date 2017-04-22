@@ -35,6 +35,7 @@
 		calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
 		calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
 		inchesToWavesGreenLight = MLB.calcLib.inchesToWavesGreenLight,
+		calcRotatingFurnaceRPM = MLB.calcLib.calcRotatingFurnaceRPM,
 		calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
 		magnitudeDrop = MLB.calcLib.magnitudeDrop,
 		magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
@@ -140,6 +141,13 @@
 			expected = 26.31,
 			result = inchesToWavesGreenLight(sphereParabolaDifferenceInches);
 		equal(withinRange(result, expected, 0.01), true, 'converting from inches to waves of green light should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.test('calcRotatingFurnaceRPM', function () {
+		var focalLengthMeters = 2,
+			expected = 14.95,
+			result = calcRotatingFurnaceRPM(focalLengthMeters);
+		equal(withinRange(result, expected, 0.01), true, 'rotating furnance RPM for focal length in meters of ' + focalLengthMeters + ' should be ' + expected + ', is ' + result);
 	});
 	
 	QUnit.module('diagonal sizing');
