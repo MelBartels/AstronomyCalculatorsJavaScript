@@ -10,176 +10,61 @@
 </head>
 <body>
 	<div>
+		<h2>Pitch Lap Calculator</h2>
+
 		<table>
 		<tbody>
-		<tr>
-			<td class='title' colspan='3'>
-				<h2>
-				Pitch Lap Calculator
-				</h2>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				 Number of stars
-			</td>
-			<td>
-				<input class='inputText' name="stars" value="7" onfocus="select()" type="text">
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 1 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius1' value='0' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact1' value='1' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 2 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius2' value='0.2' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact2' value='0.9' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 3 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius3' value='0.4' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact3' value='0.8' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 4 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius4' value='0.6' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact4' value='0.65' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 5 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius5' value='0.8' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact5' value='0.4' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 6 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius6' value='1' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact6' value='0' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 7 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius7' value='' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact7' value='' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 8 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius8' value='' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact8' value='' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 9 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius9' value='' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact9' value='' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='label'>
-				Zone 10 radius = 
-			</td>
-			<td>
-				<input class='inputText' name='zoneRadius10' value='' onfocus='select();' type='text'>
-			</td>
-			<td class='label'>
-				contact 
-			</td>
-			<td>
-				<input class='inputText' name='zoneContact10' value='' onfocus='select();' type='text'>
-			</td>
-		</tr>
-		<tr>
-			<td class='title' colspan='3'>
-				<br>
-				<input ID="btnUpdatePitchLap" value="Update pitch lap" type="button">
-			</td>
-		</tr>
+			<tr>
+				<td class='label'>
+					 Number of stars
+				</td>
+				<td>
+					<input class='inputText' id="stars" value="7" onfocus="select()" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					 Stroke length
+				</td>
+				<td>
+					<input class='inputText' id="stroke" value="0.3" onfocus="select()" type="text">
+				</td>
+			</tr>
+		</tbody>
+		</table>	
+		
+		<table id='pitchLapParmTable'>
+		<tbody id='pitchLapParmTableBody'>
+			<!--zonal rows added in JavaScript-->
+		</tbody>
+		</table>	
+
+		<table>
+		<tbody>
+			<tr>
+				<td class='title' colspan='3'>
+					<br>
+					<input ID="btnUpdatePitchLap" value="Update pitch lap layout and polishing action graph" type="button">
+				</td>
+			</tr>
 		</tbody>
 		</table>	
 	</div>
+
 	<div>
 		<canvas class='pitchLapCanvas' id="pitchLapCanvas" width="500" height="500">
 		</canvas>
 	</div>
+	
+	<p>Relative polishing action incorporating stroke length:</p>
+
+	<div>
+		<canvas class='strokeCanvas' id="strokeCanvas" width="500" height="100">
+		</canvas>
+	</div>
+	
+	<br><br><br>
+
 </body>
 <script src='lib/jquery/jquery-3.1.1.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
