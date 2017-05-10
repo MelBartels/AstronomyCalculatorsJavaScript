@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta content="Mel Bartels" name="author">
-	<meta content="Calculates pitch lap shape for parabolizing telescope primary mirror" name="description">
+	<meta content='Mel Bartels' name='author'>
+	<meta content='Calculates pitch lap shape for parabolizing telescope primary mirror' name='description'>
 	<meta content='initial-scale=1' name='viewport'>
 	<title>Pitch Lap Calculator</title>
-	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="css/calc.css">
+	<link rel='shortcut icon' href='Saucer32.ico'>
+	<link rel='stylesheet' type='text/css' href='css/calc.css'>
 </head>
 <body>
 	<div>
@@ -19,7 +19,7 @@
 					 Number of stars
 				</td>
 				<td>
-					<input class='inputText' id="stars" value="7" onfocus="select()" type="text">
+					<input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
 				</td>
 			</tr>
 			<tr>
@@ -27,11 +27,14 @@
 					 Stroke length
 				</td>
 				<td>
-					<input class='inputText' id="stroke" value="0.3" onfocus="select()" type="text">
+					<input class='inputText' id='stroke' value='0.33' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
+					e.g., enter '0.33' for 1/3 center over center stroke (+-1/6 diameter)
 				</td>
 			</tr>
 		</tbody>
 		</table>	
+		
+		<br>Zones (0.0=center, 1.0=edge; enter in any order)...<br>
 		
 		<table id='pitchLapParmTable'>
 		<tbody id='pitchLapParmTableBody'>
@@ -44,31 +47,37 @@
 			<tr>
 				<td class='title' colspan='3'>
 					<br>
-					<input ID="btnUpdatePitchLap" value="Update pitch lap layout and polishing action graph" type="button">
+					<input ID='btnUpdatePitchLap' value='Update pitch lap layout and polishing action graph' type='button'>
 				</td>
 			</tr>
 		</tbody>
 		</table>	
 	</div>
+		
+	<br>
+	<p>Pitch lap layout</p>
 
 	<div>
-		<canvas class='pitchLapCanvas' id="pitchLapCanvas" width="500" height="500">
+		<canvas class='pitchLapCanvas' id='pitchLapCanvas' width='500' height='500'>
 		</canvas>
 	</div>
 	
-	<p>Relative polishing action incorporating stroke length:</p>
+	<br>
+	<p>Relative polishing action incorporating stroke length</p>
 
 	<div>
-		<canvas class='strokeCanvas' id="strokeCanvas" width="500" height="100">
+		<canvas class='strokeCanvas' id='strokeCanvas' width='500' height='100'>
 		</canvas>
 	</div>
+	
+	<p>Mel Bartels</p>
 	
 	<br><br><br>
 
 </body>
 <script src='lib/jquery/jquery-3.1.1.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
-<script src="lib/sharedLib.js"></script>
-<script src="lib/coordLib.js"></script>
-<script src="lib/PitchLapCalc.js"></script>
+<script src='lib/sharedLib.js'></script>
+<script src='lib/coordLib.js'></script>
+<script src='lib/PitchLapCalc.js'></script>
 </html>
