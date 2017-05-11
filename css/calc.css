@@ -97,6 +97,14 @@ a:hover {
 	height: 400px;
 }
 
+.pitchLapDiv {
+	margin-top: 20px; 
+	margin-bottom: 20px; 
+	margin-left: 20px; 
+	margin-right: 20px; 
+	float: left;
+}
+
 @media all and (min-width: 0px) {
 	.genImage {
 		width: 100%; 
