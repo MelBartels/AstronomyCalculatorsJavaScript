@@ -103,6 +103,7 @@ a:hover {
 	margin-left: 20px; 
 	margin-right: 20px; 
 	float: left;
+	text-align: center;
 }
 
 @media all and (min-width: 0px) {
