@@ -28,7 +28,15 @@
 					 Stroke length
 				</td>
 				<td>
-					<input class='inputText' id='stroke' value='0.33' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
+					<input class='inputText' id='strokeLength' value='0.33' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					 Stroke offset
+				</td>
+				<td>
+					<input class='inputText' id='strokeOffset' value='0' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
 				</td>
 			</tr>
 			<tr>
@@ -40,26 +48,17 @@
 			</tr>
 		</tbody>
 		</table>	
-
+        <br>
 		<table>
 		<tbody>
 			<tr>
 				<td class='title' colspan='3'>
-					<br>
 					<input ID='btnUpdatePitchLap' value='Update pitch lap layout and polishing action graph' type='button'>
 				</td>
 			</tr>
 		</tbody>
 		</table>	
-		
-		<br>Zones (0.0=center, 1.0=edge; enter in any order)<br>
-		
-		<table id='pitchLapParmTable'>
-		<tbody id='pitchLapParmTableBody'>
-			<!--zonal rows added in JavaScript-->
-		</tbody>
-		</table>
-
+        <br>		
 		<table>
 		<tbody>
 			<tr>
@@ -76,6 +75,14 @@
 			</tr>
 		</tbody>
 		</table>	
+
+		<br>Zones (0.0=center, 1.0=edge; enter in any order)<br>
+		
+		<table id='pitchLapParmTable'>
+		<tbody id='pitchLapParmTableBody'>
+			<!--zonal rows added in JavaScript-->
+		</tbody>
+		</table>
 	</div>
 		
 	<div class='pitchLapDiv'>
