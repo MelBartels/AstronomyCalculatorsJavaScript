@@ -22,10 +22,27 @@
 				<td>
 					<input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
 				</td>
+			<tr>
+				<td colSpan='2' style='text-align:left'>
+					<br>Stroke
+				</td>
+			</tr>
+			<tr>
+				<td colSpan='2' style='text-align:left'>
+					<input name='btnGravity' value='neutral' type='radio' checked='checked'>neutral
+					<input name='btnGravity' value='MOT' type='radio'>MOT
+					<input name='btnGravity' value='TOT' type='radio'>TOT
+				</td>
+			</tr>
+			<tr>
+				<td colSpan='2' style='text-align:left'>
+					<input name='btnStrokeType' value='straight' type='radio' checked='checked'>straight
+					<input name='btnStrokeType' value='W' type='radio'>W
+				</td>
 			</tr>
 			<tr>
 				<td class='label'>
-					 Stroke length
+					 length
 				</td>
 				<td>
 					<input class='inputText' id='strokeLength' value='0.33' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
@@ -33,50 +50,25 @@
 			</tr>
 			<tr>
 				<td class='label'>
-					 Stroke offset
+					 offset
 				</td>
 				<td>
 					<input class='inputText' id='strokeOffset' value='0' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
 				</td>
 			</tr>
 			<tr>
-				<td colSpan='2'>
-					<input name='btnGravity' value='MOT' type='radio'>MOT
-					<input name='btnGravity' value='neutral' type='radio' checked='checked'>neutral
-					<input name='btnGravity' value='TOT' type='radio'>TOT
-				</td>
-			</tr>
-		</tbody>
-		</table>	
-        <br>
-		<table>
-		<tbody>
-			<tr>
-				<td class='title' colspan='3'>
-					<input ID='btnUpdatePitchLap' value='Update pitch lap layout and polishing action graph' type='button'>
-				</td>
-			</tr>
-		</tbody>
-		</table>	
-        <br>		
-		<table>
-		<tbody>
-			<tr>
-				<td>
-					Presets
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input name='btnPreset' value='fullContact' type='radio'>full contact
-					<input name='btnPreset' value='starLap' type='radio' checked='checked'>star lap
-					<input name='btnPreset' value='reverseStarLap' type='radio'>reverse star lap
+				<td colspan='2' class='title'>
+					<br><input ID='btnUpdatePitchLap' value='Update graphs' type='button'>
 				</td>
 			</tr>
 		</tbody>
 		</table>	
 
-		<br>Zones (0.0=center, 1.0=edge; enter in any order)<br>
+		<br>Zones (0.0=center, 1.0=edge; enter in any order)
+		<br>Presets
+		<input name='btnPreset' value='fullContact' type='radio'>full contact
+		<input name='btnPreset' value='petalLap' type='radio' checked='checked'>petal lap
+		<input name='btnPreset' value='reversePetalLap' type='radio'>reverse petal lap
 		
 		<table id='pitchLapParmTable'>
 		<tbody id='pitchLapParmTableBody'>
