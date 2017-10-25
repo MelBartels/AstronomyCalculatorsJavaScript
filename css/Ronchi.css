@@ -6,12 +6,21 @@
 	text-align: right; 
 }
 
+.labelTop  {
+	text-align: right;
+	vertical-align: top;
+}
+
 .inputText {
 	width: 100px;
 }
 
 .inputTextGratingOffsets {
-	width: 250px;
+	width: 100px;
+}
+
+#sliderOffset, #sliderZonalError {
+	width: 200px;
 }
 
 @media all and (min-width: 0px) {
