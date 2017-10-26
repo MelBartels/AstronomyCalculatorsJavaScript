@@ -10,13 +10,9 @@
 </head>
 <body>
 <div>
+    <h4>Ronchi Calculator</h4>
     <table>
     <tbody>
-        <tr>
-            <td class='title' colspan='2'>
-                <h4>Ronchi Calculator</h4>
-            </td>
-        </tr>
         <tr>
             <td class='label'>
                  Mirror diameter =
@@ -93,6 +89,7 @@
                 <input name='drawRuler' value='no' type='radio'>no
             </td>
         </tr>
+        <!--
         <tr>
             <td>
             </td>
@@ -102,6 +99,7 @@
                 </div>
             </td>
         </tr>
+		-->
     </tbody>
     </table>
 </div>
@@ -119,6 +117,8 @@
     </table>
 </div>
 <div>
+	<h4>Ronchi Layers Test</h4>
+	<p>By laying the mirror's actual Ronchigram over the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. The sensitivity of this test is surprisingly high: I'ved parabolized 6" f2.8, 10.5" f2.7 and 25.1" f2.6 mirrors using the Ronchi Layers Test - all these mirrors passing the critical star test with sensibly identical out of focus star disks and nearly identical diagonal breakout distances.</p>
 	<p>Paste your mirror's Ronchigram here then compare. For example, <input id='btnPasteExampleRonchigram' value='click here' type='button'> to paste a Ronchigram of my 25.1 inch f2.60 mirror into this webpage, then try adjusting the grating offset from radius of curvature.</p>
 	
 	Pasted image active?
@@ -126,7 +126,7 @@
 	<input name='pastedImageActive' value='no' type='radio'>no
 	&emsp;
 	transparency
-	<input class='inputText' id='pastedImageTransparency' value='0.8' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
+	<input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
 	&emsp;
 	width 
 	<input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
@@ -139,13 +139,9 @@
 	<input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 </div>
 <div>
+    <h4>Ronchigrams with Errors</h4>
     <table>
     <tbody>
-        <tr>
-            <td class='title' colspan='2'>
-                <h4>Ronchigrams with Errors</h4>
-            </td>
-        </tr>
         <tr>
             <td class='label'>
                 Display?
@@ -174,7 +170,8 @@
                 <input id="sliderZonalError" min="-1" max="1" step="0.01" type="range"/>
             </td>
         </tr>
-        <tr>
+        <!--
+		<tr>
             <td>
             </td>
             <td>
@@ -183,6 +180,7 @@
                 </div>
             </td>
         </tr>
+		-->
     </tbody>
     </table>
 </div>
@@ -265,7 +263,7 @@
                 A careful side by side comparison reveals zonal errors, i.e., zones of the mirror that are a little high (underparabolized) or a little low (overparabolized).
             </li>
             <li>
-                Layering the actual Ronchigram with the theoretical Ronchigram reveals subtle errors. This is done with a smartphone camera image and an image processing program.
+                Layering the actual Ronchigram with the theoretical Ronchigram reveals subtle errors.
             </li>
         </ol>
         Here's a quick comparison image showing a turned down edge in a 6 inch [15cm] F2.8 that's being returned to spherical after the initial parabolization attempt:<br>
