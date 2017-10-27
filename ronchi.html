@@ -89,17 +89,6 @@
                 <input name='drawRuler' value='no' type='radio'>no
             </td>
         </tr>
-        <!--
-        <tr>
-            <td>
-            </td>
-            <td>
-                <div>
-                    <input id='btnPlot' value='Update Ronchigrams' type='button'>
-                </div>
-            </td>
-        </tr>
-		-->
     </tbody>
     </table>
 </div>
@@ -119,12 +108,9 @@
 <div>
 	<h4>Ronchi Layers Test</h4>
 	<p>By laying the mirror's actual Ronchigram over the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. The sensitivity of this test is surprisingly high: I'ved parabolized 6" f2.8, 10.5" f2.7 and 25.1" f2.6 mirrors using the Ronchi Layers Test verified by the star test. All these mirrors passing the critical star test with sensibly identical out of focus star disks and diagonal breakout distances. And this test is quick: take a Ronchigram with the phone, copy to webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session.</p>
-	<p>Paste your mirror's Ronchigram here then compare.<br>
-	For example, <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25.1 inch f2.6 mirror.<br>
-	For example, <input id='btnPasteExampleRonchigram10' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror.<br>
-	For example, <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
-	
-	Pasted image active?
+	<p>Paste your mirror's Ronchigram into the browser then compare.</p>
+
+	Show pasted image?
 	<input name='pastedImageActive' value='yes' type='radio'>yes
 	<input name='pastedImageActive' value='no' type='radio'>no
 	&emsp;
@@ -140,6 +126,11 @@
 	<input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset
 	<input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
+
+    <p>Here are some examples:</br>
+	&emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25.1 inch f2.6 mirror.<br>
+	&emsp; <input id='btnPasteExampleRonchigram10' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror.<br>
+	&emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
 </div>
 <div>
     <h4>Ronchigrams with Errors</h4>
@@ -173,17 +164,6 @@
                 <input id="sliderZonalError" min="-1" max="1" step="0.01" type="range"/>
             </td>
         </tr>
-        <!--
-		<tr>
-            <td>
-            </td>
-            <td>
-                <div>
-                    <input id='btnPlotError' value='Update Ronchigrams' type='button'>
-                </div>
-            </td>
-        </tr>
-		-->
     </tbody>
     </table>
 </div>
