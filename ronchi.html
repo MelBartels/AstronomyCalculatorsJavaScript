@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Ronchi Calculator</title>
+<title>Ronchi Matching Test</title>
 <meta content='Mel Bartels' name='author'>
 <meta content='Ronchi test calculator for optics' name='description'>
 <meta content='initial-scale=1' name='viewport'>
@@ -10,9 +10,13 @@
 </head>
 <body>
 <div>
-    <h4>Ronchi Calculator</h4>
     <table>
     <tbody>
+        <tr>
+            <td class='title' colspan='2'>
+                <h4>Ronchi Matching Test</h4>
+            </td>
+        </tr>
         <tr>
             <td class='label'>
                  Mirror diameter =
@@ -106,31 +110,30 @@
     </table>
 </div>
 <div>
-	<h4>Ronchi Layers Test</h4>
-	<p>By laying the mirror's actual Ronchigram over the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. The sensitivity of this test is surprisingly high: I'ved parabolized 6" f2.8, 10.5" f2.7 and 25.1" f2.6 mirrors using the Ronchi Layers Test verified by the star test. All these mirrors passing the critical star test with sensibly identical out of focus star disks and diagonal breakout distances. And this test is quick: take a Ronchigram with the phone, copy to webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session.</p>
-	<p>Paste your mirror's Ronchigram into the browser then compare (you may have to first open the image in a program then copy from there).</p>
+    <h4>Paste your mirror's Ronchigram into this browser page then match the bands. You may have to first open the image in a program then copy from there.</h4>
+    <p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. The sensitivity of this test is surprisingly high: I'ved parabolized 6" f2.8, 10.5" f2.7 and 25.1" f2.6 mirrors using the Ronchi Matching Test in conjunction with the Star Test to adjust the diagonal breakout. All these mirrors passing the critical star test with sensibly identical out of focus star disks and diagonal breakout distances. And this test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session.</p>
 
-	Show pasted image?
-	<input name='pastedImageActive' value='yes' type='radio'>yes
-	<input name='pastedImageActive' value='no' type='radio'>no
-	&emsp;
-	transparency
-	<input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
-	&emsp;
-	width 
-	<input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
-	height 
-	<input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
-	&emsp;
-	x offset
-	<input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
-	y offset
-	<input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
+    Show pasted image?
+    <input name='pastedImageActive' value='yes' type='radio'>yes
+    <input name='pastedImageActive' value='no' type='radio'>no
+    &emsp;
+    transparency
+    <input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
+    &emsp;
+    width
+    <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
+    height
+    <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
+    &emsp;
+    x offset
+    <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
+    y offset
+    <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 
     <p>Here are some examples:</br>
-	&emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25.1 inch f2.6 mirror.<br>
-	&emsp; <input id='btnPasteExampleRonchigram10' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror.<br>
-	&emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
+    &emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25.1 inch f2.6 mirror.<br>
+    &emsp; <input id='btnPasteExampleRonchigram10' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror.<br>
+    &emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
 </div>
 <div>
     <h4>Ronchigrams with Errors</h4>
@@ -334,9 +337,9 @@
     </p>
     <p>
         Overall correction, that is, is the mirror 100% corrected or is it ever so slightly under or overcorrected, is harder to see. That's where the star test jumps into the fray. The star test, comparing the inside of focus star pattern to the outside of focus star pattern, is exquisitely sensitive to overall correction. There is every expectation that a mirror can be figured to a standard of 'indistinguishable from perfect' when using matching Ronchi test in combination with the star test. Usually this only comes into play during the final stage of figuring. I use the indoor star test when possible. Once I adjust the overall correction then I return to the Ronchi test to get the correct curve in each mirror zone.
-	</p>
-	<p>
-		My trusty tester that I've used for countless mirrors over 40 years.<br>
+    </p>
+    <p>
+        My trusty tester that I've used for countless mirrors over 40 years.<br>
         <img src='JoyOfMirrorMaking/Ronchi frontside.jpg'>
         <img src='JoyOfMirrorMaking/Ronchi backside.jpg'>
     </p>
