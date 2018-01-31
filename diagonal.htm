@@ -1,107 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta content="Calculates the off axis illumination for various diagonal sizes in a telescope" name="description">
-	<meta content="Mel Bartels" name="author">
-	<meta content='initial-scale=1' name='viewport'>
-	<title>Diagonal Off Axis Illumination Calculator</title>
-	<link rel="shortcut icon" href="Saucer32.ico">
-	<link rel="stylesheet" type="text/css" href="css/diagonal.css">
-	<!--[if lt IE 9]><script language="javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
-	<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
+    <meta content="Calculates the off axis illumination for various diagonal sizes in a telescope" name="description">
+    <meta content="Mel Bartels" name="author">
+    <meta content='initial-scale=1' name='viewport'>
+    <title>Diagonal Off Axis Illumination Calculator</title>
+    <link rel="shortcut icon" href="Saucer32.ico">
+    <link rel="stylesheet" type="text/css" href="css/diagonal.css">
+    <!--[if lt IE 9]><script language="javascript" src="lib/jqplot/excanvas.min.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.min.css" />
 </head>
 <body>
 <div>
-	<table>
-	<tbody>
-	<tr>
-		<td class='title' colspan='2'>
-			<h2>
-			Diagonal Off-Axis Illumination Calculator
-			</h2>
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Unit of measurement:
-		</td>
-		<td>
-			<input name="uom" value="inches" checked="checked" type="radio">
-			inches 
-			<input name="uom" value="millimeters" type="radio">
-			millimeters
-		</td>
-	</tr>
-	<tr><td><br></td></tr>
-	<tr>
-		<td class='label'>
-			 Mirror diameter =
-		</td>
-		<td>
-			<input class='inputText' name="mirrorDia" value="13.2" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Mirror focal length =
-		</td>
-		<td>
-			<input class='inputText' name="focalLen" value="40.3" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Diagonal to focal plane distance =
-		</td>
-		<td>
-			<input class='inputText' name="diagToFocalPlaneDistance" value="9" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Eyepiece field diameter =
-		</td>
-		<td>
-			<input class='inputText' name="maxField" value="1.38" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='label' name='diagSizesLabel'>
-			Diagonal sizes (m.a.) to select from = 
-		</td>
-		<td>
-			<input class='inputDiags' name='diagSizes' value='' onfocus='select();' type='text'>
-		</td>
-	</tr>
-	<tr>
-		<td class='label'>
-			 Acceptable magnitude loss =
-		</td>
-		<td>
-			<input class='inputText' name="acceptableMagLoss" value="0.4" onfocus="select()" type="text">
-		</td>
-	</tr>
-	<tr>
-		<td class='title' colspan='2'>
-			<br>
-			<input ID="btnGraphDiags" value="Update chart" type="button">
-		</td>
-	</tr>
-	</tbody>
-	</table>
+    <table>
+    <tbody>
+    <tr>
+        <td class='title' colspan='2'>
+            <h2>
+            Diagonal Off-Axis Illumination Calculator
+            </h2>
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+             Unit of measurement:
+        </td>
+        <td>
+            <input name="uom" value="inches" checked="checked" type="radio">
+            inches
+            <input name="uom" value="millimeters" type="radio">
+            millimeters
+        </td>
+    </tr>
+    <tr><td><br></td></tr>
+    <tr>
+        <td class='label'>
+             Mirror diameter =
+        </td>
+        <td>
+            <input class='inputText' name="mirrorDia" value="13.2" onfocus="select()" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+             Mirror focal length =
+        </td>
+        <td>
+            <input class='inputText' name="focalLen" value="40.3" onfocus="select()" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+             Diagonal to focal plane distance =
+        </td>
+        <td>
+            <input class='inputText' name="diagToFocalPlaneDistance" value="9" onfocus="select()" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+             Eyepiece field diameter =
+        </td>
+        <td>
+            <input class='inputText' name="maxField" value="1.38" onfocus="select()" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class='label' name='diagSizesLabel'>
+            Diagonal sizes (m.a.) to select from =
+        </td>
+        <td>
+            <input class='inputDiags' name='diagSizes' value='' onfocus='select();' type='text'>
+        </td>
+    </tr>
+    <tr>
+        <td class='label'>
+             Acceptable magnitude loss =
+        </td>
+        <td>
+            <input class='inputText' name="acceptableMagLoss" value="0.4" onfocus="select()" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class='title' colspan='2'>
+            <br>
+            <input ID="btnGraphDiags" value="Update chart" type="button">
+        </td>
+    </tr>
+    </tbody>
+    </table>
 </div>
 <div id="diagChart">
 </div>
 <div id="offset">
-	<table>
-	<tbody>
-	  <tr>
-		<td>Diagonal offset towards primary mirror = </td>
-		<td  id='offset'></td>
-	  </tr>
-	</tbody>
-	</table>	
-	<br>
+    <table>
+    <tbody>
+      <tr>
+        <td>Diagonal size minimizing obstruction (includes offset) = </td>
+        <td id='diagSizeMinObstruct'></td>
+      </tr>
+      <tr>
+        <td>Diagonal size maximizing illumination integrated across the field = </td>
+        <td id='diagSizeMaxIllum'></td>
+      </tr>
+      <tr>
+        <td>Diagonal size for most even illumination across the field = </td>
+        <td id='diagSizeEvenIllum'></td>
+      </tr>
+      <tr>
+        <td><br>
+        </td>
+      </tr>
+      <tr>
+        <td>Diagonal offset towards primary mirror and away from focuser = </td>
+        <td  id='offset'></td>
+      </tr>
+    </tbody>
+    </table>
+    <br>
 </div>
  Interpreting the chart: <br>
 <br>
