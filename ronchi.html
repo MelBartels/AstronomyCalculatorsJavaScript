@@ -116,19 +116,22 @@
     Show pasted image?
     <input name='pastedImageActive' value='yes' type='radio'>yes
     <input name='pastedImageActive' value='no' type='radio'>no
-    &emsp;
-    transparency
+    &emsp; transparency
     <input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
-    &emsp;
-    width
+    &emsp; width
     <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
     height
     <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
-    &emsp;
-    x offset
+    &emsp; x offset
     <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
     y offset
     <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
+    <br>adjust grating offset
+    <input class='inputText' id='RoCoffset' onfocus='select()' type='number' step='.01'>
+    step size
+    <input class='inputText' id='RoCoffsetStepsize' value='0.01' onfocus='select()' type='number' step='.005' min='0.0'>
+	or adjust
+    <input id="sliderOffset2" min="-1" max="1" step="0.01" type="range"/>
 
     <p>Here are some examples:</br>
     &emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.<br>
