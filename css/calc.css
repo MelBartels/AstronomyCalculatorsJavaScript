@@ -105,6 +105,9 @@ a:hover {
 	float: left;
 	text-align: center;
 }
+.pitchLapNotes {
+	text-align: left;
+}
 
 @media all and (min-width: 0px) {
 	.genImage {
