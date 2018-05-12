@@ -1,0 +1,44 @@
+html {
+	font-family: Verdana, Geneva, sans-serif; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.imageTextWrap {
+	float: right;
+}
+
+.IFN {
+	display: block;
+	float: left;
+	width: 480px;
+	height: 720px;
+	border: 1px solid lightgray;
+	padding: 10px;
+}
+
+.IFNimage {
+	width: 400px;
+	height: auto;
+}
+
+@media all and (min-width: 0px) {
+	html {
+		width: 95%; 
+	}
+	img {
+		margin: 10px;
+		width: 80%;
+		height: 80%;
+	}
+}
+@media all and (min-width: 768px) {
+	html {
+		width: 80%; 
+	}
+	img {
+		margin: 10px;
+		width: 30%;
+		height: 30%;
+	}
+}

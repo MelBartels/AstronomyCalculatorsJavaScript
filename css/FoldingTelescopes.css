@@ -1,0 +1,108 @@
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-weight: bold;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+html {
+	height: 100%;
+	color: darkslategray;
+	font-family: Verdana, Geneva, sans-serif;
+	margin-left: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+#accordion .ui-accordion-header a {
+	color: white;
+	line-height: 40px;
+	display: block;
+	width: 100%;
+}
+
+#accordion .ui-accordion-content > * {
+}
+
+.titleFlexArea {
+	display: flex; 
+	align-items: center;
+}
+
+.titleImg {
+	width: 95%;
+	height: 95%;
+}
+
+/* 
+	http://mydevice.io/devices/
+	Samsung S4 css resolution is 360x640 
+	iPad css resolution is 768x1024
+	
+*/
+
+@media all and (min-width: 0px) {
+	#accordion {
+		width: 100%;
+		margin: 20px auto;
+	}
+	.accordianTitle {
+		background-color: darkgray;
+		width: 100%;
+		clear: both;
+		padding: 0px 10px;
+	}
+	.notAccordionContent {
+		clear: both;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.genImage {
+		width: 100%; 
+		height: 100%;
+	}
+}
+
+@media all and (min-width: 768px) {
+	#accordion {
+		width: 70%;
+		margin: 40px auto;
+	}
+	.accordianTitle {
+		background-color: darkgray;
+		width: 70%;
+		clear: both;
+		padding: 0px 10px;
+	}
+	.notAccordionContent {
+		clear: both;
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.genImage {
+		width: 40%; 
+		height: 40%;
+	}
+}

@@ -1,0 +1,163 @@
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-weight: bold;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	color: darkslategray;
+	font-family: Verdana, Geneva, sans-serif;
+	margin-left: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.links {
+	background-color: lightgray;
+	padding: 5px;
+}
+
+.flexArea {
+	display: flex; 
+	align-items: center;
+}
+
+.titleText {
+	text-align: center;
+}
+
+.titleImg {
+	padding: 1%; 
+	width: 33%;
+	height: 33%;
+}
+
+table, td, ttr {
+	border: 1px solid black;
+	cellpadding: 1px;
+	cellspacing: 2px;
+	border-collapse: collapse;
+}
+
+table tr:first-child { 
+	font-weight: bold; 
+}
+
+.boldRed {
+	vertical-align: top;
+	font-weight: bold; 
+	color: red;
+}
+
+.tableCellImageText {
+	text-align: center; 
+	vertical-align: top; 
+	white-space: nowrap;
+}
+
+.starCountTable td {
+	width: 130px;
+}
+
+.exitPupilTable td {
+	width: 100px;
+}
+
+.optimizedFR {
+	width: 100%;
+}
+
+.M31compareTable td {
+	width: 270px;
+}
+
+.maxApertureTable td {
+	width: 130px;
+}
+
+.noFloat {
+	clear: both;
+}
+
+.fullSize {
+	width: 100%;
+	height: 100%;
+}
+
+/* 
+	http://mydevice.io/devices/
+	Samsung S4 css resolution is 360x640 
+	iPad css resolution is 768x1024
+	
+*/
+
+@media all and (min-width: 0px) {
+	.titleSection {
+		clear: both;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.textSection {
+		clear: both;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.genImage {
+		width: 100%; 
+		height: 100%;
+	}
+	.telescope {
+		float: left;
+		height: 250px;
+		width: 250px;
+	}
+}
+
+@media all and (min-width: 768px) {
+	.titleSection {
+		clear: both;
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.textSection {
+		clear: both;
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.genImage {
+		width: 40%; 
+		height: 40%;
+	}
+	.telescope {
+		float: left;
+		height: 250px;
+		width: 250px;
+		padding: 10px 10px;
+	}
+}

@@ -1,0 +1,90 @@
+
+/* http://www.w3schools.com/cssref/css_colornames.asp */
+
+html {
+	height: 100%;
+	color: darkslategray;
+	font-family: Verdana, Geneva, sans-serif;
+	margin-left: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+#accordion .ui-accordion-header a {
+	color: white;
+	line-height: 40px;
+	display: block;
+	width: 100%;
+}
+
+#accordion .ui-accordion-content > * {
+}
+
+.title {
+	text-align: center;
+}
+
+.floatImages {
+	padding: 20px 20px 00px 0px;
+	float: left;
+}
+
+.stopFloat {
+	clear: both;
+}
+
+/* 
+	http://mydevice.io/devices/
+	Samsung S4 css resolution is 360x640 
+	iPad css resolution is 768x1024
+	
+*/
+
+@media all and (min-width: 0px) {
+	#accordion {
+		width: 100%;
+		margin: 20px auto;
+	}
+	.accordianTitle {
+		background-color: darkgray;
+		width: 60%;
+		clear: both;
+		padding: 0px 10px;
+	}
+	.notAccordionContent {
+		clear: both;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+@media all and (min-width: 768px) {
+	#accordion {
+		width: 70%;
+		margin: 40px auto;
+	}
+	.accordianTitle {
+		background-color: darkgray;
+		width: 40%;
+		clear: both;
+		padding: 0px 10px;
+	}
+	.notAccordionContent {
+		clear: both;
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
