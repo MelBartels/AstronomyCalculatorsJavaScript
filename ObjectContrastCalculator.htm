@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="Mel Bartels" name="author">
+<meta content="Calculates object contrast to help determine if an object is visible in the night sky" name="description">
+<meta content='initial-scale=1' name='viewport'>
+<title>Object Contrast Calculator</title>
+<link rel="shortcut icon" href="Saucer32.ico">
+<link rel="stylesheet" type="text/css" href="css/calc.css">
+</head>
+
+<body>
+<h2>Object Contrast Calculator</h2>
+
+<p>Object surface brightness (MPAC) =
+<input class='inputText' name="objMPAC" value="5" onfocus="select()" type="text">
+<br>&nbsp;&nbsp;&nbsp;&nbsp; or
+<input value="calculate" ID="btnCalcObjectMPAC" type="button">
+from object magnitude
+<input class='inputText' name="objMag" value="5" onfocus="select()" type="text">
+and size in arc-minutes
+<input class='inputText' name="objSize1" value="40" onfocus="select()" type="text">
+by
+<input class='inputText' name="objSize2" value="145" onfocus="select()" type="text">
+<br>
+<br>
+Sky background brightness (SQM MPAC reading) =
+<input class='inputText' name="skyMPAC" value="21.5" onfocus="select()" type="text">
+<br>
+<br>
+<input value="calculate contrast" ID="btnCalcContrast" type="button">
+<h4>Results</h4>
+<div name="ccntrastResult">
+</div>
+<h4>Interpreting the results</h4>
+<p>MPAC stands for Magnitude Per Arc Second.</p>
+<p>Sky background brightness is 21.5 for a dark site, 18.5 for a city site.</p>
+<p>Detectable contrast for objects of large apparent size is 3-6%.</p>
+<p>Very faint objects smaller than five degree apparent size can be impossible to see; the larger the apparent size the better as long as the apparent size does not exceed the eyepiece's apparent field of view.</p>
+<p>by Mel Bartels</p>
+</body>
+
+<script src='lib/jquery/jquery-3.1.1.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script><script src="lib/sharedLib.js"></script>
+<script src="lib/coordLib.js"></script>
+<script src="lib/calcLib.js"></script>
+<script src="lib/objectContrastCalc.js"></script>
+</html>
