@@ -16,6 +16,10 @@ html {
 		width: 70%;
 		height: 70%;
 	}
+	.smallImage {
+		width: 35%;
+		height: 35%;
+	}
 }
 @media all and (min-width: 768px) {
 	html {
@@ -29,6 +33,10 @@ html {
 	.bigImage {
 		width: 50%;
 		height: 50%;
+	}
+	.smallImage {
+		width: 25%;
+		height: 25%;
 	}
 }
 .imageTextWrap {
