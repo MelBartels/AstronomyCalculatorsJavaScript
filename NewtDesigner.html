@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=utf-8' http-equiv='content-type'>
+	<title>Newtonian Reflecting Telescope Designer</title>
+	<meta content='Design a Newtonian telescope for telescope, eyepiece, diagonal, baffles, tube assembly, altaz mount and equatorial table.' name='description'>
+	<meta content='Mel Bartels' name='author'>
+	<meta content='initial-scale=1' name='viewport'>
+	<link href='Saucer32.ico' rel='shortcut icon'>
+	<link rel='stylesheet' type='text/css' href='css/NewtDesigner.css'>
+	<link rel='stylesheet' type='text/css' href='lib/jqplot/jquery.jqplot.min.css'>
+</head>
+<body>
+
+	<div>
+		<img class='titleImg' src='10.5inchF2.7/10.5 inch finished 4.JPG'>
+		<h1>Newtonian Telescope Designer</h1>
+		<h2>by Mel Bartels</h2>
+
+		<p>There is no single best telescope for everyone. What telescope is best for you depends on budget, ergonomics, experience and aims. Once you select a telescope then its design can be optimized. Guides commonly discuss aperture, magnification, mount, optical configuration, computer capability and price. Though concrete, these factors fall short of a complete picture of telescope performance.</p>
+
+		<p>Telescope performance depends on how bright will the object appear; the light throughput across the entire field of view or Richest Field effect; how detailed will the object appear and how big will the object appear.</p>
+
+		<p>Telescope design is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
+	</div>
+
+	<div class='selectDesigner'>
+		<h3>Select a designer...</h3>
+	</div>
+
+	<div>
+		<input class='designSelect' id='btnSelectTelescope' value='Telescope'        type='button'>
+		<input class='designSelect' id='btnSelectEyepieces' value='Eyepieces'        type='button'>
+		<input class='designSelect' id='btnSelectDiagonal'  value='Diagonal'         type='button'>
+		<input class='designSelect' id='btnSelectBaffling'  value='Baffling'         type='button'>
+		<input class='designSelect' id='btnSelectTube'      value='Tube assembly'    type='button'>
+		<input class='designSelect' id='btnSelectMount'     value='Altaz mount'      type='button'>
+		<input class='designSelect' id='btnSelectET'        value='Equatorial table' type='button'>
+	</div>
+
+	<div class='uomFRApertureHeader'>
+		<br>
+		<h3>Common values</h3>
+
+		What <b>unit of measurement</b> shall we use?
+		<input name='btnUom' value='inches' checked='checked' type='radio'> imperial
+		<input name='btnUom' value='millimeters' type='radio'> metric
+
+		<br>
+		Select a <b>focal ratio</b>
+		<input class='slider' id='sliderFocalRatio' min='2.5' max='8' step='0.1' type='range'/>
+		<input class='inputText' name='focalRatio' value='4' onfocus='select();' type='text'>
+
+		<br>
+		Select the <b>aperture</b>
+		<input class='slider' id='sliderAperture' min='4' max='42' step='0.1' type='range'/>
+		<input class='inputText' name='aperture' value='12' onfocus='select();' type='text'>
+		<label name='apertureUOMlabel'>inches</label>
+		<br>
+		<br>
+	</div>
+
+	<div class='designers'>
+
+		<div class='designer' id='designTelescope'>
+			<h3>Telescope Designer</h3>
+
+			<div>
+				<p><b>Results:</b></p>
+				<label name='telescopeDesignerResultsLabel'></label>
+			</div>
+			<div>
+				<p><b>Focal ratio</b> is the speed of the telescope and is found by diving the focal length by the mirror diameter.</p>
+				<p>Slower speeds of <b>F7</b> favor resolution with higher magnifications in longer tube lengths. Slower speeds have little or no coma, do not require precise alignment and have a relaxed focusing tolerance.<br>
+				<b>F5</b> is a general purpose focal ratio.<br>
+				Faster speeds of <b>F4</b> favor wider fields with lower magnifications in shorter tube lengths. Faster speeds also have more coma, require more precise optical alignment and have a tight focusing tolerance.<br>
+				<b>F3</b> allows the use of 100 degree apparent field of view eyepieces at lowest power for widest field and greatest light throughput or highest etendue. Etendue is the total amount of light flowing into your eye. Etendue is calculated as aperture squared times real field of view squared.</p>
+				<p>A coma corrector is required at F3,recommended at F4 and not useful at F5 and slower.</p>
+			</div>
+			<div>
+				<p><b>Aperture</b> is the mirror diameter, determining the star magnitude reach of the telescope.<br>
+				Aperture sets the maximum possible resolution.<br>
+				Aperture also sets the image scale. For example, given the same focal ratio and eyepiece, a 20 inch aperture telescope shows an extended object, for example a galaxy, at twice the apparent size of a 10 inch aperture telescope. Our eyes can more readily detect larger apparent sized objects and detail is more visible.</p>
+				<p>Focal ratio times aperture gives the <b>focal length</b>. Longer focal length telescopes are longer and heavier thus more difficult to transport.</p>
+			</div>
+
+			<h4>Notes</h4>
+
+			<p>Stellar limiting magnitude is calculated for low power via the equation, 9.8 + 5 * log10(aperture inches). An additional magnitude or more can be gained by going to high power.</p>
+
+			<p>Imperfect focus worsens the wave rating of the optical system. Allowable focus tolerance is set to 1/4 wavefront.</p>
+
+			<p>The coma free diameter is the field diameter where deformation caused by coma is less than the Airy disk diameter. Using a coma corrector greatly increases the coma free field diameter.</p>
+
+			<h4>Useful formulae</h4>
+
+			<p>Actual field in degrees = field stop in inches / focal length in inches * 57.3</p>
+			<p>Focal length = focal ratio * mirror diameter</p>
+			<p>Eyepiece focal length / eye pupil = focal ratio</p>
+			<p>Mirror diameter = eyepiece field stop * eye pupil * 57.3 / (true field of view * eyepiece focal length * 25.4)</p>
+			<p>Telescope focal length = focal ratio * aperture (better known as, focal ratio = telescope focal length / aperture)</p>
+			<p>Eyepiece focal length = focal ratio * eye pupil (better known as, eye pupil = eyepiece focal length / focal ratio)</p>
+			<p>Eyepiece field stop = telescope focal length * true field of view</p>
+			<p>Aperture * true field of view * focal ratio = eyepiece field stop</p>
+			<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil</p>
+		</div>
+
+		<div class='designer' id='designEyepieces'>
+			<h3>Eyepieces Designer</h3>
+
+			<p>Planning to use a coma corrector? <input name='chBoxUseComaCorrector' type='checkbox'>
+			select <select id='comaCorrectorSelect'></select>
+			magnification factor<input class='inputText' name='comaCorrectorMag' onfocus='select();' type='text'></p>
+
+			<p><input id='btnCalcEyepieceWidestFieldForEyePupil' value='Find widest field eyepieces' type='button'>
+			not to exceed eye pupil of <input class='inputText' name='eyePupilmm' value='7' onfocus='select();' type='text'>mm
+			<label name='widestEyepiecesForEyePupilLabel'>no widest field eyepiece selected yet</label></p>
+			
+			<p>Sort 'Select eyepiece' selection by 
+			<input name='btnEyepieceSort' value='manufacturer' checked='checked' type='radio'> manufacturer
+			<input name='btnEyepieceSort' value='focalLength' type='radio'> focal length</p>
+
+			<table id='eyeOptTable'>
+			<tbody id='eyeOptTableBody'>
+				<tr>
+					<td class='columnHeaders'>Select eyepiece</td>
+					<td class='columnHeaders'>Manufacturer</td>
+					<td class='columnHeaders'>Type</td>
+					<td class='columnHeaders'>FocalLength</td>
+					<td class='columnHeaders'>FieldStop</td>
+					<td class='columnHeaders'>Field</td>
+					<td class='columnHeaders'>ExitPupil</td>
+					<td class='columnHeaders'>TrueFOV</td>
+					<td class='columnHeaders'>MagX</td>
+					<td class='columnHeaders'>Res</td>
+					<td class='columnHeaders'>MagLimit</td>
+					<td class='columnHeaders'>Etendue</td>
+					<td class='columnHeaders'>ComaAtEdge</td>
+				</tr>
+				<!--detail rows added in JavaScript-->
+			</tbody>
+			</table>
+
+			<h4>Some thoughts on magnification</h4>
+
+			<p>A range of magnifications is key to using a telescope properly.</p>
+
+			<p><b>Magnification</b> is the ratio of the apparent size to actual size of an object. For example, looking through a magnifying lens the spider appears three times bigger. That's a magnification of 3x.</p>
+
+			<p>Magnification depends on <b>telescope focal length</b> and <b>eyepiece focal length</b>. <b>Calculate magnification</b> by dividing the telescope focal length by the eyepiece focal length. For example, a 6 inch or 15cm telescope of 48 inches focal length used with a 9mm eyepiece yields a magnification of 48 inches * 25.4mm per inch / 9mm = 135x.</p>
+
+			<p><b>Astronomical objects</b> are very far away and very faint. Both magnification and aperture are needed to view and image objects.</p>
+
+			<p>Astronomical objects are either <b>point sources</b> like stars, too small in diameter to ever be resolved in a telescope, or <b>extended sources</b> like nebulae.</p>
+
+			<p>There is a <b>practical limit</b> to both lowest magnification and highest magnification.</p>
+
+			<p>The <b>lowest magnification</b> is simply the ratio of the telescope's aperture to the eye's dark adapted pupil. The lowest possible magnification for a 6 inch or 15cm aperture is 6 inches * 25.4mm/inch / 7mm eye-pupil = 22x.</p>
+
+			<p>A useful <b>highest magnification</b> is the magnification where the eye's resolving power is fully utilized. A telescope's resolution is limited by interference caused by the aperture. The interference creates a disk of light surrounded by ever fainter rings of light. The radius of this Airy Disk is ~ 1.2 times the wavelength of light divided by the aperture. For a 6 inch or 15cm aperture scope the Airy Disk is 0.75 arc-seconds. The eye can resolve 120 arc-seconds. The magnification that matches the eye's resolution to the telescope's resolution is 120 arc-seconds divided by 6 inches aperture or roughly 27x per inch of aperture (roughly 68x per cm of aperture).</p>
+
+			<p>Some observers prefer up to <b>twice this amount</b> so that the eye isn't strained (54x per inch of aperture or 136x per cm of aperture).</p>
+
+			<p>Magnification above this is termed <b>empty magnification</b>: the object is made larger but nothing more can be resolved. In certain cases such as double star observing increasing magnification above this amount makes measuring the separation between the stars easier, but otherwise the image becomes softer, fuzzier and displeasing to the eye.</p>
+
+			<p>Shimmering in the atmosphere, called <b>seeing</b> also limits magnification. If the jet stream is overhead or the upper atmosphere otherwise disturbed, magnification can be limited to 250x regardless of aperture. Steadier nights allow for increased magnification. The number of nights where 500x or higher can be employed are few and highly prized by observers. Nights where 2000x and higher can be used come very rarely. For example see <a href='6000X.html'>The Night of 6000x at the 1997 Oregon Star Party</a>. For more on seeing and the atmosphere, see my article on <a href='Seeing and Atmospheric Turbulence.html'> atmospheric turbulence</a>.</p>
+
+			<p><b>Stars</b> (other than our Sun) are so far away that they are not resolvable regardless of magnification. They remain point sources. Extended objects (Moon, Sun, planets, nebulae, galaxies), however, are resolvable. As magnification increases, their light is spread over a larger area, decreasing brightness at any single point. The Moon, Sun and planets are so bright that increasing magnification doesn't consign them to invisibility. <b>Nebulae and galaxies</b> are a different matter.</p>
+
+			<p>Let's use the <a href='https://en.wikipedia.org/wiki/Andromeda_Galaxy'>Andromeda Galaxy</a>, visible as an elongated smear in dark skies to the unaided-eye. It's about 3x1 degrees apparent size with an integrated or overall magnitude of 3.5. The galaxy has an average surface brightness of 22.2 magnitudes per arc-second square. Let's use our 6 inch, 15cm, aperture at lowest magnification of 22x. At 22x the Andromeda Galaxy now appears 66x22 degrees in size and will comfortably fit within a 80 degree field of view eyepiece. The telescope brightens the galaxy by the ratio of the square of the telescope's aperture to the eye's aperture, or (6 inches of aperture * 25.4 mm/inch / 7mm eye-pupil) squared or 484 times. But the magnification of 22x decreases the object's brightness by the identical 484 times amount, leaving the apparent average surface brightness unchanged at 22.2 magnitudes per arc-second. Yet the view through the 6 inch is immeasurably richer. Why?</p>
+
+			<p>Balancing aperture with magnification is as if a rocket ship takes us 22 times closer. We see more detail and the object overall is much brighter. But fly too close and the eyepiece can no longer fit the object into the field of view. Using the same telescope at increasing magnification means more detail at the cost of brightness. See my comparison of the Sombrero Galaxy, M104, with 6 inch and 13 inch telescopes at <a href='Is Aperture King.html'> is aperture king?</a></p>
+
+			<h4>Table of lowest and highest magnifications per aperture.</h4>
+
+			<p>Lowest magnification is given for 7mm and 5mm pupils, older people's eyes being closer to 5mm. Magnifications greater than 250x may be limited by seeing conditions.</p>
+
+			<table class='magnificationTable'>
+			<tbody>
+				<tr>
+					<td class='tableHeaderRow tableColumnsFirstColor'>Aperture</td>
+					<td class='tableHeaderRow tableColumnsSecondColor'>Lowest Mag</td>
+					<td class='tableHeaderRow tableColumnsSecondColor'>Lowest Mag</td>
+					<td class='tableHeaderRow tableColumnsThirdColor'>Highest Mag</td>
+					<td class='tableHeaderRow tableColumnsThirdColor'>Highest Mag</td>
+				</tr>
+				<tr>
+					<td class='tableHeaderRow tableColumnsFirstColor'>inches</td>
+					<td class='tableHeaderRow tableColumnsSecondColor'>7mm pupil</td>
+					<td class='tableHeaderRow tableColumnsSecondColor'>5mm pupil</td>
+					<td class='tableHeaderRow tableColumnsThirdColor'><br></td>
+					<td class='tableHeaderRow tableColumnsThirdColor'>doubled</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>0.3</td>
+					<td class='tableColumnsSecondColor'>1</td>
+					<td class='tableColumnsSecondColor'>1</td>
+					<td class='tableColumnsThirdColor'>7</td>
+					<td class='tableColumnsThirdColor'>15</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>1</td>
+					<td class='tableColumnsSecondColor'>4</td>
+					<td class='tableColumnsSecondColor'>5</td>
+					<td class='tableColumnsThirdColor'>27</td>
+					<td class='tableColumnsThirdColor'>54</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>2</td>
+					<td class='tableColumnsSecondColor'>7</td>
+					<td class='tableColumnsSecondColor'>10</td>
+					<td class='tableColumnsThirdColor'>54</td>
+					<td class='tableColumnsThirdColor'>108</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>4</td>
+					<td class='tableColumnsSecondColor'>14</td>
+					<td class='tableColumnsSecondColor'>20</td>
+					<td class='tableColumnsThirdColor'>108</td>
+					<td class='tableColumnsThirdColor'>216</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>6</td>
+					<td class='tableColumnsSecondColor'>22</td>
+					<td class='tableColumnsSecondColor'>30</td>
+					<td class='tableColumnsThirdColor'>162</td>
+					<td class='tableColumnsThirdColor'>324</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>8</td>
+					<td class='tableColumnsSecondColor'>29</td>
+					<td class='tableColumnsSecondColor'>40</td>
+					<td class='tableColumnsThirdColor'>216</td>
+					<td class='tableColumnsThirdColor'>432</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>10</td>
+					<td class='tableColumnsSecondColor'>36</td>
+					<td class='tableColumnsSecondColor'>50</td>
+					<td class='tableColumnsThirdColor'>270</td>
+					<td class='tableColumnsThirdColor'>540</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>13</td>
+					<td class='tableColumnsSecondColor'>45</td>
+					<td class='tableColumnsSecondColor'>63</td>
+					<td class='tableColumnsThirdColor'>338</td>
+					<td class='tableColumnsThirdColor'>675</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>14</td>
+					<td class='tableColumnsSecondColor'>51</td>
+					<td class='tableColumnsSecondColor'>71</td>
+					<td class='tableColumnsThirdColor'>385</td>
+					<td class='tableColumnsThirdColor'>770</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>16</td>
+					<td class='tableColumnsSecondColor'>58</td>
+					<td class='tableColumnsSecondColor'>80</td>
+					<td class='tableColumnsThirdColor'>432</td>
+					<td class='tableColumnsThirdColor'>864</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>18</td>
+					<td class='tableColumnsSecondColor'>65</td>
+					<td class='tableColumnsSecondColor'>90</td>
+					<td class='tableColumnsThirdColor'>486</td>
+					<td class='tableColumnsThirdColor'>972</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>20</td>
+					<td class='tableColumnsSecondColor'>72</td>
+					<td class='tableColumnsSecondColor'>100</td>
+					<td class='tableColumnsThirdColor'>540</td>
+					<td class='tableColumnsThirdColor'>1080</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>22</td>
+					<td class='tableColumnsSecondColor'>79</td>
+					<td class='tableColumnsSecondColor'>110</td>
+					<td class='tableColumnsThirdColor'>594</td>
+					<td class='tableColumnsThirdColor'>1188</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>24</td>
+					<td class='tableColumnsSecondColor'>86</td>
+					<td class='tableColumnsSecondColor'>120</td>
+					<td class='tableColumnsThirdColor'>648</td>
+					<td class='tableColumnsThirdColor'>1296</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>25</td>
+					<td class='tableColumnsSecondColor'>90</td>
+					<td class='tableColumnsSecondColor'>125</td>
+					<td class='tableColumnsThirdColor'>675</td>
+					<td class='tableColumnsThirdColor'>1350</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>28</td>
+					<td class='tableColumnsSecondColor'>101</td>
+					<td class='tableColumnsSecondColor'>140</td>
+					<td class='tableColumnsThirdColor'>756</td>
+					<td class='tableColumnsThirdColor'>1512</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>30</td>
+					<td class='tableColumnsSecondColor'>108</td>
+					<td class='tableColumnsSecondColor'>150</td>
+					<td class='tableColumnsThirdColor'>810</td>
+					<td class='tableColumnsThirdColor'>1620</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>36</td>
+					<td class='tableColumnsSecondColor'>130</td>
+					<td class='tableColumnsSecondColor'>180</td>
+					<td class='tableColumnsThirdColor'>972</td>
+					<td class='tableColumnsThirdColor'>1944</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>40</td>
+					<td class='tableColumnsSecondColor'>144</td>
+					<td class='tableColumnsSecondColor'>200</td>
+					<td class='tableColumnsThirdColor'>1080</td>
+					<td class='tableColumnsThirdColor'>2160</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>48</td>
+					<td class='tableColumnsSecondColor'>173</td>
+					<td class='tableColumnsSecondColor'>240</td>
+					<td class='tableColumnsThirdColor'>1296</td>
+					<td class='tableColumnsThirdColor'>2592</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>60</td>
+					<td class='tableColumnsSecondColor'>216</td>
+					<td class='tableColumnsSecondColor'>300</td>
+					<td class='tableColumnsThirdColor'>1620</td>
+					<td class='tableColumnsThirdColor'>3240</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<h4>Choosing magnification and aperture.</h4>
+
+			<p><b>Three examples</b>...</p>
+
+			<p><b>Saturn</b>. Since Saturn is a planet, select for highest useful magnification for your telescope, given seeing conditions. For example at my home, some of time I can I am limited to 250x, sometimes I can get up to 500x, occasionally I can reach 1000x before the image turns fuzzy thanks to seeing.</p>
+
+			<p><b>North American Nebula</b>. The NAN is an extended wide field object, spanning 120 arc-minutes.</p>
+
+			<p>Compute the highest magnification such that the entire object plus a border fits into the eyepiece. For this we need to know your eyepieces apparent field of view.</p>
+
+			<form>
+				<script>
+					function calcMag(form) {
+						var afov = form.AFOV.value,
+							objectSizeArcmin = form.objectSizeArcmin.value,
+							borderRatio = 1.2,
+							mag = (57.3 / (objectSizeArcmin / 60) * afov / 60 / borderRatio + 0.5) | 0;
+						form.mag.value = mag;
+						form.aperture.value = (mag / 3.6 + 0.5) | 0;
+					}
+				</script>
+				Eyepiece apparent field of view is
+				<input class='inputText' name='AFOV' onfocus='select()' type='text' value='60'>
+				object size in arc-minutes is
+				<input class='inputText' name='objectSizeArcmin' onfocus='select()' type='text' value='120'>
+				<br>
+				<input onclick='calcMag(this.form)' type='button' value='Calculate magnification and aperture'>
+				<br>
+				Highest magnification is
+				<input class='inputText' name='mag' readonly='readonly' type='text'>
+				and largest aperture is
+				<input class='inputText' name='aperture' readonly='readonly' type='text'>
+			</form>
+
+			<p><b>Dumbbell Nebula</b>. This planetary nebula is a favorite of observers. Its size is about 8 arc-minutes. Enter its size in the calculator above. The calculator will give a value of 240x-600x depending on the eyepiece's apparent field of view. The calculator will also give an aperture value far greater than your telescope. In this situation, use the largest aperture you have, setting its magnification to the calculated amount.</p>
+
+			<p>If the object is too faint, then use a slightly lower magnification. If the object is too fuzzy because of turbulence in the atmosphere or perhaps because the telescope is performing poorly, then lower the magnification. Be careful to not over-magnify the object such that it overfills the field of view. This can cause a faint object to disappear.</p>
+
+			<p>Here is a <b>table of magnification and aperture for objects of different size</b>. The aperture is based on a 7mm eye pupil. For 5mm eye pupil, increase magnification by 1.4 and decrease aperture by 1.4. Magnifications greater than 250x may be limited by seeing conditions.</p>
+
+			<table class='magnificationTable'>
+			<tbody>
+				<tr>
+					<td><br></td>
+					<td colspan='6' class='tableHeaderRow'>
+						Eyepiece apparent field of view
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td colspan='2' class='tableHeaderRow tableColumnsSecondColor'>
+						60 degrees
+					</td>
+					<td colspan='2' class='tableHeaderRow tableColumnsThirdColor'>
+						80 degrees
+					</td>
+					<td colspan='2' class='tableHeaderRow tableColumnsFourthColor'>
+						100 degrees
+					</td>
+				</tr>
+				<tr>
+					<td class='tableHeaderRow tableColumnsFirstColor'>
+						Object size<br>
+						arc-minutes
+					</td>
+					<td class='tableHeaderRow tableColumnsSecondColor'>
+						magni-<br>
+						fication
+					</td>
+					<td class='tableHeaderRow tableColumnsSecondColor'>
+						aperture<br>
+						inches
+					</td>
+					<td class='tableHeaderRow tableColumnsThirdColor'>
+						magni-<br>
+						fication
+					</td>
+					<td class='tableHeaderRow tableColumnsThirdColor'>
+						aperture<br>
+						inches
+					</td>
+					<td class='tableHeaderRow tableColumnsFourthColor'>
+						magni-<br>
+						fication
+					</td>
+					<td class='tableHeaderRow tableColumnsFourthColor'>
+						aperture<br>
+						inches
+					</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>180</td>
+					<td class='tableColumnsSecondColor'>16x</td>
+					<td class='tableColumnsSecondColor'>5</td>
+					<td class='tableColumnsThirdColor'>22x</td>
+					<td class='tableColumnsThirdColor'>7</td>
+					<td class='tableColumnsFourthColor'>27x</td>
+					<td class='tableColumnsFourthColor'>8</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>60</td>
+					<td class='tableColumnsSecondColor'>48x</td>
+					<td class='tableColumnsSecondColor'>14</td>
+					<td class='tableColumnsThirdColor'>64x</td>
+					<td class='tableColumnsThirdColor'>18</td>
+					<td class='tableColumnsFourthColor'>80x</td>
+					<td class='tableColumnsFourthColor'>23</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>20</td>
+					<td class='tableColumnsSecondColor'>64x</td>
+					<td class='tableColumnsSecondColor'>18</td>
+					<td class='tableColumnsThirdColor'>85x</td>
+					<td class='tableColumnsThirdColor'>24</td>
+					<td class='tableColumnsFourthColor'>107x</td>
+					<td class='tableColumnsFourthColor'>30</td>
+				</tr>
+				<tr>
+					<td class='tableColumnsFirstColor'>5</td>
+					<td class='tableColumnsSecondColor'>224x</td>
+					<td class='tableColumnsSecondColor'>63</td>
+					<td class='tableColumnsThirdColor'>299x</td>
+					<td class='tableColumnsThirdColor'>83</td>
+					<td class='tableColumnsFourthColor'>373x</td>
+					<td class='tableColumnsFourthColor'>104</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<p><b>The strategy</b> is to select the highest magnification that frames the object in the eyepiece's field of view, subject to seeing conditions and telescope capabilities. Then select the largest aperture available. Starting with a given aperture, select for the highest magnification that frames the object, subject to seeing. If the object is invisible, then try a lower magnification. This rarely happens. Much more common is a  failure to properly frame the object. Use filters, go to dark skies and improve your observational skills.</p>
+
+			<p>Should you ever select for <b>less aperture</b>? That's equivalent to stopping down the aperture to improve the view. Stopping down by using an off-axis mask to reduce the deleterious effects of bad seeing helps. Stopping down to improve deep-sky views does not help. While objects can be detected at diminished apertures, there is a general loss of detail. See my results at <a href="Is Aperture King.html">Is aperture king?</a></p>
+
+			<p>As long as you can select for the largest aperture, you are in <b>telescope mode</b>. Once aperture is constrained, you are in <b>eyepiece mode</b>. Well equipped amateurs who have a number of eyepieces should also consider equipping themselves with a range of apertures.</p>
+
+			<p>Note that <b>wider angle eyepieces</b> allow for greater aperture.</p>
+		</div>
+
+		<div id='diagSharedParms'>
+			<table>
+			<tbody>
+				<tr>
+					<td class='label' name='focalPlaneToDiagDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focalPlaneToDiagDistance' value='9' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='maxFieldDiaDiagLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name="maxFieldDiaDiag" value="1.4" onfocus="select()" type="text">
+					</td>
+				</tr>
+				<tr>
+			</tbody>
+			</table>
+			<br>
+		</div>
+
+		<div class='designer' id='designDiagonal'>
+			<h3>Diagonal Designer</h3>
+
+			<div class='blockCenter'>
+				<table>
+				<tbody>
+					<td class='label'>
+							 Acceptable magnitude loss =
+						</td>
+						<td>
+							<input class='inputText' name='acceptableMagLoss' value='0.4' onfocus='select();' type='text'>
+						</td>
+					</tr>
+					<tr>
+						<td class='label' name='diagSizesLabel'>
+							<!-- label html set in JavaScript -->
+						</td>
+						<td>
+							<input class='inputDiags' name='diagSizes' onfocus='select();' type='text'>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2'>
+							<br>
+							<input id='btnUpdateDiagIllum' value='update diagonal illumination' type='button'>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+
+				<div id='diagChart'>
+				</div>
+
+				<table>
+				<tbody>
+					<tr>
+						<td class='label'>
+							Results:
+						</td>
+						<td id='diagResults'>
+						</td>
+					</tr>
+					<tr>
+						<td><br></td>
+					</tr>
+					<tr>
+						<td class='label'>
+							Off-axis mask results:
+						</td>
+						<td id='offaxisMaskResults'>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+
+			<h4>Interpreting diagonal sizes</h4>
+
+			<p>For the complete picture, the chart includes light lost from the diagonal obstruction. Larger diagonals improve off-axis illumination but cost light across the entire field.</p>
+
+			<p>Use the magnitude scale; avoid percentages of illumination: the eye responds logarithmically, not linearly. It's a mistake to be upset over a 5% light loss when in fact from the eye's perspective the light loss is an imperceptible 1/20 magnitude.</p>
+
+			<p>I find light loss of less than 0.3 magnitude hardly noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects.  A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 10 inch and a 11 inch telescope is much smaller at 0.2 magnitudes and not readily apparent.</p>
+
+			<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field. Read more on <a href='visual.html'>visual detection and limits at the eyepiece</a>.</p>
+
+			<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by one-sixth wave. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The 1974 Telescope Secondary Experiment.html'>Check out my secondary size experiment</a>.</p>
+
+			<p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. For a detailed explanation including graphics, see <a href="DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html">my diagonal offset study</a>.</p>
+
+		   <h4>Thoughts on an off-axis mask</h4>
+
+		   <p>Stopping down by using an off-axis mask is a time honored way to beat seeing and to cut the dazzling light of the Moon and bright planets in large aperture scopes.</p>
+
+			<p>Stopping down is less popular today. This could be so because of drifting preferences. It is also a testament to learning how to use large Dobsonian mirrors in the dropping night time air by cooling them with fans.</p>
+
+			<p>The maximum diameter of an off-axis mask is set by taking the primary mirror's diameter and subtracting the diagonal's minor axis size then dividing the result by two. For example, a 16 inch with a 3.5 inch diagonal has a maximum off-axis mask diameter of (16 - 3.5) / 2 = 6.25 inches. If placed opposite any diagonal offset, the off-axis mask's diameter can be increased by the offset.</p>
+
+			<p>The light throughput is the inverse of the mask diameter to primary mirror diameter squared. Using the numbers from above, (off-axis mask diameter / primary mirror diameter) squared is (6.25 / 16) ^2 = 0.15 or 15% light throughput. That dims the Moon's brightness by two magnitudes.</p>
+
+			<p>Make a black cardboard mask with a one inch off-axis hole and aim at a bright star. The Airy disk and many rings look textbook beautiful. But that costs resolution. Of course this resolution is wasted at low magnification.</p>
+
+			<p>What is the relationship between the off-axis mask's resolution and the telescope's magnification? What size should the off-axis mask be to resolve all that is possible at a particular magnification?</p>
+
+			<p>Since the eye's entrance pupil at best resolution is 1mm in size, the eyepiece's exit pupil is the factor that the primary mirror's aperture can be reduced. For example, an exit pupil of 6mm (the exit pupil is calculated by taking the eyepiece's focal length in mm and dividing by the primary mirror's focal ratio) means that the off-axis mask should be 1/6 the diameter of the primary, an exit pupil of 3mm means that the off-axis mask should be 1/3 the diameter of the primary. This leads to the conclusion that the smallest exit pupil to use with the maximally sized off-axis mask is 2-3mm.</p>
+
+			<p>There is also a very simple and easy to remember relationship between aperture and magnification with respect to resolution. And it is this: the telescope will resolve all that the human eye can see when the aperture in inches equals the magnification divided by 25. For example, at 100x, the off-axis mask should be at least 4 inches in diameter, 100 / 25 = 4.</p>
+
+			<p>For the 16 incher's off-axis mask mentioned above, the optimal magnification is 6.25 * 25 = 156x.</p>
+
+			<p>That's it! Now you can make those off-axis masks understanding the brightness reduction and the best fitting magnification (or what diameter to make the off-axis mask given a desired magnification).</p>
+
+			<p>Note: double star observing with smaller apertures can double, even quadruple the optimum magnification, up to the seeing limit of the sky, in order to better see the Airy disk and rings.</p>
+		</div>
+
+		<div class='designer' id='designBaffling'>
+			<h3>Baffle Designer</h3>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='calcSectionHeader'>
+						Focuser...
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Select a focuser
+					</td>
+					<td>
+						<select id='focuserSelect'>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='focuserRackedInHeightLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focuserRackedInHeight' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='focuserTravelLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focuserTravel' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='barrelTubeInsideDiameterLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='barrelTubeInsideDiameter' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='barrelTubeLengthLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='barrelTubeLength' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='focuserInwardFocusingDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focuserInwardFocusingDistance' value='1' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td class='calcSectionHeader'>
+						Telescope tube...
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='tubeODLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='telescopeTubeOD' value='14.5' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='tubeThicknessLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+			</tbody>
+			</table>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label' name='optimizedDiagSizeLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='optimizedDiagSize' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='diagOffsetLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='diagOffset' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='focalPlaneToFocuserBarrelBottomDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focalPlaneToFocuserBarrelBottomDistance' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateBaffles' value='update baffle layout' type='button'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<div ID='baffleCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+			<div>
+				<table>
+				<tbody>
+					<tr>
+						<td class='label'>
+							Results:
+						</td>
+						<td id='baffleResults'>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+
+			<h4>Discussion</h4>
+
+			<p>We want the 'good' light to reach our eye, the 'rogue' light to be blocked. Some rogue light we simply cannot block because it comes from the upper atmosphere exactly between the object and our telescope. This includes sky glow and reflected light pollution. Other rogue light strays into our eyes. This we can block with a hood over our head or by cupping the eyepiece with our hands. Remaining rogue light can sneak past the diagonal into the eyepiece and sneak past from behind the primary mirror, bouncing off the diagonal to fog the eyepiece.</p>
+
+			<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror. This baffle is called the primary mirror baffle. The baffle optimizer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the projected focuser or diagonal baffle.</p>
+
+			<p>Using an idea by Larry Shaper in Amateur Astronomy magazine, Issue #91, Summer 2016, page 52-53, the edges of the baffle can be tilted to direct light away from the focuser's tube bottom aperture. Larry concludes that the flattest black paint always looks gray while a baffle painted in gloss black with tilted sides looks truly black. You can see that the tilt angles light past the focuser tube and is long enough that light reflected at a narrow angle face on is also directed away from the focuser tube. Since the optical tube assembly can be open, I tilt the projected focuser baffle on both sides.</p>
+
+			<h3>Lowrider Designer</h3>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label' name='lowriderSecondaryMirrorSizeLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='lowriderSecondaryMirrorSize' onfocus='select();' type='text'>
+						<input id='btnCalcMinLowriderSecondaryMirrorSize' value='calc minimum size' type='button'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='lowriderSecondaryOffsetLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='lowriderSecondaryOffset' onfocus='select();' type='text'>
+						<input id='btnCalclowriderSecondaryOffset' value='calc' type='button'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='focalPlaneToSecondaryDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focalPlaneToSecondaryDistance' onfocus='select();' type='text'>
+						<input id='btnCalcMinFocalPlaneToSecondaryDistance' value='calc minimum length' type='button'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='focalPointOffsetFromEdgeOfPrimaryLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='focalPointOffsetFromEdgeOfPrimary' value='3' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateLowrider' value='update low rider' type='button'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<div ID='lowriderCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='lowriderResults'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<h4>Lowrider discussion</h4>
+
+			<p><img src="Peter 25 inch folded scope from 2006.jpg"></p>
+
+			<p>By increasing the diagonal's angle, we can aim move the focuser a little closer to the primary mirror, lessening the eyepiece's height above the ground.</p>
+
+			<p>Why a folded reflector (popular name, 'low rider')? It's all about convenience: the eyepiece height above ground is shortened. This can make the difference between ladder and no ladder or between high up a ladder and stepping up onto a stool.</p>
+
+			<p>An early example of a folded (or low rider) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.<br>
+			Ross Robert's folded 16 inch was featured in the Oregon Star Party Walkabout of 2008 here <a href="osp08/RossRoberts-16.jpg">https://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg</a>.<Br>
+			Dan Gray's bent 28 inch is a popular scope at the Oregon Star Party. The eyepiece is a couple of feet closer to the ground because of the folded design. <a href=http://www.webring.org/l/rd?ring=telescopemaking;id=15;url=http%3A%2F%2Fwww%2Esiderealtechnology%2Ecom%2F28inch%2F">http://www.webring.org/l/rd?ring=telescopemaking;id=15;url=http%3A%2F%2Fwww%2Esiderealtechnology%2Ecom%2F28inch%2F</a>.<Br>
+			Pete's 25 inch folded scope as posted on the atm-free discussion group, from 2006. He's since added side panels and a tertiary mirror to angle the eyepiece directly outward.</p>
+		</div>
+
+		<div class='designer' id='designTube'>
+			<h3>Tube Assembly Designer</h3>
+
+			<table id='CGTable'>
+			<tbody id='CGTableBody'>
+				<tr>
+					<td class='columnHeaders'>Part</td>
+					<td class='columnHeaders'>Weight</td>
+					<td class='columnHeaders'>Distance</td>
+				</tr>
+				<!--part rows added in JavaScript-->
+			</tbody>
+			</table>
+
+			<table>
+			<tbody>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnCalcCG' value='calc weight and center of gravity' type='button'>
+						<br>
+						<br>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='CGResults'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+
+		<div class='designer' id='designMount'>
+			<h3>Altazimuth Mounting Designer</h3>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label' name='CGToEyepieceDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='CGToEyepieceDistance' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='tubeWeightLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='tubeWeight' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='calcSectionHeader'>
+						Altitude movement...
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 Altitude bearing separation (deg) =
+					</td>
+					<td>
+						<input class='inputText' name='altBearingSeparationDeg' value='90' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='altBearingRadiusLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='altBearingRadius' value='5' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Altitude bearing materials
+					</td>
+					<td>
+						<select id='altBearingMaterialsSelect'>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class='calcSectionHeader'>
+						Azimuth movement...
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='azBearingRadiusLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='azBearingRadius' value='5' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Azimuth bearing materials
+					</td>
+					<td>
+						<select id='azBearingMaterialsSelect'>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateRocker' value='optimize rocker' type='button'>
+						<br>
+						<br>
+					</td>
+				</tr>
+			</table>
+			</tbody>
+
+			<div ID='rockerCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='rockerResults'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<h4>Friction of movement discussion</h4>
+
+			<p>An essential feature of John Dobson's telescope design is that the telescope moves smoothly and precisely about the sky, staying put once the operator let's go. There is no clamping or locking down. Tracking an object across the sky consists of periodic adjustments by pushing the scope very small distances while looking through the eyepiece. His design depends on an interesting property of Teflon on pebbly Formica, namely that the friction felt when moving the scope is about the same as the friction felt while starting the move. In other words, the dynamic friction equals static friction. Most materials stick worse than they move, leading to jerky motions.</p>
+
+			<p>The force to move the telescope should not be so great as to demand a great deal of effort, particularly when making very tiny high magnification adjustments by hand, nor should the force be so slight that wind can move the telescope. Ideally the force in both azimuth and altitude axes is roughly the same so that the axes 'disappear' as the scope is moved to and fro.</p>
+
+			<p>The force to move the scope in azimuth increases as the scope is pointed upward. I set the angle at 48 degrees or halfway up the sky. This is the optimum pointing angle given the range of altitude movement, area of sky and seeing conditions. Keep in mind that as the scope is pointed further upward that the azimuth resistance to movement becomes quite stiff.</p>
+
+			<p>I like a frictional force of two to three pounds (1 to 1.5 kilos); others prefer less friction. This gives me a smooth and not-too-stiff touch at the upper end of the scope, avoids balancing issues with heavy eyepieces and resists weathervaning from wind gusts.</p>
+
+			<p>The altitude friction can be adjusted by varying the bearing angle and the altitude bearing radius. The azimuth friction can be adjusted by varying the distance from the pads to the pivot (the azimuth bearing radius) and by changing the material pairing. Bearings can be substituted for one or more of the bearing points with a proportionate reduction in friction. For instance, the azimuth friction can be reduced by two-thirds if two of the three bearing pads are replaced with roller bearings. More unusual is to build a trolley with a pad on one end and a roller bearing on the ther. By moving the pivot location closer to the pad the friction can be increased and by moving the pivot location closer to the bearing the friction can be decreased.</p>
+
+			<p>The formula and concept is from Richard Berry's article in Telescope Making 8, page 36-.</p>
+
+			<p>The size of the pads modestly affects the quality of motion. It's a long standing rule of thumb that 15 PSI (pounds per square inch) is idea.</p>
+
+			<p>The key here is to have a favorable static to dynamic friction ratio where the friction to begin the movement is less than the friction to continue the movement. This feels like 'butter' at the eyepiece.</p>
+
+			<h3>Flex rocker designer</h3>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label' name='flexRockerCGToEyepieceDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='flexRockerCGToEyepieceDistance' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='flexRockerTubeWeightLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='flexRockerTubeWeight' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' name='flexRockerCGToBackEdgeOfTubeClearanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' name='flexRockerCGToBackEdgeOfTubeClearance' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 Altitude bearing separation (deg) =
+					</td>
+					<td>
+						<input class='inputText' name='flexRockerAltBearingSeparationDeg' value='60' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Altitude bearing materials
+					</td>
+					<td>
+						<select id='flexRockerAltBearingMaterialsSelect'>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Azimuth bearing materials
+					</td>
+					<td>
+						<select id='flexRockerAzBearingMaterialsSelect'>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateFlexRocker' value='optimize flex rocker' type='button'>
+						<br>
+						<br>
+					</td>
+				</tr>
+			</table>
+			</tbody>
+
+			<div ID='flexRockerCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='flexRockerResults'>
+					</td>
+				</tr>
+			</table>
+			</tbody>
+
+			<h4>Flex rocker discussion</h4>
+
+			<p>Imagine the altitude bearing getting bigger and bigger. The rocker's weight shrinks, which is good but so does the height, lessening its rigidity, which is bad. But what if the altitude bearing points are placed at the rocker's corners and under each corner an azimuth bearing is placed resulting in four azimuth bearings that ride on a rigid ring? In fact, the altitude and azimuth bearings can be combined into a single block with the rocker reduced to merely holding the bearing blocks in relative position. We can have our ultralight rocker with good rigidity. Additionally, the mirror box can swing down through the base to lower eyepiece height when pointing near the zenith. <a href='FlexRocker/FlexRockers.html'>Check out some examples.</a></p>
+		</div>
+
+		<div class='designer' id='designET'>
+			<h3>Equatorial Table Designer</h3>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Latitude (deg) =
+					</td>
+					<td>
+						<input class='inputText' name='ETLatitudeDeg' value='40' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						Tracking time (minutes) =
+					</td>
+					<td>
+						<input class='inputText' name='ETTrackingTimeMin' value='60' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateET' value='Optimize equatorial table' type='button'>
+						<br>
+						<br>
+					</td>
+				</tr>
+			</table>
+			</tbody>
+
+			<div ID='ETCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='ETResults'>
+					</td>
+				</tr>
+			</table>
+			</tbody>
+
+			<h4>Equatorial table discussion...</h4>
+
+			<p>The polar axis must pass through the combined center of gravity of the tube assembly, rocker and the equatorial table's platform.</p>
+			<p>Values for a four corner equatorial table are calculated where a tracking arc is situated at each corner of the equatorial table.</p>
+			<p>Other table designs include three arcs (two on the north side of the platform, one on the south side), two arcs on the north side and a pivot on the south side, and finally, two pivots, one on the north side and one on the south side.</p>
+		</div>
+	</div>
+	
+	<div>
+		<h3>Software notes</h3>
+		
+		<p>Changing the aperture updates:
+		<ul>
+			<li>Focal plane to diagonal distance</li>
+			<li>Telescope tube outside diameter</li>
+			<li>Mirror weight in the CG calculator</li>
+		</ul>
+		</p>
+		
+		<p>The Center of Gravity calculator in the Tube assembly designer depends on:
+		<ul>
+			<li>Baffle designer's telescope tube outside diameter</li>
+			<li>Baffle designer's calculated tube back end to focal plane distance</li>
+			<li>Baffle designer's calculated mirror's front edge to focal plane distance</li>
+		</ul>
+		</p>
+		
+		<p>The Altaz mount designer depends on:
+		<ul>
+			<li>Baffle designer's telescope tube outside diameter</li>
+			<li>Tube assembly designer's calculated CG height to clear rocker bottom</li>
+		</ul>
+		</p>
+		
+		<p>The Equatorial Table designer depends on:
+		<ul>
+			<li>Altaz mount designer's tube weight</li>
+			<li>Altaz mount designer's rocker dimensions</li>
+		</ul>
+		</p>		
+	</div>
+
+	<div>
+		<h3>For more, see...</h3>
+
+		<a href="truths/Bartels equation for telescope value.html">Bartels' equation for telescope value</a><br>
+		<a href='The analyzed telescope.html'>The analyzed telescope</a><br>
+		<a href="TipsToImproveTelescopePerformance.html">Tips to improve your telescope</a><br>
+		<a href="The New Sub-F3 Richest Field Telescopes.html">Richest Field Telescopes</a><br>
+		<a href="HET.html">High Etendue Telescopes</a><br>
+		<a href="A New Way to Look at Things.pdf">A new way to look at things</a><br>
+		<a href='visual.html'>Visual detection</a>
+
+		<p>For my telescopes and more articles, see my <a href="tm.html">Telescope Making page</a>.</p>
+		end
+		<br>
+		<br>
+	</div>
+
+	<!-- these libraries first because my libraries reference them -->
+	<script src='lib/jquery/jquery-3.1.1.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
+	<script src='lib/jqplot/jquery.jqplot.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.logAxisRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js'></script>
+	<script src='lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js'></script>
+
+	<script src='lib/sharedLib.js'></script>
+	<script src='lib/coordLib.js'></script>
+	<script src='lib/calcLib.js'></script>
+	<script src='lib/NewtDesigner.js'></script>
+
+	<script src='lib/json/comaCorrectors.js'></script>
+	<script src='lib/json/eyepieces.js'></script>
+	<script src='lib/json/focusers.js'></script>
+	<script src='lib/json/materialFriction.js'></script>
+
+</body>
+</html>

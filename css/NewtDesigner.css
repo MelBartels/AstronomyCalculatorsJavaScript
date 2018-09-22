@@ -1,0 +1,186 @@
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-weight: bold;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+html {
+	font-family: Verdana, Geneva, sans-serif; 
+	margin-right: auto;	height: 100%;
+	margin-left: 10px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.links {
+	background-color: lightgray;
+	padding: 5px;
+}
+
+.center {
+	text-align: center; 
+}
+
+.selectDesigner {
+	clear: both;
+}
+
+.uomFRApertureHeader {
+	clear: both;
+}
+	
+.slider {
+	width: 400px;
+}
+
+.designSelect {
+	float: left;
+	width: 200px;
+	padding: 10px;
+	margin: 10px;
+  	background: lightgrey;
+}
+
+.designers {
+	clear: both;
+}
+
+.designer {
+	display: none;
+}
+
+#fundamentalParms td {
+	vertical-align: top;
+	padding-left: 25px;
+}
+
+.magnificationTable {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.magnificationTable td {
+	border: 1px solid black;
+}
+
+.tableHeaderRow {
+	font-weight: bold;
+}
+
+.tableColumnsFirstColor {
+	background-color: rgb(204, 255, 255);
+}
+
+.tableColumnsSecondColor {
+	background-color: rgb(204, 204, 204);
+}
+
+.tableColumnsThirdColor {
+	background-color: rgb(255, 255, 204);
+}
+
+.tableColumnsFourthColor {
+	background-color: rgb(153, 255, 153);
+}
+
+.calcSectionHeader {
+	font-weight: bold;
+}
+
+/* match with JavaScript generated css */
+.columnHeaders {
+	font-weight: bold;
+	padding-right: 10px;
+}
+
+.inputText {
+	width: 70px;
+}
+
+.inputDiags {
+	width: 500px;
+}
+
+#diagChart {
+	margin-top: 20px; 
+	margin-bottom: 20px; 
+	margin-left: 20px; 
+	width: 800px; 
+	height: 300px;
+}
+
+.indent {
+	padding-left: 56px;
+}
+
+.equation {
+	font-style: italic;
+}
+
+.label {
+	text-align: right; 
+	vertical-align: top;
+	width: 300px;
+}
+
+.titleFlexArea {
+	display: flex; 
+	align-items: center;
+}
+
+@media all and (min-width: 0px) {
+	.titleSection {
+		clear: both;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.titleImg {
+		float: left;
+		padding: 1%; 
+		width: 30%;
+		height: 30%;
+	}
+	.genImage {
+		width: 100%; 
+		height: 100%;
+	}
+}
+@media all and (min-width: 768px) {
+	.titleSection {
+		clear: both;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.titleImg {
+		float: left;
+		padding: 1%; 
+		width: 15%;
+		height: 15%;
+	}
+	.genImage {
+		width: 50%; 
+		height: 50%;
+	}
+}
