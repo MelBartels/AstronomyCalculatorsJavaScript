@@ -116,7 +116,7 @@ a:hover {
 }
 
 .inputText {
-	width: 70px;
+	width: 100px;
 }
 
 .inputDiags {
@@ -158,9 +158,9 @@ a:hover {
 	}
 	.titleImg {
 		float: left;
-		padding: 1%; 
-		width: 30%;
-		height: 30%;
+		padding: 0.5%; 
+		width: 20%;
+		height: 20%;
 	}
 	.genImage {
 		width: 100%; 
@@ -175,9 +175,9 @@ a:hover {
 	}
 	.titleImg {
 		float: left;
-		padding: 1%; 
-		width: 15%;
-		height: 15%;
+		padding: 0.5%; 
+		width: 10%;
+		height: 10%;
 	}
 	.genImage {
 		width: 50%; 

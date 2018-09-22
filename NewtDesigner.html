@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta content='text/html; charset=utf-8' http-equiv='content-type'>
+	<meta content='text/html; charset=utf-8' http-equiv='content-type'>
 	<title>Newtonian Reflecting Telescope Designer</title>
 	<meta content='Design a Newtonian telescope for telescope, eyepiece, diagonal, baffles, tube assembly, altaz mount and equatorial table.' name='description'>
 	<meta content='Mel Bartels' name='author'>
@@ -14,14 +14,11 @@
 
 	<div>
 		<img class='titleImg' src='10.5inchF2.7/10.5 inch finished 4.JPG'>
-		<h1>Newtonian Telescope Designer</h1>
-		<h2>by Mel Bartels</h2>
-
-		<p>There is no single best telescope for everyone. What telescope is best for you depends on budget, ergonomics, experience and aims. Once you select a telescope then its design can be optimized. Guides commonly discuss aperture, magnification, mount, optical configuration, computer capability and price. Though concrete, these factors fall short of a complete picture of telescope performance.</p>
-
-		<p>Telescope performance depends on how bright will the object appear; the light throughput across the entire field of view or Richest Field effect; how detailed will the object appear and how big will the object appear.</p>
+		<h2>Newtonian Telescope Designer by Mel Bartels</h2>
 
 		<p>Telescope design is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
+
+		<p>There is no single best telescope for everyone. What telescope is best for you depends on budget, ergonomics, experience and aims. I wrote 'NewtDesigner' to help me design telescopes, whether 'Richest Field' or planetary viewing. My workflow starts with the fundamental focal ratio and aperture followed by eyepiece selection for the objects I wish to see. Then I tackle diagonal sizing and baffling, finishing with the tube assembly and center of gravity, rocker design and thoughts for an equatorial table.</p>
 	</div>
 
 	<div class='selectDesigner'>
@@ -115,8 +112,8 @@
 			<p><input id='btnCalcEyepieceWidestFieldForEyePupil' value='Find widest field eyepieces' type='button'>
 			not to exceed eye pupil of <input class='inputText' name='eyePupilmm' value='7' onfocus='select();' type='text'>mm
 			<label name='widestEyepiecesForEyePupilLabel'>no widest field eyepiece selected yet</label></p>
-			
-			<p>Sort 'Select eyepiece' selection by 
+
+			<p>Sort 'Select eyepiece' selection by
 			<input name='btnEyepieceSort' value='manufacturer' checked='checked' type='radio'> manufacturer
 			<input name='btnEyepieceSort' value='focalLength' type='radio'> focal length</p>
 
@@ -528,7 +525,7 @@
 					<tr>
 						<td colspan='2'>
 							<br>
-							<input id='btnUpdateDiagIllum' value='update diagonal illumination' type='button'>
+							<input id='btnUpdateDiagIllum' value='Update diagonal illumination' type='button'>
 						</td>
 					</tr>
 				</tbody>
@@ -717,7 +714,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnUpdateBaffles' value='update baffle layout' type='button'>
+						<input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
 					</td>
 				</tr>
 			</tbody>
@@ -744,7 +741,7 @@
 
 			<p>We want the 'good' light to reach our eye, the 'rogue' light to be blocked. Some rogue light we simply cannot block because it comes from the upper atmosphere exactly between the object and our telescope. This includes sky glow and reflected light pollution. Other rogue light strays into our eyes. This we can block with a hood over our head or by cupping the eyepiece with our hands. Remaining rogue light can sneak past the diagonal into the eyepiece and sneak past from behind the primary mirror, bouncing off the diagonal to fog the eyepiece.</p>
 
-			<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror. This baffle is called the primary mirror baffle. The baffle optimizer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the projected focuser or diagonal baffle.</p>
+			<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror. This baffle is called the primary mirror baffle. The baffle designer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the projected focuser or diagonal baffle.</p>
 
 			<p>Using an idea by Larry Shaper in Amateur Astronomy magazine, Issue #91, Summer 2016, page 52-53, the edges of the baffle can be tilted to direct light away from the focuser's tube bottom aperture. Larry concludes that the flattest black paint always looks gray while a baffle painted in gloss black with tilted sides looks truly black. You can see that the tilt angles light past the focuser tube and is long enough that light reflected at a narrow angle face on is also directed away from the focuser tube. Since the optical tube assembly can be open, I tilt the projected focuser baffle on both sides.</p>
 
@@ -758,7 +755,7 @@
 					</td>
 					<td>
 						<input class='inputText' name='lowriderSecondaryMirrorSize' onfocus='select();' type='text'>
-						<input id='btnCalcMinLowriderSecondaryMirrorSize' value='calc minimum size' type='button'>
+						<input id='btnCalcMinLowriderSecondaryMirrorSize' value='Calc minimum size' type='button'>
 					</td>
 				</tr>
 				<tr>
@@ -767,7 +764,7 @@
 					</td>
 					<td>
 						<input class='inputText' name='lowriderSecondaryOffset' onfocus='select();' type='text'>
-						<input id='btnCalclowriderSecondaryOffset' value='calc' type='button'>
+						<input id='btnCalclowriderSecondaryOffset' value='Calc' type='button'>
 					</td>
 				</tr>
 				<tr>
@@ -776,7 +773,7 @@
 					</td>
 					<td>
 						<input class='inputText' name='focalPlaneToSecondaryDistance' onfocus='select();' type='text'>
-						<input id='btnCalcMinFocalPlaneToSecondaryDistance' value='calc minimum length' type='button'>
+						<input id='btnCalcMinFocalPlaneToSecondaryDistance' value='Calc minimum length' type='button'>
 					</td>
 				</tr>
 				<tr>
@@ -790,7 +787,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnUpdateLowrider' value='update low rider' type='button'>
+						<input id='btnUpdateLowrider' value='Update low rider' type='button'>
 					</td>
 				</tr>
 			</tbody>
@@ -845,7 +842,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnCalcCG' value='calc weight and center of gravity' type='button'>
+						<input id='btnCalcCG' value='Calc weight and center of gravity' type='button'>
 						<br>
 						<br>
 					</td>
@@ -937,7 +934,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnUpdateRocker' value='optimize rocker' type='button'>
+						<input id='btnUpdateRocker' value='Update rocker' type='button'>
 						<br>
 						<br>
 					</td>
@@ -1036,7 +1033,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnUpdateFlexRocker' value='optimize flex rocker' type='button'>
+						<input id='btnUpdateFlexRocker' value='Update flex rocker' type='button'>
 						<br>
 						<br>
 					</td>
@@ -1089,7 +1086,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnUpdateET' value='Optimize equatorial table' type='button'>
+						<input id='btnUpdateET' value='Update equatorial table' type='button'>
 						<br>
 						<br>
 					</td>
@@ -1120,10 +1117,17 @@
 			<p>Other table designs include three arcs (two on the north side of the platform, one on the south side), two arcs on the north side and a pivot on the south side, and finally, two pivots, one on the north side and one on the south side.</p>
 		</div>
 	</div>
-	
+
+	<div>
+		<h4>Save telescope design for future use or get a previously saved telescope design</h4>
+		<input id='btnPutDesign' value='Save design with name: ' type='button'>
+		<input class='inputText' name='designName' value='my design' onfocus='select()' type='text'>
+		<input id='btnGetDesign' value=' Get design' type='button'>
+	</div>
+
 	<div>
 		<h3>Software notes</h3>
-		
+
 		<p>Changing the aperture updates:
 		<ul>
 			<li>Focal plane to diagonal distance</li>
@@ -1131,7 +1135,7 @@
 			<li>Mirror weight in the CG calculator</li>
 		</ul>
 		</p>
-		
+
 		<p>The Center of Gravity calculator in the Tube assembly designer depends on:
 		<ul>
 			<li>Baffle designer's telescope tube outside diameter</li>
@@ -1139,20 +1143,20 @@
 			<li>Baffle designer's calculated mirror's front edge to focal plane distance</li>
 		</ul>
 		</p>
-		
+
 		<p>The Altaz mount designer depends on:
 		<ul>
 			<li>Baffle designer's telescope tube outside diameter</li>
 			<li>Tube assembly designer's calculated CG height to clear rocker bottom</li>
 		</ul>
 		</p>
-		
+
 		<p>The Equatorial Table designer depends on:
 		<ul>
 			<li>Altaz mount designer's tube weight</li>
 			<li>Altaz mount designer's rocker dimensions</li>
 		</ul>
-		</p>		
+		</p>
 	</div>
 
 	<div>
