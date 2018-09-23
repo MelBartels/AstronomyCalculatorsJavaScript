@@ -46,12 +46,12 @@
 		<br>
 		Select a <b>focal ratio</b>
 		<input class='slider' id='sliderFocalRatio' min='2.5' max='8' step='0.1' type='range'/>
-		<input class='inputText' name='focalRatio' value='4' onfocus='select();' type='text'>
+		<input class='inputText' name='focalRatio' value='5' onfocus='select();' type='text'>
 
 		<br>
 		Select the <b>aperture</b>
 		<input class='slider' id='sliderAperture' min='4' max='42' step='0.1' type='range'/>
-		<input class='inputText' name='aperture' value='12' onfocus='select();' type='text'>
+		<input class='inputText' name='aperture' value='10' onfocus='select();' type='text'>
 		<label name='apertureUOMlabel'>inches</label>
 		<br>
 		<br>
@@ -484,7 +484,7 @@
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
-						<input class='inputText' name='focalPlaneToDiagDistance' value='9' onfocus='select();' type='text'>
+						<input class='inputText' name='focalPlaneToDiagDistance' value='8' onfocus='select();' type='text'>
 					</td>
 				</tr>
 				<tr>
@@ -492,7 +492,7 @@
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
-						<input class='inputText' name="maxFieldDiaDiag" value="1.4" onfocus="select()" type="text">
+						<input class='inputText' name="maxFieldDiaDiag" value="1.6" onfocus="select()" type="text">
 					</td>
 				</tr>
 				<tr>
@@ -1127,6 +1127,12 @@
 
 	<div>
 		<h3>Software notes</h3>
+
+		<p>Changing the focal ratio updates:
+		<ul>
+			<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
+		</ul>
+		</p>
 
 		<p>Changing the aperture updates:
 		<ul>
