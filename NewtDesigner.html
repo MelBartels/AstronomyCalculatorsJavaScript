@@ -68,11 +68,10 @@
 			</div>
 			<div>
 				<p><b>Focal ratio</b> is the speed of the telescope and is found by diving the focal length by the mirror diameter.</p>
-				<p>Slower speeds of <b>F7</b> favor resolution with higher magnifications in longer tube lengths. Slower speeds have little or no coma, do not require precise alignment and have a relaxed focusing tolerance.<br>
-				<b>F5</b> is a general purpose focal ratio.<br>
-				Faster speeds of <b>F4</b> favor wider fields with lower magnifications in shorter tube lengths. Faster speeds also have more coma, require more precise optical alignment and have a tight focusing tolerance.<br>
-				<b>F3</b> allows the use of 100 degree apparent field of view eyepieces at lowest power for widest field and greatest light throughput or highest etendue. Etendue is the total amount of light flowing into your eye. Etendue is calculated as aperture squared times real field of view squared.</p>
-				<p>A coma corrector is required at F3,recommended at F4 and not useful at F5 and slower.</p>
+				<p>Slower speeds of <b>F7-F8</b> favor resolution with higher magnifications in longer tube lengths. Slower speeds have little or no coma, do not require precise alignment and have a relaxed focusing tolerance.<br>
+				<b>F5-F6</b> are general purpose focal ratios.<br>
+				Faster speeds of <b>F3-F4</b> favor wider fields with lower magnifications in shorter tube lengths. Faster speeds also have more coma, require more precise optical alignment and have a tight focusing tolerance.
+				<p>F3 allows the use of 100 degree apparent field of view eyepieces at lowest power for widest field and greatest light throughput or highest etendue. Etendue is the total amount of light flowing into your eye. Etendue is calculated as aperture squared times real field of view squared. A coma corrector is required at F3,recommended at F4 and not useful at F5 and slower.</p>
 			</div>
 			<div>
 				<p><b>Aperture</b> is the mirror diameter, determining the star magnitude reach of the telescope.<br>
@@ -1118,11 +1117,13 @@
 		</div>
 	</div>
 
-	<div>
+	<div id='saveRestore'>
 		<h4>Save telescope design for future use or get a previously saved telescope design</h4>
-		<input id='btnPutDesign' value='Save design with name: ' type='button'>
+		<input id='btnPutDesign' value='Save design to local storage with name: ' type='button'>
 		<input class='inputText' name='designName' value='my design' onfocus='select()' type='text'>
-		<input id='btnGetDesign' value=' Get design' type='button'>
+		<input id='btnGetDesign' value=' Get design from local storage' type='button'>
+		<br>Design data:
+		<br><textarea id='designData' rows='10' cols=80'></textarea>
 	</div>
 
 	<div>
@@ -1174,10 +1175,9 @@
 		<a href="The New Sub-F3 Richest Field Telescopes.html">Richest Field Telescopes</a><br>
 		<a href="HET.html">High Etendue Telescopes</a><br>
 		<a href="A New Way to Look at Things.pdf">A new way to look at things</a><br>
-		<a href='visual.html'>Visual detection</a>
-
-		<p>For my telescopes and more articles, see my <a href="tm.html">Telescope Making page</a>.</p>
-		end
+		<a href='visual.html'>Visual detection</a><br>
+		<a href="tm.html">My telescope making page</a>
+		<p>end</p>
 		<br>
 		<br>
 	</div>

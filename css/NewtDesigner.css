@@ -150,6 +150,11 @@ a:hover {
 	align-items: center;
 }
 
+#saveRestore {
+	background-color: lightgray;
+	padding: 1px 0px 20px 20px;
+}
+
 @media all and (min-width: 0px) {
 	.titleSection {
 		clear: both;
