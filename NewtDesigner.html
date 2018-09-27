@@ -13,12 +13,14 @@
 <body>
 
 	<div>
-		<img class='titleImg' src='10.5inchF2.7/10.5 inch finished 4.JPG'>
-		<h2>Newtonian Telescope Designer by Mel Bartels</h2>
+		<img class='titleImage' src='10.5inchF2.7/10.5 inch f2.5 illustrated.jpg'>
+		<div class='titleText'>
+			<h2>Newtonian Telescope Designer by Mel Bartels</h2>
 
-		<p>Telescope design is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
+			<p>Telescope design is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
 
-		<p>There is no single best telescope for everyone. What telescope is best for you depends on budget, ergonomics, experience and aims. I wrote 'NewtDesigner' to help me design telescopes, whether 'Richest Field' or planetary viewing. My workflow starts with the fundamental focal ratio and aperture followed by eyepiece selection for the objects I wish to see. Then I tackle diagonal sizing and baffling, finishing with the tube assembly and center of gravity, rocker design and thoughts for an equatorial table.</p>
+			<p>There is no single best telescope for everyone. What telescope is best for you depends on budget, ergonomics, experience and aims. I wrote 'NewtDesigner' to help me design telescopes, whether 'Richest Field' or planetary viewing. My workflow starts with the fundamental focal ratio and aperture followed by eyepiece selection for the objects I wish to see. Then I tackle diagonal sizing and baffling, finishing with the tube assembly and center of gravity, rocker design and thoughts for an equatorial table.</p>
+		</div>
 	</div>
 
 	<div class='selectDesigner'>
@@ -1117,13 +1119,11 @@
 		</div>
 	</div>
 
-	<div id='saveRestore'>
-		<h4>Save telescope design for future use or get a previously saved telescope design</h4>
-		<input id='btnPutDesign' value='Save design to local storage with name: ' type='button'>
-		<input class='inputText' name='designName' value='my design' onfocus='select()' type='text'>
-		<input id='btnGetDesign' value=' Get design from local storage' type='button'>
-		<br>Design data:
-		<br><textarea id='designData' rows='10' cols=80'></textarea>
+	<div id='designData'>
+		<h4>Output and input design data</h4>
+		<input id='btnPutDesign' value='output design to text area below and to the clipboard' type='button'>
+		<input id='btnGetDesign' value='input design from the text area below' type='button'>
+		<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea>
 	</div>
 
 	<div>
