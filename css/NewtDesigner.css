@@ -130,7 +130,7 @@ html {
 @media all and (min-width: 0px) {
 	.titleText {
 		display: inline-block;
-		width: 50%;
+		width: 75%;
 	}
 	.titleImage {
 		padding: 0.5%; 
@@ -147,7 +147,7 @@ html {
 @media all and (min-width: 768px) {
 	.titleText {
 		display: inline-block;
-		width: 70%;
+		width: 85%;
 	}
 	.titleImage {
 		padding: 0.2%; 

@@ -28,13 +28,15 @@
 	</div>
 
 	<div>
-		<input class='designSelect' id='btnSelectTelescope' value='Telescope'        type='button'>
-		<input class='designSelect' id='btnSelectEyepieces' value='Eyepieces'        type='button'>
-		<input class='designSelect' id='btnSelectDiagonal'  value='Diagonal'         type='button'>
-		<input class='designSelect' id='btnSelectBaffling'  value='Baffling'         type='button'>
-		<input class='designSelect' id='btnSelectTube'      value='Tube assembly'    type='button'>
-		<input class='designSelect' id='btnSelectMount'     value='Altaz mount'      type='button'>
-		<input class='designSelect' id='btnSelectET'        value='Equatorial table' type='button'>
+		<input class='designSelect' id='btnSelectTelescope'        value='Telescope'         type='button'>
+		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'         type='button'>
+		<input class='designSelect' id='btnSelectDiagonal'         value='Diagonal'          type='button'>
+		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'          type='button'>
+		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling' type='button'>
+		<input class='designSelect' id='btnSelectTube'             value='Tube assembly'     type='button'>
+		<input class='designSelect' id='btnSelectRocker'           value='Rocker'            type='button'>
+		<input class='designSelect' id='btnSelectFlexRocker'       value='Flex rocker'       type='button'>
+		<input class='designSelect' id='btnSelectET'               value='Equatorial table'  type='button'>
 	</div>
 
 	<div class='uomFRApertureHeader'>
@@ -45,7 +47,7 @@
 		<input name='btnUom' value='inches' checked='checked' type='radio'> imperial
 		<input name='btnUom' value='millimeters' type='radio'> metric
 
-		<br>
+		<br><br>
 		Select a <b>focal ratio</b>
 		<input class='slider' id='sliderFocalRatio' min='2.5' max='8' step='0.1' type='range'/>
 		<input class='inputText' name='focalRatio' value='5' onfocus='select();' type='text'>
@@ -472,7 +474,7 @@
 
 			<p><b>The strategy</b> is to select the highest magnification that frames the object in the eyepiece's field of view, subject to seeing conditions and telescope capabilities. Then select the largest aperture available. Starting with a given aperture, select for the highest magnification that frames the object, subject to seeing. If the object is invisible, then try a lower magnification. This rarely happens. Much more common is a  failure to properly frame the object. Use filters, go to dark skies and improve your observational skills.</p>
 
-			<p>Should you ever select for <b>less aperture</b>? That's equivalent to stopping down the aperture to improve the view. Stopping down by using an off-axis mask to reduce the deleterious effects of bad seeing helps. Stopping down to improve deep-sky views does not help. While objects can be detected at diminished apertures, there is a general loss of detail. See my results at <a href="Is Aperture King.html">Is aperture king?</a></p>
+			<p>Should you ever select for <b>less aperture</b>? That's equivalent to stopping down the aperture to improve the view. Stopping down by using an off-axis mask to reduce the deleterious effects of bad seeing helps. Stopping down to improve deep-sky views does not help. While objects can be detected at diminished apertures, there is a general loss of detail. See my results at <a href='Is Aperture King.html'>Is aperture king?</a></p>
 
 			<p>As long as you can select for the largest aperture, you are in <b>telescope mode</b>. Once aperture is constrained, you are in <b>eyepiece mode</b>. Well equipped amateurs who have a number of eyepieces should also consider equipping themselves with a range of apertures.</p>
 
@@ -495,7 +497,7 @@
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
-						<input class='inputText' name="maxFieldDiaDiag" value="1.6" onfocus="select()" type="text">
+						<input class='inputText' name='maxFieldDiaDiag' value='1.6' onfocus='select()' type='text'>
 					</td>
 				</tr>
 				<tr>
@@ -572,7 +574,7 @@
 
 			<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by one-sixth wave. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The 1974 Telescope Secondary Experiment.html'>Check out my secondary size experiment</a>.</p>
 
-			<p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. For a detailed explanation including graphics, see <a href="DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html">my diagonal offset study</a>.</p>
+			<p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. For a detailed explanation including graphics, see <a href='DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html'>my diagonal offset study</a>.</p>
 
 		   <h4>Thoughts on an off-axis mask</h4>
 
@@ -747,8 +749,13 @@
 			<p>The rogue light sneaking past the diagonal can be blocked with a baffle. This baffle is called the projected focuser baffle or diagonal baffle. And rogue light sneaking past from behind the primary mirror can be blocked by baffles that surround the primary mirror. This baffle is called the primary mirror baffle. The baffle designer calculates the minimum size for these baffles based on geometric light ray traces. An additional baffle, not shown and not calculated, can be placed just below the focuser to tighten up the projected focuser or diagonal baffle.</p>
 
 			<p>Using an idea by Larry Shaper in Amateur Astronomy magazine, Issue #91, Summer 2016, page 52-53, the edges of the baffle can be tilted to direct light away from the focuser's tube bottom aperture. Larry concludes that the flattest black paint always looks gray while a baffle painted in gloss black with tilted sides looks truly black. You can see that the tilt angles light past the focuser tube and is long enough that light reflected at a narrow angle face on is also directed away from the focuser tube. Since the optical tube assembly can be open, I tilt the projected focuser baffle on both sides.</p>
+		</div>
 
+		<div class='designer' id='designLowriderBaffling'>
 			<h3>Lowrider Designer</h3>
+			
+			<p>Dan Gray's 28 inch folded reflector, a RTMC Merit Award winner and popular scope for many years at the Oregon Star Party. See how the diagonal mirror, nearly a spherical flat, reflects light back at a sharp angle to reduce eyepiece height above the ground?<br>
+			<img src='Dan Gray 28 inch folded reflector.jpg'></p>
 
 			<table>
 			<tbody>
@@ -814,16 +821,11 @@
 
 			<h4>Lowrider discussion</h4>
 
-			<p><img src="Peter 25 inch folded scope from 2006.jpg"></p>
-
 			<p>By increasing the diagonal's angle, we can aim move the focuser a little closer to the primary mirror, lessening the eyepiece's height above the ground.</p>
 
 			<p>Why a folded reflector (popular name, 'low rider')? It's all about convenience: the eyepiece height above ground is shortened. This can make the difference between ladder and no ladder or between high up a ladder and stepping up onto a stool.</p>
 
-			<p>An early example of a folded (or low rider) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.<br>
-			Ross Robert's folded 16 inch was featured in the Oregon Star Party Walkabout of 2008 here <a href="osp08/RossRoberts-16.jpg">https://www.bbastrodesigns.com/osp08/RossRoberts-16.jpg</a>.<Br>
-			Dan Gray's bent 28 inch is a popular scope at the Oregon Star Party. The eyepiece is a couple of feet closer to the ground because of the folded design. <a href=http://www.webring.org/l/rd?ring=telescopemaking;id=15;url=http%3A%2F%2Fwww%2Esiderealtechnology%2Ecom%2F28inch%2F">http://www.webring.org/l/rd?ring=telescopemaking;id=15;url=http%3A%2F%2Fwww%2Esiderealtechnology%2Ecom%2F28inch%2F</a>.<Br>
-			Pete's 25 inch folded scope as posted on the atm-free discussion group, from 2006. He's since added side panels and a tertiary mirror to angle the eyepiece directly outward.</p>
+			<p>An early example of a folded (or low rider) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.</p>
 		</div>
 
 		<div class='designer' id='designTube'>
@@ -861,7 +863,7 @@
 			</table>
 		</div>
 
-		<div class='designer' id='designMount'>
+		<div class='designer' id='designRocker'>
 			<h3>Altazimuth Mounting Designer</h3>
 
 			<table>
@@ -978,7 +980,9 @@
 			<p>The size of the pads modestly affects the quality of motion. It's a long standing rule of thumb that 15 PSI (pounds per square inch) is idea.</p>
 
 			<p>The key here is to have a favorable static to dynamic friction ratio where the friction to begin the movement is less than the friction to continue the movement. This feels like 'butter' at the eyepiece.</p>
+		</div>
 
+		<div class='designer' id='designFlexRocker'>
 			<h3>Flex rocker designer</h3>
 
 			<table>
@@ -1059,8 +1063,6 @@
 				</tr>
 			</table>
 			</tbody>
-
-			<h4>Flex rocker discussion</h4>
 
 			<p>Imagine the altitude bearing getting bigger and bigger. The rocker's weight shrinks, which is good but so does the height, lessening its rigidity, which is bad. But what if the altitude bearing points are placed at the rocker's corners and under each corner an azimuth bearing is placed resulting in four azimuth bearings that ride on a rigid ring? In fact, the altitude and azimuth bearings can be combined into a single block with the rocker reduced to merely holding the bearing blocks in relative position. We can have our ultralight rocker with good rigidity. Additionally, the mirror box can swing down through the base to lower eyepiece height when pointing near the zenith. <a href='FlexRocker/FlexRockers.html'>Check out some examples.</a></p>
 		</div>
@@ -1153,7 +1155,7 @@
 		</ul>
 		</p>
 
-		<p>The Altaz mount designer depends on:
+		<p>The rocker mount designer depends on:
 		<ul>
 			<li>Baffle designer's telescope tube outside diameter</li>
 			<li>Tube assembly designer's calculated CG height to clear rocker bottom</li>
@@ -1162,8 +1164,8 @@
 
 		<p>The Equatorial Table designer depends on:
 		<ul>
-			<li>Altaz mount designer's tube weight</li>
-			<li>Altaz mount designer's rocker dimensions</li>
+			<li>Rocker designer's tube weight</li>
+			<li>Rocker designer's rocker dimensions</li>
 		</ul>
 		</p>
 	</div>
@@ -1171,13 +1173,13 @@
 	<div>
 		<h3>For more, see...</h3>
 
-		<a href="https://3dwarehouse.sketchup.com/user/1728720578419089840934154/Mel-B?nav=models">My Sketchup models</a><br>
-		<a href="rft.html">Richest Field Telescopes</a><br>
-		<a href="HET.html">High Etendue Telescopes</a><br>
-		<a href="truths/Bartels equation for telescope value.html">Bartels' equation for telescope value</a><br>
+		<a href='https://3dwarehouse.sketchup.com/user/1728720578419089840934154/Mel-B?nav=models'>My Sketchup models</a><br>
+		<a href='rft.html'>Richest Field Telescopes</a><br>
+		<a href='HET.html'>High Etendue Telescopes</a><br>
+		<a href='truths/Bartels equation for telescope value.html'>Bartels' equation for telescope value</a><br>
 		<a href='The analyzed telescope.html'>The analyzed telescope</a><br>
-		<a href="TipsToImproveTelescopePerformance.html">Tips to improve your telescope</a><br>
-		<a href="tm.html">My telescope making page</a>
+		<a href='TipsToImproveTelescopePerformance.html'>Tips to improve your telescope</a><br>
+		<a href='tm.html'>My telescope making page</a>
 		<p>end</p>
 		<br>
 		<br>
