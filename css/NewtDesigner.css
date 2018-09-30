@@ -50,6 +50,10 @@ html {
 	clear: both;
 }
 
+.designerImage {
+	display: none;
+}
+
 .designer {
 	display: none;
 }
