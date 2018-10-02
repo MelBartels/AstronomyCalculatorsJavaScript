@@ -98,7 +98,8 @@
 		calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize = MLB.calcLib.calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize,
 		calcComa = MLB.calcLib.calcComa,
 		calcGreaterComa = MLB.calcLib.calcGreaterComa,
-		calcGreaterComaWithComaCorrector = MLB.calcLib.calcGreaterComaWithComaCorrector;
+		calcGreaterComaWithComaCorrector = MLB.calcLib.calcGreaterComaWithComaCorrector,
+		calcCollimationToleranceInches = MLB.calcLib.calcCollimationToleranceInches;
 
 	QUnit.module('sagitta');
 
@@ -1271,6 +1272,16 @@
 		result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);	
 		equal(withinRange(result, expected, allowableError), true, 'coma with coma corrector should be ' + expected + ', is ' + result);
 	});
+	
+	QUnit.test('calcCollimationToleranceInches', function () {
+		var focalRatio = 4,
+		expected = 0.0448,
+		allowableError = 0.001,
+		result = calcCollimationToleranceInches(focalRatio);
+		
+		equal(withinRange(result, expected, allowableError), true, 'collimation tolerance should be ' + expected + ', is ' + result);
+	});
+
 });
 
 </script>
