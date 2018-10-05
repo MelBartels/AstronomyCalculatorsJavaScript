@@ -28,15 +28,17 @@
 	</div>
 
 	<div>
-		<input class='designSelect' id='btnSelectTelescope'        value='Telescope'         type='button'>
-		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'         type='button'>
-		<input class='designSelect' id='btnSelectDiagonal'         value='Diagonal'          type='button'>
-		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'          type='button'>
-		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling' type='button'>
-		<input class='designSelect' id='btnSelectTube'             value='Tube assembly'     type='button'>
-		<input class='designSelect' id='btnSelectRocker'           value='Rocker'            type='button'>
-		<input class='designSelect' id='btnSelectFlexRocker'       value='Flex rocker'       type='button'>
-		<input class='designSelect' id='btnSelectET'               value='Equatorial table'  type='button'>
+		<input class='designSelect' id='btnSelectTelescope'        value='Telescope'                    type='button'>
+		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'                    type='button'>
+		<input class='designSelect' id='btnSelectDiagonal'         value='Diagonal'                     type='button'>
+		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'                     type='button'>
+		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling'            type='button'>
+		<input class='designSelect' id='btnSelectTube'             value='Tube assembly'                type='button'>
+		<input class='designSelect' id='btnSelectRocker'           value='Rocker'                       type='button'>
+		<input class='designSelect' id='btnSelectFlexRocker'       value='Flex rocker'                  type='button'>
+		<input class='designSelect' id='btnSelectET'               value='Equatorial table'             type='button'>
+		<input class='designSelect' id='btnSelectExportImport'     value='Export and import designs'    type='button'>
+		<input class='designSelect' id='btnSelectNotes'            value='Software notes, more reading' type='button'>
 	</div>
 
 	<div  style='clear: both;'></div>
@@ -72,8 +74,14 @@
 	</div>
 	<div class='designerImage' id='designETImage'>
 	</div>
+	<div class='designerImage' id='designExportImportImage'>
+	</div>
+	<div class='designerImage' id='designNotesImage'>
+	</div>
 	
-	<div class='uomFRApertureHeader'>
+	<div  style='clear: both;'></div>
+	
+	<div id='uomFRApertureHeader'>
 		<br>
 		<h3>Common values</h3>
 
@@ -92,6 +100,31 @@
 		<input class='inputText' name='aperture' value='10' onfocus='select();' type='text'>
 		<label name='apertureUOMlabel'>inches</label>
 		<br>
+		<br>
+	</div>
+
+	<div id='diagSharedParms'>
+		<table>
+		<tbody>
+			<tr>
+				<td class='label' name='focalPlaneToDiagDistanceLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='focalPlaneToDiagDistance' value='8' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='maxFieldDiaDiagLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='maxFieldDiaDiag' value='1.6' onfocus='select()' type='text'>
+				</td>
+			</tr>
+			<tr>
+		</tbody>
+		</table>
 		<br>
 	</div>
 
@@ -116,6 +149,9 @@
 				Aperture sets the maximum possible resolution.<br>
 				Aperture also sets the image scale. For example, given the same focal ratio and eyepiece, a 20 inch aperture telescope shows an extended object, for example a galaxy, at twice the apparent size of a 10 inch aperture telescope. Our eyes can more readily detect larger apparent sized objects and detail is more visible.</p>
 				<p>Focal ratio times aperture gives the <b>focal length</b>. Longer focal length telescopes are longer and heavier thus more difficult to transport. Focal lengths greater than 60-70 inches [150-175cm] require a step stool or ladder to reach the eyepiece.</p>
+				
+				<p>My 24 inch [61cm] F5.5 weighing 350 pounds that I finished in 1982 required a 10 foot aluminum ladder. The ladder is tiring to stand on and has to be moved constantly as the telescope tracks. And I could only take up to the focuser the eyepieces, filters and sketching equipment that I could carry in my pockets. I dreaded the accidental eyepiece impact test. In contrast using my 25 inch [64cm] F2.6 weighing 75 pounds that I finished in 2018 I observe standing on the ground with my eyepieces, filters and sketching equipment on a table next to me.</p>
+				<img src='24 inch aimed high.jpg'><img src='25/ready for 1st light Aug 4 2018.jpg'>
 			</div>
 
 			<h4>Notes</h4>
@@ -511,31 +547,6 @@
 			<p>As long as you can select for the largest aperture, you are in <b>telescope mode</b>. Once aperture is constrained, you are in <b>eyepiece mode</b>. Well equipped amateurs who have a number of eyepieces should also consider equipping themselves with a range of apertures.</p>
 
 			<p>Note that <b>wider angle eyepieces</b> allow for greater aperture.</p>
-		</div>
-
-		<div id='diagSharedParms'>
-			<table>
-			<tbody>
-				<tr>
-					<td class='label' name='focalPlaneToDiagDistanceLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='focalPlaneToDiagDistance' value='8' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='maxFieldDiaDiagLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='maxFieldDiaDiag' value='1.6' onfocus='select()' type='text'>
-					</td>
-				</tr>
-				<tr>
-			</tbody>
-			</table>
-			<br>
 		</div>
 
 		<div class='designer' id='designDiagonal'>
@@ -1156,68 +1167,66 @@
 			<p>Values for a four corner equatorial table are calculated where a tracking arc is situated at each corner of the equatorial table.</p>
 			<p>Other table designs include three arcs (two on the north side of the platform, one on the south side), two arcs on the north side and a pivot on the south side, and finally, two pivots, one on the north side and one on the south side.</p>
 		</div>
-	</div>
 
-	<div id='designData'>
-		<h4>Output and input design data</h4>
-		<input id='btnPutDesign' value='output design to text area below and to the clipboard' type='button'>
-		<input id='btnGetDesign' value='input design from the text area below' type='button'>
-		<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea>
-	</div>
+		<div class='designer' id='designExportImport'>
+			<h3>Export and import designs</h4>
+			<input id='btnPutDesign' value='export design to text area below and to the clipboard' type='button'>
+			<input id='btnGetDesign' value='import design from the text area below' type='button'>
+			<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea>
+		</div>
 
-	<div>
-		<h3>Software notes</h3>
+		<div class='designer' id='designNotes'>
+			<h3>Software notes</h3>
 
-		<p>Changing the focal ratio updates:
-		<ul>
-			<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
-		</ul>
-		</p>
+			<p>Changing the focal ratio updates:
+			<ul>
+				<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
+			</ul>
+			</p>
 
-		<p>Changing the aperture updates:
-		<ul>
-			<li>Focal plane to diagonal distance</li>
-			<li>Telescope tube outside diameter</li>
-			<li>Mirror weight in the CG calculator</li>
-		</ul>
-		</p>
+			<p>Changing the aperture updates:
+			<ul>
+				<li>Focal plane to diagonal distance</li>
+				<li>Telescope tube outside diameter</li>
+				<li>Mirror weight in the CG calculator</li>
+			</ul>
+			</p>
 
-		<p>The Center of Gravity calculator in the Tube assembly designer depends on:
-		<ul>
-			<li>Baffle designer's telescope tube outside diameter</li>
-			<li>Baffle designer's calculated tube back end to focal plane distance</li>
-			<li>Baffle designer's calculated mirror's front edge to focal plane distance</li>
-		</ul>
-		</p>
+			<p>The Center of Gravity calculator in the Tube assembly designer depends on:
+			<ul>
+				<li>Baffle designer's telescope tube outside diameter</li>
+				<li>Baffle designer's calculated tube back end to focal plane distance</li>
+				<li>Baffle designer's calculated mirror's front edge to focal plane distance</li>
+			</ul>
+			</p>
 
-		<p>The rocker mount designer depends on:
-		<ul>
-			<li>Baffle designer's telescope tube outside diameter</li>
-			<li>Tube assembly designer's calculated CG height to clear rocker bottom</li>
-		</ul>
-		</p>
+			<p>The rocker mount designer depends on:
+			<ul>
+				<li>Baffle designer's telescope tube outside diameter</li>
+				<li>Tube assembly designer's calculated CG height to clear rocker bottom</li>
+			</ul>
+			</p>
 
-		<p>The Equatorial Table designer depends on:
-		<ul>
-			<li>Rocker designer's tube weight</li>
-			<li>Rocker designer's rocker dimensions</li>
-		</ul>
-		</p>
-	</div>
+			<p>The Equatorial Table designer depends on:
+			<ul>
+				<li>Rocker designer's tube weight</li>
+				<li>Rocker designer's rocker dimensions</li>
+			</ul>
+			</p>
 
-	<div>
-		<h3>For more, see...</h3>
+			<h3>More reading...</h3>
 
-		<a href='https://3dwarehouse.sketchup.com/user/1728720578419089840934154/Mel-B?nav=models'>My Sketchup models</a><br>
-		<a href='rft.html'>Richest Field Telescopes</a><br>
-		<a href='HET.html'>High Etendue Telescopes</a><br>
-		<a href='truths/Bartels equation for telescope value.html'>Bartels' equation for telescope value</a><br>
-		<a href='The analyzed telescope.html'>The analyzed telescope</a><br>
-		<a href='TipsToImproveTelescopePerformance.html'>Tips to improve your telescope</a><br>
-		<a href='tm.html'>My telescope making page</a>
-		<p>end</p>
-		<br>
-		<br>
+			<a href='https://3dwarehouse.sketchup.com/user/1728720578419089840934154/Mel-B?nav=models'>My Sketchup models</a><br>
+			<a href='rft.html'>Richest Field Telescopes</a><br>
+			<a href='HET.html'>High Etendue Telescopes</a><br>
+			<a href='truths/Bartels equation for telescope value.html'>Bartels' equation for telescope value</a><br>
+			<a href='The analyzed telescope.html'>The analyzed telescope</a><br>
+			<a href='TipsToImproveTelescopePerformance.html'>Tips to improve your telescope</a><br>
+			<a href='tm.html'>My telescope making page</a>
+			<p>end</p>
+			<br>
+			<br>
+		</div>
 	</div>
 
 	<!-- these libraries first because my libraries reference them -->

@@ -26,14 +26,6 @@ html {
 	margin-left: 10px;
 }
 
-.selectDesigner {
-	clear: both;
-}
-
-.uomFRApertureHeader {
-	clear: both;
-}
-	
 .slider {
 	width: 400px;
 }
@@ -124,11 +116,6 @@ html {
 	text-align: right; 
 	vertical-align: top;
 	width: 300px;
-}
-
-#designData {
-	background-color: lightgray;
-	width: 600px;
 }
 
 @media all and (min-width: 0px) {
