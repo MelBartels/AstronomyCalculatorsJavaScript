@@ -17,9 +17,9 @@
 		<div class='titleText'>
 			<h2>Newtonian Telescope Designer by Mel Bartels</h2>
 
-			<p>Telescope design is always a study in compromise. For example, greater aperture results in restricted field of view and a heavier scope; increasing the focal ratio increases the telescope's length raising the height of the eyepiece. A larger diagonal promises more light to the edge of the field, but itself blocks additional light. Even a large tube to avoid vignetting can result in a larger diagonal negating the light gain. Fast lightweight mirrors raise the center of gravity, resulting in bulkier rocker boxes.</p>
+			<p>No single telescope can do it all. Larger aperture narrows the field of view and results in a heavier scope; increasing the focal ratio lengths the telescope tube raising the height of the eyepiece; a larger diagonal promises more light to the edge of the field, but itself blocks light.</p>
 
-			<p>There is no single best telescope for everyone. What telescope is best for you depends on budget, ergonomics, experience and aims. I wrote 'NewtDesigner' to help me design telescopes, whether 'Richest Field' or planetary viewing. My workflow starts with the fundamental focal ratio and aperture followed by eyepiece selection for the objects I wish to see. Then I tackle diagonal sizing and baffling, finishing with the tube assembly and center of gravity, rocker design and thoughts for an equatorial table.</p>
+			<p>What telescope is best for you depends on ergonomic factors, budget, your expertise and what you want from the telescope. I use 'NewtDesigner' to design my telescopes, whether 'Richest Field' or a planetary viewer. Besides the calculations, I also look at options. Perhaps you'll find NewtDesigner useful too.</p>
 		</div>
 	</div>
 
@@ -81,7 +81,7 @@
 	
 	<div  style='clear: both;'></div>
 	
-	<div id='uomFRApertureHeader'>
+	<div id='uomFocalRatioApertureSharedParms'>
 		<br>
 		<h3>Common values</h3>
 
@@ -107,6 +107,11 @@
 		<table>
 		<tbody>
 			<tr>
+				<td class='calcSectionHeader'>
+					Focal plane...
+				</td>
+			</tr>
+			<tr>
 				<td class='label' name='focalPlaneToDiagDistanceLabel'>
 					<!-- label html set in JavaScript -->
 				</td>
@@ -127,12 +132,38 @@
 		</table>
 		<br>
 	</div>
+	
+	<div id='tubeSharedParms'>
+		<table>
+		<tbody>
+			<tr>
+				<td class='calcSectionHeader'>
+					Telescope tube...
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='tubeODLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='telescopeTubeOD' value='14.5' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='tubeThicknessLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
+				</td>
+			</tr>		
+		</tbody>
+		</table>
+	</div>
 
 	<div class='designers'>
 
 		<div class='designer' id='designTelescope'>
-			<h3>Telescope Designer</h3>
-
 			<div>
 				<p><b>Results:</b></p>
 				<label name='telescopeDesignerResultsLabel'></label>
@@ -176,8 +207,6 @@
 		</div>
 
 		<div class='designer' id='designEyepieces'>
-			<h3>Eyepieces Designer</h3>
-
 			<p>Planning to use a coma corrector? <input name='chBoxUseComaCorrector' type='checkbox'>
 			select <select id='comaCorrectorSelect'></select>
 			magnification factor<input class='inputText' name='comaCorrectorMag' onfocus='select();' type='text'></p>
@@ -550,8 +579,6 @@
 		</div>
 
 		<div class='designer' id='designDiagonal'>
-			<h3>Diagonal Designer</h3>
-
 			<div class='blockCenter'>
 				<table>
 				<tbody>
@@ -645,8 +672,6 @@
 		</div>
 
 		<div class='designer' id='designBaffling'>
-			<h3>Baffle Designer</h3>
-			
 			<table>
 			<tbody>
 				<tr>
@@ -706,35 +731,16 @@
 				<tr>
 					<td><br></td>
 				</tr>
-				<tr>
-					<td class='calcSectionHeader'>
-						Telescope tube...
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='tubeODLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='telescopeTubeOD' value='14.5' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='tubeThicknessLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td><br></td>
-				</tr>
 			</tbody>
 			</table>
 
 			<table>
 			<tbody>
+				<tr>
+					<td class='calcSectionHeader'>
+						Diagonal for baffle...
+					</td>
+				</tr>
 				<tr>
 					<td class='label' name='optimizedDiagSizeLabel'>
 						<!-- label html set in JavaScript -->
@@ -795,8 +801,6 @@
 		</div>
 
 		<div class='designer' id='designLowriderBaffling'>
-			<h3>Lowrider Designer</h3>
-			
 			<table>
 			<tbody>
 				<tr>
@@ -869,8 +873,6 @@
 		</div>
 
 		<div class='designer' id='designTube'>
-			<h3>Tube Assembly Designer</h3>
-
 			<table id='CGTable'>
 			<tbody id='CGTableBody'>
 				<tr>
@@ -910,8 +912,6 @@
 		</div>
 
 		<div class='designer' id='designRocker'>
-			<h3>Rocker Designer</h3>
-			
 			<table>
 			<tbody>
 				<tr>
@@ -1029,8 +1029,6 @@
 		</div>
 
 		<div class='designer' id='designFlexRocker'>
-			<h3>Flex rocker designer</h3>
-
 			<table>
 			<tbody>
 				<tr>
@@ -1114,8 +1112,6 @@
 		</div>
 
 		<div class='designer' id='designET'>
-			<h3>Equatorial Table Designer</h3>
-
 			<table>
 			<tbody>
 				<tr>
@@ -1189,6 +1185,7 @@
 				<li>Focal plane to diagonal distance</li>
 				<li>Telescope tube outside diameter</li>
 				<li>Mirror weight in the CG calculator</li>
+				<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
 			</ul>
 			</p>
 
@@ -1227,6 +1224,7 @@
 			<br>
 			<br>
 		</div>
+
 	</div>
 
 	<!-- these libraries first because my libraries reference them -->
