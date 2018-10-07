@@ -14,7 +14,7 @@
 
 	<div>
 		<div>
-			<h2>Newtonian Telescope Designer by Mel Bartels</h2>
+			<h2>Newtonian Telescope Designer by Mel Bartels, version 0.3.1</h2>
 
 			<p>No single telescope does it all. Larger aperture narrows the field of view and results in a heavier scope; increasing the focal ratio raises the height of the eyepiece; a larger diagonal promises more light to the edge of the field, but itself blocks light.</p>
 
@@ -52,11 +52,11 @@
 		<img src='optical path and tube assembly callouts.jpg'>
 	</div>
 	<div class='designerImage' id='designBafflingImage'>			
-		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece.<br>
+		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.<br>
 		<img src='TrilatBaffles.jpg'></p>
 	</div>
 	<div class='designerImage' id='designLowriderBafflingImage'>
-		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground.<br>
+		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.<br>
 		<img src='Peter Pekurar folded 25 inch.JPG'></p>
 	</div>
 	<div class='designerImage' id='designTubeImage'>
@@ -64,7 +64,7 @@
 		<img src='10.5 inch CG vertical offset cutaway.jpg'>
 	</div>
 	<div class='designerImage' id='designRockerImage'>
-		<p>The rocker, invented by John Dobson, allows the telescope tube to swing up and down in arms and rotate on a ground board. Here is a 10 inch [25cm] F5 scope with homeground primary mirror taht I built. In the background to the left is a 12 inch and to the right is my old 24 inch, both built using the rocker design.<br>
+		<p>The rocker, invented by John Dobson, allows the telescope tube to swing up and down in arms and rotate on a ground board. Here is a 10 inch [25cm] F5 scope with homeground primary mirror that I built. In the background to the left is a 12 inch and to the right is my old 24 inch, both built using the rocker design.<br>
 		<img src='10 inch built for others.JPG'></p>
 	</div>
 	<div class='designerImage' id='designFlexRockerImage'>
@@ -172,7 +172,7 @@
 				<p>Slower speeds of <b>F7-F8</b> favor resolution with higher magnifications in longer tube lengths. Slower speeds have little or no coma, do not require precise alignment and have a relaxed focusing tolerance.<br>
 				<b>F5-F6</b> are general purpose focal ratios.<br>
 				Faster speeds of <b>F3-F4</b> favor wider fields with lower magnifications in shorter tube lengths. Faster speeds also have more coma, require more precise optical alignment and have a tight focusing tolerance.
-				<p>F3 allows the use of 100 degree apparent field of view eyepieces at lowest power for widest field and greatest light throughput or highest etendue. Etendue is the total amount of light flowing into your eye. Etendue is calculated as aperture squared times real field of view squared. A coma corrector is required at F3,recommended at F4 and not useful at F5 and slower.</p>
+				<p>F3 allows the use of 100 degree apparent field of view eyepieces at lowest power for widest field and greatest light throughput or highest etendue. Etendue is the total amount of light flowing into your eye. Etendue is calculated as aperture squared times real field of view squared. A coma corrector is required at F3, recommended at F4 and not useful at F5 and slower.</p>
 			</div>
 			<div>
 				<p><b>Aperture</b> is the mirror diameter, determining the star magnitude reach of the telescope.<br>
@@ -568,7 +568,7 @@
 			</tbody>
 			</table>
 
-			<p><b>The strategy</b> is to select the highest magnification that frames the object in the eyepiece's field of view, subject to seeing conditions and telescope capabilities. Then select the largest aperture available. Starting with a given aperture, select for the highest magnification that frames the object, subject to seeing. If the object is invisible, then try a lower magnification. This rarely happens. Much more common is a  failure to properly frame the object. Use filters, go to dark skies and improve your observational skills.</p>
+			<p><b>The strategy</b> is to select the highest magnification that frames the object in the eyepiece's field of view, subject to seeing conditions and telescope capabilities. Then select the largest aperture available. Starting with a given aperture, select for the highest magnification that frames the object, subject to seeing. If the object is invisible, then try a lower magnification. This rarely happens. Much more common is a failure to properly frame the object. Use filters, go to dark skies and improve your observational skills.</p>
 
 			<p>Should you ever select for <b>less aperture</b>? That's equivalent to stopping down the aperture to improve the view. Stopping down by using an off-axis mask to reduce the deleterious effects of bad seeing helps. Stopping down to improve deep-sky views does not help. While objects can be detected at diminished apertures, there is a general loss of detail. See my results at <a href='Is Aperture King.html'>Is aperture king?</a></p>
 
@@ -654,6 +654,8 @@
 			<p>The maximum diameter of an off-axis mask is set by taking the primary mirror's diameter and subtracting the diagonal's minor axis size then dividing the result by two. For example, a 16 inch with a 3.5 inch diagonal has a maximum off-axis mask diameter of (16 - 3.5) / 2 = 6.25 inches. If placed opposite any diagonal offset, the off-axis mask's diameter can be increased by the offset.</p>
 
 			<p>The light throughput is the inverse of the mask diameter to primary mirror diameter squared. Using the numbers from above, (off-axis mask diameter / primary mirror diameter) squared is (6.25 / 16) ^2 = 0.15 or 15% light throughput. That dims the Moon's brightness by two magnitudes.</p>
+			
+			<p>When using an off-axis mask at lower powers, be sure to account for vignetting due to smaller sized diagonals that act to clip the off-axis aperture.</p>
 
 			<p>Make a black cardboard mask with a one inch off-axis hole and aim at a bright star. The Airy disk and many rings look textbook beautiful. But that costs resolution. Of course this resolution is wasted at low magnification.</p>
 
@@ -905,6 +907,10 @@
 			</table>
 
 			<h4>Tube assembly discussion</h4>
+			
+			<p>I like to use the mirror's forward edge to reference distances. So the mirror cell has a negative distance and the diagonal, focuser and eyepiece are at the mirror's focal length minus the diagonal to focal plane distance minus the sagitta.</p>
+			
+			<p>To arrive at the tube clearance needed for the Dobsonian rocker be sure to set the tube's OD.</p>
 
 			<p>With today's heavy eyepieces and coma correctors, it is important to vertically offset the Center of Gravity to maintain balance as the scope swings upward.</p>
 
@@ -1022,7 +1028,7 @@
 
 			<p>The formula and concept is from Richard Berry's article in Telescope Making 8, page 36-.</p>
 
-			<p>The size of the pads modestly affects the quality of motion. It's a long standing rule of thumb that 15 PSI (pounds per square inch) is idea.</p>
+			<p>The size of the pads modestly affects the quality of motion. It's a long standing rule of thumb that 15 PSI (pounds per square inch) is ideal.</p>
 
 			<p>The key here is to have a favorable static to dynamic friction ratio where the friction to begin the movement is less than the friction to continue the movement. This feels like 'butter' at the eyepiece.</p>
 		</div>
