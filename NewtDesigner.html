@@ -14,7 +14,7 @@
 
 	<div>
 		<div>
-			<h2>Newtonian Telescope Designer by Mel Bartels, version 0.3.1</h2>
+			<div id='titleText'></div>
 
 			<p>No single telescope does it all. Larger aperture narrows the field of view and results in a heavier scope; increasing the focal ratio raises the height of the eyepiece; a larger diagonal promises more light to the edge of the field, but itself blocks light.</p>
 
@@ -33,6 +33,7 @@
 		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'                     type='button'>
 		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling'            type='button'>
 		<input class='designSelect' id='btnSelectTube'             value='Tube assembly'                type='button'>
+		<input class='designSelect' id='btnSelectMount'            value='Mount types'                  type='button'>
 		<input class='designSelect' id='btnSelectRocker'           value='Rocker'                       type='button'>
 		<input class='designSelect' id='btnSelectFlexRocker'       value='Flex rocker'                  type='button'>
 		<input class='designSelect' id='btnSelectET'               value='Equatorial table'             type='button'>
@@ -53,7 +54,7 @@
 	</div>
 	<div class='designerImage' id='designBafflingImage'>			
 		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.<br>
-		<img src='TrilatBaffles.jpg'></p>
+		<img src='baffles.jpg'></p>
 	</div>
 	<div class='designerImage' id='designLowriderBafflingImage'>
 		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.<br>
@@ -62,6 +63,8 @@
 	<div class='designerImage' id='designTubeImage'>
 		<img src='10.5 inch CG cutaway.jpg'>
 		<img src='10.5 inch CG vertical offset cutaway.jpg'>
+	</div>
+	<div class='designerImage' id='designTubeMount'>
 	</div>
 	<div class='designerImage' id='designRockerImage'>
 		<p>The rocker, invented by John Dobson, allows the telescope tube to swing up and down in arms and rotate on a ground board. Here is a 10 inch [25cm] F5 scope with homeground primary mirror that I built. In the background to the left is a 12 inch and to the right is my old 24 inch, both built using the rocker design.<br>
@@ -163,6 +166,8 @@
 	<div class='designers'>
 
 		<div class='designer' id='designTelescope'>
+			<input id='btnUpdateTelescopeResults' value='Update telescope results' type='button'>
+			
 			<div>
 				<p><b>Results:</b></p>
 				<label name='telescopeDesignerResultsLabel'></label>
@@ -180,7 +185,7 @@
 				Aperture also sets the image scale. For example, given the same focal ratio and eyepiece, a 20 inch aperture telescope shows an extended object, for example a galaxy, at twice the apparent size of a 10 inch aperture telescope. Our eyes can more readily detect larger apparent sized objects and detail is more visible.</p>
 				<p>Focal ratio times aperture gives the <b>focal length</b>. Longer focal length telescopes are longer and heavier thus more difficult to transport. Focal lengths greater than 60-70 inches [150-175cm] require a step stool or ladder to reach the eyepiece.</p>
 				
-				<p>My 24 inch [61cm] F5.5 weighing 350 pounds that I finished in 1982 required a 10 foot aluminum ladder. The ladder is tiring to stand on and has to be moved constantly as the telescope tracks. And I could only take up to the focuser the eyepieces, filters and sketching equipment that I could carry in my pockets. I dreaded the accidental eyepiece impact test. In contrast using my 25 inch [64cm] F2.6 weighing 75 pounds that I finished in 2018 I observe standing on the ground with my eyepieces, filters and sketching equipment on a table next to me.</p>
+				<p>My 24 inch [61cm] F5.5 weighing 350 pounds that I finished in 1982 required a 10 foot aluminum ladder. The ladder is tiring to stand on and has to be moved constantly as the telescope tracks. And I could only take up to the focuser the eyepieces, filters and sketching equipment that I could carry in my pockets. I dreaded the accidental eyepiece impact test. In contrast using my 25 inch [64cm] F2.6 weighing 75 pounds that I finished in 2018 I observe standing on the ground with my eyepieces, filters and sketching equipment on a table next to me. The images are approximately at equal scale.</p>
 				<img src='24 inch aimed high.jpg'><img src='25/ready for 1st light Aug 4 2018.jpg'>
 			</div>
 
@@ -218,6 +223,8 @@
 			<input name='btnEyepieceSort' value='manufacturer' checked='checked' type='radio'> manufacturer
 			<input name='btnEyepieceSort' value='focalLength' type='radio'> focal length</p>
 
+			<input id='btnUpdateEyepieces' value='Update eyepieces' type='button'><br><br>
+			
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
 				<tr>
@@ -734,12 +741,12 @@
 				</tr>
 			</tbody>
 			</table>
-
+			<input id='btnUpdateBaffleDiagonalFromDiagonalDesigner' value='Update diagonal numbers from the diagonal designer' type='button'><br><br>
 			<table>
 			<tbody>
 				<tr>
 					<td class='calcSectionHeader'>
-						Diagonal for baffle...
+						Diagonal...
 					</td>
 				</tr>
 				<tr>
@@ -766,15 +773,10 @@
 						<input class='inputText' name='focalPlaneToFocuserBarrelBottomDistance' onfocus='select();' type='text'>
 					</td>
 				</tr>
-				<tr>
-					<td colspan='2'>
-						<br>
-						<input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
-					</td>
-				</tr>
 			</tbody>
 			</table>
-
+			<br><input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
+			
 			<div ID='baffleCanvasDiv'>
 				<!-- canvas created in JavaScript -->
 			</div>
@@ -802,6 +804,8 @@
 		</div>
 
 		<div class='designer' id='designLowriderBaffling'>
+			<h4>Diagonal...</h4>
+			<input id='btnUpdateLowriderBaffleDiagonalFromBaffleDesigner' value='Update diagonal numbers from the baffle designer' type='button'><br><br>
 			<table>
 			<tbody>
 				<tr>
@@ -819,7 +823,7 @@
 					</td>
 					<td>
 						<input class='inputText' name='lowriderSecondaryOffset' onfocus='select();' type='text'>
-						<input id='btnCalclowriderSecondaryOffset' value='Calc' type='button'>
+						<input id='btnCalcLowriderSecondaryOffset' value='Calc' type='button'>
 					</td>
 				</tr>
 				<tr>
@@ -913,7 +917,31 @@
 			<p>To arrive at the tube clearance needed for the Dobsonian rocker be sure to set the tube's OD.</p>
 
 			<p>With today's heavy eyepieces and coma correctors, it is important to vertically offset the Center of Gravity to maintain balance as the scope swings upward.</p>
-
+		</div>
+		
+		<div class='designer' id='designMount'>
+			<p>Three mount types dominate: the Dobsonian altazimuth rocker mount used for portable and larger aperture Newtonian reflectors, the German equatorial mount for smaller scopes that require sidereal tracking and the fork mount for commercially manufactured Schmidt-Cassegrains. But these are not the only mount designs available. Another mount design might prove a better fit.</p>
+			
+			<p>Equatorial mounts are polar aligned needing only a single motor operating at a constant speed to track the sky. There is no field rotation (other than a miniscule amount due to refraction at the horizon). Other mounts are either hand pushed or require more complex varying speed motors and incur field rotation.</p>
+			
+			<p>Here's a table of mount types with links to further information, current as of October 2018.</p>
+			
+			Select a mounting type <select id='mountTypeSelect'></select><br><br>
+		
+			<table id='mountTypeTable'>
+			<tbody id='mountTypeTableBody'>
+				<tr>
+					<td class='columnHeaders'>MountType</td>
+					<td class='columnHeaders'>Primary<br>Axis<br>Access</td>
+					<td class='columnHeaders'>Move<br>Past<br>Primary<br>Axis</td>
+					<td class='columnHeaders'>Primary<br>Axis<br>Fully<br>Rotates</td>
+					<td class='columnHeaders'>Meridian<br>Flip<br>Possible</td>
+					<td class='columnHeaders'>Meridian<br>Flip<br>Required</td>
+					<td class='columnHeaders'>Notes</td>
+				</tr>
+				<!--part rows added in JavaScript-->
+			</tbody>
+			</table>
 		</div>
 
 		<div class='designer' id='designRocker'>
@@ -1173,7 +1201,9 @@
 			<h3>Export and import designs</h4>
 			<input id='btnPutDesign' value='export design to text area below and to the clipboard' type='button'>
 			<input id='btnGetDesign' value='import design from the text area below' type='button'>
-			<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea>
+			<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea><br><br>
+			
+			<input id='btnSelect13inchDesign' value='Import Mel Bartels 13.2 inch F3.0 design' type='button'>
 		</div>
 
 		<div class='designer' id='designNotes'>
@@ -1182,6 +1212,7 @@
 			<p>Changing the focal ratio updates:
 			<ul>
 				<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
+				<li>Diagonal size in the baffle designer and lowrider baffle designer</li>
 			</ul>
 			</p>
 
@@ -1191,6 +1222,7 @@
 				<li>Telescope tube outside diameter</li>
 				<li>Mirror weight in the CG calculator</li>
 				<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
+				<li>Diagonal size in the baffle designer and lowrider baffle designer</li>
 			</ul>
 			</p>
 
@@ -1224,7 +1256,8 @@
 			<a href='truths/Bartels equation for telescope value.html'>Bartels' equation for telescope value</a><br>
 			<a href='The analyzed telescope.html'>The analyzed telescope</a><br>
 			<a href='TipsToImproveTelescopePerformance.html'>Tips to improve your telescope</a><br>
-			<a href='tm.html'>My telescope making page</a>
+			<a href='tm.html'>My telescope making page</a><br>
+			<a href='https://stellafane.org/tm/newt-web/newt-web.html'>Newt for the Web</a><br>
 			<p>end</p>
 			<br>
 			<br>
@@ -1252,6 +1285,8 @@
 	<script src='lib/json/eyepieces.js'></script>
 	<script src='lib/json/focusers.js'></script>
 	<script src='lib/json/materialFriction.js'></script>
+	<script src='lib/json/mountTypes.js'></script>
+	<script src='lib/json/MelBartelsZipDobIIDesignData.js'></script>
 
 </body>
 </html>
