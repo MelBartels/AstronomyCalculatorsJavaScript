@@ -100,7 +100,8 @@
         calcGreaterComa = MLB.calcLib.calcGreaterComa,
         calcGreaterComaWithComaCorrector = MLB.calcLib.calcGreaterComaWithComaCorrector,
         calcCollimationToleranceInches = MLB.calcLib.calcCollimationToleranceInches,
-        calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints;
+        calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints,
+		calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction;
 
     QUnit.module('sagitta');
 
@@ -1304,6 +1305,15 @@
         expected = undefined;
         result = calcMinimumMirrorSupportPoints(aperture);
         equal(result, expected, result + ' should be ' + expected);
+    });
+
+    QUnit.test('calcRMSCausedByCentralObstruction', function () {
+        var centralObstructionByDiameter = 1 / 3,
+        expected = 0.07,
+        allowableError = 0.1,
+        result = calcRMSCausedByCentralObstruction(centralObstructionByDiameter);
+
+        equal(withinRange(result, expected, allowableError), true, 'RMS deformation should be ' + expected + ', is ' + result);
     });
 
 });
