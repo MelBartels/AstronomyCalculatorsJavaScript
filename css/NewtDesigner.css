@@ -88,6 +88,11 @@ html {
 	padding-right: 10px;
 }
 
+.imageTextWrap {
+	float: left;
+	margin: 0px 20px;
+}
+
 .inputText {
 	width: 100px;
 }
