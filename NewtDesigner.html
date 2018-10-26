@@ -3,7 +3,7 @@
 <head>
 	<meta content='text/html; charset=utf-8' http-equiv='content-type'>
 	<title>Newtonian Reflecting Telescope Designer</title>
-	<meta content='Design a Newtonian telescope for telescope, eyepiece, diagonal, baffles, tube assembly, altaz mount and equatorial table.' name='description'>
+	<meta content='Design a Newtonian telescope.' name='description'>
 	<meta content='Mel Bartels' name='author'>
 	<meta content='initial-scale=1' name='viewport'>
 	<link href='Saucer32.ico' rel='shortcut icon'>
@@ -31,8 +31,10 @@
 		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'                    type='button'>
 		<input class='designSelect' id='btnSelectDiagonal'         value='Diagonal'                     type='button'>
 		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'                     type='button'>
+		<input class='designSelect' id='btnSelectFocuserBaffling'  value='Focuser baffling'             type='button'>
 		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling'            type='button'>
-		<input class='designSelect' id='btnSelectTube'             value='Tube assembly'                type='button'>
+		<input class='designSelect' id='btnSelectCG'               value='Center of gravity'            type='button'>
+		<input class='designSelect' id='btnSelectTube'             value='Tube types'                   type='button'>
 		<input class='designSelect' id='btnSelectMount'            value='Mount types'                  type='button'>
 		<input class='designSelect' id='btnSelectRocker'           value='Rocker'                       type='button'>
 		<input class='designSelect' id='btnSelectFlexRocker'       value='Flex rocker'                  type='button'>
@@ -53,16 +55,25 @@
 		<img src='optical path and tube assembly callouts.jpg'>
 	</div>
 	<div class='designerImage' id='designBafflingImage'>
-		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.<br>
+		<p>Baffling on my 20.5 inch [52cm] F4.9 computerized and motorized altazimuth. The diagonal baffle is opposite the focuser behind the diagonal and the primary mirror is encased in a square tube. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.<br>
+		<img src='20 inch v2.JPG'></p>
+	</div>
+	<div class='designerImage' id='designFocuserBafflingImage'>
+		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece.<br>
 		<img src='baffles.jpg'></p>
 	</div>
 	<div class='designerImage' id='designLowriderBafflingImage'>
 		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.<br>
 		<img src='Peter Pekurar folded 25 inch.JPG'></p>
 	</div>
-	<div class='designerImage' id='designTubeImage'>
+	<div class='designerImage' id='designCGImage'>
 		<img src='10.5 inch CG cutaway.jpg'>
 		<img src='10.5 inch CG vertical offset cutaway.jpg'>
+	</div>
+	<div class='designerImage' id='designTubeImage'>
+		<img src='25/ready for 1st light Aug 4 2018.jpg' style='max-width: 3`0%; height: auto;'>
+		<img src='12 inch A frame Dob.JPG' style='max-width: 30%; height: auto;'>
+		<img src='6 inch plastic tube.JPG' style='max-width: 30%; height: auto;'>
 	</div>
 	<div class='designerImage' id='designMountImage'>
 		<p>My 10 inch F5 fork, 14.25 inch F5 horseshoe, 20.5 inch F5 TriDob and 25 inch F2.6 3-axis mount.</p>
@@ -201,14 +212,15 @@
 				<a name='aperture implications'></a>
 				<h4>Aperture implications</h4>
 				
-				<p>Let's consider resolution, magnitude penetration, telescope weight, telescope length or focal ratio and seeing effects. Here is the plot of all these factors together for apertures from 4 inches to 30 inches.</p>
+				<p>Let's consider relative brightness, focal ratio, resolution, seeing and ergonomic factors like telescope length and weight (2.5 power of the aperture). Here is the plot of all these factors together for apertures from 4 inches to 30 inches.</p>
 				<img src='ApertureImplications.jpg'>
-				<p>Resolution increases linearly with aperture, subject to severe seeing effects in the larger apertures, while brightness increases modestly proportionally with the mirror's area. Ergonomically, telescope weight increases at the 2.5 power of the aperture. Focal ratio decreases severely as aperture grows for feet-on-the-ground observing; otherwise a ladder is needed.</p>
+				<p>Brightness increases proportionally with the mirror's area while resolution increases linearly with the mirror's diameter, subject to severe seeing effects in the larger apertures. All other factors trend negatively with increasing mirror size: ergonomically, telescope weight increases at the 2.5 power of the aperture and focal ratio decreases strongly as aperture grows for feet-on-the-ground observing (otherwise a ladder is needed).</p>
+
 				<ul>
-				<li>The leftmost vertical line represents the historically popular 6 inch telescope. Note that it is the lightest weight, can be made in long focal ratios and tube lengths and is not generally limited by seeing.</li>
-				<li>The next vertical line represents a popular large scope size of 12 inches aperture. It's heavier, can be made up to F6 focal ratio and is often not limited by seeing.</li>
-				<li>The third vertical line from the left is the most popular very large scope size: 16 inches aperture. It's heavier yet, can be made to F4 focal ratio (thus not needing a ladder or coma corrector) and is somewhat limited by seeing.</li>
-				<li>The rightmost vertical line represents the largest scope size commonly seen in large star parties, 25 inches aperture. It's very heavy, typically requires a ladder and is strongly limited by seeing.</li>
+					<li>The leftmost vertical line represents the historically popular 6 inch telescope. Note that it is the lightest weight, can be made in long focal ratios and tube lengths and is not generally limited by seeing.</li>
+					<li>The next vertical line represents a popular large scope size of 12 inches aperture. It's heavier, can be made up to F6 focal ratio though affected by seeing.</li>
+					<li>The third vertical line from the left is the most popular very large scope size: 16 inches aperture. It's heavier yet, can be made to F4 focal ratio (thus not needing a ladder or coma corrector) and is limited by seeing.</li>
+					<li>The rightmost vertical line represents the largest scope size commonly seen in large star parties, 25 inches aperture. While the greatest brightness, all other factors are trending badly negative: very heavy, needs a fast focal ratio, requires a ladder and is strongly limited by seeing.</li>
 				</ul>
 				
 				<a name='is aperture king'></a>
@@ -885,6 +897,10 @@
 			<p>Using an idea by Larry Shaper in Amateur Astronomy magazine, Issue #91, Summer 2016, page 52-53, the edges of the baffle can be tilted to direct light away from the focuser's tube bottom aperture. Larry concludes that the flattest black paint always looks gray while a baffle painted in gloss black with tilted sides looks truly black. You can see that the tilt angles light past the focuser tube and is long enough that light reflected at a narrow angle face on is also directed away from the focuser tube. Since the optical tube assembly can be open, I tilt the projected focuser baffle on both sides.</p>
 		</div>
 
+		<div class='designer' id='designFocuserBaffling'>
+		under construction
+		</div>
+
 		<div class='designer' id='designLowriderBaffling'>
 			<h4>Diagonal...</h4>
 			<input id='btnUpdateLowriderBaffleDiagonalFromBaffleDesigner' value='Update diagonal numbers from the baffle designer' type='button'><br><br>
@@ -959,7 +975,9 @@
 			<p>An early example of a folded (or low rider) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.</p>
 		</div>
 
-		<div class='designer' id='designTube'>
+		<div class='designer' id='designCG'>
+			<h4>Center of Gravity spreadsheet</h4>
+			
 			<table id='CGTable'>
 			<tbody id='CGTableBody'>
 				<tr>
@@ -992,13 +1010,32 @@
 			</tbody>
 			</table>
 
-			<h4>Tube assembly discussion</h4>
+			<h4>Center of gravity discussion</h4>
 
 			<p>I like to use the mirror's forward edge to reference distances. So the mirror cell has a negative distance and the diagonal, focuser and eyepiece are at the mirror's focal length minus the diagonal to focal plane distance minus the sagitta.</p>
 
 			<p>To arrive at the tube clearance needed for the Dobsonian rocker be sure to set the tube's OD.</p>
 
 			<p>With today's heavy eyepieces and coma correctors, it is important to vertically offset the Center of Gravity to maintain balance as the scope swings upward.</p>
+		</div>
+
+		<div class='designer' id='designTube'>
+			<p>Here's a table of tube types with links to further information, current as of October 2018.</p>
+
+			Select a tube type <select id='tubeTypeSelect'></select><br><br>
+
+			<table id='tubeTypeTable'>
+			<tbody id='tubeTypeTableBody'>
+				<tr>
+					<td class='columnHeaders'>Tube Type</td>
+					<td class='columnHeaders'>Truss Count</td>
+					<td class='columnHeaders'>Local Seeing Issues</td>
+					<td class='columnHeaders'>Engineering Note</td>
+					<td class='columnHeaders'>Examples</td>
+				</tr>
+				<!--part rows added in JavaScript-->
+			</tbody>
+			</table>
 		</div>
 
 		<div class='designer' id='designMount'>
@@ -1340,9 +1377,10 @@
 			<a href='The analyzed telescope.html' target='_blank'>The analyzed telescope</a><br>
 			<a href='TipsToImproveTelescopePerformance.html' target='_blank'>Tips to improve your telescope</a><br>
 			<a href='tm.html' target='_blank'>My telescope making page</a><br>
-			<a href='https://stellafane.org/tm/newt-web/newt-web.html' target='_blank'>Newt for the Web</a><br>
+			<a href='http://www.willbell.com/tm/PortableNewtonianTelescopes.htm' target='_blank'>Albert Highe's Engineering, Design and Construction of Portable Newtonian Telescopes</a><br>
 			<a href='https://www.telescope-optics.net/' target='_blank'>Notes on amateur telescope optics</a><br>
 			<a href='http://www.handprint.com/ASTRO/ae1.html' target='_blank'>Astronomical optics</a><br>
+			<a href='https://stellafane.org/tm/newt-web/newt-web.html' target='_blank'>Newt for the Web</a><br>
 			<p>end</p>
 			<br>
 			<br>
@@ -1370,6 +1408,7 @@
 	<script src='lib/json/eyepieces.js'></script>
 	<script src='lib/json/focusers.js'></script>
 	<script src='lib/json/materialFriction.js'></script>
+	<script src='lib/json/tubeTypes.js'></script>
 	<script src='lib/json/mountTypes.js'></script>
 	<script src='lib/json/MelBartelsZipDobIIDesignData.js'></script>
 
