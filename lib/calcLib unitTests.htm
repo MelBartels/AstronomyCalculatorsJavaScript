@@ -29,8 +29,8 @@
     'use strict';
     var withinRange = MLB.sharedLib.withinRange,
         uom = MLB.sharedLib.uom,
-        calcSagitta = MLB.calcLib.calcSagitta,
         calcSagittaSpherical = MLB.calcLib.calcSagittaSpherical,
+        calcSagittaParabolic = MLB.calcLib.calcSagittaParabolic,
         calcFocalRatio = MLB.calcLib.calcFocalRatio,
         calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
         calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
@@ -105,8 +105,8 @@
 
     QUnit.module('sagitta');
 
-    QUnit.test('calcSagitta', function () {
-        var result = calcSagitta(13, 3);
+    QUnit.test('calcSagittaSpherical', function () {
+        var result = calcSagittaSpherical(13, 3);
         equal(withinRange(result, 0.271305, 0.000001), true, 'The sagitta should be 0.271305, is ' + result);
     });
 
@@ -115,11 +115,11 @@
         equal(withinRange(result, 3, 0.000001), true, 'The focal ratio should be 3.0, is ' + result);
     });
 
-    QUnit.test('calcSagittaSpherical', function () {
+    QUnit.test('calcSagittaParabolic', function () {
         var mirrorDia = 30,
             focalRatio = 0.25,
             expectedSphericalSagitta = 7.5,
-            result = calcSagittaSpherical(mirrorDia, focalRatio);
+            result = calcSagittaParabolic(mirrorDia, focalRatio);
         equal(result, expectedSphericalSagitta, 'sagitta is ' + result);
     });
 
