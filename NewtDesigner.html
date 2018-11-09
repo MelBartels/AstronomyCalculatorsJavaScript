@@ -61,16 +61,16 @@
 		<img src='14 inch guiding design.JPG'>
 	</div>
 	<div class='designerImage' id='designBafflingImage'>
-		<p>Baffling on my 20.5 inch [52cm] F4.9 computerized and motorized altazimuth. The diagonal baffle is opposite the focuser behind the diagonal and the primary mirror is encased in a square tube. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.<br>
-		<img src='20 inch v2.JPG'></p>
+		<p>Baffling on my 20.5 inch [52cm] F4.9 computerized and motorized altazimuth. The diagonal baffle is opposite the focuser behind the diagonal and the primary mirror is encased in a square tube. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.</p>
+		<img src='20 inch v2.JPG'>
 	</div>
 	<div class='designerImage' id='designFocuserBafflingImage'>
-		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece.<br>
-		<img src='baffles.jpg'></p>
+		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. The focuser baffle works to reduce the diagonal baffle's size and further constrain stray light entering the focal plane.</p>
+		<img src='baffles.jpg'>
 	</div>
 	<div class='designerImage' id='designLowriderBafflingImage'>
-		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.<br>
-		<img src='Peter Pekurar folded 25 inch.JPG'></p>
+		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.</p>
+		<img src='Peter Pekurar folded 25 inch.JPG'>
 	</div>
 	<div class='designerImage' id='designCGImage'>
 		<img src='10.5 inch CG cutaway.jpg'>
@@ -89,12 +89,12 @@
 		<img src='25/ready for 1st light Aug 4 2018.jpg' style='max-width: 25%; height: auto;'>
 	</div>
 	<div class='designerImage' id='designRockerImage'>
-		<p>The rocker, invented by John Dobson, allows the telescope tube to swing up and down in arms and rotate on a ground board. Here is a 10 inch [25cm] F5 scope with homeground primary mirror that I built. In the background to the left is a 12 inch and to the right is my old 24 inch, both built using the rocker design.<br>
-		<img src='10 inch built for others.JPG'></p>
+		<p>The rocker, invented by John Dobson, allows the telescope tube to swing up and down in arms and rotate on a ground board. Here is a 10 inch [25cm] F5 scope with homeground primary mirror that I built. In the background to the left is a 12 inch and to the right is my old 24 inch, both built using the rocker design.</p>
+		<img src='10 inch built for others.JPG'>
 	</div>
 	<div class='designerImage' id='designFlexRockerImage'>
-		<p>My 13.2 inch [34cm] F3.0 on a flex rocker. Note that the altitude bearings are placed vertically above the azimuth bearings, which in turn ride on a ring that the telescope tube swings through. The flexible rocker arms exist to position the combination altitude and azimuth bearing assembly.<br>
-		<img src='ZipDob/ZipDobII/side.JPG'></p>
+		<p>My 13.2 inch [34cm] F3.0 on a flex rocker. Note that the altitude bearings are placed vertically above the azimuth bearings, which in turn ride on a ring that the telescope tube swings through. The flexible rocker arms exist to position the combination altitude and azimuth bearing assembly.</p>
+		<img src='ZipDob/ZipDobII/side.JPG'>
 	</div>
 	<div class='designerImage' id='designETImage'>
 		<p>The Equatorial table designer draws tables with either two sectors and a polar pivot, or four sectors. The sectors can be shaped parallel to the ground if desired.</p>
@@ -129,7 +129,6 @@
 		<br>
 		<br>
 	</div>
-
 	<div id='diagSharedParms'>
 		<table>
 		<tbody>
@@ -143,7 +142,7 @@
 					<!-- label html set in JavaScript -->
 				</td>
 				<td>
-					<input class='inputText' name='focalPlaneToDiagDistance' value='8' onfocus='select();' type='text'>
+					<input class='inputText' name='focalPlaneToDiagDistance' value='8.5' onfocus='select();' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -159,7 +158,6 @@
 		</table>
 		<br>
 	</div>
-
 	<div id='tubeSharedParms'>
 		<table>
 		<tbody>
@@ -182,6 +180,98 @@
 				</td>
 				<td>
 					<input class='inputText' name='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div id='focuserSharedParms'>
+		<table>
+		<tbody>
+			<tr>
+				<td class='calcSectionHeader'>
+					Focuser...
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					Select a focuser
+				</td>
+				<td>
+					<select id='focuserSelect'>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='focuserRackedInHeightLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='focuserRackedInHeight' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='focuserTravelLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='focuserTravel' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='barrelTubeInsideDiameterLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='barrelTubeInsideDiameter' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='barrelTubeLengthLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='barrelTubeLength' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='focuserInwardFocusingDistanceLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='focuserInwardFocusingDistance' value='0.5' onfocus='select();' type='text'>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div id='diagonalSharedParms'>
+		<table>
+		<tbody>
+			<tr>
+				<td class='calcSectionHeader'>
+					Diagonal...
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input id='btnUpdateBaffleDiagonalFromDiagonalDesigner' value='Update from the Diagonal designer' type='button'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='optimizedDiagSizeLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='optimizedDiagSize' onfocus='select();' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label' name='diagOffsetLabel'>
+					<!-- label html set in JavaScript -->
+				</td>
+				<td>
+					<input class='inputText' name='diagOffset' onfocus='select();' type='text'>
 				</td>
 			</tr>
 		</tbody>
@@ -323,7 +413,8 @@
 			<input name='btnEyepieceSort' value='manufacturer' checked='checked' type='radio'> manufacturer
 			<input name='btnEyepieceSort' value='focalLength' type='radio'> focal length</p>
 
-			<input id='btnUpdateEyepieces' value='Update eyepieces' type='button'><br><br>
+			<input id='btnUpdateEyepieces' value='Update eyepieces' type='button'>
+			<br><br>
 
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
@@ -345,6 +436,27 @@
 				<!--detail rows added in JavaScript-->
 			</tbody>
 			</table>
+
+            <h4>Definitions</h4>
+
+            <b>True field of view</b> is the angle of the sky as seen through the eyepiece when used with the telescope.<br>
+            <b>Eyepiece focal length</b> is the distance from the entrance of the eyepiece (where the parallel rays of light begin to converge) to its focal point.<br>
+            <b>Eyepiece field stop</b> is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
+            <b>Eye pupil</b> is the diameter of the opening of the eye's iris.<br>
+			<b>Resolution</b> is the limit to discern detail, e.g., a double star or lunar feature.<br>
+			<b>Magnitude limit</b> is the faintest star that can be seen given the aperture and magnification.<br>
+			<b>Etendue or luminance</b> is the flux or total light flowing into the eye.<br>
+			<b>Coma or comatic aberration</b> is the distortion of off-axis detail due to the primary mirror's paraboloidal shape,, i.e., stars appear to have a tail or coma.
+
+			<h4>Exit pupil</h4>
+
+			<p>The exit pupil, sometimes called the Ramsden disc, is the disc of light that floats above an eyepiece. You can see this circle of light when the scope is pointed at a bright sky. This is where the eye should be placed for viewing through the eyepiece. The exit pupil is the real image of the primary mirror formed by the eyepiece and is also the virtual aperture: only light that passes through this disc can be seen by the eye. The exit pupil is found by dividing the eyepiece focal length by the focal ratio of the primary mirror, for example, a 30mm eyepiece with an F5 mirror produces a 6mm exit pupil.</p>
+
+			<p>Wider exit pupils are associated with lower power and brighter fields; narrow exit pupils with high power and dimmer fields. Be careful not to confuse the size of the exit pupil with the apparent field of view. Using the example above with a F5 mirror, a 30mm eyepiece with apparent field of view of 40 degrees produces the same exit pupil as a 30mm eyepiece iwth 80 degrees apparent field of view. However, the 80 degree apparent field eyepiece will produce 4x the light flux or etendue compared to the 40 degree apparent field of view eyepiece.</p>
+
+			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's diameter in centimeters squared times the true field in degrees squared. A difference of 20% is probably the minimally meaningful change. While there is a great deal of room to improve luminance in popular amateur telescope designs, ultimately, luminance is limited by the eye's pupil and the eyepiece's apparent field of view.</p>
+
+			<p>Brightest fields are obtained when the exit pupil matches your eye's pupil. The eye can resolve the aperture's potential resolution when exit pupil is decreased to approximately 1mm.</p>
 
 			<h4>Some thoughts on magnification</h4>
 
@@ -784,102 +896,8 @@
 		</div>
 
 		<div class='designer' id='designBaffling'>
-			<table>
-			<tbody>
-				<tr>
-					<td class='calcSectionHeader'>
-						Focuser...
-					</td>
-				</tr>
-				<tr>
-					<td class='label'>
-						Select a focuser
-					</td>
-					<td>
-						<select id='focuserSelect'>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='focuserRackedInHeightLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='focuserRackedInHeight' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='focuserTravelLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='focuserTravel' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='barrelTubeInsideDiameterLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='barrelTubeInsideDiameter' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='barrelTubeLengthLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='barrelTubeLength' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='focuserInwardFocusingDistanceLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='focuserInwardFocusingDistance' value='1' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td><br></td>
-				</tr>
-			</tbody>
-			</table>
-			<input id='btnUpdateBaffleDiagonalFromDiagonalDesigner' value='Update diagonal numbers from the diagonal designer' type='button'><br><br>
-			<table>
-			<tbody>
-				<tr>
-					<td class='calcSectionHeader'>
-						Diagonal...
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='optimizedDiagSizeLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='optimizedDiagSize' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='diagOffsetLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='diagOffset' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label' name='focalPlaneToFocuserBarrelBottomDistanceLabel'>
-						<!-- label html set in JavaScript -->
-					</td>
-					<td>
-						<input class='inputText' name='focalPlaneToFocuserBarrelBottomDistance' onfocus='select();' type='text'>
-					</td>
-				</tr>
-			</tbody>
-			</table>
-			<br><input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
+			<br><br>
+			<input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
 
 			<div ID='baffleCanvasDiv'>
 				<!-- canvas created in JavaScript -->
@@ -908,12 +926,46 @@
 		</div>
 
 		<div class='designer' id='designFocuserBaffling'>
-			under construction
+			<table>
+			<tbody>
+				<tr>
+					<td class='title' colspan='2'>
+						<b>
+						Focuser baffle...</b><br>
+						<br>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 Distance between the diagonal and the focuser baffle =
+					</td>
+					<td>
+						<input class='inputText' name="diagToFocuserBaffleDistance" value="4.5" onfocus="select()" type="text">
+					</td>
+				</tr>
+				<tr>
+					<td class='title' colspan='2'>
+						<div>
+							<br>
+							<input ID="btnPlotFocuserBaffle" value="Update focuser baffling" type="button">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<div ID='focuserBaffleCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+			<div>
+				<p><b>Results:</b></p>
+				<label name='focuserBaffleDesignerResultsLabel'></label>
+			</div>
 		</div>
 
 		<div class='designer' id='designLowriderBaffling'>
-			<h4>Diagonal...</h4>
-			<input id='btnUpdateLowriderBaffleDiagonalFromBaffleDesigner' value='Update diagonal numbers from the baffle designer' type='button'><br><br>
+			<h4>Folding secondary...</h4>
+			<input id='btnUpdateLowriderBaffleDiagonalFromBaffleDesigner' value='Update from the Baffle designer' type='button'>
+			<br><br>
 			<table>
 			<tbody>
 				<tr>
@@ -954,7 +1006,7 @@
 				<tr>
 					<td colspan='2'>
 						<br>
-						<input id='btnUpdateLowrider' value='Update low rider' type='button'>
+						<input id='btnUpdateLowrider' value='Update low rider baffling' type='button'>
 					</td>
 				</tr>
 			</tbody>
@@ -1031,7 +1083,7 @@
 
 		<div class='designer' id='designTube'>
 			<p>Here's a table of tube types with links to further information, current as of October 2018.</p>
-			
+
 			<p>Tube types vary greatly; a great deal of clever thinking. The details matter, for example, truss tube connectors. Open frame telescopes are susceptible to dewing unless the optics are heated as well and need attention to baffling. On the otherhand, closed tubes can insulate the primary mirror keeping it from cooling down expediently.</p>
 
 			Select a tube type <select id='tubeTypeSelect'></select><br><br>
@@ -1339,7 +1391,8 @@
 			<h3>Export and import designs</h4>
 			<input id='btnPutDesign' value='export design to text area below and to the clipboard' type='button'>
 			<input id='btnGetDesign' value='import design from the text area below' type='button'>
-			<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea><br><br>
+			<br><textarea id='textareaDesignData' rows='10' cols='80'></textarea>
+			<br><br>
 
 			<input id='btnSelect13inchDesign' value='Import Mel Bartels 13.2 inch F3.0 design' type='button'>
 			<p>Mel's 13 inch F3.0 folding scope.</p>
