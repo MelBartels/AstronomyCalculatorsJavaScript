@@ -447,12 +447,12 @@
 			</tbody>
 			</table>
 
-            <h4>Definitions</h4>
+			<h4>Definitions</h4>
 
-            <b>True field of view</b> is the angle of the sky as seen through the eyepiece when used with the telescope.<br>
-            <b>Eyepiece focal length</b> is the distance from the entrance of the eyepiece (where the parallel rays of light begin to converge) to its focal point.<br>
-            <b>Eyepiece field stop</b> is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
-            <b>Eye pupil</b> is the diameter of the opening of the eye's iris.<br>
+			<b>True field of view</b> is the angle of the sky as seen through the eyepiece when used with the telescope.<br>
+			<b>Eyepiece focal length</b> is the distance from the entrance of the eyepiece (where the parallel rays of light begin to converge) to its focal point.<br>
+			<b>Eyepiece field stop</b> is the entrance to the eyepiece (ring inside the barrel) that limits the apparent field.<br>
+			<b>Eye pupil</b> is the diameter of the opening of the eye's iris.<br>
 			<b>Resolution</b> is the limit to discern detail, e.g., a double star or lunar feature.<br>
 			<b>Magnitude limit</b> is the faintest star that can be seen given the aperture and magnification.<br>
 			<b>Etendue or luminance</b> is the flux or total light flowing into the eye.<br>
@@ -682,18 +682,25 @@
 
 			<p><b>North American Nebula</b>. The NAN is an extended wide field object, spanning 120 arc-minutes.</p>
 
-			<p>Compute the highest magnification such that the entire object plus a border fits into the eyepiece. For this we need to know your eyepieces apparent field of view.</p>
+			<p>Compute the highest magnification such that the entire object plus a border fits into the eyepiece. For this we need to know your eyepiece's apparent field of view.</p>
 
 			<form>
 				<script>
 					function calcMag(form) {
-						var afov = form.AFOV.value,
+						var config = MLB.NewtDesigner.config,
+							roundToDecimal = MLB.sharedLib.roundToDecimal,
+							afov = form.AFOV.value,
 							objectSizeArcmin = form.objectSizeArcmin.value,
 							borderRatio = 1.2,
-							mag = (57.3 / (objectSizeArcmin / 60) * afov / 60 / borderRatio + 0.5) | 0;
+							mag = (57.3 / (objectSizeArcmin / 60) * afov / 60 / borderRatio + 0.5) | 0,
+							apertureIn,
+							apertureCm,
+							decimalPointsCm = 0;
 
-						form.mag.value = mag;
-						form.aperture.value = (mag / 3.6 + 0.5) | 0;
+						form.mag.value = mag + 'x';
+						apertureIn = (mag / 3.6 + 0.5) | 0;
+						apertureCm = roundToDecimal(apertureIn * 2.54, decimalPointsCm)
+						form.apertureFromFOVObjSize.value = apertureIn  + 'in (' + apertureCm + 'cm)';
 					}
 				</script>
 				Eyepiece apparent field of view is
@@ -706,7 +713,7 @@
 				Highest magnification is
 				<input class='inputText' name='mag' readonly='readonly' type='text'>
 				and largest aperture is
-				<input class='inputText' name='aperture' readonly='readonly' type='text'>
+				<input class='inputText' name='apertureFromFOVObjSize' readonly='readonly' type='text'>
 			</form>
 
 			<p><b>Dumbbell Nebula</b>. This planetary nebula is a favorite of observers. Its size is about 8 arc-minutes. Enter its size in the calculator above. The calculator will give a value of 240x-600x depending on the eyepiece's apparent field of view. The calculator will also give an aperture value far greater than your telescope. In this situation, use the largest aperture you have, setting its magnification to the calculated amount.</p>
