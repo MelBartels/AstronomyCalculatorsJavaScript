@@ -31,7 +31,7 @@
 		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'                    type='button'>
 		<input class='designSelect' id='btnSelectComaCorrector'    value='Coma corrector'               type='button'>
 		<input class='designSelect' id='btnSelectDiagonal'         value='Diagonal'                     type='button'>
-		<input class='designSelect' id='btnSelectSpider'           value='Spider'                       type='button'>
+		<input class='designSelect' id='btnSelectSpider'           value='Spider and diffraction'       type='button'>
 		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'                     type='button'>
 		<input class='designSelect' id='btnSelectFocuserBaffling'  value='Focuser baffling'             type='button'>
 		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling'            type='button'>
@@ -54,17 +54,16 @@
 		<img src='eyepiece cutaway.jpg'>
 	</div>
 	<div class='designerImage' id='designComaCorrectorImage'>
-		<p>Placing the focuser can be confusing with a coma corrector. I have used this layout on four scopes.</p>		
+		<p>Placing the focuser can be confusing with a coma corrector. I have used this layout on four scopes.</p>
 		<p>Baffling can be confusing because the coma corrector changes the focal plane placement. Empirically I found that the coma corrector blocks intrusive light up to 30 degrees off-axis.</p>
 		<img src='coma corrector focal plane focuser dimensions.jpg'>
-		<img src='P2 coma corrector baffling.jpg'>						
+		<img src='P2 coma corrector baffling.jpg'>
 	</div>
 	<div class='designerImage' id='designDiagonalImage'>
 		<img src='optical path and tube assembly callouts.jpg'>
 	</div>
 	<div class='designerImage' id='designSpiderImage'>
 		<img src='25/wire spider.jpg'>
-		<img src='10.5inchF2.7/10.5 inch finished 2.JPG'>
 		<img src='TrilatUpperEndGeneral2.jpg'>
 		<img src='14 inch single stalk diagonal holder.jpg'>
 		<img src='12 inch A frame Dob.JPG'>
@@ -465,7 +464,7 @@
 			<p>Wider exit pupils are associated with lower power and brighter fields; narrow exit pupils with high power and dimmer fields. Be careful not to confuse the size of the exit pupil with the apparent field of view. Using the example above with a F5 mirror, a 30mm eyepiece with apparent field of view of 40 degrees produces the same exit pupil as a 30mm eyepiece iwth 80 degrees apparent field of view. However, the 80 degree apparent field eyepiece will produce 4x the light flux or etendue compared to the 40 degree apparent field of view eyepiece.</p>
 
 			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's diameter in centimeters squared times the true field in degrees squared. A difference of 20% is probably the minimally meaningful change. While there is a great deal of room to improve luminance in popular amateur telescope designs, ultimately, luminance is limited by the eye's pupil and the eyepiece's apparent field of view.</p>
-			
+
 			<p><a href='HET.html'>Go here for more information on my high etendue telescopes</a>.</p>
 
 			<p>Brightest fields are obtained when the exit pupil matches your eye's pupil. The eye can resolve the aperture's potential resolution when exit pupil is approximately 1mm.</p>
@@ -473,7 +472,7 @@
 			<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field.</p>
 
 			<img src='aperture vs field of view for selected eyepieces.jpg'>
-			
+
 			<h4>Some thoughts on magnification</h4>
 
 			<p>A range of magnifications is key to using a telescope properly.</p>
@@ -822,12 +821,12 @@
 
 		<div class='designer' id='designComaCorrector'>
 			<p>The TeleVue P2 2 inch coma corrector requires an additional 3/4 inch inward travel and moves the focal plane outward 1 13/16 inches.</p>
-			
+
 			<p>I place the primary mirror focal plane 1 15/64 inches above focuser block top and since the focuser's compression ring is 3/8 inch thick, the primary mirror focal plane is positioned 55/64 inch above focuser's compression ring top. This results in the primary mirror focal plane being positioned 35/64 inch above coma corrector barrel bottom.</p>
-			
+
 			<p>I use 5/16 inch in-travel for observers who are strongly near sighted.</p>
 		</div>
-		
+
 		<div class='designer' id='designDiagonal'>
 			<div class='blockCenter'>
 				<table>
@@ -925,10 +924,58 @@
 
 		<div class='designer' id='designSpider'>
 			<p>I use a simple rule to predict diffraction: the amount of diffraction is based on the obscuring area and the shape of the diffraction is based on the shape of the obscuration.</p>
-			
-			<p>Today I use wire spiders because they are very thin and diffract a tiny amount of light. In fact, I only see small spikes in large apertures on the brightest stars. I find the refractor like views aesthetically satisfying. Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965. Today there is an explosion of creativity thanks to Larry Shaper, Mark Cowan, Jerry Oltion and many others. The wires strength is independent of tension, consequently I tighten the wires only to the point of avoiding sagging.</p>
-			
+
+			<p>Today I use wire spiders because they are very thin and diffract a tiny amount of light. In fact, I only see small spikes in large apertures on the brightest stars. I find the refractor like views aesthetically satisfying. Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965. Today there is an explosion of creativity thanks to Larry Shaper, Mark Cowan, Jerry Oltion and many others. The wires strength is independent of tension; consequently, I tighten the wires only to the point of avoiding sagging.</p>
+
 			<p>You can see that I've also used single stack spiders and 'V' spiders as appropriate. The diffraction pattern of a single stalk spider is not too ugly, considering the thickness of the stalk. There is room for invention here, combining a thinner single stack with a couple of tensioned very thin wires.</p>
+
+			<p>The diffraction pattern for a single stalk spider is not that bad, extending from the star like outstretched hands as a short thick tapered line of light turned 90 degrees to the stalk. Extending the stalk through to the opposite side of the tube greatly increases diffraction.</p>
+
+			<p>Wire spiders produce spikeless stars with smaller apertures and small faint spikes with larger apertures.</p>
+
+			<p>The 'V' spider produces two spikes, each at 90 degrees to a vane, each with less intensity than the single stalk spider.</p>
+
+			Select a spider type <select id='spiderTypeSelect'></select><br><br>
+
+			<table id='spiderTypeTable'>
+			<colgroup>
+				<col style="width:10%">
+				<col style="width:18%">
+				<col style="width:18%">
+				<col style="width:18%">
+				<col style="width:18%">
+				<col style="width:18%">
+			</colgroup>
+			<tbody id='spiderTypeTableBody'>
+				<tr>
+					<td class='columnHeaders'>Spider Type</td>
+					<td class='columnHeaders'>Diffraction Pattern</td>
+					<td class='columnHeaders'>Description</td>
+					<td class='columnHeaders'>Strength</td>
+					<td class='columnHeaders'>Weakness</td>
+					<td class='columnHeaders'>Examples</td>
+				</tr>
+				<!--part rows added in JavaScript-->
+			</tbody>
+			</table>
+
+			<h4>Designing wire spiders</h4>
+
+			<p>It is important to wrap your arms around the fact that wire spiders gain their strength from geometry, not from tensioning. Increasing the tension on the wires does not make the wire spider stronger. The wires are tightened only to the point of not sagging.</p>
+
+			<p>Every diagonal needs two support considerations:</p>
+			<ul>
+				<li>Static: keep a consistent position so that optical alignment and focus do not change.</li>
+				<li>Dynamic: resist vibration caused by wind or bumps to the telescope. This manifests itself as a high magnification elongation to the stars that disappears when the diagonal holder is touched.</li>
+			</ul>
+
+			<p>Therefore wires need two geometries:</p>
+			<ul>
+				<li>Cross wires such so that the tension force on the wires is reduced by taking advantage of geometry.</li>
+				<li>Arrange wires in a '>-<' separation to reduce tendency for heavy diagonals to rotationally quiver.</li>
+			</ul>
+
+			<img src='wire spider illustrated.jpg'>
 		</div>
 
 		<div class='designer' id='designBaffling'>
@@ -1518,6 +1565,7 @@
 	<script src='lib/json/materialFriction.js'></script>
 	<script src='lib/json/tubeTypes.js'></script>
 	<script src='lib/json/mountTypes.js'></script>
+	<script src='lib/json/spiderTypes.js'></script>
 	<script src='lib/json/MelBartelsZipDobIIDesignData.js'></script>
 
 </body>
