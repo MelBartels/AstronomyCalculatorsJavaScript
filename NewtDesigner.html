@@ -11,21 +11,22 @@
 	<link rel='stylesheet' type='text/css' href='lib/jqplot/jquery.jqplot.min.css'>
 </head>
 <body>
-
 	<div>
 		<div>
-			<div id='titleText'></div>
-
-			<p>No single telescope does it all. Larger aperture reveals dimmer objects but narrows the field of view increasing the  scope's weight and eyepiece height. A larger diagonal promises more light to the edge of the field, but itself blocks more light at the center of the field.</p>
-
-			<p>What telescope is best for you depends on ergonomic factors, budget, your expertise and what you want from the telescope. I use 'NewtDesigner' to carefully design my telescopes. Besides calculations, I also look at options. Perhaps you'll find NewtDesigner useful too.</p>
+			<img class='titleImage' src='ZipDobII design illustration.jpg'>
+			<div id='titleTextArea'>
+				<div id='titleText'></div>
+				<p>No single telescope does it all. Larger aperture reveals dimmer objects but narrows the field of view increasing the  scope's weight and eyepiece height. A larger diagonal promises more light to the edge of the field, but itself blocks more light at the center of the field.</p>
+				<p>What telescope is best for you depends on ergonomic factors, budget, your expertise and what you want from the telescope. I use 'NewtDesigner' to carefully design my telescopes. Besides calculations, I also look at options. Perhaps you'll find NewtDesigner useful too.</p>
+			</div>	
+			<!--<img class='titleImage' src='25 inch f2.5 design.jpg'>-->
 		</div>
 	</div>
+	<div style='clear: both;'></div>
 
 	<div class='selectDesigner'>
 		<h3>Select a designer...</h3>
 	</div>
-
 	<div>
 		<input class='designSelect' id='btnSelectTelescope'        value='Telescope'                    type='button'>
 		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'                    type='button'>
@@ -44,7 +45,6 @@
 		<input class='designSelect' id='btnSelectExportImport'     value='Export and import designs'    type='button'>
 		<input class='designSelect' id='btnSelectNotes'            value='Software notes, more reading' type='button'>
 	</div>
-
 	<div style='clear: both;'><br><br></div>
 
 	<div class='designerImage' id='designTelescopeImage'>

@@ -26,6 +26,22 @@ html {
 	margin-left: 10px;
 }
 
+.titleImage {
+	 width: 10%; 
+	 height: auto; 
+	 float: left;
+}
+
+#titleText {
+	text-align: center;
+}
+	
+#titleTextArea {
+	width: 60%; 
+	float: left; 
+	padding: 10px;
+}
+
 .slider {
 	width: 400px;
 }
