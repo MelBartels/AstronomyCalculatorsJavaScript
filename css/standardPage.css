@@ -3,6 +3,17 @@ html {
 	margin-left: auto; 
 	margin-right: auto;
 }
+.imageTextWrap {
+	float: right;
+}
+.untouched {
+	width: auto;
+	height: auto;
+}
+.flexArea {
+	display: flex; 
+	align-items: center;
+}
 @media all and (min-width: 0px) {
 	html {
 		width: 95%; 
@@ -38,11 +49,4 @@ html {
 		width: 25%;
 		height: 25%;
 	}
-}
-.imageTextWrap {
-	float: right;
-}
-.untouched {
-	width: auto;
-	height: auto;
 }
