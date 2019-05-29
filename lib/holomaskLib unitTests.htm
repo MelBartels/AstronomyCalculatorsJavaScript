@@ -107,7 +107,7 @@
 	Wavelength and tolerance, PV=lambda/10 (nm)	600 +- 47.18592
 	*/
 	QUnit.test('buildContentPreamble', function () {
-		var expected = "<h3>Results</h3><table><tr><td>Diffraction order m</td><td>1</td></tr><tr><td>Mirror diameter (mm)</td><td>50</td></tr><tr><td>Mirror radius of curvature (mm)</td><td>400</td></tr><tr><td>Conic</td><td>-1<br><tr><td>Wavelength (nm)</td><td>600</td></tr><tr><td>Diffraction order separation (mm)</td><td>0.1244140625</td></tr><tr><td>Max slit size (mm)</td><td>0.1</td></tr><tr><td>Resolution on mirror,max period (mm)</td><td>2.4</td></tr><tr><td>min period (mm)</td><td>1.6125984251968504</td></tr><tr><td>Deviation from sphere (lambda)</td><td>-0.6357828776041663</td></tr><tr><td>Wavelength and tolerance, PV = lambda/10 (nm)</td><td>600 +- 47.185920000000024</td></tr></table>";
+		var expected = "<h3>Results</h3><table><tr><td>Diffraction order m</td><td>1</td></tr><tr><td>Mirror diameter (mm)</td><td>50</td></tr><tr><td>Mirror radius of curvature (mm)</td><td>400</td></tr><tr><td>Conic</td><td>-1<br><tr><td>Wavelength (nm)</td><td>600</td></tr><tr><td>Diffraction order separation (mm)</td><td>0.1244140625</td></tr><tr><td>Max slit size (mm)</td><td>0.1</td></tr><tr><td>Resolution on mirror,max period (mm)</td><td>2.4</td></tr><tr><td>min period (mm)</td><td>1.6125984251968504</td></tr><tr><td>Deviation from sphere (lambda)</td><td>-0.6357828776041664</td></tr><tr><td>Wavelength and tolerance, PV = lambda/10 (nm)</td><td>600 +- 47.18592000000002</td></tr></table>";
 
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
