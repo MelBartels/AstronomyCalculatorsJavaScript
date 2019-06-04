@@ -84,7 +84,7 @@
         resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
         calcTheoreticalResolutionArcsec = MLB.calcLib.calcTheoreticalResolutionArcsec,
         calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
-        baffleScalingFactor = MLB.calcLib.baffleScalingFactor,
+        scalingFactor = MLB.calcLib.scalingFactor,
         calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
         calcMinMagnification = MLB.calcLib.calcMinMagnification,
         calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches,
@@ -101,7 +101,8 @@
         calcGreaterComaWithComaCorrector = MLB.calcLib.calcGreaterComaWithComaCorrector,
         calcCollimationToleranceInches = MLB.calcLib.calcCollimationToleranceInches,
         calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints,
-		calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction;
+        calcMirrorCellDimensions = MLB.calcLib.calcMirrorCellDimensions,
+        calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction;
 
     QUnit.module('sagitta');
 
@@ -1101,7 +1102,7 @@
         equal(withinRange(result, expected, 0.001), true, 'The projected focuser baffle radius should be ' + expected + ', is ' + result);
     });
 
-    QUnit.test('baffleScalingFactor', function () {
+    QUnit.test('scalingFactor', function () {
         var maxWidth = 1020,
             maxHeight = 420,
             modelWidth = 40,
@@ -1110,14 +1111,11 @@
             expectedScalingFactor = 25,
             expectedWidth = 1020,
             expectedHeight = 145,
-            result = baffleScalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border),
-            scalingFactor = result.scalingFactor,
-            width = result.width,
-            height = result.height;
+            result = scalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border);
 
-        equal(withinRange(scalingFactor, expectedScalingFactor, 0.001), true, 'The scaling factor should be ' + expectedScalingFactor + ', is ' + scalingFactor);
-        equal(withinRange(width, expectedWidth, 0.001), true, 'The width should be ' + expectedWidth + ', is ' + width);
-        equal(withinRange(height, expectedHeight, 0.001), true, 'The height should be ' + expectedHeight + ', is ' + height);
+        equal(withinRange(result.scalingFactor, expectedScalingFactor, 0.001), true, 'The scaling factor should be ' + expectedScalingFactor + ', is ' + result.scalingFactor);
+        equal(withinRange(result.width, expectedWidth, 0.001), true, 'The width should be ' + expectedWidth + ', is ' + result.width);
+        equal(withinRange(result.height, expectedHeight, 0.001), true, 'The height should be ' + expectedHeight + ', is ' + result.height);
     });
 
     QUnit.test('calcMaxMagnification', function () {
@@ -1305,6 +1303,60 @@
         expected = undefined;
         result = calcMinimumMirrorSupportPoints(aperture);
         equal(result, expected, result + ' should be ' + expected);
+    });
+
+    QUnit.test('calcMirrorCellDimensions', function () {
+        // 3 pt
+        var aperture = 6,
+        expected = {
+            radius: 1.2
+        },
+        allowableError = 0.001,
+        result = calcMirrorCellDimensions(3, aperture / 2);
+
+        equal(withinRange(result.radius, expected.radius, allowableError), true, '3 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
+
+        // 6 pt
+        aperture = 12;
+        expected = {
+            radius: 3.42,
+            balanceRadius: 2.962
+        };
+        result = calcMirrorCellDimensions(6, aperture / 2);
+        equal(withinRange(result.radius, expected.radius, allowableError), true, '6 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
+        equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '6 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
+
+        // 9 pt
+        aperture = 18;
+        expected = {
+            innerRadius: 2.97,
+            outerRadius: 6.48,
+            balanceRadius: 4.731
+        };
+        result = calcMirrorCellDimensions(9, aperture / 2);
+        equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '9 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+        equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '9 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+        equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '9 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
+
+        // 18 pt
+        aperture = 24;
+        expected = {
+            innerRadius: 4.56,
+            outerRadius: 9.12,
+            triangleBalanceRadius: 7.393,
+            pivotBarBalanceRadius: 6.403
+        };
+        result = calcMirrorCellDimensions(18, aperture / 2);
+        equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '18 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+        equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '18 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+        equal(withinRange(result.triangleBalanceRadius, expected.triangleBalanceRadius, allowableError), true, '18 pt mirror cell triangle balance radius should be ' + expected.triangleBalanceRadius + ', is ' + result.triangleBalanceRadius);
+        equal(withinRange(result.pivotBarBalanceRadius, expected.pivotBarBalanceRadius, allowableError), true, '18 pt mirror cell pivot bar balance radius should be ' + expected.pivotBarBalanceRadius + ', is ' + result.pivotBarBalanceRadius);
+
+        // other
+        aperture = 1000;
+        expected = undefined;
+        result = calcMirrorCellDimensions(27, aperture / 2);
+        equal(result, expected, result + ' should result in an undefined cell: ' + expected);
     });
 
     QUnit.test('calcRMSCausedByCentralObstruction', function () {
