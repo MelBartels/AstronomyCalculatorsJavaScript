@@ -1,266 +1,278 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>QUnit test for sharedLib.js</title>
-	
-	<!--
-	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
-	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
-	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+    <title>QUnit test for sharedLib.js</title>
 
-	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
-	-->
-	
-	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
-	<script src='jquery/jquery-2.1.1.min.js'></script>
-	<script src='qunit/qunit-1.16.0.js'></script>
+    <!--
+    <link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+    <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+    <script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
 
-	<script src='sharedLib.js'></script>
+    <script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+    -->
+
+    <link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+    <script src='jquery/jquery-2.1.1.min.js'></script>
+    <script src='qunit/qunit-1.16.0.js'></script>
+
+    <script src='sharedLib.js'></script>
 </head>
 <body>
-	<div id="qunit"></div>
-	<div id="qunit-fixture"></div>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
 </body>
 
 <script>$(document).ready(function () {
-	'use strict';
-	var withinRange = MLB.sharedLib.withinRange,
-	    uom = MLB.sharedLib.uom,
-		getReduction = MLB.sharedLib.getReduction;
+    'use strict';
+    var withinRange = MLB.sharedLib.withinRange,
+        uom = MLB.sharedLib.uom,
+        getReduction = MLB.sharedLib.getReduction,
+        point = MLB.sharedLib.point,
+        getDistance = MLB.sharedLib.getDistance;
 
-	QUnit.module('helpers');
+    QUnit.module('helpers');
 
-	QUnit.test('withinRange', function () {
-		equal(withinRange(Math.acos(2), 2, 0.0), false, 'Math.acos(2) is not a number');
-		equal(withinRange(Math.acos(-2), -2, 0.0), false, 'Math.acos(-2) is not a number');
+    QUnit.test('withinRange', function () {
+        equal(withinRange(Math.acos(2), 2, 0.0), false, 'Math.acos(2) is not a number');
+        equal(withinRange(Math.acos(-2), -2, 0.0), false, 'Math.acos(-2) is not a number');
 
-		equal(withinRange(5.1, 5, 0.2), true, '5.1 is within a range of 4.8 to 5.2');
-		equal(withinRange(5.1, 5, 0.02), false, '5.1 is not within a range of 4.98 to 5.02');
-		equal(withinRange(5.1, 5, 0.1), true, '5.1 is within a range of 4.9 to 5.1');
+        equal(withinRange(5.1, 5, 0.2), true, '5.1 is within a range of 4.8 to 5.2');
+        equal(withinRange(5.1, 5, 0.02), false, '5.1 is not within a range of 4.98 to 5.02');
+        equal(withinRange(5.1, 5, 0.1), true, '5.1 is within a range of 4.9 to 5.1');
 
-		equal(withinRange(4.9, 5, 0.2), true, '4.9 is within a range of 4.8 to 5.2');
-		equal(withinRange(4.9, 5, 0.02), false, '4.9 is not within a range of 4.98 to 5.02');
-		equal(withinRange(4.9, 5, 0.1), true, '4.9 is within a range of 4.9 to 5.1');
+        equal(withinRange(4.9, 5, 0.2), true, '4.9 is within a range of 4.8 to 5.2');
+        equal(withinRange(4.9, 5, 0.02), false, '4.9 is not within a range of 4.98 to 5.02');
+        equal(withinRange(4.9, 5, 0.1), true, '4.9 is within a range of 4.9 to 5.1');
 
-		equal(withinRange(-5.1, -5, 0.2), true, '-5.1 is within a range of -4.8 to -5.2');
-		equal(withinRange(-5.1, -5, 0.02), false, '-5.1 is not within a range of -4.98 to -5.02');
-		equal(withinRange(-5.1, -5, 0.1), true, '-5.1 is within a range of -4.9 to -5.1');
+        equal(withinRange(-5.1, -5, 0.2), true, '-5.1 is within a range of -4.8 to -5.2');
+        equal(withinRange(-5.1, -5, 0.02), false, '-5.1 is not within a range of -4.98 to -5.02');
+        equal(withinRange(-5.1, -5, 0.1), true, '-5.1 is within a range of -4.9 to -5.1');
 
-		equal(withinRange(-4.9, -5, 0.2), true, '-4.9 is within a range of -4.8 to -5.2');
-		equal(withinRange(-4.9, -5, 0.02), false, '-4.9 is not within a range of -4.98 to -5.02');
-		equal(withinRange(-4.9, -5, 0.1), true, '-4.9 is within a range of -4.9 to -5.1');
-	});
-	
-	QUnit.test('title case', function () {
-		var toTitleCase = MLB.sharedLib.toTitleCase;
+        equal(withinRange(-4.9, -5, 0.2), true, '-4.9 is within a range of -4.8 to -5.2');
+        equal(withinRange(-4.9, -5, 0.02), false, '-4.9 is not within a range of -4.98 to -5.02');
+        equal(withinRange(-4.9, -5, 0.1), true, '-4.9 is within a range of -4.9 to -5.1');
+    });
 
-		equal(toTitleCase('hello world also the Universe.'), 'Hello World also the Universe.', 'title case test');
-	});
-	
-	QUnit.test('sentence case', function () {
-		var toSentenceCase = MLB.sharedLib.toSentenceCase;
-		
-		equal(toSentenceCase('hello world also the Universe.'), 'Hello world also the Universe.', 'sentence case test');	
-	});
-	
-	QUnit.test('capitalizeFirstLetterOnly', function () {
-		var capitalizeFirstLetterOnly = MLB.sharedLib.capitalizeFirstLetterOnly;
-		
-		equal(capitalizeFirstLetterOnly('AXE'), 'Axe', 'capitalizeFirstLetterOnly test');
-	});
-	
-	QUnit.test('int', function () {
-		var int = MLB.sharedLib.int;
+    QUnit.test('title case', function () {
+        var toTitleCase = MLB.sharedLib.toTitleCase;
 
-		equal(int(4), 4, 'int(4) should be 4');
-		equal(int(4.5), 4, 'int(4.5) should be 4');
-		equal(int(-4.5), -5, 'int(-4.5) should be -5');
-		equal(int(-4), -4, 'int(-4) should be -4');
-		equal(int(0.5), 0, 'int(0.5) should be 0');
-		equal(int(-0.5), -1, 'int(-0.5) should be -1');
-	});
-	
-	QUnit.test('isInt, isFloat', function () {
-		var isInt = MLB.sharedLib.isInt,
-		    isFloat = MLB.sharedLib.isFloat;
-			
-		equal(isInt(4), true, '4 is an int');
-		equal(isInt(4.5), false, '4.5 is not an int');
-		equal(isFloat(4.5), true, '4.5 is a float');
-		equal(isFloat(4), false, '4 is not a float');
-	});
+        equal(toTitleCase('hello world also the Universe.'), 'Hello World also the Universe.', 'title case test');
+    });
 
-	QUnit.test('resolveNumberToPrecision', function () {
-		var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision;
+    QUnit.test('sentence case', function () {
+        var toSentenceCase = MLB.sharedLib.toSentenceCase;
 
-		equal(resolveNumberToPrecision(-4.08, 0.05), -4.1000000000000005, '-4.08 to precision .05 should be -4.10');
-		equal(resolveNumberToPrecision(4.08, 0.05), 4.1000000000000005, '4.08 to precision .05 should be 4.10');
+        equal(toSentenceCase('hello world also the Universe.'), 'Hello world also the Universe.', 'sentence case test');
+    });
 
-		equal(resolveNumberToPrecision(5.4, 0.1), 5.4, '5.4 to precision .1 should be 5.4');
-		equal(resolveNumberToPrecision(5.449, 0.1), 5.4, '5.449 to precision .1 should be 5.4');
-		equal(resolveNumberToPrecision(5.45, 0.1), 5.5, '5.45 to precision .1 should be 5.5');
-		equal(resolveNumberToPrecision(5.451, 0.1), 5.5, '5.451 to precision .1 should be 5.5');
-		equal(resolveNumberToPrecision(5.6, 0.1), 5.6000000000000005, '5.6 to precision .1 should be 5.6');
+    QUnit.test('capitalizeFirstLetterOnly', function () {
+        var capitalizeFirstLetterOnly = MLB.sharedLib.capitalizeFirstLetterOnly;
 
-		equal(resolveNumberToPrecision(6.0, 1), 6, '6.0 to precision 1 should be 6');
-		equal(resolveNumberToPrecision(6.3, 1), 6, '6.3 to precision 1 should be 6');
-		equal(resolveNumberToPrecision(6.7, 1), 7, '6.7 to precision 1 should be 7');
+        equal(capitalizeFirstLetterOnly('AXE'), 'Axe', 'capitalizeFirstLetterOnly test');
+    });
 
-		equal(resolveNumberToPrecision(2.2345, 0.001), 2.235, '2.2345 to precision 0.001 should be 2.235');
-		equal(resolveNumberToPrecision(1.2345, 0.001), 1.235, '1.2345 to precision 0.001 should be 1.235');
-	});
+    QUnit.test('int', function () {
+        var int = MLB.sharedLib.int;
 
-	QUnit.test('limitDecimalPlaces', function () {
-		var limitDecimalPlaces = MLB.sharedLib.limitDecimalPlaces,
-		    result = limitDecimalPlaces(1.23456789, 2);
+        equal(int(4), 4, 'int(4) should be 4');
+        equal(int(4.5), 4, 'int(4.5) should be 4');
+        equal(int(-4.5), -5, 'int(-4.5) should be -5');
+        equal(int(-4), -4, 'int(-4) should be -4');
+        equal(int(0.5), 0, 'int(0.5) should be 0');
+        equal(int(-0.5), -1, 'int(-0.5) should be -1');
+    });
 
-		equal(result, '1.23', '1.23456789 limited to 2 decimal places should be 1.23, is ' + result);
-		result = limitDecimalPlaces(-1.23456789, 2);
-		equal(result, '-1.23', '-1.23456789 limited to 2 decimal places should be -1.23, is ' + result);
-		result = limitDecimalPlaces(123456789, 2);
-		equal(result, '123456789', '123456789 limited to 2 decimal places should be 123456789, is ' + result);
-	});
+    QUnit.test('isInt, isFloat', function () {
+        var isInt = MLB.sharedLib.isInt,
+            isFloat = MLB.sharedLib.isFloat;
 
-	QUnit.test('roundToDecimal', function () {
-		var roundToDecimal = MLB.sharedLib.roundToDecimal,
-		    result = roundToDecimal(1.2344, 3),
-		    expected = '1.234';
-		equal(result, expected, 'should be ' + expected + ', is ' + result);
+        equal(isInt(4), true, '4 is an int');
+        equal(isInt(4.5), false, '4.5 is not an int');
+        equal(isFloat(4.5), true, '4.5 is a float');
+        equal(isFloat(4), false, '4 is not a float');
+    });
 
-		result = roundToDecimal(1.2345, 3);
-		expected = '1.235';
-		equal(result, expected, 'should be ' + expected + ', is ' + result);
+    QUnit.test('resolveNumberToPrecision', function () {
+        var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision;
 
-		// test that leading zero is present if number less than 1
-		result = roundToDecimal(0.2345, 3);
-		expected = '0.235';
-		equal(result, expected, 'should be ' + expected + ', is ' + result);	});
-	
-	QUnit.test('combine resolveNumberToPrecision and limitDecimalPlaces', function () {
-		var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision,
-		    limitDecimalPlaces = MLB.sharedLib.limitDecimalPlaces;
+        equal(resolveNumberToPrecision(-4.08, 0.05), -4.1000000000000005, '-4.08 to precision .05 should be -4.10');
+        equal(resolveNumberToPrecision(4.08, 0.05), 4.1000000000000005, '4.08 to precision .05 should be 4.10');
 
-		equal(limitDecimalPlaces(resolveNumberToPrecision(7.56, 0.01, 2), 2), 7.56, 'should be 7.56');
-	});
-	
-	QUnit.test('log10', function () {
-		var log10 = MLB.sharedLib.log10, 
-		    result = log10(4.5);
-		equal(withinRange(result, 0.6532125137753436, 0.000001), true, 'log10(4.5) should be 0.6532125137753436, is ' + result);
-	});
+        equal(resolveNumberToPrecision(5.4, 0.1), 5.4, '5.4 to precision .1 should be 5.4');
+        equal(resolveNumberToPrecision(5.449, 0.1), 5.4, '5.449 to precision .1 should be 5.4');
+        equal(resolveNumberToPrecision(5.45, 0.1), 5.5, '5.45 to precision .1 should be 5.5');
+        equal(resolveNumberToPrecision(5.451, 0.1), 5.5, '5.451 to precision .1 should be 5.5');
+        equal(resolveNumberToPrecision(5.6, 0.1), 5.6000000000000005, '5.6 to precision .1 should be 5.6');
 
-	QUnit.module('UOM constants');
+        equal(resolveNumberToPrecision(6.0, 1), 6, '6.0 to precision 1 should be 6');
+        equal(resolveNumberToPrecision(6.3, 1), 6, '6.3 to precision 1 should be 6');
+        equal(resolveNumberToPrecision(6.7, 1), 7, '6.7 to precision 1 should be 7');
 
-	QUnit.test('Units.sidRate', function () {
-		var result = uom.sidRate;
-		equal(result, 1.002737909, 'sidRate should be 1.002737909, is ' + result);
-	});
+        equal(resolveNumberToPrecision(2.2345, 0.001), 2.235, '2.2345 to precision 0.001 should be 2.235');
+        equal(resolveNumberToPrecision(1.2345, 0.001), 1.235, '1.2345 to precision 0.001 should be 1.235');
+    });
 
-	QUnit.test('Units.JD2000', function () {
-		var result = uom.JD2000;
-		equal(result, 2451545, 'JD2000 should be 2451545, is ' + result);
-	});
+    QUnit.test('limitDecimalPlaces', function () {
+        var limitDecimalPlaces = MLB.sharedLib.limitDecimalPlaces,
+            result = limitDecimalPlaces(1.23456789, 2);
 
-	QUnit.test('Units.oneRev', function () {
-		var result = uom.oneRev;
-		equal(withinRange(result, 6.283185, 0.000001), true, 'OneRev should be 6.283185, is ' + result);
-	});
+        equal(result, '1.23', '1.23456789 limited to 2 decimal places should be 1.23, is ' + result);
+        result = limitDecimalPlaces(-1.23456789, 2);
+        equal(result, '-1.23', '-1.23456789 limited to 2 decimal places should be -1.23, is ' + result);
+        result = limitDecimalPlaces(123456789, 2);
+        equal(result, '123456789', '123456789 limited to 2 decimal places should be 123456789, is ' + result);
+    });
 
-	QUnit.test('Units.HrsTo...', function () {
-		var result = uom.hrToRad / uom.hrToRev;
-		equal(withinRange(result, uom.oneRev, 0.000001), true, 'HrToRev / HrToRad should be OneRev, is ' + result);
-	});
+    QUnit.test('roundToDecimal', function () {
+        var roundToDecimal = MLB.sharedLib.roundToDecimal,
+            result = roundToDecimal(1.2344, 3),
+            expected = '1.234';
+        equal(result, expected, 'should be ' + expected + ', is ' + result);
 
-	QUnit.test('Units.SecTo...', function () {
-		var result = uom.secToRad / uom.secToRev;
-		equal(withinRange(result, uom.oneRev, 0.000001), true, 'SecToRev / SecToRad should be OneRev, is ' + result);
-	});
+        result = roundToDecimal(1.2345, 3);
+        expected = '1.235';
+        equal(result, expected, 'should be ' + expected + ', is ' + result);
 
-	QUnit.test('Units.DegTo...', function () {
-		var result = uom.degToRad / uom.degToRev;
-		equal(withinRange(result, uom.oneRev, 0.000001), true, 'DegToRev / DegToRad should be OneRev, is ' + result);
-	});
+        // test that leading zero is present if number less than 1
+        result = roundToDecimal(0.2345, 3);
+        expected = '0.235';
+        equal(result, expected, 'should be ' + expected + ', is ' + result);    });
 
-	QUnit.test('Units.ArcsecTo...', function () {
-		var result = uom.arcsecToRad / uom.arcsecToRev;
-		equal(withinRange(result, uom.oneRev, 0.000001), true, 'ArcsecToRev / ArcsecToRad should be OneRev, is ' + result);
-	});
+    QUnit.test('combine resolveNumberToPrecision and limitDecimalPlaces', function () {
+        var resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision,
+            limitDecimalPlaces = MLB.sharedLib.limitDecimalPlaces;
 
-	QUnit.test('get reduction', function () {
-		var val,
-		    expected,
-			result;
-		
-		val = '5';
-		expected = 5;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
-		
-		val = '34.51';
-		expected = 34.51;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
-		
-		val = '5.';
-		expected = 5;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
-		
-		val = '.5';
-		expected = 0.5;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);					
+        equal(limitDecimalPlaces(resolveNumberToPrecision(7.56, 0.01, 2), 2), 7.56, 'should be 7.56');
+    });
 
-		val = 'x';
-		expected = undefined;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+    QUnit.test('log10', function () {
+        var log10 = MLB.sharedLib.log10,
+            result = log10(4.5);
+        equal(withinRange(result, 0.6532125137753436, 0.000001), true, 'log10(4.5) should be 0.6532125137753436, is ' + result);
+    });
 
-		val = '10 x';
-		expected = 10;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+    QUnit.module('UOM constants');
 
-		val = '10 .';
-		expected = 10;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
-		
-		val = '10 2';
-		expected = 5;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+    QUnit.test('Units.sidRate', function () {
+        var result = uom.sidRate;
+        equal(result, 1.002737909, 'sidRate should be 1.002737909, is ' + result);
+    });
 
-		val = '10 0';
-		expected = undefined;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
+    QUnit.test('Units.JD2000', function () {
+        var result = uom.JD2000;
+        equal(result, 2451545, 'JD2000 should be 2451545, is ' + result);
+    });
 
-		val = '10 0.';
-		expected = undefined;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+    QUnit.test('Units.oneRev', function () {
+        var result = uom.oneRev;
+        equal(withinRange(result, 6.283185, 0.000001), true, 'OneRev should be 6.283185, is ' + result);
+    });
 
-		val = '10 .0';
-		expected = undefined;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
-		
-		val = '10 2 3';
-		expected = undefined;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
-		
-		val = '10.5:1';
-		expected = 10.5;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
-		
-		val = '10.5:2';
-		expected = 5.25;
-		result = getReduction(val);
-		equal(result, expected, 'reduction should be ' + expected + ', is ' + result);			
-	});
+    QUnit.test('Units.HrsTo...', function () {
+        var result = uom.hrToRad / uom.hrToRev;
+        equal(withinRange(result, uom.oneRev, 0.000001), true, 'HrToRev / HrToRad should be OneRev, is ' + result);
+    });
+
+    QUnit.test('Units.SecTo...', function () {
+        var result = uom.secToRad / uom.secToRev;
+        equal(withinRange(result, uom.oneRev, 0.000001), true, 'SecToRev / SecToRad should be OneRev, is ' + result);
+    });
+
+    QUnit.test('Units.DegTo...', function () {
+        var result = uom.degToRad / uom.degToRev;
+        equal(withinRange(result, uom.oneRev, 0.000001), true, 'DegToRev / DegToRad should be OneRev, is ' + result);
+    });
+
+    QUnit.test('Units.ArcsecTo...', function () {
+        var result = uom.arcsecToRad / uom.arcsecToRev;
+        equal(withinRange(result, uom.oneRev, 0.000001), true, 'ArcsecToRev / ArcsecToRad should be OneRev, is ' + result);
+    });
+
+    QUnit.test('get reduction', function () {
+        var val,
+            expected,
+            result;
+
+        val = '5';
+        expected = 5;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '34.51';
+        expected = 34.51;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '5.';
+        expected = 5;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '.5';
+        expected = 0.5;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = 'x';
+        expected = undefined;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 x';
+        expected = 10;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 .';
+        expected = 10;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 2';
+        expected = 5;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 0';
+        expected = undefined;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 0.';
+        expected = undefined;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 .0';
+        expected = undefined;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10 2 3';
+        expected = undefined;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10.5:1';
+        expected = 10.5;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+
+        val = '10.5:2';
+        expected = 5.25;
+        result = getReduction(val);
+        equal(result, expected, 'reduction should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('getDistance', function () {
+        var pointA = point(-10, 10),
+            pointB = point(5, 50),
+            expected = 42.72,
+            acceptableError = 0.01,
+            result = getDistance(pointA, pointB);
+
+        equal(withinRange(result, expected, acceptableError), true, 'distance between two points should be ' + expected + ', is ' + result);
+    });
 
 });
 
