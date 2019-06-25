@@ -900,6 +900,10 @@
             <p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by about 1/14 wave RMS. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The 1974 Telescope Secondary Experiment.html'>Check out my secondary size experiment</a>.</p>
 
             <p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. For a detailed explanation including graphics, see <a href='DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html'>my diagonal offset study</a>.</p>
+			
+			<h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
+			
+			<p>In some cases a smaller tube diameter leads to a smaller diagonal with good light throughput and less weight. Allowing the coma corrector to intrude into the light path results in a smaller diagonal that obstructs less light than the coma corrector. <a href='TwoOptimizations.html'>Read my article on two unknown optimizations here</A>.</p>
 
            <h4>Thoughts on an off-axis mask</h4>
 
@@ -931,17 +935,15 @@
         <div class='designer' id='designSpider'>
             <p>Babinet's principle states that diffracted light is proportional to the area obstructed, not the edges. And the length of the diffraction spike is inversely proportional to the spider vanes thickness. For example, if the spider vanes can be made half as thick then the total diffracted light is cut by half and the length of the spikes is increased, causing a further reduction in the brightness of the diffraction spikes.</p>
 
-            <p>Today I use wire spiders because they are very thin. In fact, I only see small spikes in large apertures on the brightest stars. I find the refractor like views aesthetically satisfying. Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965. Today there is an explosion of creativity thanks to Larry Shaper, Mark Cowan, Jerry Oltion and many others. The wires strength is independent of tension; consequently, I tighten the wires only to the point of avoiding sagging.</p>
+            <p>Today I use wire spiders because they are very thin. In fact, I only see small spikes in large apertures on the brightest stars. I find the refractor like views aesthetically satisfying. Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965. Today there is an explosion of creativity thanks to Larry Shaper, Mark Cowan, Jerry Oltion and others. The strength of the wires is dependent on gemetry and  independent of tension; consequently, I tighten the wires only to the point of avoiding sagging.</p>
 
             <p>If using a hub to hold the diagonal, orient the hub vertically. I measure a 3x reduction in laser collimator dot travel on the primary mirror compared to orienting the hub horizontally. Tom Otvos and Mark Cowan pointed this out to me. Luckily I oriented the 25" hub vertically; my previous scopes had the hub horizontally.</p>
 
-            <p>You can see that I've also used single stack spiders and 'V' spiders as appropriate. The diffraction pattern of a single stalk spider is not too ugly, considering the thickness of the stalk. There is room for invention here, combining a thinner single stack with a couple of tensioned very thin wires.</p>
-
-            <p>The diffraction pattern for a single stalk spider is not that bad, extending from the star like outstretched hands as a short thick tapered line of light turned 90 degrees to the stalk. Extending the stalk through to the opposite side of the tube greatly increases diffraction.</p>
-
-            <p>Wire spiders produce spikeless stars with smaller apertures and small faint spikes with larger apertures.</p>
+            <p>You can see that I've also used single stalk spiders and 'V' spiders as appropriate. The diffraction pattern of a single stalk spider is not too ugly, considering the thickness of the stalk. There is room for invention here, combining a thinner single stalk with a couple of tensioned very thin wires. The diffraction pattern for a single stalk spider extends from the star like outstretched hands as a short thick tapered line of light turned 90 degrees to the stalk. Extending the stalk through to the opposite side of the tube increases diffraction.</p>
 
             <p>The 'V' spider produces two spikes, each at 90 degrees to a vane, each with less intensity than the single stalk spider.</p>
+			
+			<p>Future exploration includes thinner single stalk vane in combination with thin wires.</p>
 
             Select a spider type <select id='spiderTypeSelect'></select><br><br>
 
@@ -963,7 +965,7 @@
                     <td class='columnHeaders'>Weakness</td>
                     <td class='columnHeaders'>Examples</td>
                 </tr>
-                <!--part rows added in JavaScript-->
+                <!--part rows added in JavaScript from JSON-->
             </tbody>
             </table>
 
@@ -1021,7 +1023,7 @@
 
             <p>Most important is the quality of construction and the balance of the pieces.</p>
 
-            <p>Edge supports are analyzed in R.N.Wilson's Reflecting Telescope Optics, Volume II. A simple edge support with points at exactly 90 degrees separation cancels primary astigmatism, fairing quite well. Each support point can be replaced with a 2-point whiffle tree in order to spread the load, lessening local deformation next to each support point. Slings are even better, though tough to build without side effects, whilst the best support is a ring of astatic levers. Edge supports should be compliant so that they do not hold up the mirror as it settles into the cell as the telescope points upward.</p>
+            <p>Edge supports are analyzed in R.N.Wilson's Reflecting Telescope Optics, Volume II. A simple edge support with points at exactly 90 degrees separation cancels primary astigmatism, fairing quite well. Each support point can be replaced with a 2-point whiffle tree in order to spread the load, lessening local deformation next to each support point. Slings are even better, though tough to build without side effects, whilst the best support is a ring of astatic levers where the lower levers support the mirror from bottom up and the upper levers pull up on the mirror's upper edge. Edge supports should be compliant so that they do not hold up the mirror as it settles into the cell as the telescope points upward.</p>
         </div>
 
         <div class='designer' id='designBaffling'>
@@ -1233,7 +1235,7 @@
                     <td class='columnHeaders'>Engineering Note</td>
                     <td class='columnHeaders'>Examples</td>
                 </tr>
-                <!--part rows added in JavaScript-->
+                <!--part rows added in JavaScript from JSON-->
             </tbody>
             </table>
         </div>
@@ -1258,7 +1260,7 @@
                     <td class='columnHeaders'>Meridian<br>Flip<br>Required</td>
                     <td class='columnHeaders'>Notes</td>
                 </tr>
-                <!--part rows added in JavaScript-->
+                <!--part rows added in JavaScript from JSON-->
             </tbody>
             </table>
         </div>
