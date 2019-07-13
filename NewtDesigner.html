@@ -835,7 +835,8 @@
             <div class='blockCenter'>
                 <table>
                 <tbody>
-                    <td class='label'>
+                    <tr>
+                        <td class='label'>
                              Acceptable magnitude loss =
                         </td>
                         <td>
@@ -1344,8 +1345,8 @@
                         <br>
                     </td>
                 </tr>
-            </table>
             </tbody>
+            </table>
 
             <div ID='rockerCanvasDiv'>
                 <!-- canvas created in JavaScript -->
@@ -1443,8 +1444,8 @@
                         <br>
                     </td>
                 </tr>
-            </table>
             </tbody>
+            </table>
 
             <div ID='flexRockerCanvasDiv'>
                 <!-- canvas created in JavaScript -->
@@ -1459,8 +1460,8 @@
                     <td id='flexRockerResults'>
                     </td>
                 </tr>
-            </table>
             </tbody>
+            </table>
 
             <p>Imagine the altitude bearing getting bigger and bigger. The rocker's weight shrinks, which is good but so does the height, lessening its rigidity, which is bad. But what if the altitude bearing points are placed at the rocker's corners and under each corner an azimuth bearing is placed resulting in four azimuth bearings that ride on a rigid ring? In fact, the altitude and azimuth bearings can be combined into a single block with the rocker reduced to merely holding the bearing blocks in relative position. We can have our ultralight rocker with good rigidity. Additionally, the mirror box can swing down through the base to lower eyepiece height when pointing near the zenith. <a href='FlexRocker/FlexRockers.html'>Check out some examples.</a></p>
         </div>
@@ -1492,8 +1493,8 @@
                         <br>
                     </td>
                 </tr>
-            </table>
             </tbody>
+            </table>
 
             <div ID='ETCanvasDiv'>
                 <!-- canvas created in JavaScript -->
@@ -1508,8 +1509,8 @@
                     <td id='ETResults'>
                     </td>
                 </tr>
-            </table>
             </tbody>
+            </table>
 
             <h4>Equatorial table discussion...</h4>
 
@@ -1533,14 +1534,13 @@
         <div class='designer' id='designNotes'>
             <h3>Software notes</h3>
 
-            <p>Changing the focal ratio updates:
+            <p>Changing the focal ratio updates:</p>
             <ul>
                 <li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
                 <li>Diagonal size in the baffle designer and lowrider baffle designer</li>
             </ul>
-            </p>
 
-            <p>Changing the aperture updates:
+            <p>Changing the aperture updates:</p>
             <ul>
                 <li>Focal plane to diagonal distance</li>
                 <li>Telescope tube outside diameter</li>
@@ -1548,29 +1548,25 @@
                 <li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator</li>
                 <li>Diagonal size in the baffle designer and lowrider baffle designer</li>
             </ul>
-            </p>
 
-            <p>The Center of Gravity calculator in the Tube assembly designer depends on:
+            <p>The Center of Gravity calculator in the Tube assembly designer depends on:</p>
             <ul>
                 <li>Baffle designer's telescope tube outside diameter</li>
                 <li>Baffle designer's calculated tube back end to focal plane distance</li>
                 <li>Baffle designer's calculated mirror's front edge to focal plane distance</li>
             </ul>
-            </p>
 
-            <p>The rocker mount designer depends on:
+            <p>The rocker mount designer depends on:</p>
             <ul>
                 <li>Baffle designer's telescope tube outside diameter</li>
                 <li>Tube assembly designer's calculated CG height to clear rocker bottom</li>
             </ul>
-            </p>
 
-            <p>The Equatorial Table designer depends on:
+            <p>The Equatorial Table designer depends on:</p>
             <ul>
                 <li>Rocker designer's tube weight</li>
                 <li>Rocker designer's rocker dimensions</li>
             </ul>
-            </p>
 
             <h3>More reading...</h3>
 
