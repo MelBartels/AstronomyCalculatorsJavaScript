@@ -862,6 +862,8 @@
 
                 <div id='diagChart'>
                 </div>
+                <div id='diagIntegratedIllumChart'>
+                </div>
 
                 <table>
                 <tbody>
@@ -901,10 +903,10 @@
             <p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by about 1/14 wave RMS. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The 1974 Telescope Secondary Experiment.html'>Check out my secondary size experiment</a>.</p>
 
             <p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. For a detailed explanation including graphics, see <a href='DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html'>my diagonal offset study</a>.</p>
-			
-			<h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
-			
-			<p>In some cases a smaller tube diameter leads to a smaller diagonal with good light throughput and less weight. Allowing the coma corrector to intrude into the light path results in a smaller diagonal that obstructs less light than the coma corrector. <a href='TwoOptimizations.html'>Read my article on two unknown optimizations here</A>.</p>
+            
+            <h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
+            
+            <p>In some cases a smaller tube diameter leads to a smaller diagonal with good light throughput and less weight. Allowing the coma corrector to intrude into the light path results in a smaller diagonal that obstructs less light than the coma corrector. <a href='TwoOptimizations.html'>Read my article on two unknown optimizations here</A>.</p>
 
            <h4>Thoughts on an off-axis mask</h4>
 
@@ -943,8 +945,8 @@
             <p>You can see that I've also used single stalk spiders and 'V' spiders as appropriate. The diffraction pattern of a single stalk spider is not too ugly, considering the thickness of the stalk. There is room for invention here, combining a thinner single stalk with a couple of tensioned very thin wires. The diffraction pattern for a single stalk spider extends from the star like outstretched hands as a short thick tapered line of light turned 90 degrees to the stalk. Extending the stalk through to the opposite side of the tube increases diffraction.</p>
 
             <p>The 'V' spider produces two spikes, each at 90 degrees to a vane, each with less intensity than the single stalk spider.</p>
-			
-			<p>Future exploration includes thinner single stalk vane in combination with thin wires.</p>
+            
+            <p>Future exploration includes thinner single stalk vane in combination with thin wires.</p>
 
             Select a spider type <select id='spiderTypeSelect'></select><br><br>
 
@@ -1020,7 +1022,7 @@
             For 6 point supports, the ring that the 6 points form is best placed at a radius of 57% according to PLOP. Six point designs are nearly as good as 9 points and have been popular from at least the 1960's. The support radius can vary from 50% to 71% without too much degradation. It is interesting that by turning a 3 point ring into 6 points, the optimal radius moves outward closer to an equal area inside and outside of the ring.<br>
             For 9 point supports, place the inner ring at the 33% radius and the outer ring at the 72% radius. If x is outer radius and y is inner radius then balance point = 2/3(cos(30)x-y) + y) = 2/3*cos(30)x + y/3 = 0.577x + y/3 = 52.6%<br>
             For 18 point supports, place the radii at 38% and 76%. If x is outer radius and y is inner radius then balance point = 2/3(cos(15)x-y) + y) = 2/3*cos(15)x + y/3 = 0.644x + y/3 = 61.6%. Using similar math as the 9 point support design, place the bar centers at the 53.4% radius.</p>
-			
+            
             <p>To further lessen the mirror's bending over individual support points, small triangles or circles of material sanded to fit the mirror's backside can be fitted to each support point. This can cut deformation that appears in the star test as coarse surface roughness.</p>
 
             <p>Most important is the quality of construction and the balance of the pieces.</p>
@@ -1598,6 +1600,8 @@
     <script src='lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js'></script>
     <script src='lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js'></script>
     <script src='lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js'></script>
+    <script src='lib/jqplot/plugins/jqplot.barRenderer.min.js'></script>
+    <script src='lib/jqplot/plugins/jqplot.pointLabels.min.js'></script>
 
     <script src='lib/sharedLib.js'></script>
     <script src='lib/coordLib.js'></script>

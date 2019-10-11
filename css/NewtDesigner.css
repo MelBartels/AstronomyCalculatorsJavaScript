@@ -125,6 +125,14 @@ html {
 	height: 300px;
 }
 
+#diagIntegratedIllumChart {
+	margin-top: 20px; 
+	margin-bottom: 20px; 
+	margin-left: 20px; 
+	width: 600px; 
+	height: 200px;
+}
+
 .indent {
 	padding-left: 56px;
 }
