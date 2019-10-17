@@ -102,7 +102,8 @@
         calcCollimationToleranceInches = MLB.calcLib.calcCollimationToleranceInches,
         calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints,
         calcMirrorCellDimensions = MLB.calcLib.calcMirrorCellDimensions,
-        calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction;
+        calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction,
+        findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints;
 
     QUnit.module('sagitta');
 
@@ -1227,13 +1228,13 @@
 
     QUnit.test('calcComa', function () {
         var eyepieceFieldStopmm = 6.85,
-        focalRatio = 6.85,
-        expected = {
-            lowOrderComaRMS: 0.07, // per Nils Olaf's example
-            linearComaRMS: 0.22
-        },
-        allowableError = 0.01,
-        result = calcComa(eyepieceFieldStopmm, focalRatio);
+            focalRatio = 6.85,
+            expected = {
+                lowOrderComaRMS: 0.07, // per Nils Olaf's example
+                linearComaRMS: 0.22
+            },
+            allowableError = 0.01,
+            result = calcComa(eyepieceFieldStopmm, focalRatio);
 
         equal(withinRange(result.lowOrderComaRMS, expected.lowOrderComaRMS, allowableError), true, 'lowOrderComaRMS should be ' + expected.lowOrderComaRMS + ', is ' + result.lowOrderComaRMS);
         equal(withinRange(result.linearComaRMS, expected.linearComaRMS, allowableError), true, 'linearComaRMS should be ' + expected.linearComaRMS + ', is ' + result.linearComaRMS);
@@ -1241,10 +1242,10 @@
 
     QUnit.test('calcGreaterComa', function () {
         var eyepieceFieldStopmm = 3,
-        focalRatio = 6,
-        expected = 0.13,
-        allowableError = 0.01,
-        result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
+            focalRatio = 6,
+            expected = 0.13,
+            allowableError = 0.01,
+            result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
 
         // selects for linearComaRMS
         equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
@@ -1259,11 +1260,11 @@
 
     QUnit.test('calcGreaterComaWithComaCorrector', function () {
         var eyepieceFieldStopmm = 20,
-        focalRatio = 3,
-        useComaCorrector = false,
-        expected = 3.33,
-        allowableError = 0.01,
-        result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
+            focalRatio = 3,
+            useComaCorrector = false,
+            expected = 3.33,
+            allowableError = 0.01,
+            result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
 
         equal(withinRange(result, expected, allowableError), true, 'coma without coma corrector should be ' + expected + ', is ' + result);
 
@@ -1275,17 +1276,17 @@
 
     QUnit.test('calcCollimationToleranceInches', function () {
         var focalRatio = 4,
-        expected = 0.0448,
-        allowableError = 0.001,
-        result = calcCollimationToleranceInches(focalRatio);
+            expected = 0.0448,
+            allowableError = 0.001,
+            result = calcCollimationToleranceInches(focalRatio);
 
         equal(withinRange(result, expected, allowableError), true, 'collimation tolerance should be ' + expected + ', is ' + result);
     });
 
     QUnit.test('calcMinimumMirrorSupportPoints', function () {
         var aperture = 16,
-        expected = 6,
-        result = calcMinimumMirrorSupportPoints(aperture);
+            expected = 6,
+            result = calcMinimumMirrorSupportPoints(aperture);
 
         equal(result, expected, result + ' should be ' + expected);
 
@@ -1308,11 +1309,11 @@
     QUnit.test('calcMirrorCellDimensions', function () {
         // 3 pt
         var aperture = 6,
-        expected = {
-            radius: 1.2
-        },
-        allowableError = 0.001,
-        result = calcMirrorCellDimensions(3, aperture / 2);
+            expected = {
+                radius: 1.2
+            },
+            allowableError = 0.01,
+            result = calcMirrorCellDimensions(3, aperture / 2);
 
         equal(withinRange(result.radius, expected.radius, allowableError), true, '3 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
 
@@ -1352,20 +1353,53 @@
         equal(withinRange(result.triangleBalanceRadius, expected.triangleBalanceRadius, allowableError), true, '18 pt mirror cell triangle balance radius should be ' + expected.triangleBalanceRadius + ', is ' + result.triangleBalanceRadius);
         equal(withinRange(result.pivotBarBalanceRadius, expected.pivotBarBalanceRadius, allowableError), true, '18 pt mirror cell pivot bar balance radius should be ' + expected.pivotBarBalanceRadius + ', is ' + result.pivotBarBalanceRadius);
 
+        // 27 pt
+        aperture = 30;
+        expected = {
+            inner6Radius: 4.96,
+            mid9Radius: 9.65,
+            outer12Radius: 12.74,
+            baseTriangleBalanceRadius: 8.43,
+            innerTriangleBalanceRadius: 6.06,
+            outerTriangleBalanceRadius: 11.41,
+            outerTriangleBalancePtAngles2: 87 * uom.degToRad
+        };
+        result = calcMirrorCellDimensions(27, aperture / 2);
+        equal(withinRange(result.inner6Radius, expected.inner6Radius, allowableError), true, '27 pt mirror cell inner 6 radius should be ' + expected.inner6Radius + ', is ' + result.inner6Radius);
+        equal(withinRange(result.mid9Radius, expected.mid9Radius, allowableError), true, '27 pt mirror cell mid 9 radius should be ' + expected.mid9Radius + ', is ' + result.mid9Radius);
+        equal(withinRange(result.outer12Radius, expected.outer12Radius, allowableError), true, '27 pt mirror cell outer radius should be ' + expected.outer12Radius + ', is ' + result.outer12Radius);
+        equal(withinRange(result.baseTriangleBalanceRadius, expected.baseTriangleBalanceRadius, allowableError), true, '27 pt mirror cell base triangle balance radius should be ' + expected.baseTriangleBalanceRadius + ', is ' + result.baseTriangleBalanceRadius);
+        equal(withinRange(result.innerTriangleBalanceRadius, expected.innerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell inner triangle balance radius should be ' + expected.innerTriangleBalanceRadius + ', is ' + result.innerTriangleBalanceRadius);
+        equal(withinRange(result.outerTriangleBalanceRadius, expected.outerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell outer triangle balance radius should be ' + expected.outerTriangleBalanceRadius + ', is ' + result.outerTriangleBalanceRadius);
+        equal(withinRange(result.outerTriangleBalancePtAngles[1], expected.outerTriangleBalancePtAngles2, allowableError), true, '27 pt mirror cell outer triangle balance #2 point angle should be ' + expected.outerTriangleBalancePtAngles2 + ', is ' + result.outerTriangleBalancePtAngles[1]);
+
         // other
         aperture = 1000;
         expected = undefined;
-        result = calcMirrorCellDimensions(27, aperture / 2);
+        result = calcMirrorCellDimensions(54, aperture / 2);
         equal(result, expected, result + ' should result in an undefined cell: ' + expected);
     });
 
     QUnit.test('calcRMSCausedByCentralObstruction', function () {
         var centralObstructionByDiameter = 1 / 3,
-        expected = 0.07,
-        allowableError = 0.1,
-        result = calcRMSCausedByCentralObstruction(centralObstructionByDiameter);
+            expected = 0.07,
+            allowableError = 0.1,
+            result = calcRMSCausedByCentralObstruction(centralObstructionByDiameter);
 
         equal(withinRange(result, expected, allowableError), true, 'RMS deformation should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('findWeightedCenterOfPoints', function () {
+        var points = [{x: 1, y: 0}, {x: 2, y: 4}, {x: 3, y: 5}],
+            expected = {
+                x: 2,
+                y: 3
+            },
+            allowableError = 0.00001,
+            result = findWeightedCenterOfPoints(points);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'weighted x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'weighted y should be ' + expected.y + ', is ' + result.y);
     });
 
 });
