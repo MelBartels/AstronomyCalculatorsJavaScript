@@ -103,6 +103,7 @@
         calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints,
         calcMirrorCellDimensions = MLB.calcLib.calcMirrorCellDimensions,
         calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction,
+        findOffsetCenterBetweenTwoPoints = MLB.calcLib.findOffsetCenterBetweenTwoPoints,
         findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints;
 
     QUnit.module('sagitta');
@@ -1339,6 +1340,30 @@
         equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '9 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
         equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '9 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
 
+        // 12 pt
+        aperture = 20;
+        expected = {
+            innerRadius: 1.9,
+            outerRadius: 7.2,
+            collimationRadius: 5.3,
+            innerBarLength: 5.5,
+            midBarLength: 6.4,
+            outerBarLength: 4.9,
+            innerBarBalance: 3.52,
+            midBarBalance: 3.584,
+            outerBarBalance: 2.45
+        };
+        result = calcMirrorCellDimensions(12, aperture / 2);
+        equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '12 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+        equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '12 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+        equal(withinRange(result.collimationRadius, expected.collimationRadius, allowableError), true, '12 pt mirror cell collimation radius should be ' + expected.collimationRadius + ', is ' + result.collimationRadius);
+        equal(withinRange(result.innerBarLength, expected.innerBarLength, allowableError), true, '12 pt mirror cell innerBarLength should be ' + expected.innerBarLength + ', is ' + result.innerBarLength);
+        equal(withinRange(result.midBarLength, expected.midBarLength, allowableError), true, '12 pt mirror cell midBarLength should be ' + expected.midBarLength + ', is ' + result.midBarLength);
+        equal(withinRange(result.outerBarLength, expected.outerBarLength, allowableError), true, '12 pt mirror cell outerBarLength should be ' + expected.outerBarLength + ', is ' + result.outerBarLength);
+        equal(withinRange(result.innerBarBalance, expected.innerBarBalance, allowableError), true, '12 pt mirror cell innerBarBalance should be ' + expected.innerBarBalance + ', is ' + result.innerBarBalance);
+        equal(withinRange(result.midBarBalance, expected.midBarBalance, allowableError), true, '12 pt mirror cell midBarBalance should be ' + expected.midBarBalance + ', is ' + result.midBarBalance);
+        equal(withinRange(result.outerBarBalance, expected.outerBarBalance, allowableError), true, '12 pt mirror cell outerBarBalance should be ' + expected.outerBarBalance + ', is ' + result.outerBarBalance);
+
         // 18 pt
         aperture = 24;
         expected = {
@@ -1400,6 +1425,50 @@
 
         equal(withinRange(result.x, expected.x, allowableError), true, 'weighted x should be ' + expected.x + ', is ' + result.x);
         equal(withinRange(result.y, expected.y, allowableError), true, 'weighted y should be ' + expected.y + ', is ' + result.y);
+    });
+
+    QUnit.test('findOffsetCenterBetweenTwoPoints', function () {
+        var point = MLB.sharedLib.point,
+            pointA = point(4, 10),
+            pointB = point(12, 20),
+            offset = 0.5,
+            expected = {
+                x: 8,
+                y: 15
+            },
+            allowableError = 0.00001,
+            result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+
+        // reverse the points
+        pointA = point(12, 20),
+        pointB = point(4, 10),
+        offset = 0.5,
+        expected = {
+            x: 8,
+            y: 15
+        },
+        allowableError = 0.00001,
+        result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+
+        // offset 80% of the way towards pointB
+        pointA = point(4, 10),
+        pointB = point(12, 20),
+        offset = 0.8,
+        expected = {
+            x: 10.4,
+            y: 18
+        },
+        allowableError = 0.00001,
+        result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
     });
 
 });

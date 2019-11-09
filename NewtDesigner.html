@@ -394,6 +394,15 @@
 
             <p>Do yourself a favor too by shortening your TTO. Oh, and lighten up that TEO while you are at it too!</p>
 
+            <h4>Telescope performance</h4>
+
+            <p>Three factors that dominate telescope performance:</p>
+            <ol>
+                <li>Thermal effects in the primary mirror. If the mirror is not at air temperature, the glass can distort and the air just in front of the mirror will boil.
+                <li>Optical alignment.
+                <li>Seeing: the quality of the atmosphere immediately surrounding the telescope and the quality of the upper atmosphere.
+            </ol>
+
             <h4>Notes</h4>
 
             <p>Stellar limiting magnitude is calculated for low power via the equation, 9.8 + 5 * log10(aperture inches). An additional magnitude or more can be gained by going to high power.</p>
@@ -906,9 +915,9 @@
             <p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by about 1/14 wave RMS. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views. <a href='The 1974 Telescope Secondary Experiment.html'>Check out my secondary size experiment</a>.</p>
 
             <p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror. For a detailed explanation including graphics, see <a href='DiagonalOffsetStudy/Telescope Newtonian Diagonal Offset Study.html'>my diagonal offset study</a>.</p>
-            
+
             <h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
-            
+
             <p>In some cases a smaller tube diameter leads to a smaller diagonal with good light throughput and less weight. Allowing the coma corrector to intrude into the light path results in a smaller diagonal that obstructs less light than the coma corrector. <a href='TwoOptimizations.html'>Read my article on two unknown optimizations here</A>.</p>
 
            <h4>Thoughts on an off-axis mask</h4>
@@ -948,7 +957,7 @@
             <p>You can see that I've also used single stalk spiders and 'V' spiders as appropriate. The diffraction pattern of a single stalk spider is not too ugly, considering the thickness of the stalk. There is room for invention here, combining a thinner single stalk with a couple of tensioned very thin wires. The diffraction pattern for a single stalk spider extends from the star like outstretched hands as a short thick tapered line of light turned 90 degrees to the stalk. Extending the stalk through to the opposite side of the tube increases diffraction.</p>
 
             <p>The 'V' spider produces two spikes, each at 90 degrees to a vane, each with less intensity than the single stalk spider.</p>
-            
+
             <p>Future exploration includes thinner single stalk vane in combination with thin wires.</p>
 
             Select a spider type <select id='spiderTypeSelect'></select><br><br>
@@ -982,7 +991,7 @@
             <p>Every diagonal needs two support considerations:</p>
             <ul>
                 <li>Static: keep a consistent position so that optical alignment and focus do not change.
-                <li>Dynamic: resist vibration caused by wind or bumps to the telescope. This manifests itself as a high magnification elongation to the stars that disappears when the diagonal holder is touched.
+                <li>Dynamic: resist vibration caused by wind or bumps to the telescope. This manifests itself as a high magnification elongation to the stars with large heavy diagonals that disappears when the diagonal holder is touched.
             </ul>
 
             <p>Therefore wires need two geometries:</p>
@@ -990,8 +999,11 @@
                 <li>Cross wires such so that the tension force on the wires is reduced by taking advantage of geometry.
                 <li>Arrange wires in a '>-<' separation to reduce tendency for heavy diagonals to rotationally quiver.
             </ul>
-
             <img src='wire spider illustrated.jpg'>
+
+            <p>Since the diagonal is cantilevered, the spider can deform, misplacing the diagonal. One approach from decades ago is to add a small counterweight on a longer arm opposite the diagonal. This carries with it the downside that the diagonal can vibrate at a low frequency if energy is dumped into it.</p>
+
+            <p>Finally, the upper end can deform causing the spider to twist.</p>
         </div>
 
         <div class='designer' id='designMirrorCell'>
@@ -1003,6 +1015,7 @@
                 <input name='btnMirrorSupportPoints' value='3' type='radio'> 3
                 <input name='btnMirrorSupportPoints' value='6' type='radio'> 6
                 <input name='btnMirrorSupportPoints' value='9' type='radio'> 9
+                <input name='btnMirrorSupportPoints' value='12' type='radio'> 12
                 <input name='btnMirrorSupportPoints' value='18' type='radio'> 18
                 <input name='btnMirrorSupportPoints' value='27' type='radio'> 27
             </div>
@@ -1026,7 +1039,7 @@
             For 6 point supports, the ring that the 6 points form is best placed at a radius of 57% according to PLOP. Six point designs are nearly as good as 9 points and have been popular from at least the 1960's. The support radius can vary from 50% to 71% without too much degradation. It is interesting that by turning a 3 point ring into 6 points, the optimal radius moves outward closer to an equal area inside and outside of the ring.<br>
             For 9 point supports, place the inner ring at the 33% radius and the outer ring at the 72% radius. If x is outer radius and y is inner radius then balance point = 2/3(cos(30)x-y) + y) = 2/3*cos(30)x + y/3 = 0.577x + y/3 = 52.6%<br>
             For 18 point supports, place the radii at 38% and 76%. If x is outer radius and y is inner radius then balance point = 2/3(cos(15)x-y) + y) = 2/3*cos(15)x + y/3 = 0.644x + y/3 = 61.6%. Using similar math as the 9 point support design, place the bar centers at the 53.4% radius.</p>
-            
+
             <p>To further lessen the mirror's bending over individual support points, small triangles or circles of material sanded to fit the mirror's backside can be fitted to each support point. This can cut deformation that appears in the star test as coarse surface roughness.</p>
 
             <p>Most important is the quality of construction and the balance of the pieces.</p>
@@ -1627,7 +1640,7 @@
             <br>
         </div>
     </div>
-    
+
     <div id='versionText'></div>
 
     <!-- these libraries first because my libraries reference them -->
