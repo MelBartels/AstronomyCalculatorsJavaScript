@@ -322,7 +322,6 @@
 				<p>My 24 inch [61cm] F5.5 weighing 350 pounds that I finished in 1982 required a 10 foot aluminum ladder. The ladder is tiring to stand on and has to be moved constantly as the telescope tracks. And I could only take up to the focuser the eyepieces, filters and sketching equipment that I could carry in my pockets. I dreaded the accidental eyepiece impact test. In contrast using my 25 inch [64cm] F2.6 weighing 75 pounds that I finished in 2018 I observe sitting in my observing chair or standing on the ground with my eyepieces, filters and sketching equipment on a table next to me. The images are approximately at equal scale.</p>
 				<img src='24 inch aimed high.jpg'> <img src='25/ready for 1st light Aug 4 2018.jpg'>
 
-				<a name='aperture implications'></a>
 				<h4>Aperture implications</h4>
 
 				<p>Let's consider relative brightness, focal ratio, resolution, seeing and ergonomic factors like telescope length and weight (2.5 power of the aperture). Here is the plot of all these factors together for apertures from 4 inches to 30 inches.</p>
@@ -336,7 +335,6 @@
 					<li>The rightmost vertical line represents the largest scope size commonly seen in large star parties, 25 inches aperture. While the greatest brightness, all other factors are trending badly negative: very heavy, needs a fast focal ratio, requires a ladder and is strongly limited by seeing. The 25 inch favors relative brightness at the cost of four negative attributes.
 				</ul>
 
-				<a name='is aperture king'></a>
 				<h4>Comparing apertures at the eyepiece</h4>
 
 				<img src='Sombrero Galaxy through 6 and 13 inch telescopes.jpg' class='imageTextWrap'>
@@ -358,7 +356,7 @@
 				<div style='clear: both;'></div>
 			</div>
 
-			<a name='telescope value'></a>
+			<div id='telescopeValue'></div>
 			<h4>The Bartels' Equation for Telescope Value</h4>
 
 			<p>TV = A * F * f<sub>e,f,a</sub> * f<sub>u</sub> * f<sub>s</sub> * f<sub>x</sub></p>
@@ -379,7 +377,6 @@
 
 			<p>The experience of the observer is a major factor. An experienced observer will see more with a smaller scope than a newbie with a larger scope.</p>
 
-			<a name='tto'></a>
 			<h4>Function (usability) is not only ergonomics but also TTO and TEO.</h4>
 
 			<p>TTO is Total Time to Observe. TEO is Total Effort to Observe.</p>
@@ -396,18 +393,20 @@
 
 			<p>Do yourself a favor too by shortening your TTO. Oh, and lighten up that TEO while you are at it too!</p>
 
+			<div id='telescopePerformance'></div>
 			<h3>Telescope performance</h3>
 
-			<p>Three factors that dominate telescope performance:</p>
+			<p>Five factors dominate telescope performance:</p>
 			<ol>
 				<li>Thermal effects in the primary mirror. If the mirror is not at air temperature, the glass can distort and the air just in front of the mirror will boil.
 				<li>Optical alignment.
 				<li>Seeing: the quality of the atmosphere immediately surrounding the telescope and the turbulence of the upper atmosphere.
+				<li>Mirror cells: most hold the mirror without strain or distortion. I've witnessed more badly built mirror cells that deform the optics than poor mirrors.
+				<li>Optical quality: optical quality in the modern era is good and is invariably a non-issue though often mistaken for dominate factors.</p>
 			</ol>
-			<p>Mirror cells and optical quality follow next. I've witnessed more badly built mirror cells that deform the optics than poor mirrors. Optical quality in the modern era is good and is invariably a non-issue though often mistaken for dominate factors.</p>
+			<p>The factors be judged at the eyepiece with the star test, a subjective and sensitive test, that works by dynamically examining the distribution of light. For more <a href='JoyOfMirrorMaking/StarTesting.html'>see my star test page</a>.</p>
 
-			<p>The three dominate factors along with optical quality can be judged at the eyepiece with the star test, a subjective and sensitive test, that works by dynamically examining the distribution of light. For more <a href='JoyOfMirrorMaking/StarTesting.html'>see my star test page</a>.</p>
-
+			<div id='apertureManagement'></div>
 			<h3>Aperture Management</h3>
 
 			<p>Aperture management is changing the aperture to extend telescope performance. There are three categories of aperture management.</p>
@@ -424,7 +423,7 @@
 			<p>2.1 and 3 degree fields compared<br>
 			<img src='2.1 and 3 degree fields compared.jpg'></p>
 
-			<p><b>2)</b> Turbulence in the upper atmosphere due to variations in the density (humid air weighs less) of air manifests itself as a quivering image in smaller apertures and a blobby boiling image with larger apertures. While typically more detail is visible with larger apertures, the image can be less aesthetically appealing. By managing aperture we stop down the mirror until the image aesthetic is acceptable commiserate with detectible detail. In fact, with very large apertures we can utilize an off-axis mask using light that goes between the spider vanes resulting in an unobstructed view. For example, a 25 inch [64cm] telescope with a 5 inch [13cm] secondary can have a 10 inch [25cm] unobstructed aperture.</p>
+			<p><b>2)</b> Turbulence in the upper atmosphere due to variations in the density (humid air weighs less) of air manifests itself as a quivering image in smaller apertures and a blobby boiling image with larger apertures. While typically more detail is visible with larger apertures, the image can be less aesthetically appealing. By managing aperture we stop down the mirror until the image aesthetic is acceptable commiserate with detectible detail. In fact, with very large apertures we can utilize an off-axis mask using light that goes between the spider vanes resulting in an unobstructed view. For example, a 25 inch [64cm] telescope with a 5 inch [13cm] secondary can have a 10 inch [25cm] unobstructed aperture. On any given night, each planet has its optimal magnification where apparent size is balanced with seeing. And each planet has its optimal aperture.</p>
 			<p>Unobstructed off-axis mask arrangement<br>
 			<img src='offset axis aperture layout.jpg'></p>
 
@@ -440,6 +439,7 @@
 
 			<p>The coma free diameter is the field diameter where deformation caused by coma is less than the Airy disk diameter. Using a coma corrector greatly increases the coma free field diameter.</p>
 
+			<div id='formulae'></div>
 			<h4>Useful formulae</h4>
 
 			<p>Actual field in degrees = field stop in inches / focal length in inches * 57.3</p>
@@ -451,7 +451,7 @@
 			<p>Eyepiece field stop = telescope focal length * true field of view</p>
 			<p>Aperture * true field of view * focal ratio = eyepiece field stop</p>
 			<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil</p>
-			<p>Etendue/luminance = aperture * true field of view (cm^2deg^2); also proportional to eye pupil * eyepiece apparent field of view (mm^2deg^2)</p>
+			<p>Etendue/luminance = aperture squared * true field of view squared (cm^2deg^2) = eye pupil squared * eyepiece apparent field of view squared (cm^2deg^2)</p>
 		</div>
 
 		<div class='designer' id='designEyepieces'>
@@ -511,9 +511,9 @@
 
 			<p>Wider exit pupils are associated with lower power and brighter fields; narrow exit pupils with high power and dimmer fields. Be careful not to confuse the size of the exit pupil with the apparent field of view. Using the example above with a F5 mirror, a 30mm eyepiece with apparent field of view of 40 degrees produces the same exit pupil as a 30mm eyepiece iwth 80 degrees apparent field of view. However, the 80 degree apparent field eyepiece will produce 4x the light flux or etendue compared to the 40 degree apparent field of view eyepiece.</p>
 
-			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's diameter in centimeters squared times the true field in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. While there is a great deal of room to improve luminance in popular amateur telescope designs, ultimately, luminance is limited by the eye's pupil and the eyepiece's apparent field of view.</p>
+			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's diameter in centimeters squared times the true field in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.</p>
 
-			<p>Since the eye's pupil also forms an aperture, etendue or luminance can also be calculated by squaring the eye's pupil times the square of the eyepiece's apparent field of view (mm^2deg^2). From this perspective we see that etendue or luminance is ultimately limited in part by the eye's pupil: once we max out the eye's pupil our only recourse is to increase the eyepiece's apparent field of view.</p>
+			<p>Since the eye's pupil also forms an aperture, etendue or luminance can also be calculated by squaring the eye's pupil in cm times the square of the eyepiece's apparent field of view in degrees (cm^2deg^2). From this perspective we see that etendue or luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.</p>
 
 			<p><a href='HET.html'>Go here for more information on my high etendue telescopes</a>.</p>
 
@@ -523,6 +523,7 @@
 
 			<img src='aperture vs field of view for selected eyepieces.jpg'>
 
+			<div id='magnification'></div>
 			<h4>Some thoughts on magnification</h4>
 
 			<p>A range of magnifications is key to using a telescope properly.</p>
@@ -954,6 +955,7 @@
 
 			<p>In some cases a smaller tube diameter leads to a smaller diagonal with good light throughput and less weight. Allowing the coma corrector to intrude into the light path results in a smaller diagonal that obstructs less light than the coma corrector. <a href='TwoOptimizations.html'>Read my article on two unknown optimizations here</A>.</p>
 
+			<div id='offAxisMask'></div>
 		   <h4>Thoughts on an off-axis mask</h4>
 
 		   <p>Stopping down by using an off-axis mask is a time honored way to beat seeing and to cut the dazzling light of the Moon and bright planets in large aperture scopes.</p>
@@ -1432,6 +1434,7 @@
 			</tbody>
 			</table>
 
+			<div id='movementFriction'></div>
 			<h4>Friction of movement discussion</h4>
 
 			<p>An essential feature of John Dobson's telescope design is that the telescope moves smoothly and precisely about the sky, staying put once the operator let's go. There is no clamping or locking down. Tracking an object across the sky consists of periodic adjustments by pushing the scope very small distances while looking through the eyepiece. His design depends on an interesting property of Teflon on pebbly Formica, namely that the friction felt when moving the scope is about the same as the friction felt while starting the move. In other words, the dynamic friction equals static friction. Most materials stick worse than they move, leading to jerky motions.</p>
@@ -1655,6 +1658,18 @@
 			<ul>
 				<li>Rocker designer's tube weight
 				<li>Rocker designer's rocker dimensions
+			</ul>
+
+			<p>The following are shortcuts that take the webpage directly to the content</p>
+			<ul>
+				<li>diagonal
+				<li>telescopeValue
+				<li>telescopePerformance
+				<li>apertureManagement
+				<li>formulae
+				<li>magnification
+				<li>offAxisMask
+				<li>movementFriction
 			</ul>
 
 			<h3>More reading...</h3>
