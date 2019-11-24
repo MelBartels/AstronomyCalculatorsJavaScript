@@ -130,16 +130,17 @@
 		<input name='btnUom' value='millimeters' type='radio'> metric ?
 		<br>
 		<br>
-		Set <b>focal ratio</b>
-		<input class='slider' id='sliderFocalRatio' min='2.5' max='8' step='0.1' type='range'/>
-		<input class='inputText' id='focalRatio' value='5' onfocus='select();' type='text'>
-		or <b>focal length</b>
+		<b>Focal length</b>
 		<input class='slider' id='sliderTelescopeFocalLength' type='range'/>
 		<input class='inputText' id='telescopeFocalLength' value='50' onfocus='select();' type='text'>
 		<label id='telescopeFocalLengthUOMlabel'>inches</label>
 		Lock focal length ?<input id='chBoxLockFocalLength' type='checkbox'>
 		<br>
-		Set <b>aperture</b>&nbsp;&nbsp;
+		<b>Focal ratio</b>
+		<input class='slider' id='sliderFocalRatio' min='2.5' max='8' step='0.1' type='range'/>
+		<input class='inputText' id='focalRatio' value='5' onfocus='select();' type='text'>
+		<br>
+		<b>Aperture</b>
 		<input class='slider' id='sliderAperture' type='range'/>
 		<input class='inputText' id='aperture' value='10' onfocus='select();' type='text'>
 		<label id='apertureUOMlabel'>inches</label>
@@ -309,12 +310,14 @@
 				<label id='telescopeDesignerResultsLabel'></label>
 			</div>
 			<div>
+				<p><b>Focal length</b> is the distance that the primary mirror uses to bring the light to focus. Focal ratio times aperture also gives the focal length.<br>
+				In many ways, the focal length sets the power of the telescope. Focal length sets the length of the telescope. Longer focal length telescopes are heavier thus more difficult to transport. Focal lengths greater than 60-70 inches [150-175cm] require a step stool or ladder to reach the eyepiece.<br>
+				Since mirrors typically come in ia range of focal ratios of F3 to F6, the focal length sets the range of mirror sizes.<br>
+				And the focal length along with the set of eyepieces determine the magnification range of the telescope along with the field of view.</p>
+
 				<p><b>Aperture</b> is the mirror diameter, determining the star magnitude reach of the telescope.<br>
 				Aperture sets the maximum possible resolution.<br>
 				Aperture also sets the image scale. For example, given the same focal ratio and eyepiece, a 20 inch aperture telescope shows an extended object, for example a galaxy, at twice the apparent size of a 10 inch aperture telescope. Our eyes can more readily detect larger apparent sized objects and detail is more visible.</p>
-
-				<p><b>Focal length</b> is the distance that the primary mirror uses to bring the light to focus. Focal ratio times aperture also gives the focal length.<br>
-				Focal length sets the length of the telescope. Longer focal length telescopes are heavier thus more difficult to transport. Focal lengths greater than 60-70 inches [150-175cm] require a step stool or ladder to reach the eyepiece.</p>
 
 				<p><b>Focal ratio</b> is the speed of the telescope and is found by diving the focal length by the mirror diameter.</p>
 				<p>Slower speeds of <b>F7-F8</b> favor resolution with higher magnifications in longer tube lengths. Slower speeds have little or no coma, do not require precise alignment and have a relaxed focusing tolerance.<br>
@@ -361,6 +364,44 @@
 				<div style='clear: both;'></div>
 			</div>
 
+			<div id='apertureManagement'></div>
+			<h3>Aperture Management</h3>
+
+			<p>Aperture management is changing the aperture to extend telescope performance. There are three categories of aperture management.</p>
+
+			<ol>
+				<li>By selecting an appropriate eyepiece, the telescope can achieve a lower magnification wider field with greater etendue.
+				<li>Dealing with atmospheric turbulence
+				<li>Envisioning a larger faster thinner primary mirror for a more versatile scope
+			</ol>
+
+			<p>Imagine a focal length, say 40 inches [102cm]. Focal length sets the telescope's length and greatly influences the telescope's weight. This length of telescope will fit across the back seats of most passenger cars and can be carried by most amateur astronomers. Let's consider a 10 inch [25cm] F4, a middle of the road aperture and focal ratio choice. The widest angle eyepiece that fits a 6mm exit pupil gives a 2.1 degree true field of view.</p>
+
+			<p><b>1)</b> We achieve a wider field with greater etendue by managing the aperture. Using a 42mm eyepiece with an apparent field of view of 72 degrees, we get a true field of view of 3.0 degrees. But what to do with the 10.5mm exit pupil? The answer is managing the aperture by stopping down to 6 inches [15cm] lowering the exit pupil to 6.3mm.The true field area doubles from 3.5 square degrees to 7 square degrees. Note that faster scopes are more extensible to lower magnification wider fields than slower scopes.</p>
+			<p>2.1 and 3 degree fields compared<br>
+			<img alt='' src='2.1 and 3 degree fields compared.jpg'></p>
+
+			<p><b>2)</b> Turbulence in the upper atmosphere due to variations in the density (humid air weighs less) of air manifests itself as a quivering image in smaller apertures and a blobby boiling image with larger apertures. While typically more detail is visible with larger apertures, the image can be less aesthetically appealing. By managing aperture we stop down the mirror until the image aesthetic is acceptable commiserate with detectible detail. In fact, with very large apertures we can utilize an off-axis mask using light that goes between the spider vanes resulting in an unobstructed view. For example, a 25 inch [64cm] telescope with a 5 inch [13cm] secondary can have a 10 inch [25cm] unobstructed aperture. On any given night, each planet has its optimal magnification where apparent size is balanced with seeing. And each planet has its optimal aperture.</p>
+			<p>Unobstructed off-axis mask arrangement<br>
+			<img alt='' src='offset axis aperture layout.jpg'></p>
+
+			<p><b>3)</b> Finally we imagine squeezing our 10 inch [25cm] mirror into a thinner faster mirror of greater aperture, for example, a 15 inch [38cm] F2.7 of same focal length. Then we have a series of apertures from 5 inch [13cm] unobstructed off-axis to the full 15 inches [38cm] that we can use to manage for best view in the eyepiece.</p>
+			<p>Comparing 10 inch [25cm] standard thickness F4 to 15 inch [38cm] thin meniscus (mirror weighs but 20% more) F2.7 with identical 40 inch [102cm] focal lengths<br>
+			<img alt='' src='10 inch F4 and 15 inch F2.7 mirrors.jpg'></p>
+
+			<div id='telescopePerformance'></div>
+			<h3>Telescope performance</h3>
+
+			<p>Five factors dominate telescope performance:</p>
+			<ol>
+				<li>Thermal effects in the primary mirror. If the mirror is not at air temperature, the glass can distort and the air just in front of the mirror will boil.
+				<li>Optical alignment.
+				<li>Seeing: the quality of the atmosphere immediately surrounding the telescope and the turbulence of the upper atmosphere.
+				<li>Mirror cells: most hold the mirror without strain or distortion. I've witnessed more badly built mirror cells that deform the optics than poor mirrors.
+				<li>Optical quality: optical quality in the modern era is good and is invariably a non-issue though often mistaken for dominate factors.
+			</ol>
+			<p>The factors be judged at the eyepiece with the star test, a subjective and sensitive test, that works by dynamically examining the distribution of light. For more <a href='JoyOfMirrorMaking/StarTesting.html'>see my star test page</a>.</p>
+
 			<div id='telescopeValue'></div>
 			<h4>The Bartels' Equation for Telescope Value</h4>
 
@@ -397,44 +438,6 @@
 			<p>Sure, that big aperture scope is wonderful, but the truth is that I'm not as likely to go to the hassle of lugging it out and setting it up if it is heavy or has a lot of pieces, or needs tweaking every time. I did myself a huge favor and built a couple of smaller aperture scopes that setup instantly and that are a joy to point and look. A four, six or eight inch scope, quick to setup, is perfect. I reserve my big gun for those times when it is OK for my TTO to be long and for my TEO to be heavy, like a major star party or a long weekend trip to very dark skies.<p>
 
 			<p>Do yourself a favor too by shortening your TTO. Oh, and lighten up that TEO while you are at it too!</p>
-
-			<div id='telescopePerformance'></div>
-			<h3>Telescope performance</h3>
-
-			<p>Five factors dominate telescope performance:</p>
-			<ol>
-				<li>Thermal effects in the primary mirror. If the mirror is not at air temperature, the glass can distort and the air just in front of the mirror will boil.
-				<li>Optical alignment.
-				<li>Seeing: the quality of the atmosphere immediately surrounding the telescope and the turbulence of the upper atmosphere.
-				<li>Mirror cells: most hold the mirror without strain or distortion. I've witnessed more badly built mirror cells that deform the optics than poor mirrors.
-				<li>Optical quality: optical quality in the modern era is good and is invariably a non-issue though often mistaken for dominate factors.
-			</ol>
-			<p>The factors be judged at the eyepiece with the star test, a subjective and sensitive test, that works by dynamically examining the distribution of light. For more <a href='JoyOfMirrorMaking/StarTesting.html'>see my star test page</a>.</p>
-
-			<div id='apertureManagement'></div>
-			<h3>Aperture Management</h3>
-
-			<p>Aperture management is changing the aperture to extend telescope performance. There are three categories of aperture management.</p>
-
-			<ol>
-				<li>By selecting an appropriate eyepiece, the telescope can achieve a lower magnification wider field with greater etendue.
-				<li>Dealing with atmospheric turbulence
-				<li>Envisioning a larger faster thinner primary mirror for a more versatile scope
-			</ol>
-
-			<p>Imagine a focal length, say 40 inches [102cm]. Focal length sets the telescope's length and greatly influences the telescope's weight. This length of telescope will fit across the back seats of most passenger cars and can be carried by most amateur astronomers. Let's consider a 10 inch [25cm] F4, a middle of the road aperture and focal ratio choice. The widest angle eyepiece that fits a 6mm exit pupil gives a 2.1 degree true field of view.</p>
-
-			<p><b>1)</b> We achieve a wider field with greater etendue by managing the aperture. Using a 42mm eyepiece with an apparent field of view of 72 degrees, we get a true field of view of 3.0 degrees. But what to do with the 10.5mm exit pupil? The answer is managing the aperture by stopping down to 6 inches [15cm] lowering the exit pupil to 6.3mm.The true field area doubles from 3.5 square degrees to 7 square degrees. Note that faster scopes are more extensible to lower magnification wider fields than slower scopes.</p>
-			<p>2.1 and 3 degree fields compared<br>
-			<img alt='' src='2.1 and 3 degree fields compared.jpg'></p>
-
-			<p><b>2)</b> Turbulence in the upper atmosphere due to variations in the density (humid air weighs less) of air manifests itself as a quivering image in smaller apertures and a blobby boiling image with larger apertures. While typically more detail is visible with larger apertures, the image can be less aesthetically appealing. By managing aperture we stop down the mirror until the image aesthetic is acceptable commiserate with detectible detail. In fact, with very large apertures we can utilize an off-axis mask using light that goes between the spider vanes resulting in an unobstructed view. For example, a 25 inch [64cm] telescope with a 5 inch [13cm] secondary can have a 10 inch [25cm] unobstructed aperture. On any given night, each planet has its optimal magnification where apparent size is balanced with seeing. And each planet has its optimal aperture.</p>
-			<p>Unobstructed off-axis mask arrangement<br>
-			<img alt='' src='offset axis aperture layout.jpg'></p>
-
-			<p><b>3)</b> Finally we imagine squeezing our 10 inch [25cm] mirror into a thinner faster mirror of greater aperture, for example, a 15 inch [38cm] F2.7 of same focal length. Then we have a series of apertures from 5 inch [13cm] unobstructed off-axis to the full 15 inches [38cm] that we can use to manage for best view in the eyepiece.</p>
-			<p>Comparing 10 inch [25cm] standard thickness F4 to 15 inch [38cm] thin meniscus (mirror weighs but 20% more) F2.7 with identical 40 inch [102cm] focal lengths<br>
-			<img alt='' src='10 inch F4 and 15 inch F2.7 mirrors.jpg'></p>
 
 			<h4>Notes</h4>
 
@@ -1670,16 +1673,16 @@
 				<li>Rocker designer's rocker dimensions
 			</ul>
 
-			<p>The following are shortcuts that take the webpage directly to the content</p>
+			<p>The following are shortcuts that take the webpage directly to the content. For example, https://www.bbastrodesigns.com/NewtDesigner.html#diagonal. If you are already on the page, you may need to reload the page.</p>
 			<ul>
-				<li>diagonal
-				<li>telescopeValue
-				<li>telescopePerformance
-				<li>apertureManagement
-				<li>formulae
-				<li>magnification
-				<li>offAxisMask
-				<li>movementFriction
+				<li>#diagonal
+				<li>#telescopeValue
+				<li>#telescopePerformance
+				<li>#apertureManagement
+				<li>#formulae
+				<li>#magnification
+				<li>#offAxisMask
+				<li>#movementFriction
 			</ul>
 
 			<h3>More reading...</h3>
