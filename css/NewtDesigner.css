@@ -146,3 +146,34 @@ html {
 	vertical-align: top;
 	width: 300px;
 }
+
+/* for accordian collapsing sections
+   .active class added/removed in JS */
+.accordion {
+	background-color: #ddd;
+	color: #444;
+	text-align: left;
+	font-family: Verdana, Geneva, sans-serif; 
+	font-size: large;
+	font-weight: bold;
+	padding: 15px;
+	width: 100%;
+	border: none;
+	outline: none;
+}
+.accordion:hover {
+	background-color: #bbb;
+}
+.accordion:after {
+	content: '\2795'; /* '+' */
+	float: right;
+	color: #888;
+}
+.active:after {
+	content: '\2796'; /* '-' */
+}
+.panel {
+	margin-left: 25px;
+	display: none;
+	overflow: hidden;
+}

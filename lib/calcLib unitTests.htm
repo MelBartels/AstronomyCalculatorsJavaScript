@@ -83,6 +83,7 @@
         calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor,
         resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
         calcTheoreticalResolutionArcsec = MLB.calcLib.calcTheoreticalResolutionArcsec,
+        calcAiryDiskInches = MLB.calcLib.calcAiryDiskInches,
         calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
         scalingFactor = MLB.calcLib.scalingFactor,
         calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
@@ -1089,6 +1090,15 @@
 
         result = calcTheoreticalResolutionArcsec(apertureInches);
         equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcAiryDiskInches', function () {
+        var focalRatio = 5,
+            result,
+            expected = 0.000268;
+
+        result = calcAiryDiskInches(focalRatio);
+        equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
     });
 
     QUnit.test('calcProjectedFocuserBaffleRadius', function () {
