@@ -37,9 +37,14 @@ html {
 }
 	
 #titleTextArea {
-	width: 80%; 
-	float: left; 
-	padding-left: 5%;
+	//width: 80%; 
+	//float: left; 
+	//padding-left: 5%;
+	//padding-right: 5%;
+}
+
+.selectDesigner {
+	text-align: center;
 }
 
 .slider {
@@ -48,13 +53,13 @@ html {
 
 .designSelect {
 	float: left;
-	width: 200px;
-	padding: 10px;
-	margin: 10px;
+	width: 190px;
+	padding: 7px;
+	margin: 7px;
   	background: lightgrey;
 }
 
-#divScrollToTop{
+#divScrollToTop {
 	text-align: center;
 }
 
