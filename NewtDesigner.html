@@ -638,12 +638,12 @@
 				</ul>
 
 				<p>Do we think of telescopes as the object then adapt them and ourselves to fit, or do we start with objects to observe, then consider our eyes, selecting eyepieces and finally the
-				telescope? Perhaps we need to consider both ways. That means:<br>
+				telescope? Perhaps we need to consider both ways. That means:</p>
 				<ul>
 					<li>eyepiece turrets
 					<li>filter wheels
 					<li>multiple telescopes available<br>
-				</ul></p>
+				</ul>
 			</div>
 
 			<h4>Notes</h4>
@@ -1635,6 +1635,40 @@
 				<!--part rows added in JavaScript from JSON-->
 			</tbody>
 			</table>
+			<br><br>
+			
+			<div id='vibration'></div>
+			<button class='accordion' id='btnVibration'>Telescope vibration</button>
+			<div class='panel'>
+
+				<p>Vibration is a particular concern to telescope users.  Not only are telescopes prone to vibration thanks to heavy weights at one or both ends, but whatever vibrations are present are highly magnified when looking through the eyepiece.  That's why telescopes have massive mountings - to combat vibration.  In the old days (1960's), the most popular type of amateur telescope was a 6 inch newtonian on a pipe mount.  The rule of thumb was to focus, then stand back and count to twelve to let the vibrations quiet down.  Nowadays amateur telescopes are typically mounted on a Dobsonian mount - a form of an altazimuth mount much like a battleship's guns.  An excellently designed and built Dobsonian telescope will quiet down in one second or less.</p>
+
+				<p>There are three sources of vibration: wind, hand touching, and motor drives.  As the wind buffets a telescope, the scope's cross section, substantial thanks to its length, absorbs a surprising amount of energy, moving the telescope tube about its center of gravity imperceptibly.  When the wind calms or momentarily swirls, the tube will spring back, setting up a vibration.  Similarly when hand touching a telescope to focus an eyepiece or to make a positional adjustment, the telescope will spring back when the hand is let go.</p>
+
+				<p>Telescope users care about three principal characteristics of telescope vibration: the amplitude, the frequency, and the dampening time.  The amplitude is the amount of back and forth movement.  This can be measured at the eyepiece in arcminutes or arcseconds where the planet Jupiter is on average 45 arcseconds of size.  The frequency is the number of vibrations per second.  Most telescopes vibrate at a low enough rate to be estimated by counting the shakes over a second or two.  The dampening time is the amount of time in seconds that it takes for the vibration to come to a halt.   An ideal telescope will have small amplitude and short dampening time.  For instance, a Dobsonian telescope might have an amplitude of 1 arcminute, a frequency of 5 Hertz, and a dampening time of 1 second.</p>
+
+				<p>Wooden and aluminum truss Dobsonian telescopes typically have a frequency of several Hertz, that is, they vibrate back and forth several times a second.   The relatively slow speed is due to large masses at some distance from the center of gravity.  The frequency can be increased by making the upper end lighter, by making the mirror box lighter, and by shorting the tube.   Increasing the frequency is desirable as the overall dampening time will often shorten.</p>
+
+				<p>Vibration is absorbed by the ground and by the mount itself.  A slightly soft surface such as grass or dirt will absorb vibration much better than concrete.  But if the ground is too soft then it may act to amplify slow telescope vibrations.  To promote absorption, sorbathane pads should be placed between the mount's feet and the ground.    These pads absorb vibrations, prevent vibrations from traveling back into the telescope, and give the mount a slower characteristic resonant frequency.   Wooden and aluminum mounts are somewhat flexible and therefore have more vibration absorbing ability.  The frequency is lower with these mounts.   In addition, these mounts suppress harmonics.  The sorbathane pads respond slowly to vibration and therefore lower the natural frequency of the mount.   Dangling chains from the upper end of the tube absorb vibration as they clang together.  Another more common tactic is to place vibration absorbing material such as sorbathane, rubber, and leather between critical components of the mount.</p>
+
+				<p>While the hand can be a source of vibration moving and focusing the telescope, the hand can also be used to absorb vibration by touching the upper end while viewing.</p>
+
+				<p>Vibration caused by wind can be significantly reduced by removing as much as possible of the telescope tube's cross section.  Instead of the completely encircled upper cage and shroud, amateur telescope makers have used single ring upper ends drilled with holes without shroulds to good effect in windy conditions.</p>
+
+				<p>This will expose the diagonal to the wind, consequently an ordinary spider may no longer suffice.   In windy conditions, the heavy diagonal causes the diagonal holder to very rapidly vibrate about the spider center in a back and forth rotational arc.  Splitting the spider so that the four vanes come to two points forming what looks like two 'V's that are not quite touching, removes the ability of the diagonal to rotate about the diagonal's axis.</p>
+
+				<p>Finally, the motor tracking system can induce vibration.  Any change from a completely smooth motor movement can induce vibration.  This can come from the motor, from the motor coupling, and from the gearing.  Very rarely if at all does the gearing cause vibration.  But if a repeating or periodic error in the gearing is bumping or throwing the scope, and if the frequency of this error coincides with the natural resonant frequency of the mount, vibration not only would be induced but also amplified.</p>
+
+				<p>A coupler between the motor and the gearing is designed ease misalignment of the shafts and possibly absorb motor vibration.  However even with a flexible coupler, badly misaligned shafts can cause vibration as they spin.  The coupler itself can induce vibration also.  If it is flexible, it might tighten and relax on its own accord, causing a sporadic jitter at the eyepiece.  This can occur when the friction to rotate the output shaft is significant compared to the force required to twist the coupler.  Here the coupler will tighten until finally it can transmit enough torque, at which point the shaft will skip ahead and the coupler will relax and shaft movement will cease until the coupler is would up again.  The coupler can also indirectly cause vibration if the motor control feedback is on the opposite end of the coupler from the motor.  The feedback algorithm will have a varying delay caused by the twist up of the coupler introduced, causing it to feed large control signals to the motor first one way, then the other way.  These control signals can cause the motor to transmit large oscillatory movements through the coupler into the telescope mount.</p>
+
+				<p>Typically in servo motor systems, the overall gearing reduction is less, putting a premium on the coupler.  So couplers for servo systems should be rigid, particularly if geared lightly and if the motor control feedback is on the other side of the coupler.  The coupler can be somewhat flexible in highly geared servo systems and in stepper motor systems.  The coupler should be as short as possible otherwise the windup effects mimic a long spring.</p>
+
+				<p>With modern servo systems, the control system can induce very slight vibrations.  The pulse width modulation often used to control the motor velocity might be felt.  The control system algorithm may have periodicies and the feedback loop may  induce vibration under certain load conditions.</p>
+
+				<p>With stepper systems and their typically highly geared drivetrain, a somewhat flexible coupler can help smooth out any jerkiness in the stepper motor as it moves from step to step.  Stepper motors snap from step to step when operating in fullstep or halfstep mode.  This causes a jittery motion in the eyepiece that can be quite objectionable.   A good test for this is to turn the drive off and on to see if there is any difference in the image quality.  Another way to test is to put fingers lightly on the eyepiece.  Jittery and higher speed oscillations can often be felt, if not downright heard by the ear.</p>
+
+				<p>Metal tubed telescopes such as refractors don't have the natural frequency absorbing characteristics of wood and aluminum Dobsonian mounts.  Metal tubed telescopes also tend to not only vibrate at the lower frequencies caused by the entire tube shaking, but also tend to vibrate at higher frequencies and at harmonics of lower frequencies.  This is manifested in the eyepiece as a very high speed wobble, perhaps only detectable by a frame to frame analysis by a camcorder, by the drive off and on test, or possibly by the finger test.   Ideas to try to cure high speed vibrations include placing a piece of dampening material between tube and cradle, significantly beefing up the mount, and not allowing potential sources of vibration to occur.  These include stomping around the scope, wind, pulling and shaking of cables, and nearby car and rail traffic.</p>
+			</div>			
 		</div>
 
 		<div class='designer' id='designRocker'>
@@ -1980,21 +2014,22 @@
 				<li>Rocker designer's rocker dimensions
 			</ul>
 
-			<p>The following are shortcuts that take the webpage directly to the content. For example, https://www.bbastrodesigns.com/NewtDesigner.html#diagonal. If you are already on the page, you may need to reload the page.</p>
+			<p>The following are shortcuts that take the webpage directly to the content. For example, https://www.bbastrodesigns.com/NewtDesigner.html#diagonal. If you are already on the page, you may need to reload the page (Control-R).</p>
 			<ul>
-				<li>#diagonal
-				<li>#telescopeValue
-				<li>#telescopePerformance
-				<li>#apertureManagement
-				<li>#turbulence
-				<li>#airy
-				<li>#telescopeRequirements
-				<li>#formulae
-				<li>#magnification
-				<li>#secondarySizeExperiment
-				<li>#diagonalOffsetStudy
-				<li>#offAxisMask
-				<li>#movementFriction
+				<li><a href='#diagonal'>#diagonal
+				<li><a href='#telescopeValue'>#telescopeValue
+				<li><a href='#telescopePerformance'>#telescopePerformance
+				<li><a href='#apertureManagement'>#apertureManagement
+				<li><a href='#turbulence'>#turbulence
+				<li><a href='#airy'>#airy
+				<li><a href='#telescopeRequirements'>#telescopeRequirements
+				<li><a href='#formulae'>#formulae
+				<li><a href='#magnification'>#magnification
+				<li><a href='#secondarySizeExperiment'>#secondarySizeExperiment
+				<li><a href='#diagonalOffsetStudy'>#diagonalOffsetStudy
+				<li><a href='#offAxisMask'>#offAxisMask
+				<li><a href='#vibration'>#vibration
+				<li><a href='#movementFriction'>#movementFriction</a>
 			</ul>
 
 			<h3>More reading...</h3>
@@ -2015,6 +2050,10 @@
 		</div>
 	</div>
 
+	<br><br>
+	<div id='divScrollToTop'>
+		<input id='btnScrollToTop' value='Go to top of page' type='button'>
+	</div>
 	<div id='versionText'></div>
 
 	<!-- these libraries first because my libraries reference them -->

@@ -37,9 +37,9 @@ html {
 }
 	
 #titleTextArea {
-	width: 60%; 
+	width: 80%; 
 	float: left; 
-	padding: 10px;
+	padding-left: 5%;
 }
 
 .slider {
@@ -48,6 +48,17 @@ html {
 
 .designSelect {
 	float: left;
+	width: 200px;
+	padding: 10px;
+	margin: 10px;
+  	background: lightgrey;
+}
+
+#divScrollToTop{
+	text-align: center;
+}
+
+#btnScrollToTop {
 	width: 200px;
 	padding: 10px;
 	margin: 10px;
