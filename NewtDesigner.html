@@ -12,23 +12,14 @@
 	<link rel='stylesheet' type='text/css' href='lib/jqplot/jquery.jqplot.min.css'>
 </head>
 <body>
-	<div>
-		<div>
-			<!--<img alt='' class='titleImage' src='ZipDobII design illustration.jpg'>-->
-			<div id='titleTextArea'>
-				<div id='titleText'><h1><i>Loading content...</i></h1></div>
-				<p>The history of the telescope is the history of better views through the eyepiece. I dream that the best views have yet to be seen. Every better view has come from a revolution in telescope design, driven by dreamers. Accurate digitized astronomical data, planetarium software, smartphones, coma correctors, well corrected wide angle eyepieces, meniscus mirrors, 3D printing, digital cameras and image processing software represent the vanguard of the new revolution in telescope thinking. This revolution is driven by new conceptual thinking and a deeper appreciation of trade-offs in telescope design. For example, larger aperture reveals dimmer objects but narrows the field of view while increasing the scope's weight and eyepiece height. A larger diagonal promises more light to the edge of the field, but itself blocks more light at the center of the field.<br>
-				I use 'NewtDesigner' to design my new telescopes. Perhaps you'll find 'NewtDesigner' useful too.</p>
-			</div>
-			<!--<img alt='' class='titleImage' src='25 inch f2.5 design.jpg'>-->
-		</div>
+	<div id='titleText'><h1><i>Loading content...</i></h1>
 	</div>
-	<div style='clear: both;'></div>
 
 	<div class='selectDesigner'>
 		<h3>Select a designer...</h3>
 	</div>
 	<div>
+		<input class='designSelect' id='btnSelectIntro'            value='Introduction'           type='button'>
 		<input class='designSelect' id='btnSelectTelescope'        value='Telescope'              type='button'>
 		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'              type='button'>
 		<input class='designSelect' id='btnSelectComaCorrector'    value='Coma corrector'         type='button'>
@@ -49,6 +40,8 @@
 	</div>
 	<div style='clear: both;'><br></div>
 
+	<div class='designerImage' id='designIntroImage'>
+	</div>
 	<div class='designerImage' id='designTelescopeImage'>
 		<img alt='' src='optical path and tube assembly callouts.jpg'>
 	</div>
@@ -302,9 +295,210 @@
 
 	<div class='designers'>
 
+		<div class='designer' id='designIntro'>
+			<div>
+				<img alt='' class='titleImage' src='ZipDobII design illustration.jpg'>
+				<div id='titleTextArea'>
+					<p>The history of the telescope is the history of better views through the eyepiece. I dream that the best views have yet to be seen. Every better view has come from a revolution in telescope design, driven by dreamers. Accurate digitized astronomical data, planetarium software, smartphones, coma correctors, well corrected wide angle eyepieces, meniscus mirrors, 3D printing, digital cameras and image processing software represent the vanguard of the new revolution in telescope thinking.</p>
+					
+					<p>This revolution is driven by new conceptual thinking and a deeper appreciation of trade-offs in telescope design. For example, larger aperture reveals dimmer objects but narrows the field of view while increasing the scope's weight and eyepiece height. A larger diagonal promises more light to the edge of the field, but itself blocks more light at the center of the field.</p>
+
+					<p>I use 'NewtDesigner' to design my new telescopes. Perhaps you'll find 'NewtDesigner' useful too.</p>
+				</div>
+				<img alt='' class='titleImage' src='25 inch f2.5 design.jpg'>
+			</div>		
+			<div style='clear: both;'></div>
+			
+			<div id='innovation'></div>
+			<button class='accordion' id='btnInnovation'>Telescope innovation</button>
+			<div class='panel'>
+			
+				<h3>Innovating in an era of quick, shallow, addictive thinking or how I avoided becoming a servant to evolving technology.</h3>
+				
+				<p><span style='font-weight: bold;'>I create exciting telescopes</span> by following a process that I&#8217;ve devised. I don&#8217;t think like others because, well, then, I wouldn&#8217;t be very innovative.</p>
+				
+				<p>The biographies of my favorite all-time innovators, DaVinci, Lovelace, Curie, Turing show great imagination and deep thought. <span style='font-weight: bold;'>I doubt that I can out-think them</span> - that would be arrogant and dismissive and not conducive to	innovating. I'll have to think differently, imagine differently, to	make progress. To think differently I'll have to know their thoughts, so I make it a point to study the writings of innovative telescope designers.</p>
+				
+				<p><span style='font-weight: bold;'>Next I look to re-cast the problem.</span> For instance, designing a new equatorial table, how did Poncet, Gee and D'Autumme see it? The essence of their innovations was to reduce the	equatorial tracking motion to a platform that would pivot a limited	distance. This led into bearing designs that better handled the center of gravity of big heavy telescopes. But did any of them think to start with tracking motions of other mounts, like an altazimuth or even a 3-axis mount? How about screw jacks, sliders and lifters? Or even	robotic styled motions like the hexapod? It also helps to have a box of	varied solutions and varied problems. Sometimes the key isn't a new	solution but a new problem that an existing solution could solve! For example, software startups that pivot to a new set of customers.</p>
+
+				<p><span style='font-weight: bold;'>But how to build a repertoire?</span> My style is extensive reading in a variety of fields to build an array of different thinking.</p>
+
+				<p><span style='font-weight: bold;'>Also I look for cognitive exhaustion.</span> Innovators tend to work on the main inovation. But left discarded on the floor are many new possibilities that could be tackled afresh.</p>
+				
+				<p><span style='font-weight: bold;'>Constraints are key.</span> I know it sounds paradoxical, but the more constraints that are placed, the	easier it is to arrive at either an astonishing solution or to find a clear contradiction or side-effect that terminates that problem-solution pairing. Usually deadends are the result; time to recast for a different way to look at the problem. For example, in telescope collimation, could it be accomplished with un-orthodox movements of other elements? The answer is yes - <a href='dynamic collimation/Dynamic Collimation, The Andrew Angle and the Seven Ways.html'>see dynamic collimation, the Andrew Angle, and the seven ways</a>: a thought exercise explicitly following my innovation process.</p>
+				
+				<p><span style='font-weight: bold;'>The innovation process can be improved by following the innovation process</span>, a kind of recursion that makes it feel alive. As time goes on, one glimpses a grandeur scheme. I suppose its turtles all the way down. Or is it? Maybe the bottom turtle is saying, 'Umph', maybe upon a little re-orientation of perspective, its saying, 'I'm on top, I'm flying, I can see the stars!'</p>
+				
+				<p><span style='font-weight: bold;'>Turtles aside, it's important to have fun</span>: compelling and thrilling fun. That means spending time at the telescope&#8217;s eyepiece, thinking how to make the view better and seizing opportunities when a better view comes along.</p>
+				
+				<p><span style='font-weight: bold;'>I want more aperture, more field of view with good ergonomics, e.g., a compact and lightweight scope.</span></p>
+				
+				<p>I can achieve all this by making three improvements in telescope design:</p>
+				
+				<ol>
+					<li><span style='font-weight: bold;'>Meniscus</span> shaped mirrors (strong, lightweight and inexpensive).
+					<li><span style='font-weight: bold;'>F3.0</span> and faster mirrors (grind my own).
+					<li><span style='font-weight: bold;'>Precision molds</span> to slump flat pieces of glass into the meniscus shape in a homemade kiln.
+				</ol>
+				<img alt='' class='mediumSizeImage' src='slump/30 inch slumped and annealed to f2.8.JPG'>
+				<img alt='' class='mediumSizeImage' src='slump/42 inch after slumping and annealing.jpg'>
+				
+				<p>Because the glass is very thin and cannot stand much grinding, the <span style='font-weight: bold;'>slumped mirror must be precisely shaped</span> in the kiln by a precision mold. I made a series of 10' molds to test refractory materials and devised a method of creating precision molds&nbsp; for the 30 inch and 42 inch mirrors, resulting in successfully slumping and annealing these large thin pieces of glass.<br>
+				<img alt='' class='mediumSizeImage' src='slump/30 inch and 42 inch molds.JPG'></p>
+				
+				<p>I&#8217;m conducting a <span style='font-weight: bold;'>long winded experiment to see how meniscus mirrors scale</span>. How large of a meniscus mirror can I make and use successfully with a standard passive mirror support flotation system? Can I make a 12 inch mirror, or a 24 inch? How about a 48 inch or 72 inch mirror?</p>
+				
+				<p>	My process is straightforward:</p>
+				<ul>
+					<li>Keep the overall <span style='font-weight: bold;'>amount of change to a minimum</span>. The Innovation ideally involves modifying an otherwise innocent part of a well-known design in a simple way to achieve a new startling result.			 
+					<li>Scale in <span style='font-weight: bold;'>fractal steps</span>, learning and adjusting as I go. I started with a 13 inch f3.0 slumped mirror, a small change in mirror shape from a standard 12 inch thinner thickness mirror, albeit with a big change in the focal ratio. I devised a technique for parabolizing an f3.0 mirror. I followed up by an even faster but similar sized 10.5 inch f2.7 mirror to gain more experience. Scaling up, I have finished a 25 inch f2.6 mirror. See <a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html'>JoyOfMirrorMaking/25 inch f2.6 mirror.html</a>. Next up are 30 inch and 42 inch very thin curved meniscus mirrors. Then maybe someday a 60 inch, maybe even a 72 or 80 inch mirror.				 
+				</ul>
+				
+				<p>Along the way these innovations have led to a <span style='font-weight: bold;'>new folding telescope design</span> sans truss tubes with the center of gravity more in the middle of the scope thanks to the lightweight mirror, heavy eyepiece and coma	corrector.<br>				
+				<img alt='' class='mediumSizeImage' src='ZipDob/ZipDobII/side.JPG'></p>
+				
+				<p>More crucially, I am treated to <span style='font-weight: bold;'>sights I never dreamed</span>: very wide fields of view with significant aperture. For example the extremely faint dust bubble surrounding the Pleiades.<br>
+				<img alt='' class='mediumSizeImage' src='6inchF2.8/6 inch telescope iteration 2.JPG'>&nbsp;<img alt='' class='mediumSizeImage' src='dneb/PleiadesBubble.jpg'></p>
+				
+				<p>One innovation of mine came from research. Upon reading the analysis of mirror edge supports in R.N.Wilson's two volume set, Reflecting Telescope Optics, I saw that the <span style='font-weight: bold;'>two point support at 90 degree separation</span> is ideal for amateur large thin mirrors. I built such a mirror mount for my 20 inch and quickly other amateurs followed suit.</p>
+				
+				<p> Another innovation of mine came from aesthetics, namely the desire of simplicity. Inspired by large observatory telescopes, I tried out a <span style='font-weight: bold;'>single ring upper ring</span> on my 20 inch and found it elegant: the spider on one side and the focuser on the other. Other amateurs followed suit.</p>
+				
+				<p>Yet another innovative mounting design is my Tri-Dob. This came about because the 20 inch telescope needed to fit through an RV door of maybe 18 inch width. I saw that I could split the altitude rim into forward and backward sections of differing diameters, folding up the forward altitude rim and then consolidate the back portion into a single fin. Later I saw that the 3.5m WIYN at Apache Point had a tail fin too.</p>
+
+				<p>Another innovation came from my strong desire to simplify. My innovation of PC based tracking and goto for altazimuth telescopes came from a desire to add back in the <span style='font-weight: bold;'>tracking</span> that John Dobson eschewed in order to create the compelling Dobsonian. The simplicity was a very	simple hardware circuit board with the complexity being held in the	software.<br>
+				<img alt='' class='mediumSizeImage' src='20 inch v1.JPG'>&nbsp;<img alt='' class='mediumSizeImage' src='TrilatBackSideView.jpg'>&nbsp;<img alt='' class='mediumSizeImage' src='20 inch v3.JPG'>&nbsp;<img alt='' class='mediumSizeImage' src='ScopeExePCB.jpg'></p>
+				
+				<p>Check out some of my ideas that I work on, often discussing with trusted creative friends<br>
+				<a href='FoldingScopes/FoldingTelescopes.html'>Folding telescopes</a><br>
+				<a href='ballscopes/ballscopes.html'>Ballscopes</a><br>
+				<a href='et/An Omni Latitude Equatorial Table.html'>Omni-latitude equatorial table</a><br>
+				<a href='ThreeAxisMounts.html'>Three axis mounts</a><br>
+				<a href='tm.html'>and see the telescopes that I have built; my motto: always build something new</a></p>
+				
+				<p>I quickly <span style='font-weight: bold;'>adopt innovations</span> to use them and mull over them, including thin large mirrors, the flex rocker, the ultralight concept, truss tubes, the Dobsonian and travel scopes.</p>
+				
+				<p>I am an avid student of <span style='font-weight: bold;'>telescope history</span>, paying particular attention to the golden eras of the late 1600's just after telescopes were invented, the late 1800's when the switch to silver on glass mirrors took place and the period when amateur telescope making began, the 1920's, and the period following WWII.</p>
+				
+				<p>I enjoy Peter Manly's <span style='font-weight: bold;'>Unusual Telscopes</span>.</p>
+				
+				<p>I <span style='font-weight: bold;'>seek out other innovative amateurs and discussion groups</span>. In particular the private group, Oregon Scope Werks, is comprised of innovative creative telescope makers. The BiNewt discussion group is also a center of thinking.</p>
+			</div>
+			
+			<br><br>
+			<div id='natureOfTelescopeDesign'></div>
+			<button class='accordion' id='btnNatureOfTelescopeDesign'>The Nature of Telescope Design</button>
+			<div class='panel'>			
+			
+				<p>A beautiful telescope opens the Cosmos, opens our soul, makes us feel alive. Our search for this beauty, for this quality, is the essence of designing, building and using a beautiful telescope. Patterns of beauty are all around us: in the Cosmos, in us. The stark vastness of the sky surrounds us; objects both bright and dim are simply wonderful. The telescope in our hands feels alive; we have a sense of the telescope: it feels good.</p>
+
+				<p>A telescope, from an engineering perspective, looks quite simple: an optical assembly that points up and down and rotates side to side. Yet a telescope mirror is arguably the most precise surface made by man or machine. It is accurate to two millionths of an inch [0.05 microns]. Guiding on an object calls for accuracy to one part in a million. We need to find objects in the sky to one part in 20 000. Most amateur telescopes built today are not precision machined. Instead they are built with simple materials and tools. How can this be? And what new telescope designs wait to be uncovered?</p>
+
+				<h4>Patterns, Symmetry and Process</h4>
+
+				<p>A “living” approach results in a better designed, more usable and compelling telescope. Nature uses patterns, symmetry and process. A “living” approach results in measurable, objective beauty and quality. It is the emotional and compelling experience of using the scope. A “living” design repeatedly unfolds.</p>
+
+				<p>Design today, both hardware and software, unfortunately is sometimes thought of as an application of engineering principles and adjustments based on algorithms. It is not an organic process, the very process of Nature. This is a sign that something is wrong. Mimicking nature, design should be alive by growing organically through incremental development, filling in details later. This tends to yield working systems. Especially with robotics and comprehensive sensors, telescopes are becoming more aware of their surroundings. Therefore the design must be simple and the implementation simple. The design should be correct; however it’s better to be simple. Consistency and completeness are important but must be sacrificed when necessary for simplicity. Designs fail one element at a time.</p>
+
+				<p>My 20 inch through three iterations from 1994 to 2000. The initial design experimented with a single upper ring and computer control. Subsequent designs lightened the design.</p>
+
+				<img alt='' class='mediumSizeImage' src='20 inch v1.JPG'>
+				<img alt='' class='mediumSizeImage' src='20 inch v2.JPG'>
+				<img alt='' class='mediumSizeImage' src='20 inch v3.JPG'>
+
+				<p>Two of my A-frame designs: a 12 inch and a 24 inch that was trailered (1980).</p>
+
+				<img alt='' class='mediumSizeImage' src='12 inch A frame Dob.JPG'>
+				<img alt='' class='mediumSizeImage' src='24 inch Draco II at star party.JPG'>
+
+				<p>A definition of elegant design is the optimal telescope that is achieved with the simplest, minimalist, least expensive effort. Elegance is the simplicity found on the far side of the complexity rainbow. The designer must avoid temptations like swinging for the fence to hit a home run, being too clever and solving frivolous problems. The result will be innovation. Don’t sit in a bathtub waiting to yell Eureka.</p>
+
+				<h4>Patterns</h4>
+
+				<p>A pattern is a quality reusable solution to a common problem. Examples include stairs, gardens, modelview-controller and trusses. Advantages of patterns: begin work at conceptual level, worry about details at the last responsible moment, incorporate knowledge gained during designing and building and better anticipate changes, language that users understand, and judge what is of higher quality and more beautiful.</p>
+
+				<p>Common telescope patterns: trusses, rockers, image plane adapters, filters, observatories, thin mirror making, the Dob (breakthroughs occur when process used to vary symmetry breaking across many patterns, eg, John Dobson).</p>
+
+				<h4>Symmetry</h4>
+
+				<p>Nature unfolds by breaking symmetry yet preserving structure. Breaking symmetry is a structure preserving change that strengthens centers and sharpens boundaries. Beautiful scopes have common characteristics: strong centers, clear boundaries, local symmetries and voids. Creativity is redefining us and our reality; it takes courage and endurance. Ideas can change; more than this they must change. We must master order so as to be open to chaos. To gain insight, we must love truth more than we hate error. Set high goals then identify critical functions, then eliminate or improve functions then refactor then repeat. Example is the telescope tube: optics on both ends held with cylinder; cut away portions of the cylinder keeping only those portions that transmit load, leaving a truss or bay pattern. A large single cylinder can be replaced with numbers of smaller cylinders.</p>
+
+				<p>Example: Morse mounting from the 1940’s that used a mechanical drive system for an altazimuth mounting. This is the mechanical analogy to today’s software that translates between equatorial and altazimuth coordinates. The Morse mount is an equatorial to altazimuth mechanical computer. Look at the car in the background to set the age of this mechanical computer.</p>
+
+				<img alt='' class='mediumSizeImage' src='morse.GIF'>
+
+				<p><a href='Morse/The Morse Equatorial to Altazimuth Transformer Mount.html'>See my webpage for more on the Morse Transformer mount and proposed modern derivatives</a></p>
+
+				<p>Patterns of equatorial mounts: a horseshoe 8 inch and a fork 10 inch with cold camera (1975).</p>
+
+				<img alt='' class='mediumSizeImage' src='8 inch on deck.JPG'>
+				<img alt='' class='mediumSizeImage' src='10 inch.JPG'>
+
+				<p>Example: the focal plane pattern. By providing a flexible interface, I could swap between visual and cold camera imaging. The imaging platform featured a centered guiding double diagonal arrangement where the second diagonal caught the light that squeezed past the initial diagonal. I did five minute nearly unguided images with a touchup of Declination adjustment due to slight polar misalignment with my 14 inch telescope.</p>
+
+				<img alt='' class='mediumSizeImage' src='14 inch at observatory.JPG'>
+				<img alt='' class='mediumSizeImage' src='14 inch guiding design.JPG'>
+				<img alt='' class='mediumSizeImage' src='m42.jpg'>
+
+				<p>Example: originally I was bothered by micro slippage in roller drives used on ultralight telescopes. I cast about looking for ways to turn the curved drive arcs into linear motions. Inspired by Holcombe, I studied scissors mount because of the large change in leg length. I discovered that lateral changes in the center of gravity are objectionable. Consequently, I created the glide mount that negated the lateral CG changes but allowed vertical changes, the vertical changes being symmetrically equivalent. This also dove tailed with my investigation of elliptical altitude bearings in that the center of gravity moves up and down but not laterally. Still, I was not able to overcome the cantilevered situation at either the horizontal or vertical position without complicating and compromising the design by adding a third support point, creating an inverse altitude rim. At this point, the symmetrically equivalent large Dob altitude rims seemed simpler. Center of gravity at mid-point along with a minimized eyepiece swing and strengthening the altitude rims to become the optical tube assembly become most important factors to elaborate from. I added folding or Origami concept for transport. The unifying concept was to squeeze air out of the telescope. Taking the iterative, one step at a time, I choose to use familiar materials with a restricted budget to stay within the three strikes (innovations) you’re out rule. This first decision is the first design and often involves the budget and materials. Any other sequence would have resulted in a different telescope.</p>
+
+				<p>The Holcombe Mount, popular in the 1800’s</p>
+
+				<img alt='' class='mediumSizeImage' src='holcombe-figure2.jpg'>
+				<img alt='' class='mediumSizeImage' src='holcombe-figure1.jpg'>
+
+				<p>Evolution of my Glide Dob design</p>
+
+				<img alt='' class='mediumSizeImage' src='Holcombe.jpg'>
+				<img alt='' class='mediumSizeImage' src='Glide Dob.jpg'>
+				<img alt='' class='mediumSizeImage' src='slidemount4.jpg'>
+
+				<p>Origins of the folding design.</p>
+
+				<img alt='' class='mediumSizeImage' src='FoldingScopes/initial concept - ota mount.jpg'>
+				<img alt='' class='mediumSizeImage' src='FoldingScopes/13 inch folding C scope.jpg'>
+
+				<p>Star testing and mirror mount test stand.</p>
+
+				<img alt='' class='mediumSizeImage' src='JoyOfMirrorMaking/13 inch star test rig 2.JPG'>
+
+				<p>The ZipDob, observing at the Oregon Star Party.</p>
+
+				<img alt='' class='mediumSizeImage' src='ZIPDOB/observing at OSP 2011.gif'>
+
+				<p>The Scissor or Spider Dob design</p>
+
+				<img alt='' class='mediumSizeImage' src='FoldingScopes/iteration 2.jpg'>
+
+				<h4>Process</h4>
+
+				<p>Process is deliberate approach to symmetry breaking or structure preserving changes using patterns to create beautiful, living telescopes. Simplifying, removing and combining are periodically necessary. This beauty or quality is objective in that we observe it in nature and agree when we see it.</p>
+
+				<p>The process is simple: do the one most important thing in the simplest possible manner while preserving symmetry and structure; then repeat. Knowing what is the one most important thing to do comes with a strong unifying vision or product design and many hours of practice. To create new, living designs, it is also vital to be both a designer and builder, to have experience building as many components of the telescope as possible, whether grinding the optics or coding the control software or designing and building the mounting.</p>
+
+				<p>John Dobson imagined that the compelling purpose of a telescope on a sidewalk was to show the sky. That meant aperture. He gave up tracking, precision construction and Pyrex full thickness mirror blanks in order to fulfill his vision. He substituted low cost hand carry-able plate glass blanks. He substituted hand pushed stiction bearings for clamp with fine motion assemblies. He re-purposed concrete Sonotubes in place of aluminum and fiberglass tubing. He substituted binocular eyepieces for expensive telescope eyepieces. The culmination of all these changes was a new telescope design, compelling in its purpose. It’s dominated telescope design for the past 40 years.</p>
+
+				<h4>Conclusion</h4>
+
+				<p>Telescopes ten years from now will look different than today. With patience and perseverance, you can
+				create and build a new telescope design. Even a simple accessory like the Telrad can change amateur
+				astronomy. I invite you to join others and me on the journey of amateur telescope making.
+
+				<h4>References</h4>
+
+				C.M. Vogen, The Design of Things To Come, 2005<br>
+				D.A. Norman, The Design of Everyday Things, 1988<br>
+				S. Berkum, The Myths of Innovation, 2007<br>
+				C.Alexander, The Nature of Order Book 2: The Process of Creating Life, 2002<br>
+				C.Alexander, The Timeless Way of Building, 1979<br>
+				JWH Consulting, Innovation TRIZ. Internet < http://www.innovation-triz.com/triz/>. Accessed 2012.<br>
+				I.Stewart, Why Beauty Is Truth, A History of Symmetry, 2007<br>
+			</div>
+		</div>
+
 		<div class='designer' id='designTelescope'>
 			<input id='btnUpdateTelescopeResults' value='Update telescope results' type='button'>
-
+`
 			<div>
 				<p><b>Results:</b></p>
 				<label id='telescopeDesignerResultsLabel'></label>
@@ -2016,19 +2210,21 @@
 
 			<p>The following are shortcuts that take the webpage directly to the content. For example, https://www.bbastrodesigns.com/NewtDesigner.html#diagonal. If you are already on the page, you may need to reload the page (Control-R).</p>
 			<ul>
-				<li><a href='#diagonal'>#diagonal
-				<li><a href='#telescopeValue'>#telescopeValue
-				<li><a href='#telescopePerformance'>#telescopePerformance
-				<li><a href='#apertureManagement'>#apertureManagement
-				<li><a href='#turbulence'>#turbulence
-				<li><a href='#airy'>#airy
-				<li><a href='#telescopeRequirements'>#telescopeRequirements
-				<li><a href='#formulae'>#formulae
-				<li><a href='#magnification'>#magnification
-				<li><a href='#secondarySizeExperiment'>#secondarySizeExperiment
-				<li><a href='#diagonalOffsetStudy'>#diagonalOffsetStudy
-				<li><a href='#offAxisMask'>#offAxisMask
-				<li><a href='#vibration'>#vibration
+				<li><a href='#diagonal'>#diagonal</a>
+				<li><a href='#innovation'>#innovation</a>
+				<li><a href='#natureOfTelescopeDesign'>#natureOfTelescopeDesign</a>
+				<li><a href='#telescopeValue'>#telescopeValue</a>
+				<li><a href='#telescopePerformance'>#telescopePerformance</a>
+				<li><a href='#apertureManagement'>#apertureManagement</a>
+				<li><a href='#turbulence'>#turbulence</a>
+				<li><a href='#airy'>#airy</a>
+				<li><a href='#telescopeRequirements'>#telescopeRequirements</a>
+				<li><a href='#formulae'>#formulae</a>
+				<li><a href='#magnification'>#magnification</a>
+				<li><a href='#secondarySizeExperiment'>#secondarySizeExperiment</a>
+				<li><a href='#diagonalOffsetStudy'>#diagonalOffsetStudy</a>
+				<li><a href='#offAxisMask'>#offAxisMask</a>
+				<li><a href='#vibration'>#vibration</a>
 				<li><a href='#movementFriction'>#movementFriction</a>
 			</ul>
 

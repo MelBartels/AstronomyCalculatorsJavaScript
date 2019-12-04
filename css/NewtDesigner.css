@@ -27,7 +27,7 @@ html {
 }
 
 .titleImage {
-	 width: 10%; 
+	 width: 15%; 
 	 height: auto; 
 	 float: left;
 }
@@ -37,10 +37,10 @@ html {
 }
 	
 #titleTextArea {
-	//width: 80%; 
-	//float: left; 
-	//padding-left: 5%;
-	//padding-right: 5%;
+	width: 60%; 
+	float: left; 
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
 .selectDesigner {
@@ -161,6 +161,12 @@ html {
 	text-align: right; 
 	vertical-align: top;
 	width: 300px;
+}
+
+.mediumSizeImage {
+	margin: 10px;
+	width: 30%;
+	height: 30%;	
 }
 
 /* for accordian collapsing sections
