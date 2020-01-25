@@ -1,1519 +1,1508 @@
-// copyright Mel Bartels, 2011-2020
-// see calcLib unitTests.htm for unit tests
-// turn on jslint's Tolerate ++ and --
-
-'use strict';
-
-MLB.calcLib = {};
-
-// Ronchi
-
-// from a Sky and Telescope article
-MLB.calcLib.wavefrontError = function (mirrorDia, radiusOfCurvature, correctionFactor) {
-    var mirrorRadius = mirrorDia / 2,
-        zones = [0.3, 0.7, 0.93],
-        zonalRadii = [],
-        readings = [],
-        deviations = [],
-        errors = [],
-        surfaceErrors = [],
-        length = zones.length,
-        wavelengthLight = 0.000022,
-        ix,
-        A,
-        B,
-        C,
-        zr;
-
-    // md = 20, rc = 200, cf = 0.86: zonalRadii = [3, 7, 9.3]
-    for (ix = 0; ix < length; ix++) {
-        zonalRadii[ix] = zones[ix] * mirrorRadius;
-    }
-
-    // for fixed light source
-    // md = 20, rc = 200, cf = 0.86: readings = [0.045, 0.245, 0.43245000000000006]
-    for (ix = 0; ix < length; ix++) {
-        readings[ix] = zonalRadii[ix] * zonalRadii[ix] / radiusOfCurvature;
-    }
-
-    // md = 20, rc = 200, cf = 0.86: deviations = [0.0063, 0.034300000000000004, 0.060543000000000013]
-    for (ix = 0; ix < length; ix++) {
-        deviations[ix] = readings[ix] * (1 - correctionFactor);
-    }
-
-    // md = 20, rc = 200, cf = 0.86: errors = [0.010738636363636363, 0.13642045454545457, 0.31991471590909104]
-    for (ix = 0; ix < length; ix++) {
-        errors[ix] = deviations[ix] * zonalRadii[ix] / (2 * radiusOfCurvature * radiusOfCurvature * wavelengthLight);
-    }
-
-    // md = 20, rc = 200, cf = 0.86: A = 0.0001012748943181821, B = 0.000015981517045452475, C = -0.010287304602272734
-    A = (3.31 * errors[0] - 3.88 * errors[1] + 1.86 * errors[2]) / (mirrorRadius * mirrorRadius * mirrorRadius);
-    B = (-7.19 * errors[0] + 6.37 * errors[1] - 2.47 * errors[2]) / (mirrorRadius * mirrorRadius);
-    C = -mirrorRadius * (mirrorRadius * A + B);
-
-    // md = 20, rc = 200, cf = 0.86: wavefronts = [-0.08395097402045464, -0.2554352439068186, -0.11930524737190273]
-    for (ix = 0; ix < length; ix++) {
-        zr = zonalRadii[ix];
-        surfaceErrors[ix] = A * zr * zr * zr * zr + B * zr * zr * zr + C * zr * zr;
-    }
-
-    // 70% zone will have greatest deviation when smoothly under/over corrected (center and edge will have zero error);
-    // wavefront error is twice that of surface error
-    return Math.abs(2 * surfaceErrors[1]);
-};
-
-// parabolic correction tolerances: focalRatio 1: 98.3%; focalRatio 2: 96.7%; focalRatio 3: 95%; focalRatio 4: 93.3%; focalRatio 5: 91.7%; focalRatio 6: 90%; focalRatio 7: 88.4%; focalRatio 8: 86.7%; focalRatio 9: 85%; focalRatio 10: 83.4%;
-MLB.calcLib.findAllowableCorrection = function (mirrorDia, radiusOfCurvature) {
-    var wavefrontError = MLB.calcLib.wavefrontError,
-        iterations = 0,
-        maxIterations = 8,
-        lastWavefrontError,
-        currentWavefrontError,
-        direction = -1,
-        stepSize = radiusOfCurvature / mirrorDia / 2 / 100, // make an initial guess
-        correction = 1 - stepSize;
-
-    while (iterations < maxIterations) {
-        currentWavefrontError = wavefrontError(mirrorDia, radiusOfCurvature, correction);
-        if (lastWavefrontError !== undefined && currentWavefrontError > lastWavefrontError) {
-            direction *= -1;
-            stepSize /= 2;
-        } else {
-            lastWavefrontError = currentWavefrontError;
-        }
-        correction += stepSize * direction;
-        iterations++;
-    }
-
-    return correction;
-};
-
-MLB.calcLib.calcAllowableParabolicDeviationForQuarterWavefront = function (focalRatio) {
-    return focalRatio * 0.0167;
-};
-
-// sagitta
-
-MLB.calcLib.calcSagittaSpherical = function (mirrorDia, focalRatio) {
-    var RoC,
-        mirrorRadius;
-
-    RoC = mirrorDia * focalRatio * 2;
-    mirrorRadius = mirrorDia / 2;
-    return RoC - Math.sqrt(RoC * RoC  - mirrorRadius * mirrorRadius);
-};
-
-MLB.calcLib.calcSagittaParabolic = function (mirrorDia, focalRatio) {
-    var mirrorRadius = mirrorDia / 2,
-        focalLength = mirrorDia * focalRatio;
-
-    return mirrorRadius * mirrorRadius / (4 * focalLength);
-};
-
-MLB.calcLib.calcFocalRatio = function (mirrorDia, sagitta) {
-    var mirrorRadius = mirrorDia / 2;
-
-    return (sagitta * sagitta + mirrorRadius * mirrorRadius) / (8 * sagitta * mirrorRadius);
-};
-
-MLB.calcLib.calcFocalRatioFromSphericalSagitta = function (mirrorDia, sphericalSagitta) {
-    return mirrorDia / (16 * sphericalSagitta);
-};
-
-// http://www.1728.org/sphere.htm and http://www.had2know.com/academics/spherical-cap-volume-surface-area-calculator.html
-MLB.calcLib.calcSagittalVolume = function (mirrorDia, focalRatio) {
-    var sagitta = MLB.calcLib.calcSagittaSpherical(mirrorDia, focalRatio),
-        RoC = mirrorDia * focalRatio * 2;
-
-    return Math.PI * sagitta * sagitta * (3 * RoC - sagitta) / 3;
-};
-
-MLB.calcLib.calcSagittalVolumeParabolic = function (mirrorDia, focalRatio) {
-    var sagitta = MLB.calcLib.calcSagittaParabolic(mirrorDia, focalRatio),
-        RoC = mirrorDia * focalRatio * 2;
-
-    return Math.PI * sagitta * sagitta * (3 * RoC - sagitta) / 3;
-};
-
-MLB.calcLib.calcSagittalVolumeRemovedDuringParabolization = function (mirrorDia, focalRatio) {
-    var calcSagittalVolume = MLB.calcLib.calcSagittalVolume,
-        calcSagittalVolumeParabolic = MLB.calcLib.calcSagittalVolumeParabolic,
-        sphericalVolume = calcSagittalVolume(mirrorDia, focalRatio),
-        parabolicVolume = calcSagittalVolumeParabolic(mirrorDia, focalRatio);
-
-    return sphericalVolume - parabolicVolume;
-};
-
-// in cubic inches; 0.000393701 inches = 10 microns
-MLB.calcLib.glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches = function (mirrorDia) {
-    return mirrorDia * mirrorDia / 4 * Math.PI * 0.000393701;
-};
-
-// for wavelength of green light;
-// conversion between nanometers and inches is 3.9370078740157E-8; green light is 550 nanometers
-MLB.calcLib.inchesToWavesGreenLight = function (sphereParabolaDifferenceInches) {
-    return sphereParabolaDifferenceInches / 0.000022;
-};
-
-// see https://en.wikipedia.org/wiki/Rotating_furnace
-MLB.calcLib.calcRotatingFurnaceRPM = function (focalLengthMeters) {
-    return Math.sqrt(447 / focalLengthMeters);
-};
-
-// diagonal off-axis illumination; sources are mid-70's Sky and Telescope article on diagonal size and Telescope Making #9, pg. 11 on diagonal offset.
-
-MLB.calcLib.calcOffAxisIllumination = function (mirrorDia, focalLen, diagSize, diagToFocalPlaneDistance, offAxisDistance) {
-    var r,
-        x,
-        a,
-        c;
-
-    r = diagSize * focalLen / (diagToFocalPlaneDistance * mirrorDia);
-    x = 2 * offAxisDistance * (focalLen - diagToFocalPlaneDistance) / (diagToFocalPlaneDistance * mirrorDia);
-    a = (x * x + 1 - r * r) / (2 * x);
-    if (a < -1) {
-        return 1;
-    }
-    if (a > 1) {
-        return 0;
-    }
-    c = (x * x + r * r - 1) / (2 * x * r);
-    return (Math.acos(a) - x * Math.sqrt(1 - a * a) + r * r * Math.acos(c)) / Math.PI;
-};
-
-// < 1.0 illumination results in a positive magnitude drop
-MLB.calcLib.magnitudeDrop = function (illumination) {
-    var log10 = MLB.sharedLib.log10;
-
-    return -2.5 * log10(illumination);
-};
-
-// aperture2 > aperture1 results in a negative magnitude difference
-MLB.calcLib.magnitudeDifferenceBetweenApertures = function (aperture1, aperture2) {
-    return MLB.calcLib.magnitudeDrop(aperture2 * aperture2 / aperture1 / aperture1);
-};
-
-MLB.calcLib.inverseMagnitudeDrop = function (value) {
-    return Math.pow(10, -0.4 * value);
-};
-
-MLB.calcLib.diagObstructionArea = function (mirrorDia, diagSize) {
-    return diagSize / mirrorDia * diagSize / mirrorDia;
-};
-
-// diagonal offset at right angle to focal plane: need to offset away from focuser and again towards the primary mirror;
-// from http://www.telescope-optics.net/newtonian.htm
-MLB.calcLib.calcDiagOffset = function (mirrorDia, focalLen, diagSize, diagToFocalPlaneDistance) {
-    return (mirrorDia - diagSize) * diagSize / (4 * (focalLen - diagToFocalPlaneDistance));
-};
-
-// from an old Sky and Telescope magazine article (note that the offset is negative)
-MLB.calcLib.calcDiagOffset2 = function (mirrorDia, focalLen, diagSize, diagToFocalPlaneDistance) {
-    var sagitta,
-        focalRatio,
-        fullyIllumFieldDia,
-        p,
-        q,
-        r,
-        n,
-        f,
-        calcSagittaParabolic = MLB.calcLib.calcSagittaParabolic;
-
-    sagitta = calcSagittaParabolic(mirrorDia, focalLen / mirrorDia);
-    focalRatio = focalLen / mirrorDia;
-    fullyIllumFieldDia = diagSize - diagToFocalPlaneDistance / focalRatio;
-    p = fullyIllumFieldDia * (focalLen - sagitta) + diagToFocalPlaneDistance * (mirrorDia - fullyIllumFieldDia);
-    q = 2 * (focalLen - sagitta) - (mirrorDia - fullyIllumFieldDia);
-    r = 2 * (focalLen - sagitta) + (mirrorDia - fullyIllumFieldDia);
-    n = p / q;
-    f = p / r;
-    return (f - n) / 2;
-};
-
-// adjusts offset for field diameter by using the diagonal to eye distance;
-// since diagToEyeDistance > diagToFocalPlaneDistance, the offset will shrink as the diagonal appears closer to the primary mirror;
-// from http://www.telescope-optics.net/newtonian.htm
-MLB.calcLib.calcDiagOffset3 = function (diagMinorAxis, diagToEyeDistance) {
-    return -diagMinorAxis * diagMinorAxis / 4 / diagToEyeDistance;
-};
-
-MLB.calcLib.getDiagIllumArray = function (mirrorDia, focalLen, diagSize, diagToFocalPlaneDistance, increment, maxField) {
-    var roundedMaxField,
-        fieldRadius,
-        steps,
-        illumArray,
-        ix,
-        offAxisDistance,
-        offAxisIllumination,
-        int = MLB.sharedLib.int,
-        resolveNumberToPrecision = MLB.sharedLib.resolveNumberToPrecision,
-        calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination;
-
-    roundedMaxField = resolveNumberToPrecision(maxField + increment, increment);
-    fieldRadius = roundedMaxField / 2;
-    steps = int(fieldRadius / increment);
-    illumArray = [];
-    for (ix = 0; ix <= steps; ix++) {
-        offAxisDistance = increment * ix;
-        offAxisIllumination = calcOffAxisIllumination(mirrorDia, focalLen, diagSize, diagToFocalPlaneDistance, offAxisDistance);
-        illumArray[steps + ix] = [offAxisDistance, offAxisIllumination];
-        illumArray[steps - ix] = [-offAxisDistance, offAxisIllumination];
-    }
-    return illumArray;
-};
-
-// http://stackoverflow.com/questions/4247889/area-of-intersection-between-two-circles
-MLB.calcLib.areaIntersectingCircles = function (x0, y0, r0, x1, y1, r1) {
-    var rr0 = r0 * r0,
-        rr1 = r1 * r1,
-        d = Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)),
-        phi,
-        theta,
-        area1,
-        area2;
-
-    // Circles do not overlap
-    if (d > r1 + r0) {
-        return 0;
-    }
-
-    // Circle1 is completely inside circle0
-    if (d <= Math.abs(r0 - r1) && r0 >= r1) {
-        // Return area of circle1
-        return Math.PI * rr1;
-    }
-
-    // Circle0 is completely inside circle1
-    if (d <= Math.abs(r0 - r1) && r0 < r1) {
-        // Return area of circle0
-        return Math.PI * rr0;
-    }
-
-    // Circles partially overlap
-    phi = (Math.acos((rr0 + (d * d) - rr1) / (2 * r0 * d))) * 2;
-    theta = (Math.acos((rr1 + (d * d) - rr0) / (2 * r1 * d))) * 2;
-    area1 = 0.5 * theta * rr1 - 0.5 * rr1 * Math.sin(theta);
-    area2 = 0.5 * phi * rr0 - 0.5 * rr0 * Math.sin(phi);
-
-    // Return area of intersection
-    return area1 + area2;
-};
-
-// folded Newtonian
-
-// focalPointToDiagDistance is optional parm
-MLB.calcLib.calcFoldedNewtonian = function (mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary, focalPointToDiagDistance) {
-    var diagToPrimaryMirrorDistance,
-        focalPointToPrimaryMirrorDistance,
-        bentLightPathLength,
-        bentLightPathVerticalLength,
-        bentLightPathHorizontalLength,
-        elbowAngleRad,
-        elbowAngleDeg,
-        diagMajorAxisSize,
-        uom = MLB.sharedLib.uom;
-
-    if (focalPointToDiagDistance === undefined) {
-        focalPointToDiagDistance = focalRatio * diagSize;
-    }
-    diagToPrimaryMirrorDistance = focalRatio * mirrorDia - focalPointToDiagDistance;
-
-    // the distance along the primary optical axis from the focal point projected onto this axis to the diagonal or folding mirror (excluding the focalPlaneToTertiaryDistance) that the light can be 'folded backwards' is one side of a triangle with the hypotenuse = bentLightPathLength and other side the bentLightPathVerticalLength;
-    bentLightPathLength = focalPointToDiagDistance - focalPlaneToTertiaryDistance;
-    bentLightPathVerticalLength = mirrorDia / 2 + tertiaryOffsetFromEdgeOfPrimary;
-    bentLightPathHorizontalLength = Math.sqrt(Math.pow(bentLightPathLength, 2) - Math.pow(bentLightPathVerticalLength, 2));
-    focalPointToPrimaryMirrorDistance = diagToPrimaryMirrorDistance - bentLightPathHorizontalLength;
-    /*
-        canvas x is the horizontal coordinate, canvas y is the vertical coordinate;
-        atan2(y,x): y is the horizontal coordinate, x is the vertical coordinate
-        atan2(1,0) aims to the right; atan2(0,1) aims to the top; atan2(0,-1) aims to the bottom; atan2(-1,-1) aims to the left;
-        or, 0deg aims to the right, 90deg aims to the top, -90deg aims to the bottom and 180/180deg aims to the left;
-        using the atan2 coordinate system (y to the right, x to the top, 0 deg to the right, grows counter-clockwise:
-    */
-    elbowAngleRad = Math.atan2(bentLightPathVerticalLength, bentLightPathHorizontalLength);
-    elbowAngleDeg = elbowAngleRad / uom.degToRad;
-    diagMajorAxisSize = diagSize / Math.cos(elbowAngleRad / 2);
-
-    return {
-        diagToPrimaryMirrorDistance: diagToPrimaryMirrorDistance,
-        focalPointToPrimaryMirrorDistance: focalPointToPrimaryMirrorDistance,
-        focalPointToDiagDistance: focalPointToDiagDistance,
-        elbowAngleDeg: elbowAngleDeg,
-        diagMajorAxisSize: diagMajorAxisSize
-    };
-};
-
-MLB.calcLib.getFoldedNewtonianScalingFactor = function (width, height, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary, diagToMirrorDistance) {
-    var maxWidth,
-        maxHeight,
-        modelWidthToHeightRatio,
-        graphicsWidthToHeightRatio,
-        scalingFactor,
-        margin;
-
-    maxWidth = diagToMirrorDistance;
-    maxHeight = (diagSize * focalRatio + focalPlaneToTertiaryDistance + tertiaryOffsetFromEdgeOfPrimary) * 2;
-    modelWidthToHeightRatio = maxWidth / maxHeight;
-    graphicsWidthToHeightRatio = width / height;
-    margin = 0.1;
-
-    if (maxWidth === 0 || maxHeight === 0) {
-        scalingFactor = 0;
-    } else if (modelWidthToHeightRatio > graphicsWidthToHeightRatio) {
-        scalingFactor = width / maxWidth;
-    } else {
-        scalingFactor = height / maxHeight;
-    }
-    scalingFactor *= 1 - margin * 2;
-    return scalingFactor;
-};
-
-// visual detection calculator
-
-MLB.calcLib.limitingMagnitude = function (apertureIn) {
-    var log10 = MLB.sharedLib.log10;
-
-    // from http://adsabs.harvard.edu/full/1947PASP...59..253B
-    // assumes 2 mag gain due to high magnification; no gain in limiting magnitude below 1.8mm exit pupil, 'RFT' exit pupil lowers limiting magnitude ~1
-    return 10.8 + 5 * log10(apertureIn);
-};
-
-MLB.calcLib.apertureInchesFromMagnitude = function (magnitude) {
-    return Math.pow(10, (magnitude - 10.8) / 5);
-};
-
-MLB.calcLib.VisualDetectCalcParms = function () {
-    this.apertureIn = 0;
-    this.bkgndBrightEye = 0;
-    this.objName = "";
-    this.objMag = 0;
-    this.maxObjArcmin = 0;
-    this.minObjArcmin = 0;
-    this.eyepieceExitPupilmm = 0;
-    this.apparentFoV = 0;
-    this.eyeLimitMag = 6;
-    this.exitPupilmm = 7;
-    this.scopeTrans = 0.8;
-    this.singleEyeFactor = 0.5;
-
-    this.copyFrom = function () {
-        var to = new MLB.calcLib.VisualDetectCalcParms(),
-            v;
-        for (v in this) {
-            if (this.hasOwnProperty(v)) {
-                to[v] = this[v];
-            }
-        }
-        return to;
-    };
-};
-
-MLB.calcLib.visualDetectCalcData = {
-    angleSize: 7,
-    ltcSize: 24,
-    firstRowBkgndBright: 4,
-    lastRowBkgndBright: 27,
-    eyeLimitMagGainAtX: 2.5,
-
-    logAngle: [-0.2255, 0.5563, 0.9859, 1.260, 1.742, 2.083, 2.556],
-
-    // log threshold contrast as function of background brightness for angles of: 0.595, 3.60, 9.68, 18.2, 55.2, 121, 360
-    // 0 to 23: first row is brightness of 4, last row is brightness of 27
-    ltc: [
-        [-0.3769, -1.8064, -2.3368, -2.4601, -2.5469, -2.5610, -2.5660],
-        [-0.3315, -1.7747, -2.3337, -2.4608, -2.5465, -2.5607, -2.5658],
-        [-0.2682, -1.7345, -2.3310, -2.4605, -2.5467, -2.5608, -2.5658],
-        [-0.1982, -1.6851, -2.3140, -2.4572, -2.5481, -2.5615, -2.5665],
-        [-0.1238, -1.6252, -2.2791, -2.4462, -2.5463, -2.5597, -2.5646],
-        [-0.0424, -1.5529, -2.2297, -2.4214, -2.5343, -2.5501, -2.5552],
-        [0.0498, -1.4655, -2.1659, -2.3763, -2.5047, -2.5269, -2.5333],
-        [0.1596, -1.3581, -2.0810, -2.3036, -2.4499, -2.4823, -2.4937],
-        [0.2934, -1.2256, -1.9674, -2.1965, -2.3631, -2.4092, -2.4318],
-        [0.4557, -1.0673, -1.8186, -2.0531, -2.2445, -2.3083, -2.3491],
-        [0.6500, -0.8841, -1.6292, -1.8741, -2.0989, -2.1848, -2.2505],
-        [0.8808, -0.6687, -1.3967, -1.6611, -1.9284, -2.0411, -2.1375],
-        [1.1558, -0.3952, -1.1264, -1.4176, -1.7300, -1.8727, -2.0034],
-        [1.4822, -0.0419, -0.8243, -1.1475, -1.5021, -1.6768, -1.8420],
-        [1.8559, 0.3458, -0.4924, -0.8561, -1.2661, -1.4721, -1.6624],
-        [2.2669, 0.6960, -0.1315, -0.5510, -1.0562, -1.2892, -1.4827],
-        [2.6760, 1.0880, 0.2060, -0.3210, -0.8800, -1.1370, -1.3620],
-        [2.7766, 1.2065, 0.3467, -0.1377, -0.7361, -0.9964, -1.2439],
-        [2.9304, 1.3821, 0.5353, 0.0328, -0.5605, -0.8606, -1.1187],
-        [3.1634, 1.6107, 0.7708, 0.2531, -0.3895, -0.7030, -0.9681],
-        [3.4643, 1.9034, 1.0338, 0.4943, -0.2033, -0.5259, -0.8288],
-        [3.8211, 2.2564, 1.3265, 0.7605, 0.0172, -0.2992, -0.6394],
-        [4.2210, 2.6320, 1.6990, 1.1320, 0.2860, -0.0510, -0.4080],
-        [4.6100, 3.0660, 2.1320, 1.5850, 0.6520, 0.2410, -0.1210]
-    ]
-};
-
-MLB.calcLib.VisualDetectCalc = function () {
-    var x,
-        minX,
-        maxXMaxObj,
-        maxXMinObj,
-        maxXBasedOn1MmExitPupil,
-        actualFoV,
-        fitsFoV,
-        singleEyeMagChange,
-        scopeTransMagChange,
-        limitMag,
-        surfBrightObj,
-        logContrastObject,
-        brightReductionAtX,
-        bkgndBrightAtX,
-        surfBrightObjAtX,
-        objPlusBkgnd,
-        surfBrightObjPlusBkgndAtX,
-        apparentAngle,
-        logApparentAngle,
-        bbX,
-        intbbX,
-        bbIxA,
-        bbIxB,
-        ix,
-        interpAngle,
-        interpA,
-        interpB,
-        logContrastRequired,
-        logContrastDiff,
-        detectable,
-        int = MLB.sharedLib.int,
-        log10 = MLB.sharedLib.log10,
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>QUnit test for calcLib.js</title>
+
+    <!--
+    <link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+    <script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+    <script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+
+    <script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
+    -->
+
+    <link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+    <script src='jquery/jquery-2.1.1.min.js'></script>
+    <script src='qunit/qunit-1.16.0.js'></script>
+    <script src='underscore/underscore-min.js'></script>
+
+    <script src="sharedLib.js"></script>
+    <script src="coordLib.js"></script>
+    <script src="calcLib.js"></script>
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+</body>
+
+<script>$(document).ready(function () {
+    'use strict';
+    var withinRange = MLB.sharedLib.withinRange,
         uom = MLB.sharedLib.uom,
-        magnitudeDrop = MLB.calcLib.magnitudeDrop,
-        inverseMagnitudeDrop = MLB.calcLib.inverseMagnitudeDrop,
-        visualDetectCalcData = MLB.calcLib.visualDetectCalcData;
-
-    this.data = visualDetectCalcData;
-
-    this.calc = function (parms) {
-        // magnifications
-        x = parms.apertureIn * 25.4 / parms.eyepieceExitPupilmm;
-        minX = parms.apertureIn * 25.4 / parms.exitPupilmm;
-        maxXMaxObj = parms.apparentFoV / (parms.minObjArcmin / 60);
-        maxXMinObj = parms.apparentFoV / (parms.maxObjArcmin / 60);
-        maxXBasedOn1MmExitPupil = 25.4 * parms.apertureIn;
-        if (maxXMaxObj > maxXBasedOn1MmExitPupil) {
-            maxXMaxObj = maxXBasedOn1MmExitPupil;
-        }
-        if (maxXMinObj > maxXBasedOn1MmExitPupil) {
-            maxXMinObj = maxXBasedOn1MmExitPupil;
-        }
-        // fields of view
-        actualFoV = parms.apparentFoV / x;
-        fitsFoV = x <= maxXMaxObj;
-        // magnitude drops
-        singleEyeMagChange = magnitudeDrop(parms.singleEyeFactor);
-        scopeTransMagChange = magnitudeDrop(parms.scopeTrans);
-        limitMag = parms.eyeLimitMag + this.data.eyeLimitMagGainAtX - magnitudeDrop(minX * minX) - singleEyeMagChange;
-        // object brightness
-        surfBrightObj = parms.objMag - magnitudeDrop(uom.sqrArcminToSqrArcsec * parms.minObjArcmin * parms.maxObjArcmin);
-        logContrastObject = -0.4 * (surfBrightObj - parms.bkgndBrightEye);
-        // brightness reduction due to magnification
-        brightReductionAtX = -2 * magnitudeDrop(x / minX);
-        bkgndBrightAtX = parms.bkgndBrightEye + brightReductionAtX + singleEyeMagChange + scopeTransMagChange;
-        surfBrightObjAtX = magnitudeDrop(inverseMagnitudeDrop(surfBrightObj)) + brightReductionAtX + singleEyeMagChange + scopeTransMagChange;
-        // surface brightness of object + background brightness
-        objPlusBkgnd = inverseMagnitudeDrop(surfBrightObj) + inverseMagnitudeDrop(parms.bkgndBrightEye);
-        surfBrightObjPlusBkgndAtX = magnitudeDrop(objPlusBkgnd) + brightReductionAtX;
-        // 2 dimensional interpolation of LTC array
-        apparentAngle = x * parms.minObjArcmin;
-        logApparentAngle = log10(apparentAngle);
-        bbX = bkgndBrightAtX;
-        // int of background brightness
-        intbbX = int(bbX);
-        // background brightness index A
-        bbIxA = intbbX - this.data.firstRowBkgndBright;
-        // min index must be at least 0
-        if (bbIxA < 0) {
-            bbIxA = 0;
-        }
-        // max bbIxA index cannot > 22 to leave room for bbIxB
-        if (bbIxA > this.data.ltcSize - 2) {
-            bbIxA = this.data.ltcSize - 2;
-        }
-        // background brightness index B
-        bbIxB = bbIxA + 1;
-        ix = 0;
-        while (ix < this.data.angleSize && logApparentAngle > this.data.logAngle[ix]) {
-            ix++;
-        }
-        // found 1st Angle[] value > logApparentAngle, so back up 2
-        ix -= 2;
-        if (ix < 0) {
-            ix = 0;
-            logApparentAngle = this.data.logAngle[0];
-        }
-        // eg, if LogApparentAngle = 4 and Angle[ix] = 3 and Angle[ix+1] = 5: * InterpAngle = .5, or .5 of the way between Angle[ix] and Angle[ix+1]
-        interpAngle = (logApparentAngle - this.data.logAngle[ix]) / (this.data.logAngle[ix + 1] - this.data.logAngle[ix]);
-        interpA = this.data.ltc[bbIxA][ix] + interpAngle * (this.data.ltc[bbIxA][ix + 1] - this.data.ltc[bbIxA][ix]);
-        interpB = this.data.ltc[bbIxB][ix] + interpAngle * (this.data.ltc[bbIxB][ix + 1] - this.data.ltc[bbIxB][ix]);
-        // log contrast
-        if (bbX < this.data.firstRowBkgndBright) {
-            bbX = this.data.firstRowBkgndBright;
-        }
-        if (intbbX >= this.data.lastRowBkgndBright) {
-            logContrastRequired = interpB + (bbX - this.data.lastRowBkgndBright) * (interpB - interpA);
-        } else {
-            logContrastRequired = interpA + (bbX - intbbX) * (interpB - interpA);
-        }
-        logContrastDiff = logContrastObject - logContrastRequired;
-        detectable = logContrastDiff > 0;
-
-        return {
-            parms: parms,
-            limitMag: limitMag,
-            logContrastDiff: logContrastDiff,
-            logContrastObject: logContrastObject,
-            logContrastRequired: logContrastRequired,
-            detectable: detectable,
-            x: x,
-            minX: minX,
-            maxXMaxObj: maxXMaxObj,
-            maxXMinObj: maxXMinObj,
-            fitsFoV: fitsFoV,
-            actualFoV: actualFoV,
-            scopeTransMagChange: scopeTransMagChange,
-            singleEyeMagChange: singleEyeMagChange,
-            surfBrightObj: surfBrightObj,
-            brightReductionAtX: brightReductionAtX,
-            bkgndBrightAtX: bkgndBrightAtX,
-            surfBrightObjAtX: surfBrightObjAtX,
-            surfBrightObjPlusBkgndAtX: surfBrightObjPlusBkgndAtX
-        };
-    };
-
-    this.includeResultAsString = function (result) {
-        var r,
-            p,
-            s;
-
-        r = result;
-        p = r.parms;
-        s = 'input values:\n' +
-            '  aperture (in)                ' + p.apertureIn + '\n' +
-            '  eye limiting magnitude       ' + p.eyeLimitMag + '\n' +
-            '  eye max exit pupil mm        ' + p.exitPupilmm + '\n' +
-            '  sky background brightness    ' + p.bkgndBrightEye + '\n' +
-            '  object name                  ' + p.objName + '\n' +
-            '  object integrated magnitude  ' + p.objMag + '\n' +
-            '  object dimensions arcmin     ' + p.maxObjArcmin + ' x ' + p.minObjArcmin + '\n' +
-            '  eyepiece apparent field deg  ' + p.apparentFoV + '\n' +
-            'calculated values:\n' +
-            '  magnification                ' + Math.round(r.x) + '\n' +
-            '  minimum useful X             ' + Math.round(r.minX) + '\n' +
-            '  maximum useful X varies from ' + Math.round(r.maxXMinObj) + ' to ' + Math.round(r.maxXMaxObj) + '\n' +
-            '  actual field deg             ' + r.actualFoV + '\n' +
-            '  object fits FoV?             ' + r.fitsFoV + '\n' +
-            '  faintest star                ' + r.limitMag + '\n' +
-            '  single eye mag reduction     ' + r.singleEyeMagChange + '\n' +
-            '  scope xmit mag reduction     ' + r.scopeTransMagChange + '\n' +
-            '  brightness (mag/arcsec^2):\n ' +
-            '   object without telescope    ' + r.surfBrightObj + '\n' +
-            '   brightness reduction at X   ' + r.brightReductionAtX + '\n' +
-            '   object in scope at X        ' + r.surfBrightObjAtX + '\n' +
-            '   background in scope at X    ' + r.bkgndBrightAtX + '\n' +
-            '   object+bkgnd in scope at X  ' + r.surfBrightObjPlusBkgndAtX + '\n' +
-            '  log object contrast          ' + r.logContrastObject + '\n' +
-            '  log contrast required        ' + r.logContrastRequired + '\n' +
-            '  log contrast difference      ' + r.logContrastDiff + '\n' +
-            '  detectable?                  ' + r.detectable + '\n';
-
-        return {
-            parms: p,
-            result: r,
-            text: s
-        };
-    };
-
-    this.includeResultAsJSON = function (result) {
-        var rnd = function (num) {
-                return MLB.sharedLib.roundToDecimal(num, 2);
-            },
-            r,
-            p,
-            json;
-
-        r = result;
-        p = r.parms;
-        json = [
-            {label: 'aperture (inches)', result: p.apertureIn},
-            {label: 'eye limiting magnitude', result: p.eyeLimitMag},
-            {label: 'eye max exit pupil (mm)', result: p.exitPupilmm},
-            {label: 'sky background brightness', result: p.bkgndBrightEye},
-            {label: 'object name', result: p.objName},
-            {label: 'object integrated magnitude', result: p.objMag},
-            {label: 'object dimensions (arcminutes)', result: p.maxObjArcmin + ' x ' + p.minObjArcmin},
-            {label: 'eyepiece apparent field (degrees)', result: p.apparentFoV},
-            {label: 'best  detection magnification \'X\'', result: Math.round(r.x)},
-            {label: 'minimum useful magnification', result: Math.round(r.minX)},
-            {label: 'maximum useful magnification', result: Math.round((r.maxXMinObj + r.maxXMaxObj) / 2)},
-            {label: 'actual field (degrees)', result: rnd(r.actualFoV)},
-            {label: 'Does the object fit into the field? ', result: r.fitsFoV},
-            {label: 'faintest detectable star', result: rnd(r.limitMag)},
-            {label: 'magnitude reduction using one eye', result: rnd(r.singleEyeMagChange)},
-            {label: 'magnitude reduction due to scope transmission factor', result: rnd(r.scopeTransMagChange)},
-            {label: 'object surface brightness (magnitude/arcsec^2)', result: rnd(r.surfBrightObj)},
-            {label: 'object brightness reduction at \'X\' (magnitude/arcsec^2)', result: rnd(r.brightReductionAtX)},
-            {label: 'object brightness at \'X\' (magnitude/arcsec^2)', result: rnd(r.surfBrightObjAtX)},
-            {label: 'sky background brightness at \'X\' (magnitude/arcsec^2)', result: rnd(r.bkgndBrightAtX)},
-            {label: 'brightness of object plus sky at \'X\' (magnitude/arcsec^2)', result: rnd(r.surfBrightObjPlusBkgndAtX)},
-            {label: 'object contrast (log)', result: rnd(r.logContrastObject)},
-            {label: 'detection contrast required (log)', result: rnd(r.logContrastRequired)},
-            {label: 'object contrast minus detection contrast required (log)', result: rnd(r.logContrastDiff)},
-            {label: 'is the object detectable?', result: r.detectable}
-        ];
-
-        return {
-            parms: p,
-            result: r,
-            json: json
-        };
-    };
-};
-
-MLB.calcLib.VisualDetectCalcExitPupils = function (parms) {
-    var epCalcs,
-        vdc,
-        eyepieceExitPupilmm,
-        newParms,
-        VisualDetectCalc = MLB.calcLib.VisualDetectCalc;
-
-    epCalcs = [];
-    vdc = new VisualDetectCalc();
-    for (eyepieceExitPupilmm = 1; eyepieceExitPupilmm <= 7; eyepieceExitPupilmm++) {
-        newParms = parms.copyFrom();
-        newParms.eyepieceExitPupilmm = eyepieceExitPupilmm;
-        epCalcs.push(vdc.calc(newParms));
-    }
-    return epCalcs;
-};
-
-MLB.calcLib.VisualDetectCalcApertures = function (parms) {
-    var apertureCalcs,
-        dblApertureParms,
-        halfApertureParms,
-        VisualDetectCalcExitPupils = MLB.calcLib.VisualDetectCalcExitPupils;
-
-    apertureCalcs = [];
-
-    dblApertureParms = parms.copyFrom();
-    dblApertureParms.apertureIn *= 2;
-    apertureCalcs.push(new VisualDetectCalcExitPupils(dblApertureParms));
-
-    apertureCalcs.push(new VisualDetectCalcExitPupils(parms));
-
-    halfApertureParms = parms.copyFrom();
-    halfApertureParms.apertureIn /= 2;
-    apertureCalcs.push(new VisualDetectCalcExitPupils(halfApertureParms));
-
-    return apertureCalcs;
-};
-
-// Newtonian baffles: focuser, diagonal and primary mirrors
-
-MLB.calcLib.calcNewtBaffle = function (focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID) {
-    var focuserBaffleToFocalPlaneDistance,
-        focuserBaffleOD,
-        focuserBaffleID,
-        diagonalBaffleOD,
-        primaryBaffleOD,
-        tubeExtension;
-
-    focuserBaffleToFocalPlaneDistance = diagToFocalPlaneDistance - diagtoFocuserBaffleDistance;
-    focuserBaffleOD = (focalPlaneDia + focuserBarrelID) / focuserBarrelBottomToFocalPlaneDistance * (focuserBaffleToFocalPlaneDistance - focuserBarrelBottomToFocalPlaneDistance) + focuserBarrelID;
-    focuserBaffleID = (diagSizeMinorAxis - focalPlaneDia) / diagToFocalPlaneDistance * focuserBaffleToFocalPlaneDistance + focalPlaneDia;
-    diagonalBaffleOD = (focalPlaneDia + focuserBaffleID) / focuserBaffleToFocalPlaneDistance * (diagtoFocuserBaffleDistance + diagToOppositeSideBaffleDistance) + focuserBaffleID;
-    primaryBaffleOD = (diagSizeMinorAxis + focalPlaneDia) * (primaryMirrorFocalLength - primaryToBaffleDistance) / diagToFocalPlaneDistance - focalPlaneDia;
-    tubeExtension = primaryMirrorFocalLength - (diagToFocalPlaneDistance * (focalPlaneDia + tubeID) / (diagSizeMinorAxis + focalPlaneDia));
-
-    return {
-        focuserBaffleID: focuserBaffleID,
-        focuserBaffleOD: focuserBaffleOD,
-        diagonalBaffleOD: diagonalBaffleOD,
-        primaryBaffleOD: primaryBaffleOD,
-        tubeExtension: tubeExtension
-    };
-};
-
-// Z12 mounting errors in azimuth calculator
-
-MLB.calcLib.MeasurementType = {
-    real: 'real',
-    apparent: 'apparent'
-};
-
-MLB.calcLib.initZ12Calc = function () {
-    var initLatitudeDeg,
-        altStepSizeDeg,
-        positions,
-        altDeg,
-        position,
-        uom = MLB.sharedLib.uom,
-        ConvertStyle = MLB.coordLib.ConvertStyle,
-        XForm = MLB.coordLib.XForm;
-
-    initLatitudeDeg = 40;
-    altStepSizeDeg = 2;
-    positions = [];
-
-    for (altDeg = -(90 - altStepSizeDeg); altDeg < 90; altDeg += altStepSizeDeg) {
-        position = new MLB.coordLib.Position();
-        position.alt = altDeg * uom.degToRad;
-        positions.push(position);
-    }
-    return {
-        xform: new XForm(ConvertStyle.matrix, initLatitudeDeg * uom.degToRad),
-        positions: positions,
-        azErrors: [],
-        z1Errors: [],
-        z2Errors: []
-    };
-};
-
-MLB.calcLib.InitZ12Calc = {
-    init: MLB.calcLib.initZ12Calc()
-};
-
-MLB.calcLib.setAlignment = function (xform, initType) {
-    var InitType = MLB.coordLib.InitType;
-
-    if (initType === InitType.altazimuth) {
-        xform.presetAltaz();
-    } else if (initType === InitType.equatorial) {
-        xform.presetEquat();
-    } else {
-        throw ('unprocessed initType of ' + initType + ' in setAlignment');
-    }
-};
-
-MLB.calcLib.generateZ12ErrorValues = function (z1Deg, z2Deg, latDeg, azDeg, xform, positions, azErrors, initType) {
-    var az,
-        positionsLength,
-        ix,
-        uom = MLB.sharedLib.uom,
-        setAlignment = MLB.calcLib.setAlignment;
-
-    xform.latitude = latDeg * uom.degToRad;
-    xform.setFabErrorsDeg(0, 0, 0);
-    setAlignment(xform, initType);
-    xform.position.SidT = 0;
-    az = azDeg * uom.degToRad;
-    xform.position.az = az;
-
-    // getEquat() with z123 = 0 and preset az
-    positionsLength = positions.length;
-    for (ix = 0; ix < positionsLength; ix++) {
-        xform.position.alt = positions[ix].alt;
-        xform.getEquat();
-        positions[ix].RA = xform.position.RA;
-        positions[ix].Dec = xform.position.Dec;
-    }
-
-    // get altaz with input z12 and RA+Dec from above;
-    // az error is difference between this az and starting az above
-    xform.setFabErrorsDeg(z1Deg, z2Deg, 0);
-    setAlignment(xform, initType);
-    positionsLength = positions.length;
-    for (ix = 0; ix < positionsLength; ix++) {
-        xform.position.RA = positions[ix].RA;
-        xform.position.Dec = positions[ix].Dec;
-        xform.getAltaz();
-        azErrors[ix] = az - xform.position.az;
-    }
-};
-
-MLB.calcLib.getZ12ErrorValues = function (z1Deg, z2Deg, latDeg, azDeg, initType) {
-    var init,
-        positionsLength,
-        ix,
-        InitZ12Calc = MLB.calcLib.InitZ12Calc,
-        generateZ12ErrorValues = MLB.calcLib.generateZ12ErrorValues;
-
-    init = InitZ12Calc.init;
-    generateZ12ErrorValues(z1Deg, 0, latDeg, azDeg, init.xform, init.positions, init.azErrors, initType);
-    positionsLength = init.positions.length;
-    for (ix = 0; ix < positionsLength; ix++) {
-        init.z1Errors[ix] = init.azErrors[ix];
-    }
-    generateZ12ErrorValues(0, z2Deg, latDeg, azDeg, init.xform, init.positions, init.azErrors, initType);
-    positionsLength = init.positions.length;
-    for (ix = 0; ix < positionsLength; ix++) {
-        init.z2Errors[ix] = init.azErrors[ix];
-    }
-};
-
-MLB.calcLib.setSecAxisDeg = function (position, initType) {
-    var uom = MLB.sharedLib.uom,
-        InitType = MLB.coordLib.InitType;
-
-    return initType === (InitType.altazimuth || initType === InitType.star)
-        ? position.alt / uom.degToRad
-        : position.Dec / uom.degToRad;
-};
-
-MLB.calcLib.includePriAxisError = function (position, initType) {
-    var InitType = MLB.coordLib.InitType;
-
-    return initType === InitType.equatorial || ((initType === InitType.altazimuth || initType === InitType.star) && position.alt >= 0);
-};
-
-MLB.calcLib.buildZ12AzErrors = function (positions, zErrors, measurementType, initType) {
-    var zPoints,
-        positionsLength,
-        ix,
-        azErrorArcmin,
-        uom = MLB.sharedLib.uom,
-        setSecAxisDeg = MLB.calcLib.setSecAxisDeg,
-        includePriAxisError = MLB.calcLib.includePriAxisError,
-        MeasurementType = MLB.calcLib.MeasurementType;
-
-    zPoints = [];
-    positionsLength = positions.length;
-    for (ix = 0; ix < positionsLength; ix++) {
-        if (includePriAxisError(positions[ix], initType)) {
-            azErrorArcmin = zErrors[ix] / uom.arcminToRad;
-            if (measurementType === MeasurementType.apparent) {
-                azErrorArcmin *= Math.cos(positions[ix].alt);
-            }
-            zPoints.push([azErrorArcmin, setSecAxisDeg(positions[ix], initType)]);
-        }
-    }
-    return zPoints;
-};
-
-/*
-Generate pointing errors across the sky for an altazimuth initialized telescope given random initialization errors.
-Conclusions based on init star separation:
-    bad for 0-20 and 160-180 degrees separation (error doubled from the init error),
-    marginal for 20-45 and 135-160 degrees separation (error 30% greater of the init error),
-    good for 40-140 degrees separation (error the same as the init error)
-*/
-
-MLB.calcLib.getRandomErrorDeg = function (maxErrorDeg) {
-    return Math.random() * maxErrorDeg;
-};
-
-MLB.calcLib.createPerfectPositions = function (latitudeRad, spacingDeg) {
-    var uom = MLB.sharedLib.uom,
-        Position = MLB.coordLib.Position,
-        convertStyle = MLB.coordLib.ConvertStyle.matrix,
-        XForm = MLB.coordLib.XForm,
-        xform,
-        perfectPositions = [],
-        altDeg,
-        azSpacingDeg,
-        azDeg;
-
-    xform = new XForm(convertStyle, latitudeRad);
-    xform.presetAltaz();
-
-    for (altDeg = 0; altDeg < 90; altDeg += spacingDeg) {
-        azSpacingDeg = spacingDeg / Math.cos(altDeg * uom.degToRad);
-        for (azDeg = 0; azDeg < 360; azDeg += azSpacingDeg) {
-            xform.position.SidT = 0;
-            xform.position.az = azDeg * uom.degToRad;
-            xform.position.alt = altDeg * uom.degToRad;
-            xform.getEquat();
-            perfectPositions.push(new Position(xform.position.RA, xform.position.Dec, xform.position.az, xform.position.alt, 0, 0));
-        }
-    }
-    return perfectPositions;
-};
-
-MLB.calcLib.initErrorsPlot = function (latitudeRad, spacingDeg, numberTrials, maxErrorDeg, position1, position2, z1deg, z2deg) {
-    var uom = MLB.sharedLib.uom,
-        validHalfRev = MLB.coordLib.validHalfRev,
-        copyPosition = MLB.coordLib.copyPosition,
-        ConvertStyle = MLB.coordLib.ConvertStyle,
-        XForm = MLB.coordLib.XForm,
-        clearPosition = MLB.coordLib.clearPosition,
-        initMatrixFacade = MLB.coordLib.initMatrixFacade,
-        createPerfectPositions = MLB.calcLib.createPerfectPositions,
-        getRandomErrorDeg = MLB.calcLib.getRandomErrorDeg,
-        xform,
-        cmws,
-        variances,
-        trials,
-        ppIx,
-        azError,
-        altError,
-        totalError,
-        errors = [],
-        plotData = [],
-        perfectPositions = createPerfectPositions(latitudeRad, spacingDeg),
-        lengthPerfectPositions = perfectPositions.length;
-
-    // main loop
-    for (trials = 0; trials < numberTrials; trials++) {
-        xform = new XForm(ConvertStyle.matrix, latitudeRad);
-        cmws = xform.cmws;
-        variances = [getRandomErrorDeg(maxErrorDeg), getRandomErrorDeg(maxErrorDeg), getRandomErrorDeg(maxErrorDeg), getRandomErrorDeg(maxErrorDeg)];
-        copyPosition(position1, cmws.one);
-        copyPosition(position2, cmws.two);
-        // increase az per altitude
-        cmws.one.az += variances[0] * uom.degToRad / Math.cos(cmws.one.alt);
-        cmws.one.alt += variances[1] * uom.degToRad;
-        cmws.two.az += variances[2] * uom.degToRad / Math.cos(cmws.two.alt);
-        cmws.two.alt += variances[3] * uom.degToRad;
-        clearPosition(cmws.three);
-        initMatrixFacade(cmws, 2);
-        // post-init setting of z1 equivalent to pre-init setting of z1+changed init positions:
-        // see test module 'z1 (axis twist or non-perpendicularity) initialization study' in coordLib unitTests.htm
-        xform.setFabErrorsDeg(z1deg, z2deg, 0);
-
-        // for each position in perfectPositions, grab equat coords and convert to altaz, comparing converted altaz to perfect altaz
-        for (ppIx = 0; ppIx < lengthPerfectPositions; ppIx++) {
-            copyPosition(perfectPositions[ppIx], xform.position);
-            xform.getAltaz();
-            // shrink az per altitude
-            azError = Math.abs(validHalfRev(xform.position.az - perfectPositions[ppIx].az)) * Math.cos(xform.position.alt);
-            altError = Math.abs(xform.position.alt - perfectPositions[ppIx].alt);
-            totalError = Math.sqrt(azError * azError + altError * altError);
-
-            if (isNaN(errors[ppIx])) {
-                errors[ppIx] = 0;
-            }
-            errors[ppIx] += totalError / numberTrials;
-        }
-    }
-
-    // create plot data
-    for (ppIx = 0; ppIx < lengthPerfectPositions; ppIx++) {
-        plotData[ppIx] = {error: errors[ppIx], azimuth: perfectPositions[ppIx].az, altitude: perfectPositions[ppIx].alt};
-    }
-    return plotData;
-};
-
-/*
-data engine for altazimuth tracking errors that accrue from constant motions
-*/
-
-MLB.calcLib.createAltazConstantMotionTrackingErrors = function (latitudeRad, constantTrackRateTimeRad, spacingDeg) {
-    var uom = MLB.sharedLib.uom,
-        convertStyle = MLB.coordLib.ConvertStyle.trig,
-        XForm = MLB.coordLib.XForm,
-        xform,
-        trackingRates,
-        altDeg,
-        azSpacingDeg,
-        azDeg,
-        timeIntervalSec = 30,
-        HAOffset = 0,
-        includeRefraction = true,
-        rates,
-        adjustedConstantTrackRateAzError,
-        rmsErrorRad,
-        data = [];
-
-    xform = new XForm(convertStyle, latitudeRad);
-    xform.presetAltaz();
-    trackingRates = new MLB.coordLib.TrackingRates();
-    trackingRates.setConstantTrackRateTimeRad(constantTrackRateTimeRad);
-
-    for (altDeg = 0; altDeg < 90; altDeg += spacingDeg) {
-        azSpacingDeg = spacingDeg / Math.cos(altDeg * uom.degToRad);
-        for (azDeg = 0; azDeg < 360; azDeg += azSpacingDeg) {
-            xform.position.SidT = 0;
-            xform.position.az = azDeg * uom.degToRad;
-            xform.position.alt = altDeg * uom.degToRad;
-            xform.getEquat();
-            rates = trackingRates.getRatesViaDeltaTime(xform, timeIntervalSec, HAOffset, includeRefraction);
-            // use apparent az error as seen in the eyepiece: adjust by the cosine of the altitude
-            adjustedConstantTrackRateAzError = rates.constantTrackRateAzError * Math.cos(rates.initialAz);
-            rmsErrorRad = Math.sqrt(adjustedConstantTrackRateAzError * adjustedConstantTrackRateAzError + rates.constantTrackRateAltError * rates.constantTrackRateAltError);
-            data.push([xform.position.az, xform.position.alt, rmsErrorRad]);
-        }
-    }
-    // ex, data[5][2] is the rms error in radians for the 6th entry
-    return data;
-};
-
-/*
-How much is the entrance aperture reduced when a mirror is slumped over a mold?
-Circle: perimeter = 2* PI * radius;
-if radius = RC (radius of curvature), which is MD (mirror dia) * FR (focal ratio) *2,
-then MD = 1/(2*FR) part of a radius and 1/(2*FR*2*PI)=1/(4*FR*PI) portion of a circle,
-eg, MD=30, FR=2: therefore mirror covers 1/(8*PI)= 0.0398 portion of a circle;
-a circle is 360 degrees or 2*PI radians, so in this example, the angle from the RC point to opposite edges of the mirror =
-    360/(8*PI)=14.32 degrees or 2*PI/(8*PI)=0.25 radians,
-formula for mirror diameter subtended angle in radians = 2*PI/(4*FR*PI)=1/(2*FR),
-angle from mirror's optical path centerline to mirror edge is half the subtended angle or 1/(4*FR);
-to get entrance aperture, we know the hypotenuse and the angle: half of entrance aperture = RC*sin(1/4*FR) = MD*FR*2*sin(1/(4*FR)),
-and full entrance aperture = 2*RC*2*sin(1/4*FR) = MD*FR*4*sin(1/(4*FR)),
-eg, MD=30, FR=2: entrance aperture = 2*30*2*2*sin(1/(4*2)) = 29.92;
-*/
-MLB.calcLib.calcMirrorSlumpingParms = function (mirrorDia, focalRatio) {
-    var angle = 1 / (4 * focalRatio),
+        calcSagittaSpherical = MLB.calcLib.calcSagittaSpherical,
         calcSagittaParabolic = MLB.calcLib.calcSagittaParabolic,
-        effectiveDia = mirrorDia * focalRatio * 4 * Math.sin(angle),
-        sphericalSagitta = calcSagittaParabolic(mirrorDia, focalRatio),
-        uom = MLB.sharedLib.uom;
+        calcFocalRatio = MLB.calcLib.calcFocalRatio,
+        calcFocalRatioFromSphericalSagitta = MLB.calcLib.calcFocalRatioFromSphericalSagitta,
+        calcSagittalVolume = MLB.calcLib.calcSagittalVolume,		
+		calcSagittalVolumeParabolic = MLB.calcLib.calcSagittalVolumeParabolic,
+		calcSagittalVolumeRemovedDuringParabolization = MLB.calcLib.calcSagittalVolumeRemovedDuringParabolization,
+		glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches = MLB.calcLib.glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches,
+        inchesToWavesGreenLight = MLB.calcLib.inchesToWavesGreenLight,
+        calcRotatingFurnaceRPM = MLB.calcLib.calcRotatingFurnaceRPM,
+        calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
+        magnitudeDrop = MLB.calcLib.magnitudeDrop,
+        magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
+        inverseMagnitudeDrop = MLB.calcLib.inverseMagnitudeDrop,
+        diagObstructionArea = MLB.calcLib.diagObstructionArea,
+        calcDiagOffset = MLB.calcLib.calcDiagOffset,
+        calcDiagOffset2 = MLB.calcLib.calcDiagOffset2,
+        calcDiagOffset3 = MLB.calcLib.calcDiagOffset3,
+        areaIntersectingCircles = MLB.calcLib.areaIntersectingCircles,
+        getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
+        getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
+        calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
+        limitingMagnitude = MLB.calcLib.limitingMagnitude,
+        apertureInchesFromMagnitude = MLB.calcLib.apertureInchesFromMagnitude,
+        VisualDetectCalcParms = MLB.calcLib.VisualDetectCalcParms,
+        visualDetectCalcData = MLB.calcLib.visualDetectCalcData,
+        VisualDetectCalc = MLB.calcLib.VisualDetectCalc,
+        VisualDetectCalcExitPupils = MLB.calcLib.VisualDetectCalcExitPupils,
+        VisualDetectCalcApertures = MLB.calcLib.VisualDetectCalcApertures,
+        calcNewtBaffle = MLB.calcLib.calcNewtBaffle,
+        createAltazConstantMotionTrackingErrors = MLB.calcLib.createAltazConstantMotionTrackingErrors,
+        calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
+        calcSphereParabolaDifference = MLB.calcLib.calcSphereParabolaDifference,
+        wavefrontError = MLB.calcLib.wavefrontError,
+        findAllowableCorrection = MLB.calcLib.findAllowableCorrection,
+        calcAllowableParabolicDeviationForQuarterWavefront = MLB.calcLib.calcAllowableParabolicDeviationForQuarterWavefront,
+        calcDobFriction = MLB.calcLib.calcDobFriction,
+        SQMtoNELMconverter = MLB.calcLib.SQMtoNELMconverter,
+        NELMtoSQMconverter = MLB.calcLib.NELMtoSQMconverter,
+        artificialStarDistanceMM = MLB.calcLib.artificialStarDistanceMM,
+        artificialStarDistanceInches = MLB.calcLib.artificialStarDistanceInches,
+        calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil,
+        calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil = MLB.calcLib.calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil,
+        calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop = MLB.calcLib.calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop,
+        calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil,
+        calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil = MLB.calcLib.calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil,
+        calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil_ComaCorrectorMag = MLB.calcLib.calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil_ComaCorrectorMag,
+        calcApertureFromFOV_FocalRatio_EyepieceFieldStop = MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop,
+        calcFOVFromAperture_FocalRatio_EyepieceFieldStop = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop,
+        calcFocalRatioFromAperture_FOV_EyepieceFieldStop = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop,
+        calcEyepieceFieldStopFromAperture_FOV_FocalRatio = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio,
+        calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
+        calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor,
+        calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor,
+        calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor,
+        resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
+        calcTheoreticalResolutionArcsec = MLB.calcLib.calcTheoreticalResolutionArcsec,
+        calcAiryDiskInches = MLB.calcLib.calcAiryDiskInches,
+        calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
+        scalingFactor = MLB.calcLib.scalingFactor,
+        calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
+        calcMinMagnification = MLB.calcLib.calcMinMagnification,
+        calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches,
+        calcDiopter = MLB.calcLib.calcDiopter,
+        calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches,
+        calcMagnifyingLensPower = MLB.calcLib.calcMagnifyingLensPower,
+        calcStrehlFromRMS = MLB.calcLib.calcStrehlFromRMS,
+        calcRMSFromStrehl = MLB.calcLib.calcRMSFromStrehl,
+        calcPVFromRMS = MLB.calcLib.calcPVFromRMS,
+        calcRMSFromPV = MLB.calcLib.calcRMSFromPV,
+        calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize = MLB.calcLib.calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize,
+        calcComa = MLB.calcLib.calcComa,
+        calcGreaterComa = MLB.calcLib.calcGreaterComa,
+        calcGreaterComaWithComaCorrector = MLB.calcLib.calcGreaterComaWithComaCorrector,
+        calcCollimationToleranceInches = MLB.calcLib.calcCollimationToleranceInches,
+        calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints,
+        calcMirrorCellDimensions = MLB.calcLib.calcMirrorCellDimensions,
+        calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction,
+        findOffsetCenterBetweenTwoPoints = MLB.calcLib.findOffsetCenterBetweenTwoPoints,
+        findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints;
 
-    return {
-        effectiveDia: effectiveDia,
-        sphericalSagitta: sphericalSagitta,
-        edgeAngleDeg: angle / uom.degToRad
-    };
-};
+    QUnit.module('sagitta');
 
-// from Thompson's Making Your Own Telescope, page 76
-MLB.calcLib.calcSphereParabolaDifference = function (mirrorDia, focalRatio) {
-    var mirrorRad = mirrorDia / 2,
-        radiusOfCurvature = mirrorDia * focalRatio * 2;
-
-    return Math.pow(mirrorRad, 4) / (8 * Math.pow(radiusOfCurvature, 3));
-};
-
-/*
-from Telescope Making #8, pg 36-, Richard Berry
-    16 inch f5
-    AZ radius 9, weight 120 lbs, 45deg bearing angle, moment arm 40inches, f=0.083
-    0.088*120*9/(cos(45)*40)=3.2
-    ALT radius 4, weight 80 lbs, 60deg bearing angle, moment arm 40inches, f=0.088
-    1.3*80*(1/cos(60))*4/40=2.1
-*/
-MLB.calcLib.calcDobFriction = function (azimuthFrictionCoefficient, altitudeFrictionCoefficient, momentArm, azWeight, altWeight, azBearingRadius, altBearingRadius, altBearingAngleDegFromVertical, altitudeAngleDegFromHorizontal) {
-    var uom = MLB.sharedLib.uom,
-        azFriction = azimuthFrictionCoefficient * azWeight * azBearingRadius / (momentArm * Math.cos(altitudeAngleDegFromHorizontal * uom.degToRad)),
-        altFriction = altitudeFrictionCoefficient * altWeight * (1 / Math.cos(altBearingAngleDegFromVertical * uom.degToRad)) * altBearingRadius / momentArm;
-
-    return {
-        az: azFriction,
-        alt: altFriction
-    };
-};
-
-// SQM (Sky Quality Meter) to NELM (Naked-Eye Limiting Magnitude) converter
-// http://www.unihedron.com/projects/darksky/NELM2BCalc.html taken from http://adsbit.harvard.edu/cgi-bin/nph-iarticle_query?bibcode=1990PASP..102..212S
-// Formula: B_mpsas = 21.58 - 5 log(10^(1.586-NELM/5)-1)
-// Formula: NELM=7.93-5*log(10^(4.316-(Bmpsas/5))+1)
-// mag 6 ~= 20.8 skies
-
-MLB.calcLib.SQMtoNELMconverter = function (SQMreading) {
-    return 7.93 - 5 * MLB.sharedLib.log10(Math.pow(10, 4.316 - (SQMreading / 5)) + 1);
-};
-
-MLB.calcLib.NELMtoSQMconverter = function (NELM) {
-    return 21.58 - 5 * MLB.sharedLib.log10(Math.pow(10, 1.586 - (NELM / 5)) - 1);
-};
-
-/*
-old formulae from Cloudy Nights discussion - not accurate for brighter skies
-
-// SQM (Sky Quality Meter) to NELM (Naked-Eye Limiting Magnitude) converter
-MLB.calcLib.SQMtoNELMconverter = function (SQMreading) {
-    return (SQMreading - 8.89) / 2 + 0.5;
-};
-
-MLB.calcLib.NELMtoSQMconverter = function (NELM) {
-    return 2 * (NELM - 0.5) + 8.89;
-};
-*/
-
-// from http://web.telia.com/~u41105032/misc/nulltest.htm
-MLB.calcLib.artificialStarDistanceMM = function (mirrorDiameter, focalLength) {
-    return MLB.sharedLib.int(14 * Math.pow(mirrorDiameter, 4) / Math.pow(focalLength, 2));
-};
-
-MLB.calcLib.artificialStarDistanceInches = function (mirrorDiameter, focalLength) {
-    return MLB.sharedLib.int(25.4 * 14 * Math.pow(mirrorDiameter, 4) / Math.pow(focalLength, 2));
-};
-
-/*
-Five fundamental parameters for telescope design:
-    aperture, true field of view, eyepiece focal length, eyepiece field stop, eye pupil
-
-From my 13.2 inch F3.0 ZipDob article, http://www.bbastrodesigns.com/ZipDob/ZipDob.html and my Richest Field Telescopes article, http://bbastrodesigns.com/rft.html
-Formula is: mirror diameter = eyepiece field stop * exit pupil * 57.3 / (true field of view * eyepiece focal length * 25.4)
-From: true field of view = eyepiece field stop / telescope focal length * 57.3; focal length = focal ratio * mirror diameter; eyepiece focal length / exit pupil = focal ratio
-
-ex: 21mm Ethos with 36.2mm field stop, coma corrector with 1.15x factor, desired FOV of 1.8 deg and 13.2 inch primary mirror at F3 with focal length = 13*3.2=39.6:
-exit pupil = 21/3/1.15=6.1, therefore aperture = 2.256 * 36.2 * 6.1 / 1.8 / 21 = 13.2;
-
-coma corrector comments:
-    without coma corrector, focal ratio increases from F3 to F3.5, focal length increases from 40 to 46 and magnification remains unchanged (or put another way, using a coma corrector with the above numbers means that focal ratio shrinks, focal length therefore shrinks, but magnification does not change);
-    the following equations ignore any coma corrector magnification because they do not use focal ratio or focal length
-*/
-
-MLB.calcLib.calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil = function (FOVdeg, eyepieceFocalLengthmm, eyepieceFieldStopmm, eyePupilmm) {
-    return 2.256 * eyepieceFieldStopmm * eyePupilmm / FOVdeg / eyepieceFocalLengthmm;
-};
-
-MLB.calcLib.calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil = function (apertureInches, eyepieceFocalLengthmm, eyepieceFieldStopmm, eyePupilmm) {
-    return 2.256 * eyepieceFieldStopmm * eyePupilmm / apertureInches / eyepieceFocalLengthmm;
-};
-
-MLB.calcLib.calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop = function (apertureInches, FOVdeg, eyepieceFocalLengthmm, eyepieceFieldStopmm) {
-    return apertureInches * FOVdeg * eyepieceFocalLengthmm / eyepieceFieldStopmm / 2.256;
-};
-
-MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil = function (apertureInches, FOVdeg, eyepieceFocalLengthmm, eyePupilmm) {
-    return apertureInches * FOVdeg * eyepieceFocalLengthmm / eyePupilmm / 2.256;
-};
-
-MLB.calcLib.calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil = function (apertureInches, FOVdeg, eyepieceFieldStopmm, eyePupilmm) {
-    return 2.256 * eyepieceFieldStopmm * eyePupilmm / apertureInches / FOVdeg;
-};
-
-/*
-If focal ratio known from eyepiece focal length and eye pupil, then can reduce to four fundamental parameters for telescope design:
-    aperture, true field of view, eyepiece field stop, focal ratio
-
-From: aperture = eyepiece field stop / (true field of view * focal ratio * 25.4 / 57.3)
-*/
-
-MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop = function (FOVdeg, focalRatio, eyepieceFieldStopmm) {
-    return 2.256 * eyepieceFieldStopmm / FOVdeg / focalRatio;
-};
-
-MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop = function (apertureInches, focalRatio, eyepieceFieldStopmm) {
-    return 2.256 * eyepieceFieldStopmm / apertureInches / focalRatio;
-};
-
-MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop = function (apertureInches, FOVdeg, eyepieceFieldStopmm) {
-    return 2.256 * eyepieceFieldStopmm / apertureInches / FOVdeg;
-};
-
-MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio = function (apertureInches, FOVdeg, focalRatio) {
-    return apertureInches * FOVdeg * focalRatio / 2.256;
-};
-
-/*
-adding in a coma corrector with magnifying power results in:
-aperture = eyepiece field stop / (true field of view * focal ratio * comaCorrectorFactor * 25.4 / 57.3)
-*/
-
-MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = function (FOVdeg, focalRatio, eyepieceFieldStopmm, comaCorrectorFactor) {
-    var calcApertureFromFOV_FocalRatio_EyepieceFieldStop = MLB.calcLib.calcApertureFromFOV_FocalRatio_EyepieceFieldStop,
-        apertureInches = calcApertureFromFOV_FocalRatio_EyepieceFieldStop(FOVdeg, focalRatio, eyepieceFieldStopmm);
-
-    if (!isNaN(comaCorrectorFactor)) {
-        apertureInches /= comaCorrectorFactor;
-    }
-    return apertureInches;
-};
-
-MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor = function (apertureInches, focalRatio, eyepieceFieldStopmm, comaCorrectorFactor) {
-    var calcFOVFromAperture_FocalRatio_EyepieceFieldStop = MLB.calcLib.calcFOVFromAperture_FocalRatio_EyepieceFieldStop,
-        FOVdeg = calcFOVFromAperture_FocalRatio_EyepieceFieldStop(apertureInches, focalRatio, eyepieceFieldStopmm);
-
-    if (!isNaN(comaCorrectorFactor)) {
-        FOVdeg /= comaCorrectorFactor;
-    }
-    return FOVdeg;
-};
-
-MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor = function (apertureInches, FOVdeg, eyepieceFieldStopmm, comaCorrectorFactor) {
-    var calcFocalRatioFromAperture_FOV_EyepieceFieldStop = MLB.calcLib.calcFocalRatioFromAperture_FOV_EyepieceFieldStop,
-        focalRatio = calcFocalRatioFromAperture_FOV_EyepieceFieldStop(apertureInches, FOVdeg, eyepieceFieldStopmm);
-
-    if (!isNaN(comaCorrectorFactor)) {
-        focalRatio /= comaCorrectorFactor;
-    }
-    return focalRatio;
-};
-
-MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor = function (apertureInches, FOVdeg, focalRatio, comaCorrectorFactor) {
-    var calcEyepieceFieldStopFromAperture_FOV_FocalRatio = MLB.calcLib.calcEyepieceFieldStopFromAperture_FOV_FocalRatio,
-        eyepieceFieldStopmm = calcEyepieceFieldStopFromAperture_FOV_FocalRatio(apertureInches, FOVdeg, focalRatio);
-
-    if (!isNaN(comaCorrectorFactor)) {
-        eyepieceFieldStopmm *= comaCorrectorFactor;
-    }
-    return eyepieceFieldStopmm;
-};
-
-// based on unaided eye barely resolving Epsilon Lyrae
-MLB.calcLib.resolutionFromAperture_Magnification = function (apertureInches, magnification) {
-    var DawesLimit = 4.6 / apertureInches,
-        resolution = 240 / magnification;
-
-    if (resolution < DawesLimit) {
-        return DawesLimit;
-    }
-    return resolution;
-};
-
-// ie, Dawes' Limit
-MLB.calcLib.calcTheoreticalResolutionArcsec = function (apertureInches) {
-    return 4.6 / apertureInches;
-};
-
-MLB.calcLib.calcAiryDiskInches = function (focalRatio) {
-    return focalRatio * 2.44 * 0.000022;
-};
-
-MLB.calcLib.calcProjectedFocuserBaffleRadius = function (eyepieceFieldStop, barrelTubeID, focalPlaneToFocuserBarrelBottomDistance, focalPlaneToDiagDistance, telescopeTubeOD, telescopeTubeThickness) {
-    var focuserBaffleSlope = (eyepieceFieldStop + barrelTubeID) / 2 / focalPlaneToFocuserBarrelBottomDistance;
-
-    return (focalPlaneToDiagDistance + telescopeTubeOD / 2 - telescopeTubeThickness) * focuserBaffleSlope - eyepieceFieldStop / 2;
-};
-
-MLB.calcLib.scalingFactor = function (maxWidth, maxHeight, modelWidth, modelHeight, border) {
-    var widthFactor = (maxWidth - border * 2) / modelWidth,
-        heightFactor = (maxHeight - border * 2) / modelHeight,
-        scalingFactor = widthFactor < heightFactor
-            ? widthFactor
-            : heightFactor;
-
-    return {
-        scalingFactor: scalingFactor,
-        width: modelWidth * scalingFactor + border * 2,
-        height: modelHeight * scalingFactor + border * 2
-    };
-};
-
-MLB.calcLib.calcMaxMagnification = function (apertureInches) {
-    return 27 * apertureInches;
-};
-
-MLB.calcLib.calcMinMagnification = function (apertureInches) {
-    return 3.6 * apertureInches;
-};
-
-MLB.calcLib.calcComaFreeDiaInches = function (focalRatio) {
-    return 0.0007 * Math.pow(focalRatio, 3);
-};
-
-MLB.calcLib.calcDiopter = function (focalLengthInches) {
-    return 39.37 / focalLengthInches;
-};
-
-MLB.calcLib.calcFocalLengthInches = function (diopter) {
-    return 39.37 / diopter;
-};
-
-/*
-    closest near point that eye can focus is assumed to be 25cm;
-    if object is placed at focal point of lens then power is 0.25m * diopter;
-    if lens is placed very close to the eye and object is placed closer to lens than its focal point, then add 1 more to power (lens changes the diopter of the eye making it myopic so that object can be placed closer to the eye resulting in 1x more magnification);
-*/
-MLB.calcLib.calcMagnifyingLensPower = function (diopter) {
-    var assumedNearPointcm = 25,
-        power = assumedNearPointcm / 100 * diopter;
-
-    return {
-        lensHeldAwayFromEye: power,
-        lensHeldCloseToEye: power + 1
-    };
-};
-
-// http://www.rfroyce.com/standards.htm
-
-MLB.calcLib.calcStrehlFromRMS = function (rms) {
-    return Math.pow((1 - 2 * Math.PI * Math.PI * rms * rms), 2);
-};
-
-MLB.calcLib.calcRMSFromStrehl = function (Strehl) {
-    return Math.sqrt((Math.sqrt(Strehl) - 1) / (-2 * Math.PI * Math.PI));
-};
-
-// 14.05 / 4 = 3.51
-
-MLB.calcLib.calcPVFromRMS = function (rms) {
-    return rms * 3.51;
-};
-
-MLB.calcLib.calcRMSFromPV = function (PV) {
-    return PV / 3.51;
-};
-
-// aperture = FOV / objectSize * pupil
-// for luminance, units are aperture units squared * deg^2, also see MLB.telescopeCriteriaCalc.calcLuminance
-MLB.calcLib.calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize = function (eyepieceApparentFOVdegs, pupil, objectSizeArcmin1, objectSizeArcmin2) {
-    var magnification,
-        aperture,
-        luminance,
-        apertures = [],
-        objectSizeArcmin = objectSizeArcmin1 > objectSizeArcmin2
-            ? objectSizeArcmin1
-            : objectSizeArcmin2;
-
-    eyepieceApparentFOVdegs.forEach(function (FOVdeg) {
-        magnification = FOVdeg / objectSizeArcmin * 60;
-        aperture = magnification * pupil;
-        luminance = aperture * aperture * objectSizeArcmin / 60 * objectSizeArcmin / 60;
-        apertures.push({'apparentFOVdegs': FOVdeg, 'aperture': aperture, 'luminance': luminance});
+    QUnit.test('calcSagittaSpherical', function () {
+        var result = calcSagittaSpherical(13, 3);
+        equal(withinRange(result, 0.271305, 0.000001), true, 'The sagitta should be 0.271305, is ' + result);
     });
 
-    return apertures;
-};
+    QUnit.test('calcFocalRatio', function () {
+        var result = calcFocalRatio(13, 0.2713051698409146);
+        equal(withinRange(result, 3, 0.000001), true, 'The focal ratio should be 3.0, is ' + result);
+    });
 
-/*
-Nils Olaf comment on ATM list, January 15, 2011:
-coma in wavelengths RMS (550 nm) is 6.7*h/F^3, where h is distance from optical center.
-For low power EPs, you have to consider linear coma: 3*h/(16*F^2).
-*/
-MLB.calcLib.calcComa = function (eyepieceFieldStopmm, focalRatio) {
-    return {
-        lowOrderComaRMS: 6.7 * (eyepieceFieldStopmm / 2) / (focalRatio * focalRatio * focalRatio),
-        linearComaRMS: 3 * (eyepieceFieldStopmm / 2) / (focalRatio * focalRatio) // central 1/3 visible
-    };
-};
+    QUnit.test('calcSagittaParabolic', function () {
+        var mirrorDia = 30,
+            focalRatio = 0.25,
+            expectedSphericalSagitta = 7.5,
+            result = calcSagittaParabolic(mirrorDia, focalRatio);
+        equal(result, expectedSphericalSagitta, 'sagitta is ' + result);
+    });
 
-MLB.calcLib.calcGreaterComa = function (eyepieceFieldStopmm, focalRatio) {
-    var coma = MLB.calcLib.calcComa(eyepieceFieldStopmm, focalRatio);
+    QUnit.test('calcFocalRatioFromSphericalSagitta', function () {
+        var result = calcFocalRatioFromSphericalSagitta(30, 7.5);
+        equal(withinRange(result, 0.25, 0.000001), true, 'The focal ratio should be 0.25, is ' + result);
+    });
 
-    return coma.lowOrderComaRMS > coma.linearComaRMS
-        ? coma.lowOrderComaRMS
-        : coma.linearComaRMS;
-};
+    // http://www.1728.org/sphere.htm and http://www.had2know.com/academics/spherical-cap-volume-surface-area-calculator.html
+    QUnit.test('calcSagittalVolume', function () {
+        var expected = 6.1439,
+            result = calcSagittalVolume(10, 4);
+        equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 
-MLB.calcLib.calcGreaterComaWithComaCorrector = function (eyepieceFieldStopmm, focalRatio, useComaCorrector) {
-    return useComaCorrector
-        // per TeleVue's F3 coma reduced to that of an F12
-        ? MLB.calcLib.calcGreaterComa(eyepieceFieldStopmm, focalRatio * 4)
-        : MLB.calcLib.calcGreaterComa(eyepieceFieldStopmm, focalRatio);
-};
+        expected = 56287;
+        result = calcSagittalVolume(70, 37 / 70 / 2);
+        equal(withinRange(result, expected, 1), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+    });
 
-MLB.calcLib.calcCollimationToleranceInches = function (focalRatio) {
-    return 0.0007 * focalRatio * focalRatio * focalRatio;
-};
+    QUnit.test('calcSagittalVolumeParabolic', function () {
+        var expected = 6.1379,
+            result = calcSagittalVolumeParabolic(10, 4);
+        equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+    });
 
-MLB.calcLib.calcMinimumMirrorSupportPoints = function (apertureInches) {
-    var maxMirrorAreaSquareInchesPerSupportPoint = 35,
-        mirrorSupportsArray = [3, 6, 9, 12, 18, 27, 54],
-        mirrorSupportsArrayLength = mirrorSupportsArray.length,
-        apertureAreaInches = apertureInches * apertureInches * Math.PI / 4,
-        calculatedPoints = apertureAreaInches / maxMirrorAreaSquareInchesPerSupportPoint,
-        ix = 0;
+    QUnit.test('calcSagittalVolumeRemovedDuringParabolization', function () {
+        var expected = 0.006,
+            result = calcSagittalVolumeRemovedDuringParabolization(10, 4);
+        equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+    });
 
-    while (ix < mirrorSupportsArrayLength) {
-        if (Math.floor(calculatedPoints) < mirrorSupportsArray[ix]) {
-            return mirrorSupportsArray[ix];
+    QUnit.test('glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches', function () {
+        var expected =  0.03092,
+            result = glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches(10);
+        equal(withinRange(result, expected, 0.0001), true, 'Glass removed during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('inchesToWavesGreenLight', function () {
+        var sphereParabolaDifferenceInches = 0.000579, // 16" f3
+            expected = 26.31,
+            result = inchesToWavesGreenLight(sphereParabolaDifferenceInches);
+        equal(withinRange(result, expected, 0.01), true, 'converting from inches to waves of green light should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcRotatingFurnaceRPM', function () {
+        var focalLengthMeters = 2,
+            expected = 14.95,
+            result = calcRotatingFurnaceRPM(focalLengthMeters);
+        equal(withinRange(result, expected, 0.01), true, 'rotating furnance RPM for focal length in meters of ' + focalLengthMeters + ' should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.module('diagonal sizing');
+
+    QUnit.test('calcOffAxisIllumination', function () {
+        var result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0.5);
+        equal(withinRange(result, 0.878, 0.001), true, 'The off-axis illumination should be .878, is ' + result);
+
+        result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0.1);
+        equal(withinRange(result, 0.999, 0.001), true, 'The off-axis illumination should be .999, is ' + result);
+
+        result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0);
+        equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
+
+        result = calcOffAxisIllumination(13.2, 40.3, 3.5, 9, 0.5);
+        equal(withinRange(result, 0.973, 0.001), true, 'The off-axis illumination should be .973, is ' + result);
+
+        result = calcOffAxisIllumination(13.2, 40.3, 3.5, 9, 0.1);
+        equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
+
+        result = calcOffAxisIllumination(13.2, 40.3, 3.5, 9, 0);
+        equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
+    });
+
+    QUnit.test('magnitudeDrop', function () {
+        var result = magnitudeDrop(0.878011030887435);
+        equal(withinRange(result, 0.141, 0.001), true, 'The magnitude drop should be 0.141, is ' + result);
+    });
+
+    QUnit.test('magnitudeDrop', function () {
+        var result = magnitudeDrop(0.71);
+        equal(withinRange(result, 0.37, 0.01), true, 'The magnitude drop should be 0.37, is ' + result);
+    });
+
+    QUnit.test('magnitudeDrop as a percentage', function () {
+        var result = magnitudeDrop(0.96);
+        equal(withinRange(result, 0.04, 0.01), true, 'The magnitude drop should be 0.04, is ' + result);
+    });
+
+    QUnit.test('magnitudeDrop as a percentage', function () {
+        var result = magnitudeDrop(1.04);
+        equal(withinRange(result, -0.04, 0.01), true, 'The magnitude drop should be -0.04, is ' + result);
+    });
+
+    QUnit.test('magnitudeDifferenceBetweenApertures', function () {
+        var result = magnitudeDifferenceBetweenApertures(10, 20);
+        equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
+    });
+
+    QUnit.test('inverseMagnitudeDrop', function () {
+        var result = inverseMagnitudeDrop(0.37);
+        equal(withinRange(result, 0.71, 0.01), true, 'The inverse magnitude drop should be .71, is ' + result);
+    });
+
+    QUnit.test('diagObstructionArea', function () {
+        var result = diagObstructionArea(10, 1);
+        equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
+    });
+
+    QUnit.test('calcDiagOffset', function () {
+        var result = calcDiagOffset(13.2, 40.3, 3.1, 9);
+        equal(withinRange(result, 0.25, 0.01), true, 'The diagonal offset should be .25, is ' + result);
+    });
+
+    QUnit.test('calcDiagOffset2', function () {
+        var result = calcDiagOffset2(13.2, 40.3, 3.1, 9);
+        equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
+    });
+
+    QUnit.test('calcDiagOffset3', function () {
+        var result = calcDiagOffset3(3.1, 9);
+        equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset should be -.26, is ' + result);
+    });
+
+    QUnit.test('areaIntersectingCircles', function () {
+        var result = areaIntersectingCircles(100, 0, 100, 200, 0, 100) / (Math.PI * 100 * 100),
+            expected = 0.391;
+
+        equal(withinRange(result, expected, 0.001), true, 'The intersecting circle area should be, ' + expected + ', is ' + result);
+    });
+
+    /* eg,
+    -0.7000000000000001,0.8109570241529027
+    -0.6000000000000001,0.8444947700225293,
+    -0.5,0.878011030887435,
+    -0.4,0.9113610077701036,
+    -0.30000000000000004,0.9442331974332544,
+    -0.2,0.9757007976643087,
+    -0.1,0.9999028396353284,
+    0,1,
+    0.1,0.9999028396353284,
+    0.2,0.9757007976643087,
+    0.30000000000000004,0.9442331974332544,
+    0.4,0.9113610077701036,
+    0.5,0.878011030887435,
+    0.6000000000000001,0.8444947700225293,
+    0.7000000000000001,0.8109570241529027
+    */
+    QUnit.test('getDiagIllumArray', function () {
+        var result = getDiagIllumArray(13.2, 40.3, 3.1, 9, 0.1, 1.38);
+        equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
+        equal(withinRange(result[1][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[1][1]);
+        equal(withinRange(result[13][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[13][1]);
+
+        result = getDiagIllumArray(13.2, 40.3, 3.5, 9, 0.1, 1.38);
+        equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
+        equal(withinRange(result[1][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[1][1]);
+        equal(withinRange(result[13][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[13][1]);
+    });
+
+    QUnit.module('foldedNewtonian.js');
+
+    // example: mirror = 30, focal ratio = 3, diag = 8, tertiary distance = 2, eyepiece to mirror = 50, diag to mirror = 66
+    // therefore maxWidth = diag to mirror = 66,
+    // maxHeight = (diag * focal ratio + tertiary) * 2 = (8*3 + 2)*2 = 52 (primary axis is centered),
+    // model width to height = 66/52 = 1.2692308,
+    // graphics width = 200, height = 100,
+    // graphics width to height = 200/100 = 2,
+    // fit model into graphics:
+    // if model's width/height > graphics width/height, then model wider than display, else display wider than model,
+    // if model w/h > graphics w/h then scale by width: model width / display width, else scale by height: model height / display height,
+    // eg, if model w/h = 1.2692308 and display w/h = 2, then display wider than model, given same height,
+    // given model w = 66, h = 52 and graphics w = 200, h = 100:
+    // therefore scale by height: graphics height of 100 / model height of 52 = scaling factor of 1.9230769,
+    // otherwise would scale by width: graphics width of 200 / model width of 66 = scaling factor of 3.030303,
+    // using scaling factor of 1.9230769, width = 1.9230769 * 66 = 126.92308, height = 1.9230769 * 52 = 100:
+    // so some display width wasted since the narrower model has to fit within;
+    // returned scalingFactor made smaller by a margin, eg if scaling factor is 1.9230769 then returned value is 1.53846152;
+    // this test ignores tertiaryOffsetFromEdgeOfPrimary;
+    QUnit.test('getFoldedNewtonianScalingFactor', function () {
+        var result = getFoldedNewtonianScalingFactor(200, 100, 3, 8, 2, 0, 66);
+        equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
+    });
+
+    QUnit.module('folded Newtonian');
+
+    // original function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary)
+    QUnit.test('calcFoldedNewtonian', function () {
+        var result = calcFoldedNewtonian(30, 2.9, 7, 3, 0);
+        equal(withinRange(result.diagToPrimaryMirrorDistance, 66.7, 0.01), true, 'The diagToPrimaryMirrorDistance should be 66.7, is ' + result.diagToPrimaryMirrorDistance);
+        equal(withinRange(result.focalPointToPrimaryMirrorDistance, 58.08, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 55.08, is ' + result.focalPointToPrimaryMirrorDistance);
+        equal(withinRange(result.focalPointToDiagDistance, 20.3, 0.01), true, 'The focalPointToDiagDistance should be 20.3, is ' + result.focalPointToDiagDistance);
+        equal(withinRange(result.elbowAngleDeg, 60.12, 0.01), true, 'The elbowAngleDeg should be 60.12, is ' + result.elbowAngleDeg);
+        equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
+    });
+
+    QUnit.test('calcFoldedNewtonian focalPointToPrimaryMirrorDistance and focalPlaneToTertiaryDistance', function () {
+        var result = calcFoldedNewtonian(30, 3, 10, 0, 0),
+            expected = 34.02;
+        equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
+
+        // tertiaryOffsetFromEdgeOfPrimary of 1 should shrink diagonal to mirror distance by about 1, give a sufficiently sharp angle (result of a very large diagonal)
+        result = calcFoldedNewtonian(30, 3, 10, 1, 0);
+        expected = 35.18;
+        equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
+    });
+
+    // new function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary, focalPointToDiagDistance)
+    QUnit.test('calcFoldedNewtonian with new optional parm focalPointToDiagDistance', function () {
+        var result = calcFoldedNewtonian(30, 2.9, 7, 0, 0, 18);
+        equal(withinRange(result.diagToPrimaryMirrorDistance, 69, 0.01), true, 'The diagToPrimaryMirrorDistance should be 69, is ' + result.diagToPrimaryMirrorDistance);
+        equal(withinRange(result.focalPointToPrimaryMirrorDistance, 59.05, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 59.05, is ' + result.focalPointToPrimaryMirrorDistance);
+        equal(withinRange(result.focalPointToDiagDistance, 18, 0.01), true, 'The focalPointToDiagDistance should be 18, is ' + result.focalPointToDiagDistance);
+        equal(withinRange(result.elbowAngleDeg, 56.44, 0.01), true, 'The elbowAngleDeg should be 56.44, is ' + result.elbowAngleDeg);
+        equal(withinRange(result.diagMajorAxisSize, 7.94, 0.01), true, 'The diagMajorAxisSize should be 7.94, is ' + result.diagMajorAxisSize);
+    });
+
+    QUnit.module('visual detection calculator: parms and data');
+
+    QUnit.test('limiting magnitude', function () {
+        var apertureIn = 13;
+        var expectedLimitingMag = 16.37;
+        var result = limitingMagnitude(apertureIn);
+        equal(withinRange(result, expectedLimitingMag, 0.01), true, 'limiting magnitude from ' + apertureIn +' apertureIn should be ' + expectedLimitingMag + ', is ' + result);
+    });
+
+    QUnit.test('apertureInchesFromMagnitude', function () {
+        var magnitude = 16.37;
+        var expectedApertureIn = 13;
+        var result = apertureInchesFromMagnitude(magnitude);
+        equal(withinRange(result, expectedApertureIn, 0.01), true, 'aperture from ' + magnitude +' magnitude should be ' + expectedApertureIn + ', is ' + result);
+    });
+
+    QUnit.test('parms.apertureIn', function () {
+        var parms, result, parms2, result2, originalResult;
+        parms = new VisualDetectCalcParms();
+        parms.apertureIn = 13.2;
+        result = parms.apertureIn;
+        equal(result, 13.2, 'apertureIn should be 13.2, is ' + result);
+
+        parms2 = new VisualDetectCalcParms();
+        parms2.apertureIn = 30;
+        result2 = parms2.apertureIn;
+        equal(result2, 30, 'copied apertureIn should be 30, is ' + result2);
+
+        originalResult = parms.apertureIn;
+        equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
+    });
+
+    QUnit.test('parms.apertureIn', function () {
+        var parms, result, copiedParms, result2, originalResult;
+        parms = new VisualDetectCalcParms();
+        parms.apertureIn = 13.2;
+        result = parms.apertureIn;
+        equal(result, 13.2, 'apertureIn should be 13.2, is ' + result);
+
+        copiedParms = parms.copyFrom();
+        copiedParms.apertureIn = 30;
+        result2 = copiedParms.apertureIn;
+        equal(result2, 30, 'copied apertureIn should be 30, is ' + result2);
+
+        originalResult = parms.apertureIn;
+        equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
+    });
+
+    QUnit.test('visualDetectCalcData.logAngle[1]', function () {
+        var data, result;
+        data = visualDetectCalcData;
+        result = data.logAngle[1];
+        equal(result, 0.5563, 'logAngle[1] should be 0.5563, is ' + result);
+
+        result = data.ltc[1][1];
+        equal(result, -1.7747, 'ltc[1][1] should be -1.7747, is ' + result);
+    });
+
+    QUnit.module('visual detection calculator: the calculator');
+
+    var visualDetectCalcParms = new VisualDetectCalcParms();
+    visualDetectCalcParms.apertureIn = 13;
+    visualDetectCalcParms.bkgndBrightEye = 21.5;
+    visualDetectCalcParms.objName = 'California Nebula';
+    visualDetectCalcParms.objMag = 5;
+    visualDetectCalcParms.maxObjArcmin = 145;
+    visualDetectCalcParms.minObjArcmin = 40;
+    visualDetectCalcParms.eyepieceExitPupilmm = 6;
+    visualDetectCalcParms.apparentFoV = 100;
+    // can override defaults if desired
+    //visualDetectCalcParms.eyeLimitMag = ;
+    //visualDetectCalcParms.exitPupilmm = ;
+    //visualDetectCalcParms.scopeTrans = ;
+    //visualDetectCalcParms.singleEyeFactor = ;
+
+    var visualDetectCalc = new VisualDetectCalc();
+
+    QUnit.test('visualDetectCalc.calc()', function () {
+        var parms, result;
+        parms = visualDetectCalcParms.copyFrom();
+        result = visualDetectCalc.calc(parms);
+        equal(withinRange(result.logContrastDiff, 0.81793677405235943, 0.000001), true, 'The logContrastDiff should be 0.81793677405235943, is ' + result.logContrastDiff);
+        equal(withinRange(result.actualFoV, 1.81708055723804, 0.000001), true, 'The actualFoV should be 1.81708055723804, is ' + result.actualFoV);
+        equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
+        equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
+    });
+
+    QUnit.test('visualDetectCalc.calc()', function () {
+        var parms, result;
+        parms = visualDetectCalcParms.copyFrom();
+        parms.eyepieceExitPupilmm = 4;
+        result = visualDetectCalc.calc(parms);
+        equal(withinRange(result.logContrastDiff, 0.848671579113636, 0.000001), true, 'The logContrastDiff should be 0.848671579113636, is ' + result.logContrastDiff);
+        equal(withinRange(result.actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result.actualFoV);
+        equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
+        equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
+    });
+
+    QUnit.test('NGC 134 example from Clarke\'s book', function () {
+        var parms, result;
+        parms = new VisualDetectCalcParms();
+        parms.apertureIn = 8;
+        parms.bkgndBrightEye = 24.25;
+        parms.objName = 'NGC 134';
+        parms.objMag = 11.4;
+        parms.maxObjArcmin = 5;
+        parms.minObjArcmin = 1;
+        // for 187x per book
+        parms.eyepieceExitPupilmm = 1.09;
+        parms.apparentFoV = 60;
+        // overriding defaults
+        parms.exitPupilmm = 9;
+        parms.scopeTrans = .7;
+        parms.singleEyeFactor = 1;
+        result = visualDetectCalc.calc(parms);
+        equal(withinRange(result.logContrastDiff, 0.4, 0.1), true, 'The logContrastDiff should be 0.4, is ' + result.logContrastDiff);
+    });
+
+    QUnit.test('Sculptor System example from Clarke\'s book', function () {
+        var parms, result;
+        parms = new VisualDetectCalcParms();
+        parms.apertureIn = 8;
+        parms.bkgndBrightEye = 24.25;
+        parms.objName = 'Sculptor System';
+        parms.objMag = 8.8;
+        parms.maxObjArcmin = 60;
+        parms.minObjArcmin = 60;
+        // for 27x per book
+        parms.eyepieceExitPupilmm = 7.5;
+        parms.apparentFoV = 60;
+        // overriding defaults
+        parms.exitPupilmm = 9;
+        parms.scopeTrans = .7;
+        parms.singleEyeFactor = 1;
+        result = visualDetectCalc.calc(parms);
+        /* book says 0.4 but this appears incorrect;
+           book states that object with no telescope=26.3 and object in telescope at ODM is 24.5 (includes background!?), and background at magnification is 24.6:
+           this last value appears incorrect, either ignoring reduction due to magnification or reduction due to scope transmission factor (both are approx 0.4),
+           so correct value should be 24.25 - 0.4 - 0.4 = 25.05
+         ie
+            input values:
+              aperture (in)                8
+              eye limiting magnitude       6
+              eye max exit pupil mm        9
+              sky background brightness    24.25
+              object name                  Sculptor System
+              object integrated magnitude  8.8
+              object dimensions arcmin     60 x 60
+              eyepiece apparent field deg  60
+            calculated values:
+              magnification                27
+              minimum useful X             23
+              maximum useful X varies from 60 to 60
+              actual field deg             2.2145669291338583
+              object fits FoV?             true
+              faintest star                15.268405970862784
+              single eye mag reduction     0
+              scope xmit mag reduction     0.38725489996435797
+              brightness (mag/arcsec^2):
+                object without telescope    26.319070773142013
+                brightness reduction at X   0.395906230238124
+                object in scope at X        27.102231903344496
+                background in scope at X    25.033161130202483
+                object+bkgnd in scope at X  24.495370025041154
+              log object contrast          -0.8276283092568051
+              log contrast required        -1.103609326833303
+              log contrast difference      0.27598101757649784
+              detectable?                  true
+        */
+        equal(withinRange(result.logContrastDiff, 0.3, 0.1), true, 'The logContrastDiff should be 0.4, is ' + result.logContrastDiff);
+    });
+
+    QUnit.test('visualDetectCalc.calc()', function () {
+        // compare to my previous C version based on Clark's Visual Astronomy calculates logContrastDiff = 0.51
+        // because exitPupilmm=6.5, exitPupilmm=9, scope transmission=.85 and missing single eye factor
+        var parms, result;
+        parms = new VisualDetectCalcParms();
+        parms.apertureIn = 20;
+        parms.bkgndBrightEye = 21;
+        parms.objName = 'copy from earlier ODM unit test';
+        parms.objMag = 12;
+        parms.maxObjArcmin = 2;
+        parms.minObjArcmin = 2;
+        parms.eyepieceExitPupilmm = 7;
+        parms.apparentFoV = 100;
+        // overriding defaults
+        parms.exitPupilmm = 9;
+        parms.scopeTrans = .85;
+        parms.singleEyeFactor = 1;
+        result = visualDetectCalc.calc(parms);
+        equal(withinRange(result.logContrastDiff, 0.51, 0.01), true, 'The logContrastDiff should be 0.51, is ' + result.logContrastDiff);
+    });
+
+    QUnit.test('visualDetectCalc.fitsFoV', function () {
+        var parms, result;
+        parms = visualDetectCalcParms.copyFrom();
+        parms.eyepieceExitPupilmm = 1;
+        result = visualDetectCalc.calc(parms);
+        equal(result.fitsFoV, false, 'The object should not fit the field of view, is ' + result.fitsFoV);
+    });
+
+    QUnit.test('visualDetectCalc.detectable', function () {
+        var parms, result;
+        parms = visualDetectCalcParms.copyFrom();
+        parms.objMag = 10;
+        result = visualDetectCalc.calc(parms);
+        equal(result.detectable, false, 'The object should not be detectable, is ' + result.detectable);
+    });
+
+    /*
+    input values:
+      aperture (in)                13
+      eye limiting magnitude       6
+      eye max exit pupil mm        7
+      sky background brightness    21.5
+      object name                  California Nebula
+      object integrated magnitude  5
+      object dimensions arcmin     145 x 40
+      eyepiece apparent field deg  100
+    calculated values:
+      magnification                55
+      minimum useful X             47
+      maximum useful X varies from 41 to 150
+      actual field deg             1.8170805572380375
+      object fits FoV?             true
+      faintest star                16.115820155402638
+      single eye mag reduction     0.7525749891599529
+      scope xmit mag reduction     0.24227503252014093
+      brightness (mag/arcsec^2):
+        object without telescope   23.036884505131138
+        brightness reduction at X  0.3347339481530661
+        object in scope at X       24.366468474964293
+        background in scope at X   22.82958396983316
+        object+bkgnd in scope at X 21.598732050134025
+      log object contrast          -0.614753802052455
+      log contrast required        -1.4326905761048156
+      log contrast difference      0.8179367740523606
+      detectable?                  true
+    */
+    QUnit.test('visualDetectCalc.includeResultAsString', function () {
+        var parms, result;
+        parms = visualDetectCalcParms.copyFrom();
+        result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
+        equal(result.length > 0, true, 'result is ' + result);
+    });
+
+    var visualDetectCalcParms2 = new VisualDetectCalcParms();
+    visualDetectCalcParms2.apertureIn = 13;
+    visualDetectCalcParms2.bkgndBrightEye = 21.5;
+    visualDetectCalcParms2.objName = 'Sombrero Galaxy';
+    visualDetectCalcParms2.objMag = 8;
+    visualDetectCalcParms2.maxObjArcmin = 9;
+    visualDetectCalcParms2.minObjArcmin = 4;
+    visualDetectCalcParms2.eyepieceExitPupilmm = 6;
+    visualDetectCalcParms2.apparentFoV = 110;
+    // can override defaults if desired
+    //visualDetectCalcParms2.eyeLimitMag = ;
+    //visualDetectCalcParms2.exitPupilmm = ;
+    //visualDetectCalcParms2.scopeTrans = ;
+    //visualDetectCalcParms2.singleEyeFactor = ;
+
+    /*
+    result is
+    input values:
+        aperture (in) 13
+        eye limiting magnitude 6
+        eye max exit pupil mm 7
+        sky background brightness 21.5
+        object name Sombrero Galaxy object
+        integrated magnitude 8
+        object dimensions arcmin 9 x 4
+        eyepiece apparent field deg 110
+    calculated values:
+        magnification 55
+        minimum useful X 47
+        maximum useful X varies from 330 to 330
+        actual field deg 1.9987886129618413
+        object fits FoV? true
+        faintest star 16.115820155402638
+        single eye mag reduction 0.7525749891599529
+        scope xmit mag reduction 0.24227503252014093
+        brightness (mag/arcsec^2):
+            object without telescope 20.519070773142015
+            brightness reduction at X 0.3347339481530661
+            object in scope at X 21.84865474297517
+            background in scope at X 22.82958396983316
+            object+bkgnd in scope at X 20.48448901600736
+        log object contrast 0.39237169074319383
+        log contrast required -0.966861934161181
+        log contrast difference 1.3592336249043748
+        detectable? true
+    */
+    QUnit.test('visualDetectCalc.includeResultAsString, Sombrero Galaxy through 13 inch f3', function () {
+        var parms, result;
+        parms = visualDetectCalcParms2.copyFrom();
+        result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
+        equal(result.length > 0, true, 'result is ' + result);
+    });
+
+    QUnit.module('visual detection calculator: eyepiece exit pupil sequence');
+
+    QUnit.test('ExitPupilSequence', function () {
+        var parms, result;
+        parms = visualDetectCalcParms.copyFrom();
+        result = new VisualDetectCalcExitPupils(parms);
+        // 7mm exit pupil, per above test
+        equal(result[6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[6].parms.exitPupilmm);
+        equal(result[6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[6].parms.eyepieceExitPupilmm);
+        equal(withinRange(result[6].logContrastDiff, 0.827429778789198, 0.000001), true, 'The logContrastDiff should be 0.827429778789198, is ' + result[6].logContrastDiff);
+        equal(withinRange(result[6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[6].actualFoV);
+        // 4mm exit pupil
+        equal(result[3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[3].parms.exitPupilmm);
+        equal(result[3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[3].parms.eyepieceExitPupilmm);
+        equal(withinRange(result[3].logContrastDiff, 0.848671579113636, 0.000001), true, 'The logContrastDiff should be 0.848671579113636, is ' + result[3].logContrastDiff);
+        equal(withinRange(result[3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[3].actualFoV);
+        // 1mm exit pupil
+        equal(result[0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[0].parms.exitPupilmm);
+        equal(result[0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[0].parms.eyepieceExitPupilmm);
+        equal(withinRange(result[0].logContrastDiff, 0.779495670342709, 0.000001), true, 'The logContrastDiff should be 0.779495670342709, is ' + result[0].logContrastDiff);
+        equal(withinRange(result[0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[0].actualFoV);
+    });
+
+    QUnit.module('visual detection calculator: aperture sequence');
+
+    QUnit.test('VisualDetectCalcApertures', function () {
+        var parms, result, halfAperture, dblAperture, halfApertureParms, halfApertureResults, dblApertureParms, dblApertureResults;
+        parms = visualDetectCalcParms.copyFrom();
+        result = new VisualDetectCalcApertures(parms);
+        // 7mm exit pupil, per above test
+        equal(result[1][6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][6].parms.exitPupilmm);
+        equal(result[1][6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[1][6].parms.eyepieceExitPupilmm);
+        equal(withinRange(result[1][6].logContrastDiff, 0.827429778789198, 0.000001), true, 'The logContrastDiff should be 0.827429778789198, is ' + result[1][6].logContrastDiff);
+        equal(withinRange(result[1][6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[1][6].actualFoV);
+        // 4mm exit pupil
+        equal(result[1][3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][3].parms.exitPupilmm);
+        equal(result[1][3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[1][3].parms.eyepieceExitPupilmm);
+        equal(withinRange(result[1][3].logContrastDiff, 0.848671579113636, 0.000001), true, 'The logContrastDiff should be 0.848671579113636, is ' + result[1][3].logContrastDiff);
+        equal(withinRange(result[1][3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[1][3].actualFoV);
+        // 1mm exit pupil
+        equal(result[1][0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][0].parms.exitPupilmm);
+        equal(result[1][0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[1][0].parms.eyepieceExitPupilmm);
+        equal(withinRange(result[1][0].logContrastDiff, 0.779495670342709, 0.000001), true, 'The logContrastDiff should be 0.779495670342709, is ' + result[1][0].logContrastDiff);
+        equal(withinRange(result[1][0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[1][0].actualFoV);
+
+        // test apertures
+        halfAperture = result[2][0].parms.apertureIn;
+        equal(result[1][0].parms.apertureIn/2, halfAperture, 'The aperture should be half of ' + result[1][0].parms.apertureIn + ', is ' + halfAperture);
+        dblAperture = result[0][0].parms.apertureIn;
+        equal(result[1][0].parms.apertureIn*2, dblAperture, 'The aperture should be double of ' + result[1][0].parms.apertureIn + ', is ' + dblAperture);
+
+        // test logContrasts, at exitPupilmm=6
+        halfApertureParms = visualDetectCalcParms.copyFrom();
+        halfApertureParms.apertureIn /= 2;
+        halfApertureResults = visualDetectCalc.calc(halfApertureParms);
+        equal(halfApertureResults.logContrastDiff, result[2][5].logContrastDiff, 'The log contrast should be ' + result[2][5].logContrastDiff + ', is ' + halfApertureResults.logContrastDiff);
+        dblApertureParms = visualDetectCalcParms.copyFrom();
+        dblApertureParms.apertureIn *= 2;
+        dblApertureResults = visualDetectCalc.calc(dblApertureParms);
+        equal(dblApertureResults.logContrastDiff, result[0][5].logContrastDiff, 'The log contrast should be ' + result[0][5].logContrastDiff + ', is ' + dblApertureResults.logContrastDiff);
+    });
+
+    QUnit.module('calcNewtBaffle');
+
+    // test values verified by graph in baffle.html
+    QUnit.test('calcNewtBaffle', function () {
+        var focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorDia, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID, results;
+        focalPlaneDia = 1.4;
+        focuserBarrelBottomToFocalPlaneDistance = 2.5;
+        focuserBarrelID = 1.8;
+        diagSizeMinorAxis = 3.1;
+        diagToFocalPlaneDistance = 9;
+        diagtoFocuserBaffleDistance = 6;
+        diagToOppositeSideBaffleDistance = 7;
+        primaryMirrorDia = 13.2;
+        primaryMirrorFocalLength = 40.2;
+        primaryToBaffleDistance = 4;
+        tubeID = primaryMirrorDia + 2;
+        results = calcNewtBaffle(focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID);
+        equal(withinRange(results.focuserBaffleID, 1.97, 0.01), true, 'The focuser baffle ID should be 1.97, is ' + results.focuserBaffleID);
+        equal(withinRange(results.focuserBaffleOD, 2.44, 0.01), true, 'The focuser baffle ID should be 2.44, is ' + results.focuserBaffleOD);
+        equal(withinRange(results.diagonalBaffleOD, 16.55, 0.01), true, 'The diagonal baffle OD should be 16.55, is ' + results.diagonalBaffleOD);
+        equal(withinRange(results.primaryBaffleOD, 16.70, 0.01), true, 'The primary mirror baffle OD should be 16.70, is ' + results.primaryBaffleOD);
+        equal(withinRange(results.tubeExtension, 7, 0.01), true, 'The tube extension beyond the primary mirror to act as primary baffle should be 7, is ' + results.tubeExtension);
+    });
+
+    QUnit.module('createAltazConstantMotionTrackingErrors');
+
+    QUnit.test('data return', function () {
+        var latitudeRad = 40 * uom.degToRad,
+            constantTrackRateTimeRad = 300 * uom.secToRad,
+            spacingDeg = 2,
+            expected = 18.969,
+            data = createAltazConstantMotionTrackingErrors(latitudeRad, constantTrackRateTimeRad, spacingDeg),
+            results = data[5][2] / uom.arcsecToRad;
+
+        equal(withinRange(results, expected, 0.001), true, 'The constant track rate error over 5 minutes should be ' + expected + ', is ' + results);
+    });
+
+    QUnit.module('slumping');
+
+    QUnit.test('sharply slumped: dia=30, FR=1', function () {
+        var mirrorDia = 30,
+            focalRatio = 1,
+            expectedEffectiveEntranceAperture = 29.688475110542754,
+            result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
+        equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+    });
+
+    QUnit.test('barely slumped: dia=30, FR=5', function () {
+        var mirrorDia = 30,
+            focalRatio = 5,
+            expectedEffectiveEntranceAperture = 29.987501562406997,
+            result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
+        equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+    });
+
+    QUnit.test('13" F3', function () {
+        var mirrorDia = 13.2,
+            focalRatio = 3,
+            expectedEffectiveEntranceAperture = 13.18472752612914,
+            expectedSphericalSagitta = 0.275,
+            expectedEdgeAngleDeg = 4.775,
+            result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
+        equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+        equal(withinRange(result.sphericalSagitta, expectedSphericalSagitta, 0.001), true, 'result = ' + result.sphericalSagitta);
+        equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);
+    });
+
+    QUnit.test('42" F2.9', function () {
+        var mirrorDia = 42,
+            focalRatio = 2.9,
+            expectedEffectiveEntranceAperture = 41.94799792367687,
+            expectedSphericalSagitta = 0.905,
+            expectedEdgeAngleDeg = 4.939,
+            result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
+        equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+        equal(withinRange(result.sphericalSagitta, expectedSphericalSagitta, 0.001), true, 'result = ' + result.sphericalSagitta);
+        equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);
+    });
+
+    QUnit.module('sphere to parabola difference');
+
+    QUnit.test('6 inch F8', function () {
+        var mirrorDia = 6,
+            focalRatio = 8,
+            expectedEffectiveEntranceAperture = 0.0000114,
+            result = calcSphereParabolaDifference(mirrorDia, focalRatio);
+        equal(withinRange(result, expectedEffectiveEntranceAperture, 0.0000001), true, 'result = ' + result);
+    });
+
+    QUnit.module('ronchi');
+
+    QUnit.test('wavefrontError', function () {
+        var mirrorDia = 20,
+            radiusOfCurvature = 200,
+            correctionFactor = 0.86,
+            result = wavefrontError(mirrorDia, radiusOfCurvature, correctionFactor),
+            expected = 0.5108704878136372;
+        equal(result, expected, 'result = ' + result + ', should be ' + expected);
+    });
+
+    // parabolic correction tolerances: focalRatio 1: 98.3%; focalRatio 2: 96.7%; focalRatio 3: 95%; focalRatio 4: 93.3%; focalRatio 5: 91.7%; focalRatio 6: 90%; focalRatio 7: 88.4%; focalRatio 8: 86.7%; focalRatio 9: 85%; focalRatio 10: 83.4%;
+    QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', function () {
+        var mirrorDia = 10,
+            focalRatio,
+            results = [],
+            ix,
+            displayResults = 'parabolic correction tolerances: ',
+            expected = 0.83359375;
+
+        for (ix = 0; ix < 10; ix++) {
+            focalRatio = (ix + 1);
+            results[ix] = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
+            displayResults += 'focalRatio ' + focalRatio + ': ' + Math.round(results[ix] * 1000) / 10 + '%; ';
         }
-        ix += 1;
-    }
-    return undefined;
-};
 
-/*
-For 3 point support, minimum bending before refocusing occurs at the 70% radius while after refocusing minimum bending occurs at the 40% radius. See https://www.davidlewistoronto.com/plop/ David Lewis' discussion and further references to Luc Arnold and Richard Schwartz.
-For 6 point supports, the ring that the 6 points form is best placed at a radius of 57% according to PLOP.
-For 9 point supports, place the inner ring at the 33% radius and the outer ring at the 72% radius. If x is outer radius and y is inner radius then balance point = 2/3(cos(30)x-y) + y) = 2/3*cos(30)x + y/3 = 0.577x + y/3 = 52.6%.
-For 18 point supports, place the radii at 38% and 76%. If x is outer radius and y is inner radius then balance point = 2/3(cos(15)x-y) + y) = 2/3*cos(15)x + y/3 = 0.644x + y/3 = 61.6%. Using similar math, place the bar centers at the 53.4% radius.
-*/
-MLB.calcLib.calcMirrorCell3pt = function (radius) {
-    return {
-        radius: radius * 0.4
+        equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
+    });
+
+    // as above, but double the aperture to demonstrate that aperture has no bearing on allowable correction
+    QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 20', function () {
+        var mirrorDia = 20,
+            focalRatio,
+            results = [],
+            ix,
+            displayResults = 'parabolic correction tolerances: ',
+            expected = 0.83359375;
+
+        for (ix = 0; ix < 10; ix++) {
+            focalRatio = (ix + 1);
+            results[ix] = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
+            displayResults += 'focalRatio ' + focalRatio + ': ' + Math.round(results[ix] * 1000) / 10 + '%; ';
+        }
+
+        equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
+    });
+
+    QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/10', function () {
+        var focalRatio = 10,
+            expected = 0.16699999999999998,
+            result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
+        equal(result, expected, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.module('Dob friction of movement');
+
+    /*
+    Dob friction, from Telescope Making #8, pg 36-, Richard Berry
+
+    Alt: f*w*sec(ba)*r/l
+    Az: f*w*r/(l*cos(ba))
+    F=friction (Teflon on formica) =0.1
+    W=weight (that the bearing is carrying)
+    R=bearing radius
+    Ba=bearing angle
+    L=length of the moment arm
+
+    Example 16 inch f5:
+        AZ radius 9, weight 120 lbs, 45deg bearing angle, moment arm 40inches, f=0.083
+        0.088*120*9/(cos(45)*40)=3.2
+        ALT radius 4, weight 80 lbs, 60deg bearing angle, moment arm 40inches, f=0.088
+        1.3*80*(1/cos(60))*4/40=2.1
+    */
+    QUnit.test('az and alt friction', function () {
+        var allowableError = 0.000000000000001,
+            azimuthFrictionCoefficient = 0.083,
+            altitudeFrictionCoefficient = 0.13,
+            momentArm = 40,
+            azWeight = 120,
+            altWeight = 80,
+            azBearingRadius = 9,
+            altBearingRadius = 4,
+            altBearingAngleDegFromVertical = 60,
+            altitudeAngleDegFromHorizontal = 45,
+            result = MLB.calcLib.calcDobFriction(azimuthFrictionCoefficient, altitudeFrictionCoefficient, momentArm, azWeight, altWeight, azBearingRadius, altBearingRadius, altBearingAngleDegFromVertical, altitudeAngleDegFromHorizontal),
+            expected = [3.169252593278106, 2.08];
+
+        equal(withinRange(result.az, expected[0], allowableError), true, 'az result = ' + result.az + ', should be ' + expected[0]);
+        equal(withinRange(result.alt, expected[1], allowableError), true, 'alt result = ' + result.alt + ', should be ' + expected[1]);
+    });
+
+    QUnit.module('SQM to NELM converter');
+
+    // from http://www.unihedron.com/projects/darksky/NELM2BCalc.html
+
+    QUnit.test('SQMtoNELMconverter', function () {
+        var expected,
+            result,
+            allowableError = 0.0001;
+
+        expected = 6;
+        result = SQMtoNELMconverter(20.8);
+        equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('NELMtoSQMconverter', function () {
+        var expected,
+            result,
+            allowableError = 0.0001;
+
+        expected = 20.8;
+        result = NELMtoSQMconverter(6);
+        equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.module('artificialStarDistance');
+
+    QUnit.test('artificialStarDistanceMM', function () {
+        var expected,
+            result;
+
+        expected = '8984';
+        result = artificialStarDistanceMM(152, 912);
+        equal(result, expected, result + ' should be ' + expected);
+    });
+
+    QUnit.test('artificialStarDistanceInches', function () {
+        var expected,
+            result;
+
+        expected = '355';
+        result = artificialStarDistanceInches(6, 36);
+        equal(result, expected, result + ' should be ' + expected);
+    });
+
+    QUnit.test('artificialStarDistanceInches', function () {
+        var expected,
+            result;
+
+        expected = '4495';
+        result = artificialStarDistanceInches(16, 16 * 4.5);
+        equal(result, expected, result + ' should be ' + expected);
+    });
+
+    QUnit.module('telescope optimizer');
+
+    var MLBScopeTest5Parms = function () {
+        this.apertureInches = 13.1,
+        this.FOVdeg = 1.762,
+        this.eyepieceFocalLengthmm = 21,
+        this.eyepieceFieldStopmm = 36.2,
+        this.eyePupilmm = 5.936,    // ignores coma corrector, assumes focal ratio of 3.54; with coma corrector mag of 1.15, focal ratio would be 3.08
+        this.expected = undefined,
+        this.allowableError = 0.01
     };
-};
 
-MLB.calcLib.calcMirrorCell6pt = function (radius) {
-    return {
-        radius: radius * 0.57,
-        balanceRadius: radius * 0.4936
+    QUnit.test('calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
+        var parms = new MLBScopeTest5Parms(),
+            expected = parms.apertureInches,
+            result;
+
+        result = calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_EyePupil(parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm, parms.eyePupilmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil', function () {
+        var parms = new MLBScopeTest5Parms(),
+            expected = parms.FOVdeg,
+            result;
+
+        result = calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_EyePupil(parms.apertureInches, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm, parms.eyePupilmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop', function () {
+        var parms = new MLBScopeTest5Parms(),
+            expected = parms.eyePupilmm,
+            result;
+
+        result = calcEyePupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop(parms.apertureInches, parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil', function () {
+        var parms = new MLBScopeTest5Parms(),
+            expected = parms.eyepieceFieldStopmm,
+            result;
+
+        result = calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_EyePupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyePupilmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil', function () {
+        var parms = new MLBScopeTest5Parms(),
+            expected = parms.eyepieceFocalLengthmm,
+            result;
+
+        result = calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_EyePupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm, parms.eyePupilmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    var MLBScopeTest4Parms = function () {
+        this.apertureInches = 13.1,
+        this.FOVdeg = 1.762,
+        this.focalRatio = 3.54,    // ignores coma corrector; with coma corrector mag of 1.15, FR would be 3.08
+        this.eyepieceFieldStopmm = 36.2,
+        this.expected = undefined,
+        this.allowableError = 0.02
     };
-};
 
-MLB.calcLib.calcMirrorCell9pt = function (radius) {
-    return {
-        innerRadius: radius * 0.33,
-        outerRadius: radius * 0.72,
-        balanceRadius: radius * 0.5257
+    QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop', function () {
+        var parms = new MLBScopeTest4Parms(),
+            expected = parms.apertureInches,
+            result;
+
+        result = calcApertureFromFOV_FocalRatio_EyepieceFieldStop(parms.FOVdeg, parms.focalRatio, parms.eyepieceFieldStopmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop', function () {
+        var parms = new MLBScopeTest4Parms(),
+            expected = parms.FOVdeg,
+            result;
+
+        result = calcFOVFromAperture_FocalRatio_EyepieceFieldStop(parms.apertureInches, parms.focalRatio, parms.eyepieceFieldStopmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop', function () {
+        var parms = new MLBScopeTest4Parms(),
+            expected = parms.focalRatio,
+            result;
+
+        result = calcFocalRatioFromAperture_FOV_EyepieceFieldStop(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio', function () {
+        var parms = new MLBScopeTest4Parms(),
+            expected = parms.eyepieceFieldStopmm,
+            result;
+
+        result = calcEyepieceFieldStopFromAperture_FOV_FocalRatio(parms.apertureInches, parms.FOVdeg, parms.focalRatio);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    var MLBScopeTest4ParmsComaCorrectorFactor = function () {
+        this.apertureInches = 13.1,
+        this.FOVdeg = 1.762,
+        this.focalRatio = 3.08,
+        this.eyepieceFieldStopmm = 36.24,
+        this.comaCorrectorFactor = 1.15,
+        this.expected = undefined,
+        this.allowableError = 0.02
     };
-};
 
-MLB.calcLib.calcMirrorCell12pt = function (radius) {
-    return {
-        innerRadius: radius * 0.19,
-        outerRadius: radius * 0.72,
-        collimationRadius: radius * 0.53,
-        innerBarLength: radius * 0.55,
-        midBarLength: radius * 0.64,
-        outerBarLength: radius * 0.49,
-        innerBarBalanceAlongBar: 0.64,
-        midBarBalanceAlongBar: 0.56,
-        outerBarBalanceAlongBar: 0.5,
-        // uses ...AlongBar factors
-        innerBarBalance: radius * 0.55 * 0.64,
-        midBarBalance: radius * 0.64 * 0.56,
-        outerBarBalance: radius * 0.49 * 0.5
-    };
-};
+    QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor', function () {
+        var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
+            expected = parms.apertureInches,
+            result;
 
-MLB.calcLib.calcMirrorCell18pt = function (radius) {
-    return {
-        innerRadius: radius * 0.38,
-        outerRadius: radius * 0.76,
-        triangleBalanceRadius: radius * 0.6161,
-        pivotBarBalanceRadius: radius * 0.5336
-    };
-};
+        result = calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(parms.FOVdeg, parms.focalRatio, parms.eyepieceFieldStopmm, parms.comaCorrectorFactor);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+    });
 
-MLB.calcLib.calcMirrorCell27pt = function (radius) {
-    var uom = MLB.sharedLib.uom;
+    QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor', function () {
+        var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
+            expected = parms.FOVdeg,
+            result;
 
-    return {
-        inner6Radius: radius * 0.331,
-        mid9Radius: radius * 0.644,
-        outer12Radius: radius * 0.849,
-        baseTriangleBalanceRadius: radius * 0.562,
-        innerTriangleBalanceRadius: radius * 0.404,
-        outerTriangleBalanceRadius: radius * 0.760,
-        // points are not equidistance, instead angles are 32.7, 87 and 152.7 degrees from vertical
-        outerTriangleBalancePtAngles: _.map([32.7, 87, 152.7, 32.7 + 180, 87 + 180, 152.7 + 180], function (s) {return s * uom.degToRad;})
-    };
-};
+        result = calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(parms.apertureInches, parms.focalRatio, parms.eyepieceFieldStopmm, parms.comaCorrectorFactor);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+    });
 
-MLB.calcLib.calcMirrorCellDimensions = function (supportPoints, radius) {
-    var calcMinimumMirrorSupportPoints = MLB.calcLib.calcMinimumMirrorSupportPoints,
-        calcMirrorCell3pt = MLB.calcLib.calcMirrorCell3pt,
-        calcMirrorCell6pt = MLB.calcLib.calcMirrorCell6pt,
-        calcMirrorCell9pt = MLB.calcLib.calcMirrorCell9pt,
-        calcMirrorCell12pt = MLB.calcLib.calcMirrorCell12pt,
-        calcMirrorCell18pt = MLB.calcLib.calcMirrorCell18pt,
-        calcMirrorCell27pt = MLB.calcLib.calcMirrorCell27pt;
+    QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor', function () {
+        var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
+            expected = parms.focalRatio,
+            result;
 
-    switch (supportPoints) {
-        case 3:
-            return calcMirrorCell3pt(radius);
-            break;
-        case 6:
-            return calcMirrorCell6pt(radius);
-            break;
-        case 9:
-            return calcMirrorCell9pt(radius);
-            break;
-        case 12:
-            return calcMirrorCell12pt(radius);
-            break;
-        case 18:
-            return calcMirrorCell18pt(radius);
-            break;
-        case 27:
-            return calcMirrorCell27pt(radius);
-            break;
-        // 54 and larger not defined
-        default:
-            return undefined;
-    }
-};
+        result = calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm, parms.comaCorrectorFactor);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+    });
 
-// from https://www.telescope-optics.net/obstruction.htm
-MLB.calcLib.calcRMSCausedByCentralObstruction = function (centralObstructionByDiameter) {
-    return 0.21 * centralObstructionByDiameter;
-}
+    QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor', function () {
+        var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
+            expected = parms.eyepieceFieldStopmm,
+            result;
 
-MLB.calcLib.findWeightedCenterOfPoints = function (points) {
-    var pointsLength = points.length,
-        sumX = 0,
-        sumY = 0;
+        result = calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor(parms.apertureInches, parms.FOVdeg, parms.focalRatio, parms.comaCorrectorFactor);
+        equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+    });
 
-    _.map(points, function (s) {sumX += s.x; sumY += s.y;});
-    return {
-        x: sumX / pointsLength,
-        y: sumY / pointsLength
-    };
-};
+    QUnit.test('resolutionFromAperture_Magnification', function () {
+        var apertureInches = 5,
+            magnification,
+            result,
+            expected;
 
-MLB.calcLib.findOffsetCenterBetweenTwoPoints = function (pointA, pointB, offset) {
-    return {
-        x: (pointB.x - pointA.x) * offset + pointA.x,
-        y: (pointB.y - pointA.y) * offset + pointA.y
-    };
-};
+        // can't reach DawesLimit: resolution limited by magnification
+        magnification = 30;
+        expected = 8;
+        result = resolutionFromAperture_Magnification(apertureInches, magnification);
+        equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 
-// end of file
+        // reaches DawesLimit: magnification limited by Dawes Limit
+        magnification = 300;
+        expected = 0.92;
+        result = resolutionFromAperture_Magnification(apertureInches, magnification);
+        equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcTheoreticalResolutionArcsec', function () {
+        var apertureInches = 10,
+            result,
+            expected = 0.46;
+
+        result = calcTheoreticalResolutionArcsec(apertureInches);
+        equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcAiryDiskInches', function () {
+        var focalRatio = 5,
+            result,
+            expected = 0.000268;
+
+        result = calcAiryDiskInches(focalRatio);
+        equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
+    });
+
+    QUnit.test('calcProjectedFocuserBaffleRadius', function () {
+        var eyepieceFieldStop = 2,
+            barrelTubeID = 3,
+            focalPlaneToFocuserBarrelBottomDistance = 3,
+            focalPlaneToDiagDistance = 10,
+            telescopeTubeOD = 17,
+            telescopeTubeThickness = 0.5,
+            expected = 14,
+            result = calcProjectedFocuserBaffleRadius(eyepieceFieldStop, barrelTubeID, focalPlaneToFocuserBarrelBottomDistance, focalPlaneToDiagDistance, telescopeTubeOD, telescopeTubeThickness);
+
+        equal(withinRange(result, expected, 0.001), true, 'The projected focuser baffle radius should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('scalingFactor', function () {
+        var maxWidth = 1020,
+            maxHeight = 420,
+            modelWidth = 40,
+            modelHeight = 5,
+            border = 10,
+            expectedScalingFactor = 25,
+            expectedWidth = 1020,
+            expectedHeight = 145,
+            result = scalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border);
+
+        equal(withinRange(result.scalingFactor, expectedScalingFactor, 0.001), true, 'The scaling factor should be ' + expectedScalingFactor + ', is ' + result.scalingFactor);
+        equal(withinRange(result.width, expectedWidth, 0.001), true, 'The width should be ' + expectedWidth + ', is ' + result.width);
+        equal(withinRange(result.height, expectedHeight, 0.001), true, 'The height should be ' + expectedHeight + ', is ' + result.height);
+    });
+
+    QUnit.test('calcMaxMagnification', function () {
+        var apertureInches = 2.5,
+            expected = 67.5,
+            result = calcMaxMagnification(apertureInches);
+
+        equal(withinRange(result, expected, 0.001), true, 'Max magnification should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcMinMagnification', function () {
+        var apertureInches = 2.5,
+            expected = 9,
+            result = calcMinMagnification(apertureInches);
+
+        equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcComaFreeDiaInches', function () {
+        var focalRatio = 5,
+            expected = 0.0875,
+            result = calcComaFreeDiaInches(focalRatio);
+
+        equal(withinRange(result, expected, 0.001), true, 'coma free diameter in inches should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcDiopter', function () {
+        var focalLengthInches = 17,
+            expected =  2.3159,
+            result = calcDiopter(focalLengthInches);
+
+        equal(withinRange(result, expected, 0.01), true, 'diopter should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcFocalLengthInches', function () {
+        var diopter = 2.3159,
+            expected = 17,
+            result = calcFocalLengthInches(diopter);
+
+        equal(withinRange(result, expected, 0.01), true, 'telescope focal length should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcMagnifyingLensPower', function () {
+        var diopter = 4,
+            expected = 2,
+            result = calcMagnifyingLensPower(diopter).lensHeldCloseToEye;
+
+        equal(withinRange(result, expected, 0.01), true, 'lens magnifying power should be ' + expected + ', is ' + result);
+    });
+
+    // http://www.rfroyce.com/standards.htm
+
+    QUnit.test('calcStrehlFromRMS', function () {
+        var rms = 0.028,
+            expected = 0.969,
+            result = calcStrehlFromRMS(rms);
+
+        equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcRMSFromStrehl', function () {
+        var Strehl = 0.969,
+            expected = 0.028,
+            result = calcRMSFromStrehl(Strehl);
+
+        equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcPVFromRMS', function () {
+        var rms = 0.071,
+            expected = 1 / 4,
+            result = calcPVFromRMS(rms);
+
+        equal(withinRange(result, expected, 0.001), true, 'PV should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcRMSFromPV', function () {
+        var PV = 1 / 4,
+            expected = 0.071,
+            result = calcRMSFromPV(PV);
+
+        equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize', function () {
+        var eyepieceApparentFOVdegs = [100, 80, 60, 40],
+            pupilInches = 7 / 25.4, // keep it all in inches - could just as well use mm
+            objectSizeArcmin1 = 60,
+            objectSizeArcmin2 = 30,
+            expectedApertures = [27.56, 22.05, 16.54, 11.02],
+            expectedAperture,
+            expectedLuminances = [759.50, 486.08, 273.42, 121.52],
+            expectedLuminance,
+            result = calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize(eyepieceApparentFOVdegs, pupilInches, objectSizeArcmin1, objectSizeArcmin2),
+            resultFOV,
+            resultAperture,
+            resultLuminance;
+
+        expectedApertures.forEach(function (e, ix) {
+            resultFOV = result[ix]['apparentFOVdegs'];
+            resultAperture = result[ix]['aperture'];
+            resultLuminance = result[ix]['luminance'];
+            expectedAperture = expectedApertures[ix];
+            expectedLuminance = expectedLuminances[ix];
+            equal(withinRange(resultAperture, expectedAperture, 0.01), true, 'for ' + resultFOV + ' field of view in degrees, aperture should be ' + expectedAperture + ', is ' + resultAperture);
+            equal(withinRange(resultLuminance, expectedLuminance, 0.01), true, '... and luminance should be ' + expectedLuminance + ' in^2deg^2, is ' + resultLuminance);
+        });
+    });
+
+    QUnit.test('calcComa', function () {
+        var eyepieceFieldStopmm = 6.85,
+            focalRatio = 6.85,
+            expected = {
+                lowOrderComaRMS: 0.07, // per Nils Olaf's example
+                linearComaRMS: 0.22
+            },
+            allowableError = 0.01,
+            result = calcComa(eyepieceFieldStopmm, focalRatio);
+
+        equal(withinRange(result.lowOrderComaRMS, expected.lowOrderComaRMS, allowableError), true, 'lowOrderComaRMS should be ' + expected.lowOrderComaRMS + ', is ' + result.lowOrderComaRMS);
+        equal(withinRange(result.linearComaRMS, expected.linearComaRMS, allowableError), true, 'linearComaRMS should be ' + expected.linearComaRMS + ', is ' + result.linearComaRMS);
+    });
+
+    QUnit.test('calcGreaterComa', function () {
+        var eyepieceFieldStopmm = 3,
+            focalRatio = 6,
+            expected = 0.13,
+            allowableError = 0.01,
+            result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
+
+        // selects for linearComaRMS
+        equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
+
+        // selects for lowOrderComaRMS
+        eyepieceFieldStopmm = 20,
+        focalRatio = 2,
+        expected = 8.38,
+        result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
+        equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcGreaterComaWithComaCorrector', function () {
+        var eyepieceFieldStopmm = 20,
+            focalRatio = 3,
+            useComaCorrector = false,
+            expected = 3.33,
+            allowableError = 0.01,
+            result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
+
+        equal(withinRange(result, expected, allowableError), true, 'coma without coma corrector should be ' + expected + ', is ' + result);
+
+        useComaCorrector = true;
+        expected = 0.21,
+        result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
+        equal(withinRange(result, expected, allowableError), true, 'coma with coma corrector should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcCollimationToleranceInches', function () {
+        var focalRatio = 4,
+            expected = 0.0448,
+            allowableError = 0.001,
+            result = calcCollimationToleranceInches(focalRatio);
+
+        equal(withinRange(result, expected, allowableError), true, 'collimation tolerance should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('calcMinimumMirrorSupportPoints', function () {
+        var aperture = 16,
+            expected = 6,
+            result = calcMinimumMirrorSupportPoints(aperture);
+
+        equal(result, expected, result + ' should be ' + expected);
+
+        aperture = 30;
+        expected = 27;
+        result = calcMinimumMirrorSupportPoints(aperture);
+        equal(result, expected, result + ' should be ' + expected);
+
+        aperture = 8;
+        expected = 3;
+        result = calcMinimumMirrorSupportPoints(aperture);
+        equal(result, expected, result + ' should be ' + expected);
+
+        aperture = 60;
+        expected = undefined;
+        result = calcMinimumMirrorSupportPoints(aperture);
+        equal(result, expected, result + ' should be ' + expected);
+    });
+
+    QUnit.test('calcMirrorCellDimensions', function () {
+        // 3 pt
+        var aperture = 6,
+            expected = {
+                radius: 1.2
+            },
+            allowableError = 0.01,
+            result = calcMirrorCellDimensions(3, aperture / 2);
+
+        equal(withinRange(result.radius, expected.radius, allowableError), true, '3 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
+
+        // 6 pt
+        aperture = 12;
+        expected = {
+            radius: 3.42,
+            balanceRadius: 2.962
+        };
+        result = calcMirrorCellDimensions(6, aperture / 2);
+        equal(withinRange(result.radius, expected.radius, allowableError), true, '6 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
+        equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '6 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
+
+        // 9 pt
+        aperture = 18;
+        expected = {
+            innerRadius: 2.97,
+            outerRadius: 6.48,
+            balanceRadius: 4.731
+        };
+        result = calcMirrorCellDimensions(9, aperture / 2);
+        equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '9 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+        equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '9 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+        equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '9 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
+
+        // 12 pt
+        aperture = 20;
+        expected = {
+            innerRadius: 1.9,
+            outerRadius: 7.2,
+            collimationRadius: 5.3,
+            innerBarLength: 5.5,
+            midBarLength: 6.4,
+            outerBarLength: 4.9,
+            innerBarBalance: 3.52,
+            midBarBalance: 3.584,
+            outerBarBalance: 2.45
+        };
+        result = calcMirrorCellDimensions(12, aperture / 2);
+        equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '12 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+        equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '12 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+        equal(withinRange(result.collimationRadius, expected.collimationRadius, allowableError), true, '12 pt mirror cell collimation radius should be ' + expected.collimationRadius + ', is ' + result.collimationRadius);
+        equal(withinRange(result.innerBarLength, expected.innerBarLength, allowableError), true, '12 pt mirror cell innerBarLength should be ' + expected.innerBarLength + ', is ' + result.innerBarLength);
+        equal(withinRange(result.midBarLength, expected.midBarLength, allowableError), true, '12 pt mirror cell midBarLength should be ' + expected.midBarLength + ', is ' + result.midBarLength);
+        equal(withinRange(result.outerBarLength, expected.outerBarLength, allowableError), true, '12 pt mirror cell outerBarLength should be ' + expected.outerBarLength + ', is ' + result.outerBarLength);
+        equal(withinRange(result.innerBarBalance, expected.innerBarBalance, allowableError), true, '12 pt mirror cell innerBarBalance should be ' + expected.innerBarBalance + ', is ' + result.innerBarBalance);
+        equal(withinRange(result.midBarBalance, expected.midBarBalance, allowableError), true, '12 pt mirror cell midBarBalance should be ' + expected.midBarBalance + ', is ' + result.midBarBalance);
+        equal(withinRange(result.outerBarBalance, expected.outerBarBalance, allowableError), true, '12 pt mirror cell outerBarBalance should be ' + expected.outerBarBalance + ', is ' + result.outerBarBalance);
+
+        // 18 pt
+        aperture = 24;
+        expected = {
+            innerRadius: 4.56,
+            outerRadius: 9.12,
+            triangleBalanceRadius: 7.393,
+            pivotBarBalanceRadius: 6.403
+        };
+        result = calcMirrorCellDimensions(18, aperture / 2);
+        equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '18 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+        equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '18 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+        equal(withinRange(result.triangleBalanceRadius, expected.triangleBalanceRadius, allowableError), true, '18 pt mirror cell triangle balance radius should be ' + expected.triangleBalanceRadius + ', is ' + result.triangleBalanceRadius);
+        equal(withinRange(result.pivotBarBalanceRadius, expected.pivotBarBalanceRadius, allowableError), true, '18 pt mirror cell pivot bar balance radius should be ' + expected.pivotBarBalanceRadius + ', is ' + result.pivotBarBalanceRadius);
+
+        // 27 pt
+        aperture = 30;
+        expected = {
+            inner6Radius: 4.96,
+            mid9Radius: 9.65,
+            outer12Radius: 12.74,
+            baseTriangleBalanceRadius: 8.43,
+            innerTriangleBalanceRadius: 6.06,
+            outerTriangleBalanceRadius: 11.41,
+            outerTriangleBalancePtAngles2: 87 * uom.degToRad
+        };
+        result = calcMirrorCellDimensions(27, aperture / 2);
+        equal(withinRange(result.inner6Radius, expected.inner6Radius, allowableError), true, '27 pt mirror cell inner 6 radius should be ' + expected.inner6Radius + ', is ' + result.inner6Radius);
+        equal(withinRange(result.mid9Radius, expected.mid9Radius, allowableError), true, '27 pt mirror cell mid 9 radius should be ' + expected.mid9Radius + ', is ' + result.mid9Radius);
+        equal(withinRange(result.outer12Radius, expected.outer12Radius, allowableError), true, '27 pt mirror cell outer radius should be ' + expected.outer12Radius + ', is ' + result.outer12Radius);
+        equal(withinRange(result.baseTriangleBalanceRadius, expected.baseTriangleBalanceRadius, allowableError), true, '27 pt mirror cell base triangle balance radius should be ' + expected.baseTriangleBalanceRadius + ', is ' + result.baseTriangleBalanceRadius);
+        equal(withinRange(result.innerTriangleBalanceRadius, expected.innerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell inner triangle balance radius should be ' + expected.innerTriangleBalanceRadius + ', is ' + result.innerTriangleBalanceRadius);
+        equal(withinRange(result.outerTriangleBalanceRadius, expected.outerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell outer triangle balance radius should be ' + expected.outerTriangleBalanceRadius + ', is ' + result.outerTriangleBalanceRadius);
+        equal(withinRange(result.outerTriangleBalancePtAngles[1], expected.outerTriangleBalancePtAngles2, allowableError), true, '27 pt mirror cell outer triangle balance #2 point angle should be ' + expected.outerTriangleBalancePtAngles2 + ', is ' + result.outerTriangleBalancePtAngles[1]);
+
+        // other
+        aperture = 1000;
+        expected = undefined;
+        result = calcMirrorCellDimensions(54, aperture / 2);
+        equal(result, expected, result + ' should result in an undefined cell: ' + expected);
+    });
+
+    QUnit.test('calcRMSCausedByCentralObstruction', function () {
+        var centralObstructionByDiameter = 1 / 3,
+            expected = 0.07,
+            allowableError = 0.1,
+            result = calcRMSCausedByCentralObstruction(centralObstructionByDiameter);
+
+        equal(withinRange(result, expected, allowableError), true, 'RMS deformation should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('findWeightedCenterOfPoints', function () {
+        var points = [{x: 1, y: 0}, {x: 2, y: 4}, {x: 3, y: 5}],
+            expected = {
+                x: 2,
+                y: 3
+            },
+            allowableError = 0.00001,
+            result = findWeightedCenterOfPoints(points);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'weighted x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'weighted y should be ' + expected.y + ', is ' + result.y);
+    });
+
+    QUnit.test('findOffsetCenterBetweenTwoPoints', function () {
+        var point = MLB.sharedLib.point,
+            pointA = point(4, 10),
+            pointB = point(12, 20),
+            offset = 0.5,
+            expected = {
+                x: 8,
+                y: 15
+            },
+            allowableError = 0.00001,
+            result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+
+        // reverse the points
+        pointA = point(12, 20),
+        pointB = point(4, 10),
+        offset = 0.5,
+        expected = {
+            x: 8,
+            y: 15
+        },
+        allowableError = 0.00001,
+        result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+
+        // offset 80% of the way towards pointB
+        pointA = point(4, 10),
+        pointB = point(12, 20),
+        offset = 0.8,
+        expected = {
+            x: 10.4,
+            y: 18
+        },
+        allowableError = 0.00001,
+        result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
+
+        equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+        equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+    });
+
+});
+
+</script>
+</html>
