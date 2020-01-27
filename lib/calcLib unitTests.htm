@@ -159,10 +159,17 @@
     });
 
     QUnit.test('glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches', function () {
-        var expected =  0.03092,
-            result = glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches(10);
-        equal(withinRange(result, expected, 0.0001), true, 'Glass removed during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
-    });
+        var expected =  0.030915,
+            result = glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches(10, 5);
+		// area increase for F5 should be from 78.54 square inches to 78.59 square inches
+        equal(withinRange(result, expected, 0.000001), true, 'Glass removed from a 10 inch F5 during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
+		
+		expected =  0.030921;
+		// essentially flat mirror
+        result = glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches(10, 100);
+		// area increase for F5 should be from 78.54 square inches to 78.59 square inches
+        equal(withinRange(result, expected, 0.000001), true, 'Glass removed from a 10 inch F100 during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
+	});
 
     QUnit.test('inchesToWavesGreenLight', function () {
         var sphereParabolaDifferenceInches = 0.000579, // 16" f3
