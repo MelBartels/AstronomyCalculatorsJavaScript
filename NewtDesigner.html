@@ -1583,7 +1583,7 @@ copyright Mel Bartels, 2016 - 2020-->
 			<button class='accordion' id='btnDiagonalOffsetStudy'>A diagonal offset study</button>
 			<div class='panel'>
 
-				<p>A Newtonian telescope's diagonal must be offset in order to be optically aligned and to center the cone of illumination at the center of the field of view. Doing so results in an non-circular oblong area of full illumination. The diagonal is offset in relation to the focuser, so either the diagonal can be moved or the focuser can be moved. I assume a fixed focuser. The Let's see why an offset is desired.
+				<p>A Newtonian telescope's diagonal must be offset in order to center the cone of illumination on the field of view. Because of geometry, there it is not possible to center the cone of illumination on the center of the field of view while also satisfying the desire for even illumination at the edge of the field. The diagonal is offset in relation to the focuser, so either the diagonal can be moved or the focuser can be moved. I assume a fixed focuser. Let's see why an offset is desired.
 
 				<p>First, we'll pick a 12 inch [30cm] F4 telescope and select a 2.6 inch [6.6cm] minor axis diagonal with a diagonal to focal plane distance of 10 inches.<br>
 
@@ -1592,6 +1592,7 @@ copyright Mel Bartels, 2016 - 2020-->
 				<p>...and in detail...<br>
 
 				<img alt='' src='DiagonalOffsetStudy/diagonal not offset detail.jpg'>
+				<img alt='' src='DiagonalOffsetStudy/projection of field and diagonal no offset.jpg'>
 
 				<p>Oops, centering the diagonal on the primary mirror's axis results in the diagonal not being centered under the focal point. Projection causes the near edge of the diagonal to appear bigger because it is closer and the far edge of the diagonal to appear smaller because it is further away. The diagonal does not evenly intercept the light rays converging from the primary mirror.
 
@@ -1612,13 +1613,14 @@ copyright Mel Bartels, 2016 - 2020-->
 				<p>Now let's place the diagonal, offset to illuminate the focal point properly as above.<br>
 
 				<img alt='' src='DiagonalOffsetStudy/diagonal offset with unevenly illuminated field light cones detail.jpg'>
+				
+				<p>First, we see that both light cones are vignetted by the diagonal size, leaving us with illumination falloff at the edges of the field of roughly 0.4 magnitude. Secondly, we see that the right edge of the field receives more light than the left edge of the field as the left edge has a 10.6 degree cone of illumination and the right edge has a 11.6 degree cone of illumination.<br>
+				
+				<img alt='' src='DiagonalOffsetStudy/projection of field and diagonal center offset.jpg'>
 
-				<p>First, we see that both light cones are vignetted by the diagonal size, leaving us with illumination falloff at the edges of the field of roughly 0.4 magnitude. My <a href='../diagonal.htm'>diagonal calculator</a> is designed to help you make the optimal trade-off. Secondly, we see that the right edge of the field receives more light than the left edge of the field. I've marked the offset center of the diagonal by a line. The left hand plus is the center of the field of view while the right hand plus is the geometric center of the diagonal. Because of perspective the geometric center of the diagonal appears way off to the side, consequently the diagonal needs to be offset a great deal; note that the diagonal looks squished or oblong because of the perspective.<br>
-				<img src='DiagonalOffsetStudy/projection of field and offset diagonal offset by geometry.jpg'>
+				<p>By reducing the offset by a third, the diagonal can be repositioned to balance the edge illumination reaching the left and right edges of the field, but then the primary mirror's entire converging cone of light will be slightly off-center to the left.<br>
 				
-				<p><b>The diagonal can be repositioned to balance the illumination reaching the left and right edges of the field, but then the focal point will no longer receive the primary mirror's entire converging cone of light.</b><br>
-				
-				<img src='DiagonalOffsetStudy/projection of field and offset diagonal.jpg'>
+				<img alt='' src='DiagonalOffsetStudy/projection of field and diagonal edge offset.jpg'>
 			</div>
 
 			<h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
