@@ -44,10 +44,10 @@
         magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
         inverseMagnitudeDrop = MLB.calcLib.inverseMagnitudeDrop,
         diagObstructionArea = MLB.calcLib.diagObstructionArea,
-        calcDiagOffset = MLB.calcLib.calcDiagOffset,
-        calcDiagOffset2 = MLB.calcLib.calcDiagOffset2,
-        calcDiagOffset3 = MLB.calcLib.calcDiagOffset3,
-		calcDiagOffsetAtFieldEdge = MLB.calcLib.calcDiagOffsetAtFieldEdge,
+        calcDiagOffsetUsingFocalPoint = MLB.calcLib.calcDiagOffsetUsingFocalPoint,
+        calcDiagOffsetUsingFullIllumField = MLB.calcLib.calcDiagOffsetUsingFullIllumField,
+        calcDiagOffsetUsingEyeToDiagDistance = MLB.calcLib.calcDiagOffsetUsingEyeToDiagDistance,
+		calcDiagOffsetUsingFieldEdge = MLB.calcLib.calcDiagOffsetUsingFieldEdge,
         areaIntersectingCircles = MLB.calcLib.areaIntersectingCircles,
         getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
         getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
@@ -243,43 +243,50 @@
         equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
     });
 
-    QUnit.test('calcDiagOffset', function () {
-        var result = calcDiagOffset(13.2, 40.3, 3.1, 9);
+    QUnit.test('calcDiagOffsetUsingFocalPoint', function () {
+        var result = calcDiagOffsetUsingFocalPoint(13.2, 40.3, 3.1, 9);
         equal(withinRange(result, 0.25, 0.01), true, 'The diagonal offset should be .25, is ' + result);
 
 		// 30" F2.7
-        result = calcDiagOffset(30, 82, 6.5, 17);
+        result = calcDiagOffsetUsingFocalPoint(30, 82, 6.5, 17);
         equal(withinRange(result, 0.59, 0.01), true, 'The diagonal offset should be .59, is ' + result);
     });
 
-    QUnit.test('calcDiagOffset2', function () {
-        var result = calcDiagOffset2(13.2, 40.3, 3.1, 9);
+    QUnit.test('calcDiagOffsetUsingFullIllumField', function () {
+        var result = calcDiagOffsetUsingFullIllumField(13.2, 40.3, 3.1, 9);
         equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset2 should be -.26, is ' + result);
 
 		// 30" F2.7
-        result = calcDiagOffset2(30, 82, 6.5, 17);
+        result = calcDiagOffsetUsingFullIllumField(30, 82, 6.5, 17);
         equal(withinRange(result, -0.61, 0.01), true, 'The diagonal offset2 should be -.61, is ' + result);
     });
 
-    QUnit.test('calcDiagOffset3', function () {
-        var result = calcDiagOffset3(3.1, 9);
+    QUnit.test('calcDiagOffsetUsingEyeToDiagDistance', function () {
+        var result = calcDiagOffsetUsingEyeToDiagDistance(3.1, 9);
         equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset3 should be -.26, is ' + result);
 
+		// add 4 inches for the eye to focal plane distance
+        var result = calcDiagOffsetUsingEyeToDiagDistance(3.1, 13);
+        equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset3 should be -.18 with 4 inches eye to focal plane distance, is ' + result);
+
 		// 30" F2.7
-        result = calcDiagOffset3(6.5, 17);
+        result = calcDiagOffsetUsingEyeToDiagDistance(6.5, 17);
         equal(withinRange(result, -0.62, 0.01), true, 'The diagonal offset3 should be -.62, is ' + result);
+		// add 4 inches for the eye to focal plane distance
+        result = calcDiagOffsetUsingEyeToDiagDistance(6.5, 21);
+        equal(withinRange(result, -0.50, 0.01), true, 'The diagonal offset3 should be -.50 with 4 inches eye to focal plane distance, is ' + result);
     });
 
-    QUnit.test('calcDiagOffsetAtFieldEdge', function () {
-        var result = calcDiagOffsetAtFieldEdge(3.1, 9, 1.4);
+    QUnit.test('calcDiagOffsetUsingFieldEdge', function () {
+        var result = calcDiagOffsetUsingFieldEdge(3.1, 9, 1.4);
         equal(withinRange(result, 0.16, 0.01), true, 'The diagonal offset from the field edge should be .16, is ' + result);
 		
 		// example from the Sketchup graphic
-		result = calcDiagOffsetAtFieldEdge(2.828, 3, 2);
+		result = calcDiagOffsetUsingFieldEdge(2.828, 3, 2);
         equal(withinRange(result, 0.23, 0.01), true, 'The diagonal offset from the field edge should be .23, is ' + result);
 		
 		// 30" F2.7
-		result = calcDiagOffsetAtFieldEdge(6.5, 17, 1.2);
+		result = calcDiagOffsetUsingFieldEdge(6.5, 17, 1.2);
         equal(withinRange(result, 0.60, 0.01), true, 'The diagonal offset from the field edge should be .60, is ' + result);
     });
 

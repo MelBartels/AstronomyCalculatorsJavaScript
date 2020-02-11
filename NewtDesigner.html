@@ -1580,7 +1580,7 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror.
 
 			<div id='diagonalOffsetStudy'></div>
-			<button class='accordion' id='btnDiagonalOffsetStudy'>A diagonal offset study</button>
+			<button class='accordion' id='btnDiagonalOffsetStudy'>Diagonal offsets: a closer look</button>
 			<div class='panel'>
 
 				<p>A Newtonian telescope's diagonal must be offset in order to center the cone of illumination on the field of view. Because of geometry, there it is not possible to center the cone of illumination on the center of the field of view while also satisfying the desire for even illumination at the edge of the field. The diagonal is offset in relation to the focuser, so either the diagonal can be moved or the focuser can be moved. I assume a fixed focuser. Let's see why an offset is desired.
@@ -1626,7 +1626,10 @@ copyright Mel Bartels, 2016 - 2020-->
 				
 				<img alt='' src='DiagonalOffsetStudy/offset based on field edge study.jpg'>
 				
-				<p>How does this offset compare to other offsets? Using my 30 inch [76cm] F2.7 with 6.5 inch diagonal at a 'l' distance of 17 inches, I calculate an offset using my 'field edge formua' of 0.60 inches. Compare that to three other calculations: 1) a formula from <a href='http://www.telescope-optics.net/newtonian.htm'>www.telescope-optics.com</a> that results in an offset of 0.59 inches, 2) another formula from the same website that results in an offset of 0.62 inches, and 3) from an old Sky and Telescope article that results in an offset of 0.61 inches. You can see that the differences are very minor and in fact centering the diagonal with the desired offset under the eyepiece/focuser axis to a hundredth of an inch [0.25mm] is probably the limiting factor.
+				<p>How does this offset compare to other offsets? Use the calculator below to compare offsets based on various factors. The differences are minor and in fact centering the diagonal with the desired offset under the eyepiece/focuser axis to a hundredth of an inch [0.25mm] is probably the limiting factor. I use an extra-fine point permanent marker to place a tiny black dot on the diagonal that I then aim my alignment laser at.
+
+				<p><input id='btnCalcAllDiagonalOffsets' value='Calculate the various diagonal offsets' type='button'>
+				<p><label id='diagOffsetsComparedLabel'></label>
 			</div>
 
 			<h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
