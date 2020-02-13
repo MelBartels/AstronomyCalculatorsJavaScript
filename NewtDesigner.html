@@ -290,14 +290,6 @@ copyright Mel Bartels, 2016 - 2020-->
 					<input class='inputText' id='diagOffset' onfocus='select();' type='text'>
 				</td>
 			</tr>
-			<tr>
-				<td class='label' id='diagOffset2Label'>
-					<!-- label html set in JavaScript -->
-				</td>
-				<td>
-					<input class='inputText' id='diagOffset2' onfocus='select();' type='text'>
-				</td>
-			</tr>
 		</tbody>
 		</table>
 	</div>
@@ -1580,7 +1572,7 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>The offset is the distance that the diagonal needs to be moved away from the focuser and the distance that the diagonal needs to be moved towards the primary mirror.
 
 			<div id='diagonalOffsetStudy'></div>
-			<button class='accordion' id='btnDiagonalOffsetStudy'>Diagonal offsets: a closer look</button>
+			<button class='accordion' id='btnDiagonalOffsetStudy'>Diagonal offset study</button>
 			<div class='panel'>
 
 				<p>A Newtonian telescope's diagonal must be offset in order to center the cone of illumination on the field of view. Because of geometry, there it is not possible to center the cone of illumination on the center of the field of view while also satisfying the desire for even illumination at the edge of the field. The diagonal is offset in relation to the focuser, so either the diagonal can be moved or the focuser can be moved. I assume a fixed focuser. Let's see why an offset is desired.
@@ -1625,11 +1617,6 @@ copyright Mel Bartels, 2016 - 2020-->
 				<p>Here's my derivation of the formula to calculate offset by balancing the angles from the field of view's edges.<br>
 				
 				<img alt='' src='DiagonalOffsetStudy/offset based on field edge study.jpg'>
-				
-				<p>How does this offset compare to other offsets? Use the calculator below to compare offsets based on various factors. The differences are minor and in fact centering the diagonal with the desired offset under the eyepiece/focuser axis to a hundredth of an inch [0.25mm] is probably the limiting factor. I use an extra-fine point permanent marker to place a tiny black dot on the diagonal that I then aim my alignment laser at.
-
-				<p><input id='btnCalcAllDiagonalOffsets' value='Calculate the various diagonal offsets' type='button'>
-				<p><label id='diagOffsetsComparedLabel'></label>
 			</div>
 
 			<h4>Optimizing diagonal size with tube diameter; optimizing for a coma corrector</h4>
