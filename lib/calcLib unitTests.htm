@@ -40,9 +40,11 @@
         inchesToWavesGreenLight = MLB.calcLib.inchesToWavesGreenLight,
         calcRotatingFurnaceRPM = MLB.calcLib.calcRotatingFurnaceRPM,
         calcOffAxisIllumination = MLB.calcLib.calcOffAxisIllumination,
-        magnitudeDrop = MLB.calcLib.magnitudeDrop,
+        getMagnitudeFromIllum = MLB.calcLib.getMagnitudeFromIllum,
+        getIllumFromMagnitude = MLB.calcLib.getIllumFromMagnitude,
+		addMagnitudes = MLB.calcLib.addMagnitudes,
+		addArrayMagnitudes = MLB.calcLib.addArrayMagnitudes,
         magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
-        inverseMagnitudeDrop = MLB.calcLib.inverseMagnitudeDrop,
         diagObstructionArea = MLB.calcLib.diagObstructionArea,
         calcDiagOffsetUsingFocalPoint = MLB.calcLib.calcDiagOffsetUsingFocalPoint,
         calcDiagOffsetUsingFullIllumField = MLB.calcLib.calcDiagOffsetUsingFullIllumField,
@@ -208,34 +210,52 @@
         equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
     });
 
-    QUnit.test('magnitudeDrop', function () {
-        var result = magnitudeDrop(0.878011030887435);
-        equal(withinRange(result, 0.141, 0.001), true, 'The magnitude drop should be 0.141, is ' + result);
+    QUnit.test('getMagnitudeFromIllum', function () {
+        var result = getMagnitudeFromIllum(0.878011030887435);
+        equal(withinRange(result, 0.141, 0.001), true, 'The magnitude should be 0.141, is ' + result);
     });
 
-    QUnit.test('magnitudeDrop', function () {
-        var result = magnitudeDrop(0.71);
-        equal(withinRange(result, 0.37, 0.01), true, 'The magnitude drop should be 0.37, is ' + result);
+    QUnit.test('getMagnitudeFromIllum', function () {
+        var result = getMagnitudeFromIllum(0.71);
+        equal(withinRange(result, 0.37, 0.01), true, 'The magnitude should be 0.37, is ' + result);
     });
 
-    QUnit.test('magnitudeDrop as a percentage', function () {
-        var result = magnitudeDrop(0.96);
-        equal(withinRange(result, 0.04, 0.01), true, 'The magnitude drop should be 0.04, is ' + result);
+    QUnit.test('getMagnitudeFromIllum', function () {
+        var result = getMagnitudeFromIllum(0.96);
+        equal(withinRange(result, 0.04, 0.01), true, 'The magnitude should be 0.04, is ' + result);
     });
 
-    QUnit.test('magnitudeDrop as a percentage', function () {
-        var result = magnitudeDrop(1.04);
-        equal(withinRange(result, -0.04, 0.01), true, 'The magnitude drop should be -0.04, is ' + result);
+    QUnit.test('getMagnitudeFromIllum', function () {
+        var result = getMagnitudeFromIllum(1.04);
+        equal(withinRange(result, -0.04, 0.01), true, 'The magnitude should be -0.04, is ' + result);
+    });
+
+    QUnit.test('getIllumFromMagnitude', function () {
+        var result = getIllumFromMagnitude(0.37);
+        equal(withinRange(result, 0.71, 0.01), true, 'The inverse magnitude drop should be .71, is ' + result);
+    });
+
+    QUnit.test('addMagnitudes', function () {
+        var result = addMagnitudes(5, 6);
+        equal(withinRange(result, 4.636, 0.001), true, 'magnitudes 5 and 6 added should be 4.636, is ' + result);
+    });
+	
+    QUnit.test('addArrayMagnitudes', function () {
+        var result = addArrayMagnitudes([5, 6, 7]);
+        equal(withinRange(result, 4.520, 0.001), true, 'array of magnitudes should add to 4.520, is ' + result);
+    });
+
+    QUnit.test('addArrayMagnitudes', function () {
+        var result = addArrayMagnitudes();
+        equal(result, undefined, 'missing array should return undefined');
+
+        result = addArrayMagnitudes([]);
+        equal(result, undefined, 'empty array should return undefined');
     });
 
     QUnit.test('magnitudeDifferenceBetweenApertures', function () {
         var result = magnitudeDifferenceBetweenApertures(10, 20);
         equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
-    });
-
-    QUnit.test('inverseMagnitudeDrop', function () {
-        var result = inverseMagnitudeDrop(0.37);
-        equal(withinRange(result, 0.71, 0.01), true, 'The inverse magnitude drop should be .71, is ' + result);
     });
 
     QUnit.test('diagObstructionArea', function () {
@@ -464,7 +484,7 @@
         var parms, result;
         parms = visualDetectCalcParms.copyFrom();
         result = visualDetectCalc.calc(parms);
-        equal(withinRange(result.logContrastDiff, 0.81793677405235943, 0.000001), true, 'The logContrastDiff should be 0.81793677405235943, is ' + result.logContrastDiff);
+        equal(withinRange(result.logContrastDiff,  0.84, 0.01), true, 'The logContrastDiff should be 0.84, is ' + result.logContrastDiff);
         equal(withinRange(result.actualFoV, 1.81708055723804, 0.000001), true, 'The actualFoV should be 1.81708055723804, is ' + result.actualFoV);
         equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
         equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
@@ -475,7 +495,7 @@
         parms = visualDetectCalcParms.copyFrom();
         parms.eyepieceExitPupilmm = 4;
         result = visualDetectCalc.calc(parms);
-        equal(withinRange(result.logContrastDiff, 0.848671579113636, 0.000001), true, 'The logContrastDiff should be 0.848671579113636, is ' + result.logContrastDiff);
+        equal(withinRange(result.logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result.logContrastDiff);
         equal(withinRange(result.actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result.actualFoV);
         equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
         equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
@@ -498,7 +518,7 @@
         parms.scopeTrans = .7;
         parms.singleEyeFactor = 1;
         result = visualDetectCalc.calc(parms);
-        equal(withinRange(result.logContrastDiff, 0.4, 0.1), true, 'The logContrastDiff should be 0.4, is ' + result.logContrastDiff);
+        equal(withinRange(result.logContrastDiff, 1.0, 0.1), true, 'The logContrastDiff should be 1.0, is ' + result.logContrastDiff);
     });
 
     QUnit.test('Sculptor System example from Clarke\'s book', function () {
@@ -515,44 +535,14 @@
         parms.apparentFoV = 60;
         // overriding defaults
         parms.exitPupilmm = 9;
-        parms.scopeTrans = .7;
+        parms.scopeTrans = .8;
         parms.singleEyeFactor = 1;
         result = visualDetectCalc.calc(parms);
-        /* book says 0.4 but this appears incorrect;
-           book states that object with no telescope=26.3 and object in telescope at ODM is 24.5 (includes background!?), and background at magnification is 24.6:
-           this last value appears incorrect, either ignoring reduction due to magnification or reduction due to scope transmission factor (both are approx 0.4),
-           so correct value should be 24.25 - 0.4 - 0.4 = 25.05
-         ie
-            input values:
-              aperture (in)                8
-              eye limiting magnitude       6
-              eye max exit pupil mm        9
-              sky background brightness    24.25
-              object name                  Sculptor System
-              object integrated magnitude  8.8
-              object dimensions arcmin     60 x 60
-              eyepiece apparent field deg  60
-            calculated values:
-              magnification                27
-              minimum useful X             23
-              maximum useful X varies from 60 to 60
-              actual field deg             2.2145669291338583
-              object fits FoV?             true
-              faintest star                15.268405970862784
-              single eye mag reduction     0
-              scope xmit mag reduction     0.38725489996435797
-              brightness (mag/arcsec^2):
-                object without telescope    26.319070773142013
-                brightness reduction at X   0.395906230238124
-                object in scope at X        27.102231903344496
-                background in scope at X    25.033161130202483
-                object+bkgnd in scope at X  24.495370025041154
-              log object contrast          -0.8276283092568051
-              log contrast required        -1.103609326833303
-              log contrast difference      0.27598101757649784
-              detectable?                  true
-        */
-        equal(withinRange(result.logContrastDiff, 0.3, 0.1), true, 'The logContrastDiff should be 0.4, is ' + result.logContrastDiff);
+		console.log('Sculptor System example from Clarke\'s book\n'
+			+ 'Clarke  says log difference = 0.4 based on 27x and states that object with no telescope=26.3 and object in telescope at ODM=24.5, and background at magnification=24.6\n'
+			+ 'I get log difference = 0.3\n'
+			+ visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text);
+        equal(withinRange(result.logContrastDiff, 0.3, 0.1), true, 'The logContrastDiff should be 0.3 (book says 0.4), is ' + result.logContrastDiff);
     });
 
     QUnit.test('visualDetectCalc.calc()', function () {
@@ -573,7 +563,7 @@
         parms.scopeTrans = .85;
         parms.singleEyeFactor = 1;
         result = visualDetectCalc.calc(parms);
-        equal(withinRange(result.logContrastDiff, 0.51, 0.01), true, 'The logContrastDiff should be 0.51, is ' + result.logContrastDiff);
+        equal(withinRange(result.logContrastDiff, 0.55, 0.01), true, 'The logContrastDiff should be 0.55, is ' + result.logContrastDiff);
     });
 
     QUnit.test('visualDetectCalc.fitsFoV', function () {
@@ -592,36 +582,6 @@
         equal(result.detectable, false, 'The object should not be detectable, is ' + result.detectable);
     });
 
-    /*
-    input values:
-      aperture (in)                13
-      eye limiting magnitude       6
-      eye max exit pupil mm        7
-      sky background brightness    21.5
-      object name                  California Nebula
-      object integrated magnitude  5
-      object dimensions arcmin     145 x 40
-      eyepiece apparent field deg  100
-    calculated values:
-      magnification                55
-      minimum useful X             47
-      maximum useful X varies from 41 to 150
-      actual field deg             1.8170805572380375
-      object fits FoV?             true
-      faintest star                16.115820155402638
-      single eye mag reduction     0.7525749891599529
-      scope xmit mag reduction     0.24227503252014093
-      brightness (mag/arcsec^2):
-        object without telescope   23.036884505131138
-        brightness reduction at X  0.3347339481530661
-        object in scope at X       24.366468474964293
-        background in scope at X   22.82958396983316
-        object+bkgnd in scope at X 21.598732050134025
-      log object contrast          -0.614753802052455
-      log contrast required        -1.4326905761048156
-      log contrast difference      0.8179367740523606
-      detectable?                  true
-    */
     QUnit.test('visualDetectCalc.includeResultAsString', function () {
         var parms, result;
         parms = visualDetectCalcParms.copyFrom();
@@ -644,37 +604,6 @@
     //visualDetectCalcParms2.scopeTrans = ;
     //visualDetectCalcParms2.singleEyeFactor = ;
 
-    /*
-    result is
-    input values:
-        aperture (in) 13
-        eye limiting magnitude 6
-        eye max exit pupil mm 7
-        sky background brightness 21.5
-        object name Sombrero Galaxy object
-        integrated magnitude 8
-        object dimensions arcmin 9 x 4
-        eyepiece apparent field deg 110
-    calculated values:
-        magnification 55
-        minimum useful X 47
-        maximum useful X varies from 330 to 330
-        actual field deg 1.9987886129618413
-        object fits FoV? true
-        faintest star 16.115820155402638
-        single eye mag reduction 0.7525749891599529
-        scope xmit mag reduction 0.24227503252014093
-        brightness (mag/arcsec^2):
-            object without telescope 20.519070773142015
-            brightness reduction at X 0.3347339481530661
-            object in scope at X 21.84865474297517
-            background in scope at X 22.82958396983316
-            object+bkgnd in scope at X 20.48448901600736
-        log object contrast 0.39237169074319383
-        log contrast required -0.966861934161181
-        log contrast difference 1.3592336249043748
-        detectable? true
-    */
     QUnit.test('visualDetectCalc.includeResultAsString, Sombrero Galaxy through 13 inch f3', function () {
         var parms, result;
         parms = visualDetectCalcParms2.copyFrom();
@@ -691,17 +620,17 @@
         // 7mm exit pupil, per above test
         equal(result[6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[6].parms.exitPupilmm);
         equal(result[6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[6].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[6].logContrastDiff, 0.827429778789198, 0.000001), true, 'The logContrastDiff should be 0.827429778789198, is ' + result[6].logContrastDiff);
+        equal(withinRange(result[6].logContrastDiff, 0.83, 0.01), true, 'The logContrastDiff should be 0.83, is ' + result[6].logContrastDiff);
         equal(withinRange(result[6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[6].actualFoV);
         // 4mm exit pupil
         equal(result[3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[3].parms.exitPupilmm);
         equal(result[3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[3].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[3].logContrastDiff, 0.848671579113636, 0.000001), true, 'The logContrastDiff should be 0.848671579113636, is ' + result[3].logContrastDiff);
+        equal(withinRange(result[3].logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result[3].logContrastDiff);
         equal(withinRange(result[3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[3].actualFoV);
         // 1mm exit pupil
         equal(result[0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[0].parms.exitPupilmm);
         equal(result[0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[0].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[0].logContrastDiff, 0.779495670342709, 0.000001), true, 'The logContrastDiff should be 0.779495670342709, is ' + result[0].logContrastDiff);
+        equal(withinRange(result[0].logContrastDiff, 1.18, 0.0d1), true, 'The logContrastDiff should be 1.18, is ' + result[0].logContrastDiff);
         equal(withinRange(result[0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[0].actualFoV);
     });
 
@@ -714,17 +643,17 @@
         // 7mm exit pupil, per above test
         equal(result[1][6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][6].parms.exitPupilmm);
         equal(result[1][6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[1][6].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[1][6].logContrastDiff, 0.827429778789198, 0.000001), true, 'The logContrastDiff should be 0.827429778789198, is ' + result[1][6].logContrastDiff);
+        equal(withinRange(result[1][6].logContrastDiff, 0.83, 0.01), true, 'The logContrastDiff should be 0.83, is ' + result[1][6].logContrastDiff);
         equal(withinRange(result[1][6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[1][6].actualFoV);
         // 4mm exit pupil
         equal(result[1][3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][3].parms.exitPupilmm);
         equal(result[1][3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[1][3].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[1][3].logContrastDiff, 0.848671579113636, 0.000001), true, 'The logContrastDiff should be 0.848671579113636, is ' + result[1][3].logContrastDiff);
+        equal(withinRange(result[1][3].logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result[1][3].logContrastDiff);
         equal(withinRange(result[1][3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[1][3].actualFoV);
         // 1mm exit pupil
         equal(result[1][0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][0].parms.exitPupilmm);
         equal(result[1][0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[1][0].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[1][0].logContrastDiff, 0.779495670342709, 0.000001), true, 'The logContrastDiff should be 0.779495670342709, is ' + result[1][0].logContrastDiff);
+        equal(withinRange(result[1][0].logContrastDiff, 1.18, 0.01), true, 'The logContrastDiff should be 1.18, is ' + result[1][0].logContrastDiff);
         equal(withinRange(result[1][0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[1][0].actualFoV);
 
         // test apertures
