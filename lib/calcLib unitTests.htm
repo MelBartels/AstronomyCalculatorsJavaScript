@@ -630,7 +630,7 @@
         // 1mm exit pupil
         equal(result[0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[0].parms.exitPupilmm);
         equal(result[0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[0].parms.eyepieceExitPupilmm);
-        equal(withinRange(result[0].logContrastDiff, 1.18, 0.0d1), true, 'The logContrastDiff should be 1.18, is ' + result[0].logContrastDiff);
+        equal(withinRange(result[0].logContrastDiff, 1.18, 0.01), true, 'The logContrastDiff should be 1.18, is ' + result[0].logContrastDiff);
         equal(withinRange(result[0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[0].actualFoV);
     });
 
