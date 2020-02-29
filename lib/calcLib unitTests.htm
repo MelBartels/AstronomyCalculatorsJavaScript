@@ -518,6 +518,7 @@
         parms.scopeTrans = .7;
         parms.singleEyeFactor = 1;
         result = visualDetectCalc.calc(parms);
+		console.log(visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text);
         equal(withinRange(result.logContrastDiff, 1.0, 0.1), true, 'The logContrastDiff should be 1.0, is ' + result.logContrastDiff);
     });
 
@@ -563,6 +564,7 @@
         parms.scopeTrans = .85;
         parms.singleEyeFactor = 1;
         result = visualDetectCalc.calc(parms);
+		console.log(visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text);
         equal(withinRange(result.logContrastDiff, 0.55, 0.01), true, 'The logContrastDiff should be 0.55, is ' + result.logContrastDiff);
     });
 
