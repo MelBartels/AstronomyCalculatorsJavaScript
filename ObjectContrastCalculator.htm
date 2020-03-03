@@ -12,10 +12,10 @@
 <body>
 <h2>Object Contrast Calculator</h2>
 
-<p>Object surface brightness (MPAC) =
-<input class='inputText' name="objMPAC" value="5" onfocus="select()" type="text">
+<p>Object surface brightness (MPAS) =
+<input class='inputText' name="objMPAS" value="5" onfocus="select()" type="text">
 <br>&nbsp;&nbsp;&nbsp;&nbsp; or
-<input value="calculate" ID="btnCalcObjectMPAC" type="button">
+<input value="calculate" ID="btnCalcObjectMPAS" type="button">
 from object magnitude
 <input class='inputText' name="objMag" value="5" onfocus="select()" type="text">
 and size in arc-minutes
@@ -24,8 +24,8 @@ by
 <input class='inputText' name="objSize2" value="145" onfocus="select()" type="text">
 <br>
 <br>
-Sky background brightness (SQM MPAC reading) =
-<input class='inputText' name="skyMPAC" value="21.5" onfocus="select()" type="text">
+Sky background brightness (SQM MPAS reading) =
+<input class='inputText' name="skyMPAS" value="21.5" onfocus="select()" type="text">
 <br>
 <br>
 <input value="calculate contrast" ID="btnCalcContrast" type="button">
@@ -33,8 +33,8 @@ Sky background brightness (SQM MPAC reading) =
 <div name="ccntrastResult">
 </div>
 <h4>Interpreting the results</h4>
-MPAC stands for Magnitude Per Arc Second.<br>
-Sky background brightness is 21.5 for a dark site, 18.5 for a city site.<br>
+MPAS stands for Magnitude Per Arc-second Squared.<br>
+Sky background brightness is 21.5 MPAS for a dark site, 18.5 MPAS for a city site.<br>
 Detectable contrast for objects of large apparent size is 3-6%.<br>
 Very faint objects smaller than five degree apparent size can be impossible to see; the larger the apparent size the better as long as the apparent size does not exceed the eyepiece's apparent field of view.<br>
 <p>by Mel Bartels</p>
