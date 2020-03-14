@@ -43,6 +43,10 @@ html {
 	padding-right: 5%;
 }
 
+.title {
+	text-align: center; 
+}
+
 .selectDesigner {
 	text-align: center;
 }
@@ -131,6 +135,14 @@ html {
 
 .inputDiags {
 	width: 500px;
+}
+
+#visualDetectionCalcChart {
+	margin-top: 20px; 
+	margin-bottom: 20px; 
+	margin-left: 20px; 
+	width: 600px; 
+	height: 300px;
 }
 
 #diagChart {

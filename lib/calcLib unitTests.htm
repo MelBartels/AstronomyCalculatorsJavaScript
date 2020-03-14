@@ -618,6 +618,8 @@
     QUnit.test('ExitPupilSequence', function () {
         var parms, result;
         parms = visualDetectCalcParms.copyFrom();
+		// determines array size of exit pupils that VisualDetectCalcExitPupils() builds
+		parms.eyepieceExitPupilmm = 7;
         result = new VisualDetectCalcExitPupils(parms);
         // 7mm exit pupil, per above test
         equal(result[6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[6].parms.exitPupilmm);
@@ -641,6 +643,8 @@
     QUnit.test('VisualDetectCalcApertures', function () {
         var parms, result, halfAperture, dblAperture, halfApertureParms, halfApertureResults, dblApertureParms, dblApertureResults;
         parms = visualDetectCalcParms.copyFrom();
+		// determines array size of exit pupils that VisualDetectCalcExitPupils() builds
+		parms.eyepieceExitPupilmm = 7;
         result = new VisualDetectCalcApertures(parms);
         // 7mm exit pupil, per above test
         equal(result[1][6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][6].parms.exitPupilmm);
