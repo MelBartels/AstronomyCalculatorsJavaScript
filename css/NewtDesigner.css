@@ -55,6 +55,10 @@ html {
 	width: 400px;
 }
 
+.sliderHalf {
+	width: 200px;
+}
+
 .designSelect {
 	float: left;
 	width: 190px;

@@ -953,6 +953,15 @@ copyright Mel Bartels, 2016 - 2020-->
 			</tr>
 			<tr>
 				<td class='label'>
+					 or use the Bortle Scale
+				</td>
+				<td>
+					<input class='sliderHalf' id='sliderBortleScale' min='1' max='8' step='1' type='range'/>
+					<input class='inputText' id='BortleScale' value='3' onfocus='select()' type='text'>					
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
 					 Object name =
 				</td>
 				<td>
@@ -989,11 +998,7 @@ copyright Mel Bartels, 2016 - 2020-->
 					 Eyepiece apparent field (degrees) 
 				</td>
 				<td>
-				
-				
-					<input class='slider' id='sliderVisualDetectionEyepieceApparentFOV' min='40' max='120' step='2' type='range'/>
-
-				
+					<input class='sliderHalf' id='sliderVisualDetectionEyepieceApparentFOV' min='40' max='120' step='2' type='range'/>
 					<input class='inputText' id='visualDetectionEyepieceApparentFOV' value='100' onfocus='select()' type='text'>
 				</td>
 			</tr>
@@ -2572,6 +2577,7 @@ copyright Mel Bartels, 2016 - 2020-->
 
 	<script src='lib/json/comaCorrectors.js'></script>
 	<script src='lib/json/eyepieces.js'></script>
+	<script src='lib/json/BortleScale.js'></script>
 	<script src='lib/json/focusers.js'></script>
 	<script src='lib/json/materialFriction.js'></script>
 	<script src='lib/json/tubeTypes.js'></script>
