@@ -441,28 +441,6 @@
 		equal(withinRange(result, expectedMagnitude, 0.01), true, 'magnitude of ' + result + ' should be ' + expectedMagnitude + ', is ' + result);
 	});
 
-	QUnit.test('calcSurfaceBrightnessFromArea - demonstrate constant magnitude difference on area change', function () {
-		var expected = 8.89,
-			result = getMagnitudeFromIllum(1 / 3600);
-
-		equal(withinRange(result, expected, 0.01), true, 'magnitude change going from arc-minutes to arc-second should be ' + expected + ', is ' + result);
-
-		result = getMagnitudeFromIllum(3600);
-		equal(withinRange(result, -expected, 0.01), true, 'going the other way, magnitude change going from arc-minutes to arc-second should be ' + -expected + ', is ' + result);
-	});
-
-	QUnit.test('calcSurfaceBrightnessFromArea - demonstrate constant magnitude difference on area change 2', function () {
-		var objMag = 5,
-		    minObjArcmin = 40,
-			maxObjArcmin = 145,
-			expectedDifference = 8.89,
-			result1 = calcSurfaceBrightnessFromArea(objMag, minObjArcmin, maxObjArcmin),
-	        result2 = calcSurfaceBrightnessFromArea(objMag, minObjArcmin / 60, maxObjArcmin / 60),
-			resultDifference = result1 - result2;
-
-		equal(withinRange(resultDifference, expectedDifference, 0.01), true, 'magnitude change should be ' + expectedDifference + ', is ' + resultDifference);
-	});
-
 	QUnit.test('parms.apertureIn', function () {
 		var parms, result, parms2, result2, originalResult;
 		parms = new VisualDetectCalcParms();

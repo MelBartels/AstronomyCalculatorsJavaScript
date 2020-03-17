@@ -974,6 +974,7 @@ copyright Mel Bartels, 2016 - 2020-->
 				</td>
 				<td>
 					<input class='inputText' id='objectApparentMagnitude' value='5' onfocus='select()' type='text'>
+					<input class='inputText' id='objectCalculatedSurfaceBrightness' readonly='readonly' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1035,9 +1036,8 @@ copyright Mel Bartels, 2016 - 2020-->
 			
 			<h3>Notes</h3>
 			
-			<p>MPAS stands for Magnitude Per Arc-second Squared.<br>			
+			<p>MPAS stands for Magnitude Per Arc-second Squared. MPAM stands for Magnitude Per Arc-minute Squared. I calculate using a circular area, not a rectangular area. Note that here object surface brightness is in magnitude per arc-second squared (MPAS). Many catalogs give object surface brightness in square arc-minutes. To convert from circular arc-seconds squared to circular arc-minutes squared, add 8.6 magnitudes to the MPAS value to get brightness in arc-minutes squared.<br>
 			Sky background brightness is 21.5 MPAS for a dark site, 18.5 MPAS for a city site.<br>
-			Note that here object surface brightness is in magnitude per arc-second squared (MPAS). Many catalogs give object surface brightness in square arc-minutes. To convert from square arc-seconds to square arc-minutes, add 8.9 magnitudes to the MPAS value to get brightness in square arc-minutes.<br>
 			Detectable contrast for objects of large apparent size is 3-6%.<br>
 			Very faint objects smaller than five degree apparent size can be impossible to see; the larger the apparent size the better as long as the apparent size does not exceed the eyepiece's apparent field of view.
 
@@ -2536,6 +2536,7 @@ copyright Mel Bartels, 2016 - 2020-->
 				<li><a href='#telescopeRequirements'>#telescopeRequirements</a>
 				<li><a href='#formulae'>#formulae</a>
 				<li><a href='#magnification'>#magnification</a>
+				<li><a href='#visual'>#visual</a>
 				<li><a href='#diagonal'>#diagonal</a>
 				<li><a href='#secondarySizeExperiment'>#secondarySizeExperiment</a>
 				<li><a href='#diagonalOffsetStudy'>#diagonalOffsetStudy</a>
@@ -2595,7 +2596,7 @@ copyright Mel Bartels, 2016 - 2020-->
 	<script src='lib/json/tubeTypes.js'></script>
 	<script src='lib/json/mountTypes.js'></script>
 	<script src='lib/json/spiderTypes.js'></script>
-	<script src='lib/json/SAC_DeepSky_Ver81_abbr.js'></script>
+	<!--note todo <script src='lib/json/SAC_DeepSky_Ver81_abbr.js'></script>-->
 	<script src='lib/json/MelBartelsZipDobIIDesignData.js'></script>
 
 </body>

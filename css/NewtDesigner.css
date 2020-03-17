@@ -141,6 +141,16 @@ html {
 	width: 500px;
 }
 
+#objectCalculatedSurfaceBrightness {
+	font-family: Verdana, Geneva, sans-serif; 
+	font-size: 100%;
+	width: 500px;
+	border: none;
+}
+#objectCalculatedSurfaceBrightness:focus {
+    outline: none;
+}
+
 #visualDetectionCalcChart {
 	margin-top: 20px; 
 	margin-bottom: 20px; 
