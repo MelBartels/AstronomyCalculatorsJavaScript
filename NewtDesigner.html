@@ -941,25 +941,13 @@ copyright Mel Bartels, 2016 - 2020-->
 		</div>
 		
 		<div class='designer' id='designVisual'>
+			Search for an object from the catalog
+			<input class='inputText' id='searchObjectString' value='NGC 1499' onfocus='select()' type='text'>
+			<input value='Search catalog' id='btnSearchObjectCatalog' type='button'>
+			Select from matched objects <select id='matchedObjectsSelect'></select>
+
 			<table>
 			<tbody>
-			<tr>
-				<td class='label'>
-					 Sky background brightness =
-				</td>
-				<td>
-					<input class='inputText' id='skyBackgroundBrightnessUnaidedEye' value='21.5' onfocus='select()' type='text'>
-				</td>
-			</tr>
-			<tr>
-				<td class='label'>
-					 or use the Bortle Scale
-				</td>
-				<td>
-					<input class='sliderHalf' id='sliderBortleScale' min='1' max='8' step='1' type='range'/>
-					<input class='inputText' id='BortleScale' value='3' onfocus='select()' type='text'>					
-				</td>
-			</tr>
 			<tr>
 				<td class='label'>
 					 Object name =
@@ -984,6 +972,23 @@ copyright Mel Bartels, 2016 - 2020-->
 				<td>
 					<input class='inputText' id='objectSizeArcMin1' value='40' onfocus='select()' type='text'>
 					by <input class='inputText' id='objectSizeArcMin2' value='145' onfocus='select()' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					 Sky background brightness =
+				</td>
+				<td>
+					<input class='inputText' id='skyBackgroundBrightnessUnaidedEye' value='21.5' onfocus='select()' type='text'>
+				</td>
+			</tr>
+			<tr>
+				<td class='label'>
+					 or use the Bortle Scale
+				</td>
+				<td>
+					<input class='sliderHalf' id='sliderBortleScale' min='1' max='8' step='1' type='range'/>
+					<input class='inputText' id='BortleScale' value='3' onfocus='select()' type='text'>					
 				</td>
 			</tr>
 			<tr>
@@ -1051,7 +1056,7 @@ copyright Mel Bartels, 2016 - 2020-->
 				<li>The <b>eye-brain</b>, where the image is processed and made conscious
 			</ol>
 			
-			<p>Here we are concerned with the telescope. For an explanation of image detectability see my <a href='visual.html'>page on visual detection</a>. The telescope impacts visual detection differently depending on the type of object.
+			<p>Here we are concerned with the telescope. For an explanation of image detectability, go to my Visual Detection designer. The telescope impacts visual detection differently depending on the type of object.
 			
 			<ul>
 				<li><b>Stars</b>, or point sources. A star's visibility depends on aperture: the telescope's light gathering power. Higher powers darken the field, increasing contrast and making the faintest stars more visible. Since the star is a point source, magnification does not affect its brightness. However, poor seeing that ruins high power viewing will make faint stars harder to see.<br><br>
@@ -1168,13 +1173,14 @@ copyright Mel Bartels, 2016 - 2020-->
 			<label id='widestEyepiecesForEyePupilLabel'>no widest field eyepiece selected yet</label>
 			<input id='btnCopySelectedEyepieceToEyepieceTable' value='Copy to eyepiece table below' type='button'>
 
-			<p>Sort 'Select eyepiece' selection by
+			<br><br>
+			<p>Sort <b>Select eyepiece</b> selection by
 			<input name='btnEyepieceSort' value='manufacturer' checked='checked' type='radio'> manufacturer
 			<input name='btnEyepieceSort' value='focalLength' type='radio'> focal length
 			<input name='btnEyepieceSort' value='realFieldOfView' type='radio'> true field of view
 
 			<input id='btnUpdateEyepieces' value='Update eyepieces' type='button'>
-			<br><br>
+			<br>
 
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
@@ -2586,6 +2592,7 @@ copyright Mel Bartels, 2016 - 2020-->
 	<script src='lib/sharedLib.js'></script>
 	<script src='lib/coordLib.js'></script>
 	<script src='lib/calcLib.js'></script>
+	<script src='lib/objectLib.js'></script>
 	<script src='lib/NewtDesigner.js'></script>
 
 	<script src='lib/json/comaCorrectors.js'></script>
@@ -2596,7 +2603,7 @@ copyright Mel Bartels, 2016 - 2020-->
 	<script src='lib/json/tubeTypes.js'></script>
 	<script src='lib/json/mountTypes.js'></script>
 	<script src='lib/json/spiderTypes.js'></script>
-	<!--note todo <script src='lib/json/SAC_DeepSky_Ver81_abbr.js'></script>-->
+	<script src='lib/json/SAC_DeepSky_Ver81_abbr.js'></script>
 	<script src='lib/json/MelBartelsZipDobIIDesignData.js'></script>
 
 </body>

@@ -220,6 +220,7 @@ html {
 .active:after {
 	content: '\2796'; /* '-' */
 }
+
 .panel {
 	margin-left: 30px;
 	display: none;
