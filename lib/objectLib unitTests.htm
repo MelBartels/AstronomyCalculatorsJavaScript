@@ -18,7 +18,8 @@
 	<script src='underscore/underscore-min.js'></script>
 
 	<script src='sharedLib.js'></script>
-        <script src="objectLib.js"></script>
+    <script src="objectLib.js"></script>
+	<script src='json/SAC_DeepSky_Ver81_abbr.js'></script>
 </head>
 <body>
 	<div id="qunit"></div>
@@ -28,7 +29,11 @@
 <script>$(document).ready(function () {
 	'use strict';
 	var openClusters = MLB.objectLib.openClusters,
+		decodeObjectSize = MLB.objectLib.decodeObjectSize,
+		createObjectFieldsString = MLB.objectLib.createObjectFieldsString,
+		createObjectDescriptionString = MLB.objectLib.createObjectDescriptionString,
 	    getObjectSize = MLB.objectLib.getObjectSize,
+		filterObjectCatalog = MLB.objectLib.filterObjectCatalog,
 	    convertRomanNumeral = MLB.objectLib.convertRomanNumeral,
 	    getConstellation = MLB.objectLib.getConstellation,
 	    getCatalogs = MLB.objectLib.getCatalogs,
@@ -56,6 +61,42 @@
 		equal(result.value, expected, result.value + ' should be ' + expected);
 	});
 	
+	QUnit.module('object string manipulation');
+	
+	QUnit.test('decodeObjectSize', function () {
+		var expected = '8.9',
+			decimalPoints = 2,
+			result = decodeObjectSize('8.9 m', decimalPoints);
+			
+		equal(result, expected, result + ' should be ' + expected);
+		
+		expected = '0.5';
+		result = decodeObjectSize('30 s', decimalPoints);
+		equal(result, expected, result + ' should be ' + expected);
+
+		expected = '300';
+		result = decodeObjectSize('5 d', decimalPoints);
+		equal(result, expected, result + ' should be ' + expected);
+	});	
+	
+	QUnit.test('createObjectFieldsString', function () {
+		var Saguaro81Abbr = MLB.Saguaro81AbbrJson.Saguaro81Abbr,
+			expected = 'NGC 7831 | 12.8 | 1.5 m | 0.3 m',
+			record = Saguaro81Abbr[0],
+			result = createObjectFieldsString(record);
+			
+		equal(result, expected, result + ' should be ' + expected);
+	});	
+	
+	QUnit.test('createObjectDescriptionString', function () {
+		var Saguaro81Abbr = MLB.Saguaro81AbbrJson.Saguaro81Abbr,
+			expected = 'Name: NGC 7831 / IC 1530 Mag: 12.8 SurfBright: 12.3 Size: 1.5 arc-min x 0.3 arc-min Type: Galaxy Con: Andromeda Descr: extremely/excessively faint; very small; much elongated/extended; very faint stars very near',
+			record = Saguaro81Abbr[0],
+			result = createObjectDescriptionString(record);
+			
+		equal(result, expected, result + ' should be ' + expected);
+	});	
+	
 	QUnit.module('object sizes');
 	
 	QUnit.test('getObjectSize', function () {
@@ -64,14 +105,84 @@
 			
 		equal(result, expected, result + ' should be ' + expected);
 		
-		expected = '8.9';
-		result = getObjectSize(expected);
+		expected = '30 arc-sec';
+		result = getObjectSize('30 s');
 		equal(result, expected, result + ' should be ' + expected);
 
-		expected = '8.9 d';
-		result = getObjectSize(expected);
+		expected = '5 degree';
+		result = getObjectSize('5 d');
 		equal(result, expected, result + ' should be ' + expected);
-	});	
+	});
+		
+	QUnit.module('filterObjectCatalog results');
+	
+	QUnit.test('filterObjectCatalog', function () {
+		var catalog = MLB.Saguaro81AbbrJson.Saguaro81Abbr,
+			expected = 1,
+			result = filterObjectCatalog(catalog, 'NGC 1499').length;
+			
+		equal(result, expected, result + ' objects found count should be ' + expected);
+		
+		expected = 2;
+		result = filterObjectCatalog(catalog, 'M 13').length;
+		equal(result, expected, result + ' should be ' + expected);
+	});
+	
+	QUnit.test('filterObjectCatalog analysis', function () {
+		var catalog = MLB.Saguaro81AbbrJson.Saguaro81Abbr,
+			searchStr = 'M 13',
+			regEx = new RegExp(searchStr, 'gi'),
+			expected = 2,
+			result;
+	
+		result = catalog.filter(rec => rec.OBJECT.match(regEx) || rec.OTHER.match(regEx)).length;	
+		equal(result, expected, result + ' M 13 objects found count should be ' + expected);
+		
+		searchStr = 'NGC 1499',
+		regEx = new RegExp(searchStr, 'gi'),
+		expected = 1,
+		result = catalog.filter(rec => rec.OBJECT.match(regEx) || rec.OTHER.match(regEx)).length;	
+			equal(result, expected, result + ' NGC 1499 should be ' + expected);
+
+		/*
+		"OBJECT": "NGC 43",
+		"OTHER": "UGC 120",
+		"TYPE": "GALXY",
+		"CON": "AND",
+		"MAG": 12.6,
+		"SUBR": 13.4,
+		"SIZE_MAX": "1.6 m",
+		"SIZE_MIN": "1.5 m",
+		"CLASS": "SBO",
+		"NGC_DESCR": "eF;* 12 np 45''",
+		"NOTES": ""
+		*/
+		expected = 0,
+		result = catalog.filter(rec => rec.MAG.length === 0).length;	
+		equal(result, expected, result + ' object count with no mag should be ' + expected);
+
+		expected = 1359,
+		result = catalog.filter(rec => rec.MAG === 99.9).length;	
+		equal(result, expected, result + ' object count with mag===99.9 should be ' + expected);
+
+		expected = 4844,
+		result = catalog.filter(rec => rec.SUBR === 99.9).length;	
+		equal(result, expected, result + ' object count with subr===99.9 should be ' + expected);
+
+		searchStr = '99',
+		regEx = new RegExp(searchStr, 'gi'),
+		expected = 1,
+		result = catalog.filter(rec => rec.SIZE_MAX.match(regEx)).length;	
+		equal(result, expected, result + ' object count with 99 size max should be ' + expected);
+
+		expected = 782,
+		result = catalog.filter(rec => rec.SIZE_MAX.length === 0).length;	
+		equal(result, expected, result + ' object count with no size max should be ' + expected);
+
+		expected = 2666,
+		result = catalog.filter(rec => rec.SIZE_MIN.length === 0).length;	
+		equal(result, expected, result + ' object count with no size min should be ' + expected);
+	});
 	
 	QUnit.module('roman numerals');
 	
