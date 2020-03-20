@@ -176,13 +176,17 @@
 		equal(result, expected, result + ' object count with 99 size max should be ' + expected);
 
 		expected = 782,
-		result = catalog.filter(rec => rec.SIZE_MAX.length === 0).length;	
+		result = catalog.filter(rec => rec.SIZE_MAX.length === 0).length;
 		equal(result, expected, result + ' object count with no size max should be ' + expected);
 
 		expected = 2666,
 		result = catalog.filter(rec => rec.SIZE_MIN.length === 0).length;	
 		equal(result, expected, result + ' object count with no size min should be ' + expected);
-	});
+
+		// unusable records
+		expected = 1481,
+		result = catalog.filter(rec => rec.MAG.length === 0 || rec.MAG === 99.9 || rec.SIZE_MAX.length === 0 || rec.SIZE_MAX === 99.9).length;
+		equal(result, expected, result + ' unusable records count should be ' + expected);	});
 	
 	QUnit.module('roman numerals');
 	
