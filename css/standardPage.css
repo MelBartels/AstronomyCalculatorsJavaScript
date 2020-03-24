@@ -14,6 +14,25 @@ html {
 	display: flex; 
 	align-items: center;
 }
+.tableHeaderRow {
+	font-weight: bold;
+}
+
+.tableColumnsFirstColor {
+	background-color: rgb(204, 255, 255);
+}
+
+.tableColumnsSecondColor {
+	background-color: rgb(204, 204, 204);
+}
+
+.tableColumnsThirdColor {
+	background-color: rgb(255, 255, 204);
+}
+
+.tableColumnsFourthColor {
+	background-color: rgb(153, 255, 153);
+}
 @media all and (min-width: 0px) {
 	html {
 		width: 95%; 
