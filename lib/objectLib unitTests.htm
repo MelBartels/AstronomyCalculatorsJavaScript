@@ -18,6 +18,8 @@
 	<script src='underscore/underscore-min.js'></script>
 
 	<script src='sharedLib.js'></script>
+	<script src='coordLib.js'></script>
+	<script src='calcLib.js'></script>
     <script src="objectLib.js"></script>
 	<script src='json/SAC_DeepSky_Ver81_abbr.js'></script>
 </head>
@@ -186,7 +188,56 @@
 		// unusable records
 		expected = 1481,
 		result = catalog.filter(rec => rec.MAG.length === 0 || rec.MAG === 99.9 || rec.SIZE_MAX.length === 0 || rec.SIZE_MAX === 99.9).length;
-		equal(result, expected, result + ' unusable records count should be ' + expected);	});
+		equal(result, expected, result + ' unusable records count should be ' + expected);	
+	});
+	
+	QUnit.test('filterObjectCatalog analysis 2', function () {
+		var calcMagnitudeFromSurfaceBrightnessAndArea = MLB.calcLib.calcMagnitudeFromSurfaceBrightnessAndArea,
+		    calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea = MLB.calcLib.calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea,
+		    expectedValidRecordCount = 5490,
+			validRecordCount = 0,
+			catalog = MLB.Saguaro81AbbrJson.Saguaro81Abbr,
+			magDiffTotal = 0,
+			magDiffTotalPerRecord,
+			expectedMagDiffTotalPerRecord = -0.09691851745530873,
+			magDiffSquaredTotal = 0,
+		    rms,
+			expectedRMS = 1.3064001304306678;
+	
+		catalog.forEach(function (rec, ix) {
+			var decimalPoints = 2,
+			    size1,
+			    size2,
+				calcMag,
+				magDiff,
+				magDiffSquared;
+			
+			if (rec.MAG.length === 0 || rec.MAG === 99.9 || rec.SUBR.length === 0 || rec.SUBR === 99.9 || rec.SIZE_MAX.length === 0 || rec.SIZE_MAX === 99.9) {
+				return;
+			}
+			size1 = +decodeObjectSize(rec.SIZE_MAX, decimalPoints);
+			if (rec.SIZE_MIN.length === 0 || rec.SIZE_MIN === 99.9) {
+				size2 = size1;
+			} else {
+				size2 = +decodeObjectSize(rec.SIZE_MIN, decimalPoints);
+			}
+			validRecordCount++;
+			
+			//calcMag = calcMagnitudeFromSurfaceBrightnessAndArea(rec.SUBR, size2 / 60, size1 / 60);
+			// same value as above
+			calcMag = calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea(rec.SUBR, size2, size1);
+			magDiff = calcMag - rec.MAG,
+			magDiffSquared = magDiff * magDiff;
+			magDiffTotal += magDiff;
+			magDiffSquaredTotal += magDiffSquared;			
+		});
+		magDiffTotalPerRecord = magDiffTotal / validRecordCount;
+		rms = Math.sqrt(magDiffSquaredTotal / validRecordCount);
+
+		equal(validRecordCount, expectedValidRecordCount, validRecordCount + ' validRecordCount is ' + expectedValidRecordCount);		
+		equal(rms, expectedRMS, rms + ' RMS of listed mag versus calculated mag from surfacebrightness and size is ' + expectedRMS);
+		equal(magDiffTotalPerRecord, expectedMagDiffTotalPerRecord, magDiffTotalPerRecord + ' raw mag diff of listed mag versus calculated mag from surfacebrightness and size is ' + expectedMagDiffTotalPerRecord);
+	});	
 	
 	QUnit.module('roman numerals');
 	
