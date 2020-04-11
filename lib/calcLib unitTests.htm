@@ -59,6 +59,7 @@
 		calcSurfaceBrightnessFromArea = MLB.calcLib.calcSurfaceBrightnessFromArea,
 		calcMagnitudeFromSurfaceBrightnessAndArea = MLB.calcLib.calcMagnitudeFromSurfaceBrightnessAndArea,
 		calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea = MLB.calcLib.calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea,
+		calcEtendue = MLB.calcLib.calcEtendue,
 		VisualDetectCalcParms = MLB.calcLib.VisualDetectCalcParms,
 		visualDetectCalcData = MLB.calcLib.visualDetectCalcData,
 		VisualDetectCalc = MLB.calcLib.VisualDetectCalc,
@@ -450,6 +451,15 @@
 			result = calcMagnitudeFromSurfaceBrightnessAndArea(objSurfaceBrightness, minObjArcmin, maxObjArcmin);
 
 		equal(withinRange(result, expectedMagnitude, 0.01), true, 'magnitude of ' + result + ' should be ' + expectedMagnitude + ', is ' + result);
+	});
+
+	QUnit.test('calcEtendue', function () {
+		var apertureCm = 25.4,
+		    FOVDeg = 2,
+			expectedEtendue = 1591.87,
+			result = calcEtendue(apertureCm, FOVDeg);
+
+		equal(withinRange(result, expectedEtendue, 0.01), true, 'etendue of ' + result + ' should be ' + expectedEtendue + ', is ' + result);
 	});
 
 	QUnit.test('parms.apertureIn', function () {
