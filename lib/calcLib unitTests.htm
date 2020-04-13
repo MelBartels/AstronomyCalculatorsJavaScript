@@ -52,6 +52,7 @@
 		calcDiagOffsetUsingFieldEdge = MLB.calcLib.calcDiagOffsetUsingFieldEdge,
 		areaIntersectingCircles = MLB.calcLib.areaIntersectingCircles,
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
+		calcBinoscope = MLB.calcLib.calcBinoscope,
 		getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
 		limitingMagnitude = MLB.calcLib.limitingMagnitude,
@@ -350,7 +351,35 @@
 		equal(withinRange(result[13][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[13][1]);
 	});
 
-	QUnit.module('foldedNewtonian.js');
+	QUnit.module('calcBinoscope');
+
+	// function call is calcBinoscope(mirrorDia, focalRatio, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToSecondaryDistance)
+	// for matching CAD layout, see binoLayoutForNewtDesigner.jpg
+	QUnit.test('calcBinoscope', function () {
+		var allowableError = 0.001,
+		result = calcBinoscope(30, 3, 5, 5, 27);
+		equal(withinRange(result.secondaryToTiertiaryDistance, 22, allowableError), true, 'The secondaryToTiertiaryDistance should be 22, is ' + result.secondaryToTiertiaryDistance);
+		equal(withinRange(result.secondaryToTiertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTiertiaryVerticalLength should be 20, is ' + result.secondaryToTiertiaryVerticalLength);
+		equal(withinRange(result.secondaryToTiertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTiertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTiertiaryHorizontalLength);
+		equal(withinRange(result.elbowAngleDeg, 65.380, allowableError), true, 'The elbowAngleDeg should be 65.380, is ' + result.elbowAngleDeg);
+		equal(withinRange(result.anglePrimaryMirrorEdgeToFocalPointDeg, 9.462, allowableError), true, 'The anglePrimaryMirrorEdgeToFocalPointDeg should be 9.462, is ' + result.anglePrimaryMirrorEdgeToFocalPointDeg);
+		equal(withinRange(result.anglePrimaryMirrorEdgeToFocalPointAndVerticalDeg, 80.538, allowableError), true, 'The anglePrimaryMirrorEdgeToFocalPointAndVerticalDeg should be 80.538, is ' + result.anglePrimaryMirrorEdgeToFocalPointAndVerticalDeg);
+		equal(withinRange(result.secondaryCenterToPrimaryMirrorEdgeRayLength, 4.5, allowableError), true, 'The secondaryCenterToPrimaryMirrorEdgeRayLength should be 4.5, is ' + result.secondaryCenterToPrimaryMirrorEdgeRayLength);
+		equal(withinRange(result.angleSecondaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleSecondaryFaceToVerticalDeg should be 32.690, is ' + result.angleSecondaryFaceToVerticalDeg);
+		equal(withinRange(result.secondaryUpperLength, 4.830, allowableError), true, 'The secondaryUpperLength should be 4.830, is ' + result.secondaryUpperLength);
+		equal(withinRange(result.secondaryLowerLength, 5.987, allowableError), true, 'The secondaryLowerLength should be 5.987, is ' + result.secondaryLowerLength);
+		equal(withinRange(result.secondaryMajorAxis, 10.818, allowableError), true, 'The secondaryMajorAxis should be 10.818, is ' + result.secondaryMajorAxis);
+		equal(withinRange(result.secondaryMinorAxis, 9, allowableError), true, 'The secondaryMinorAxis should be 9, is ' + result.secondaryMinorAxis);
+		equal(withinRange(result.secondaryOffset, 0.579, allowableError), true, 'The secondaryOffset should be 5.579, is ' + result.secondaryOffset);
+		equal(withinRange(result.tiertiaryUpperLength, 0.894, allowableError), true, 'The tiertiaryUpperLength should be 0.894, is ' + result.tiertiaryUpperLength);
+		equal(withinRange(result.angleTiertiaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleTiertiaryFaceToVerticalDeg should be 32.690, is ' + result.angleTiertiaryFaceToVerticalDeg);
+		equal(withinRange(result.tiertiaryLowerLength, 1.109, allowableError), true, 'The tiertiaryLowerLength should be 1.109, is ' + result.tiertiaryLowerLength);
+		equal(withinRange(result.tiertiaryMajorAxis, 2.003, allowableError), true, 'The tiertiaryMajorAxis should be 2.003, is ' + result.tiertiaryMajorAxis);
+		equal(withinRange(result.tiertiaryMinorAxis, 1.667, allowableError), true, 'The tiertiaryMinorAxis should be 1.667, is ' + result.tiertiaryMinorAxis);
+		equal(withinRange(result.tiertiaryOffset, 0.107, allowableError), true, 'The tiertiaryOffset should be 0.107, is ' + result.tiertiaryOffset);
+	});
+
+	QUnit.module('foldedNewtonian');
 
 	// example: mirror = 30, focal ratio = 3, diag = 8, tertiary distance = 2, eyepiece to mirror = 50, diag to mirror = 66
 	// therefore maxWidth = diag to mirror = 66,
@@ -374,11 +403,9 @@
 		equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
 	});
 
-	QUnit.module('folded Newtonian');
-
-	// original function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary)
+	// function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToDiagDistance)
 	QUnit.test('calcFoldedNewtonian', function () {
-		var result = calcFoldedNewtonian(30, 2.9, 7, 3, 0);
+		var result = calcFoldedNewtonian(30, 2.9, 7, 0, 3);
 		equal(withinRange(result.diagToPrimaryMirrorDistance, 66.7, 0.01), true, 'The diagToPrimaryMirrorDistance should be 66.7, is ' + result.diagToPrimaryMirrorDistance);
 		equal(withinRange(result.focalPointToPrimaryMirrorDistance, 58.08, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 55.08, is ' + result.focalPointToPrimaryMirrorDistance);
 		equal(withinRange(result.focalPointToDiagDistance, 20.3, 0.01), true, 'The focalPointToDiagDistance should be 20.3, is ' + result.focalPointToDiagDistance);
@@ -386,18 +413,18 @@
 		equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
 	});
 
-	QUnit.test('calcFoldedNewtonian focalPointToPrimaryMirrorDistance and focalPlaneToTertiaryDistance', function () {
+	QUnit.test('calcFoldedNewtonian focalPointToPrimaryMirrorDistance and focalPointToTertiaryDistance', function () {
 		var result = calcFoldedNewtonian(30, 3, 10, 0, 0),
 			expected = 34.02;
 		equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
 
 		// tertiaryOffsetFromEdgeOfPrimary of 1 should shrink diagonal to mirror distance by about 1, give a sufficiently sharp angle (result of a very large diagonal)
-		result = calcFoldedNewtonian(30, 3, 10, 1, 0);
+		result = calcFoldedNewtonian(30, 3, 10, 0, 1);
 		expected = 35.18;
 		equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
 	});
 
-	// new function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, focalPlaneToTertiaryDistance, tertiaryOffsetFromEdgeOfPrimary, focalPointToDiagDistance)
+	// function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToDiagDistance)
 	QUnit.test('calcFoldedNewtonian with new optional parm focalPointToDiagDistance', function () {
 		var result = calcFoldedNewtonian(30, 2.9, 7, 0, 0, 18);
 		equal(withinRange(result.diagToPrimaryMirrorDistance, 69, 0.01), true, 'The diagToPrimaryMirrorDistance should be 69, is ' + result.diagToPrimaryMirrorDistance);
