@@ -357,7 +357,10 @@
 	// for matching CAD layout, see binoLayoutForNewtDesigner.jpg
 	QUnit.test('calcBinoscope', function () {
 		var allowableError = 0.001,
-		result = calcBinoscope(30, 3, 5, 5, 27);
+		    result = calcBinoscope(30, 3, 5, 5, 27);
+
+		equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
+		equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
 		equal(withinRange(result.secondaryToTiertiaryDistance, 22, allowableError), true, 'The secondaryToTiertiaryDistance should be 22, is ' + result.secondaryToTiertiaryDistance);
 		equal(withinRange(result.secondaryToTiertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTiertiaryVerticalLength should be 20, is ' + result.secondaryToTiertiaryVerticalLength);
 		equal(withinRange(result.secondaryToTiertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTiertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTiertiaryHorizontalLength);
@@ -371,12 +374,20 @@
 		equal(withinRange(result.secondaryMajorAxis, 10.818, allowableError), true, 'The secondaryMajorAxis should be 10.818, is ' + result.secondaryMajorAxis);
 		equal(withinRange(result.secondaryMinorAxis, 9, allowableError), true, 'The secondaryMinorAxis should be 9, is ' + result.secondaryMinorAxis);
 		equal(withinRange(result.secondaryOffset, 0.579, allowableError), true, 'The secondaryOffset should be 5.579, is ' + result.secondaryOffset);
+		equal(withinRange(result.secondaryUpperPointYLength, 4.065, allowableError), true, 'The secondaryUpperPointYLength should be 4.065, is ' + result.secondaryUpperPointYLength);
+		equal(withinRange(result.secondaryUpperPointXLength, 2.609, allowableError), true, 'The secondaryUpperPointXLength should be 2.609, is ' + result.secondaryUpperPointXLength);
+		equal(withinRange(result.secondaryLowerPointYLength, 5.039, allowableError), true, 'The secondaryLowerPointYLength should be 5.039, is ' + result.secondaryLowerPointYLength);
+		equal(withinRange(result.secondaryLowerPointXLength, 3.234, allowableError), true, 'The secondaryLowerPointXLength should be 3.234, is ' + result.secondaryLowerPointXLength);
 		equal(withinRange(result.tiertiaryUpperLength, 0.894, allowableError), true, 'The tiertiaryUpperLength should be 0.894, is ' + result.tiertiaryUpperLength);
 		equal(withinRange(result.angleTiertiaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleTiertiaryFaceToVerticalDeg should be 32.690, is ' + result.angleTiertiaryFaceToVerticalDeg);
 		equal(withinRange(result.tiertiaryLowerLength, 1.109, allowableError), true, 'The tiertiaryLowerLength should be 1.109, is ' + result.tiertiaryLowerLength);
 		equal(withinRange(result.tiertiaryMajorAxis, 2.003, allowableError), true, 'The tiertiaryMajorAxis should be 2.003, is ' + result.tiertiaryMajorAxis);
 		equal(withinRange(result.tiertiaryMinorAxis, 1.667, allowableError), true, 'The tiertiaryMinorAxis should be 1.667, is ' + result.tiertiaryMinorAxis);
 		equal(withinRange(result.tiertiaryOffset, 0.107, allowableError), true, 'The tiertiaryOffset should be 0.107, is ' + result.tiertiaryOffset);
+		equal(withinRange(result.tiertiaryUpperPointYLength, 0.753, allowableError), true, 'The tiertiaryUpperPointYLength should be 0.753, is ' + result.tiertiaryUpperPointYLength);
+		equal(withinRange(result.tiertiaryUpperPointXLength, 0.483, allowableError), true, 'The tiertiaryUpperPointXLength should be 0.483, is ' + result.tiertiaryUpperPointXLength);
+		equal(withinRange(result.tiertiaryLowerPointYLength, 0.933, allowableError), true, 'The tiertiaryLowerPointYLength should be 0.933, is ' + result.tiertiaryLowerPointYLength);
+		equal(withinRange(result.tiertiaryLowerPointXLength, 0.599, allowableError), true, 'The tiertiaryLowerPointXLength should be 0.599, is ' + result.tiertiaryLowerPointXLength);
 	});
 
 	QUnit.module('foldedNewtonian');
