@@ -137,9 +137,11 @@
     <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
     y offset
     <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
+	<input id='btnDeletedPastedImage' value='Delete plasted image' type='button'>
 
     <p>Here are some examples:</br>
     &emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.<br>
+    &emsp; <input id='btnPasteExampleRonchigram13' value='click here' type='button'> to paste a Ronchigram of my 13.2 inch f3.0 mirror.<br>
     &emsp; <input id='btnPasteExampleRonchigram10' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror.<br>
     &emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
 </div>
@@ -329,6 +331,10 @@
 			<li>Study the diffraction pattern itself, which can reveal subtle zones</li>
 		</ul>
 	</p>
+	
+    <h4>The dynamic Ronchi</h4>
+	<p>
+		It can be quite revealing to dynamically move the grating back and forth. Small discontinuities that can hardly be seen in the static Ronchigram reveal themselves. Astigmastism in the form of the bands twisting one direction just inside the radius of curvature and twisting the other direction just outside the radius of curvature can be seen. But be careful: the astigmatism might be in the mirror, it might be in the test stand, it might be in the air between the mirror and the tester, it might be in the grating and it might be caused by tester mis-alignment. Finally, I've seen cases where the astigmatism is caused by eyeglasses and the tester's eye; even a camera lens off-axis might cause trouble. Rotate the mirror by 90 degrees and see if the twist goes in the opposite direction. If so then the mirror is the prime suspect. Rotate the mirror back to the original orientation. If the twist returns to the original configuration then the mirror is surely the cause. If not then the test stand must be investigated.
 
     <h4>The Ronchi test at the focuser</h4>
 
@@ -337,12 +343,12 @@
     <p>
         It is possible to extract critical information using a quality grating of greater than 100 lines per inch (lpi) [4 lines per millimeter] under good seeing conditions and thermally stabilized optics if the grating is slowly racked back and forth focus where one to three bands cross the illuminated disc. It is critical that the tester have experience judging how the Ronchi bands change dynamically. With care defects to 1/8 wavefront are detectable, with great care and time twice that sensitivity can be achieved.
 		
-    <h4>Here are some examples to give you an idea how critically the Ronchi bands need to be judged.</h4>
+    <h4>Here are more examples</h4>
 	
     <p>
-        Here's a 13.2 inch [34cm] F3.0 mirror (2008). I took great care to match the bands exactly including no turned edge, not knowing exactly how critical F3.0 required. However, there does appear to be a hint of a kink in the bands at the 70% zone. It does not show in the star test however. The results at the eyepiece are very pleasing at high powers.<br>
-        <img src='JoyOfMirrorMaking/13 inch F3 ronchi results.png' class='smallImage'>
-        <img src='JoyOfMirrorMaking/13 inch F3 ronchi theoretical.png' class='smallImage'>
+        Here's my 13.2 inch [34cm] F3.0 mirror (2008) that I made before I developed the Matching Ronchi test. I took great care to match the bands exactly including no turned edge, not knowing exactly how critical F3.0 required. In retrospect there does appear to be a hint of an undercorrected edge. It does not show in the star test however. The results at the eyepiece are very pleasing at high powers.<br>
+        <img src='JoyOfMirrorMaking/66 lpi inside RoC matching Ronchigram only.jpg' class='smallImage'>
+        <img src='JoyOfMirrorMaking/66 lpi outside RoC matching Ronchigram only.jpg' class='smallImage'>
     <p>
         Here's my 24 inch [61cm] F6 from the early 1980's. The Ronchigram shows issues including a zonal kink at 50%, flat edge zones and an edge problem from the sling (slings are a gift from the Devil). Nonetheless, the mirror performed wonderfully at full aperture on planets at the highest powers and was tested professsionally at 1/4 wavefront.<br>
         <img src='JoyOfMirrorMaking/24 inch Ronchigram.jpg' class='smallImage'>
@@ -350,6 +356,12 @@
     <p>
         Here's a 18 inch f4 essentially perfect commercial quartz mirror. Note the ultra smooth curves. The point here is that the Matching Ronchigram test can still discern errors of miniscule nature.<br>
         <img src='JoyOfMirrorMaking/18 inch highest quality quartz Ronchigram.jpg'>
+    <p>
+		Here's one of the best mirrors I've ever seen, an 8 inch [20cm] F7.5 custom mirror made by a high end optician.<br>
+		<img src='JoyOfMirrorMaking/Richard Fagin 8 inch F7.5 Ronchigram 84 LPI Matching Ronchi Test.jpg'>
+	<p>
+		Here is a 24 inch F3.3 mirror made by a leading optician serving the amateur market. It is wonderfully smooth and accurate with no faults.<br>
+		<img src='JoyOfMirrorMaking/Kennedy 24 inch f3.3 Ronchi matching test.jpg'>
     <p>
         Here is a 14 inch [36cm] F5 mirror (1978). The curves look very close with no turned edge. This mirror proved an excellent performer both on deep sky and on planetary with a reduced size diagonal.<br>
         <img src='JoyOfMirrorMaking/14 inch F5 ronchi results.png' class='smallImage'>
@@ -362,6 +374,12 @@
         Here's a 12.5 inch [32cm] F3.9 mirror made by Jerry Oltion. It gives a perfect star test with the slightest hint of a narrow turned edge. Jerry is using the old DOS version of my Ronchigram softaware.<br>
         <img src='JoyOfMirrorMaking/Jerry 12.5 inch Ronchigrams Nov 2015.jpg'>
 
+	<h4>Comparing to interferometry</h4>
+	
+	<p>
+		A friend who uses a Zygo interferometer at work sent me a Ronchigram of a commercial mass produced 12 inch [30cm] mirror. It was quite undercorrected. Using the matching tool above, I found that it was 0.6 wave undercorrected. After I communicated my results, he told me that the Zygo had found that the mirror had a spherical deviation of 3.7 waves when a fully corrected mirror should have a deviation of 4.3 waves. That is a difference of 0.6 waves, which matched my results nicely. The first Ronchigram is the match to a perfect paraboloidal surface while the second Ronchigram is the match to the 0.6 wave undercorrected Ronchigram.<br>
+		<img src='JoyOfMirrorMaking/Matching Ronchi results with error - MLB.jpg'>
+	
 	<h4>The tester</h4>
 	
     <p>
