@@ -353,20 +353,20 @@
 
 	QUnit.module('calcBinoscope');
 
-	// function call is calcBinoscope(mirrorDia, focalRatio, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToSecondaryDistance)
-	// for matching CAD layout, see binoLayoutForNewtDesigner.jpg
+	// function call is calcBinoscope(mirrorDia, focalRatio, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToSecondaryDistance, fieldDia)
+	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
 	QUnit.test('calcBinoscope', function () {
 		var allowableError = 0.001,
-		    result = calcBinoscope(30, 3, 5, 5, 27);
+		    result = calcBinoscope(30, 3, 5, 5, 27, 4);
 
 		equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
 		equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
-		equal(withinRange(result.secondaryToTiertiaryDistance, 22, allowableError), true, 'The secondaryToTiertiaryDistance should be 22, is ' + result.secondaryToTiertiaryDistance);
-		equal(withinRange(result.secondaryToTiertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTiertiaryVerticalLength should be 20, is ' + result.secondaryToTiertiaryVerticalLength);
-		equal(withinRange(result.secondaryToTiertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTiertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTiertiaryHorizontalLength);
+		equal(withinRange(result.secondaryToTertiaryDistance, 22, allowableError), true, 'The secondaryToTertiaryDistance should be 22, is ' + result.secondaryToTertiaryDistance);
+		equal(withinRange(result.secondaryToTertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 20, is ' + result.secondaryToTertiaryVerticalLength);
+		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTertiaryHorizontalLength);
 		equal(withinRange(result.elbowAngleDeg, 65.380, allowableError), true, 'The elbowAngleDeg should be 65.380, is ' + result.elbowAngleDeg);
-		equal(withinRange(result.anglePrimaryMirrorEdgeToFocalPointDeg, 9.462, allowableError), true, 'The anglePrimaryMirrorEdgeToFocalPointDeg should be 9.462, is ' + result.anglePrimaryMirrorEdgeToFocalPointDeg);
-		equal(withinRange(result.anglePrimaryMirrorEdgeToFocalPointAndVerticalDeg, 80.538, allowableError), true, 'The anglePrimaryMirrorEdgeToFocalPointAndVerticalDeg should be 80.538, is ' + result.anglePrimaryMirrorEdgeToFocalPointAndVerticalDeg);
+		equal(withinRange(result.anglePrimaryMirrorEdgeToP1Deg, 9.462, allowableError), true, 'The anglePrimaryMirrorEdgeToP1Deg should be 9.462, is ' + result.anglePrimaryMirrorEdgeToP1Deg);
+		equal(withinRange(result.anglePrimaryMirrorEdgeToP1AndVerticalDeg, 80.538, allowableError), true, 'The anglePrimaryMirrorEdgeToP1AndVerticalDeg should be 80.538, is ' + result.anglePrimaryMirrorEdgeToP1AndVerticalDeg);
 		equal(withinRange(result.secondaryCenterToPrimaryMirrorEdgeRayLength, 4.5, allowableError), true, 'The secondaryCenterToPrimaryMirrorEdgeRayLength should be 4.5, is ' + result.secondaryCenterToPrimaryMirrorEdgeRayLength);
 		equal(withinRange(result.angleSecondaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleSecondaryFaceToVerticalDeg should be 32.690, is ' + result.angleSecondaryFaceToVerticalDeg);
 		equal(withinRange(result.secondaryUpperLength, 4.830, allowableError), true, 'The secondaryUpperLength should be 4.830, is ' + result.secondaryUpperLength);
@@ -378,16 +378,40 @@
 		equal(withinRange(result.secondaryUpperPointXLength, 2.609, allowableError), true, 'The secondaryUpperPointXLength should be 2.609, is ' + result.secondaryUpperPointXLength);
 		equal(withinRange(result.secondaryLowerPointYLength, 5.039, allowableError), true, 'The secondaryLowerPointYLength should be 5.039, is ' + result.secondaryLowerPointYLength);
 		equal(withinRange(result.secondaryLowerPointXLength, 3.234, allowableError), true, 'The secondaryLowerPointXLength should be 3.234, is ' + result.secondaryLowerPointXLength);
-		equal(withinRange(result.tiertiaryUpperLength, 0.894, allowableError), true, 'The tiertiaryUpperLength should be 0.894, is ' + result.tiertiaryUpperLength);
-		equal(withinRange(result.angleTiertiaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleTiertiaryFaceToVerticalDeg should be 32.690, is ' + result.angleTiertiaryFaceToVerticalDeg);
-		equal(withinRange(result.tiertiaryLowerLength, 1.109, allowableError), true, 'The tiertiaryLowerLength should be 1.109, is ' + result.tiertiaryLowerLength);
-		equal(withinRange(result.tiertiaryMajorAxis, 2.003, allowableError), true, 'The tiertiaryMajorAxis should be 2.003, is ' + result.tiertiaryMajorAxis);
-		equal(withinRange(result.tiertiaryMinorAxis, 1.667, allowableError), true, 'The tiertiaryMinorAxis should be 1.667, is ' + result.tiertiaryMinorAxis);
-		equal(withinRange(result.tiertiaryOffset, 0.107, allowableError), true, 'The tiertiaryOffset should be 0.107, is ' + result.tiertiaryOffset);
-		equal(withinRange(result.tiertiaryUpperPointYLength, 0.753, allowableError), true, 'The tiertiaryUpperPointYLength should be 0.753, is ' + result.tiertiaryUpperPointYLength);
-		equal(withinRange(result.tiertiaryUpperPointXLength, 0.483, allowableError), true, 'The tiertiaryUpperPointXLength should be 0.483, is ' + result.tiertiaryUpperPointXLength);
-		equal(withinRange(result.tiertiaryLowerPointYLength, 0.933, allowableError), true, 'The tiertiaryLowerPointYLength should be 0.933, is ' + result.tiertiaryLowerPointYLength);
-		equal(withinRange(result.tiertiaryLowerPointXLength, 0.599, allowableError), true, 'The tiertiaryLowerPointXLength should be 0.599, is ' + result.tiertiaryLowerPointXLength);
+		equal(withinRange(result.tertiarySizedForP3UpperLength, 0.894, allowableError), true, 'The tertiarySizedForP3UpperLength should be 0.894, is ' + result.tertiarySizedForP3UpperLength);
+		equal(withinRange(result.angleTertiaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleTertiaryFaceToVerticalDeg should be 32.690, is ' + result.angleTertiaryFaceToVerticalDeg);
+		equal(withinRange(result.tertiarySizedForP3LowerLength, 1.109, allowableError), true, 'The tertiarySizedForP3LowerLength should be 1.109, is ' + result.tertiarySizedForP3LowerLength);
+		equal(withinRange(result.tertiarySizedForP3MajorAxis, 2.003, allowableError), true, 'The tertiarySizedForP3MajorAxis should be 2.003, is ' + result.tertiarySizedForP3MajorAxis);
+		equal(withinRange(result.tertiarySizedForP3MinorAxis, 1.667, allowableError), true, 'The tertiarySizedForP3MinorAxis should be 1.667, is ' + result.tertiarySizedForP3MinorAxis);
+		equal(withinRange(result.tertiarySizedForP3Offset, 0.107, allowableError), true, 'The tertiarySizedForP3Offset should be 0.107, is ' + result.tertiarySizedForP3Offset);
+		equal(withinRange(result.tertiarySizedForP3UpperPointYLength, 0.753, allowableError), true, 'The tertiarySizedForP3UpperPointYLength should be 0.753, is ' + result.tertiarySizedForP3UpperPointYLength);
+		equal(withinRange(result.tertiarySizedForP3UpperPointXLength, 0.483, allowableError), true, 'The tertiarySizedForP3UpperPointXLength should be 0.483, is ' + result.tertiarySizedForP3UpperPointXLength);
+		equal(withinRange(result.tertiarySizedForP3LowerPointYLength, 0.933, allowableError), true, 'The tertiarySizedForP3LowerPointYLength should be 0.933, is ' + result.tertiarySizedForP3LowerPointYLength);
+		equal(withinRange(result.tertiarySizedForP3LowerPointXLength, 0.599, allowableError), true, 'The tertiarySizedForP3LowerPointXLength should be 0.599, is ' + result.tertiarySizedForP3LowerPointXLength);
+		equal(withinRange(result.P2centerXLengthFromSecondaryCenter, 11.248, allowableError), true, 'The P2centerXLengthFromSecondaryCenter should be 11.248, is ' + result.P2centerXLengthFromSecondaryCenter);
+		equal(withinRange(result.P2centerYLengthFromSecondaryCenter, 24.545, allowableError), true, 'The P2centerYLengthFromSecondaryCenter should be 24.545, is ' + result.P2centerYLengthFromSecondaryCenter);
+		equal(withinRange(result.P2centerXLengthFromTertiaryCenter, 2.083, allowableError), true, 'The P2centerXLengthFromTertiaryCenter should be 2.083, is ' + result.P2centerXLengthFromTertiaryCenter);
+		equal(withinRange(result.P2centerYLengthFromTertiaryCenter, 4.545, allowableError), true, 'The P2centerYLengthFromTertiaryCenter should be 4.545, is ' + result.P2centerYLengthFromTertiaryCenter);
+		equal(withinRange(result.P2FieldEdgeXLengthFromP2Center, 1.818, allowableError), true, 'The P2FieldEdgeXLengthFromP2Center should be 1.818, is ' + result.P2FieldEdgeXLengthFromP2Center);
+		equal(withinRange(result.P2FieldEdgeYLengthFromP2Center, 0.833, allowableError), true, 'The P2FieldEdgeYLengthFromP2Center should be 0.833, is ' + result.P2FieldEdgeYLengthFromP2Center);
+		equal(withinRange(result.secondaryRightEdgeToP2FieldRightEdgeX, 12.039, allowableError), true, 'The secondaryRightEdgeToP2FieldRightEdgeX should be 12.039, is ' + result.secondaryRightEdgeToP2FieldRightEdgeX);
+		equal(withinRange(result.secondaryRightEdgeToP2FieldRightEdgeY, 21.313, allowableError), true, 'The secondaryRightEdgeToP2FieldRightEdgeY should be 21.313, is ' + result.secondaryRightEdgeToP2FieldRightEdgeY);
+		equal(withinRange(result.secondaryLeftEdgeToP2FieldLeftEdgeX, 9.833, allowableError), true, 'The secondaryLeftEdgeToP2FieldLeftEdgeX should be 9.833, is ' + result.secondaryLeftEdgeToP2FieldLeftEdgeX);
+		equal(withinRange(result.secondaryLeftEdgeToP2FieldLeftEdgeY, 28.751, allowableError), true, 'The secondaryLeftEdgeToP2FieldLeftEdgeY should be 28.751, is ' + result.secondaryLeftEdgeToP2FieldLeftEdgeY);
+		equal(withinRange(result.slopeSecondaryRightEdgeToP2FieldRightEdge, 1.770, allowableError), true, 'The slopeSecondaryRightEdgeToP2FieldRightEdge should be 1.770, is ' + result.slopeSecondaryRightEdgeToP2FieldRightEdge);
+		equal(withinRange(result.slopeSecondaryLeftEdgeToP2FieldLeftEdge, 2.924, allowableError), true, 'The slopeSecondaryLeftEdgeToP2FieldLeftEdge should be 2.924, is ' + result.slopeSecondaryLeftEdgeToP2FieldLeftEdge);
+		equal(withinRange(result.slopeTertiary, 1.558, allowableError), true, 'The slopeTertiary should be 1.558, is ' + result.slopeTertiary);
+		equal(withinRange(result.r1X, 2.773, allowableError), true, 'The r1X should be 2.773, is ' + result.r1X);
+		equal(withinRange(result.r2X, -2.632, allowableError), true, 'The r2X should be -2.632, is ' + result.r2X);
+		equal(withinRange(result.tertiarySizedForP3FieldUpperPointXLength, 1.475, allowableError), true, 'The tertiarySizedForP3FieldUpperPointXLength should be 1.475, is ' + result.tertiarySizedForP3FieldUpperPointXLength);
+		equal(withinRange(result.tertiarySizedForP3FieldUpperPointYLength, 2.298, allowableError), true, 'The tertiarySizedForP3FieldUpperPointYLength should be 2.298, is ' + result.tertiarySizedForP3FieldUpperPointYLength);
+		equal(withinRange(result.tertiarySizedForP3FieldUpperLength, 2.731, allowableError), true, 'The tertiarySizedForP3FieldUpperLength should be 2.731, is ' + result.tertiarySizedForP3FieldUpperLength);
+		equal(withinRange(result.tertiarySizedForP3FieldLowerPointXLength, 1.717, allowableError), true, 'The tertiarySizedForP3FieldLowerPointXLength should be 1.717, is ' + result.tertiarySizedForP3FieldLowerPointXLength);
+		equal(withinRange(result.tertiarySizedForP3FieldLowerPointYLength, 2.675, allowableError), true, 'The tertiarySizedForP3FieldLowerPointYLength should be 2.675, is ' + result.tertiarySizedForP3FieldLowerPointYLength);
+		equal(withinRange(result.tertiarySizedForP3FieldLowerLength, 3.179, allowableError), true, 'The tertiarySizedForP3FieldLowerLength should be 3.179, is ' + result.tertiarySizedForP3FieldLowerLength);
+		equal(withinRange(result.tertiarySizedForP3FieldMajorAxis, 5.910, allowableError), true, 'The tertiarySizedForP3FieldMajorAxis should be 5.910, is ' + result.tertiarySizedForP3FieldMajorAxis);
+		equal(withinRange(result.tertiarySizedForP3FieldMinorAxis, 4.926, allowableError), true, 'The tertiarySizedForP3FieldMinorAxis should be 4.926, is ' + result.tertiarySizedForP3FieldMinorAxis);
+		equal(withinRange(result.tertiarySizedForP3FieldOffset, 0.224, allowableError), true, 'The tertiarySizedForP3FieldOffset should be 0.224, is ' + result.tertiarySizedForP3FieldOffset);
 	});
 
 	QUnit.module('foldedNewtonian');
