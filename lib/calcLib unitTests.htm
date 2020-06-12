@@ -353,7 +353,7 @@
 
 	QUnit.module('calcBinoscope');
 
-	// function call is calcBinoscope(mirrorDia, focalRatio, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToSecondaryDistance, fieldDia)
+	// function call is calcBinoscope(mirrorDia, focalRatio, tertiaryOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, fieldDia)
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
 	QUnit.test('calcBinoscope', function () {
 		var allowableError = 0.001,
@@ -361,6 +361,7 @@
 
 		equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
 		equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
+		equal(withinRange(result.primaryToP3HorizontalDistance, 58.835, allowableError), true, 'The primaryToP3HorizontalDistance should be 58.835, is ' + result.primaryToP3HorizontalDistance);
 		equal(withinRange(result.secondaryToTertiaryDistance, 22, allowableError), true, 'The secondaryToTertiaryDistance should be 22, is ' + result.secondaryToTertiaryDistance);
 		equal(withinRange(result.secondaryToTertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 20, is ' + result.secondaryToTertiaryVerticalLength);
 		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTertiaryHorizontalLength);

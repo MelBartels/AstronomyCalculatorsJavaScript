@@ -31,6 +31,7 @@ copyright Mel Bartels, 2016 - 2020-->
 		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'               type='button'>
 		<input class='designSelect' id='btnSelectFocuserBaffling'  value='Focuser baffling'       type='button'>
 		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling'      type='button'>
+		<input class='designSelect' id='btnSelectBinoscope'        value='Binoscope'              type='button'> <!-- to disable: style='display:none;' -->
 		<input class='designSelect' id='btnSelectCG'               value='Center of gravity'      type='button'>
 		<input class='designSelect' id='btnSelectTube'             value='Tube types'             type='button'>
 		<input class='designSelect' id='btnSelectMount'            value='Mount types'            type='button'>
@@ -81,6 +82,8 @@ copyright Mel Bartels, 2016 - 2020-->
 	<div class='designerImage' id='designLowriderBafflingImage'>
 		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.<br>
 		<img alt='' src='Peter Pekurar folded 25 inch.JPG'>
+	</div>
+	<div class='designerImage' id='designBinoscopeImage'>
 	</div>
 	<div class='designerImage' id='designCGImage'>
 		<img alt='' src='10.5 inch CG cutaway.jpg'>
@@ -585,7 +588,7 @@ copyright Mel Bartels, 2016 - 2020-->
 
 			<br><br>
 			<div id='perfectTelescope'></div>
-			<button class='accordion' id='btnThePerfectTelescope'>Designing and building the perfect telescope</button>
+			<button class='accordion' id='btnPerfectTelescope'>Designing and building the perfect telescope</button>
 			<div class='panel'>
 			
 				<p>One night while taking a long exposure astrophotograph, I accidently walked into the scope’s counterweight. The one-ton telescope didn’t quiver in the slightest - perfect. On the other hand, the observatory Cassegrain was not the first that came to mind for a backpack telescope while on safari. No telescope can do it all. Further I have never encountered a perfect telescope; every telescope I’ve seen could be improved in some way, major or minor.
@@ -1026,7 +1029,7 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>Eyepiece field stop = telescope focal length * true field of view
 			<p>Aperture * true field of view * focal ratio = eyepiece field stop
 			<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil
-			<p>Etendue/luminance = aperture squared * true field of view squared (cm^2deg^2) = eye pupil squared * eyepiece apparent field of view squared (cm^2deg^2)
+			<p>Etendue/luminance = aperture area * true field of view area (cm^2deg^2) = eye pupil area * eyepiece apparent field of view area (cm^2deg^2)
 		</div>
 		
 		<div class='designer' id='designVisual'>
@@ -1313,9 +1316,9 @@ copyright Mel Bartels, 2016 - 2020-->
 
 			<p>Wider exit pupils are associated with lower power and brighter fields; narrow exit pupils with high power and dimmer fields. Be careful not to confuse the size of the exit pupil with the apparent field of view. Using the example above with a F5 mirror, a 30mm eyepiece with apparent field of view of 40 degrees produces the same exit pupil as a 30mm eyepiece iwth 80 degrees apparent field of view. However, the 80 degree apparent field eyepiece will produce 4x the light flux or etendue compared to the 40 degree apparent field of view eyepiece.
 
-			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's diameter in centimeters squared times the true field in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
+			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
 
-			<p>Since the eye's pupil also forms an aperture, etendue or luminance can also be calculated by squaring the eye's pupil in cm times the square of the eyepiece's apparent field of view in degrees (cm^2deg^2). From this perspective we see that etendue or luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
+			<p>Since the eye's pupil also forms an aperture, etendue or luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that etendue or luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
 
 			<p><a href='HET.html'>Go here for more information on my high etendue telescopes</a>.
 
@@ -1763,6 +1766,8 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field. Read more on <a href='visual.html'>visual detection and limits at the eyepiece</a>.
 
 			<p>Diagonals act to degrade optical performance, the larger the diagonal, the worse the degradation. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, degrades the optical quality by about 1/14 wave RMS. Changes less than one-eight wave are very difficult to see. However, a smaller diagonal does not always result in improved views.
+			
+			<p>In particular I recommend analysis on the effects of central obstruction and optical quality like Damien Peach's at <a href='http://www.damianpeach.com/simulation.htm'>http://www.damianpeach.com/simulation.htm</a>.
 
 			<div id='secondarySizeExperiment'></div>
 			<button class='accordion' id='btnSecondarySizeExperiment'>The 1974 Telescope Secondary Experiment</button>
@@ -1961,7 +1966,7 @@ copyright Mel Bartels, 2016 - 2020-->
 
 			<p>Since the diagonal is cantilevered, the spider can deform, misplacing the diagonal. One approach from decades ago is to add a small counterweight on a longer arm opposite the diagonal. This carries with it the downside that the diagonal can vibrate at a low frequency if energy is dumped into it.
 
-			<p>Finally, the upper end can deform causing the spider to twist.
+			<p>Note that the upper end can deform causing the spider and diagonal to twist. A hub with as large of diameter as possible with vanes in an 'X' pattern can prevent this twisting.
 		</div>
 
 		<div class='designer' id='designMirrorCell'>
@@ -2146,6 +2151,66 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>Why a folded reflector (popular name, 'low rider')? It's all about convenience: the eyepiece height above ground is shortened. This can make the difference between ladder and no ladder or between high up a ladder and stepping up onto a stool.
 
 			<p>An early example of a folded (or low rider) reflector is Ed Danilovicz's 12 inch, featured in Sky and Telescope magazine, April 1976 pg 278.
+		</div>
+		
+		<div class='designer' id='designBinoscope'>
+			<h4>Binoscope designer in progress</h4>
+
+
+			<!-- note todo -->			
+			
+			<table>
+			<tbody>
+				<tr>
+					<td class='label' id='binoscopeFocalPlaneToSecondaryDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' id='binoscopeFocalPlaneToSecondaryDistance' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' id='binoscopeFocalPlaneToTertiaryDistanceLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' id='binoscopeFocalPlaneToTertiaryDistance' value='2' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimaryLabel'>
+						<!-- label html set in JavaScript -->
+					</td>
+					<td>
+						<input class='inputText' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimary' value='3' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateBinoscope' value='Update binoscope design' type='button'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			
+			
+			
+			<div id='binoscopeCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='binoscopeResults'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
 		</div>
 
 		<div class='designer' id='designCG'>
@@ -2624,8 +2689,9 @@ copyright Mel Bartels, 2016 - 2020-->
 
 			<p>The following are shortcuts that take the webpage directly to the content. For example, https://www.bbastrodesigns.com/NewtDesigner.html#diagonal. If you are already on the page, you may need to reload the page (Control-R).
 			<ul>
-				<li><a href='#innovation'>#innovation</a>
 				<li><a href='#natureOfTelescopeDesign'>#natureOfTelescopeDesign</a>
+				<li><a href='#innovation'>#innovation</a>
+				<li><a href='#perfectTelescope'>#perfectTelescope</a>
 				<li><a href='#collimation'>#collimation</a>
 				<li><a href='#telescopeValue'>#telescopeValue</a>
 				<li><a href='#telescopePerformance'>#telescopePerformance</a>
