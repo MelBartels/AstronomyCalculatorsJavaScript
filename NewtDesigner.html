@@ -2107,8 +2107,8 @@ copyright Mel Bartels, 2016 - 2020-->
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
-						<input class='inputText' id='focalPlaneToSecondaryDistance' onfocus='select();' type='text'>
-						<input id='btnCalcMinFocalPlaneToSecondaryDistance' value='Calc minimum length' type='button'>
+						<input class='inputText' id='focalPlaneToSecondaryDistance' value='10' onfocus='select();' type='text'>
+						<input id='btnCalcMaxFocalPlaneToSecondaryDistance' value='Calc maximum length' type='button'>
 					</td>
 				</tr>
 				<tr>
@@ -2172,7 +2172,7 @@ copyright Mel Bartels, 2016 - 2020-->
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
-						<input class='inputText' id='binoscopeFocalPlaneToTertiaryDistance' value='2' onfocus='select();' type='text'>
+						<input class='inputText' id='binoscopeFocalPlaneToTertiaryDistance' onfocus='select();' type='text'>
 					</td>
 				</tr>
 				<tr>
@@ -2180,7 +2180,7 @@ copyright Mel Bartels, 2016 - 2020-->
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
-						<input class='inputText' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimary' value='3' onfocus='select();' type='text'>
+						<input class='inputText' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimary' onfocus='select();' type='text'>
 					</td>
 				</tr>
 				<tr>
@@ -2644,47 +2644,6 @@ copyright Mel Bartels, 2016 - 2020-->
 		<div class='designer' id='designNotes'>
 			<h3>Software notes</h3>
 
-			<p>Changing the focal ratio updates:
-			<ul>
-				<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator
-				<li>Diagonal size in the baffle designer and lowrider baffle designer
-			</ul>
-
-			<p>Changing the aperture updates:
-			<ul>
-				<li>Telescope focal length
-				<li>Focal plane to diagonal distance
-				<li>Telescope tube outside diameter
-				<li>Mirror weight in the CG calculator
-				<li>Focuser, diagonal, spider, eyepiece distances along with the tube CG distance in the CG calculator
-				<li>Diagonal size in the baffle designer and lowrider baffle designer
-			</ul>
-
-			<p>Changing the telescope focal length updates:
-			<ul>
-				<li>Focal ratio which in turn updates the values listed under changing the focal ratio above
-			</ul>
-
-			<p>The Center of Gravity calculator in the Tube assembly designer depends on:
-			<ul>
-				<li>Baffle designer's telescope tube outside diameter
-				<li>Baffle designer's calculated tube back end to focal plane distance
-				<li>Baffle designer's calculated mirror's front edge to focal plane distance
-			</ul>
-
-			<p>The rocker mount designer depends on:
-			<ul>
-				<li>Baffle designer's telescope tube outside diameter
-				<li>Tube assembly designer's calculated CG height to clear rocker bottom
-			</ul>
-			<p>Manually altering the rocker and flex rocker weight updates the combined weights
-
-			<p>The Equatorial Table designer depends on:
-			<ul>
-				<li>Rocker designer's tube weight
-				<li>Rocker designer's rocker dimensions
-			</ul>
-
 			<p>The following are shortcuts that take the webpage directly to the content. For example, https://www.bbastrodesigns.com/NewtDesigner.html#diagonal. If you are already on the page, you may need to reload the page (Control-R).
 			<ul>
 				<li><a href='#natureOfTelescopeDesign'>#natureOfTelescopeDesign</a>
@@ -2732,6 +2691,8 @@ copyright Mel Bartels, 2016 - 2020-->
 		<input id='btnScrollToTop' value='Go to top of page' type='button'>
 	</div>
 	<div id='versionText'></div>
+	<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
+	<br><br>
 
 	<!-- these libraries first because my libraries reference them -->
 	<script src='lib/jquery/jquery-3.1.1.min.js'></script>
