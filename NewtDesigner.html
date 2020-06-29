@@ -2192,8 +2192,6 @@ copyright Mel Bartels, 2016 - 2020-->
 			</tbody>
 			</table>
 			
-			
-			
 			<div id='binoscopeCanvasDiv'>
 				<!-- canvas created in JavaScript -->
 			</div>
@@ -2205,6 +2203,52 @@ copyright Mel Bartels, 2016 - 2020-->
 						Results:
 					</td>
 					<td id='binoscopeResults'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<h3>Front view designer</h3>
+			
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						 IPD (InterPupillary Distance) (mm) =
+					</td>
+					<td>
+						<input class='inputText' id='IPD' value='63' onfocus='select();' type='text'>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 Secondary to tertiary downward tilt (deg) =
+					</td>
+					<td>
+						<input class='inputText' id='binoscopeSecondaryAxisDownwardTiltAngleDeg' value='10' onfocus='select();' type='text'>
+						<input class='sliderHalf' id='sliderBinoscopeSecondaryAxisDownwardTiltAngleDeg' min='0' max='45' step='1' type='range'/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>
+						<br>
+						<input id='btnUpdateBinoscopeFrontView' value='Update binoscope front view' type='button'>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<div id='binoscopeFrontViewCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Results:
+					</td>
+					<td id='binoscopeFrontViewResults'>
 					</td>
 				</tr>
 			</tbody>
