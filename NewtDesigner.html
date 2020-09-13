@@ -28,8 +28,8 @@ copyright Mel Bartels, 2016 - 2020-->
 		<input class='designSelect' id='btnSelectDiagonal'         value='Diagonal'               type='button'>
 		<input class='designSelect' id='btnSelectSpider'           value='Spider and diffraction' type='button'>
 		<input class='designSelect' id='btnSelectMirrorCell'       value='Mirror cell'            type='button'>
+		<input class='designSelect' id='btnSelectFocuser'          value='Focuser         '       type='button'>
 		<input class='designSelect' id='btnSelectBaffling'         value='Baffling'               type='button'>
-		<input class='designSelect' id='btnSelectFocuserBaffling'  value='Focuser baffling'       type='button'>
 		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider baffling'      type='button'>
 		<input class='designSelect' id='btnSelectBinoscope'        value='Binoscope'              type='button'> <!-- to disable: style='display:none;' -->
 		<input class='designSelect' id='btnSelectCG'               value='Center of gravity'      type='button'>
@@ -71,13 +71,11 @@ copyright Mel Bartels, 2016 - 2020-->
 	</div>
 	<div class='designerImage' id='designMirrorCellImage'>
 	</div>
+	<div class='designerImage' id='designFocuserImage'>
+	</div>
 	<div class='designerImage' id='designBafflingImage'>
 		<p>Baffling on my 20.5 inch [52cm] F4.9 computerized and motorized altazimuth. The diagonal baffle is opposite the focuser behind the diagonal and the primary mirror is encased in a square tube. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. For example, by carefully and safely placing a full aperture solar filter over the front of the telescope, because the telescope was properly baffled I was able to see sunspots and faculae despite the open tube no-shroud design.<br>
 		<img alt='' src='20 inch v2.JPG'>
-	</div>
-	<div class='designerImage' id='designFocuserBafflingImage'>
-		<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. The focuser baffle works to reduce the diagonal baffle's size and further constrain stray light entering the focal plane.<br>
-		<img alt='' src='baffles.jpg'>
 	</div>
 	<div class='designerImage' id='designLowriderBafflingImage'>
 		<p>Peter Pekurar's folded 25 inch. The diagonal mirror reflects light back at a sharp angle to reduce eyepiece height above the ground. The drawback is potentially uncomfortable neck angles when the scope is pointed vertically.<br>
@@ -417,7 +415,7 @@ copyright Mel Bartels, 2016 - 2020-->
 				<p>Example: Morse mounting from the 1940’s that used a mechanical drive system for an altazimuth mounting. This is the mechanical analogy to today’s software that translates between equatorial and altazimuth coordinates. The Morse mount is an equatorial to altazimuth mechanical computer. Look at the car in the background to set the age of this mechanical computer. Next is my evolution of the design, moving the analog mechanical computer to the side and incorporating an amillary design. <a href='Morse/The Morse Equatorial to Altazimuth Transformer Mount.html'>See my webpage for more on the Morse Transformer mount and proposed modern derivatives</a><br>
 
 				<img alt='' class='mediumSizeImage' src='morse.GIF'>
-				<img alt='' class='mediumSizeImage' src='Morse/morse%20amillary%20sphere.jpg'>
+				<img alt='' class='mediumSizeImage' src='Morse/morse amillary sphere.jpg'>
 
 				<p>Patterns of equatorial mounts: a horseshoe 8 inch and a fork 10 inch with cold camera (1975).<br>
 
@@ -458,7 +456,7 @@ copyright Mel Bartels, 2016 - 2020-->
 
 				<p>Collimating is the act of aligning all the axes of the optical elements. That means that the eyepiece axis as set by the focuser and the primary mirror axis are coincident or on top of each other. There are seven ways that break the symmetry of optical alignment that can be studied for little known telescope designs.<br>
 
-				<img alt='' src='dynamic collimation/perfect%20collimation.jpg'>
+				<img alt='' src='dynamic collimation/perfect collimation.jpg'>
 
 				<p><span style='font-weight: bold;'>1. Primary mirror and diagonal.</span> The most common is a combination of primary mirror and diagonal. The diagonal's angle is adjusted to aim the eyepiece/focuser's axis at the primary mirror's center then the primary mirror's pointing angle is adjusted to bring its axis in line with the eyepiece/focuser.
 
@@ -631,16 +629,16 @@ copyright Mel Bartels, 2016 - 2020-->
 
 				<p>It's important to understand the single requirement of collimation, namely, that the eyepiece axis and primary mirror axis be co-incident, or on top of each other. Here we see the situation prior to collimating where both the diagonal and the primary mirror are out of adjustment.<br>
 
-				<img alt='' src='dynamic collimation/diagonal%20and%20primary%20not%20collimated.jpg'>
+				<img alt='' src='dynamic collimation/diagonal and primary not collimated.jpg'>
 
 				<p>First the diagonal is brought into adjustment by making the laser beam point to the exact center of the primary. Closeup of laser centered in notebook ring that's carefully placed at the mirror's exact center.<br>
 
-				<img alt='' src='dynamic collimation/diagonal%20collimated.jpg'>
+				<img alt='' src='dynamic collimation/diagonal collimated.jpg'>
 				<img alt='' src="collimateF3/centerdot.JPG">
 
 				<p>Finally we adjust the primary mirror's collimation screws so as to aim the laser beam's return upon itself. Closeup of centered laser return.<br>
 
-				<img alt='' src='dynamic collimation/perfect%20collimation.jpg'>
+				<img alt='' src='dynamic collimation/perfect collimation.jpg'>
 				<img alt='' src="collimateF3/laserreturn.JPG">
 
 				<p>For those using setting circles or computer control, the optical axis needs to be coincident or collimated with the mechanical axis, otherwise pointing and tracking errors occur.
@@ -1255,7 +1253,7 @@ copyright Mel Bartels, 2016 - 2020-->
 			--- Visual Astronomy of the Deep Sky by Rober N. Clark<br>
 			--- Webb Society Deep-Sky Observer's Handbook, Volume 5 Cluster of Galaxies, by the Webb Society Kenneth Glyn Jones, editor<br>
 			--- my web article on <a href='visual.html' target='_blank'>Visual Astronomy</a><br>
-			--- my web article on <a href='dneb/Observing%20Dark%20Nebulae.html' target='_blank'>observing dark nebulae</a>
+			--- my web article on <a href='dneb/Observing Dark Nebulae.html' target='_blank'>observing dark nebulae</a>
 		</div>
 
 		<div class='designer' id='designEyepieces'>
@@ -2012,6 +2010,54 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>Typically the mirror's defects dominate the mirror cell, meaning that the mirror cell adds very little error to the optical system. For example, consider a mirror of 1/6 wavefront peak-valley error that is otherwise smooth. The 1/6 peak-valley wavefront is about 90 nm peak-valley wavefront error in green light. That is 45 nm peak-valley on the mirror's surface. Even a crude mirror cell of say 35 nm peak-valley error (10 nm RMS) does not materially degrade the optical performance. Errors are added by root mean square, so a mirror of 45 nm peak-valley added to a mirror cell error of 35 nm peak-valley results in a total error of nearly 57 nm peak-valley or 1/4.6 wavefront. This is a degradation of only 1/20 wavefront from the mirror's 1/6 wavefront!
 		</div>
 
+		<div class='designer' id='designFocuser'>
+			<p>A focuser can focus at the eyepiece, slide the eyepiece and diagonal, adjust the tube's length or move the primary mirror to and fro.
+			<h4>Types of focusers:</h4>
+			<ul>
+				<li><a href='5 inch homemade Crayford focuser.JPG' target='_blank'>Crayford</a>
+				<li><a href='http://www.jimsmobile.com/buy_rcf.htm#Definition' target='_blank'>Reverse Crayford</a>
+				<li><a href='10 inch torque tube drives.JPG' target=_blank'>Rack and pinion</a>
+				<li><a href='6 inch plastic tube.JPG' target='_blank'>Threaded</a>
+				<li><a href='12 inch A frame Dob.JPG' target='_blank'>Slide</a>
+				<li><a href='10 inch built for others.JPG' target='_blank'>Helical</a>
+				<li><a href='http://telescopelemay.com/wp-content/uploads/2018/12/Mel-with-Pierre-Lemay-focuser-on-3-inch-P2.jpg' target='_blank'>Helical Crayford</a>
+				<li><a href='http://www.clementfocuser.com/' target='_blank'>Clement hinged bellow</a>
+				<li><a href='14 inch in alleyway.JPG' target='_blank'>Eyepiece and diagonal sled</a>
+				<li><a href='osp14/HowardBanich8inchf3_a.jpg' target='_blnak'>Tube adjuster</a>
+				<li>Moving the primary mirror's cell ala Schmidt-Cassegrains
+			</ul>
+
+			<h4>Focuser baffling</h4>
+			<p>Baffling on my 20.5 inch [52cm] F4.9 TriDob. Pictured is the diagonal baffle to the right of the diagonal and to the left, the focuser pre-baffle in front of the focuser's mounting board. The baffles are designed to block all direct light that could find its way into the focal plane of the eyepiece. The focuser baffle works to reduce the diagonal baffle's size and further constrain stray light entering the focal plane.<br>
+			<img alt='' src='baffles.jpg'>
+
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						 Distance between the diagonal and the focuser baffle =
+					</td>
+					<td>
+						<input class='inputText' id="diagToFocuserBaffleDistance" value="4.5" onfocus="select()" type="text">
+					</td>
+				</tr>
+				<tr>
+					<td class='title' colspan='2'>
+						<br>
+						<input ID="btnPlotFocuserBaffle" value="Update focuser baffling" type="button">
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<div id='focuserBaffleCanvasDiv'>
+				<!-- canvas created in JavaScript -->
+			</div>
+			<div>
+				<p><b>Results:</b>
+				<label id='focuserBaffleDesignerResultsLabel'></label>
+			</div>
+		</div>
+
 		<div class='designer' id='designBaffling'>
 			<br><br>
 			<input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
@@ -2042,41 +2088,6 @@ copyright Mel Bartels, 2016 - 2020-->
 			<p>Using an idea by Larry Shaper in Amateur Astronomy magazine, Issue #91, Summer 2016, page 52-53, the edges of the baffle can be tilted to direct light away from the focuser's tube bottom aperture. Larry concludes that the flattest black paint always looks gray while a baffle painted in gloss black with tilted sides looks truly black. You can see that the tilt angles light past the focuser tube and is long enough that light reflected at a narrow angle face on is also directed away from the focuser tube. Since the optical tube assembly can be open, I tilt the projected focuser baffle on both sides.
 			
 			<p>Design the baffle by starting with projecting the light from the focal plane to the bottom of the focuser's tube. This cone of light needs to be blocked to prevent fogging of the focal plane. This is colored lime green. Next, set the angle of the baffle by dividing the angle between the lines: the vertical line across the tube opening and the line from the tube front bottom to the inside bottom edge of the focuser tube. This is colored light green. Finally, determine the edge of the angled baffle segment by finding the point where light is blocked from the bottom of the focuser tube. This is colored dark green.
-		</div>
-
-		<div class='designer' id='designFocuserBaffling'>
-			<table>
-			<tbody>
-				<tr>
-					<td colspan='2'>
-						<b>
-						Focuser baffle...</b>
-						<br>
-					</td>
-				</tr>
-				<tr>
-					<td class='label'>
-						 Distance between the diagonal and the focuser baffle =
-					</td>
-					<td>
-						<input class='inputText' id="diagToFocuserBaffleDistance" value="4.5" onfocus="select()" type="text">
-					</td>
-				</tr>
-				<tr>
-					<td class='title' colspan='2'>
-						<br>
-						<input ID="btnPlotFocuserBaffle" value="Update focuser baffling" type="button">
-					</td>
-				</tr>
-			</tbody>
-			</table>
-			<div id='focuserBaffleCanvasDiv'>
-				<!-- canvas created in JavaScript -->
-			</div>
-			<div>
-				<p><b>Results:</b>
-				<label id='focuserBaffleDesignerResultsLabel'></label>
-			</div>
 		</div>
 
 		<div class='designer' id='designLowriderBaffling'>
@@ -2727,7 +2738,7 @@ copyright Mel Bartels, 2016 - 2020-->
 			<h3>Code and versions</h3>
 			
 			<div>
-				Html last updated 29-July-2020
+				Html last updated 13-Sept-2020
 			</div>
 			<div id='versionText'></div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
