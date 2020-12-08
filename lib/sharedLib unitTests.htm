@@ -28,7 +28,9 @@
         uom = MLB.sharedLib.uom,
         getReduction = MLB.sharedLib.getReduction,
         point = MLB.sharedLib.point,
-        getDistance = MLB.sharedLib.getDistance;
+        getDistance = MLB.sharedLib.getDistance,
+		findMatchingLocalStorageItems = MLB.sharedLib.findMatchingLocalStorageItems,
+		removeMatchingLocalStorageItems = MLB.sharedLib.removeMatchingLocalStorageItems;
 
     QUnit.module('helpers');
 
@@ -272,6 +274,30 @@
             result = getDistance(pointA, pointB);
 
         equal(withinRange(result, expected, acceptableError), true, 'distance between two points should be ' + expected + ', is ' + result);
+    });
+
+    QUnit.test('localStorage', function () {
+		var key = 'unitTestLocalStorageKey',
+		    data = 'myData',
+			items,
+			result,
+			expected = 1;
+			
+		localStorage.setItem(key, JSON.stringify(data));
+		items = findMatchingLocalStorageItems(key);
+		result = items.length;
+        equal(result, expected, 'local storage item count should be ' + expected + ', is ' + result);
+		
+		// comes in as ""myData""
+		result = localStorage[key].replaceAll('\"','');
+		expected = data;
+        equal(result, expected, 'local storage item should be ' + expected + ', is ' + result);
+
+		removeMatchingLocalStorageItems(key);
+		items = findMatchingLocalStorageItems(key);
+		result = items.length;
+		expected = 0;
+        equal(result, expected, 'local storage item count should be ' + expected + ', is ' + result);
     });
 
 });
