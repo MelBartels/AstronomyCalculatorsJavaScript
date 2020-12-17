@@ -50,6 +50,9 @@ html {
 		width: 35%;
 		height: 35%;
 	}
+	.unscaledImage {
+		width: 100%;
+	}
 }
 @media all and (min-width: 768px) {
 	html {
@@ -67,5 +70,8 @@ html {
 	.smallImage {
 		width: 25%;
 		height: 25%;
+	}
+	.unscaledImage {
+		width: 100%;
 	}
 }
