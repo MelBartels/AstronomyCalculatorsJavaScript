@@ -116,6 +116,25 @@
 <div id='Ronchigrams'>
     <!-- canvases added in JavaScript -->
 </div>
+<div>
+    Show pasted image?
+    <input name='pastedImageActive' value='yes' type='radio'>yes
+    <input name='pastedImageActive' value='no' type='radio'>no
+    &emsp;
+    transparency
+    <input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
+    &emsp;
+    width
+    <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
+    height
+    <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
+    &emsp;
+    x offset
+    <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
+    y offset
+    <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
+	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
+</div>
 <div id='matchingRonchiTapeBands'>
     <!-- text added in JavaScript -->
 </div>
@@ -140,24 +159,6 @@
 <div>
     <h4>To match bands, drag and drop your image, or, paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key.</h4>
     <p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. The sensitivity of this test is surprisingly high: I've parabolized 6" f2.8, 10.5" f2.7 and 25" f2.6 mirrors using the Ronchi Matching Test. All these mirrors passing the critical star test with sensibly identical out of focus star disks and diagonal breakout distances. And this test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.</p>
-
-    Show pasted image?
-    <input name='pastedImageActive' value='yes' type='radio'>yes
-    <input name='pastedImageActive' value='no' type='radio'>no
-    &emsp;
-    transparency
-    <input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
-    &emsp;
-    width
-    <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
-    height
-    <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
-    &emsp;
-    x offset
-    <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
-    y offset
-    <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
-	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
 
     <p>Here are some examples:</br>
     &emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.<br>
