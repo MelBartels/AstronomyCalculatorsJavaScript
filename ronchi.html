@@ -74,14 +74,8 @@
             </td>
             <td>
                 <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Border size in pixels =
-            </td>
-            <td>
-                <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
+				&nbsp;&nbsp; Border size in pixels = 
+				<input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
             </td>
         </tr>
         <tr>
@@ -99,13 +93,7 @@
             <td>
                 <input name='invertBands' value='yes' type='radio'>yes
                 <input name='invertBands' value='no' type='radio'>no
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                Include zonal ruler?
-            </td>
-            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp; Include zonal ruler?
                 <input name='drawRuler' value='yes' type='radio'>yes
                 <input name='drawRuler' value='no' type='radio'>no
             </td>
@@ -117,7 +105,15 @@
     <!-- canvases added in JavaScript -->
 </div>
 <div>
-    Show pasted image?
+    <table>
+    <tbody>
+        <tr>
+            <td id='waveNotes'>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <p>Show pasted image?
     <input name='pastedImageActive' value='yes' type='radio'>yes
     <input name='pastedImageActive' value='no' type='radio'>no
     &emsp;
@@ -137,16 +133,6 @@
 </div>
 <div id='matchingRonchiTapeBands'>
     <!-- text added in JavaScript -->
-</div>
-<div>
-    <table>
-    <tbody>
-        <tr>
-            <td id='waveNotes'>
-            </td>
-        </tr>
-    </tbody>
-    </table>
 </div>
 <div>
 	<h4>Save and get data to local storage</h4>
