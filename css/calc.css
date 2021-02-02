@@ -98,12 +98,10 @@ a:hover {
 }
 
 .pitchLapDiv {
-	margin-top: 20px; 
-	margin-bottom: 20px; 
-	margin-left: 20px; 
-	margin-right: 20px; 
+	margin: 10px;
 	float: left;
 }
+
 .pitchLapNotes {
 	text-align: left;
 }
