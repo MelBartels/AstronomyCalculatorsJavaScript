@@ -14,23 +14,34 @@
 		<h2>Pitch Lap Calculator</h2>
 		<h4>Mel Bartels</h4>
 
-		<p>Number of stars
+		<p>
+		Number of stars
 		<input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
 
-		<p>Tool to mirror size ratio
+		<p>
+		Tool to mirror size ratio
 		<input class='inputText' id='toolToMirrorSizeRatio' value='1' onfocus='select()' type='number' step='0.1' min='0.1'>
 
-		<p><input name='btnPressure' value='MOT' type='radio'>MOT
+		<p>
+		<input name='btnPressure' value='MOT' type='radio' checked='checked'>MOT
 		<input name='btnPressure' value='TOT' type='radio'>TOT
 		pressure
 		<input class='inputText' id='pressure' value='0' onfocus='select()' type='number' step='1' min='0'>
 
-		<p>Stroke length
+		<p>
+		<input name='btnStrokeMethod' value='straight' type='radio' checked='checked'>Straight
+		stroke length
 		<input class='inputText' id='strokeLength' value='0.33' onfocus='select()' type='number' step='.05' min='0.05' max='1.0'>
 		offset
 		<input class='inputText' id='strokeOffset' value='0' onfocus='select()' type='number' step='.05' min='0' max='1.0'>
 
-		<p>Presets
+		<br>
+		<input name='btnStrokeMethod' value='w' type='radio'>W stroke
+		overhang
+		<input class='inputText' id='wOverhang' value='0' onfocus='select()' type='number' step='.05' min='0' max='0.5'>
+
+		<p>
+		Presets
 		<input name='btnPreset' value='fullContact' type='radio'>full contact
 		<input name='btnPreset' value='petalLap' type='radio' checked='checked'>petal lap
 		<input name='btnPreset' value='reversePetalLap' type='radio'>reverse petal lap
@@ -41,10 +52,12 @@
 		</tbody>
 		</table>
 
-		<p><input ID='btnUpdatePitchLap' value='Update graphs' type='button'>
+		<p>
+		<input ID='btnUpdatePitchLap' value='Update graphs' type='button'>
 
 		<div class='pitchLapNotes'>
-		<p>Notes</p>
+		<p>
+		Notes
 		<ul>
 			<li>MOT is Mirror On Top
 			<li>TOT is Tool On Top
@@ -56,11 +69,13 @@
 	</div>
 
 	<div class='pitchLapDiv'>
-		<p>Pitch lap
+		<p>
+		Pitch lap
 		<br>
 		<canvas class='pitchLapCanvas' id='pitchLapCanvas' width='400' height='400'></canvas>
 
-		<p>Relative polishing action
+		<p>
+		Relative polishing action
 		<br>
 		<canvas class='polishingActionSideViewCanvas' id='polishingActionSideViewCanvas' width='400' height='100'></canvas>
 		<br>
