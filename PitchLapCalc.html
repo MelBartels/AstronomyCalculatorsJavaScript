@@ -68,18 +68,23 @@
 			<li>Zones: 0=center, 1=edge; enter in any order
 		</ul>
 		</div>
+		<p>
+		Html version Feb 6, 2021
+		<div id='JSversion'></div>
 	</div>
 
 	<div class='pitchLapDiv'>
 		<p>
-		Pitch lap
+		Pitch lap top view (black is pitch, yellow is absence of pitch)
 		<br>
 		<canvas class='pitchLapCanvas' id='pitchLapCanvas' width='400' height='400'></canvas>
 
 		<p>
-		Relative polishing action
+		Relative polishing action on the mirror - side view 
 		<br>
 		<canvas class='polishingActionSideViewCanvas' id='polishingActionSideViewCanvas' width='400' height='100'></canvas>
+		<br>
+		Relative polishing action on the mirror - top view 
 		<br>
 		<canvas class='polishingActionTopViewCanvas' id='polishingActionTopViewCanvas' width='400' height='400'></canvas>
 	</div>
@@ -89,5 +94,6 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
 <script src='lib/sharedLib.js'></script>
 <script src='lib/coordLib.js'></script>
-<script src='lib/PitchLapCalc.js'></script>
+<!-- force js load to prevent client caching since js version changing often -->
+<script src='lib/PitchLapCalc.js?v=1'></script>
 </html>
