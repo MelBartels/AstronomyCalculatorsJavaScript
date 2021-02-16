@@ -35446,22 +35446,96 @@
 			result,
 			expected = 4;
 			
-		// count of object clusters that fit w/in the specified distance
-		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude);
+		// count of object clusters that fit w/in the specified separation
+		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude).length;
 		equal(result, expected, result + ' should be ' + expected);
 		
 		minMagnitude = 8;
 		expected = 24;
-		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude);
+		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude).length;
 		equal(result, expected, result + ' should be ' + expected);
 
 		maxDistanceDeg = 2;
 		minMagnitude = 6;
 		expected = 10;
-		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude);
+		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude).length;
 		equal(result, expected, result + ' should be ' + expected);
 	});		
 
+	QUnit.test('findClosestObjects analysis 2b', function () {
+		var minCount = 3,
+			minDecDeg,
+			result,
+			expected = [528, 794, 1194],
+			compareAperturesAndFocalRatios = [],
+			ix;
+			
+		/*
+		F4 based on Masuyama 86 deg FOV 26mm
+		F3 based on Omegon Panorama II 100 deg FOV 21mm + P2
+		assume apparent mag limit of 4 through eyepiece = 8.3 + 5 *LOG10(aperture)
+		*/
+		compareAperturesAndFocalRatios = [
+			// aperture, magLimit, F4 FOV, F3 FOV
+			[4,		10.3,	5.4,	6],
+			//[6,		11.2,	3.6,	4],
+			[8,		11.8,	2.7,	3],
+			//[10,	12.3,	2.16,	2.4],
+			[12,	12.7,	1.8,	2]//,
+			//[16,	13.3,	1.35,	1.5],
+			//[20,	13.8,	1.08,	1.2],
+			//[24,	14.2,	0.9,	1],
+			//[30,	14.7,	0.72,	0.8]
+		];
+/*		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}
+		
+		minCount = 4;
+		expected = [478, 675, 898];
+		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}		
+
+		minCount = 5;
+		expected = [441, 565, 673];
+		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}		
+
+		minCount = 6;
+		expected = [410, 473, 544];
+		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}		
+
+		minCount = 12;
+		expected = [273, 174, 234];
+		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}		
+
+		minCount = 24;
+		expected = [39, 91, 77];
+		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}		
+*/
+		minCount = 24;
+		minDecDeg = -40;
+		
+		expected = [30, 50, 35];
+		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
+			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1], minDecDeg).length;
+			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
+		}		
+	});		
 });
 
 </script>
