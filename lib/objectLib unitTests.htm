@@ -22,6 +22,7 @@
 	<script src='calcLib.js'></script>
     <script src="objectLib.js"></script>
 	<script src='json/SAC_DeepSky_Ver81_abbr.js'></script>
+	<script src='json/SAC_DeepSky_Ver81_Json.js'></script>
 </head>
 <body>
 	<div id="qunit"></div>
@@ -41,7 +42,8 @@
 	    getCatalogs = MLB.objectLib.getCatalogs,
 		getObjectType = MLB.objectLib.getObjectType,
 	    getClassificationFrom = MLB.objectLib.getClassificationFrom,
-	    getDescription = MLB.objectLib.getDescription;
+	    getDescription = MLB.objectLib.getDescription,
+		findClosestObjects = MLB.objectLib.findClosestObjects;
 
 	QUnit.module('underscore js check');
 
@@ -35435,8 +35437,30 @@
 		expected = 'very faint; small; very little/long elongated/extended';
 		result = getDescription('vF;S;vlE');
 		equal(result, expected, result + ' should be ' + expected);
- 	
 	});
+	
+	QUnit.test('findClosestObjects analysis 2', function () {
+		var minCount = 3,
+			maxDistanceDeg = 1,
+			minMagnitude = 6,
+			result,
+			expected = 4;
+			
+		// count of object clusters that fit w/in the specified distance
+		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude);
+		equal(result, expected, result + ' should be ' + expected);
+		
+		minMagnitude = 8;
+		expected = 24;
+		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude);
+		equal(result, expected, result + ' should be ' + expected);
+
+		maxDistanceDeg = 2;
+		minMagnitude = 6;
+		expected = 10;
+		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude);
+		equal(result, expected, result + ' should be ' + expected);
+	});		
 
 });
 

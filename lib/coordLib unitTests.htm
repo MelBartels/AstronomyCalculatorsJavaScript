@@ -67,6 +67,7 @@
 		calcProperMotionPrecessionNutationAnnualAberration = MLB.coordLib.calcProperMotionPrecessionNutationAnnualAberration,
 		Position = MLB.coordLib.Position,
 		calcAngularSepUsingEquat = MLB.coordLib.calcAngularSepUsingEquat,
+		calcAngularSepUsingRaDec = MLB.coordLib.calcAngularSepUsingRaDec,
 		calcAngularSepUsingAltaz = MLB.coordLib.calcAngularSepUsingAltaz,
 		calcAirMass = MLB.coordLib.calcAirMass,
 		calcAirMass2 = MLB.coordLib.calcAirMass2,
@@ -967,11 +968,37 @@
 		// Ra 5:58:05.788, Dec 2:16:04, Az 140, Alt 40, SidT 4:00:00
 	    positionZ = new Position(convertHMSMToRad(5, 58, 5.788, 0), convertDMSMToRad(2, 16, 4, 0), 140 * uom.degToRad, 40 * uom.degToRad, convertHMSMToRad(4, 0, 0, 0), 0),
 
+		// sep should be 12.908 deg or 0.225 radians
 	    angularSepDegUsingEquat = calcAngularSepUsingEquat(positionA, positionZ) / uom.degToRad,
 	    angularSepDegUsingAltaz = calcAngularSepUsingAltaz(positionA, positionZ) / uom.degToRad,
 		// 1 arcsecond (accuracy of Dec)
 	    allowedVariance = 1 / 3600;
 		equal(withinRange(angularSepDegUsingEquat, angularSepDegUsingAltaz, allowedVariance), true, 'separation (deg) should be ' + angularSepDegUsingEquat + ', is ' + angularSepDegUsingAltaz);
+	});
+
+	QUnit.test('calcAngularSepRaDec', function () {
+			// Ra 4:44:24.033, Dec -10:10:55
+		var RaA = convertHMSMToRad(4, 44, 24.033, 0), 
+		    DecA = convertDMSMToRad(-10, 10, 55, 0),
+			// Ra 5:58:05.788, Dec 2:16:04
+			RaB = convertHMSMToRad(4, 58, 5.788, 0),
+			DecB = convertDMSMToRad(2, 16, 4, 0),
+			// see above unit test: RaB subtract 1 hr because SidT diff of 1 hr in above coords
+			expectedSepRad = 0.2252916150164969,
+			resultSepRad = calcAngularSepUsingRaDec(RaA, DecA, RaB, DecB),
+			// 1 arcsecond (accuracy of Dec)
+			allowedVariance = 1 / 3600;
+		
+		equal(withinRange(resultSepRad, expectedSepRad, allowedVariance), true, 'separation (radians) should be ' + expectedSepRad + ', is ' + resultSepRad);
+
+	    RaA = convertHMSMToRad(0, 0, 0, 0);
+		DecA = convertDMSMToRad(0, 0, 0, 0);
+		RaB = convertHMSMToRad(12, 0, 0, 0);
+		DecB = convertDMSMToRad(0, 0, 0, 0);
+		expectedSepRad = 3.141592653589793;
+		resultSepRad = calcAngularSepUsingRaDec(RaA, DecA, RaB, DecB),
+		
+		equal(withinRange(resultSepRad, expectedSepRad, allowedVariance), true, 'separation (radians) should be ' + expectedSepRad + ', is ' + resultSepRad);
 	});
 
 	QUnit.module('air mass calc');
