@@ -35528,9 +35528,10 @@
 		}		
 */
 		minCount = 24;
+		// northern hemisphere
 		minDecDeg = -40;
 		
-		expected = [30, 50, 35];
+		expected = [9, 41, 42];
 		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
 			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1], minDecDeg).length;
 			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
