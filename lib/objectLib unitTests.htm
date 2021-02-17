@@ -35487,6 +35487,7 @@
 			//[24,	14.2,	0.9,	1],
 			//[30,	14.7,	0.72,	0.8]
 		];
+
 /*		for (ix = 0; ix < compareAperturesAndFocalRatios.length; ix += 1) {
 			result = findClosestObjects(minCount, compareAperturesAndFocalRatios[ix][2], compareAperturesAndFocalRatios[ix][1]).length;
 			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
@@ -35537,11 +35538,19 @@
 			equal(result, expected[ix], result + ' for aperture ' + compareAperturesAndFocalRatios[ix][0] + ' should be ' + expected[ix]);
 		}
 /*
+		// 30 inch
+		expected = 212;
+		result = findClosestObjects(10, 0.8, 15, -45).length;
+		equal(result, expected, result + ' for aperture ' + result + ' should be ' + expected);
+*/
+/*
 4" aperture largest group count 27, Antalova 2, Cr 333, Cr 338, Cr 347, Cr 351, NGC 6374, NGC 6383, NGC 6396, NGC 6400, NGC 6405, NGC 6416, NGC 6425, NGC 6441, NGC 6451, NGC 6453, NGC 6475, NGC 6522, NGC 6528, PK 357- 4.3, Pismis 24, Ru 127, Tr 26, Tr 27, Tr 28, Tr 30, Tr 31, 
 
 8" aperture largest group count 42, MCG +02-32-110, NGC 4371, NGC 4374, NGC 4388, NGC 4402, NGC 4406, NGC 4425, NGC 4429, NGC 4435, NGC 4438, NGC 4440, NGC 4459, NGC 4461, NGC 4473, NGC 4474, NGC 4477, NGC 4478, NGC 4486, NGC 4486A, NGC 4501, NGC 4503, NGC 4531, NGC 4548, NGC 4550, NGC 4552, NGC 4564, NGC 4567, NGC 4568, NGC 4569, NGC 4571, NGC 4579, NGC 4596, NGC 4606, NGC 4608, NGC 4621, NGC 4638, NGC 4639, NGC 4647, NGC 4649, NGC 4654, NGC 4660, 
 
 12" aperture largest group count 43, IC  3476, MCG +02-32-110, NGC 4351, NGC 4371, NGC 4374, NGC 4387, NGC 4388, NGC 4402, NGC 4406, NGC 4407, NGC 4413, NGC 4425, NGC 4429, NGC 4435, NGC 4438, NGC 4440, NGC 4452, NGC 4458, NGC 4459, NGC 4461, NGC 4473, NGC 4474, NGC 4476, NGC 4477, NGC 4478, NGC 4479, NGC 4482, NGC 4486, NGC 4486A, NGC 4491, NGC 4497, NGC 4503, NGC 4506, NGC 4528, NGC 4531, NGC 4550, NGC 4551, NGC 4552, NGC 4564, NGC 4567, NGC 4569, NGC 4579, 
+
+30" aperture largest group count 45: Abell 1656, IC  4051, NGC 4816, NGC 4828, NGC 4839, NGC 4840, NGC 4841A, NGC 4841B, NGC 4842A, NGC 4848, NGC 4850, NGC 4853, NGC 4854, NGC 4860, NGC 4864, NGC 4865, NGC 4867, NGC 4869, NGC 4871, NGC 4872, NGC 4873, NGC 4874, NGC 4875, NGC 4876, NGC 4881, NGC 4883, NGC 4884, NGC 4886, NGC 4889, NGC 4895, NGC 4896, NGC 4898, NGC 4906, NGC 4907, NGC 4908, NGC 4911, NGC 4919, NGC 4921, NGC 4923, NGC 4926, NGC 4926A, NGC 4927, NGC 4929, NGC 4931, 
 */
 	});		
 });
