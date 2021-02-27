@@ -45,6 +45,7 @@
 		addMagnitudes = MLB.calcLib.addMagnitudes,
 		addArrayMagnitudes = MLB.calcLib.addArrayMagnitudes,
 		magnitudeDifferenceBetweenApertures = MLB.calcLib.magnitudeDifferenceBetweenApertures,
+		calculateApertureFromMagnitude = MLB.calcLib.calculateApertureFromMagnitude,
 		diagObstructionArea = MLB.calcLib.diagObstructionArea,
 		calcDiagOffsetUsingFocalPoint = MLB.calcLib.calcDiagOffsetUsingFocalPoint,
 		calcDiagOffsetUsingFullIllumField = MLB.calcLib.calcDiagOffsetUsingFullIllumField,
@@ -262,7 +263,20 @@
 		var result = magnitudeDifferenceBetweenApertures(10, 20);
 		equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
 	});
-
+	
+	QUnit.test('calculateApertureFromMagnitude', function () {
+		var magLoss = 0,
+		    expected = 1,
+		    result = calculateApertureFromMagnitude(magLoss);
+			
+		equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
+		
+		magLoss = 0.4;
+		expected = 0.83;
+		result = calculateApertureFromMagnitude(magLoss);
+		equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
+	});
+	
 	QUnit.test('diagObstructionArea', function () {
 		var result = diagObstructionArea(10, 1);
 		equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
