@@ -17,20 +17,18 @@
 		<p>
 		Number of stars
 		<input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
-
-		<p>
+		<br>
 		Tool to mirror size ratio
 		<input class='inputText' id='toolToMirrorSizeRatio' value='1' onfocus='select()' type='number' step='0.1' min='0.1'>
-
-		<p>
+		<br>
 		<input name='btnPressure' value='MOT' type='radio' checked='checked'>MOT
 		<input name='btnPressure' value='TOT' type='radio'>TOT
-		pressure
+		&nbsp;&nbsp;pressure
 		<input class='inputText' id='pressure' value='0' onfocus='select()' type='number' step='1' min='0'>
 
 		<p>
-		<input name='btnStrokeMethod' value='straight' type='radio' checked='checked'>Straight
-		stroke length
+		<input name='btnStrokeMethod' value='straight' type='radio' checked='checked'>Straight stroke 
+		&nbsp;&nbsp;length
 		<input class='inputText' id='strokeLength' value='0.33' onfocus='select()' type='number' step='0.05' min='0.05' max='1.0'>
 		offset
 		<input class='inputText' id='strokeOffset' value='0' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
@@ -39,7 +37,7 @@
 
 		<br>
 		<input name='btnStrokeMethod' value='w' type='radio'>W stroke
-		overhang
+		&nbsp;&nbsp;overhang
 		<input class='inputText' id='wOverhang' value='0.2' onfocus='select()' type='number' step='0.05' min='0' max='0.5'>
 
 		<br>
@@ -72,7 +70,7 @@
 		</ul>
 		</div>
 		<p>
-		Html version Feb 7, 2021
+		Html version March 2, 2021
 		<div id='JSversion'></div>
 	</div>
 
@@ -81,7 +79,6 @@
 		Pitch lap top view (black is pitch, yellow is absence of pitch)
 		<br>
 		<canvas class='pitchLapCanvas' id='pitchLapCanvas' width='400' height='400'></canvas>
-
 		<p>
 		Relative polishing action on the mirror - side view 
 		<br>
@@ -90,6 +87,31 @@
 		Relative polishing action on the mirror - top view 
 		<br>
 		<canvas class='polishingActionTopViewCanvas' id='polishingActionTopViewCanvas' width='400' height='400'></canvas>
+	</div>
+	
+	<div class='pitchLapDiv'>
+		<h2>Test section</h2>
+		<p>Tool spinning on rotating mirror.<br>
+		Rotational vector inspector: green CW rotational vector, red CCW rotational vector.<br>
+		For example, with mirror rotating at a fixed rate, what is the rotation rate of a freely rotating tool (Net direction = 0)?
+		<p>
+		Tool to mirror size ratio
+		<input class='inputText' id='testToolToMirrorSizeRatio' value='0.5' onfocus='select()' type='number' step='0.1' min='0.1'>
+		<br>
+		Mirror rotation rate
+		<input class='inputText' id='testMirrorRotation' value='1' onfocus='select()' type='number' step='0.1' min='0'>
+		<br>
+		Tool rotation rate
+		<input class='inputText' id='testToolRotation' value='4' onfocus='select()' type='number' step='0.25' min='0'>
+		<br>
+		Tool offset
+		<input class='inputText' id='testToolOffset' value='0.25' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
+		<p>
+		<canvas class='trestCanvas' id='testCanvas' width='400' height='400'></canvas>
+		<div id='testResults'></div>
+
+		<p>Here's how I work out the rotational vector (distinct from the polishing action:<br>
+		<img src='lib/rotational vectors test example.jpg'>
 	</div>
 
 </body>
