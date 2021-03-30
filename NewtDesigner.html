@@ -1087,6 +1087,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<p>Aperture * true field of view * focal ratio = eyepiece field stop
 			<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil
 			<p>Etendue/luminance = aperture area * true field of view area (cm^2deg^2) = eye pupil area * eyepiece apparent field of view area (cm^2deg^2)
+			<p>Focal ratio that maximizes etendue = arcsin(eyepiece focal length / eye pupil / 57.3) * 57.3 (further divide by any coma corrector magnification factor)
 		</div>
 		
 		<div class='designer' id='designVisual'>
@@ -1366,7 +1367,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<b>Eye pupil</b> is the diameter of the opening of the eye's iris.<br>
 			<b>Resolution</b> is the limit to discern detail, e.g., a double star or lunar feature.<br>
 			<b>Magnitude limit</b> is the faintest star that can be seen given the aperture and magnification.<br>
-			<b>Etendue or luminance</b> is the flux or total light flowing into the eye.<br>
+			<b>Etendue or luminance</b> is the flux or total light flowing into the eye. Values are in cm^2deg^2 (either: area _of_aperture * area_of_true_field, or, area_of_pupil * area_of_eyepiece_apparent_field)<br>
 			<b>Coma or comatic aberration</b> is the distortion of off-axis detail due to the primary mirror's paraboloidal shape,, i.e., stars appear to have a tail or coma.
 
 			<h4>Exit pupil</h4>
@@ -1375,17 +1376,37 @@ copyright Mel Bartels, 2016 - 2021-->
 
 			<p>Wider exit pupils are associated with lower power and brighter fields; narrow exit pupils with high power and dimmer fields. Be careful not to confuse the size of the exit pupil with the apparent field of view. Using the example above with a F5 mirror, a 30mm eyepiece with apparent field of view of 40 degrees produces the same exit pupil as a 30mm eyepiece with 80 degrees apparent field of view. However, the 80 degree apparent field eyepiece will produce 4x the light flux or etendue compared to the 40 degree apparent field of view eyepiece.
 
-			<p><b>Etendue or luminance</b> is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
+			<h4>Etendue or luminance</h4>
+			
+			<p>Etendue or luminance is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
 
-			<p>Since the eye's pupil also forms an aperture, etendue or luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that etendue or luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
+			<p>Since the eye's pupil also forms an aperture, luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
+			
+			<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length and our eye's pupil. Remarkably, the equation can be simplified to:
+			
+			<p>Focal ratio that maximizes etendue (luminance) = arcsin(eyepiece focal length / eye pupil / 57.3) (multiply the result by 57.3 if working in radians; further divide by any coma corrector magnification factor)
+			
+			<p>Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
+			<img alt='' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
+			<img alt='' src='FR to maximize etendue from pupil and eyepiece FL with P2.jpg'>
 
-			<p><a href='HET.html'>Go here for more information on my high etendue telescopes</a>.
+			<h4>Focal ratio for max etendue calculator</h4>
+			<p>Your eye's pupil mm <input class='inputText' id='calcFRMaxEtendueEyePupilmm' value='7' onfocus='select()' type='text'>
+			Eyepiece focal length mm <input class='inputText' id='calcFRMaxEtendueEyepieceFLmm' value='31' onfocus='select()' type='text'>
+			Coma corrector magnification factor <input class='inputText' id='calcFRMaxEtendueComaCorrectorMag' value='1' onfocus='select()' type='text'>
+			<input value='Calculate focal ratio' id='btnCalcFRMaxEtendue' type='button'>
+			Resulting focal ratio is <input class='inputText' id='calcFRMaxEtendueResultFR' readonly='readonly' type='text'>
+			<br>Eyepiece apparent field of view in degrees <input class='inputText' id='calcFRMaxEtendueEyepieceFOV' value='82' onfocus='select()' type='text'>
+			<input value='Calculate etendue' id='btnCalcFREtendue' type='button'>
+			Resulting etendue (cm^2deg^2) is <input class='inputText' id='calcFRMaxEtendueResultEtendue' readonly='readonly' type='text'>
 
-			<p>Brightest fields are obtained when the exit pupil matches your eye's pupil. The eye can resolve the aperture's potential resolution when exit pupil is approximately 1mm.
-
-			<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field.<br>
+			<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field and therefore produce greater etendue or luminance.<br>
 
 			<img alt='' src='aperture vs field of view for selected eyepieces.jpg'>
+
+			<p>Brightest fields are obtained when the telescope's exit pupil matches your eye's pupil. <a href='HET.html' target='_blank'>Go here for more information on my high etendue telescopes</a>.
+
+			<p>The eye can resolve the aperture's potential resolution when exit pupil is approximately 1mm.
 
 			<div id='magnification'></div>
 			<h4>Some thoughts on magnification</h4>
@@ -2806,7 +2827,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 			
 			<div>
-				Last updated 28-Mar-2021
+				Last updated 30-Mar-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 
