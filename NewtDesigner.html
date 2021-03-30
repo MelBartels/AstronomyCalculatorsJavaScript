@@ -1087,7 +1087,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<p>Aperture * true field of view * focal ratio = eyepiece field stop
 			<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil
 			<p>Etendue/luminance = aperture area * true field of view area (cm^2deg^2) = eye pupil area * eyepiece apparent field of view area (cm^2deg^2)
-			<p>Focal ratio that maximizes etendue = arcsin(eyepiece focal length / eye pupil / 57.3) * 57.3 (further divide by any coma corrector magnification factor)
+			<p>Focal ratio that maximizes etendue = eyepiece focal length / eye pupil, the focal ratio of the eyepiece and eye; further divide by any coma corrector magnification factor
 		</div>
 		
 		<div class='designer' id='designVisual'>
@@ -1382,9 +1382,7 @@ copyright Mel Bartels, 2016 - 2021-->
 
 			<p>Since the eye's pupil also forms an aperture, luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
 			
-			<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length and our eye's pupil. Remarkably, the equation can be simplified to:
-			
-			<p>Focal ratio that maximizes etendue (luminance) = arcsin(eyepiece focal length / eye pupil / 57.3) (multiply the result by 57.3 if working in radians; further divide by any coma corrector magnification factor)
+			<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length and our eye's pupil. The focal ratio that maximizes etendue (luminance) should be the same as the focal ratio of the eyepiece and eye which equals the eyepiece focal length / eye pupil; further divided by any coma corrector magnification factor.
 			
 			<p>Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
 			<img alt='' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
