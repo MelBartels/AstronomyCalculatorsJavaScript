@@ -1191,6 +1191,12 @@ copyright Mel Bartels, 2016 - 2021-->
 			<div id='detailTable'>
 			</div>
 			
+			<h3>Magnitude adder</h3>
+			Enter a series of magnitudes to add (can be space delimited or comma delimited)
+			<input class='inputText' id='magnitudesToAdd' value='8, 8 9 9.5' onfocus='select()' type='text'>
+			<input value='Calc total' id='btnCalcTotalMagnitude' type='button'>
+			<input class='inputText' id='totalMagnitude' readonly='readonly' type='text'>
+			
 			<h3>Notes</h3>
 			
 			<p>MPAS stands for Magnitude Per Arc-second Squared. MPAM stands for Magnitude Per Arc-minute Squared. I calculate using a circular area, not a rectangular area. Note that here object surface brightness is in magnitude per arc-second squared (MPAS). Many catalogs give object surface brightness in square arc-minutes. To convert from circular arc-seconds squared to circular arc-minutes squared, add 8.6 magnitudes to the MPAS value to get brightness in arc-minutes squared.<br>
@@ -2848,7 +2854,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 			
 			<div>
-				Last updated 11-Apr-2021
+				Last updated 16-Apr-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 
