@@ -155,56 +155,6 @@
     &emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
 </div>
 <div>
-    <h4>Ronchigrams with Errors</h4>
-    <table>
-    <tbody>
-        <tr>
-            <td class='label'>
-                Display?
-            </td>
-            <td>
-                <input name='displayErrorRonchigrams' value='yes' type='radio'>yes
-                <input name='displayErrorRonchigrams' value='no' type='radio'>no
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Zone with error =
-            </td>
-            <td>
-                <input class='inputText' name='errorZone' value='0.7' onfocus='select()' type='text'>
-                Enter the zone from 0.0 (center of mirror) to 1.0 (edge of mirror).
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Wavefront deviation =
-            </td>
-            <td>
-                <input class='inputText' name='wavefrontDeviation' value='0.25' onfocus='select()' type='text'>
-                Minus for undercorrected, plus for overcorrected or adjust fine
-                <input id="sliderZonalErrorFine" min="-1" max="1" step="0.01" type="range"/>
-				coarse 
-                <input id="sliderZonalErrorCoarse" min="-10" max="10" step="0.1" type="range"/>
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Adjust grating position
-            </td>
-            <td>
-                <input id='btnIncreaseGratingOffsets2' value='+' type='button'>
-                <input id='btnDecreaseGratingOffsets2' value='-' type='button'>
-                <input id="sliderOffset2" min="-1" max="1" step="0.002" type="range"/>
-            </td>
-        </tr>
-    </tbody>
-    </table>
-</div>
-<div id='errorRonchigrams'>
-    <!-- canvases added in JavaScript -->
-</div>
-<div>
     <h4>Discussion</h4>
 
     <p>
@@ -218,20 +168,27 @@
     <p>
         The Ronchi test, discovered by Vasco Ronchi in 1923, is one of the most versatile and easy to use tests. It is an interferometer that can be used geometrically. There is a large body of literature about the Ronchi test. For a review, see Malacara's, "Optical Shop Testing", second edition, chapter 9, 'Ronchi Test'. I use the test geometrically which measures the transverse aberration (the Foucault test measures longitudinal aberration).
     <p>
-        There are a number of variants of the Ronchi test including the Mosby, the Null Ronchi, the Ronchi Star Test, the Concentric Grid Ronchi, the Phase Shifting Ronchi Test, the Sideband Ronchi Test, the Lower Test, and the Ronchi Hartmann tests. I'm convinced that there are variations on the Ronchi Test waiting to be discovered and characterized. Inventive amateurs have suggested variants that I hope to try in the future.
+        There are a number of variants of the Ronchi test including the Mosby, the Null Ronchi, the Ronchi Star Test, the Concentric Grid Ronchi, the Phase Shifting Ronchi Test, the Sideband Ronchi Test, the Lower Test, and the Ronchi Hartmann tests. I'm convinced that there are variations on the Ronchi Test waiting to be discovered and characterized. Inventive amateurs have suggested variants that I hope to try in the future.		
     <p>
-        I've successfully figured dozens of superb mirrors over many years using the Ronchi Test with notable examples being 30 inch F4, 20 inch F5 (I used <a href='6000X.html'>6000X on one famous night of perfect seeing at the Oregon Star Party</a>), <a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html'>25 inch F2.6</a>, <a href='ZipDob/ZipDob.html'>13 inch F3.0</a>, <a href='JoyOfMirrorMaking/10.5 inch log.doc'>10.5 inch F2.7</a> and <a href='JoyOfMirrorMaking/6 inch log.doc'>6 inch F2.8</a> mirrors and I have led mirror making classes using the Ronchi as the principal test. I had a 6 inch F4 checked with the Hartman test. The surface was 1/20 wave peak to valley and the RMS was 1/60 wave.
+        I've successfully figured dozens of superb mirrors over many years using the Ronchi Test with notable examples being 
+		20 inch F5 (I used <a href='6000X.html'>6000X on one famous night of perfect seeing at the Oregon Star Party</a>),		
+		<A href='30/30 inch mirrors log.html'>twin 30 inch F2.7 mirrors, 	
+		<a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html'>25 inch F2.6</a>, 
+		<a href='ZipDob/ZipDob.html'>13 inch F3.0</a>, 
+		<a href='JoyOfMirrorMaking/10.5 inch log.doc'>10.5 inch F2.7</a> and 
+		<a href='JoyOfMirrorMaking/6 inch log.doc'>6 inch F2.8</a> 
+		mirrors and I have led mirror making classes using the Ronchi as the principal test. I had a 6 inch F4 checked with the Hartman test. The surface was 1/20 wave peak to valley and the RMS was 1/60 wave.
 
-	<h4>How good should I make my mirror?</h4>
+	<h4>Mirror quality</h4>
 	
 	<p>
 		The Danjon-Couder standard states two conditions:<br>
 		<ol>
 			<li>The mirror's surface should be as smooth as possible, and
 			<li>The overall peak to valley error on the mirror's surface should be a small fraction of the wavelength of light
-		</ol>
-		The Ronchi is a good test for smoothness, and my Matching Ronchi test is sensitive to a small fraction of the wavelength of light.
-	
+		</ol>		
+	<p>
+		The Ronchi is a good test for smoothness and the <a href='JoyOfMirrorMaking/StarTesting.html'> star test</a> is very critical of focusing errors.  Using these tests, the mirror maker can finish a mirror to a high standard, more than good enough to give outstanding images.
     <p>
 		I make mirrors to the best of my ability, regardless of how long it takes for two reasons:
 	<ol>
@@ -253,7 +210,7 @@
     <p>
 		The mirror test works in concert with the mirror making process. Since I make my mirrors as good as I can, I concentrate on deviations from the ideal paraboloid, not worrying about a deviation’s hard numerical value, which would be the case if I were making the mirror to an arbitrary rating, saying 1/8 wavefront or 0.96 Strehl.
     <p>
-		I use the Matching Ronchi test to evaluate the mirror making process itself. Master opticians count on their process to suppress errors like astigmatism. My mirror making process of mirror on top of full-sized or over-sized lap cures astigmatism, therefore I do not need to constantly test for ‘stig. The best of the masters can parabolize a mirror using a well-controlled process without hardly bothering to test until the end. Zambuto’s process using a Mirror-O-Matic machine comes close to generating a properly parabolized mirror simply by following the steps outlined in his spreadsheet. Texereau states that his “group has parabolized a number of mirrors ‘automatically,’ in effect, by using a team of four or five operators all applying the ‘same’ stroke.”
+		I use the Matching Ronchi test to evaluate the mirror making process itself. Master opticians rely on their process to suppress errors like astigmatism. My mirror making process of mirror on top of full-sized or over-sized lap cures astigmatism, therefore I do not need to constantly test for ‘stig. The best of the masters can parabolize a mirror using a well-controlled process without hardly bothering to test until the end. Zambuto’s process using a Mirror-O-Matic machine comes close to generating a properly parabolized mirror simply by following the steps outlined in his spreadsheet. Texereau states that his “group has parabolized a number of mirrors ‘automatically,’ in effect, by using a team of four or five operators all applying the ‘same’ stroke.”
     <p>
 		The better the mirror maker, the better the process and the more the process can be counted to preclude mirror defects and deliver a good mirror. The zonal Foucault test used with a good process that prohibits astigmatism has been used for centuries to make unimpeachable mirrors. Neophyte mirror makers struggle with testing, figuring and process. The best they can do is obtain the help of a master mirror maker in order to establish a process. The worst they can do is to thrash about, without process, trying wild disjointed ideas.
 
