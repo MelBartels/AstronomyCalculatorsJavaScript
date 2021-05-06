@@ -182,8 +182,10 @@
             </td>
             <td>
                 <input class='inputText' name='wavefrontDeviation' value='0.25' onfocus='select()' type='text'>
-                Minus for undercorrected, plus for overcorrected or adjust
-                <input id="sliderZonalError" min="-1" max="1" step="0.01" type="range"/>
+                Minus for undercorrected, plus for overcorrected or adjust fine
+                <input id="sliderZonalErrorFine" min="-1" max="1" step="0.01" type="range"/>
+				coarse 
+                <input id="sliderZonalErrorCoarse" min="-10" max="10" step="0.1" type="range"/>
             </td>
         </tr>
         <tr>
@@ -194,7 +196,6 @@
                 <input id='btnIncreaseGratingOffsets2' value='+' type='button'>
                 <input id='btnDecreaseGratingOffsets2' value='-' type='button'>
                 <input id="sliderOffset2" min="-1" max="1" step="0.002" type="range"/>
-				Do not adjust if zone is narrow
             </td>
         </tr>
     </tbody>
