@@ -88,12 +88,18 @@
         </tr>
         <tr>
             <td class='label'>
-                Invert bands?
+				Invert bands?
             </td>
             <td>
-                <input name='invertBands' value='yes' type='radio'>yes
-                <input name='invertBands' value='no' type='radio'>no
-                &nbsp;&nbsp;&nbsp;&nbsp; Ruler?
+				<input name='invertBands' value='yes' type='radio'>yes
+				<input name='invertBands' value='no' type='radio'>no
+            </td>
+        </tr>
+        <tr>
+            <td class='label'>
+				Ruler?
+            </td>
+            <td>
 				<input name='btnDrawRuler' value='none' type='radio'>none
 				<input name='btnDrawRuler' value='zonal' type='radio'>zonal
 				<input name='btnDrawRuler' value='uomCenter' type='radio'>center
@@ -102,6 +108,31 @@
         </tr>
     </tbody>
     </table>
+
+	<p>Save and get data to local storage
+	<input id='btnPutData' value='save data with name: ' type='button'>
+	<input class='inputText' name='dataName' value='my data' onfocus='select()' type='text'>
+	<input id='btnGetData' value=' get data' type='button'>
+	<input id='btnShowDataNames' value='show saved data names' type='button'>
+	<input id='btnDeleteData' value='delete saved data' type='button'>
+
+	<p>Show pasted image?
+	<input name='pastedImageActive' value='yes' type='radio'>yes
+	<input name='pastedImageActive' value='no' type='radio'>no
+	&emsp;
+	transparency
+	<input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
+	&emsp;
+	width
+	<input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
+	height
+	<input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
+	&emsp;
+	x offset
+	<input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
+	y offset
+	<input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
+	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
 </div>
 <div id='Ronchigrams'>
     <!-- canvases added in JavaScript -->
@@ -115,23 +146,6 @@
         </tr>
     </tbody>
     </table>
-    <p>Show pasted image?
-    <input name='pastedImageActive' value='yes' type='radio'>yes
-    <input name='pastedImageActive' value='no' type='radio'>no
-    &emsp;
-    transparency
-    <input class='inputText' id='pastedImageTransparency' value='0.75' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
-    &emsp;
-    width
-    <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
-    height
-    <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
-    &emsp;
-    x offset
-    <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
-    y offset
-    <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
-	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
 </div>
 <div id='matchingRonchiTapeBands'>
     <!-- text added in JavaScript -->
@@ -139,6 +153,7 @@
 <div>
 	<h4>Zonal errors</h4>
 	<p>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
+	<br>Zones can be entered in any order.
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
@@ -154,14 +169,6 @@
     &emsp; <input id='btnPasteExampleRonchigram13' value='click here' type='button'> to paste a Ronchigram of my 13.2 inch f3.0 mirror.<br>
     &emsp; <input id='btnPasteExampleRonchigram10' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror.<br>
     &emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.</p>
-</div>
-<div>
-	<h4>Save and get data to local storage</h4>
-	<input id='btnPutData' value='save data with name: ' type='button'>
-	<input class='inputText' name='dataName' value='my data' onfocus='select()' type='text'>
-	<input id='btnGetData' value=' get data' type='button'>
-	<input id='btnShowDataNames' value='show saved data names' type='button'>
-	<input id='btnDeleteData' value='delete saved data' type='button'>
 </div>
 <div>
     <h4>Discussion</h4>
