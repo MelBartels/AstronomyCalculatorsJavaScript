@@ -146,8 +146,10 @@
 </div>
 <div>
 	<h4>Zonal errors</h4>
-	<p>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
-	<br>The center zone is zero and the edge zone is one. Zones can be entered in any order.
+	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
+	<br>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
+	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk, the theoretical resolution of a mirror.
+	<br>For more, see <a href='ratemirrors.html'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 	<p>Wavelength of light (green light is 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
 	<table id='zonalCorrectionTable'>
