@@ -954,7 +954,7 @@
 		equal(wavefrontPV, -expectedWavefrontError, 'wavefrontPV = ' + wavefrontPV + ', should be ' + -expectedWavefrontError);
 		equal(wavefrontRMS, expectedRMS, 'wavefrontErrorRMS = ' + wavefrontRMS + ', should be ' + expectedRMS);
 	});
-
+	
 	// parabolic correction tolerances: focalRatio 1: 98.3%; focalRatio 2: 96.7%; focalRatio 3: 95%; focalRatio 4: 93.3%; focalRatio 5: 91.7%; focalRatio 6: 90%; focalRatio 7: 88.4%; focalRatio 8: 86.7%; focalRatio 9: 85%; focalRatio 10: 83.4%;
 	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', function () {
 		var mirrorDia = 10,

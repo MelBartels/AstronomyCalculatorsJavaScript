@@ -98,6 +98,7 @@
 				<input name='btnDrawRuler' value='zonal' type='radio'>zonal
 				<input name='btnDrawRuler' value='uomCenter' type='radio'>center
 				<input name='btnDrawRuler' value='uomEdge' type='radio'>edge
+				<input name='btnDrawRuler' value='zones307093' type='radio'>30/70/93% zones
             </td>
         </tr>
     </tbody>
@@ -146,21 +147,23 @@
 </div>
 <div>
 	<h4>Zonal errors</h4>
-	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
-	<br>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
-	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk, the theoretical resolution of a mirror.
-	<br>For more, see <a href='ratemirrors.html'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy'>Newtonian Telescope Designer, section on the Airy Disk</a>.
-	<p>Wavelength of light (green light is 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
+	<p>Wavelength of light for your unit of measurement (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
+	<p>Results: <label id='zonalErrorsResultsLabel'></label>
+	<br>These results come from analyzing just the 30%, 70% and 93% zones. Assumptions: the center zone is covered by the diagonal, instead use the 30% zone; the 70% zone is the zone where half of the mirror's area is in side of the zone and half of the mirror's area is outside the zone; the 93% zone is the reasonably closest to the edge zone that can be read accurately, avoiding diffractions effects at the edge; any turned edge is masked off; the mirror's surface varies smoothly without zones between the 30, 70 and 93% zones; there is no astigmatism.
+	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
+	<br>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
+	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk, the theoretical resolution of a mirror.
+	<br>For more, see <a href='ratemirrors.html'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div>
     <h4>To match bands, drag and drop your image, or, paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key.</h4>
-    <p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. The sensitivity of this test is surprisingly high: I've parabolized 6" f2.8, 10.5" f2.7 and 25" f2.6 mirrors using the Ronchi Matching Test. All these mirrors passing the critical star test with sensibly identical out of focus star disks and diagonal breakout distances. And this test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.</p>
+    <p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. With careful matching, I have found that this test gets me to 'snap focus' quality even on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized 6" f2.8, 10.5" f2.7, 13.2" f3.0, 25" f2.6 and 30" f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead. </p>
 
     <p>Here are some examples:</br>
     &emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.<br>
