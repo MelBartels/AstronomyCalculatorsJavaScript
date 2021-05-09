@@ -73,6 +73,7 @@
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
 		calcSphereParabolaDifference = MLB.calcLib.calcSphereParabolaDifference,
 		wavefrontError = MLB.calcLib.wavefrontError,
+		wavefrontErrorFromCorrectionsArray = MLB.calcLib.wavefrontErrorFromCorrectionsArray,
 		findAllowableCorrection = MLB.calcLib.findAllowableCorrection,
 		calcAllowableParabolicDeviationForQuarterWavefront = MLB.calcLib.calcAllowableParabolicDeviationForQuarterWavefront,
 		calcDobFriction = MLB.calcLib.calcDobFriction,
@@ -933,6 +934,18 @@
 			correctionFactor = 0.86,
 			result = wavefrontError(mirrorDia, radiusOfCurvature, correctionFactor),
 			expected = 0.5108704878136372;
+		equal(result, expected, 'result = ' + result + ', should be ' + expected);
+	});
+
+	QUnit.test('wavefrontErrorFromCorrectionsArray', function () {
+		var mirrorDia = 20,
+			radiusOfCurvature = 200,
+			wavelengthLight = 0.000022,			
+			correctionsArray = [0.86, 0.86, 0.86], // correction factors for 0.3, 0.7 and 0.93 percent zones
+			wavefrontErrorsArraySize = 11,
+			resultArray = wavefrontErrorFromCorrectionsArray(mirrorDia, radiusOfCurvature, wavelengthLight, correctionsArray, wavefrontErrorsArraySize),
+			result = resultArray[7].wavefrontError,
+			expected = -0.5108704878136372;
 		equal(result, expected, 'result = ' + result + ', should be ' + expected);
 	});
 
