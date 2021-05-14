@@ -2288,6 +2288,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					<td>
 						<input class='inputText' id='binoscopeFocalPlaneToSecondaryDistance' onfocus='select();' type='text'>
 						<input id='btnSetBinoscopeFocalPlaneToSecondaryToMinimumDistance' value='Set to minimum distance' type='button'>
+						If the secondary bending angle is locked and set then this field is calculated and cannot be reset by the user
 					</td>
 				</tr>
 				<tr>
@@ -2308,7 +2309,7 @@ copyright Mel Bartels, 2016 - 2021-->
 				</tr>
 				<tr>
 					<td class='label'>
-						<input id='binoscopeChBoxLockSecondaryBendingAngle' type='checkbox'>Lock secondary bending angle at
+						<input id='chBoxBinoscopeLockSecondaryBendingAngle' type='checkbox'>Lock secondary bending angle at
 					</td>
 					<td>
 						<input class='inputText' id='binoscopeSecondaryBendingAngleDeg' onfocus='select();' type='text'> degrees from the primary mirror axis
@@ -2319,7 +2320,7 @@ copyright Mel Bartels, 2016 - 2021-->
 						Tertiary bending angle = 
 					</td>
 					<td>
-						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> degrees from the primary mirror axis
+						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> degrees from the primary mirror axis (note: coding in progress - if you set this to something other than zero then weird things can happen) <!-- mlb note todo also must include in data save and retrieve -->
 					</td>
 				</tr>
 				<tr>
@@ -2397,11 +2398,13 @@ copyright Mel Bartels, 2016 - 2021-->
 
 			<p>The gray shape represents an adult human's face, neck and shoulders.
 			<p>The secondary is calculated for minimum size to illuminate the center of the field of view. The tertiary is calculated for full illumination of the field diameter as entered in the diagonal designer, given the secondary size.
+			<p>Excess focal plane to secondary distance is used to bend the secondary to tertiary light angle. When the secondary bending angle is locked at a particular angle then the focal plane to secondary distance is reset to what is needed to accommodate the locked bending angle.
+			<p>A bent tertiary can reduce secondary to tertiary distance, permit a smaller secondary and reduce central obstruction. The eyepieces are consequently tilted toward each other and slid off-center. See <a href='https://www.cloudynights.com/topic/494971-sterope-project-design-and-build-a-compact-16-binoscope/?p=11056470' target='_blank'>the Cloudy Nights discussion</a>.
 			<p>The secondary and tertiary outlines are included (offset is ignored).
 			
 			<h4>Visual observations</h4>
 			
-			<p>With the caveat that results vary from observer to observer and from binoscope to binoscope, I find that stars are enhanced by about 20% and extended nebulae by up to 80% with an average enhancement of about 40%. An enhancement of 40% means that a binoscope using twin 10 inch [25cm] mirrors is roughly equivalent to a 14 inch [36cm] aperture telescope. This enhancement, called the binocular summation factor, is thought to be a combination of probability summation, an increase in the signal to noise ratio, or neural summation. Curiously, melding the two 10 inch [25cm] apertures together equal a 14 inch [36cm] mirror. For more, see <a href='https://arieotte-binoscopes.nl/Binocular%20Summation%20Factor.pdf'>https://arieotte-binoscopes.nl/Binocular%20Summation%20Factor.pdf</a>
+			<p>With the caveat that results vary from observer to observer and from binoscope to binoscope, I find that stars are enhanced by about 20% and extended nebulae by up to 80% with an average enhancement of about 40%. An enhancement of 40% means that a binoscope using twin 10 inch [25cm] mirrors is roughly equivalent to a 14 inch [36cm] aperture telescope. This enhancement, called the binocular summation factor, is thought to be a combination of probability summation, an increase in the signal to noise ratio, or neural summation. Curiously, melding the two 10 inch [25cm] apertures together equal a 14 inch [36cm] mirror. For more, see <a href='https://arieotte-binoscopes.nl/Binocular%20Summation%20Factor.pdf' target='_blank'>https://arieotte-binoscopes.nl/Binocular%20Summation%20Factor.pdf</a>
 			
 			<p>Notwithstanding the binocular summation, I find the greatest advantage of a binoscope to be a milky smooth perspective to extended objects. Returning to monocular viewing (as simple as closing one eye), I see extensive and bothersome mottling and scintillation that gradually recedes over an hour or two.
 		</div>
