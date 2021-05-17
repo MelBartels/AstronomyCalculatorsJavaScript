@@ -2279,6 +2279,9 @@ copyright Mel Bartels, 2016 - 2021-->
 		<div class='designer' id='designBinoscope'>
 			<h4>Binoscope designer</h4>
 
+			<input name='btnBinoscopeSlave' value='focalPlane' checked='checked' type='radio'> Select 'focal plane to secondary distance' sets the 'secondary bending angle' (be sure to enter an angle)<br>
+			<input name='btnBinoscopeSlave' value='bending' type='radio'> Select 'secondary bending angle' sets the 'focal plane to secondary' length
+			<p>
 			<table>
 			<tbody>
 				<tr>
@@ -2288,7 +2291,6 @@ copyright Mel Bartels, 2016 - 2021-->
 					<td>
 						<input class='inputText' id='binoscopeFocalPlaneToSecondaryDistance' onfocus='select();' type='text'>
 						<input id='btnSetBinoscopeFocalPlaneToSecondaryToMinimumDistance' value='Set to minimum distance' type='button'>
-						If the secondary bending angle is locked and set then this field is calculated and cannot be reset by the user.
 					</td>
 				</tr>
 				<tr>
@@ -2309,7 +2311,7 @@ copyright Mel Bartels, 2016 - 2021-->
 				</tr>
 				<tr>
 					<td class='label'>
-						<input id='chBoxBinoscopeLockSecondaryBendingAngle' type='checkbox'>Lock secondary bending angle at
+						Secondary bending angle =
 					</td>
 					<td>
 						<input class='inputText' id='binoscopeSecondaryBendingAngleDeg' onfocus='select();' type='text'> degrees from the primary mirror axis
@@ -2320,7 +2322,7 @@ copyright Mel Bartels, 2016 - 2021-->
 						Tertiary bending angle = 
 					</td>
 					<td>
-						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> degrees from the primary mirror axis (note: coding in progress - if you set this to something other than zero then weird things can happen) <!-- mlb note todo also must include in data save and retrieve -->
+						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> degrees from the primary mirror axis
 					</td>
 				</tr>
 				<tr>
@@ -2873,7 +2875,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 			
 			<div>
-				Last updated 14-May-2021
+				Last updated 17-May-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 

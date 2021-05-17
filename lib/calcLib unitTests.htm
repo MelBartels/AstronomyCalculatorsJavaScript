@@ -541,14 +541,21 @@
 		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
 
 		//ex b
+<<<<<<< HEAD
 		result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 30, 1);
+=======
+		result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1);
+>>>>>>> 8d5567b51c2455b25bf8b8f451c60f52206cfeb6
 		equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
 		equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
 		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
 		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
+<<<<<<< HEAD
 		// tertiary to focal point values for 30 deg angle - see binoLayoutForNewtDesigner4 ex b
 		equal(withinRange(result.P3centerXLengthFromTertiaryCenter, 4.3301, allowableError), true, 'The P3centerXLengthFromTertiaryCenter should be 4.4.3301, is ' + result.P3centerXLengthFromTertiaryCenter);
 		equal(withinRange(result.P3centerYLengthFromTertiaryCenter, 2.5, allowableError), true, 'The P3centerYLengthFromTertiaryCenter should be 2.5, is ' + result.P3centerYLengthFromTertiaryCenter);		
+=======
+>>>>>>> 8d5567b51c2455b25bf8b8f451c60f52206cfeb6
 	});
 
 	QUnit.module('foldedNewtonian');
