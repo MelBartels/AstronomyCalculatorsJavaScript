@@ -53,6 +53,8 @@
 		calcDiagOffsetUsingFieldEdge = MLB.calcLib.calcDiagOffsetUsingFieldEdge,
 		areaIntersectingCircles = MLB.calcLib.areaIntersectingCircles,
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
+		calcBinoscopeMinimumFocalPlaneToSecondaryDistance = MLB.calcLib.calcBinoscopeMinimumFocalPlaneToSecondaryDistance,
+		calcBinoscopeSecondaryBendingAngle = MLB.calcLib.calcBinoscopeSecondaryBendingAngle,
 		calcBinoscope = MLB.calcLib.calcBinoscope,
 		getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
@@ -267,20 +269,20 @@
 		var result = magnitudeDifferenceBetweenApertures(10, 20);
 		equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
 	});
-	
+
 	QUnit.test('calculateApertureFromMagnitude', function () {
 		var magLoss = 0,
 		    expected = 1,
 		    result = calculateApertureFromMagnitude(magLoss);
-			
+
 		equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
-		
+
 		magLoss = 0.4;
 		expected = 0.83;
 		result = calculateApertureFromMagnitude(magLoss);
 		equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
 	});
-	
+
 	QUnit.test('diagObstructionArea', function () {
 		var result = diagObstructionArea(10, 1);
 		equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
@@ -371,11 +373,98 @@
 
 	QUnit.module('calcBinoscope');
 
-	// function call is calcBinoscope(mirrorDia, focalRatio, tertiaryOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, fieldDia)
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
+	// call is calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg)
+	QUnit.test('calcBinoscopeMinimumFocalPlaneToSecondaryDistance', function () {
+		var allowableError = 0.001,
+			// secondary bending but no tertiary bending
+			aperture = 10,
+			focalPointPerpendicularOffsetFromEdgeOfPrimary = 3,
+			focalPlaneToTertiaryDistance = 5,
+			secondaryBendingAngleDeg = 53.130,
+			tertiaryBendingAngleDeg = 0,
+			expected = 15,
+			result = calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg);
+
+		equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with secondaryBendingAngleDeg should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
+
+		// secondary bending and tertiary bending
+		aperture = 10;
+		focalPointPerpendicularOffsetFromEdgeOfPrimary = 3;
+		focalPlaneToTertiaryDistance = 5;
+		secondaryBendingAngleDeg = 53.130;
+		tertiaryBendingAngleDeg = 30;
+		expected = 11.875;
+		allowableError = 0.001;
+		result = calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg);
+
+		equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with secondaryBendingAngleDeg and tertiaryBendingAngleDeg should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
+
+		// no bending
+		aperture = 10;
+		focalPointPerpendicularOffsetFromEdgeOfPrimary = 3;
+		focalPlaneToTertiaryDistance = 5;
+		secondaryBendingAngleDeg = 90;
+		tertiaryBendingAngleDeg = 0;
+		expected = 13;
+		allowableError = 0.001;
+		result = calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg);
+
+		equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with no bending should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
+	});
+	
+	// function call is calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg)
+	QUnit.test('calcBinoscopeSecondaryBendingAngle', function () {
+		var allowableError = 0.001,
+			// ex a: no tertiary bending
+			aperture = 10,
+			focalPointPerpendicularOffsetFromEdgeOfPrimary = 3,
+		    focalPlaneToSecondaryDistance = 15,
+			focalPlaneToTertiaryDistance = 5,
+			tertiaryBendingAngleDeg = 0,
+			expected = 53.130,
+			result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
+			
+		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+			
+		// ex b: 30 deg tertiary bending		
+		aperture = 10,
+		focalPointPerpendicularOffsetFromEdgeOfPrimary = 3,
+		focalPlaneToSecondaryDistance = 11.875;
+		focalPlaneToTertiaryDistance = 5;
+		tertiaryBendingAngleDeg = 30;
+		expected = 53.130;
+		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
+			
+		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+
+		// no bending of secondary or tertiary
+		aperture = 10,
+		focalPointPerpendicularOffsetFromEdgeOfPrimary = 3;
+		focalPlaneToSecondaryDistance = 13;
+		focalPlaneToTertiaryDistance = 5;
+		tertiaryBendingAngleDeg = 0;
+		expected = 90;
+		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
+			
+		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+
+		// no bending of secondary or tertiary: example from NewtDesigner default
+		aperture = 10,
+		focalPointPerpendicularOffsetFromEdgeOfPrimary = 3;
+		focalPlaneToSecondaryDistance = 10;
+		focalPlaneToTertiaryDistance = 2;
+		tertiaryBendingAngleDeg = 0;
+		expected = 90;
+		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
+			
+		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);	});
+
+	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
+	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
 	QUnit.test('calcBinoscope', function () {
 		var allowableError = 0.001,
-		    result = calcBinoscope(30, 3, 5, 5, 27, 4);
+		    result = calcBinoscope(30, 3, 5, 5, 27, 65.380, 0, 4);
 
 		equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
 		equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
@@ -437,6 +526,26 @@
 		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerPointXLength, 2.036, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerPointXLength should be 2.036, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerPointXLength);
 		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerPointYLength, 3.173, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerPointYLength should be 3.173, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerPointYLength);
 		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerLength, 3.770, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerLength should be 3.770, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerLength);
+	});
+
+	// see binoLayoutForNewtDesigner4: ex a and b
+	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
+	QUnit.test('calcBinoscope with tertiary angle', function () {
+		var allowableError = 0.001,
+		    // ex a
+		    result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1);
+
+		equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
+		equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
+		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
+		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
+
+		//ex b
+		result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1);
+		equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
+		equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
+		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
+		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
 	});
 
 	QUnit.module('foldedNewtonian');
@@ -557,18 +666,18 @@
 			result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm);
 
 		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
-		
+
 		comaCorrectorFactor = 1.15;
 		expectedFR = 2.73;
 		result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm, comaCorrectorFactor);
 		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm with coma corrector is ' + result + ' should be ' + expectedFR + ', is ' + result);
-		
+
 		eyePupilmm = 5;
 		comaCorrectorFactor = undefined;
 		expectedFR = 4.20;
 		result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm, comaCorrectorFactor);
 		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
-		
+
 		eyepieceFLmm = 31;
 		eyePupilmm = 6;
 		comaCorrectorFactor = undefined;
@@ -940,7 +1049,7 @@
 	QUnit.test('wavefrontErrorFromCorrectionsArray', function () {
 		var mirrorDia = 20,
 			radiusOfCurvature = 200,
-			wavelengthLight = 0.000022,			
+			wavelengthLight = 0.000022,
 			correctionsArray = [0.86, 0.86, 0.86], // correction factors for 0.3, 0.7 and 0.93 percent zones
 			wavefrontErrorsArraySize = 11,
 			results = wavefrontErrorFromCorrectionsArray(mirrorDia, radiusOfCurvature, wavelengthLight, correctionsArray, wavefrontErrorsArraySize),
@@ -949,12 +1058,12 @@
 			wavefrontRMS = results.wavefrontRMS,
 			expectedWavefrontError = -0.5108704878136372,
 			expectedRMS = 0.2946307101000006;
-			
+
 		equal(wavefrontErrorForZone7, expectedWavefrontError, 'wavefrontErrorForZone7 = ' + wavefrontErrorForZone7 + ', should be ' + expectedWavefrontError);
 		equal(wavefrontPV, -expectedWavefrontError, 'wavefrontPV = ' + wavefrontPV + ', should be ' + -expectedWavefrontError);
 		equal(wavefrontRMS, expectedRMS, 'wavefrontErrorRMS = ' + wavefrontRMS + ', should be ' + expectedRMS);
 	});
-	
+
 	// parabolic correction tolerances: focalRatio 1: 98.3%; focalRatio 2: 96.7%; focalRatio 3: 95%; focalRatio 4: 93.3%; focalRatio 5: 91.7%; focalRatio 6: 90%; focalRatio 7: 88.4%; focalRatio 8: 86.7%; focalRatio 9: 85%; focalRatio 10: 83.4%;
 	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', function () {
 		var mirrorDia = 10,
@@ -1274,7 +1383,7 @@
 	});
 
 	QUnit.test('calcMillesLacroixTolerance', function () {
-		var wavelengthLight = 0.000022, 
+		var wavelengthLight = 0.000022,
 			mirrorDia = 20,
 			radiusOfCurvature = 200,
 			zonalRadius = 0.93,
@@ -1284,7 +1393,7 @@
 		result = calcMillesLacroixTolerance(wavelengthLight, mirrorDia, radiusOfCurvature, zonalRadius);
 		equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
-	
+
 	QUnit.test('calcParabolicCorrectionForZone', function () {
 		var mirrorDia = 20,
 			radiusOfCurvature = 200,
@@ -1295,7 +1404,7 @@
 		result = calcParabolicCorrectionForZone(mirrorDia, radiusOfCurvature, zonalRadius);
 		equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
-	
+
 	QUnit.test('calcProjectedFocuserBaffleRadius', function () {
 		var eyepieceFieldStop = 2,
 			barrelTubeID = 3,
