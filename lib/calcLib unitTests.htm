@@ -532,6 +532,7 @@
 	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
 	QUnit.test('calcBinoscope with tertiary angle', function () {
 		var allowableError = 0.001,
+			h,
 		    // ex a
 		    result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1);
 
@@ -547,8 +548,13 @@
 		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
 		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
 		// tertiary to focal point values for 30 deg angle - see binoLayoutForNewtDesigner4 ex b
-		equal(withinRange(result.P3centerXLengthFromTertiaryCenter, 4.3301, allowableError), true, 'The P3centerXLengthFromTertiaryCenter should be 4.4.3301, is ' + result.P3centerXLengthFromTertiaryCenter);
-		equal(withinRange(result.P3centerYLengthFromTertiaryCenter, 2.5, allowableError), true, 'The P3centerYLengthFromTertiaryCenter should be 2.5, is ' + result.P3centerYLengthFromTertiaryCenter);		
+		equal(withinRange(result.P3centerXLengthFromTertiaryCenter, 4.3301, allowableError), true, 'The P3centerXLengthFromTertiaryCenter should be 4.3301, is ' + result.P3centerXLengthFromTertiaryCenter);
+		equal(withinRange(result.P3centerYLengthFromTertiaryCenter, 2.5, allowableError), true, 'The P3centerYLengthFromTertiaryCenter should be 2.5, is ' + result.P3centerYLengthFromTertiaryCenter);	
+		equal(withinRange(result.P3FieldEdgeXLengthFromP3Center, 0.25, allowableError), true, 'The P3FieldEdgeXLengthFromP3Center should be 0.25, is ' + result.P3FieldEdgeXLengthFromP3Center);
+		equal(withinRange(result.P3FieldEdgeYLengthFromP3Center, 0.433, allowableError), true, 'The P3FieldEdgeYLengthFromP3Center should be 0.433, is ' + result.P3FieldEdgeYLengthFromP3Center);
+		// hypotenuse of right angle with sides 0.25 and 0.433 should be 0.5
+		h = Math.sqrt(result.P3FieldEdgeXLengthFromP3Center * result.P3FieldEdgeXLengthFromP3Center + result.P3FieldEdgeYLengthFromP3Center * result.P3FieldEdgeYLengthFromP3Center);
+		equal(withinRange(h, 0.5, allowableError), true, 'The (tilted) focal plane half length should be 0.5 is ' + h);
 	});
 
 	QUnit.module('foldedNewtonian');
