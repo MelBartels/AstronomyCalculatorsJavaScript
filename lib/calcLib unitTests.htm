@@ -554,7 +554,13 @@
 		equal(withinRange(result.P3FieldEdgeYLengthFromP3Center, 0.433, allowableError), true, 'The P3FieldEdgeYLengthFromP3Center should be 0.433, is ' + result.P3FieldEdgeYLengthFromP3Center);
 		// hypotenuse of right angle with sides 0.25 and 0.433 should be 0.5
 		h = Math.sqrt(result.P3FieldEdgeXLengthFromP3Center * result.P3FieldEdgeXLengthFromP3Center + result.P3FieldEdgeYLengthFromP3Center * result.P3FieldEdgeYLengthFromP3Center);
-		equal(withinRange(h, 0.5, allowableError), true, 'The (tilted) focal plane half length should be 0.5 is ' + h);
+		equal(withinRange(h, 0.5, allowableError), true, 'The tertiary til plane half length should be 0.5 is ' + h);
+		equal(withinRange(result.tertiaryAngledAtPrimaryDeg, 11.565, allowableError), true, 'The tertiaryAngledAtPrimaryDeg should be 11.565, is ' + result.tertiaryAngledAtPrimaryDeg);
+		equal(withinRange(result.tertiaryAngledAtFocalPlaneDeg, 41.565, allowableError), true, 'The tertiaryAngledAtFocalPlaneDeg should be 41.565, is ' + result.tertiaryAngledAtFocalPlaneDeg);
+		equal(withinRange(result.tertiaryAngledAtMaxLengthMajorAxis, 3.007, allowableError), true, 'The tertiaryAngledAtMaxLengthMajorAxis should be 3.07, is ' + result.tertiaryAngledAtMaxLengthMajorAxis);
+		equal(withinRange(result.tertiaryAngledAtMaxLengthMinorAxis, 2.25, allowableError), true, 'The tertiaryAngledAtMaxLengthMinorAxis should be 2.25, is ' + result.tertiaryAngledAtMaxLengthMinorAxis);
+		equal(withinRange(result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter, 0.301, allowableError), true, 'The tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter should be 0.301, is ' + result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter);
+		equal(withinRange(result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter, 1.473, allowableError), true, 'The tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter should be 1.473, is ' + result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter);
 	});
 
 	QUnit.module('foldedNewtonian');
