@@ -2279,9 +2279,10 @@ copyright Mel Bartels, 2016 - 2021-->
 		<div class='designer' id='designBinoscope'>
 			<h4>Binoscope designer</h4>
 
-			<input name='btnBinoscopeSlave' value='focalPlane' checked='checked' type='radio'> Select 'focal plane to secondary distance' sets the 'secondary bending angle' (be sure to enter an angle)<br>
-			<input name='btnBinoscopeSlave' value='bending' type='radio'> Select 'secondary bending angle' sets the 'focal plane to secondary' length
-			<p>
+			<input id='chBoxBinoscopeLockSecondaryBendingAngle' type='checkbox'>Lock secondary bending &nbsp;&nbsp;&nbsp;&nbsp; 
+			<input id='chBoxBinoscopeLockEyepieceDivergence' type='checkbox'>Lock eyepiece divergence &nbsp;&nbsp;&nbsp;&nbsp; 
+			<input id='chBoxBinoscopeLockEyepieceDivergenceAndTertiarySecondaryRightAngle' type='checkbox'>Lock eyepiece divergence and set secondary-tertiary bending to right-angle<br>
+			
 			<table>
 			<tbody>
 				<tr>
@@ -2319,10 +2320,35 @@ copyright Mel Bartels, 2016 - 2021-->
 				</tr>
 				<tr>
 					<td class='label'>
-						Tertiary bending (eyepiece divergence) angle = 
+						Tertiary bending angle = 
 					</td>
 					<td>
 						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> degrees from the primary mirror axis
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 Eyepiece divergence (deg) =
+					</td>
+					<td>
+						<input class='inputText' id='binoscopeEyepieceDivergenceDeg' value='0' onfocus='select();' type='text'> (set by tertiary bending angle unless locked above)
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 Secondary to tertiary downward tilt (deg) =
+					</td>
+					<td>
+						<input class='inputText' id='binoscopeSecondaryAxisDownwardTiltAngleDeg' value='10' onfocus='select();' type='text'>
+						<input class='sliderHalf' id='sliderBinoscopeSecondaryAxisDownwardTiltAngleDeg' min='0' max='60' step='1' type='range'/>
+					</td>
+				</tr>
+				<tr>
+					<td class='label'>
+						 IPD (InterPupillary Distance) (mm) =
+					</td>
+					<td>
+						<input class='inputText' id='IPD' value='63' onfocus='select();' type='text'>
 					</td>
 				</tr>
 				<tr>
@@ -2334,67 +2360,35 @@ copyright Mel Bartels, 2016 - 2021-->
 			</tbody>
 			</table>
 			
-			<div id='binoscopeCanvasDiv'>
-				<!-- canvas created in JavaScript -->
+			<div>
+				<div class='floatDiv' id='binoscopeFrontViewCanvasDiv'>
+					<!-- canvas created in JavaScript -->
+				</div>
+				<div class='forceDisplayToRight' id='binoscopeCanvasDiv'>
+					<!-- canvas created in JavaScript -->
+				</div>
 			</div>
 
-			<table>
-			<tbody>
-				<tr>
-					<td class='label'>
-						Results:
-					</td>
-					<td id='binoscopeResults'>
-					</td>
-				</tr>
-			</tbody>
-			</table>
-
-			<h3>Front view designer</h3>
-			
-			<table>
-			<tbody>
-				<tr>
-					<td class='label'>
-						 IPD (InterPupillary Distance) (mm) =
-					</td>
-					<td>
-						<input class='inputText' id='IPD' value='63' onfocus='select();' type='text'>
-					</td>
-				</tr>
-				<tr>
-					<td class='label'>
-						 Secondary to tertiary downward tilt (deg) =
-					</td>
-					<td>
-						<input class='inputText' id='binoscopeSecondaryAxisDownwardTiltAngleDeg' value='10' onfocus='select();' type='text'>
-						<input class='sliderHalf' id='sliderBinoscopeSecondaryAxisDownwardTiltAngleDeg' min='0' max='45' step='1' type='range'/>
-					</td>
-				</tr>
-				<tr>
-					<td colspan='2'>
-						<br>
-						<input id='btnUpdateBinoscopeFrontView' value='Update binoscope front view' type='button'>
-					</td>
-				</tr>
-			</tbody>
-			</table>
-
-			<div id='binoscopeFrontViewCanvasDiv'>
-				<!-- canvas created in JavaScript -->
+			<div class='stopFloat'>	
+				<table>
+				<tbody>
+					<tr>
+						<td class='label'>
+							Sideview results:
+						</td>
+						<td id='binoscopeResults'>
+						</td>
+					</tr>
+					<tr>
+						<td class='label'>
+							Frontview results:
+						</td>
+						<td id='binoscopeFrontViewResults'>
+						</td>
+					</tr>
+				</tbody>
+				</table>
 			</div>
-
-			<table>
-			<tbody>
-				<tr>
-					<td class='label'>
-						Results:
-					</td>
-					<td id='binoscopeFrontViewResults'>
-					</td>
-				</tr>
-			</tbody>
-			</table>
 
 			<h4>Binoscope discussion</h4>
 
@@ -2879,7 +2873,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 			
 			<div>
-				Last updated 19-May-2021
+				Last updated 20-May-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 

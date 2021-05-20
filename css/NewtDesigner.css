@@ -133,6 +133,18 @@ html {
 	margin: 0px 20px;
 }
 
+.floatDiv {
+    float: left;
+}
+
+.forceDisplayToRight {
+	overflow: hidden;
+}
+
+.stopFloat {
+	clear: both;
+}
+
 .inputText {
 	width: 100px;
 }

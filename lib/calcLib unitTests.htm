@@ -55,6 +55,8 @@
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
 		calcBinoscopeMinimumFocalPlaneToSecondaryDistance = MLB.calcLib.calcBinoscopeMinimumFocalPlaneToSecondaryDistance,
 		calcBinoscopeSecondaryBendingAngle = MLB.calcLib.calcBinoscopeSecondaryBendingAngle,
+		calcEyepieceDivergenceFromTertiaryBendingAngle = MLB.calcLib.calcEyepieceDivergenceFromTertiaryBendingAngle,
+		calcTertiaryBendingAngleFromEyepieceDivergence = MLB.calcLib.calcTertiaryBendingAngleFromEyepieceDivergence,
 		calcBinoscope = MLB.calcLib.calcBinoscope,
 		getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
@@ -458,7 +460,28 @@
 		expected = 90;
 		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
 			
-		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);	});
+		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+	});
+	
+	QUnit.test('calcEyepieceDivergenceFromTertiaryBendingAngle', function () {
+		var allowableError = 0.001,
+		    tertiaryBendingAngleDeg = 20,
+		    secondaryAxisDownwardTiltAngleDeg = 30,
+			result = calcEyepieceDivergenceFromTertiaryBendingAngle(tertiaryBendingAngleDeg, secondaryAxisDownwardTiltAngleDeg),
+			expected = 17.32;
+			
+		equal(withinRange(result, expected, allowableError), true, 'The binoscope eyepiece divergence in deg should be ' + expected + ', is ' + result);		
+	});
+
+	QUnit.test('calcTertiaryBendingAngleFromEyepieceDivergence', function () {
+		var allowableError = 0.001,
+		    eyepieceDivergenceAngleDeg = 17.32,
+		    secondaryAxisDownwardTiltAngleDeg = 30,
+			result = calcTertiaryBendingAngleFromEyepieceDivergence(eyepieceDivergenceAngleDeg, secondaryAxisDownwardTiltAngleDeg),
+			expected = 20;
+			
+		equal(withinRange(result, expected, allowableError), true, 'The binoscope tertoaru bending angle in deg should be ' + expected + ', is ' + result);		
+	});
 
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
 	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
