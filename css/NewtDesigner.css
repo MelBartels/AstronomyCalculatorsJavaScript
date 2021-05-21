@@ -14,37 +14,37 @@
   flex: 1 100%;
 }
 
-* { 
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 html {
-	font-family: Verdana, Geneva, sans-serif; 
+	font-family: Verdana, Geneva, sans-serif;
 	margin-right: auto;	height: 100%;
 	margin-left: 10px;
 }
 
 .titleImage {
-	 width: 15%; 
-	 height: auto; 
+	 width: 15%;
+	 height: auto;
 	 float: left;
 }
 
 #titleText {
 	text-align: center;
 }
-	
+
 #titleTextArea {
-	width: 60%; 
-	float: left; 
+	width: 60%;
+	float: left;
 	padding-left: 5%;
 	padding-right: 5%;
 }
 
 .title {
-	text-align: center; 
+	text-align: center;
 }
 
 .selectDesigner {
@@ -93,6 +93,11 @@ html {
 td.fitWidth {
     width: 1px;
     white-space: nowrap;
+}
+
+thead tr th:first-child,
+tbody tr td:first-child {
+	width: 30em;
 }
 
 .magnificationTable {
@@ -159,7 +164,7 @@ td.fitWidth {
 }
 
 #objectCalculatedSurfaceBrightness {
-	font-family: Verdana, Geneva, sans-serif; 
+	font-family: Verdana, Geneva, sans-serif;
 	font-size: 100%;
 	width: 500px;
 	border: none;
@@ -169,26 +174,26 @@ td.fitWidth {
 }
 
 #visualDetectionCalcChart {
-	margin-top: 20px; 
-	margin-bottom: 20px; 
-	margin-left: 20px; 
-	width: 600px; 
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	width: 600px;
 	height: 300px;
 }
 
 #diagChart {
-	margin-top: 20px; 
-	margin-bottom: 20px; 
-	margin-left: 20px; 
-	width: 800px; 
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	width: 800px;
 	height: 300px;
 }
 
 #diagIntegratedIllumChart {
-	margin-top: 20px; 
-	margin-bottom: 20px; 
-	margin-left: 20px; 
-	width: 600px; 
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	width: 600px;
 	height: 200px;
 }
 
@@ -201,7 +206,7 @@ td.fitWidth {
 }
 
 .label {
-	text-align: right; 
+	text-align: right;
 	vertical-align: top;
 	width: 300px;
 }
@@ -209,7 +214,7 @@ td.fitWidth {
 .mediumSizeImage {
 	margin: 10px;
 	width: 30%;
-	height: 30%;	
+	height: 30%;
 }
 
 /* for accordian collapsing sections
@@ -218,7 +223,7 @@ td.fitWidth {
 	background-color: #ddd;
 	color: #444;
 	text-align: left;
-	font-family: Verdana, Geneva, sans-serif; 
+	font-family: Verdana, Geneva, sans-serif;
 	font-size: large;
 	font-weight: bold;
 	padding: 15px;
