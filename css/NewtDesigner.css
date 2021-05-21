@@ -90,6 +90,11 @@ html {
 	display: none;
 }
 
+td.fitWidth {
+    width: 1px;
+    white-space: nowrap;
+}
+
 .magnificationTable {
 	border: 1px solid black;
 	border-collapse: collapse;

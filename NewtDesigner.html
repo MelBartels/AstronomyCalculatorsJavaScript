@@ -2281,15 +2281,16 @@ copyright Mel Bartels, 2016 - 2021-->
 
 			<input id='chBoxBinoscopeLockSecondaryBendingAngle' type='checkbox'>Lock secondary bending &nbsp;&nbsp;&nbsp;&nbsp; 
 			<input id='chBoxBinoscopeLockEyepieceDivergence' type='checkbox'>Lock eyepiece divergence &nbsp;&nbsp;&nbsp;&nbsp; 
-			<input id='chBoxBinoscopeLockEyepieceDivergenceAndTertiarySecondaryRightAngle' type='checkbox'>Lock eyepiece divergence and set secondary-tertiary bending to right-angle<br>
+			<input id='chBoxBinoscopeLockEyepieceDivergenceAndTertiarySecondaryRightAngle' type='checkbox'>Lock eyepiece divergence and set secondary-tertiary bending to right-angle
+			<p></p>
 			
 			<table>
 			<tbody>
 				<tr>
-					<td class='label' id='binoscopeFocalPlaneToSecondaryDistanceLabel'>
+					<td class='label fitWidth' id='binoscopeFocalPlaneToSecondaryDistanceLabel'>
 						<!-- label html set in JavaScript -->
 					</td>
-					<td>
+					<td class='fitWidth'>
 						<input class='inputText' id='binoscopeFocalPlaneToSecondaryDistance' onfocus='select();' type='text'>
 						<input id='btnSetBinoscopeFocalPlaneToSecondaryToMinimumDistance' value='Set to minimum distance' type='button'>
 					</td>
@@ -2303,7 +2304,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					</td>
 				</tr>
 				<tr>
-					<td class='label' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimaryLabel'>
+					<td class='label fitWidth' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimaryLabel'>
 						<!-- label html set in JavaScript -->
 					</td>
 					<td>
@@ -2312,26 +2313,28 @@ copyright Mel Bartels, 2016 - 2021-->
 				</tr>
 				<tr>
 					<td class='label'>
-						Secondary bending angle =
+						Secondary bending angle from the primary mirror axis (deg) =
 					</td>
 					<td>
-						<input class='inputText' id='binoscopeSecondaryBendingAngleDeg' onfocus='select();' type='text'> degrees from the primary mirror axis
+						<input class='inputText' id='binoscopeSecondaryBendingAngleDeg' onfocus='select();' type='text'> 
+						<input class='sliderHalf' id='sliderBinoscopeSecondaryBendingAngleDeg' min='45' max='90' step='1' type='range'/>
 					</td>
 				</tr>
 				<tr>
 					<td class='label'>
-						Tertiary bending angle = 
+						Tertiary bending angle from the primary mirror axis (deg) = 
 					</td>
 					<td>
-						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> degrees from the primary mirror axis
+						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'> 
 					</td>
 				</tr>
 				<tr>
 					<td class='label'>
 						 Eyepiece divergence (deg) =
 					</td>
-					<td>
-						<input class='inputText' id='binoscopeEyepieceDivergenceDeg' value='0' onfocus='select();' type='text'> (set by tertiary bending angle unless locked above)
+					<td class='fitWidth'>
+						<input class='inputText' id='binoscopeEyepieceDivergenceDeg' value='0' onfocus='select();' type='text'> 
+						<input class='sliderHalf' id='sliderBinoscopeEyepieceDivergenceDeg' min='0' max='10' step='1' type='range'/>
 					</td>
 				</tr>
 				<tr>
@@ -2395,12 +2398,15 @@ copyright Mel Bartels, 2016 - 2021-->
 			<p>The gray shape represents an adult human's face, neck and shoulders.
 			<p>The secondary is calculated for minimum size to illuminate the center of the field of view. The tertiary is calculated for full illumination of the field, which is likely excessive.
 			<p>Excess focal plane to secondary distance is used to bend the secondary to tertiary light angle. When the secondary bending angle is locked at a particular angle then the focal plane to secondary distance is reset to what is needed to accommodate the locked bending angle.
-			<p>A bent tertiary (adding eyepiece divergence) can reduce secondary to tertiary distance, permit a smaller secondary and reduce central obstruction. The eyepieces are consequently tilted toward each other and slid off-center. 
-			See <a href='https://www.cloudynights.com/topic/494971-sterope-project-design-and-build-a-compact-16-binoscope/?p=11056470' target='_blank'>the Cloudy Nights discussion</a> 
+			<p>A bent tertiary (adding eyepiece divergence) can reduce secondary to tertiary distance, permit a smaller secondary and reduce central obstruction. The eyepieces are consequently tilted toward each other and slid off-center. Here are images of a proposed 30 inch F2.7 bent design. You can inspect this design by switching to the Export/Import designer then selecting the proposed 30 inch design.<br>
+			
+			<img alt='' class='mediumSizeImage' src='30\bino study with bent everything.jpg'>
+			<img alt='' class='mediumSizeImage' src='30\bino study with bent everything side.jpg'>
+			<img alt='' class='mediumSizeImage' src='30\bino study with bent everything top.jpg'>
+			
+			<p>See <a href='https://www.cloudynights.com/topic/494971-sterope-project-design-and-build-a-compact-16-binoscope/?p=11056470' target='_blank'>the Cloudy Nights discussion</a> 
 			along with <a href='https://www.cloudynights.com/uploads/gallery/album_12506/sml_gallery_200295_12506_28882.jpg' target='_blank'>this diagram showing how to offset the eyepieces</a> 
 			and <a href='https://www.cloudynights.com/topic/494971-sterope-project-design-and-build-a-compact-16-binoscope/?p=11057263' target='_blank'>this post showing which rotations are allowed</a>.
-			
-			<p>The secondary and tertiary outlines are included (offset is ignored).
 			
 			<h4>Visual observations</h4>
 			

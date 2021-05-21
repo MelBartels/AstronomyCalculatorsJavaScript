@@ -57,6 +57,7 @@
 		calcBinoscopeSecondaryBendingAngle = MLB.calcLib.calcBinoscopeSecondaryBendingAngle,
 		calcEyepieceDivergenceFromTertiaryBendingAngle = MLB.calcLib.calcEyepieceDivergenceFromTertiaryBendingAngle,
 		calcTertiaryBendingAngleFromEyepieceDivergence = MLB.calcLib.calcTertiaryBendingAngleFromEyepieceDivergence,
+		calcEyepieceTipdownFromSecToTertTipdownAndTertBend = MLB.calcLib.calcEyepieceTipdownFromSecToTertTipdownAndTertBend,
 		calcBinoscope = MLB.calcLib.calcBinoscope,
 		getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
@@ -481,6 +482,16 @@
 			expected = 20;
 			
 		equal(withinRange(result, expected, allowableError), true, 'The binoscope tertoaru bending angle in deg should be ' + expected + ', is ' + result);		
+	});
+
+	QUnit.test('calcEyepieceTipdownFromSecToTertTipdownAndTertBend', function () {
+		var allowableError = 0.001,
+		    eyepieceDivergenceDeg = 10,
+		    secondaryAxisDownwardTiltAngleDeg = 35,
+			result = calcEyepieceTipdownFromSecToTertTipdownAndTertBend(eyepieceDivergenceDeg, secondaryAxisDownwardTiltAngleDeg),
+			expected =  5.736;
+			
+		equal(withinRange(result, expected, allowableError), true, 'The eyepiece tipdown angle in deg should be ' + expected + ', is ' + result);		
 	});
 
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
