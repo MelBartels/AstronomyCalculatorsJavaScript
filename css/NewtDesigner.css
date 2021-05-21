@@ -95,12 +95,11 @@ td.fitWidth {
     white-space: nowrap;
 }
 
-thead tr th:first-child,
-tbody tr td:first-child {
+thead tr th:first-child, tbody tr td:first-child {
 	width: 30em;
 }
 
-#CGTable td {
+#magnificationTable td, #apparentFOV td, #CGTable td {
 	table-layout: fixed;
 	width: auto; !important
 }
