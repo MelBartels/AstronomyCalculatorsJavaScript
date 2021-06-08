@@ -28,6 +28,16 @@ html {
 	width: 200px;
 }
 
+.floatDiv {
+	float: left;
+	width: 800px;
+	padding: 10px;
+}
+
+.clearFloat {
+	clear: both;
+}
+
 @media all and (min-width: 0px) {
 	.genImage {
 		width: 100%; 

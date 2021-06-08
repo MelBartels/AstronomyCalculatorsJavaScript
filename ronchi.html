@@ -146,10 +146,13 @@
     <!-- text added in JavaScript -->
 </div>
 <div>
-    <h4>To match bands, drag and drop your image, or, paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key.</h4>
+    <b>To match bands, drag and drop your image, or, paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key.</b>
+</div>
+<div class='floatDiv'>
 	<h4>Zonal errors</h4>
 	<p>Wavelength of light for your unit of measurement (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
+	   <input id='btnResetCorrectionFactors' value='Reset correction factors to 1' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
@@ -161,14 +164,14 @@
 	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk, the theoretical resolution of a mirror. The weighted ML tolerance is a measure of how well the light rays pass through the Airy Disk.
 	<br>For more, see <a href='ratemirrors.html'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
-<div>
+<div class='floatDiv'>
 	<h4>Suggested polishing actions</h4>
 	<p>The brighter the blue the more the slope of the zone needs changing by polishing. For suggestions on stroke and pitch lap, see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a>. For more on parabolizing, see <a href='JoyOfMirrorMaking/JoyOfMirrorMaking.html' target='_blank'>my pages on mirror making</a>. Texereau's How To Make a Telescope is an invaluable reference (PDF version can be downloaded from various sites).
+	<div id='polishActionCanvasDiv'>
+		<!-- canvas created in JavaScript -->
+	</div>
 </div>
-<div id='polishActionCanvasDiv'>
-	<!-- canvas created in JavaScript -->
-</div>
-<div>
+<div class='clearFloat'>
 	<h4>Matching Ronchi examples</h4>
     <p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. With careful matching, I have found that this test gets me to 'snap focus' quality even on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized 6' f2.8, 10.5' f2.7, 13.2' f3.0, 25' f2.6 and 30' f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead. </p>
 
