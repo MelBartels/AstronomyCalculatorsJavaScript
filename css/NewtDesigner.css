@@ -99,7 +99,7 @@ thead tr th:first-child, tbody tr td:first-child {
 	width: 30em;
 }
 
-#magnificationTable td, #apparentFOV td, #CGTable td {
+#magnificationTable td, #apparentFOV td, #CGTable td, #visualInputsTable td, #visualDetectionResultsTable td {
 	table-layout: fixed;
 	width: auto; !important
 }
