@@ -1114,7 +1114,6 @@ copyright Mel Bartels, 2016 - 2021-->
 				</td>
 				<td>
 					<input class='inputText' id='objectApparentMagnitude' value='5' onfocus='select()' type='text'>
-					<input class='inputText' id='objectCalculatedSurfaceBrightness' readonly='readonly' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1143,51 +1142,9 @@ copyright Mel Bartels, 2016 - 2021-->
 					<input class='inputText' id='BortleScale' value='3' onfocus='select()' type='text'>					
 				</td>
 			</tr>
-			<tr>
-				<td class='label'>
-					 Eye pupil (mm) =
-				</td>
-				<td>
-					<input class='inputText' id='visualDetectionEyePupil' value='7' onfocus='select()' type='text'>
-				</td>
-			</tr>
-			<tr>
-				<td class='label'>
-					 Eyepiece apparent field (degrees) 
-				</td>
-				<td>
-					<input class='sliderHalf' id='sliderVisualDetectionEyepieceApparentFOV' min='40' max='120' step='2' type='range'/>
-					<input class='inputText' id='visualDetectionEyepieceApparentFOV' value='100' onfocus='select()' type='text'>
-				</td>
-			</tr>
-			<tr>
-				<td class='label'>
-					 Optics transmission factor =
-				</td>
-				<td>
-					<input class='inputText' id='visualDetectionTransmissionFactor' value='0.8' onfocus='select()' type='text'>
-				</td>
-			</tr>
-			<tr>
-				<td class='label'>
-					 Reduction for single eye =
-				</td>
-				<td>
-					<input class='inputText' id='visualDetectionEyeFactor' value='1' onfocus='select()' type='text'>
-				</td>
-			</tr>
-			<tr>
-				<td class='title' colspan='2'>
-					<br>
-					<input value='Update chart' id='btnCalcVisualDetection' type='button'><br>
-					<br>
-				</td>
-			</tr>
 			</tbody>
 			</table>
 
-			<div id='visualDetectionCalcChart'>
-			</div>
 			<div id='visualDetectionResultsTable'>
 			</div>
 			
@@ -2896,7 +2853,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 			
 			<div>
-				Last updated 17-June-2021
+				Last updated 21-June-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 

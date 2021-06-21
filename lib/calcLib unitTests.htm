@@ -73,6 +73,8 @@
 		VisualDetectCalc = MLB.calcLib.VisualDetectCalc,
 		VisualDetectCalcExitPupils = MLB.calcLib.VisualDetectCalcExitPupils,
 		VisualDetectCalcApertures = MLB.calcLib.VisualDetectCalcApertures,
+		calcContrastOfObjectPlusSkyToSky = MLB.calcLib.calcContrastOfObjectPlusSkyToSky,
+		calcContrastOfObjectPlusSkyToSky2 = MLB.calcLib.calcContrastOfObjectPlusSkyToSky2,
 		calcNewtBaffle = MLB.calcLib.calcNewtBaffle,
 		createAltazConstantMotionTrackingErrors = MLB.calcLib.createAltazConstantMotionTrackingErrors,
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
@@ -993,6 +995,38 @@
 		dblApertureParms.apertureIn *= 2;
 		dblApertureResults = visualDetectCalc.calc(dblApertureParms);
 		equal(dblApertureResults.logContrastDiff, result[0][5].logContrastDiff, 'The log contrast should be ' + result[0][5].logContrastDiff + ', is ' + dblApertureResults.logContrastDiff);
+	});
+	
+	QUnit.test('calcContrastOfObjectPlusSkyToSky', function () {	
+		// M51
+		var objMag = 8.4, 
+		    objectSize1Arcmin = 6.6, 
+			objectSize2Arcmin = 10.8,
+			bkgndBrightEye = 21.6,
+			expected = {
+				contrastPercent: 94.55,
+				objectSurfaceBrightness: 21.66,
+				objectPlusSkyBackgroundSurfaceBrightness: 20.88
+			},
+		    results = calcContrastOfObjectPlusSkyToSky(objMag, objectSize1Arcmin, objectSize2Arcmin, bkgndBrightEye);
+
+		equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
+		equal(withinRange(results.objectSurfaceBrightness, expected.objectSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 should be ' + expected.objectSurfaceBrightness + ', is ' + results.objectSurfaceBrightness);
+		equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
+	});
+
+	QUnit.test('calcContrastOfObjectPlusSkyToSky2', function () {	
+		// M51
+		var objectSurfaceBrightness = 21.6609,
+			bkgndBrightEye = 21.6,
+			expected = {
+				contrastPercent: 94.55,
+				objectPlusSkyBackgroundSurfaceBrightness: 20.88
+			},
+		    results = calcContrastOfObjectPlusSkyToSky2(objectSurfaceBrightness, bkgndBrightEye);
+
+		equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
+		equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
 	});
 
 	QUnit.module('calcNewtBaffle');
