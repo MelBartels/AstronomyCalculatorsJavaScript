@@ -99,7 +99,15 @@ thead tr th:first-child, tbody tr td:first-child {
 	width: 30em;
 }
 
-#magnificationTable td, #apparentFOV td, #CGTable td, #visualInputsTable td, #visualDetectionResultsTable td {
+#magnificationTable td,
+#apparentFOV td,
+#CGTable td,
+#visualInputsTable td,
+#visualDetectionResultsTable td,
+#starCountTable td,
+#exitPupilTable td,
+#maxApertureTable td,
+#M31compareTable td {
 	table-layout: fixed;
 	width: auto; !important
 }
