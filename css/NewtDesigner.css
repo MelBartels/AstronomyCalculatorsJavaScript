@@ -95,6 +95,24 @@ td.fitWidth {
     white-space: nowrap;
 }
 
+td.lightgreyCell {
+	background-color: lightgrey;
+	align: right;
+}
+
+td.darkgreyCell {
+	background-color: darkgrey;
+	align: right;
+}
+
+td.lightGreenCell {
+	background-color: rgb(102, 255, 153);
+}
+
+td.darkGreenCell {
+	background-color: rgb(80, 200, 120);
+}
+
 thead tr th:first-child, tbody tr td:first-child {
 	width: 30em;
 }
@@ -110,6 +128,22 @@ thead tr th:first-child, tbody tr td:first-child {
 #M31compareTable td {
 	table-layout: fixed;
 	width: auto; !important
+}
+
+#telescopeEyepieceMode {
+	border: 0;
+	border-collapse: collapse;	
+	cellpadding: 3;
+	cellspacing: 0;
+}
+
+#telescopeEyepieceMode tr {
+	height: 25px;
+}
+
+#telescopeEyepieceMode td {
+	table-layout: fixed;
+	width: auto; !important;
 }
 
 .magnificationTable {
