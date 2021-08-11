@@ -770,6 +770,23 @@ copyright Mel Bartels, 2016 - 2021-->
 			</div>
 
 			<br><br>
+			<div id='apertureEyepieceFOV'></div>
+			<button class='accordion' id='btnApertureEyepieceFOV'>Relationship between aperture, eyepiece, the eye, field of view and etendue</button>
+			<div class='panel'>
+
+				<p>Use a coma corrector? <input id='chBoxAEFUseComaCorrector' type='checkbox'>
+				select <select id='AEFComaCorrectorSelect'></select>
+				magnification factor<input class='inputText' id='AEFComaCorrectorMag' onfocus='select();' type='text'><br>
+				Select eyepiece <select id='AEFEyepieceSelect'></select>
+				
+<!-- note todo -->
+
+				<p>...in progress...<br>
+				<img alt='' loading='lazy' src='aperture - eyepiece - FOV.jpg'>
+
+			</div>
+
+			<br><br>
 			<div id='turbulence'></div>
 			<button class='accordion' id='btnTurbulence'>Notes on seeing and atmospheric turbulence</button>
 			<div class='panel'>
@@ -830,6 +847,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			</div>
 
 			<br><br>
+
 			<div id='airy'></div>
 			<button class='accordion' id='btnAiry'>What you need to know about the Airy Disk</button>
 			<div class='panel'>
@@ -1186,7 +1204,7 @@ copyright Mel Bartels, 2016 - 2021-->
 
 				<p>If your interest is digital imaging, then the mounting and camera matter more than the optics. Select a nice quality small refractor. A combination like this will keep you busy for many years as you learn how to image and process your digital captures to perfection.
 
-				<p>For ambitious telescope makers and observers, consider going F3. We know from observations that more aperture, even at low power, shows more than less aperture (though admittedly the smaller aperture does not lag badly in many cases). Pick the focal length for the telescope that you can handle, e.g., 6 foot [1800mm] focal length to avoid a ladder, then select the largest fastest aperture you can make or purchase. For an F3, 6 foot [1800mm] that means a 24 inch [60cm] F3 primary. This telescope will give you the greatest etendue, or light flux, possible, given your eye's pupil. For higher magnification, we want to continue to maximize the etendue, so this means a longer focal length, larger F3 aperture. Similarly very low power at maximum etendue can be obtained through a F3 Richest Field Telescope, say 3-6 inches [76mm to 152mm] aperture. Changing magnifications to fit the object's size, we select from small, medium and large scopes. I call this 'telescope mode'. Eventually we will desire more magnification than we have aperture, so then we switch to 'eyepiece mode', where we use higher and higher power eyepieces as desired.
+				<p>For ambitious telescope makers and observers, consider going F3. We know from observations that more aperture, even at low power, shows more than less aperture. Pick the focal length for the telescope that you can handle, e.g., 6 foot [1800mm] focal length to avoid a ladder, then select the largest fastest aperture you can make or purchase. For an F3, 6 foot [1800mm] that means a 24 inch [60cm] F3 primary. This telescope will give you the greatest etendue, or light flux, possible, given your eye's pupil. For higher magnification, we want to continue to maximize the etendue, so this means a longer focal length, larger F3 aperture. Similarly very low power at maximum etendue can be obtained through a F3 Richest Field Telescope, say 3-6 inches [76mm to 152mm] aperture. Changing magnifications to fit the object's size, we select from small, medium and large scopes. I call this 'telescope mode'. Eventually we will desire more magnification than we have aperture, so then we switch to 'eyepiece mode', where we use higher and higher power eyepieces as desired.
 
 				<p>Alternatively, if your interest is exquisite planetary, lunar and double star viewing, consider selecting for the longest possible focal length you can manage, then select aperture to keep the focal ratio slow at F8 to F10. At this point you will no doubt be looking at more exotic optical designs, but the lowly Newtonian is indeed hard to beat at long focal ratios for the finest in planetary detail.
 
@@ -1194,7 +1212,7 @@ copyright Mel Bartels, 2016 - 2021-->
 
 				<p>You will also face a choice between manual push-to movements and motorized motions controlled by a computer. Push-to requires learning the placement of objects within constellations, star hopping from prominent stars. Computerized scopes will 'goto' the object for you. 'Goto' is especially useful in light polluted city skies where star hopping suffers from lack of starting stars and fainter constellations are harder to see. Star hopping also allows you to enjoy the scenery as you hop from star to star, viewing unexpected objects along the way though it can take considerable time to find a dim object.
 
-				<p>Finally, there are two approaches to observing objects: visually through an eyepiece or capturing the object with a digital camera, processing the image later. There is a third new emerging choice, electronically assisted astronomy (EAA), that splits into a couple of choices: near real time observing by short exposure stacking and night vision (NV) observing.
+				<p>Finally, there are two approaches to observing objects: visually through an eyepiece or capturing the object with a digital camera, processing the image later. There is a third new emerging choice, electronically assisted astronomy (EAA), that splits into a couple of choices: near real time observing by short exposure stacking and night vision (NV) observing. You can buy all-in-one electronic scopes too.
 
 				<p>Never have amateurs had such a palette to choice from. It is bewildering, and challenging to buy quality equipment while staying within budget. A good idea is to join the local astronomy club; many amateurs are eager to share. And the local club may have a lending library where you can check out a telescope, perhaps even a digital camera.
 
@@ -1850,6 +1868,7 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil
 				<p>Etendue/luminance = aperture area * true field of view area (cm^2deg^2) = eye pupil area * eyepiece apparent field of view area (cm^2deg^2)
 				<p>Focal ratio that maximizes etendue = eyepiece focal length / eye pupil, the focal ratio of the eyepiece and eye; further divide by any coma corrector magnification factor
+				<p>Magnification = aperture / exit pupil
 			</div>
 		</div>
 
@@ -1857,7 +1876,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<p>Select an object from the catalog or enter the object total magnitude and object size as commonly given in catalogs. The program will calculate the surface brightness along with the surface brightness at magnification. Other useful values are calculated and displayed. These values are then used to search through the Blackwell data to determine object visibility for a range of apertures. Detection thresholds for various eye pupils are plotted as long as the object fits into the magnified field. Simple contrast is also calculated, which when combined with object apparent size, is an useful approach to predicting object visibility. For more, see the notes below.
 
 			<p>Search for an object from the catalog
-			<input class='inputText' id='searchObjectString' value='NGC 1499' onfocus='select()' type='text'>
+			<input class='inputText' id='searchObjectString' value='M 20' onfocus='select()' type='text'>
 			<input value='Search catalog' id='btnSearchObjectCatalog' type='button'>
 			Select from matched objects <select id='matchedObjectsSelect'></select>
 
@@ -1868,7 +1887,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Object name =
 				</td>
 				<td>
-					<input class='inputText' id='objectName' value='California Neb' onfocus='select()' type='text'>
+					<input class='inputText' id='objectName' value='M 20' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1876,7 +1895,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Object apparent magnitude =
 				</td>
 				<td>
-					<input class='inputText' id='objectApparentMagnitude' value='5' onfocus='select()' type='text'>
+					<input class='inputText' id='objectApparentMagnitude' value='6.3' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1884,8 +1903,8 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Object size (arcminutes) =
 				</td>
 				<td>
-					<input class='inputText' id='objectSizeArcMin1' value='40' onfocus='select()' type='text'>
-					by <input class='inputText' id='objectSizeArcMin2' value='145' onfocus='select()' type='text'>
+					<input class='inputText' id='objectSizeArcMin1' value='28' onfocus='select()' type='text'>
+					by <input class='inputText' id='objectSizeArcMin2' value='28' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1909,6 +1928,8 @@ copyright Mel Bartels, 2016 - 2021-->
 			</table>
 
 			<div id='visualDetectionResultsTable'>
+			</div>
+			<div id='visualDetectionCalcChart'>
 			</div>
 
 			<h3>Magnitude adder</h3>
@@ -4169,6 +4190,7 @@ copyright Mel Bartels, 2016 - 2021-->
 				<li><a href='#focalLengthApertureFocalRatio'>#focalLengthApertureFocalRatio</a>
 				<li><a href='#comparingAperture'>#comparingAperture</a>
 				<li><a href='#apertureManagement'>#apertureManagement</a>
+				<li><a href='#apertureEyepieceFOV'>#apertureEyepieceFOV</a>
 				<li><a href='#turbulence'>#turbulence</a>
 				<li><a href='#airy'>#airy</a>
 				<li><a href='#telescopeValue'>#telescopeValue</a>
