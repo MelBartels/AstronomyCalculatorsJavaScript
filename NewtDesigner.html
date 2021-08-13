@@ -774,16 +774,21 @@ copyright Mel Bartels, 2016 - 2021-->
 			<button class='accordion' id='btnApertureEyepieceFOV'>Relationship between aperture, eyepiece, the eye, field of view and etendue</button>
 			<div class='panel'>
 
-				<p>Use a coma corrector? <input id='chBoxAEFUseComaCorrector' type='checkbox'>
+				<p>Select eyepiece <select id='AEFEyepieceSelect'></select><br>
+				Use a coma corrector? <input id='chBoxAEFUseComaCorrector' checked='checked' type='checkbox'>
 				select <select id='AEFComaCorrectorSelect'></select>
-				magnification factor<input class='inputText' id='AEFComaCorrectorMag' onfocus='select();' type='text'><br>
-				Select eyepiece <select id='AEFEyepieceSelect'></select>
+				magnification factor <input class='inputText' id='AEFComaCorrectorMag' onfocus='select();' value='1.15' type='text'><br>
+				Limit eye pupil (mm) to <input class='inputText' id='AEFPupil' onfocus='select();' value='7' type='text'><br>
+				<!-- FOV of M42 -->
+				True field of view (deg) <input class='inputText' id='AEFFOVDeg' onfocus='select();' value='1.5' type='text'>
 				
-<!-- note todo -->
-
-				<p>...in progress...<br>
-				<img alt='' loading='lazy' src='aperture - eyepiece - FOV.jpg'>
-
+				<p><b>Results:</b><br>
+				<label id='AEFResultsLabel'></label>
+				
+				<p><img alt='' loading='lazy' src='aperture - eyepiece - FOV.jpg'>				
+				<p>What aperture best covers an object, say, the Orion Nebula (M 42), which is 1.5 x 1 degree in size? Besides setting the field of view, this calculator includes selecting the eyepiece that you have in mind and the pupil of your dark adapted eye.
+				<p>This graphic shows the relationship between field of view an aperture, mediated by eyepiece and the eye's pupil, along with etendue.
+				<p>The best way see the wide variety of astronomical objects is to have two or three scopes of varying size, using the smaller scopes at their widest field. This is 'telescope mode' viewing. For smaller objects, the largest aperture with higher power eyepieces will be necessary: this is 'eyepiece mode'.
 			</div>
 
 			<br><br>
@@ -1865,10 +1870,12 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>Eyepiece focal length = focal ratio * eye pupil (better known as, eye pupil = eyepiece focal length / focal ratio)
 				<p>Eyepiece field stop = telescope focal length * true field of view
 				<p>Aperture * true field of view * focal ratio = eyepiece field stop
-				<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * eye pupil
+				<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * exit pupil
+				<p>Aperture = exit pupil * eyepiece field stop / eyepiece focal length / true field of view
+				<p>aperture = eye pupil * true field of view / objectSize
+				<p>Magnification = aperture / exit pupil
 				<p>Etendue/luminance = aperture area * true field of view area (cm^2deg^2) = eye pupil area * eyepiece apparent field of view area (cm^2deg^2)
 				<p>Focal ratio that maximizes etendue = eyepiece focal length / eye pupil, the focal ratio of the eyepiece and eye; further divide by any coma corrector magnification factor
-				<p>Magnification = aperture / exit pupil
 			</div>
 		</div>
 
@@ -1876,7 +1883,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<p>Select an object from the catalog or enter the object total magnitude and object size as commonly given in catalogs. The program will calculate the surface brightness along with the surface brightness at magnification. Other useful values are calculated and displayed. These values are then used to search through the Blackwell data to determine object visibility for a range of apertures. Detection thresholds for various eye pupils are plotted as long as the object fits into the magnified field. Simple contrast is also calculated, which when combined with object apparent size, is an useful approach to predicting object visibility. For more, see the notes below.
 
 			<p>Search for an object from the catalog
-			<input class='inputText' id='searchObjectString' value='M 20' onfocus='select()' type='text'>
+			<input class='inputText' id='searchObjectString' value='NGC 1275' onfocus='select()' type='text'>
 			<input value='Search catalog' id='btnSearchObjectCatalog' type='button'>
 			Select from matched objects <select id='matchedObjectsSelect'></select>
 
@@ -1887,7 +1894,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Object name =
 				</td>
 				<td>
-					<input class='inputText' id='objectName' value='M 20' onfocus='select()' type='text'>
+					<input class='inputText' id='objectName' value='NGC 1275' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1895,7 +1902,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Object apparent magnitude =
 				</td>
 				<td>
-					<input class='inputText' id='objectApparentMagnitude' value='6.3' onfocus='select()' type='text'>
+					<input class='inputText' id='objectApparentMagnitude' value='11.9' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1903,8 +1910,8 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Object size (arcminutes) =
 				</td>
 				<td>
-					<input class='inputText' id='objectSizeArcMin1' value='28' onfocus='select()' type='text'>
-					by <input class='inputText' id='objectSizeArcMin2' value='28' onfocus='select()' type='text'>
+					<input class='inputText' id='objectSizeArcMin1' value='2.3' onfocus='select()' type='text'>
+					by <input class='inputText' id='objectSizeArcMin2' value='1.6' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -1912,7 +1919,7 @@ copyright Mel Bartels, 2016 - 2021-->
 					 Sky background brightness =
 				</td>
 				<td>
-					<input class='inputText' id='skyBackgroundBrightnessUnaidedEye' value='21.5' onfocus='select()' type='text'>
+					<input class='inputText' id='skyBackgroundBrightnessUnaidedEye' value='21.6' onfocus='select()' type='text'>
 				</td>
 			</tr>
 			<tr>
@@ -4275,7 +4282,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 15-July-2021
+				Last updated 13-August-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
