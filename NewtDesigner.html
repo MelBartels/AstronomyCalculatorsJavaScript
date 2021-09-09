@@ -792,6 +792,27 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>The best way see the wide variety of astronomical objects is to have two or three scopes of varying size, using the smaller scopes at their widest field. This is 'telescope mode' viewing. For smaller objects, the largest aperture with higher power eyepieces will be necessary: this is 'eyepiece mode'.
 			</div>
 
+<!-- note todo -->
+			<br><br>
+			<div id='resolution'></div>
+			<button class='accordion' id='btnResolution'>Resolution</button>
+			<div class='panel'>
+			
+				<p>Resolution is set by the diameter of the main optic, this due to the diffractive nature of light. Dawes determined empirically that resolution of two stars of the same brightness and not too bright is about 4.6 / aperture inches or 240 / aperture millimeters. For example, roughly speaking, a 5 inch [125mm] telescope can resolve a double star of one arc-second separation, a 10 inch [25mm] resolves 1/2 arc-second.
+				<p>That doesn't mean that we cannot see thinner objects, for example, we can see very thin black wire against a blue sky, though we cannot resolve the line's thickness.
+				<p>A central obstruction acts to shrink the Airy disc slightly and dump this light into the rings. This lessons the resolution of close-in detail and slightly increases resolution of coarser detail. An obstruction of 1/5 diameter ratio (e.g., a secondary of size '2' with a primary of size '10'or 20% has a negligible impact on resolution while an obstruction of 1/3 or 33% has an observable impact. Even so, the impact on the finest resolvable detail is minimal. However, obstructions greater than 40% should be avoided.
+				<p>Adding aperture makes up the difference. For example, a telescope of size '10' with a secondary of size '2' is equivalent to an unobstructed telescope of size '8'. This is also true for optical quality, in that a larger optic of 1/4 wave front will resolve better than a smaller perfect optic.
+				<p>Put another way, an obstruction of 1/3 or 33% has the impact of adding spherical aberration of 1/4 wave front; an obstruction of 1/5 or 20% is equivalent to a wave front rating of 1/8. Combining real life optical quality with central obstruction means that a telescope with a central obstruction of 1/4 or 25% and spherical aberration of 1/4 wave front degrades the image equal to that of an unobstructed telescope of 1/3 wave front, which no longer meets the criteria of resolution.
+				<p>However we should be mindful of numbers and their subjective impact. The difference between 1/4 and 1/3 is but 1/12, small indeed. So it is a gradual decay of optical quality.
+				<p>The Rayleigh criteria for resolution says that the optical error should be no more than 1/4 wave front, meaning that the performance of the optics is dominated by the diffractive nature of light, not the optical aberrations.
+				<p>The Marechal criteria says that the optical quality should be 1/14 wave RMS (as distinguished from PV or Peak-Valley); a smooth spherical aberration of 1/4 wave front being equivalent to 1/14 RMS.
+				<p>The Francon criteria says that an optical system that is 1/16 P-V at the wavefront can be deemed perfect or indistinguishable from an optical system with no aberrations or errors.
+				<p>A telescope of lowered optical quality is more impacted by seeing, since the optics are closer to the edge of unsatisfactory.
+				<p>A lack of perfect focus and a lack of adequate optical alignment also act to degrade optical performance.
+				<p>An aberration on a lens produces 1/4 the error that of a mirror.
+				<p>Smaller mirrors up to 12 inches [30cm] should be at least 1/8 P-V wave front and smooth (an RMS of about 1/30 wave front) and larger mirrors at least 1/5 P-V (1/18 RMS wave front). Larger mirrors can be plagued by zones therefore the RMS becomes an increasingly important measure. Lower quality than this readily shows at the eyepiece.
+			</div>
+
 			<br><br>
 			<div id='turbulence'></div>
 			<button class='accordion' id='btnTurbulence'>Notes on seeing and atmospheric turbulence</button>
@@ -1869,11 +1890,11 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>Mirror diameter = eyepiece field stop * eye pupil * 57.3 / (true field of view * eyepiece focal length * 25.4)
 				<p>Telescope focal length = focal ratio * aperture (better known as, focal ratio = telescope focal length / aperture)
 				<p>Eyepiece focal length = focal ratio * eye pupil (better known as, eye pupil = eyepiece focal length / focal ratio)
-				<p>Eyepiece field stop = telescope focal length * true field of view
-				<p>Aperture * true field of view * focal ratio = eyepiece field stop
+				<p>Eyepiece field stop = aperture * true field of view * focal ratio * 0.443 mm/in-deg
+				<p>Eyepiece field stop = telescope focal length * true field of view * 0.443 mm/in-deg
 				<p>Aperture * true field of view * eyepiece focal length = eyepiece field stop * exit pupil
 				<p>Aperture = exit pupil * eyepiece field stop / eyepiece focal length / true field of view
-				<p>aperture = eye pupil * true field of view / objectSize
+				<p>Aperture = eye pupil * true field of view / object size
 				<p>Magnification = aperture / exit pupil
 				<p>Etendue/luminance = aperture area * true field of view area (cm^2deg^2) = eye pupil area * eyepiece apparent field of view area (cm^2deg^2)
 				<p>Focal ratio that maximizes etendue = eyepiece focal length / eye pupil, the focal ratio of the eyepiece and eye; further divide by any coma corrector magnification factor
@@ -4209,6 +4230,7 @@ copyright Mel Bartels, 2016 - 2021-->
 				<li><a href='#comparingAperture'>#comparingAperture</a>
 				<li><a href='#apertureManagement'>#apertureManagement</a>
 				<li><a href='#apertureEyepieceFOV'>#apertureEyepieceFOV</a>
+				<li><a href='#resolution'>#resolution</a>
 				<li><a href='#turbulence'>#turbulence</a>
 				<li><a href='#airy'>#airy</a>
 				<li><a href='#telescopeValue'>#telescopeValue</a>
@@ -4293,7 +4315,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 20-August-2021
+				Last updated 9-Sept-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
