@@ -158,6 +158,7 @@ copyright Mel Bartels, 2016 - 2021-->
 				</td>
 				<td>
 					<input class='inputText' id='focalPlaneToDiagDistance' value='8.5' onfocus='select();' type='text'>
+					<input id='btnCalcFocalPlaneToDiagDistanceFromFocuserDesigner' value='Calculate using focuser designer' type='button'>
 				</td>
 			</tr>
 			<tr>
@@ -792,7 +793,6 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>The best way see the wide variety of astronomical objects is to have two or three scopes of varying size, using the smaller scopes at their widest field. This is 'telescope mode' viewing. For smaller objects, the largest aperture with higher power eyepieces will be necessary: this is 'eyepiece mode'.
 			</div>
 
-<!-- note todo -->
 			<br><br>
 			<div id='resolution'></div>
 			<button class='accordion' id='btnResolution'>Resolution</button>
@@ -806,11 +806,16 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>However we should be mindful of numbers and their subjective impact. The difference between 1/4 and 1/3 is but 1/12, small indeed. So it is a gradual decay of optical quality.
 				<p>The Rayleigh criteria for resolution says that the optical error should be no more than 1/4 wave front, meaning that the performance of the optics is dominated by the diffractive nature of light, not the optical aberrations.
 				<p>The Marechal criteria says that the optical quality should be 1/14 wave RMS (as distinguished from PV or Peak-Valley); a smooth spherical aberration of 1/4 wave front being equivalent to 1/14 RMS.
-				<p>The Francon criteria says that an optical system that is 1/16 P-V at the wavefront can be deemed perfect or indistinguishable from an optical system with no aberrations or errors.
+				<p>An optical system that is 1/16 P-V at the wavefront can be deemed perfect or indistinguishable from an optical system with no aberrations or errors.
 				<p>A telescope of lowered optical quality is more impacted by seeing, since the optics are closer to the edge of unsatisfactory.
 				<p>A lack of perfect focus and a lack of adequate optical alignment also act to degrade optical performance.
 				<p>An aberration on a lens produces 1/4 the error that of a mirror.
 				<p>Smaller mirrors up to 12 inches [30cm] should be at least 1/8 P-V wave front and smooth (an RMS of about 1/30 wave front) and larger mirrors at least 1/5 P-V (1/18 RMS wave front). Larger mirrors can be plagued by zones therefore the RMS becomes an increasingly important measure. Lower quality than this readily shows at the eyepiece.
+				
+<!-- note todo 
+				<h4>Planetary resolution</h4>
+				<p>
+-->
 			</div>
 
 			<br><br>
@@ -2079,12 +2084,16 @@ copyright Mel Bartels, 2016 - 2021-->
 				<p>Averted vision works best if you know where to aim your eyes in the field of view. Here's a chart to help.<br>
 				<img alt='' loading='lazy' id='Graphic1' name='Graphic1' src='avertvis.gif'>
 
-				<p>Move your averted vision zone around the field of view as you desire. Look for a bit here, look for a bit there (your scan pattern), as the objects in the field need. Do not try to fixate on the center of the field! For one thing, this mis-places the zone of averted vision towards the bottom of the field, for another thing, it is not possible to prevent the eye from moving. Several times a second, your eye jumps (a saccade). Between these jumps the eye gathers information. Even between saccades, the eye is jittering. Finally, if you stare too long as a single point, objects will literally begin to disappear from your view. Finally, move the scope in addition to your eye: this helps to 'pop' objects into conscious visibility.
+				<p>Move your averted vision zone around the field of view as you desire. Look for a bit here, look for a bit there (your scan pattern), as the objects in the field need. Do not try to fixate on the center of the field! For one thing, this mis-places the zone of averted vision towards the bottom of the field, for another thing, it is not possible to prevent the eye from moving. Several times a second, your eye jumps (a saccade). Between these jumps the eye gathers information. Even between saccades, the eye is jittering. Finally, if you stare too long as a single point, objects will literally begin to disappear from your view. In a sense, seeing is reflective: if the eye didn't move then little could be seen. Move the scope in addition to your eye: this helps to 'pop' objects into conscious visibility.
+				
+				<p>An experienced observer comes to the eyepiece starting with a visual memory of the object that has been built up from previous sessions. If not the particular object, then the object type. The object is tackled in a systematic manner, moving from easiest highest contrast features to medium contrast to low contrast to difficult detail. Each detail is studied, forming a visual memory that sets the stage for the next level of detail or adjoining features. The subsequent night resumes with the object in mind, checking off from easy to hard and adding new detail now visible.
+				
+				<p>Take breaks, drink some water, remember to blink your eye; try different eyepieces and filters.
 
-				<p>One more bit of advice. Eye shields that block extraneous light, even natural dark-sky light, are amazingly effective. Here's an example:<br>
+				<p>Eye shields that block extraneous light, even natural dark-sky light, are amazingly effective. Here's an example:<br>
 				<img alt='' loading='lazy' src='osp01/chuck-shield.jpg'>
 
-				<p>Oh, and yet one more bit of advice: look down at the dark ground as much possible - your night vision is affected deleteriously by looking up at the sky for too long of periods of time.
+				<p>Look down at the dark ground as much possible - your night vision is affected deleteriously by looking up at the sky for too long of periods of time.
 
 				<p><a href='drawings.html' target='_blank'>Here are very faint objects that I've sketched using this simple natural technique.</a>
 			</div>
@@ -4315,7 +4324,7 @@ copyright Mel Bartels, 2016 - 2021-->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 9-Sept-2021
+				Last updated 12-Sept-2021
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
