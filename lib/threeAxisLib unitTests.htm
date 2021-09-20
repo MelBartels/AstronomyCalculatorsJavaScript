@@ -4,16 +4,16 @@
 	<title>QUnit test for threeAxisLib.js</title>
 	
 	<!--
-	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-2.17.1.css' />
 	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
-	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-2.17.1.js'></script>
 
 	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
 	-->
 	
-	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='qunit/qunit-2.17.1.css' />
 	<script src='jquery/jquery-2.1.1.min.js'></script>
-	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='qunit/qunit-2.17.1.js'></script>
 
 	<script src='sharedLib.js'></script>
 	<script src='coordLib.js'></script>
@@ -39,7 +39,7 @@
 	// test values from three axis mount simulation by Steve Joiner:
 	// alt: 56.4, az: 208.1, HA: 15.3, Dec 9.3, FR 353.5, a1: 57.3, a2 -8.2, a3: 195.6, Lat: 40.0
 
-	QUnit.test('validRev', function () {
+	QUnit.test('validRev', assert => {
 		var allowedErrorDeg = 0.1,
 		    modelAltDeg = 56.4,
 			modelAzDeg = 208.1,
@@ -53,12 +53,12 @@
 			result;
 		
 		// test for model's existence
-		equal(model !== 'undefined' && model !== null, true, 'model should be something');
+		assert.equal(model !== 'undefined' && model !== null, true, 'model should be something');
 		
 		// test get/set
 		model.lat = modelLatDeg * uom.degToRad;
 		result = model.lat / uom.degToRad;		
-		equal(withinRange(result, modelLatDeg, allowedErrorDeg), true, 'latitude should be ' + modelLatDeg + ', is ' + result);
+		assert.equal(withinRange(result, modelLatDeg, allowedErrorDeg), true, 'latitude should be ' + modelLatDeg + ', is ' + result);
 		
 		// test altaz coords changed
 		model.az = modelAzDeg * uom.degToRad;
@@ -66,17 +66,17 @@
 		model.FR = modelFRDeg * uom.degToRad;
 		altazToA3();
 		result = model.a1 / uom.degToRad;
-		equal(withinRange(result, modelA1Deg, allowedErrorDeg), true, 'altazChanged: a1 should be ' + modelA1Deg + ', is ' + result);
+		assert.equal(withinRange(result, modelA1Deg, allowedErrorDeg), true, 'altazChanged: a1 should be ' + modelA1Deg + ', is ' + result);
 		result = model.a2 / uom.degToRad;
-		equal(withinRange(result, modelA2Deg, allowedErrorDeg), true, 'altazChanged: a2 should be ' + modelA2Deg + ', is ' + result);
+		assert.equal(withinRange(result, modelA2Deg, allowedErrorDeg), true, 'altazChanged: a2 should be ' + modelA2Deg + ', is ' + result);
 		result = model.a3 / uom.degToRad;
-		equal(withinRange(result, modelA3Deg, allowedErrorDeg), true, 'altazChanged: a3 should be ' + modelA3Deg + ', is ' + result);
+		assert.equal(withinRange(result, modelA3Deg, allowedErrorDeg), true, 'altazChanged: a3 should be ' + modelA3Deg + ', is ' + result);
 		result = model.FR / uom.degToRad;
-		equal(withinRange(result, modelFRDeg, allowedErrorDeg), true, 'altazChanged: FR should be ' + modelFRDeg + ', is ' + result);
+		assert.equal(withinRange(result, modelFRDeg, allowedErrorDeg), true, 'altazChanged: FR should be ' + modelFRDeg + ', is ' + result);
 		result = model.HA / uom.degToRad;
-		equal(withinRange(result, modelHADeg, allowedErrorDeg), true, 'altazChanged: HA should be ' + modelHADeg + ', is ' + result);
+		assert.equal(withinRange(result, modelHADeg, allowedErrorDeg), true, 'altazChanged: HA should be ' + modelHADeg + ', is ' + result);
 		result = model.Dec / uom.degToRad;
-		equal(withinRange(result, modelDecDeg, allowedErrorDeg), true, 'altazChanged: Dec should be ' + modelDecDeg + ', is ' + result);
+		assert.equal(withinRange(result, modelDecDeg, allowedErrorDeg), true, 'altazChanged: Dec should be ' + modelDecDeg + ', is ' + result);
 		
 	});
 

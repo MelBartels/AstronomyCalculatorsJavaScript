@@ -5,17 +5,9 @@
 <head>
 	<title>QUnit test for holomaskLib.js</title>
 	
-	<!--
-	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
-	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
-	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
-	
-	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
-	-->
-	
-	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='qunit/qunit-2.17.1.css' />
 	<script src='jquery/jquery-2.1.1.min.js'></script>
-	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='qunit/qunit-2.17.1.js'></script>
 
 	<script src="sharedLib.js"></script>
 	<script src="phpjs.js"></script>
@@ -66,7 +58,7 @@
 	$slit_size	string	".1"	
 	*/
 
-	QUnit.test('calcParms', function () {
+	QUnit.test('calcParms', assert => {
 		var allowedError = 0.0000000000001,
 		    expected = {
 				mirrorRadiusMm: 25,
@@ -82,14 +74,14 @@
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
 
-		equal(withinRange(parms.mirrorRadiusMm, expected.mirrorRadiusMm, allowedError), true, 'mirrorRadiusMm should be ' + expected.mirrorRadiusMm + ', is ' + parms.mirrorRadiusMm);
-		equal(withinRange(parms.l, expected.l, allowedError), true, 'l (reference zone) should be ' + expected.l + ', is ' + parms.l);
-		equal(withinRange(parms.requiredSpacing, expected.requiredSpacing, allowedError), true, 'requiredSpacing should be ' + expected.requiredSpacing + ', is ' + parms.requiredSpacing);
-		equal(withinRange(parms.a, expected.a, allowedError), true, 'a (diffraction order separation in mm) should be ' + expected.a + ', is ' + parms.a);
-		equal(withinRange(parms.mirrorMeanPeriod, expected.mirrorMeanPeriod, allowedError), true, 'mirrorMeanPeriod should be ' + expected.mirrorMeanPeriod + ', is ' + parms.mirrorMeanPeriod);
-		equal(withinRange(parms.mirrorMaxPeriod, expected.mirrorMaxPeriod, allowedError), true, 'mirrorMaxPeriod should be ' + expected.mirrorMaxPeriod + ', is ' + parms.mirrorMaxPeriod);	
-		equal(withinRange(parms.mirrorMinPeriod, expected.mirrorMinPeriod, allowedError), true, 'mirrorMinPeriod should be ' + expected.mirrorMinPeriod + ', is ' + parms.mirrorMinPeriod);	
-		equal(withinRange(parms.deviation, expected.deviation, allowedError), true, ' deviation should be ' + expected.deviation + ', is ' + parms.deviation);	
+		assert.equal(withinRange(parms.mirrorRadiusMm, expected.mirrorRadiusMm, allowedError), true, 'mirrorRadiusMm should be ' + expected.mirrorRadiusMm + ', is ' + parms.mirrorRadiusMm);
+		assert.equal(withinRange(parms.l, expected.l, allowedError), true, 'l (reference zone) should be ' + expected.l + ', is ' + parms.l);
+		assert.equal(withinRange(parms.requiredSpacing, expected.requiredSpacing, allowedError), true, 'requiredSpacing should be ' + expected.requiredSpacing + ', is ' + parms.requiredSpacing);
+		assert.equal(withinRange(parms.a, expected.a, allowedError), true, 'a (diffraction order separation in mm) should be ' + expected.a + ', is ' + parms.a);
+		assert.equal(withinRange(parms.mirrorMeanPeriod, expected.mirrorMeanPeriod, allowedError), true, 'mirrorMeanPeriod should be ' + expected.mirrorMeanPeriod + ', is ' + parms.mirrorMeanPeriod);
+		assert.equal(withinRange(parms.mirrorMaxPeriod, expected.mirrorMaxPeriod, allowedError), true, 'mirrorMaxPeriod should be ' + expected.mirrorMaxPeriod + ', is ' + parms.mirrorMaxPeriod);	
+		assert.equal(withinRange(parms.mirrorMinPeriod, expected.mirrorMinPeriod, allowedError), true, 'mirrorMinPeriod should be ' + expected.mirrorMinPeriod + ', is ' + parms.mirrorMinPeriod);	
+		assert.equal(withinRange(parms.deviation, expected.deviation, allowedError), true, ' deviation should be ' + expected.deviation + ', is ' + parms.deviation);	
 	});
 			
 	/* from php:
@@ -106,14 +98,14 @@
 	Deviation from sphere (lambda)	-0.63578287760417
 	Wavelength and tolerance, PV=lambda/10 (nm)	600 +- 47.18592
 	*/
-	QUnit.test('buildContentPreamble', function () {
+	QUnit.test('buildContentPreamble', assert => {
 		var expected = "<h3>Results</h3><table><tr><td>Diffraction order m</td><td>1</td></tr><tr><td>Mirror diameter (mm)</td><td>50</td></tr><tr><td>Mirror radius of curvature (mm)</td><td>400</td></tr><tr><td>Conic</td><td>-1<br><tr><td>Wavelength (nm)</td><td>600</td></tr><tr><td>Diffraction order separation (mm)</td><td>0.1244140625</td></tr><tr><td>Max slit size (mm)</td><td>0.1</td></tr><tr><td>Resolution on mirror,max period (mm)</td><td>2.4</td></tr><tr><td>min period (mm)</td><td>1.6125984251968504</td></tr><tr><td>Deviation from sphere (lambda)</td><td>-0.6357828776041664</td></tr><tr><td>Wavelength and tolerance, PV = lambda/10 (nm)</td><td>600 +- 47.18592000000002</td></tr></table>";
 
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
 		buildContentPreamble();
 
-		equal(output.parms, expected, 'content preamble is ' + output.parms + ' should be ' + expected);
+		assert.equal(output.parms, expected, 'content preamble is ' + output.parms + ' should be ' + expected);
 	});
 	
 	/*
@@ -230,7 +222,7 @@
 	0 w
 	0.000 0.000 0.000 1.000 k
 	*/	
-	QUnit.test('generateEPSfileHeader', function () {
+	QUnit.test('generateEPSfileHeader', assert => {
 		var result, 
 		    expected = 
 			'%!PS-Adobe-2.0 EPSF-1.2' + '\n' +
@@ -351,7 +343,7 @@
 		generateEPSfileHeader();
 		result = output.fileContents;
 
-		equal(result, expected, result);
+		assert.equal(result, expected, result);
 	});
 
 	/*
@@ -2655,7 +2647,7 @@
 	%%Trailer
 	_E end
 	*/
-	QUnit.test('fringes', function () {
+	QUnit.test('fringes', assert => {
 		var result,
 		    expected = 
 		'%!PS-Adobe-2.0 EPSF-1.2\n' +
@@ -4966,11 +4958,11 @@
 		addCenterSpotAndFooter();
 
 		result = output.fileContents;
-		equal(result, expected, 'result is ' + result + ' should be ' + expected);
+		assert.equal(result, expected, 'result is ' + result + ' should be ' + expected);
 		// save MLB.holomaskLib.output.fileContents to a file, *.eps, then convert to Adobe PDF to view/print or go online http://convertepstojpg.com/
 	});	
 
-	QUnit.test('fringe count', function () {
+	QUnit.test('fringe count', assert => {
 		var result,
 		    expected = '<table><tr><td>Number of fringes</td><td>25</td></tr></table>';
 
@@ -4982,10 +4974,10 @@
 		addCenterSpotAndFooter();
 
 		result = output.fringeCount;
-		equal(result, expected, 'result is ' + result + ' should be ' + expected);
+		assert.equal(result, expected, 'result is ' + result + ' should be ' + expected);
 	});
 	
-	QUnit.test('extractGraphics', function () {
+	QUnit.test('extractGraphics', assert => {
 		var result,
 		    expected;
 
@@ -5000,19 +4992,19 @@
 
 		result = output.graphicLines.length;
 		expected = 2184;
-		equal(result, expected, 'graphicLines length is ' + result + ' should be ' + expected);
+		assert.equal(result, expected, 'graphicLines length is ' + result + ' should be ' + expected);
 
 		result = output.graphicLines[0];
 		expected = '7.05 72.28 m';
-		equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);
+		assert.equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);
 
 		result = output.graphicLines[2157];
 		expected = '135.62 63.78 l';
-		equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);		
+		assert.equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);		
 
 		result = output.graphicLines[output.graphicLines.length - 1];
 		expected = 'f';
-		equal(result, expected, 'graphicLines last line is ' + result + ' should be ' + expected);
+		assert.equal(result, expected, 'graphicLines last line is ' + result + ' should be ' + expected);
 	});
 	
 });

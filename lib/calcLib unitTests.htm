@@ -4,16 +4,16 @@
 	<title>QUnit test for calcLib.js</title>
 
 	<!--
-	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-2.17.1.css' />
 	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
-	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-2.17.1.js'></script>
 
 	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
 	-->
 
-	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='qunit/qunit-2.17.1.css' />
 	<script src='jquery/jquery-2.1.1.min.js'></script>
-	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='qunit/qunit-2.17.1.js'></script>
 	<script src='underscore/underscore-min.js'></script>
 
 	<script src="sharedLib.js"></script>
@@ -135,219 +135,219 @@
 
 	QUnit.module('sagitta');
 
-	QUnit.test('calcSagittaSpherical', function () {
+	QUnit.test('calcSagittaSpherical', assert => {
 		var result = calcSagittaSpherical(13, 3);
-		equal(withinRange(result, 0.271305, 0.000001), true, 'The sagitta should be 0.271305, is ' + result);
+		assert.equal(withinRange(result, 0.271305, 0.000001), true, 'The sagitta should be 0.271305, is ' + result);
 	});
 
-	QUnit.test('calcFocalRatio', function () {
+	QUnit.test('calcFocalRatio', assert => {
 		var result = calcFocalRatio(13, 0.2713051698409146);
-		equal(withinRange(result, 3, 0.000001), true, 'The focal ratio should be 3.0, is ' + result);
+		assert.equal(withinRange(result, 3, 0.000001), true, 'The focal ratio should be 3.0, is ' + result);
 	});
 
-	QUnit.test('calcSagittaParabolic', function () {
+	QUnit.test('calcSagittaParabolic', assert => {
 		var mirrorDia = 30,
 			focalRatio = 0.25,
 			expectedSphericalSagitta = 7.5,
 			result = calcSagittaParabolic(mirrorDia, focalRatio);
-		equal(result, expectedSphericalSagitta, 'sagitta is ' + result);
+		assert.equal(result, expectedSphericalSagitta, 'sagitta is ' + result);
 	});
 
-	QUnit.test('calcFocalRatioFromSphericalSagitta', function () {
+	QUnit.test('calcFocalRatioFromSphericalSagitta', assert => {
 		var result = calcFocalRatioFromSphericalSagitta(30, 7.5);
-		equal(withinRange(result, 0.25, 0.000001), true, 'The focal ratio should be 0.25, is ' + result);
+		assert.equal(withinRange(result, 0.25, 0.000001), true, 'The focal ratio should be 0.25, is ' + result);
 	});
 
 	// http://www.1728.org/sphere.htm and http://www.had2know.com/academics/spherical-cap-volume-surface-area-calculator.html
-	QUnit.test('calcSagittalVolume', function () {
+	QUnit.test('calcSagittalVolume', assert => {
 		var expected = 6.1439,
 			result = calcSagittalVolume(10, 4);
-		equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 
 		expected = 56287;
 		result = calcSagittalVolume(70, 37 / 70 / 2);
-		equal(withinRange(result, expected, 1), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 1), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcSagittalVolumeParabolic', function () {
+	QUnit.test('calcSagittalVolumeParabolic', assert => {
 		var expected = 6.1379,
 			result = calcSagittalVolumeParabolic(10, 4);
-		equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcSagittalVolumeRemovedDuringParabolization', function () {
+	QUnit.test('calcSagittalVolumeRemovedDuringParabolization', assert => {
 		var expected = 0.006,
 			result = calcSagittalVolumeRemovedDuringParabolization(10, 4);
-		equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.0001), true, 'The sagittal volume should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches', function () {
+	QUnit.test('glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches', assert => {
 		var expected =  0.030915,
 			result = glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches(10, 5);
 		// area increase for F5 should be from 78.54 square inches to 78.59 square inches
-		equal(withinRange(result, expected, 0.000001), true, 'Glass removed from a 10 inch F5 during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.000001), true, 'Glass removed from a 10 inch F5 during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
 
 		expected =  0.030921;
 		// essentially flat mirror
 		result = glassRemovalDuringPolishingFrom10MicronAluminumOxideCubicInches(10, 100);
 		// area increase for F5 should be from 78.54 square inches to 78.59 square inches
-		equal(withinRange(result, expected, 0.000001), true, 'Glass removed from a 10 inch F100 during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.000001), true, 'Glass removed from a 10 inch F100 during polishing from 10 micron aluminum oxide should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('inchesToWavesGreenLight', function () {
+	QUnit.test('inchesToWavesGreenLight', assert => {
 		var sphereParabolaDifferenceInches = 0.000579, // 16" f3
 			expected = 26.31,
 			result = inchesToWavesGreenLight(sphereParabolaDifferenceInches);
-		equal(withinRange(result, expected, 0.01), true, 'converting from inches to waves of green light should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'converting from inches to waves of green light should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcRotatingFurnaceRPM', function () {
+	QUnit.test('calcRotatingFurnaceRPM', assert => {
 		var focalLengthMeters = 2,
 			expected = 14.95,
 			result = calcRotatingFurnaceRPM(focalLengthMeters);
-		equal(withinRange(result, expected, 0.01), true, 'rotating furnance RPM for focal length in meters of ' + focalLengthMeters + ' should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'rotating furnance RPM for focal length in meters of ' + focalLengthMeters + ' should be ' + expected + ', is ' + result);
 	});
 
 	QUnit.module('diagonal sizing');
 
-	QUnit.test('calcOffAxisIllumination', function () {
+	QUnit.test('calcOffAxisIllumination', assert => {
 		var result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0.5);
-		equal(withinRange(result, 0.878, 0.001), true, 'The off-axis illumination should be .878, is ' + result);
+		assert.equal(withinRange(result, 0.878, 0.001), true, 'The off-axis illumination should be .878, is ' + result);
 
 		result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0.1);
-		equal(withinRange(result, 0.999, 0.001), true, 'The off-axis illumination should be .999, is ' + result);
+		assert.equal(withinRange(result, 0.999, 0.001), true, 'The off-axis illumination should be .999, is ' + result);
 
 		result = calcOffAxisIllumination(13.2, 40.3, 3.1, 9, 0);
-		equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
+		assert.equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
 
 		result = calcOffAxisIllumination(13.2, 40.3, 3.5, 9, 0.5);
-		equal(withinRange(result, 0.973, 0.001), true, 'The off-axis illumination should be .973, is ' + result);
+		assert.equal(withinRange(result, 0.973, 0.001), true, 'The off-axis illumination should be .973, is ' + result);
 
 		result = calcOffAxisIllumination(13.2, 40.3, 3.5, 9, 0.1);
-		equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
+		assert.equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
 
 		result = calcOffAxisIllumination(13.2, 40.3, 3.5, 9, 0);
-		equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
+		assert.equal(withinRange(result, 1.0, 0.001), true, 'The off-axis illumination should be 1.0, is ' + result);
 	});
 
-	QUnit.test('getMagnitudeFromIllum', function () {
+	QUnit.test('getMagnitudeFromIllum', assert => {
 		var result = getMagnitudeFromIllum(0.878011030887435);
-		equal(withinRange(result, 0.141, 0.001), true, 'The magnitude should be 0.141, is ' + result);
+		assert.equal(withinRange(result, 0.141, 0.001), true, 'The magnitude should be 0.141, is ' + result);
 	});
 
-	QUnit.test('getMagnitudeFromIllum', function () {
+	QUnit.test('getMagnitudeFromIllum', assert => {
 		var result = getMagnitudeFromIllum(0.71);
-		equal(withinRange(result, 0.37, 0.01), true, 'The magnitude should be 0.37, is ' + result);
+		assert.equal(withinRange(result, 0.37, 0.01), true, 'The magnitude should be 0.37, is ' + result);
 	});
 
-	QUnit.test('getMagnitudeFromIllum', function () {
+	QUnit.test('getMagnitudeFromIllum', assert => {
 		var result = getMagnitudeFromIllum(0.96);
-		equal(withinRange(result, 0.04, 0.01), true, 'The magnitude should be 0.04, is ' + result);
+		assert.equal(withinRange(result, 0.04, 0.01), true, 'The magnitude should be 0.04, is ' + result);
 	});
 
-	QUnit.test('getMagnitudeFromIllum', function () {
+	QUnit.test('getMagnitudeFromIllum', assert => {
 		var result = getMagnitudeFromIllum(1.04);
-		equal(withinRange(result, -0.04, 0.01), true, 'The magnitude should be -0.04, is ' + result);
+		assert.equal(withinRange(result, -0.04, 0.01), true, 'The magnitude should be -0.04, is ' + result);
 	});
 
-	QUnit.test('getIllumFromMagnitude', function () {
+	QUnit.test('getIllumFromMagnitude', assert => {
 		var result = getIllumFromMagnitude(0.37);
-		equal(withinRange(result, 0.71, 0.01), true, 'The inverse magnitude drop should be .71, is ' + result);
+		assert.equal(withinRange(result, 0.71, 0.01), true, 'The inverse magnitude drop should be .71, is ' + result);
 	});
 
-	QUnit.test('addMagnitudes', function () {
+	QUnit.test('addMagnitudes', assert => {
 		var result = addMagnitudes(5, 6);
-		equal(withinRange(result, 4.636, 0.001), true, 'magnitudes 5 and 6 added should be 4.636, is ' + result);
+		assert.equal(withinRange(result, 4.636, 0.001), true, 'magnitudes 5 and 6 added should be 4.636, is ' + result);
 	});
 
-	QUnit.test('addArrayMagnitudes', function () {
+	QUnit.test('addArrayMagnitudes', assert => {
 		var result = addArrayMagnitudes([5, 6, 7]);
-		equal(withinRange(result, 4.520, 0.001), true, 'array of magnitudes should add to 4.520, is ' + result);
+		assert.equal(withinRange(result, 4.520, 0.001), true, 'array of magnitudes should add to 4.520, is ' + result);
 	});
 
-	QUnit.test('addArrayMagnitudes', function () {
+	QUnit.test('addArrayMagnitudes', assert => {
 		var result = addArrayMagnitudes();
-		equal(result, undefined, 'missing array should return undefined');
+		assert.equal(result, undefined, 'missing array should return undefined');
 
 		result = addArrayMagnitudes([]);
-		equal(result, undefined, 'empty array should return undefined');
+		assert.equal(result, undefined, 'empty array should return undefined');
 	});
 
-	QUnit.test('magnitudeDifferenceBetweenApertures', function () {
+	QUnit.test('magnitudeDifferenceBetweenApertures', assert => {
 		var result = magnitudeDifferenceBetweenApertures(10, 20);
-		equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
+		assert.equal(withinRange(result, -1.5, 0.01), true, 'The difference in magnitude between apertures of 10 and 20 should be -1.5, is ' + result);
 	});
 
-	QUnit.test('calculateApertureFromMagnitude', function () {
+	QUnit.test('calculateApertureFromMagnitude', assert => {
 		var magLoss = 0,
 		    expected = 1,
 		    result = calculateApertureFromMagnitude(magLoss);
 
-		equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
 
 		magLoss = 0.4;
 		expected = 0.83;
 		result = calculateApertureFromMagnitude(magLoss);
-		equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'Equivalent aperture with magnitude drop of ' +  magLoss + ' is ' + result);
 	});
 
-	QUnit.test('diagObstructionArea', function () {
+	QUnit.test('diagObstructionArea', assert => {
 		var result = diagObstructionArea(10, 1);
-		equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
+		assert.equal(withinRange(result, 0.01, 0), true, 'The diagonal obstruction should be 0.01, is ' + result);
 	});
 
-	QUnit.test('calcDiagOffsetUsingFocalPoint', function () {
+	QUnit.test('calcDiagOffsetUsingFocalPoint', assert => {
 		var result = calcDiagOffsetUsingFocalPoint(13.2, 40.3, 3.1, 9);
-		equal(withinRange(result, 0.25, 0.01), true, 'The diagonal offset should be .25, is ' + result);
+		assert.equal(withinRange(result, 0.25, 0.01), true, 'The diagonal offset should be .25, is ' + result);
 
 		// 30" F2.7
 		result = calcDiagOffsetUsingFocalPoint(30, 82, 6.5, 17);
-		equal(withinRange(result, 0.59, 0.01), true, 'The diagonal offset should be .59, is ' + result);
+		assert.equal(withinRange(result, 0.59, 0.01), true, 'The diagonal offset should be .59, is ' + result);
 	});
 
-	QUnit.test('calcDiagOffsetUsingFullIllumField', function () {
+	QUnit.test('calcDiagOffsetUsingFullIllumField', assert => {
 		var result = calcDiagOffsetUsingFullIllumField(13.2, 40.3, 3.1, 9);
-		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset2 should be -.26, is ' + result);
+		assert.equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset2 should be -.26, is ' + result);
 
 		// 30" F2.7
 		result = calcDiagOffsetUsingFullIllumField(30, 82, 6.5, 17);
-		equal(withinRange(result, -0.61, 0.01), true, 'The diagonal offset2 should be -.61, is ' + result);
+		assert.equal(withinRange(result, -0.61, 0.01), true, 'The diagonal offset2 should be -.61, is ' + result);
 	});
 
-	QUnit.test('calcDiagOffsetUsingEyeToDiagDistance', function () {
+	QUnit.test('calcDiagOffsetUsingEyeToDiagDistance', assert => {
 		var result = calcDiagOffsetUsingEyeToDiagDistance(3.1, 9);
-		equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset3 should be -.26, is ' + result);
+		assert.equal(withinRange(result, -0.26, 0.01), true, 'The diagonal offset3 should be -.26, is ' + result);
 
 		// add 4 inches for the eye to focal plane distance
 		var result = calcDiagOffsetUsingEyeToDiagDistance(3.1, 13);
-		equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset3 should be -.18 with 4 inches eye to focal plane distance, is ' + result);
+		assert.equal(withinRange(result, -0.18, 0.01), true, 'The diagonal offset3 should be -.18 with 4 inches eye to focal plane distance, is ' + result);
 
 		// 30" F2.7
 		result = calcDiagOffsetUsingEyeToDiagDistance(6.5, 17);
-		equal(withinRange(result, -0.62, 0.01), true, 'The diagonal offset3 should be -.62, is ' + result);
+		assert.equal(withinRange(result, -0.62, 0.01), true, 'The diagonal offset3 should be -.62, is ' + result);
 		// add 4 inches for the eye to focal plane distance
 		result = calcDiagOffsetUsingEyeToDiagDistance(6.5, 21);
-		equal(withinRange(result, -0.50, 0.01), true, 'The diagonal offset3 should be -.50 with 4 inches eye to focal plane distance, is ' + result);
+		assert.equal(withinRange(result, -0.50, 0.01), true, 'The diagonal offset3 should be -.50 with 4 inches eye to focal plane distance, is ' + result);
 	});
 
-	QUnit.test('calcDiagOffsetUsingFieldEdge', function () {
+	QUnit.test('calcDiagOffsetUsingFieldEdge', assert => {
 		var result = calcDiagOffsetUsingFieldEdge(3.1, 9, 1.4);
-		equal(withinRange(result, 0.16, 0.01), true, 'The diagonal offset from the field edge should be .16, is ' + result);
+		assert.equal(withinRange(result, 0.16, 0.01), true, 'The diagonal offset from the field edge should be .16, is ' + result);
 
 		// example from the Sketchup graphic
 		result = calcDiagOffsetUsingFieldEdge(2.828, 3, 2);
-		equal(withinRange(result, 0.23, 0.01), true, 'The diagonal offset from the field edge should be .23, is ' + result);
+		assert.equal(withinRange(result, 0.23, 0.01), true, 'The diagonal offset from the field edge should be .23, is ' + result);
 
 		// 30" F2.7
 		result = calcDiagOffsetUsingFieldEdge(6.5, 17, 1.2);
-		equal(withinRange(result, 0.60, 0.01), true, 'The diagonal offset from the field edge should be .60, is ' + result);
+		assert.equal(withinRange(result, 0.60, 0.01), true, 'The diagonal offset from the field edge should be .60, is ' + result);
 	});
 
-	QUnit.test('areaIntersectingCircles', function () {
+	QUnit.test('areaIntersectingCircles', assert => {
 		var result = areaIntersectingCircles(100, 0, 100, 200, 0, 100) / (Math.PI * 100 * 100),
 			expected = 0.391;
 
-		equal(withinRange(result, expected, 0.001), true, 'The intersecting circle area should be, ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'The intersecting circle area should be, ' + expected + ', is ' + result);
 	});
 
 	/* eg,
@@ -367,23 +367,23 @@
 	0.6000000000000001,0.8444947700225293,
 	0.7000000000000001,0.8109570241529027
 	*/
-	QUnit.test('getDiagIllumArray', function () {
+	QUnit.test('getDiagIllumArray', assert => {
 		var result = getDiagIllumArray(13.2, 40.3, 3.1, 9, 0.1, 1.38);
-		equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
-		equal(withinRange(result[1][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[1][1]);
-		equal(withinRange(result[13][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[13][1]);
+		assert.equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
+		assert.equal(withinRange(result[1][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[1][1]);
+		assert.equal(withinRange(result[13][1], 0.844, 0.001), true, 'The off-axis illumination should be 0.844, is ' + result[13][1]);
 
 		result = getDiagIllumArray(13.2, 40.3, 3.5, 9, 0.1, 1.38);
-		equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
-		equal(withinRange(result[1][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[1][1]);
-		equal(withinRange(result[13][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[13][1]);
+		assert.equal(result.length, 15, 'the array length should be 15, is ' + result.length + '; the array is ' + result);
+		assert.equal(withinRange(result[1][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[1][1]);
+		assert.equal(withinRange(result[13][1], 0.945, 0.001), true, 'The off-axis illumination should be 0.945, is ' + result[13][1]);
 	});
 
 	QUnit.module('calcBinoscope');
 
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
 	// call is calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg)
-	QUnit.test('calcBinoscopeMinimumFocalPlaneToSecondaryDistance', function () {
+	QUnit.test('calcBinoscopeMinimumFocalPlaneToSecondaryDistance', assert => {
 		var allowableError = 0.001,
 			// secondary bending but no tertiary bending
 			aperture = 10,
@@ -394,7 +394,7 @@
 			expected = 15,
 			result = calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with secondaryBendingAngleDeg should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
+		assert.equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with secondaryBendingAngleDeg should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
 
 		// secondary bending and tertiary bending
 		aperture = 10;
@@ -406,7 +406,7 @@
 		allowableError = 0.001;
 		result = calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with secondaryBendingAngleDeg and tertiaryBendingAngleDeg should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
+		assert.equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with secondaryBendingAngleDeg and tertiaryBendingAngleDeg should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
 
 		// no bending
 		aperture = 10;
@@ -418,11 +418,11 @@
 		allowableError = 0.001;
 		result = calcBinoscopeMinimumFocalPlaneToSecondaryDistance(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with no bending should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
+		assert.equal(withinRange(result.minimumFocalPlaneToSecondaryDistance, expected, allowableError), true, 'The minimum focal plane to secondary length with no bending should be ' + expected + ', is ' + result.minimumFocalPlaneToSecondaryDistance);
 	});
 
 	// function call is calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg)
-	QUnit.test('calcBinoscopeSecondaryBendingAngle', function () {
+	QUnit.test('calcBinoscopeSecondaryBendingAngle', assert => {
 		var allowableError = 0.001,
 			// ex a: no tertiary bending
 			aperture = 10,
@@ -433,7 +433,7 @@
 			expected = 53.130,
 			result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
 
 		// ex b: 30 deg tertiary bending
 		aperture = 10,
@@ -444,7 +444,7 @@
 		expected = 53.130;
 		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
 
 		// no bending of secondary or tertiary
 		aperture = 10,
@@ -455,7 +455,7 @@
 		expected = 90;
 		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
 
 		// no bending of secondary or tertiary: example from NewtDesigner default
 		aperture = 10,
@@ -466,140 +466,140 @@
 		expected = 90;
 		result = calcBinoscopeSecondaryBendingAngle(aperture, focalPointPerpendicularOffsetFromEdgeOfPrimary, focalPlaneToSecondaryDistance, focalPlaneToTertiaryDistance, tertiaryBendingAngleDeg);
 
-		equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
 	});
 
-	QUnit.test('calcEyepieceDivergenceFromTertiaryBendingAngle', function () {
+	QUnit.test('calcEyepieceDivergenceFromTertiaryBendingAngle', assert => {
 		var allowableError = 0.001,
 		    tertiaryBendingAngleDeg = 20,
 		    secondaryAxisDownwardTiltAngleDeg = 30,
 			result = calcEyepieceDivergenceFromTertiaryBendingAngle(tertiaryBendingAngleDeg, secondaryAxisDownwardTiltAngleDeg),
 			expected = 17.32;
 
-		equal(withinRange(result, expected, allowableError), true, 'The binoscope eyepiece divergence in deg should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The binoscope eyepiece divergence in deg should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcTertiaryBendingAngleFromEyepieceDivergence', function () {
+	QUnit.test('calcTertiaryBendingAngleFromEyepieceDivergence', assert => {
 		var allowableError = 0.001,
 		    eyepieceDivergenceAngleDeg = 17.32,
 		    secondaryAxisDownwardTiltAngleDeg = 30,
 			result = calcTertiaryBendingAngleFromEyepieceDivergence(eyepieceDivergenceAngleDeg, secondaryAxisDownwardTiltAngleDeg),
 			expected = 20;
 
-		equal(withinRange(result, expected, allowableError), true, 'The binoscope tertoaru bending angle in deg should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The binoscope tertoaru bending angle in deg should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcEyepieceTipdownFromSecToTertTipdownAndTertBend', function () {
+	QUnit.test('calcEyepieceTipdownFromSecToTertTipdownAndTertBend', assert => {
 		var allowableError = 0.001,
 		    eyepieceDivergenceDeg = 10,
 		    secondaryAxisDownwardTiltAngleDeg = 35,
 			result = calcEyepieceTipdownFromSecToTertTipdownAndTertBend(eyepieceDivergenceDeg, secondaryAxisDownwardTiltAngleDeg),
 			expected =  5.736;
 
-		equal(withinRange(result, expected, allowableError), true, 'The eyepiece tipdown angle in deg should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The eyepiece tipdown angle in deg should be ' + expected + ', is ' + result);
 	});
 
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
 	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
-	QUnit.test('calcBinoscope', function () {
+	QUnit.test('calcBinoscope', assert => {
 		var allowableError = 0.001,
 		    result = calcBinoscope(30, 3, 5, 5, 27, 65.380, 0, 4);
 
-		equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
-		equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
-		equal(withinRange(result.primaryToP3HorizontalDistance, 58.835, allowableError), true, 'The primaryToP3HorizontalDistance should be 58.835, is ' + result.primaryToP3HorizontalDistance);
-		equal(withinRange(result.secondaryToTertiaryDistance, 22, allowableError), true, 'The secondaryToTertiaryDistance should be 22, is ' + result.secondaryToTertiaryDistance);
-		equal(withinRange(result.secondaryToTertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 20, is ' + result.secondaryToTertiaryVerticalLength);
-		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTertiaryHorizontalLength);
-		equal(withinRange(result.elbowAngleDeg, 65.380, allowableError), true, 'The elbowAngleDeg should be 65.380, is ' + result.elbowAngleDeg);
-		equal(withinRange(result.anglePrimaryMirrorEdgeToP1Deg, 9.462, allowableError), true, 'The anglePrimaryMirrorEdgeToP1Deg should be 9.462, is ' + result.anglePrimaryMirrorEdgeToP1Deg);
-		equal(withinRange(result.anglePrimaryMirrorEdgeToP1AndVerticalDeg, 80.538, allowableError), true, 'The anglePrimaryMirrorEdgeToP1AndVerticalDeg should be 80.538, is ' + result.anglePrimaryMirrorEdgeToP1AndVerticalDeg);
-		equal(withinRange(result.secondaryCenterToPrimaryMirrorEdgeRayLength, 4.5, allowableError), true, 'The secondaryCenterToPrimaryMirrorEdgeRayLength should be 4.5, is ' + result.secondaryCenterToPrimaryMirrorEdgeRayLength);
-		equal(withinRange(result.angleSecondaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleSecondaryFaceToVerticalDeg should be 32.690, is ' + result.angleSecondaryFaceToVerticalDeg);
-		equal(withinRange(result.secondaryUpperLength, 4.830, allowableError), true, 'The secondaryUpperLength should be 4.830, is ' + result.secondaryUpperLength);
-		equal(withinRange(result.secondaryLowerLength, 5.987, allowableError), true, 'The secondaryLowerLength should be 5.987, is ' + result.secondaryLowerLength);
-		equal(withinRange(result.secondaryMajorAxis, 10.818, allowableError), true, 'The secondaryMajorAxis should be 10.818, is ' + result.secondaryMajorAxis);
-		equal(withinRange(result.secondaryMinorAxis, 9, allowableError), true, 'The secondaryMinorAxis should be 9, is ' + result.secondaryMinorAxis);
-		equal(withinRange(result.secondaryOffset, 0.579, allowableError), true, 'The secondaryOffset should be 5.579, is ' + result.secondaryOffset);
-		equal(withinRange(result.secondaryUpperPointYLength, 4.065, allowableError), true, 'The secondaryUpperPointYLength should be 4.065, is ' + result.secondaryUpperPointYLength);
-		equal(withinRange(result.secondaryUpperPointXLength, 2.609, allowableError), true, 'The secondaryUpperPointXLength should be 2.609, is ' + result.secondaryUpperPointXLength);
-		equal(withinRange(result.secondaryLowerPointYLength, 5.039, allowableError), true, 'The secondaryLowerPointYLength should be 5.039, is ' + result.secondaryLowerPointYLength);
-		equal(withinRange(result.secondaryLowerPointXLength, 3.234, allowableError), true, 'The secondaryLowerPointXLength should be 3.234, is ' + result.secondaryLowerPointXLength);
-		equal(withinRange(result.tertiarySizedForP3UpperLength, 0.894, allowableError), true, 'The tertiarySizedForP3UpperLength should be 0.894, is ' + result.tertiarySizedForP3UpperLength);
-		equal(withinRange(result.angleTertiaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleTertiaryFaceToVerticalDeg should be 32.690, is ' + result.angleTertiaryFaceToVerticalDeg);
-		equal(withinRange(result.tertiarySizedForP3LowerLength, 1.109, allowableError), true, 'The tertiarySizedForP3LowerLength should be 1.109, is ' + result.tertiarySizedForP3LowerLength);
-		equal(withinRange(result.tertiarySizedForP3MajorAxis, 2.003, allowableError), true, 'The tertiarySizedForP3MajorAxis should be 2.003, is ' + result.tertiarySizedForP3MajorAxis);
-		equal(withinRange(result.tertiarySizedForP3MinorAxis, 1.667, allowableError), true, 'The tertiarySizedForP3MinorAxis should be 1.667, is ' + result.tertiarySizedForP3MinorAxis);
-		equal(withinRange(result.tertiarySizedForP3Offset, 0.107, allowableError), true, 'The tertiarySizedForP3Offset should be 0.107, is ' + result.tertiarySizedForP3Offset);
-		equal(withinRange(result.tertiarySizedForP3UpperPointYLength, 0.753, allowableError), true, 'The tertiarySizedForP3UpperPointYLength should be 0.753, is ' + result.tertiarySizedForP3UpperPointYLength);
-		equal(withinRange(result.tertiarySizedForP3UpperPointXLength, 0.483, allowableError), true, 'The tertiarySizedForP3UpperPointXLength should be 0.483, is ' + result.tertiarySizedForP3UpperPointXLength);
-		equal(withinRange(result.tertiarySizedForP3LowerPointYLength, 0.933, allowableError), true, 'The tertiarySizedForP3LowerPointYLength should be 0.933, is ' + result.tertiarySizedForP3LowerPointYLength);
-		equal(withinRange(result.tertiarySizedForP3LowerPointXLength, 0.599, allowableError), true, 'The tertiarySizedForP3LowerPointXLength should be 0.599, is ' + result.tertiarySizedForP3LowerPointXLength);
-		equal(withinRange(result.P2centerXLengthFromSecondaryCenter, 11.248, allowableError), true, 'The P2centerXLengthFromSecondaryCenter should be 11.248, is ' + result.P2centerXLengthFromSecondaryCenter);
-		equal(withinRange(result.P2centerYLengthFromSecondaryCenter, 24.545, allowableError), true, 'The P2centerYLengthFromSecondaryCenter should be 24.545, is ' + result.P2centerYLengthFromSecondaryCenter);
-		equal(withinRange(result.P2centerXLengthFromTertiaryCenter, 2.083, allowableError), true, 'The P2centerXLengthFromTertiaryCenter should be 2.083, is ' + result.P2centerXLengthFromTertiaryCenter);
-		equal(withinRange(result.P2centerYLengthFromTertiaryCenter, 4.545, allowableError), true, 'The P2centerYLengthFromTertiaryCenter should be 4.545, is ' + result.P2centerYLengthFromTertiaryCenter);
-		equal(withinRange(result.P2FieldEdgeXLengthFromP2Center, 1.818, allowableError), true, 'The P2FieldEdgeXLengthFromP2Center should be 1.818, is ' + result.P2FieldEdgeXLengthFromP2Center);
-		equal(withinRange(result.P2FieldEdgeYLengthFromP2Center, 0.833, allowableError), true, 'The P2FieldEdgeYLengthFromP2Center should be 0.833, is ' + result.P2FieldEdgeYLengthFromP2Center);
-		equal(withinRange(result.secondaryRightEdgeToP2FieldRightEdgeX, 12.039, allowableError), true, 'The secondaryRightEdgeToP2FieldRightEdgeX should be 12.039, is ' + result.secondaryRightEdgeToP2FieldRightEdgeX);
-		equal(withinRange(result.secondaryRightEdgeToP2FieldRightEdgeY, 21.313, allowableError), true, 'The secondaryRightEdgeToP2FieldRightEdgeY should be 21.313, is ' + result.secondaryRightEdgeToP2FieldRightEdgeY);
-		equal(withinRange(result.secondaryLeftEdgeToP2FieldLeftEdgeX, 9.833, allowableError), true, 'The secondaryLeftEdgeToP2FieldLeftEdgeX should be 9.833, is ' + result.secondaryLeftEdgeToP2FieldLeftEdgeX);
-		equal(withinRange(result.secondaryLeftEdgeToP2FieldLeftEdgeY, 28.751, allowableError), true, 'The secondaryLeftEdgeToP2FieldLeftEdgeY should be 28.751, is ' + result.secondaryLeftEdgeToP2FieldLeftEdgeY);
-		equal(withinRange(result.slopeSecondaryRightEdgeToP2FieldRightEdge, 1.770, allowableError), true, 'The slopeSecondaryRightEdgeToP2FieldRightEdge should be 1.770, is ' + result.slopeSecondaryRightEdgeToP2FieldRightEdge);
-		equal(withinRange(result.slopeSecondaryLeftEdgeToP2FieldLeftEdge, 2.924, allowableError), true, 'The slopeSecondaryLeftEdgeToP2FieldLeftEdge should be 2.924, is ' + result.slopeSecondaryLeftEdgeToP2FieldLeftEdge);
-		equal(withinRange(result.slopeTertiary, 1.558, allowableError), true, 'The slopeTertiary should be 1.558, is ' + result.slopeTertiary);
-		equal(withinRange(result.r1X, 2.773, allowableError), true, 'The r1X should be 2.773, is ' + result.r1X);
-		equal(withinRange(result.r2X, -2.632, allowableError), true, 'The r2X should be -2.632, is ' + result.r2X);
-		equal(withinRange(result.tertiarySizedForP3FieldUpperPointXLength, 1.475, allowableError), true, 'The tertiarySizedForP3FieldUpperPointXLength should be 1.475, is ' + result.tertiarySizedForP3FieldUpperPointXLength);
-		equal(withinRange(result.tertiarySizedForP3FieldUpperPointYLength, 2.298, allowableError), true, 'The tertiarySizedForP3FieldUpperPointYLength should be 2.298, is ' + result.tertiarySizedForP3FieldUpperPointYLength);
-		equal(withinRange(result.tertiarySizedForP3FieldUpperLength, 2.731, allowableError), true, 'The tertiarySizedForP3FieldUpperLength should be 2.731, is ' + result.tertiarySizedForP3FieldUpperLength);
-		equal(withinRange(result.tertiarySizedForP3FieldLowerPointXLength, 1.717, allowableError), true, 'The tertiarySizedForP3FieldLowerPointXLength should be 1.717, is ' + result.tertiarySizedForP3FieldLowerPointXLength);
-		equal(withinRange(result.tertiarySizedForP3FieldLowerPointYLength, 2.675, allowableError), true, 'The tertiarySizedForP3FieldLowerPointYLength should be 2.675, is ' + result.tertiarySizedForP3FieldLowerPointYLength);
-		equal(withinRange(result.tertiarySizedForP3FieldLowerLength, 3.179, allowableError), true, 'The tertiarySizedForP3FieldLowerLength should be 3.179, is ' + result.tertiarySizedForP3FieldLowerLength);
-		equal(withinRange(result.tertiarySizedForP3FieldMajorAxis, 5.910, allowableError), true, 'The tertiarySizedForP3FieldMajorAxis should be 5.910, is ' + result.tertiarySizedForP3FieldMajorAxis);
-		equal(withinRange(result.tertiarySizedForP3FieldMinorAxis, 4.926, allowableError), true, 'The tertiarySizedForP3FieldMinorAxis should be 4.926, is ' + result.tertiarySizedForP3FieldMinorAxis);
-		equal(withinRange(result.tertiarySizedForP3FieldOffset, 0.224, allowableError), true, 'The tertiarySizedForP3FieldOffset should be 0.224, is ' + result.tertiarySizedForP3FieldOffset);
-		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioUpperPointXLength, 1.643, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioUpperPointXLength should be 1.643, is ' + result.tertiarySizedForP3FieldAndFocalRatioUpperPointXLength);
-		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioUpperPointYLength, 2.560, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioUpperPointYLength should be 2.560, is ' + result.tertiarySizedForP3FieldAndFocalRatioUpperPointYLength);
-		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioUpperLength, 3.041, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioUpperLength should be 3.041, is ' + result.tertiarySizedForP3FieldAndFocalRatioUpperLength);
-		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerPointXLength, 2.036, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerPointXLength should be 2.036, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerPointXLength);
-		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerPointYLength, 3.173, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerPointYLength should be 3.173, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerPointYLength);
-		equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerLength, 3.770, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerLength should be 3.770, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerLength);
+		assert.equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
+		assert.equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
+		assert.equal(withinRange(result.primaryToP3HorizontalDistance, 58.835, allowableError), true, 'The primaryToP3HorizontalDistance should be 58.835, is ' + result.primaryToP3HorizontalDistance);
+		assert.equal(withinRange(result.secondaryToTertiaryDistance, 22, allowableError), true, 'The secondaryToTertiaryDistance should be 22, is ' + result.secondaryToTertiaryDistance);
+		assert.equal(withinRange(result.secondaryToTertiaryVerticalLength, 20, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 20, is ' + result.secondaryToTertiaryVerticalLength);
+		assert.equal(withinRange(result.secondaryToTertiaryHorizontalLength, 9.165, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 9.165, is ' + result.secondaryToTertiaryHorizontalLength);
+		assert.equal(withinRange(result.elbowAngleDeg, 65.380, allowableError), true, 'The elbowAngleDeg should be 65.380, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.anglePrimaryMirrorEdgeToP1Deg, 9.462, allowableError), true, 'The anglePrimaryMirrorEdgeToP1Deg should be 9.462, is ' + result.anglePrimaryMirrorEdgeToP1Deg);
+		assert.equal(withinRange(result.anglePrimaryMirrorEdgeToP1AndVerticalDeg, 80.538, allowableError), true, 'The anglePrimaryMirrorEdgeToP1AndVerticalDeg should be 80.538, is ' + result.anglePrimaryMirrorEdgeToP1AndVerticalDeg);
+		assert.equal(withinRange(result.secondaryCenterToPrimaryMirrorEdgeRayLength, 4.5, allowableError), true, 'The secondaryCenterToPrimaryMirrorEdgeRayLength should be 4.5, is ' + result.secondaryCenterToPrimaryMirrorEdgeRayLength);
+		assert.equal(withinRange(result.angleSecondaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleSecondaryFaceToVerticalDeg should be 32.690, is ' + result.angleSecondaryFaceToVerticalDeg);
+		assert.equal(withinRange(result.secondaryUpperLength, 4.830, allowableError), true, 'The secondaryUpperLength should be 4.830, is ' + result.secondaryUpperLength);
+		assert.equal(withinRange(result.secondaryLowerLength, 5.987, allowableError), true, 'The secondaryLowerLength should be 5.987, is ' + result.secondaryLowerLength);
+		assert.equal(withinRange(result.secondaryMajorAxis, 10.818, allowableError), true, 'The secondaryMajorAxis should be 10.818, is ' + result.secondaryMajorAxis);
+		assert.equal(withinRange(result.secondaryMinorAxis, 9, allowableError), true, 'The secondaryMinorAxis should be 9, is ' + result.secondaryMinorAxis);
+		assert.equal(withinRange(result.secondaryOffset, 0.579, allowableError), true, 'The secondaryOffset should be 5.579, is ' + result.secondaryOffset);
+		assert.equal(withinRange(result.secondaryUpperPointYLength, 4.065, allowableError), true, 'The secondaryUpperPointYLength should be 4.065, is ' + result.secondaryUpperPointYLength);
+		assert.equal(withinRange(result.secondaryUpperPointXLength, 2.609, allowableError), true, 'The secondaryUpperPointXLength should be 2.609, is ' + result.secondaryUpperPointXLength);
+		assert.equal(withinRange(result.secondaryLowerPointYLength, 5.039, allowableError), true, 'The secondaryLowerPointYLength should be 5.039, is ' + result.secondaryLowerPointYLength);
+		assert.equal(withinRange(result.secondaryLowerPointXLength, 3.234, allowableError), true, 'The secondaryLowerPointXLength should be 3.234, is ' + result.secondaryLowerPointXLength);
+		assert.equal(withinRange(result.tertiarySizedForP3UpperLength, 0.894, allowableError), true, 'The tertiarySizedForP3UpperLength should be 0.894, is ' + result.tertiarySizedForP3UpperLength);
+		assert.equal(withinRange(result.angleTertiaryFaceToVerticalDeg, 32.690, allowableError), true, 'The angleTertiaryFaceToVerticalDeg should be 32.690, is ' + result.angleTertiaryFaceToVerticalDeg);
+		assert.equal(withinRange(result.tertiarySizedForP3LowerLength, 1.109, allowableError), true, 'The tertiarySizedForP3LowerLength should be 1.109, is ' + result.tertiarySizedForP3LowerLength);
+		assert.equal(withinRange(result.tertiarySizedForP3MajorAxis, 2.003, allowableError), true, 'The tertiarySizedForP3MajorAxis should be 2.003, is ' + result.tertiarySizedForP3MajorAxis);
+		assert.equal(withinRange(result.tertiarySizedForP3MinorAxis, 1.667, allowableError), true, 'The tertiarySizedForP3MinorAxis should be 1.667, is ' + result.tertiarySizedForP3MinorAxis);
+		assert.equal(withinRange(result.tertiarySizedForP3Offset, 0.107, allowableError), true, 'The tertiarySizedForP3Offset should be 0.107, is ' + result.tertiarySizedForP3Offset);
+		assert.equal(withinRange(result.tertiarySizedForP3UpperPointYLength, 0.753, allowableError), true, 'The tertiarySizedForP3UpperPointYLength should be 0.753, is ' + result.tertiarySizedForP3UpperPointYLength);
+		assert.equal(withinRange(result.tertiarySizedForP3UpperPointXLength, 0.483, allowableError), true, 'The tertiarySizedForP3UpperPointXLength should be 0.483, is ' + result.tertiarySizedForP3UpperPointXLength);
+		assert.equal(withinRange(result.tertiarySizedForP3LowerPointYLength, 0.933, allowableError), true, 'The tertiarySizedForP3LowerPointYLength should be 0.933, is ' + result.tertiarySizedForP3LowerPointYLength);
+		assert.equal(withinRange(result.tertiarySizedForP3LowerPointXLength, 0.599, allowableError), true, 'The tertiarySizedForP3LowerPointXLength should be 0.599, is ' + result.tertiarySizedForP3LowerPointXLength);
+		assert.equal(withinRange(result.P2centerXLengthFromSecondaryCenter, 11.248, allowableError), true, 'The P2centerXLengthFromSecondaryCenter should be 11.248, is ' + result.P2centerXLengthFromSecondaryCenter);
+		assert.equal(withinRange(result.P2centerYLengthFromSecondaryCenter, 24.545, allowableError), true, 'The P2centerYLengthFromSecondaryCenter should be 24.545, is ' + result.P2centerYLengthFromSecondaryCenter);
+		assert.equal(withinRange(result.P2centerXLengthFromTertiaryCenter, 2.083, allowableError), true, 'The P2centerXLengthFromTertiaryCenter should be 2.083, is ' + result.P2centerXLengthFromTertiaryCenter);
+		assert.equal(withinRange(result.P2centerYLengthFromTertiaryCenter, 4.545, allowableError), true, 'The P2centerYLengthFromTertiaryCenter should be 4.545, is ' + result.P2centerYLengthFromTertiaryCenter);
+		assert.equal(withinRange(result.P2FieldEdgeXLengthFromP2Center, 1.818, allowableError), true, 'The P2FieldEdgeXLengthFromP2Center should be 1.818, is ' + result.P2FieldEdgeXLengthFromP2Center);
+		assert.equal(withinRange(result.P2FieldEdgeYLengthFromP2Center, 0.833, allowableError), true, 'The P2FieldEdgeYLengthFromP2Center should be 0.833, is ' + result.P2FieldEdgeYLengthFromP2Center);
+		assert.equal(withinRange(result.secondaryRightEdgeToP2FieldRightEdgeX, 12.039, allowableError), true, 'The secondaryRightEdgeToP2FieldRightEdgeX should be 12.039, is ' + result.secondaryRightEdgeToP2FieldRightEdgeX);
+		assert.equal(withinRange(result.secondaryRightEdgeToP2FieldRightEdgeY, 21.313, allowableError), true, 'The secondaryRightEdgeToP2FieldRightEdgeY should be 21.313, is ' + result.secondaryRightEdgeToP2FieldRightEdgeY);
+		assert.equal(withinRange(result.secondaryLeftEdgeToP2FieldLeftEdgeX, 9.833, allowableError), true, 'The secondaryLeftEdgeToP2FieldLeftEdgeX should be 9.833, is ' + result.secondaryLeftEdgeToP2FieldLeftEdgeX);
+		assert.equal(withinRange(result.secondaryLeftEdgeToP2FieldLeftEdgeY, 28.751, allowableError), true, 'The secondaryLeftEdgeToP2FieldLeftEdgeY should be 28.751, is ' + result.secondaryLeftEdgeToP2FieldLeftEdgeY);
+		assert.equal(withinRange(result.slopeSecondaryRightEdgeToP2FieldRightEdge, 1.770, allowableError), true, 'The slopeSecondaryRightEdgeToP2FieldRightEdge should be 1.770, is ' + result.slopeSecondaryRightEdgeToP2FieldRightEdge);
+		assert.equal(withinRange(result.slopeSecondaryLeftEdgeToP2FieldLeftEdge, 2.924, allowableError), true, 'The slopeSecondaryLeftEdgeToP2FieldLeftEdge should be 2.924, is ' + result.slopeSecondaryLeftEdgeToP2FieldLeftEdge);
+		assert.equal(withinRange(result.slopeTertiary, 1.558, allowableError), true, 'The slopeTertiary should be 1.558, is ' + result.slopeTertiary);
+		assert.equal(withinRange(result.r1X, 2.773, allowableError), true, 'The r1X should be 2.773, is ' + result.r1X);
+		assert.equal(withinRange(result.r2X, -2.632, allowableError), true, 'The r2X should be -2.632, is ' + result.r2X);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldUpperPointXLength, 1.475, allowableError), true, 'The tertiarySizedForP3FieldUpperPointXLength should be 1.475, is ' + result.tertiarySizedForP3FieldUpperPointXLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldUpperPointYLength, 2.298, allowableError), true, 'The tertiarySizedForP3FieldUpperPointYLength should be 2.298, is ' + result.tertiarySizedForP3FieldUpperPointYLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldUpperLength, 2.731, allowableError), true, 'The tertiarySizedForP3FieldUpperLength should be 2.731, is ' + result.tertiarySizedForP3FieldUpperLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldLowerPointXLength, 1.717, allowableError), true, 'The tertiarySizedForP3FieldLowerPointXLength should be 1.717, is ' + result.tertiarySizedForP3FieldLowerPointXLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldLowerPointYLength, 2.675, allowableError), true, 'The tertiarySizedForP3FieldLowerPointYLength should be 2.675, is ' + result.tertiarySizedForP3FieldLowerPointYLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldLowerLength, 3.179, allowableError), true, 'The tertiarySizedForP3FieldLowerLength should be 3.179, is ' + result.tertiarySizedForP3FieldLowerLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldMajorAxis, 5.910, allowableError), true, 'The tertiarySizedForP3FieldMajorAxis should be 5.910, is ' + result.tertiarySizedForP3FieldMajorAxis);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldMinorAxis, 4.926, allowableError), true, 'The tertiarySizedForP3FieldMinorAxis should be 4.926, is ' + result.tertiarySizedForP3FieldMinorAxis);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldOffset, 0.224, allowableError), true, 'The tertiarySizedForP3FieldOffset should be 0.224, is ' + result.tertiarySizedForP3FieldOffset);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioUpperPointXLength, 1.643, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioUpperPointXLength should be 1.643, is ' + result.tertiarySizedForP3FieldAndFocalRatioUpperPointXLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioUpperPointYLength, 2.560, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioUpperPointYLength should be 2.560, is ' + result.tertiarySizedForP3FieldAndFocalRatioUpperPointYLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioUpperLength, 3.041, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioUpperLength should be 3.041, is ' + result.tertiarySizedForP3FieldAndFocalRatioUpperLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerPointXLength, 2.036, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerPointXLength should be 2.036, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerPointXLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerPointYLength, 3.173, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerPointYLength should be 3.173, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerPointYLength);
+		assert.equal(withinRange(result.tertiarySizedForP3FieldAndFocalRatioLowerLength, 3.770, allowableError), true, 'The tertiarySizedForP3FieldAndFocalRatioLowerLength should be 3.770, is ' + result.tertiarySizedForP3FieldAndFocalRatioLowerLength);
 	});
 
 	// see binoLayoutForNewtDesigner4: ex a and b
 	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
-	QUnit.test('calcBinoscope with tertiary angle', function () {
+	QUnit.test('calcBinoscope with tertiary angle', assert => {
 		var allowableError = 0.001,
 			h,
 		    // ex a
 		    result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1);
 
-		equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
-		equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
-		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
-		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
+		assert.equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
+		assert.equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
+		assert.equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
 
 		//ex b
 		result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 30, 1);
-		equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
-		equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
-		equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
-		equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
+		assert.equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
+		assert.equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
+		assert.equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
 		// tertiary to focal point values for 30 deg angle - see binoLayoutForNewtDesigner4 ex b
-		equal(withinRange(result.P3centerXLengthFromTertiaryCenter, 4.3301, allowableError), true, 'The P3centerXLengthFromTertiaryCenter should be 4.3301, is ' + result.P3centerXLengthFromTertiaryCenter);
-		equal(withinRange(result.P3centerYLengthFromTertiaryCenter, 2.5, allowableError), true, 'The P3centerYLengthFromTertiaryCenter should be 2.5, is ' + result.P3centerYLengthFromTertiaryCenter);
-		equal(withinRange(result.P3FieldEdgeXLengthFromP3Center, 0.25, allowableError), true, 'The P3FieldEdgeXLengthFromP3Center should be 0.25, is ' + result.P3FieldEdgeXLengthFromP3Center);
-		equal(withinRange(result.P3FieldEdgeYLengthFromP3Center, 0.433, allowableError), true, 'The P3FieldEdgeYLengthFromP3Center should be 0.433, is ' + result.P3FieldEdgeYLengthFromP3Center);
+		assert.equal(withinRange(result.P3centerXLengthFromTertiaryCenter, 4.3301, allowableError), true, 'The P3centerXLengthFromTertiaryCenter should be 4.3301, is ' + result.P3centerXLengthFromTertiaryCenter);
+		assert.equal(withinRange(result.P3centerYLengthFromTertiaryCenter, 2.5, allowableError), true, 'The P3centerYLengthFromTertiaryCenter should be 2.5, is ' + result.P3centerYLengthFromTertiaryCenter);
+		assert.equal(withinRange(result.P3FieldEdgeXLengthFromP3Center, 0.25, allowableError), true, 'The P3FieldEdgeXLengthFromP3Center should be 0.25, is ' + result.P3FieldEdgeXLengthFromP3Center);
+		assert.equal(withinRange(result.P3FieldEdgeYLengthFromP3Center, 0.433, allowableError), true, 'The P3FieldEdgeYLengthFromP3Center should be 0.433, is ' + result.P3FieldEdgeYLengthFromP3Center);
 		// hypotenuse of right angle with sides 0.25 and 0.433 should be 0.5
 		h = Math.sqrt(result.P3FieldEdgeXLengthFromP3Center * result.P3FieldEdgeXLengthFromP3Center + result.P3FieldEdgeYLengthFromP3Center * result.P3FieldEdgeYLengthFromP3Center);
-		equal(withinRange(h, 0.5, allowableError), true, 'The tertiary til plane half length should be 0.5 is ' + h);
-		equal(withinRange(result.tertiaryAngledAtPrimaryDeg, 11.565, allowableError), true, 'The tertiaryAngledAtPrimaryDeg should be 11.565, is ' + result.tertiaryAngledAtPrimaryDeg);
-		equal(withinRange(result.tertiaryAngledAtFocalPlaneDeg, 41.565, allowableError), true, 'The tertiaryAngledAtFocalPlaneDeg should be 41.565, is ' + result.tertiaryAngledAtFocalPlaneDeg);
-		equal(withinRange(result.tertiaryAngledAtMaxLengthMajorAxis, 3.007, allowableError), true, 'The tertiaryAngledAtMaxLengthMajorAxis should be 3.07, is ' + result.tertiaryAngledAtMaxLengthMajorAxis);
-		equal(withinRange(result.tertiaryAngledAtMaxLengthMinorAxis, 2.25, allowableError), true, 'The tertiaryAngledAtMaxLengthMinorAxis should be 2.25, is ' + result.tertiaryAngledAtMaxLengthMinorAxis);
-		equal(withinRange(result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter, 0.301, allowableError), true, 'The tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter should be 0.301, is ' + result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter);
-		equal(withinRange(result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter, 1.473, allowableError), true, 'The tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter should be 1.473, is ' + result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter);
+		assert.equal(withinRange(h, 0.5, allowableError), true, 'The tertiary til plane half length should be 0.5 is ' + h);
+		assert.equal(withinRange(result.tertiaryAngledAtPrimaryDeg, 11.565, allowableError), true, 'The tertiaryAngledAtPrimaryDeg should be 11.565, is ' + result.tertiaryAngledAtPrimaryDeg);
+		assert.equal(withinRange(result.tertiaryAngledAtFocalPlaneDeg, 41.565, allowableError), true, 'The tertiaryAngledAtFocalPlaneDeg should be 41.565, is ' + result.tertiaryAngledAtFocalPlaneDeg);
+		assert.equal(withinRange(result.tertiaryAngledAtMaxLengthMajorAxis, 3.007, allowableError), true, 'The tertiaryAngledAtMaxLengthMajorAxis should be 3.07, is ' + result.tertiaryAngledAtMaxLengthMajorAxis);
+		assert.equal(withinRange(result.tertiaryAngledAtMaxLengthMinorAxis, 2.25, allowableError), true, 'The tertiaryAngledAtMaxLengthMinorAxis should be 2.25, is ' + result.tertiaryAngledAtMaxLengthMinorAxis);
+		assert.equal(withinRange(result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter, 0.301, allowableError), true, 'The tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter should be 0.301, is ' + result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter);
+		assert.equal(withinRange(result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter, 1.473, allowableError), true, 'The tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter should be 1.473, is ' + result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter);
 	});
 
 	QUnit.module('foldedNewtonian');
@@ -621,165 +621,165 @@
 	// so some display width wasted since the narrower model has to fit within;
 	// returned scalingFactor made smaller by a margin, eg if scaling factor is 1.9230769 then returned value is 1.53846152;
 	// this test ignores tertiaryOffsetFromEdgeOfPrimary;
-	QUnit.test('getFoldedNewtonianScalingFactor', function () {
+	QUnit.test('getFoldedNewtonianScalingFactor', assert => {
 		var result = getFoldedNewtonianScalingFactor(200, 100, 3, 8, 2, 0, 66);
-		equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
+		assert.equal(withinRange(result, 1.538461, 0.000001), true, 'scalingFactor should be 1.538461, is ' + result);
 	});
 
 	// function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToDiagDistance)
-	QUnit.test('calcFoldedNewtonian', function () {
+	QUnit.test('calcFoldedNewtonian', assert => {
 		var result = calcFoldedNewtonian(30, 2.9, 7, 0, 3);
-		equal(withinRange(result.diagToPrimaryMirrorDistance, 66.7, 0.01), true, 'The diagToPrimaryMirrorDistance should be 66.7, is ' + result.diagToPrimaryMirrorDistance);
-		equal(withinRange(result.focalPointToPrimaryMirrorDistance, 58.08, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 55.08, is ' + result.focalPointToPrimaryMirrorDistance);
-		equal(withinRange(result.focalPointToDiagDistance, 20.3, 0.01), true, 'The focalPointToDiagDistance should be 20.3, is ' + result.focalPointToDiagDistance);
-		equal(withinRange(result.elbowAngleDeg, 60.12, 0.01), true, 'The elbowAngleDeg should be 60.12, is ' + result.elbowAngleDeg);
-		equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
+		assert.equal(withinRange(result.diagToPrimaryMirrorDistance, 66.7, 0.01), true, 'The diagToPrimaryMirrorDistance should be 66.7, is ' + result.diagToPrimaryMirrorDistance);
+		assert.equal(withinRange(result.focalPointToPrimaryMirrorDistance, 58.08, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 55.08, is ' + result.focalPointToPrimaryMirrorDistance);
+		assert.equal(withinRange(result.focalPointToDiagDistance, 20.3, 0.01), true, 'The focalPointToDiagDistance should be 20.3, is ' + result.focalPointToDiagDistance);
+		assert.equal(withinRange(result.elbowAngleDeg, 60.12, 0.01), true, 'The elbowAngleDeg should be 60.12, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.diagMajorAxisSize, 8.09, 0.01), true, 'The diagMajorAxisSize should be 8.09, is ' + result.diagMajorAxisSize);
 	});
 
-	QUnit.test('calcFoldedNewtonian focalPointToPrimaryMirrorDistance and focalPointToTertiaryDistance', function () {
+	QUnit.test('calcFoldedNewtonian focalPointToPrimaryMirrorDistance and focalPointToTertiaryDistance', assert => {
 		var result = calcFoldedNewtonian(30, 3, 10, 0, 0),
 			expected = 34.02;
-		equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
+		assert.equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
 
 		// tertiaryOffsetFromEdgeOfPrimary of 1 should shrink diagonal to mirror distance by about 1, give a sufficiently sharp angle (result of a very large diagonal)
 		result = calcFoldedNewtonian(30, 3, 10, 0, 1);
 		expected = 35.18;
-		equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
+		assert.equal(withinRange(result.focalPointToPrimaryMirrorDistance, expected, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be ' + expected + ', is ' + result.focalPointToPrimaryMirrorDistance);
 	});
 
 	// function call is calcFoldedNewtonian(mirrorDia, focalRatio, diagSize, tertiaryOffsetFromEdgeOfPrimary, focalPointToTertiaryDistance, focalPointToDiagDistance)
-	QUnit.test('calcFoldedNewtonian with new optional parm focalPointToDiagDistance', function () {
+	QUnit.test('calcFoldedNewtonian with new optional parm focalPointToDiagDistance', assert => {
 		var result = calcFoldedNewtonian(30, 2.9, 7, 0, 0, 18);
-		equal(withinRange(result.diagToPrimaryMirrorDistance, 69, 0.01), true, 'The diagToPrimaryMirrorDistance should be 69, is ' + result.diagToPrimaryMirrorDistance);
-		equal(withinRange(result.focalPointToPrimaryMirrorDistance, 59.05, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 59.05, is ' + result.focalPointToPrimaryMirrorDistance);
-		equal(withinRange(result.focalPointToDiagDistance, 18, 0.01), true, 'The focalPointToDiagDistance should be 18, is ' + result.focalPointToDiagDistance);
-		equal(withinRange(result.elbowAngleDeg, 56.44, 0.01), true, 'The elbowAngleDeg should be 56.44, is ' + result.elbowAngleDeg);
-		equal(withinRange(result.diagMajorAxisSize, 7.94, 0.01), true, 'The diagMajorAxisSize should be 7.94, is ' + result.diagMajorAxisSize);
+		assert.equal(withinRange(result.diagToPrimaryMirrorDistance, 69, 0.01), true, 'The diagToPrimaryMirrorDistance should be 69, is ' + result.diagToPrimaryMirrorDistance);
+		assert.equal(withinRange(result.focalPointToPrimaryMirrorDistance, 59.05, 0.01), true, 'The focalPointToPrimaryMirrorDistance should be 59.05, is ' + result.focalPointToPrimaryMirrorDistance);
+		assert.equal(withinRange(result.focalPointToDiagDistance, 18, 0.01), true, 'The focalPointToDiagDistance should be 18, is ' + result.focalPointToDiagDistance);
+		assert.equal(withinRange(result.elbowAngleDeg, 56.44, 0.01), true, 'The elbowAngleDeg should be 56.44, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.diagMajorAxisSize, 7.94, 0.01), true, 'The diagMajorAxisSize should be 7.94, is ' + result.diagMajorAxisSize);
 	});
 
 	QUnit.module('visual detection calculator: parms and data');
 
-	QUnit.test('limiting magnitude', function () {
+	QUnit.test('limiting magnitude', assert => {
 		var apertureIn = 13;
 		var expectedLimitingMag = 16.37;
 		var result = limitingMagnitude(apertureIn);
-		equal(withinRange(result, expectedLimitingMag, 0.01), true, 'limiting magnitude from ' + apertureIn + ' apertureIn should be ' + expectedLimitingMag + ', is ' + result);
+		assert.equal(withinRange(result, expectedLimitingMag, 0.01), true, 'limiting magnitude from ' + apertureIn + ' apertureIn should be ' + expectedLimitingMag + ', is ' + result);
 	});
 
-	QUnit.test('apertureInchesFromMagnitude', function () {
+	QUnit.test('apertureInchesFromMagnitude', assert => {
 		var magnitude = 16.37;
 		var expectedApertureIn = 13;
 		var result = apertureInchesFromMagnitude(magnitude);
-		equal(withinRange(result, expectedApertureIn, 0.01), true, 'aperture from ' + magnitude + ' magnitude should be ' + expectedApertureIn + ', is ' + result);
+		assert.equal(withinRange(result, expectedApertureIn, 0.01), true, 'aperture from ' + magnitude + ' magnitude should be ' + expectedApertureIn + ', is ' + result);
 	});
 
-	QUnit.test('calcSurfaceBrightnessFromArea', function () {
+	QUnit.test('calcSurfaceBrightnessFromArea', assert => {
 		var objMag = 5,
 		    minObjArcmin = 40,
 			maxObjArcmin = 145,
 			expectedSurfaceBrightness = 23.03,
 			result = calcSurfaceBrightnessFromArea(objMag, minObjArcmin, maxObjArcmin);
 
-		equal(withinRange(result, expectedSurfaceBrightness, 0.01), true, 'surface brightness of ' + result + ' should be ' + expectedSurfaceBrightness + ', is ' + result);
+		assert.equal(withinRange(result, expectedSurfaceBrightness, 0.01), true, 'surface brightness of ' + result + ' should be ' + expectedSurfaceBrightness + ', is ' + result);
 	});
 
-	QUnit.test('calcMagnitudeFromSurfaceBrightnessAndArea', function () {
+	QUnit.test('calcMagnitudeFromSurfaceBrightnessAndArea', assert => {
 		var objSurfaceBrightness = 23.03,
 		    minObjArcmin = 40,
 			maxObjArcmin = 145,
 			expectedMagnitude = 5,
 			result = calcMagnitudeFromSurfaceBrightnessAndArea(objSurfaceBrightness, minObjArcmin, maxObjArcmin);
 
-		equal(withinRange(result, expectedMagnitude, 0.01), true, 'magnitude of ' + result + ' should be ' + expectedMagnitude + ', is ' + result);
+		assert.equal(withinRange(result, expectedMagnitude, 0.01), true, 'magnitude of ' + result + ' should be ' + expectedMagnitude + ', is ' + result);
 	});
 
-	QUnit.test('calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea', function () {
+	QUnit.test('calcMagnitudePerArcMinSquaredFromSurfaceBrightnessAndEllipticalArea', assert => {
 		var objSurfaceBrightness = 23.03,
 		    minObjArcmin = 40,
 			maxObjArcmin = 145,
 			expectedMagnitude = 5,
 			result = calcMagnitudeFromSurfaceBrightnessAndArea(objSurfaceBrightness, minObjArcmin, maxObjArcmin);
 
-		equal(withinRange(result, expectedMagnitude, 0.01), true, 'magnitude of ' + result + ' should be ' + expectedMagnitude + ', is ' + result);
+		assert.equal(withinRange(result, expectedMagnitude, 0.01), true, 'magnitude of ' + result + ' should be ' + expectedMagnitude + ', is ' + result);
 	});
 
-	QUnit.test('calcEtendue', function () {
+	QUnit.test('calcEtendue', assert => {
 		var apertureCm = 25.4,
 		    FOVDeg = 2,
 			expectedEtendue = 1591.87,
 			result = calcEtendue(apertureCm, FOVDeg);
 
-		equal(withinRange(result, expectedEtendue, 0.01), true, 'etendue of ' + result + ' should be ' + expectedEtendue + ', is ' + result);
+		assert.equal(withinRange(result, expectedEtendue, 0.01), true, 'etendue of ' + result + ' should be ' + expectedEtendue + ', is ' + result);
 	});
 
-	QUnit.test('calcFocalRatioForMaxEtendue', function () {
+	QUnit.test('calcFocalRatioForMaxEtendue', assert => {
 		var eyepieceFLmm = 21,
 		    eyePupilmm = 6.7,
 			comaCorrectorFactor,
 			expectedFR = 3.14,
 			result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm);
 
-		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
+		assert.equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
 
 		comaCorrectorFactor = 1.15;
 		expectedFR = 2.73;
 		result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm, comaCorrectorFactor);
-		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm with coma corrector is ' + result + ' should be ' + expectedFR + ', is ' + result);
+		assert.equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm with coma corrector is ' + result + ' should be ' + expectedFR + ', is ' + result);
 
 		eyePupilmm = 5;
 		comaCorrectorFactor = undefined;
 		expectedFR = 4.20;
 		result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm, comaCorrectorFactor);
-		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
+		assert.equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
 
 		eyepieceFLmm = 31;
 		eyePupilmm = 6;
 		comaCorrectorFactor = undefined;
 		expectedFR = 5.17;
 		result = calcFocalRatioForMaxEtendue(eyepieceFLmm, eyePupilmm, comaCorrectorFactor);
-		equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
+		assert.equal(withinRange(result, expectedFR, 0.01), true, 'focal ratio for max etendue at pupil of = ' + eyePupilmm + 'mm is ' + result + ' should be ' + expectedFR + ', is ' + result);
 	});
 
-	QUnit.test('parms.apertureIn', function () {
+	QUnit.test('parms.apertureIn', assert => {
 		var parms, result, parms2, result2, originalResult;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 13.2;
 		result = parms.apertureIn;
-		equal(result, 13.2, 'apertureIn should be 13.2, is ' + result);
+		assert.equal(result, 13.2, 'apertureIn should be 13.2, is ' + result);
 
 		parms2 = new VisualDetectCalcParms();
 		parms2.apertureIn = 30;
 		result2 = parms2.apertureIn;
-		equal(result2, 30, 'copied apertureIn should be 30, is ' + result2);
+		assert.equal(result2, 30, 'copied apertureIn should be 30, is ' + result2);
 
 		originalResult = parms.apertureIn;
-		equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
+		assert.equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
 	});
 
-	QUnit.test('parms.apertureIn', function () {
+	QUnit.test('parms.apertureIn', assert => {
 		var parms, result, copiedParms, result2, originalResult;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 13.2;
 		result = parms.apertureIn;
-		equal(result, 13.2, 'apertureIn should be 13.2, is ' + result);
+		assert.equal(result, 13.2, 'apertureIn should be 13.2, is ' + result);
 
 		copiedParms = parms.copyFrom();
 		copiedParms.apertureIn = 30;
 		result2 = copiedParms.apertureIn;
-		equal(result2, 30, 'copied apertureIn should be 30, is ' + result2);
+		assert.equal(result2, 30, 'copied apertureIn should be 30, is ' + result2);
 
 		originalResult = parms.apertureIn;
-		equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
+		assert.equal(originalResult, 13.2, 'original apertureIn should be 13.2, is ' + result);
 	});
 
-	QUnit.test('visualDetectCalcData.logAngle[1]', function () {
+	QUnit.test('visualDetectCalcData.logAngle[1]', assert => {
 		var data, result;
 		data = visualDetectCalcData;
 		result = data.logAngle[1];
-		equal(result, 0.5563, 'logAngle[1] should be 0.5563, is ' + result);
+		assert.equal(result, 0.5563, 'logAngle[1] should be 0.5563, is ' + result);
 
 		result = data.ltc[1][1];
-		equal(result, -1.7747, 'ltc[1][1] should be -1.7747, is ' + result);
+		assert.equal(result, -1.7747, 'ltc[1][1] should be -1.7747, is ' + result);
 	});
 
 	QUnit.module('visual detection calculator: the calculator');
@@ -801,28 +801,28 @@
 
 	var visualDetectCalc = new VisualDetectCalc();
 
-	QUnit.test('visualDetectCalc.calc()', function () {
+	QUnit.test('visualDetectCalc.calc()', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		result = visualDetectCalc.calc(parms);
-		equal(withinRange(result.logContrastDiff,  0.84, 0.01), true, 'The logContrastDiff should be 0.84, is ' + result.logContrastDiff);
-		equal(withinRange(result.actualFoV, 1.81708055723804, 0.000001), true, 'The actualFoV should be 1.81708055723804, is ' + result.actualFoV);
-		equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
-		equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
+		assert.equal(withinRange(result.logContrastDiff,  0.84, 0.01), true, 'The logContrastDiff should be 0.84, is ' + result.logContrastDiff);
+		assert.equal(withinRange(result.actualFoV, 1.81708055723804, 0.000001), true, 'The actualFoV should be 1.81708055723804, is ' + result.actualFoV);
+		assert.equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
+		assert.equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
 	});
 
-	QUnit.test('visualDetectCalc.calc()', function () {
+	QUnit.test('visualDetectCalc.calc()', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		parms.eyepieceExitPupilmm = 4;
 		result = visualDetectCalc.calc(parms);
-		equal(withinRange(result.logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result.logContrastDiff);
-		equal(withinRange(result.actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result.actualFoV);
-		equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
-		equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
+		assert.equal(withinRange(result.logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result.logContrastDiff);
+		assert.equal(withinRange(result.actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result.actualFoV);
+		assert.equal(result.fitsFoV, true, 'The object should  fit the field of view, is ' + result.fitsFoV);
+		assert.equal(result.detectable, true, 'The object should  be detectable, is ' + result.detectable);
 	});
 
-	QUnit.test('NGC 134 example from Clarke\'s book', function () {
+	QUnit.test('NGC 134 example from Clarke\'s book', assert => {
 		var parms, result;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 8;
@@ -840,10 +840,10 @@
 		parms.singleEyeFactor = 1;
 		result = visualDetectCalc.calc(parms);
 		console.log(visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text);
-		equal(withinRange(result.logContrastDiff, 1.0, 0.1), true, 'The logContrastDiff should be 1.0, is ' + result.logContrastDiff);
+		assert.equal(withinRange(result.logContrastDiff, 1.0, 0.1), true, 'The logContrastDiff should be 1.0, is ' + result.logContrastDiff);
 	});
 
-	QUnit.test('Sculptor System example from Clarke\'s book', function () {
+	QUnit.test('Sculptor System example from Clarke\'s book', assert => {
 		var parms, result;
 		parms = new VisualDetectCalcParms();
 		parms.apertureIn = 8;
@@ -864,10 +864,10 @@
 			+ 'Clarke  says log difference = 0.4 based on 27x and states that object with no telescope=26.3 and object in telescope at ODM=24.5, and background at magnification=24.6\n'
 			+ 'I get log difference = 0.3\n'
 			+ visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text);
-		equal(withinRange(result.logContrastDiff, 0.3, 0.1), true, 'The logContrastDiff should be 0.3 (book says 0.4), is ' + result.logContrastDiff);
+		assert.equal(withinRange(result.logContrastDiff, 0.3, 0.1), true, 'The logContrastDiff should be 0.3 (book says 0.4), is ' + result.logContrastDiff);
 	});
 
-	QUnit.test('visualDetectCalc.calc()', function () {
+	QUnit.test('visualDetectCalc.calc()', assert => {
 		// compare to my previous C version based on Clark's Visual Astronomy calculates logContrastDiff = 0.51
 		// because exitPupilmm=6.5, exitPupilmm=9, scope transmission=.85 and missing single eye factor
 		var parms, result;
@@ -886,30 +886,30 @@
 		parms.singleEyeFactor = 1;
 		result = visualDetectCalc.calc(parms);
 		console.log(visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text);
-		equal(withinRange(result.logContrastDiff, 0.55, 0.01), true, 'The logContrastDiff should be 0.55, is ' + result.logContrastDiff);
+		assert.equal(withinRange(result.logContrastDiff, 0.55, 0.01), true, 'The logContrastDiff should be 0.55, is ' + result.logContrastDiff);
 	});
 
-	QUnit.test('visualDetectCalc.fitsFoV', function () {
+	QUnit.test('visualDetectCalc.fitsFoV', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		parms.eyepieceExitPupilmm = 1;
 		result = visualDetectCalc.calc(parms);
-		equal(result.fitsFoV, false, 'The object should not fit the field of view, is ' + result.fitsFoV);
+		assert.equal(result.fitsFoV, false, 'The object should not fit the field of view, is ' + result.fitsFoV);
 	});
 
-	QUnit.test('visualDetectCalc.detectable', function () {
+	QUnit.test('visualDetectCalc.detectable', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		parms.objMag = 10;
 		result = visualDetectCalc.calc(parms);
-		equal(result.detectable, false, 'The object should not be detectable, is ' + result.detectable);
+		assert.equal(result.detectable, false, 'The object should not be detectable, is ' + result.detectable);
 	});
 
-	QUnit.test('visualDetectCalc.includeResultAsString', function () {
+	QUnit.test('visualDetectCalc.includeResultAsString', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
-		equal(result.length > 0, true, 'result is ' + result);
+		assert.equal(result.length > 0, true, 'result is ' + result);
 	});
 
 	var visualDetectCalcParms2 = new VisualDetectCalcParms();
@@ -927,80 +927,80 @@
 	//visualDetectCalcParms2.scopeTrans = ;
 	//visualDetectCalcParms2.singleEyeFactor = ;
 
-	QUnit.test('visualDetectCalc.includeResultAsString, Sombrero Galaxy through 13 inch f3', function () {
+	QUnit.test('visualDetectCalc.includeResultAsString, Sombrero Galaxy through 13 inch f3', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms2.copyFrom();
 		result = visualDetectCalc.includeResultAsString(visualDetectCalc.calc(parms)).text;
-		equal(result.length > 0, true, 'result is ' + result);
+		assert.equal(result.length > 0, true, 'result is ' + result);
 	});
 
 	QUnit.module('visual detection calculator: eyepiece exit pupil sequence');
 
-	QUnit.test('ExitPupilSequence', function () {
+	QUnit.test('ExitPupilSequence', assert => {
 		var parms, result;
 		parms = visualDetectCalcParms.copyFrom();
 		// determines array size of exit pupils that VisualDetectCalcExitPupils() builds
 		parms.eyepieceExitPupilmm = 7;
 		result = new VisualDetectCalcExitPupils(parms);
 		// 7mm exit pupil, per above test
-		equal(result[6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[6].parms.exitPupilmm);
-		equal(result[6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[6].parms.eyepieceExitPupilmm);
-		equal(withinRange(result[6].logContrastDiff, 0.83, 0.01), true, 'The logContrastDiff should be 0.83, is ' + result[6].logContrastDiff);
-		equal(withinRange(result[6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[6].actualFoV);
+		assert.equal(result[6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[6].parms.exitPupilmm);
+		assert.equal(result[6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[6].parms.eyepieceExitPupilmm);
+		assert.equal(withinRange(result[6].logContrastDiff, 0.83, 0.01), true, 'The logContrastDiff should be 0.83, is ' + result[6].logContrastDiff);
+		assert.equal(withinRange(result[6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[6].actualFoV);
 		// 4mm exit pupil
-		equal(result[3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[3].parms.exitPupilmm);
-		equal(result[3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[3].parms.eyepieceExitPupilmm);
-		equal(withinRange(result[3].logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result[3].logContrastDiff);
-		equal(withinRange(result[3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[3].actualFoV);
+		assert.equal(result[3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[3].parms.exitPupilmm);
+		assert.equal(result[3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[3].parms.eyepieceExitPupilmm);
+		assert.equal(withinRange(result[3].logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result[3].logContrastDiff);
+		assert.equal(withinRange(result[3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[3].actualFoV);
 		// 1mm exit pupil
-		equal(result[0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[0].parms.exitPupilmm);
-		equal(result[0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[0].parms.eyepieceExitPupilmm);
-		equal(withinRange(result[0].logContrastDiff, 1.18, 0.01), true, 'The logContrastDiff should be 1.18, is ' + result[0].logContrastDiff);
-		equal(withinRange(result[0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[0].actualFoV);
+		assert.equal(result[0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[0].parms.exitPupilmm);
+		assert.equal(result[0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[0].parms.eyepieceExitPupilmm);
+		assert.equal(withinRange(result[0].logContrastDiff, 1.18, 0.01), true, 'The logContrastDiff should be 1.18, is ' + result[0].logContrastDiff);
+		assert.equal(withinRange(result[0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[0].actualFoV);
 	});
 
 	QUnit.module('visual detection calculator: aperture sequence');
 
-	QUnit.test('VisualDetectCalcApertures', function () {
+	QUnit.test('VisualDetectCalcApertures', assert => {
 		var parms, result, halfAperture, dblAperture, halfApertureParms, halfApertureResults, dblApertureParms, dblApertureResults;
 		parms = visualDetectCalcParms.copyFrom();
 		// determines array size of exit pupils that VisualDetectCalcExitPupils() builds
 		parms.eyepieceExitPupilmm = 7;
 		result = new VisualDetectCalcApertures(parms);
 		// 7mm exit pupil, per above test
-		equal(result[1][6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][6].parms.exitPupilmm);
-		equal(result[1][6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[1][6].parms.eyepieceExitPupilmm);
-		equal(withinRange(result[1][6].logContrastDiff, 0.83, 0.01), true, 'The logContrastDiff should be 0.83, is ' + result[1][6].logContrastDiff);
-		equal(withinRange(result[1][6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[1][6].actualFoV);
+		assert.equal(result[1][6].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][6].parms.exitPupilmm);
+		assert.equal(result[1][6].parms.eyepieceExitPupilmm, 7, 'The eyepieceExitPupilmm should be 7, is ' + result[1][6].parms.eyepieceExitPupilmm);
+		assert.equal(withinRange(result[1][6].logContrastDiff, 0.83, 0.01), true, 'The logContrastDiff should be 0.83, is ' + result[1][6].logContrastDiff);
+		assert.equal(withinRange(result[1][6].actualFoV, 2.11992731677771, 0.000001), true, 'The actualFoV should be 2.11992731677771, is ' + result[1][6].actualFoV);
 		// 4mm exit pupil
-		equal(result[1][3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][3].parms.exitPupilmm);
-		equal(result[1][3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[1][3].parms.eyepieceExitPupilmm);
-		equal(withinRange(result[1][3].logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result[1][3].logContrastDiff);
-		equal(withinRange(result[1][3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[1][3].actualFoV);
+		assert.equal(result[1][3].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][3].parms.exitPupilmm);
+		assert.equal(result[1][3].parms.eyepieceExitPupilmm, 4, 'The eyepieceExitPupilmm should be 4, is ' + result[1][3].parms.eyepieceExitPupilmm);
+		assert.equal(withinRange(result[1][3].logContrastDiff, 0.89, 0.01), true, 'The logContrastDiff should be 0.89, is ' + result[1][3].logContrastDiff);
+		assert.equal(withinRange(result[1][3].actualFoV, 1.21138703815869, 0.000001), true, 'The actualFoV should be 1.21138703815869, is ' + result[1][3].actualFoV);
 		// 1mm exit pupil
-		equal(result[1][0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][0].parms.exitPupilmm);
-		equal(result[1][0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[1][0].parms.eyepieceExitPupilmm);
-		equal(withinRange(result[1][0].logContrastDiff, 1.18, 0.01), true, 'The logContrastDiff should be 1.18, is ' + result[1][0].logContrastDiff);
-		equal(withinRange(result[1][0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[1][0].actualFoV);
+		assert.equal(result[1][0].parms.exitPupilmm, 7, 'The exitPupilmm should be 7, is ' + result[1][0].parms.exitPupilmm);
+		assert.equal(result[1][0].parms.eyepieceExitPupilmm, 1, 'The eyepieceExitPupilmm should be 1, is ' + result[1][0].parms.eyepieceExitPupilmm);
+		assert.equal(withinRange(result[1][0].logContrastDiff, 1.18, 0.01), true, 'The logContrastDiff should be 1.18, is ' + result[1][0].logContrastDiff);
+		assert.equal(withinRange(result[1][0].actualFoV, 0.302846759539673, 0.000001), true, 'The actualFoV should be 0.302846759539673, is ' + result[1][0].actualFoV);
 
 		// test apertures
 		halfAperture = result[2][0].parms.apertureIn;
-		equal(result[1][0].parms.apertureIn/2, halfAperture, 'The aperture should be half of ' + result[1][0].parms.apertureIn + ', is ' + halfAperture);
+		assert.equal(result[1][0].parms.apertureIn/2, halfAperture, 'The aperture should be half of ' + result[1][0].parms.apertureIn + ', is ' + halfAperture);
 		dblAperture = result[0][0].parms.apertureIn;
-		equal(result[1][0].parms.apertureIn*2, dblAperture, 'The aperture should be double of ' + result[1][0].parms.apertureIn + ', is ' + dblAperture);
+		assert.equal(result[1][0].parms.apertureIn*2, dblAperture, 'The aperture should be double of ' + result[1][0].parms.apertureIn + ', is ' + dblAperture);
 
 		// test logContrasts, at exitPupilmm=6
 		halfApertureParms = visualDetectCalcParms.copyFrom();
 		halfApertureParms.apertureIn /= 2;
 		halfApertureResults = visualDetectCalc.calc(halfApertureParms);
-		equal(halfApertureResults.logContrastDiff, result[2][5].logContrastDiff, 'The log contrast should be ' + result[2][5].logContrastDiff + ', is ' + halfApertureResults.logContrastDiff);
+		assert.equal(halfApertureResults.logContrastDiff, result[2][5].logContrastDiff, 'The log contrast should be ' + result[2][5].logContrastDiff + ', is ' + halfApertureResults.logContrastDiff);
 		dblApertureParms = visualDetectCalcParms.copyFrom();
 		dblApertureParms.apertureIn *= 2;
 		dblApertureResults = visualDetectCalc.calc(dblApertureParms);
-		equal(dblApertureResults.logContrastDiff, result[0][5].logContrastDiff, 'The log contrast should be ' + result[0][5].logContrastDiff + ', is ' + dblApertureResults.logContrastDiff);
+		assert.equal(dblApertureResults.logContrastDiff, result[0][5].logContrastDiff, 'The log contrast should be ' + result[0][5].logContrastDiff + ', is ' + dblApertureResults.logContrastDiff);
 	});
 
-	QUnit.test('calcContrastOfObjectPlusSkyToSky', function () {
+	QUnit.test('calcContrastOfObjectPlusSkyToSky', assert => {
 		// M51
 		var objMag = 8.4,
 		    objectSize1Arcmin = 6.6,
@@ -1013,12 +1013,12 @@
 			},
 		    results = calcContrastOfObjectPlusSkyToSky(objMag, objectSize1Arcmin, objectSize2Arcmin, bkgndBrightEye);
 
-		equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
-		equal(withinRange(results.objectSurfaceBrightness, expected.objectSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 should be ' + expected.objectSurfaceBrightness + ', is ' + results.objectSurfaceBrightness);
-		equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
+		assert.equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
+		assert.equal(withinRange(results.objectSurfaceBrightness, expected.objectSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 should be ' + expected.objectSurfaceBrightness + ', is ' + results.objectSurfaceBrightness);
+		assert.equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
 	});
 
-	QUnit.test('calcContrastOfObjectPlusSkyToSky2', function () {
+	QUnit.test('calcContrastOfObjectPlusSkyToSky2', assert => {
 		// M51
 		var objectSurfaceBrightness = 21.6609,
 			bkgndBrightEye = 21.6,
@@ -1028,14 +1028,14 @@
 			},
 		    results = calcContrastOfObjectPlusSkyToSky2(objectSurfaceBrightness, bkgndBrightEye);
 
-		equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
-		equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
+		assert.equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
+		assert.equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
 	});
 
 	QUnit.module('calcNewtBaffle');
 
 	// test values verified by graph in baffle.html
-	QUnit.test('calcNewtBaffle', function () {
+	QUnit.test('calcNewtBaffle', assert => {
 		var focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorDia, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID, results;
 		focalPlaneDia = 1.4;
 		focuserBarrelBottomToFocalPlaneDistance = 2.5;
@@ -1049,16 +1049,16 @@
 		primaryToBaffleDistance = 4;
 		tubeID = primaryMirrorDia + 2;
 		results = calcNewtBaffle(focalPlaneDia, focuserBarrelBottomToFocalPlaneDistance, focuserBarrelID, diagSizeMinorAxis, diagToFocalPlaneDistance, diagtoFocuserBaffleDistance, diagToOppositeSideBaffleDistance, primaryMirrorFocalLength, primaryToBaffleDistance, tubeID);
-		equal(withinRange(results.focuserBaffleID, 1.97, 0.01), true, 'The focuser baffle ID should be 1.97, is ' + results.focuserBaffleID);
-		equal(withinRange(results.focuserBaffleOD, 2.44, 0.01), true, 'The focuser baffle ID should be 2.44, is ' + results.focuserBaffleOD);
-		equal(withinRange(results.diagonalBaffleOD, 16.55, 0.01), true, 'The diagonal baffle OD should be 16.55, is ' + results.diagonalBaffleOD);
-		equal(withinRange(results.primaryBaffleOD, 16.70, 0.01), true, 'The primary mirror baffle OD should be 16.70, is ' + results.primaryBaffleOD);
-		equal(withinRange(results.tubeExtension, 7, 0.01), true, 'The tube extension beyond the primary mirror to act as primary baffle should be 7, is ' + results.tubeExtension);
+		assert.equal(withinRange(results.focuserBaffleID, 1.97, 0.01), true, 'The focuser baffle ID should be 1.97, is ' + results.focuserBaffleID);
+		assert.equal(withinRange(results.focuserBaffleOD, 2.44, 0.01), true, 'The focuser baffle ID should be 2.44, is ' + results.focuserBaffleOD);
+		assert.equal(withinRange(results.diagonalBaffleOD, 16.55, 0.01), true, 'The diagonal baffle OD should be 16.55, is ' + results.diagonalBaffleOD);
+		assert.equal(withinRange(results.primaryBaffleOD, 16.70, 0.01), true, 'The primary mirror baffle OD should be 16.70, is ' + results.primaryBaffleOD);
+		assert.equal(withinRange(results.tubeExtension, 7, 0.01), true, 'The tube extension beyond the primary mirror to act as primary baffle should be 7, is ' + results.tubeExtension);
 	});
 
 	QUnit.module('createAltazConstantMotionTrackingErrors');
 
-	QUnit.test('data return', function () {
+	QUnit.test('data return', assert => {
 		var latitudeRad = 40 * uom.degToRad,
 			constantTrackRateTimeRad = 300 * uom.secToRad,
 			spacingDeg = 2,
@@ -1066,73 +1066,73 @@
 			data = createAltazConstantMotionTrackingErrors(latitudeRad, constantTrackRateTimeRad, spacingDeg),
 			results = data[5][2] / uom.arcsecToRad;
 
-		equal(withinRange(results, expected, 0.001), true, 'The constant track rate error over 5 minutes should be ' + expected + ', is ' + results);
+		assert.equal(withinRange(results, expected, 0.001), true, 'The constant track rate error over 5 minutes should be ' + expected + ', is ' + results);
 	});
 
 	QUnit.module('slumping');
 
-	QUnit.test('sharply slumped: dia=30, FR=1', function () {
+	QUnit.test('sharply slumped: dia=30, FR=1', assert => {
 		var mirrorDia = 30,
 			focalRatio = 1,
 			expectedEffectiveEntranceAperture = 29.688475110542754,
 			result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
-		equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+		assert.equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
 	});
 
-	QUnit.test('barely slumped: dia=30, FR=5', function () {
+	QUnit.test('barely slumped: dia=30, FR=5', assert => {
 		var mirrorDia = 30,
 			focalRatio = 5,
 			expectedEffectiveEntranceAperture = 29.987501562406997,
 			result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
-		equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+		assert.equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
 	});
 
-	QUnit.test('13" F3', function () {
+	QUnit.test('13" F3', assert => {
 		var mirrorDia = 13.2,
 			focalRatio = 3,
 			expectedEffectiveEntranceAperture = 13.18472752612914,
 			expectedSphericalSagitta = 0.275,
 			expectedEdgeAngleDeg = 4.775,
 			result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
-		equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
-		equal(withinRange(result.sphericalSagitta, expectedSphericalSagitta, 0.001), true, 'result = ' + result.sphericalSagitta);
-		equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);
+		assert.equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+		assert.equal(withinRange(result.sphericalSagitta, expectedSphericalSagitta, 0.001), true, 'result = ' + result.sphericalSagitta);
+		assert.equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);
 	});
 
-	QUnit.test('42" F2.9', function () {
+	QUnit.test('42" F2.9', assert => {
 		var mirrorDia = 42,
 			focalRatio = 2.9,
 			expectedEffectiveEntranceAperture = 41.94799792367687,
 			expectedSphericalSagitta = 0.905,
 			expectedEdgeAngleDeg = 4.939,
 			result = calcMirrorSlumpingParms(mirrorDia, focalRatio);
-		equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
-		equal(withinRange(result.sphericalSagitta, expectedSphericalSagitta, 0.001), true, 'result = ' + result.sphericalSagitta);
-		equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);
+		assert.equal(withinRange(result.effectiveDia, expectedEffectiveEntranceAperture, 0.000001), true, 'result = ' + result.effectiveDia);
+		assert.equal(withinRange(result.sphericalSagitta, expectedSphericalSagitta, 0.001), true, 'result = ' + result.sphericalSagitta);
+		assert.equal(withinRange(result.edgeAngleDeg, expectedEdgeAngleDeg, 0.001), true, 'result = ' + result.edgeAngleDeg);
 	});
 
 	QUnit.module('sphere to parabola difference');
 
-	QUnit.test('6 inch F8', function () {
+	QUnit.test('6 inch F8', assert => {
 		var mirrorDia = 6,
 			focalRatio = 8,
 			expectedEffectiveEntranceAperture = 0.0000114,
 			result = calcSphereParabolaDifference(mirrorDia, focalRatio);
-		equal(withinRange(result, expectedEffectiveEntranceAperture, 0.0000001), true, 'result = ' + result);
+		assert.equal(withinRange(result, expectedEffectiveEntranceAperture, 0.0000001), true, 'result = ' + result);
 	});
 
 	QUnit.module('ronchi');
 
-	QUnit.test('wavefrontError', function () {
+	QUnit.test('wavefrontError', assert => {
 		var mirrorDia = 20,
 			radiusOfCurvature = 200,
 			correctionFactor = 0.86,
 			result = wavefrontError(mirrorDia, radiusOfCurvature, correctionFactor),
 			expected = 0.5108704878136372;
-		equal(result, expected, 'result = ' + result + ', should be ' + expected);
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('wavefrontErrorFromCorrectionsArray', function () {
+	QUnit.test('wavefrontErrorFromCorrectionsArray', assert => {
 		var mirrorDia = 20,
 			radiusOfCurvature = 200,
 			wavelengthLight = 0.000022,
@@ -1145,13 +1145,13 @@
 			expectedWavefrontError = -0.5108704878136372,
 			expectedRMS = 0.2946307101000006;
 
-		equal(wavefrontErrorForZone7, expectedWavefrontError, 'wavefrontErrorForZone7 = ' + wavefrontErrorForZone7 + ', should be ' + expectedWavefrontError);
-		equal(wavefrontPV, -expectedWavefrontError, 'wavefrontPV = ' + wavefrontPV + ', should be ' + -expectedWavefrontError);
-		equal(wavefrontRMS, expectedRMS, 'wavefrontErrorRMS = ' + wavefrontRMS + ', should be ' + expectedRMS);
+		assert.equal(wavefrontErrorForZone7, expectedWavefrontError, 'wavefrontErrorForZone7 = ' + wavefrontErrorForZone7 + ', should be ' + expectedWavefrontError);
+		assert.equal(wavefrontPV, -expectedWavefrontError, 'wavefrontPV = ' + wavefrontPV + ', should be ' + -expectedWavefrontError);
+		assert.equal(wavefrontRMS, expectedRMS, 'wavefrontErrorRMS = ' + wavefrontRMS + ', should be ' + expectedRMS);
 	});
 
 	// parabolic correction tolerances: focalRatio 1: 98.3%; focalRatio 2: 96.7%; focalRatio 3: 95%; focalRatio 4: 93.3%; focalRatio 5: 91.7%; focalRatio 6: 90%; focalRatio 7: 88.4%; focalRatio 8: 86.7%; focalRatio 9: 85%; focalRatio 10: 83.4%;
-	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', function () {
+	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 10', assert => {
 		var mirrorDia = 10,
 			focalRatio,
 			results = [],
@@ -1165,11 +1165,11 @@
 			displayResults += 'focalRatio ' + focalRatio + ': ' + Math.round(results[ix] * 1000) / 10 + '%; ';
 		}
 
-		equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
+		assert.equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
 	});
 
 	// as above, but double the aperture to demonstrate that aperture has no bearing on allowable correction
-	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 20', function () {
+	QUnit.test('findAllowableCorrection, for a range of focal ratios from f/1 to f/10, mirror dia = 20', assert => {
 		var mirrorDia = 20,
 			focalRatio,
 			results = [],
@@ -1183,14 +1183,14 @@
 			displayResults += 'focalRatio ' + focalRatio + ': ' + Math.round(results[ix] * 1000) / 10 + '%; ';
 		}
 
-		equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
+		assert.equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
 	});
 
-	QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/10', function () {
+	QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/10', assert => {
 		var focalRatio = 10,
 			expected = 0.16699999999999998,
 			result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
-		equal(result, expected, 'result = ' + result + ', should be ' + expected);
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
 	});
 
 	QUnit.module('Dob friction of movement');
@@ -1212,7 +1212,7 @@
 		ALT radius 4, weight 80 lbs, 60deg bearing angle, moment arm 40inches, f=0.088
 		1.3*80*(1/cos(60))*4/40=2.1
 	*/
-	QUnit.test('az and alt friction', function () {
+	QUnit.test('az and alt friction', assert => {
 		var allowableError = 0.000000000000001,
 			azimuthFrictionCoefficient = 0.083,
 			altitudeFrictionCoefficient = 0.13,
@@ -1226,61 +1226,61 @@
 			result = MLB.calcLib.calcDobFriction(azimuthFrictionCoefficient, altitudeFrictionCoefficient, momentArm, azWeight, altWeight, azBearingRadius, altBearingRadius, altBearingAngleDegFromVertical, altitudeAngleDegFromHorizontal),
 			expected = [3.169252593278106, 2.08];
 
-		equal(withinRange(result.az, expected[0], allowableError), true, 'az result = ' + result.az + ', should be ' + expected[0]);
-		equal(withinRange(result.alt, expected[1], allowableError), true, 'alt result = ' + result.alt + ', should be ' + expected[1]);
+		assert.equal(withinRange(result.az, expected[0], allowableError), true, 'az result = ' + result.az + ', should be ' + expected[0]);
+		assert.equal(withinRange(result.alt, expected[1], allowableError), true, 'alt result = ' + result.alt + ', should be ' + expected[1]);
 	});
 
 	QUnit.module('SQM to NELM converter');
 
 	// from http://www.unihedron.com/projects/darksky/NELM2BCalc.html
 
-	QUnit.test('SQMtoNELMconverter', function () {
+	QUnit.test('SQMtoNELMconverter', assert => {
 		var expected,
 			result,
 			allowableError = 0.0001;
 
 		expected = 6;
 		result = SQMtoNELMconverter(20.8);
-		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('NELMtoSQMconverter', function () {
+	QUnit.test('NELMtoSQMconverter', assert => {
 		var expected,
 			result,
 			allowableError = 0.0001;
 
 		expected = 20.8;
 		result = NELMtoSQMconverter(6);
-		equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
 	QUnit.module('artificialStarDistance');
 
-	QUnit.test('artificialStarDistanceMM', function () {
+	QUnit.test('artificialStarDistanceMM', assert => {
 		var expected,
 			result;
 
 		expected = '8984';
 		result = artificialStarDistanceMM(152, 912);
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 	});
 
-	QUnit.test('artificialStarDistanceInches', function () {
+	QUnit.test('artificialStarDistanceInches', assert => {
 		var expected,
 			result;
 
 		expected = '355';
 		result = artificialStarDistanceInches(6, 36);
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 	});
 
-	QUnit.test('artificialStarDistanceInches', function () {
+	QUnit.test('artificialStarDistanceInches', assert => {
 		var expected,
 			result;
 
 		expected = '4495';
 		result = artificialStarDistanceInches(16, 16 * 4.5);
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 	});
 
 	QUnit.module('telescope optimizer');
@@ -1295,49 +1295,49 @@
 		this.allowableError = 0.01
 	};
 
-	QUnit.test('calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_Pupil', function () {
+	QUnit.test('calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_Pupil', assert => {
 		var parms = new MLBScopeTest5Parms(),
 			expected = parms.apertureInches,
 			result;
 
 		result = calcApertureFromFOV_EyepieceFL_EyepieceFieldStop_Pupil(parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm, parms.pupilmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_Pupil', function () {
+	QUnit.test('calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_Pupil', assert => {
 		var parms = new MLBScopeTest5Parms(),
 			expected = parms.FOVdeg,
 			result;
 
 		result = calcFOVFromAperture_EyepieceFL_EyepieceFieldStop_Pupil(parms.apertureInches, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm, parms.pupilmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcPupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop', function () {
+	QUnit.test('calcPupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop', assert => {
 		var parms = new MLBScopeTest5Parms(),
 			expected = parms.pupilmm,
 			result;
 
 		result = calcPupilFromAperture_FOV_EyepieceFL_EyepieceFieldStop(parms.apertureInches, parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.eyepieceFieldStopmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_Pupil', function () {
+	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_Pupil', assert => {
 		var parms = new MLBScopeTest5Parms(),
 			expected = parms.eyepieceFieldStopmm,
 			result;
 
 		result = calcEyepieceFieldStopFromAperture_FOV_EyepieceFL_Pupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFocalLengthmm, parms.pupilmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_Pupil', function () {
+	QUnit.test('calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_Pupil', assert => {
 		var parms = new MLBScopeTest5Parms(),
 			expected = parms.eyepieceFocalLengthmm,
 			result;
 
 		result = calcEyepieceFLFromAperture_FOV_EyepieceFieldStop_Pupil(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm, parms.pupilmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
 	var MLBScopeTest4Parms = function () {
@@ -1349,40 +1349,40 @@
 		this.allowableError = 0.02
 	};
 
-	QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop', function () {
+	QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop', assert => {
 		var parms = new MLBScopeTest4Parms(),
 			expected = parms.apertureInches,
 			result;
 
 		result = calcApertureFromFOV_FocalRatio_EyepieceFieldStop(parms.FOVdeg, parms.focalRatio, parms.eyepieceFieldStopmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop', function () {
+	QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop', assert => {
 		var parms = new MLBScopeTest4Parms(),
 			expected = parms.FOVdeg,
 			result;
 
 		result = calcFOVFromAperture_FocalRatio_EyepieceFieldStop(parms.apertureInches, parms.focalRatio, parms.eyepieceFieldStopmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop', function () {
+	QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop', assert => {
 		var parms = new MLBScopeTest4Parms(),
 			expected = parms.focalRatio,
 			result;
 
 		result = calcFocalRatioFromAperture_FOV_EyepieceFieldStop(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio', function () {
+	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio', assert => {
 		var parms = new MLBScopeTest4Parms(),
 			expected = parms.eyepieceFieldStopmm,
 			result;
 
 		result = calcEyepieceFieldStopFromAperture_FOV_FocalRatio(parms.apertureInches, parms.FOVdeg, parms.focalRatio);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result = ' + result + ', should be ' + expected);
 	});
 
 	var MLBScopeTest4ParmsComaCorrectorFactor = function () {
@@ -1395,53 +1395,53 @@
 		this.allowableError = 0.02
 	};
 
-	QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor', function () {
+	QUnit.test('calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor', assert => {
 		var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
 			expected = parms.apertureInches,
 			result;
 
 		result = calcApertureFromFOV_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(parms.FOVdeg, parms.focalRatio, parms.eyepieceFieldStopmm, parms.comaCorrectorFactor);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor', function () {
+	QUnit.test('calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor', assert => {
 		var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
 			expected = parms.FOVdeg,
 			result;
 
 		result = calcFOVFromAperture_FocalRatio_EyepieceFieldStop_ComaCorrectorFactor(parms.apertureInches, parms.focalRatio, parms.eyepieceFieldStopmm, parms.comaCorrectorFactor);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor', function () {
+	QUnit.test('calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor', assert => {
 		var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
 			expected = parms.focalRatio,
 			result;
 
 		result = calcFocalRatioFromAperture_FOV_EyepieceFieldStop_ComaCorrectorFactor(parms.apertureInches, parms.FOVdeg, parms.eyepieceFieldStopmm, parms.comaCorrectorFactor);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor', function () {
+	QUnit.test('calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor', assert => {
 		var parms = new MLBScopeTest4ParmsComaCorrectorFactor(),
 			expected = parms.eyepieceFieldStopmm,
 			result;
 
 		result = calcEyepieceFieldStopFromAperture_FOV_FocalRatio_ComaCorrectorFactor(parms.apertureInches, parms.FOVdeg, parms.focalRatio, parms.comaCorrectorFactor);
-		equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, parms.allowableError), true, 'result including coma corrector = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcMagnificationFromApertureAndPupil', function () {
+	QUnit.test('calcMagnificationFromApertureAndPupil', assert => {
 		var aperture = 200,
 			pupil = 6.5,
 			expected = 200 / 6.5, //~31x
 			allowableError = 0.001,
 			result = calcMagnificationFromApertureAndPupil(aperture, pupil);
 
-		equal(withinRange(result, expected, allowableError), true, 'magnification = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, allowableError), true, 'magnification = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcDetectionFromContrastAndObjectApparentSize', function () {
+	QUnit.test('calcDetectionFromContrastAndObjectApparentSize', assert => {
 		var totalTests = 0,
 			totalScore = 0,
 			totalAbsDev = 0,
@@ -1506,19 +1506,19 @@ note that visible? is coded from impossible=1 to very easy=6
 		avgScore = totalScore / totalTests;
 
 		expected = 15;
-		equal(totalTests, expected, 'totalTests is ' + totalTests + ', should be ' + expected);
+		assert.equal(totalTests, expected, 'totalTests is ' + totalTests + ', should be ' + expected);
 
 		expected = 4;
-		equal(totalAbsDev, expected, 'totalAbsDev is ' + totalAbsDev + ', should be ' + expected);
+		assert.equal(totalAbsDev, expected, 'totalAbsDev is ' + totalAbsDev + ', should be ' + expected);
 
 		expected = 2;
-		equal(maxDev, expected, 'maxDev is ' + maxDev + ', should be ' + expected);
+		assert.equal(maxDev, expected, 'maxDev is ' + maxDev + ', should be ' + expected);
 
 		expected = 3.7;
-		equal(withinRange(avgScore, expected, 0.1), true, 'avgScore = ' + avgScore + ', should be ' + expected);
+		assert.equal(withinRange(avgScore, expected, 0.1), true, 'avgScore = ' + avgScore + ', should be ' + expected);
 
 		expected = 0.27;
-		equal(withinRange(rms, expected, 0.1), true, 'rms = ' + rms + ', should be ' + expected);
+		assert.equal(withinRange(rms, expected, 0.1), true, 'rms = ' + rms + ', should be ' + expected);
 
 		// triple the aperture / apparent size raises the avgScore by nearly a level
 		totalTests = 0;
@@ -1530,21 +1530,21 @@ note that visible? is coded from impossible=1 to very easy=6
 		avgScore = totalScore / totalTests;
 
 		expected = 4.5;
-		equal(withinRange(avgScore, expected, 0.1), true, 'avgScore = ' + avgScore + ', should be ' + expected);
+		assert.equal(withinRange(avgScore, expected, 0.1), true, 'avgScore = ' + avgScore + ', should be ' + expected);
 
 		expected = 0.8;
-		equal(withinRange(rms, expected, 0.1), true, 'rms = ' + rms + ', should be ' + expected);
+		assert.equal(withinRange(rms, expected, 0.1), true, 'rms = ' + rms + ', should be ' + expected);
 	});
 
-	QUnit.test('translateDetectionLevelIntoWords', function () {
+	QUnit.test('translateDetectionLevelIntoWords', assert => {
 		var detection = 5,
 			expected = 'easy',
 			result = translateDetectionLevelIntoWords(detection);
 
-		equal(result, expected, 'result = ' + result + ', should be ' + expected);
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('resolutionFromAperture_Magnification', function () {
+	QUnit.test('resolutionFromAperture_Magnification', assert => {
 		var apertureInches = 5,
 			magnification,
 			result,
@@ -1554,34 +1554,34 @@ note that visible? is coded from impossible=1 to very easy=6
 		magnification = 30;
 		expected = 8;
 		result = resolutionFromAperture_Magnification(apertureInches, magnification);
-		equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 
 		// reaches DawesLimit: magnification limited by Dawes Limit
 		magnification = 300;
 		expected = 0.92;
 		result = resolutionFromAperture_Magnification(apertureInches, magnification);
-		equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcTheoreticalResolutionArcsec', function () {
+	QUnit.test('calcTheoreticalResolutionArcsec', assert => {
 		var apertureInches = 10,
 			result,
 			expected = 0.46;
 
 		result = calcTheoreticalResolutionArcsec(apertureInches);
-		equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcAiryDiskInches', function () {
+	QUnit.test('calcAiryDiskInches', assert => {
 		var focalRatio = 5,
 			result,
 			expected = 0.000268;
 
 		result = calcAiryDiskInches(focalRatio);
-		equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcMillesLacroixTolerance', function () {
+	QUnit.test('calcMillesLacroixTolerance', assert => {
 		var wavelengthLight = 0.000022,
 			mirrorDia = 20,
 			radiusOfCurvature = 200,
@@ -1590,10 +1590,10 @@ note that visible? is coded from impossible=1 to very easy=6
 			expected = 0.005772043;
 
 		result = calcMillesLacroixTolerance(wavelengthLight, mirrorDia, radiusOfCurvature, zonalRadius);
-		equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcParabolicCorrectionForZone', function () {
+	QUnit.test('calcParabolicCorrectionForZone', assert => {
 		var mirrorDia = 20,
 			radiusOfCurvature = 200,
 			zonalRadius = 0.93,
@@ -1601,10 +1601,10 @@ note that visible? is coded from impossible=1 to very easy=6
 			expected = 0.216225;
 
 		result = calcParabolicCorrectionForZone(mirrorDia, radiusOfCurvature, zonalRadius);
-		equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
+		assert.equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcProjectedFocuserBaffleRadius', function () {
+	QUnit.test('calcProjectedFocuserBaffleRadius', assert => {
 		var eyepieceFieldStop = 2,
 			barrelTubeID = 3,
 			focalPlaneToFocuserBarrelBottomDistance = 3,
@@ -1614,10 +1614,10 @@ note that visible? is coded from impossible=1 to very easy=6
 			expected = 14,
 			result = calcProjectedFocuserBaffleRadius(eyepieceFieldStop, barrelTubeID, focalPlaneToFocuserBarrelBottomDistance, focalPlaneToDiagDistance, telescopeTubeOD, telescopeTubeThickness);
 
-		equal(withinRange(result, expected, 0.001), true, 'The projected focuser baffle radius should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'The projected focuser baffle radius should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('scalingFactor', function () {
+	QUnit.test('scalingFactor', assert => {
 		var maxWidth = 1020,
 			maxHeight = 420,
 			modelWidth = 40,
@@ -1628,94 +1628,94 @@ note that visible? is coded from impossible=1 to very easy=6
 			expectedHeight = 145,
 			result = scalingFactor(maxWidth, maxHeight, modelWidth, modelHeight, border);
 
-		equal(withinRange(result.scalingFactor, expectedScalingFactor, 0.001), true, 'The scaling factor should be ' + expectedScalingFactor + ', is ' + result.scalingFactor);
-		equal(withinRange(result.width, expectedWidth, 0.001), true, 'The width should be ' + expectedWidth + ', is ' + result.width);
-		equal(withinRange(result.height, expectedHeight, 0.001), true, 'The height should be ' + expectedHeight + ', is ' + result.height);
+		assert.equal(withinRange(result.scalingFactor, expectedScalingFactor, 0.001), true, 'The scaling factor should be ' + expectedScalingFactor + ', is ' + result.scalingFactor);
+		assert.equal(withinRange(result.width, expectedWidth, 0.001), true, 'The width should be ' + expectedWidth + ', is ' + result.width);
+		assert.equal(withinRange(result.height, expectedHeight, 0.001), true, 'The height should be ' + expectedHeight + ', is ' + result.height);
 	});
 
-	QUnit.test('calcMaxMagnification', function () {
+	QUnit.test('calcMaxMagnification', assert => {
 		var apertureInches = 2.5,
 			expected = 67.5,
 			result = calcMaxMagnification(apertureInches);
 
-		equal(withinRange(result, expected, 0.001), true, 'Max magnification should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'Max magnification should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcMinMagnification', function () {
+	QUnit.test('calcMinMagnification', assert => {
 		var apertureInches = 2.5,
 			expected = 9,
 			result = calcMinMagnification(apertureInches);
 
-		equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcComaFreeDiaInches', function () {
+	QUnit.test('calcComaFreeDiaInches', assert => {
 		var focalRatio = 5,
 			expected = 0.0875,
 			result = calcComaFreeDiaInches(focalRatio);
 
-		equal(withinRange(result, expected, 0.001), true, 'coma free diameter in inches should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'coma free diameter in inches should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcDiopter', function () {
+	QUnit.test('calcDiopter', assert => {
 		var focalLengthInches = 17,
 			expected =  2.3159,
 			result = calcDiopter(focalLengthInches);
 
-		equal(withinRange(result, expected, 0.01), true, 'diopter should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'diopter should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcFocalLengthInches', function () {
+	QUnit.test('calcFocalLengthInches', assert => {
 		var diopter = 2.3159,
 			expected = 17,
 			result = calcFocalLengthInches(diopter);
 
-		equal(withinRange(result, expected, 0.01), true, 'telescope focal length should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'telescope focal length should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcMagnifyingLensPower', function () {
+	QUnit.test('calcMagnifyingLensPower', assert => {
 		var diopter = 4,
 			expected = 2,
 			result = calcMagnifyingLensPower(diopter).lensHeldCloseToEye;
 
-		equal(withinRange(result, expected, 0.01), true, 'lens magnifying power should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.01), true, 'lens magnifying power should be ' + expected + ', is ' + result);
 	});
 
 	// http://www.rfroyce.com/standards.htm
 
-	QUnit.test('calcStrehlFromRMS', function () {
+	QUnit.test('calcStrehlFromRMS', assert => {
 		var rms = 0.028,
 			expected = 0.969,
 			result = calcStrehlFromRMS(rms);
 
-		equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcRMSFromStrehl', function () {
+	QUnit.test('calcRMSFromStrehl', assert => {
 		var Strehl = 0.969,
 			expected = 0.028,
 			result = calcRMSFromStrehl(Strehl);
 
-		equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcPVFromRMS', function () {
+	QUnit.test('calcPVFromRMS', assert => {
 		var rms = 0.071,
 			expected = 1 / 4,
 			result = calcPVFromRMS(rms);
 
-		equal(withinRange(result, expected, 0.001), true, 'PV should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'PV should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcRMSFromPV', function () {
+	QUnit.test('calcRMSFromPV', assert => {
 		var PV = 1 / 4,
 			expected = 0.071,
 			result = calcRMSFromPV(PV);
 
-		equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize', function () {
+	QUnit.test('calcApertureFromEyepieceApparentFOVdegs_Pupil_ObjectApparentSize', assert => {
 		var eyepieceApparentFOVdegs = [100, 80, 60, 40],
 			pupilInches = 7 / 25.4, // keep it all in inches - could just as well use mm
 			objectSizeArcmin1 = 60,
@@ -1735,12 +1735,12 @@ note that visible? is coded from impossible=1 to very easy=6
 			resultLuminance = result[ix]['luminance'];
 			expectedAperture = expectedApertures[ix];
 			expectedLuminance = expectedLuminances[ix];
-			equal(withinRange(resultAperture, expectedAperture, 0.01), true, 'for ' + resultFOV + ' field of view in degrees, aperture should be ' + expectedAperture + ', is ' + resultAperture);
-			equal(withinRange(resultLuminance, expectedLuminance, 0.01), true, '... and luminance should be ' + expectedLuminance + ' in^2deg^2, is ' + resultLuminance);
+			assert.equal(withinRange(resultAperture, expectedAperture, 0.01), true, 'for ' + resultFOV + ' field of view in degrees, aperture should be ' + expectedAperture + ', is ' + resultAperture);
+			assert.equal(withinRange(resultLuminance, expectedLuminance, 0.01), true, '... and luminance should be ' + expectedLuminance + ' in^2deg^2, is ' + resultLuminance);
 		});
 	});
 
-	QUnit.test('calcComa', function () {
+	QUnit.test('calcComa', assert => {
 		var eyepieceFieldStopmm = 6.85,
 			focalRatio = 6.85,
 			expected = {
@@ -1750,11 +1750,11 @@ note that visible? is coded from impossible=1 to very easy=6
 			allowableError = 0.01,
 			result = calcComa(eyepieceFieldStopmm, focalRatio);
 
-		equal(withinRange(result.lowOrderComaRMS, expected.lowOrderComaRMS, allowableError), true, 'lowOrderComaRMS should be ' + expected.lowOrderComaRMS + ', is ' + result.lowOrderComaRMS);
-		equal(withinRange(result.linearComaRMS, expected.linearComaRMS, allowableError), true, 'linearComaRMS should be ' + expected.linearComaRMS + ', is ' + result.linearComaRMS);
+		assert.equal(withinRange(result.lowOrderComaRMS, expected.lowOrderComaRMS, allowableError), true, 'lowOrderComaRMS should be ' + expected.lowOrderComaRMS + ', is ' + result.lowOrderComaRMS);
+		assert.equal(withinRange(result.linearComaRMS, expected.linearComaRMS, allowableError), true, 'linearComaRMS should be ' + expected.linearComaRMS + ', is ' + result.linearComaRMS);
 	});
 
-	QUnit.test('calcGreaterComa', function () {
+	QUnit.test('calcGreaterComa', assert => {
 		var eyepieceFieldStopmm = 3,
 			focalRatio = 6,
 			expected = 0.13,
@@ -1762,17 +1762,17 @@ note that visible? is coded from impossible=1 to very easy=6
 			result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
 
 		// selects for linearComaRMS
-		equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
 
 		// selects for lowOrderComaRMS
 		eyepieceFieldStopmm = 20,
 		focalRatio = 2,
 		expected = 8.38,
 		result = calcGreaterComa(eyepieceFieldStopmm, focalRatio);
-		equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'greatest coma should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcGreaterComaWithComaCorrector', function () {
+	QUnit.test('calcGreaterComaWithComaCorrector', assert => {
 		var eyepieceFieldStopmm = 20,
 			focalRatio = 3,
 			useComaCorrector = false,
@@ -1780,47 +1780,47 @@ note that visible? is coded from impossible=1 to very easy=6
 			allowableError = 0.01,
 			result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
 
-		equal(withinRange(result, expected, allowableError), true, 'coma without coma corrector should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'coma without coma corrector should be ' + expected + ', is ' + result);
 
 		useComaCorrector = true;
 		expected = 0.21,
 		result = calcGreaterComaWithComaCorrector(eyepieceFieldStopmm, focalRatio, useComaCorrector);
-		equal(withinRange(result, expected, allowableError), true, 'coma with coma corrector should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'coma with coma corrector should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcCollimationToleranceInches', function () {
+	QUnit.test('calcCollimationToleranceInches', assert => {
 		var focalRatio = 4,
 			expected = 0.0448,
 			allowableError = 0.001,
 			result = calcCollimationToleranceInches(focalRatio);
 
-		equal(withinRange(result, expected, allowableError), true, 'collimation tolerance should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'collimation tolerance should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('calcMinimumMirrorSupportPoints', function () {
+	QUnit.test('calcMinimumMirrorSupportPoints', assert => {
 		var aperture = 16,
 			expected = 6,
 			result = calcMinimumMirrorSupportPoints(aperture);
 
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 
 		aperture = 30;
 		expected = 27;
 		result = calcMinimumMirrorSupportPoints(aperture);
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 
 		aperture = 8;
 		expected = 3;
 		result = calcMinimumMirrorSupportPoints(aperture);
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 
 		aperture = 60;
 		expected = undefined;
 		result = calcMinimumMirrorSupportPoints(aperture);
-		equal(result, expected, result + ' should be ' + expected);
+		assert.equal(result, expected, result + ' should be ' + expected);
 	});
 
-	QUnit.test('calcMirrorCellDimensions', function () {
+	QUnit.test('calcMirrorCellDimensions', assert => {
 		// 3 pt
 		var aperture = 6,
 			expected = {
@@ -1829,7 +1829,7 @@ note that visible? is coded from impossible=1 to very easy=6
 			allowableError = 0.01,
 			result = calcMirrorCellDimensions(3, aperture / 2);
 
-		equal(withinRange(result.radius, expected.radius, allowableError), true, '3 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
+		assert.equal(withinRange(result.radius, expected.radius, allowableError), true, '3 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
 
 		// 6 pt
 		aperture = 12;
@@ -1838,8 +1838,8 @@ note that visible? is coded from impossible=1 to very easy=6
 			balanceRadius: 2.962
 		};
 		result = calcMirrorCellDimensions(6, aperture / 2);
-		equal(withinRange(result.radius, expected.radius, allowableError), true, '6 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
-		equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '6 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
+		assert.equal(withinRange(result.radius, expected.radius, allowableError), true, '6 pt mirror cell radius should be ' + expected.radius + ', is ' + result.radius);
+		assert.equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '6 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
 
 		// 9 pt
 		aperture = 18;
@@ -1849,9 +1849,9 @@ note that visible? is coded from impossible=1 to very easy=6
 			balanceRadius: 4.731
 		};
 		result = calcMirrorCellDimensions(9, aperture / 2);
-		equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '9 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
-		equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '9 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
-		equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '9 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
+		assert.equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '9 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+		assert.equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '9 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+		assert.equal(withinRange(result.balanceRadius, expected.balanceRadius, allowableError), true, '9 pt mirror cell balance radius should be ' + expected.balanceRadius + ', is ' + result.balanceRadius);
 
 		// 12 pt
 		aperture = 20;
@@ -1867,15 +1867,15 @@ note that visible? is coded from impossible=1 to very easy=6
 			outerBarBalance: 2.45
 		};
 		result = calcMirrorCellDimensions(12, aperture / 2);
-		equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '12 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
-		equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '12 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
-		equal(withinRange(result.collimationRadius, expected.collimationRadius, allowableError), true, '12 pt mirror cell collimation radius should be ' + expected.collimationRadius + ', is ' + result.collimationRadius);
-		equal(withinRange(result.innerBarLength, expected.innerBarLength, allowableError), true, '12 pt mirror cell innerBarLength should be ' + expected.innerBarLength + ', is ' + result.innerBarLength);
-		equal(withinRange(result.midBarLength, expected.midBarLength, allowableError), true, '12 pt mirror cell midBarLength should be ' + expected.midBarLength + ', is ' + result.midBarLength);
-		equal(withinRange(result.outerBarLength, expected.outerBarLength, allowableError), true, '12 pt mirror cell outerBarLength should be ' + expected.outerBarLength + ', is ' + result.outerBarLength);
-		equal(withinRange(result.innerBarBalance, expected.innerBarBalance, allowableError), true, '12 pt mirror cell innerBarBalance should be ' + expected.innerBarBalance + ', is ' + result.innerBarBalance);
-		equal(withinRange(result.midBarBalance, expected.midBarBalance, allowableError), true, '12 pt mirror cell midBarBalance should be ' + expected.midBarBalance + ', is ' + result.midBarBalance);
-		equal(withinRange(result.outerBarBalance, expected.outerBarBalance, allowableError), true, '12 pt mirror cell outerBarBalance should be ' + expected.outerBarBalance + ', is ' + result.outerBarBalance);
+		assert.equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '12 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+		assert.equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '12 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+		assert.equal(withinRange(result.collimationRadius, expected.collimationRadius, allowableError), true, '12 pt mirror cell collimation radius should be ' + expected.collimationRadius + ', is ' + result.collimationRadius);
+		assert.equal(withinRange(result.innerBarLength, expected.innerBarLength, allowableError), true, '12 pt mirror cell innerBarLength should be ' + expected.innerBarLength + ', is ' + result.innerBarLength);
+		assert.equal(withinRange(result.midBarLength, expected.midBarLength, allowableError), true, '12 pt mirror cell midBarLength should be ' + expected.midBarLength + ', is ' + result.midBarLength);
+		assert.equal(withinRange(result.outerBarLength, expected.outerBarLength, allowableError), true, '12 pt mirror cell outerBarLength should be ' + expected.outerBarLength + ', is ' + result.outerBarLength);
+		assert.equal(withinRange(result.innerBarBalance, expected.innerBarBalance, allowableError), true, '12 pt mirror cell innerBarBalance should be ' + expected.innerBarBalance + ', is ' + result.innerBarBalance);
+		assert.equal(withinRange(result.midBarBalance, expected.midBarBalance, allowableError), true, '12 pt mirror cell midBarBalance should be ' + expected.midBarBalance + ', is ' + result.midBarBalance);
+		assert.equal(withinRange(result.outerBarBalance, expected.outerBarBalance, allowableError), true, '12 pt mirror cell outerBarBalance should be ' + expected.outerBarBalance + ', is ' + result.outerBarBalance);
 
 		// 18 pt
 		aperture = 24;
@@ -1886,10 +1886,10 @@ note that visible? is coded from impossible=1 to very easy=6
 			pivotBarBalanceRadius: 6.403
 		};
 		result = calcMirrorCellDimensions(18, aperture / 2);
-		equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '18 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
-		equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '18 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
-		equal(withinRange(result.triangleBalanceRadius, expected.triangleBalanceRadius, allowableError), true, '18 pt mirror cell triangle balance radius should be ' + expected.triangleBalanceRadius + ', is ' + result.triangleBalanceRadius);
-		equal(withinRange(result.pivotBarBalanceRadius, expected.pivotBarBalanceRadius, allowableError), true, '18 pt mirror cell pivot bar balance radius should be ' + expected.pivotBarBalanceRadius + ', is ' + result.pivotBarBalanceRadius);
+		assert.equal(withinRange(result.innerRadius, expected.innerRadius, allowableError), true, '18 pt mirror cell inner radius should be ' + expected.innerRadius + ', is ' + result.innerRadius);
+		assert.equal(withinRange(result.outerRadius, expected.outerRadius, allowableError), true, '18 pt mirror cell outer radius should be ' + expected.outerRadius + ', is ' + result.outerRadius);
+		assert.equal(withinRange(result.triangleBalanceRadius, expected.triangleBalanceRadius, allowableError), true, '18 pt mirror cell triangle balance radius should be ' + expected.triangleBalanceRadius + ', is ' + result.triangleBalanceRadius);
+		assert.equal(withinRange(result.pivotBarBalanceRadius, expected.pivotBarBalanceRadius, allowableError), true, '18 pt mirror cell pivot bar balance radius should be ' + expected.pivotBarBalanceRadius + ', is ' + result.pivotBarBalanceRadius);
 
 		// 27 pt
 		aperture = 30;
@@ -1903,31 +1903,31 @@ note that visible? is coded from impossible=1 to very easy=6
 			outerTriangleBalancePtAngles2: 87 * uom.degToRad
 		};
 		result = calcMirrorCellDimensions(27, aperture / 2);
-		equal(withinRange(result.inner6Radius, expected.inner6Radius, allowableError), true, '27 pt mirror cell inner 6 radius should be ' + expected.inner6Radius + ', is ' + result.inner6Radius);
-		equal(withinRange(result.mid9Radius, expected.mid9Radius, allowableError), true, '27 pt mirror cell mid 9 radius should be ' + expected.mid9Radius + ', is ' + result.mid9Radius);
-		equal(withinRange(result.outer12Radius, expected.outer12Radius, allowableError), true, '27 pt mirror cell outer radius should be ' + expected.outer12Radius + ', is ' + result.outer12Radius);
-		equal(withinRange(result.baseTriangleBalanceRadius, expected.baseTriangleBalanceRadius, allowableError), true, '27 pt mirror cell base triangle balance radius should be ' + expected.baseTriangleBalanceRadius + ', is ' + result.baseTriangleBalanceRadius);
-		equal(withinRange(result.innerTriangleBalanceRadius, expected.innerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell inner triangle balance radius should be ' + expected.innerTriangleBalanceRadius + ', is ' + result.innerTriangleBalanceRadius);
-		equal(withinRange(result.outerTriangleBalanceRadius, expected.outerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell outer triangle balance radius should be ' + expected.outerTriangleBalanceRadius + ', is ' + result.outerTriangleBalanceRadius);
-		equal(withinRange(result.outerTriangleBalancePtAngles[1], expected.outerTriangleBalancePtAngles2, allowableError), true, '27 pt mirror cell outer triangle balance #2 point angle should be ' + expected.outerTriangleBalancePtAngles2 + ', is ' + result.outerTriangleBalancePtAngles[1]);
+		assert.equal(withinRange(result.inner6Radius, expected.inner6Radius, allowableError), true, '27 pt mirror cell inner 6 radius should be ' + expected.inner6Radius + ', is ' + result.inner6Radius);
+		assert.equal(withinRange(result.mid9Radius, expected.mid9Radius, allowableError), true, '27 pt mirror cell mid 9 radius should be ' + expected.mid9Radius + ', is ' + result.mid9Radius);
+		assert.equal(withinRange(result.outer12Radius, expected.outer12Radius, allowableError), true, '27 pt mirror cell outer radius should be ' + expected.outer12Radius + ', is ' + result.outer12Radius);
+		assert.equal(withinRange(result.baseTriangleBalanceRadius, expected.baseTriangleBalanceRadius, allowableError), true, '27 pt mirror cell base triangle balance radius should be ' + expected.baseTriangleBalanceRadius + ', is ' + result.baseTriangleBalanceRadius);
+		assert.equal(withinRange(result.innerTriangleBalanceRadius, expected.innerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell inner triangle balance radius should be ' + expected.innerTriangleBalanceRadius + ', is ' + result.innerTriangleBalanceRadius);
+		assert.equal(withinRange(result.outerTriangleBalanceRadius, expected.outerTriangleBalanceRadius, allowableError), true, '27 pt mirror cell outer triangle balance radius should be ' + expected.outerTriangleBalanceRadius + ', is ' + result.outerTriangleBalanceRadius);
+		assert.equal(withinRange(result.outerTriangleBalancePtAngles[1], expected.outerTriangleBalancePtAngles2, allowableError), true, '27 pt mirror cell outer triangle balance #2 point angle should be ' + expected.outerTriangleBalancePtAngles2 + ', is ' + result.outerTriangleBalancePtAngles[1]);
 
 		// other
 		aperture = 1000;
 		expected = undefined;
 		result = calcMirrorCellDimensions(54, aperture / 2);
-		equal(result, expected, result + ' should result in an undefined cell: ' + expected);
+		assert.equal(result, expected, result + ' should result in an undefined cell: ' + expected);
 	});
 
-	QUnit.test('calcRMSCausedByCentralObstruction', function () {
+	QUnit.test('calcRMSCausedByCentralObstruction', assert => {
 		var centralObstructionByDiameter = 1 / 3,
 			expected = 0.07,
 			allowableError = 0.1,
 			result = calcRMSCausedByCentralObstruction(centralObstructionByDiameter);
 
-		equal(withinRange(result, expected, allowableError), true, 'RMS deformation should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result, expected, allowableError), true, 'RMS deformation should be ' + expected + ', is ' + result);
 	});
 
-	QUnit.test('findWeightedCenterOfPoints', function () {
+	QUnit.test('findWeightedCenterOfPoints', assert => {
 		var points = [{x: 1, y: 0}, {x: 2, y: 4}, {x: 3, y: 5}],
 			expected = {
 				x: 2,
@@ -1936,11 +1936,11 @@ note that visible? is coded from impossible=1 to very easy=6
 			allowableError = 0.00001,
 			result = findWeightedCenterOfPoints(points);
 
-		equal(withinRange(result.x, expected.x, allowableError), true, 'weighted x should be ' + expected.x + ', is ' + result.x);
-		equal(withinRange(result.y, expected.y, allowableError), true, 'weighted y should be ' + expected.y + ', is ' + result.y);
+		assert.equal(withinRange(result.x, expected.x, allowableError), true, 'weighted x should be ' + expected.x + ', is ' + result.x);
+		assert.equal(withinRange(result.y, expected.y, allowableError), true, 'weighted y should be ' + expected.y + ', is ' + result.y);
 	});
 
-	QUnit.test('findOffsetCenterBetweenTwoPoints', function () {
+	QUnit.test('findOffsetCenterBetweenTwoPoints', assert => {
 		var point = MLB.sharedLib.point,
 			pointA = point(4, 10),
 			pointB = point(12, 20),
@@ -1952,8 +1952,8 @@ note that visible? is coded from impossible=1 to very easy=6
 			allowableError = 0.00001,
 			result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
 
-		equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
-		equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+		assert.equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+		assert.equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
 
 		// reverse the points
 		pointA = point(12, 20),
@@ -1966,8 +1966,8 @@ note that visible? is coded from impossible=1 to very easy=6
 		allowableError = 0.00001,
 		result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
 
-		equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
-		equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+		assert.equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+		assert.equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
 
 		// offset 80% of the way towards pointB
 		pointA = point(4, 10),
@@ -1980,8 +1980,8 @@ note that visible? is coded from impossible=1 to very easy=6
 		allowableError = 0.00001,
 		result = findOffsetCenterBetweenTwoPoints(pointA, pointB, offset);
 
-		equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
-		equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+		assert.equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
+		assert.equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
 	});
 
 });

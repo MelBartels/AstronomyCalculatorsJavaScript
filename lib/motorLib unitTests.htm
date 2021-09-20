@@ -6,16 +6,16 @@
 	<title>QUnit test for motorLib.js</title>
 	
 	<!--
-	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-2.17.1.css' />
 	<script src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
-	<script src='http://code.jquery.com/qunit/qunit-1.16.0.js'></script>
+	<script src='http://code.jquery.com/qunit/qunit-2.17.1.js'></script>
 	
 	<script>window.jQuery || document.write('<script src='local-source.js'><\/script>')</script>
 	-->
 	
-	<link rel='stylesheet' href='qunit/qunit-1.16.0.css' />
+	<link rel='stylesheet' href='qunit/qunit-2.17.1.css' />
 	<script src='jquery/jquery-2.1.1.min.js'></script>
-	<script src='qunit/qunit-1.16.0.js'></script>
+	<script src='qunit/qunit-2.17.1.js'></script>
 
 	<script src="sharedLib.js"></script>
 	<script src="motorLib.js"></script>
@@ -37,7 +37,7 @@
 
 	QUnit.module('motorLib');
 
-	QUnit.test('create', function () {
+	QUnit.test('create', assert => {
 		var driveA,
 			driveName = 'drive A',
 		    expected,
@@ -46,7 +46,7 @@
 		driveA = driveBuilder(driveName);
 		expected = driveName;
 		result = driveA.name;
-		equal(result, expected, 'drive name should be ' + expected + ', is ' + result);
+		assert.equal(result, expected, 'drive name should be ' + expected + ', is ' + result);
 	});
 	
 	var buildDrive = function () {
@@ -64,7 +64,7 @@
 		return drive;
 	};
 
-	QUnit.test('reductions', function () {
+	QUnit.test('reductions', assert => {
 		var driveA,
 		    expected,
 			result;
@@ -73,10 +73,10 @@
 		// see above buildDrive() function
 		expected = 10000 * 10.5 * 360;
 		result = driveA.totalReduction;
-		equal(result, expected, 'total reduction should be ' + expected + ', is ' + result);
+		assert.equal(result, expected, 'total reduction should be ' + expected + ', is ' + result);
 	});
 	
-	QUnit.test('a reduction is not a number', function () {
+	QUnit.test('a reduction is not a number', assert => {
 		var drive,
 		    driveName = 'drive A',
 		    expected,
@@ -89,10 +89,10 @@
 
 		expected = 50;
 		result = drive.totalReduction;
-		equal(result, expected, 'total reduction should be ' + expected + ', is ' + result);
+		assert.equal(result, expected, 'total reduction should be ' + expected + ', is ' + result);
 	});
 	
-	QUnit.test('ticks per arcsec', function () {
+	QUnit.test('ticks per arcsec', assert => {
 		var driveA,
 		    expected,
 			result;
@@ -101,10 +101,10 @@
 		// 37800000 (total reduction) / 1296000 (arcsec/rev) = 29.166666666666666666666666666667
 		expected = 29.166666666666664;
 		result = calcMotorEncoderTicksPerArcsec(driveA);
-		equal(result, expected, 'encoder quad decoded ticks per arcsec should be ' + expected + ', is ' + result);		
+		assert.equal(result, expected, 'encoder quad decoded ticks per arcsec should be ' + expected + ', is ' + result);		
 	});
 		
-	QUnit.test('rpms', function () {
+	QUnit.test('rpms', assert => {
 		var driveA,
 		    expected,
 			result,
@@ -115,16 +115,16 @@
 		// 0.5 rpm * 360:1 main gear = 180 rpm
 		expected = 0.5 * 360;
 		result = calcRPMs(driveA, driveAngularSpeedDegreesPerSecond)[2];
-		equal(result, expected, 'rpm for worm gear should be ' + expected + ', is ' + result);		
+		assert.equal(result, expected, 'rpm for worm gear should be ' + expected + ', is ' + result);		
 		expected *= 10.5;
 		result = calcRPMs(driveA, driveAngularSpeedDegreesPerSecond)[1];
-		equal(result, expected, 'rpm for motor gearhead should be ' + expected + ', is ' + result);		
+		assert.equal(result, expected, 'rpm for motor gearhead should be ' + expected + ', is ' + result);		
 		expected *= 10000;
 		result = calcRPMs(driveA, driveAngularSpeedDegreesPerSecond)[0];
-		equal(result, expected, 'rpm for quad decoded encoder ticks should be ' + expected + ', is ' + result);		
+		assert.equal(result, expected, 'rpm for quad decoded encoder ticks should be ' + expected + ', is ' + result);		
 	});
 	
-	QUnit.test('ticks per sec', function () {
+	QUnit.test('ticks per sec', assert => {
 		var driveA,
 		    expected,
 			result,
@@ -135,10 +135,10 @@
 		// 15"/sec * 29.166666666666666666666666666667 from above test where total reduction of 37800000 is divided by 1296000 arcsec/rev
 		expected = 437.5;
 		result = calcTotalReductionUnitsPerSec(driveA, driveAngularSpeedDegreesPerSecond);
-		equal(result, expected, 'ticks per second should be ' + expected + ', is ' + result);			
+		assert.equal(result, expected, 'ticks per second should be ' + expected + ', is ' + result);			
 	});
 	
-	QUnit.test('max slew speed', function () {
+	QUnit.test('max slew speed', assert => {
 		var driveA,
 		    expected,
 			result,
@@ -147,7 +147,7 @@
 		driveA = buildDrive();
 		expected = 2.8571428571428568;
 		result = calcMaxSlewSpeedDegSec(driveA, maxMotorRPM);
-		equal(result, expected, 'max slew speed should be ' + expected + ', is ' + result);			
+		assert.equal(result, expected, 'max slew speed should be ' + expected + ', is ' + result);			
 	});
 	
 });
