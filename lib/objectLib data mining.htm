@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>QUnit test for objectLib.js</title>
+	<title>QUnit test for objectLib data mining</title>
 	
 	<!--
 	<link rel='stylesheet' href='http://code.jquery.com/qunit/qunit-2.17.1.css' />
@@ -23,6 +23,7 @@
     <script src="objectLib.js"></script>
 	<script src='json/SAC_DeepSky_Ver81_abbr.js'></script>
 	<script src='json/SAC_DeepSky_Ver81_Json.js'></script>
+	<script src='json/BortleScale.js'></script>
 </head>
 <body>
 	<div id="qunit"></div>
@@ -499,10 +500,413 @@ group 144 (count of 9), (types: GALXY,): NGC 995 / UGC 2118 / GALXY, NGC 996 / U
 		}
 	});
 	
-	QUnit.test('Bortles vs apertures', assert => {
-	
-		assert.equal(true, true);
+	QUnit.test('valid and invalid record counts', assert => {
+		var catalog = MLB.Saguaro81.Saguaro81,
+		    getDetectionLevelForApertureAndBortle = MLB.objectLib.getDetectionLevelForApertureAndBortle,
+			apertureInches = 10,
+			BortleLevel = 3,
+			useSB = false,
+			detectionLevelData,
+			totalValid = 0,
+			expectedTotalValid = 8661,
+			totalInvalid = 0,
+			exptedTotalInvalid = 1681;
 
+		catalog.forEach(record => {
+			detectionLevelData = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevel, record, useSB);
+			if (detectionLevelData) {
+				totalValid += 1;
+			} else {
+				totalInvalid += 1;
+			}
+		});
+		assert.equal(totalValid, expectedTotalValid, 'total valid records are ' + totalValid + ' should be ' + expectedTotalValid);
+		assert.equal(totalInvalid, exptedTotalInvalid, 'total invalid records are ' + totalInvalid + ' should be ' + exptedTotalInvalid);
+	});
+
+	QUnit.test('valid records for each type', assert => {
+		var catalog = MLB.Saguaro81.Saguaro81,
+		    getDetectionLevelForApertureAndBortle = MLB.objectLib.getDetectionLevelForApertureAndBortle,
+			apertureInches = 10,
+			BortleLevel = 3,
+			useSB = false,
+			detectionLevelData,
+			expectedTotalValid = 8661,
+			objectTypes = [],
+			totalObjectTypesCount = 0,
+			objectTypeIx;
+
+		catalog.forEach(record => {
+			detectionLevelData = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevel, record, useSB);
+			if (!detectionLevelData) {
+				return;
+			}
+			objectTypeIx = objectTypes.findIndex(ot => ot.type === record.TYPE);
+			if (objectTypeIx === -1) {
+				objectTypes.push({type: record.TYPE, count: 1});
+			} else {
+				objectTypes[objectTypeIx].count += 1;
+			}
+		});
+		/*
+			0: {type: 'GALXY', count: 6987}
+			1: {type: 'G+C+N', count: 1}
+			2: {type: 'PLNNB', count: 743}
+			3: {type: 'GALCL', count: 29}
+			4: {type: 'OPNCL', count: 607}
+			5: {type: 'GLOCL', count: 136}
+			6: {type: 'BRTNB', count: 33}
+			7: {type: 'CL+NB', count: 30}
+			8: {type: 'ASTER', count: 3}
+			9: {type: 'SNREM', count: 6}
+			10: {type: 'LMCOC', count: 40}
+			11: {type: 'LMCDN', count: 2}
+			12: {type: 'LMCCN', count: 18}
+			13: {type: 'LMCGC', count: 11}
+			14: {type: 'GX+GC', count: 1}
+			15: {type: 'GX+DN', count: 2}
+			16: {type: 'SMCGC', count: 8}
+			17: {type: 'SMCDN', count: 2}
+			18: {type: 'SMCCN', count: 2}
+		*/
+		objectTypes.forEach(ot => totalObjectTypesCount += ot.count);
+		assert.equal(totalObjectTypesCount, expectedTotalValid, 'total totalObjectTypesCount is ' + totalObjectTypesCount + ' should be ' + expectedTotalValid);
+	});
+
+	QUnit.test('total records for each detectionLevel per BortleLevel doubling aperture', assert => {
+		var catalog = MLB.Saguaro81.Saguaro81,
+		    getDetectionLevelForApertureAndBortle = MLB.objectLib.getDetectionLevelForApertureAndBortle,
+			apertureInches = 20,
+			useSB = false,
+			detectionLevelData,
+			BortleLevelIx,
+			detectionLevelCountPerBortle = [],
+			expected = 181,
+			result;
+
+		catalog.forEach(record => {
+			for (BortleLevelIx = 1; BortleLevelIx <= 9; BortleLevelIx += 1) {
+				detectionLevelData = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevelIx, record, useSB);
+				if (!detectionLevelData) {
+					return;
+				}
+				if (detectionLevelCountPerBortle[BortleLevelIx] === undefined) {
+					detectionLevelCountPerBortle[BortleLevelIx] = [];
+				}
+				if (detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] === undefined) {
+					detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] = 0;
+				} else {
+					detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] += 1;
+				}
+			}
+		});
+		/* detectionLevelCountPerBortle arrays (BortleLevel vertical, detectionLevelNumber horizontal)
+			1: (7) [empty, 181, 694, 1773, 2365, 1769, 1873]
+			2: (7) [empty, 194, 766, 1887, 2408, 1708, 1692]
+			3: (7) [empty, 218, 944, 2114, 2419, 1565, 1395]
+			4: (7) [empty, 355, 1501, 2808, 2243, 965, 783]
+			5: (7) [empty, 1357, 2851, 2805, 1035, 327, 280]
+			6: (7) [empty, 3441, 3330, 1230, 389, 134, 131]
+			7: (7) [empty, 5298, 2492, 466, 225, 98, 76]
+			8: (7) [empty, 7489, 799, 162, 121, 50, 34]
+			9: (7) [empty, 8248, 214, 98, 65, 22, 8]
+		*/
+		result = detectionLevelCountPerBortle[1][1];
+		assert.equal(result, expected, 'record count is ' + result + ' should be ' + expected);
+	});
+
+	QUnit.test('total records for each detectionLevel per BortleLevel', assert => {
+		var catalog = MLB.Saguaro81.Saguaro81,
+		    getDetectionLevelForApertureAndBortle = MLB.objectLib.getDetectionLevelForApertureAndBortle,
+			apertureInches = 10,
+			useSB = false,
+			detectionLevelData,
+			BortleLevelIx,
+			detectionLevelCountPerBortle = [],
+			expected = 481,
+			result;
+
+		catalog.forEach(record => {
+			for (BortleLevelIx = 1; BortleLevelIx <= 9; BortleLevelIx += 1) {
+				detectionLevelData = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevelIx, record, useSB);
+				if (!detectionLevelData) {
+					return;
+				}
+				if (detectionLevelCountPerBortle[BortleLevelIx] === undefined) {
+					detectionLevelCountPerBortle[BortleLevelIx] = [];
+				}
+				if (detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] === undefined) {
+					detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] = 0;
+				} else {
+					detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] += 1;
+				}
+			}
+		});
+		/* detectionLevelCountPerBortle arrays (BortleLevel vertical, detectionLevelNumber horizontal)
+			1: (7) [empty, 481, 2325, 2971, 1461, 602, 815]
+			2: (7) [empty, 512, 2508, 2944, 1369, 566, 756]
+			3: (7) [empty, 644, 2788, 2850, 1215, 499, 659]
+			4: (7) [empty, 1184, 3584, 2298, 818, 353, 418]
+			5: (7) [empty, 2938, 3877, 1104, 406, 155, 175]
+			6: (7) [empty, 5587, 2248, 457, 199, 98, 66]
+			7: (7) [empty, 7062, 1087, 252, 166, 58, 30]
+			8: (7) [empty, 8044, 334, 144, 96, 27, 10]
+			9: (7) [empty, 8352, 176, 80, 38, 6, 3]
+		*/
+		result = detectionLevelCountPerBortle[1][1];
+		assert.equal(result, expected, 'record count is ' + result + ' should be ' + expected);
+	});
+
+	QUnit.test('total records for each detectionLevel per BortleLevel for each type', assert => {
+		var catalog = MLB.Saguaro81.Saguaro81,
+		    getDetectionLevelForApertureAndBortle = MLB.objectLib.getDetectionLevelForApertureAndBortle,
+			apertureInches = 10,
+			useSB = false,
+			detectionLevelData,
+			detectionLevelIx,
+			detectionLevel,
+			detectionLevelStr,
+			BortleLevelIx,
+			objectTypes = [],
+			objectTypeIx,
+			objectType,
+			expected = 178,
+			result;
+
+		catalog.forEach(record => {
+			for (BortleLevelIx = 1; BortleLevelIx <= 9; BortleLevelIx += 1) {
+				detectionLevelData = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevelIx, record, useSB);
+				if (!detectionLevelData) {
+					return;
+				}
+
+				objectTypeIx = objectTypes.findIndex(ot => ot.type === record.TYPE);
+				if (objectTypeIx === -1) {
+					objectTypes.push({type: record.TYPE, detectionLevelCountPerBortle: []});
+					objectTypeIx = objectTypes.length - 1;
+				}
+				objectType = objectTypes[objectTypeIx];
+				
+				if (objectType.detectionLevelCountPerBortle[BortleLevelIx] === undefined) {
+					objectType.detectionLevelCountPerBortle[BortleLevelIx] = [];
+				}
+				if (objectType.detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] === undefined) {
+					objectType.detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] = 0;
+				} else {
+					objectType.detectionLevelCountPerBortle[BortleLevelIx][detectionLevelData.detectionLevelNumber] += 1;
+				}
+			}
+		});
+		result = objectTypes[0].detectionLevelCountPerBortle[1][1];
+		assert.equal(result, expected, 'record count is ' + result + ' should be ' + expected);
+		
+		objectTypes.forEach(ot => {
+			console.log(ot.type + '\n');
+			for (BortleLevelIx = 1; BortleLevelIx <= 9; BortleLevelIx += 1) {
+				detectionLevelStr = 'BortleLevel ' + BortleLevelIx + ': ';
+				for (detectionLevelIx = 1; detectionLevelIx <= 6; detectionLevelIx += 1){
+					detectionLevel = ot.detectionLevelCountPerBortle[BortleLevelIx][detectionLevelIx];
+					if (detectionLevel === undefined) {
+						detectionLevel = 0;
+					}
+					detectionLevelStr += detectionLevel + ', ';
+				}
+				console.log(detectionLevelStr + '\n');
+			};
+		});
+		/*
+			GALXY
+			BortleLevel 1: 178, 2027, 2762, 1300, 474, 240
+			BortleLevel 2: 199, 2197, 2741, 1210, 433, 201
+			BortleLevel 3: 310, 2470, 2641, 1063, 357, 140
+			BortleLevel 4: 763, 3248, 2121, 634, 182, 33
+			BortleLevel 5: 2297, 3568, 923, 175, 16, 2
+			BortleLevel 6: 4722, 1991, 244, 24, 0, 1
+			BortleLevel 7: 6076, 843, 58, 4, 0, 0
+			BortleLevel 8: 6865, 116, 1, 0, 1, 0
+			BortleLevel 9: 6980, 4, 0, 0, 0, 0
+			G+C+N
+			BortleLevel 1: 0, 0, 0, 0, 0, 0
+			BortleLevel 2: 0, 0, 0, 0, 0, 0
+			BortleLevel 3: 0, 0, 0, 0, 0, 0
+			BortleLevel 4: 0, 0, 0, 0, 0, 0
+			BortleLevel 5: 0, 0, 0, 0, 0, 0
+			BortleLevel 6: 0, 0, 0, 0, 0, 0
+			BortleLevel 7: 0, 0, 0, 0, 0, 0
+			BortleLevel 8: 0, 0, 0, 0, 0, 0
+			BortleLevel 9: 0, 0, 0, 0, 0, 0
+			PLNNB
+			BortleLevel 1: 236, 266, 137, 56, 18, 24
+			BortleLevel 2: 245, 272, 131, 53, 12, 24
+			BortleLevel 3: 262, 275, 126, 39, 12, 23
+			BortleLevel 4: 332, 263, 89, 30, 9, 14
+			BortleLevel 5: 492, 189, 34, 12, 7, 3
+			BortleLevel 6: 590, 117, 20, 8, 2, 0
+			BortleLevel 7: 629, 88, 12, 9, 0, 0
+			BortleLevel 8: 685, 40, 12, 2, 0, 0
+			BortleLevel 9: 711, 24, 5, 0, 0, 0
+			GALCL
+			BortleLevel 1: 28, 0, 0, 0, 0, 0
+			BortleLevel 2: 28, 0, 0, 0, 0, 0
+			BortleLevel 3: 28, 0, 0, 0, 0, 0
+			BortleLevel 4: 28, 0, 0, 0, 0, 0
+			BortleLevel 5: 28, 0, 0, 0, 0, 0
+			BortleLevel 6: 28, 0, 0, 0, 0, 0
+			BortleLevel 7: 28, 0, 0, 0, 0, 0
+			BortleLevel 8: 28, 0, 0, 0, 0, 0
+			BortleLevel 9: 28, 0, 0, 0, 0, 0
+			OPNCL
+			BortleLevel 1: 11, 8, 20, 66, 76, 420
+			BortleLevel 2: 12, 8, 22, 68, 89, 402
+			BortleLevel 3: 15, 5, 36, 73, 95, 377
+			BortleLevel 4: 17, 24, 48, 110, 120, 282
+			BortleLevel 5: 50, 53, 106, 165, 91, 136
+			BortleLevel 6: 133, 85, 138, 118, 73, 54
+			BortleLevel 7: 192, 98, 126, 114, 46, 25
+			BortleLevel 8: 287, 119, 90, 74, 23, 8
+			BortleLevel 9: 405, 96, 60, 33, 5, 2
+			GLOCL
+			BortleLevel 1: 5, 12, 4, 12, 14, 83
+			BortleLevel 2: 5, 13, 4, 11, 15, 82
+			BortleLevel 3: 5, 14, 5, 11, 15, 80
+			BortleLevel 4: 14, 8, 8, 19, 20, 61
+			BortleLevel 5: 21, 13, 16, 32, 34, 14
+			BortleLevel 6: 32, 14, 30, 41, 12, 1
+			BortleLevel 7: 37, 25, 36, 28, 5, 0
+			BortleLevel 8: 58, 30, 33, 11, 0, 0
+			BortleLevel 9: 87, 36, 9, 0, 0, 0
+			BRTNB
+			BortleLevel 1: 9, 0, 6, 2, 1, 10
+			BortleLevel 2: 9, 0, 6, 2, 1, 10
+			BortleLevel 3: 9, 1, 4, 3, 2, 8
+			BortleLevel 4: 11, 4, 2, 1, 2, 7
+			BortleLevel 5: 16, 3, 2, 2, 0, 4
+			BortleLevel 6: 19, 3, 2, 0, 2, 1
+			BortleLevel 7: 21, 3, 1, 2, 1, 0
+			BortleLevel 8: 24, 2, 1, 2, 0, 0
+			BortleLevel 9: 27, 2, 0, 0, 0, 0
+			CL+NB
+			BortleLevel 1: 0, 0, 1, 1, 2, 20
+			BortleLevel 2: 0, 0, 1, 2, 1, 20
+			BortleLevel 3: 0, 0, 2, 1, 1, 20
+			BortleLevel 4: 1, 1, 1, 2, 6, 13
+			BortleLevel 5: 4, 1, 2, 6, 1, 10
+			BortleLevel 6: 6, 2, 5, 3, 4, 4
+			BortleLevel 7: 8, 3, 6, 3, 1, 3
+			BortleLevel 8: 15, 3, 2, 2, 1, 1
+			BortleLevel 9: 21, 0, 2, 1, 0, 0
+			ASTER
+			BortleLevel 1: 0, 0, 0, 0, 2, 0
+			BortleLevel 2: 0, 0, 0, 0, 1, 0
+			BortleLevel 3: 0, 0, 0, 1, 0, 0
+			BortleLevel 4: 0, 0, 0, 1, 0, 0
+			BortleLevel 5: 0, 1, 0, 0, 0, 0
+			BortleLevel 6: 2, 0, 0, 0, 0, 0
+			BortleLevel 7: 2, 0, 0, 0, 0, 0
+			BortleLevel 8: 2, 0, 0, 0, 0, 0
+			BortleLevel 9: 2, 0, 0, 0, 0, 0
+			SNREM
+			BortleLevel 1: 2, 0, 0, 0, 0, 2
+			BortleLevel 2: 2, 0, 0, 0, 0, 2
+			BortleLevel 3: 2, 0, 0, 0, 0, 2
+			BortleLevel 4: 2, 0, 0, 0, 0, 2
+			BortleLevel 5: 2, 0, 0, 0, 0, 0
+			BortleLevel 6: 2, 0, 1, 0, 0, 0
+			BortleLevel 7: 3, 0, 0, 0, 0, 0
+			BortleLevel 8: 3, 0, 0, 0, 0, 0
+			BortleLevel 9: 4, 0, 0, 0, 0, 0
+			LMCOC
+			BortleLevel 1: 0, 4, 27, 2, 0, 2
+			BortleLevel 2: 0, 8, 25, 0, 0, 2
+			BortleLevel 3: 0, 12, 21, 0, 2, 0
+			BortleLevel 4: 0, 23, 11, 0, 2, 0
+			BortleLevel 5: 7, 28, 0, 2, 0, 0
+			BortleLevel 6: 24, 12, 1, 0, 0, 0
+			BortleLevel 7: 31, 5, 1, 0, 0, 0
+			BortleLevel 8: 37, 1, 0, 0, 0, 0
+			BortleLevel 9: 38, 0, 0, 0, 0, 0
+			LMCDN
+			BortleLevel 1: 0, 0, 0, 0, 0, 0
+			BortleLevel 2: 0, 0, 0, 0, 0, 0
+			BortleLevel 3: 0, 0, 0, 0, 0, 0
+			BortleLevel 4: 0, 0, 1, 0, 0, 0
+			BortleLevel 5: 0, 1, 0, 0, 0, 0
+			BortleLevel 6: 0, 1, 0, 0, 0, 0
+			BortleLevel 7: 0, 0, 0, 0, 0, 0
+			BortleLevel 8: 1, 0, 0, 0, 0, 0
+			BortleLevel 9: 1, 0, 0, 0, 0, 0
+			LMCCN
+			BortleLevel 1: 0, 0, 1, 6, 4, 3
+			BortleLevel 2: 0, 0, 1, 8, 2, 3
+			BortleLevel 3: 0, 0, 1, 9, 2, 1
+			BortleLevel 4: 0, 1, 3, 7, 3, 0
+			BortleLevel 5: 1, 4, 7, 2, 0, 0
+			BortleLevel 6: 6, 6, 3, 0, 0, 0
+			BortleLevel 7: 9, 4, 2, 0, 0, 0
+			BortleLevel 8: 9, 7, 0, 0, 0, 0
+			BortleLevel 9: 14, 2, 0, 0, 0, 0
+			LMCGC
+			BortleLevel 1: 1, 0, 2, 1, 1, 0
+			BortleLevel 2: 1, 1, 1, 1, 1, 0
+			BortleLevel 3: 1, 1, 1, 1, 2, 0
+			BortleLevel 4: 2, 1, 2, 1, 0, 0
+			BortleLevel 5: 3, 2, 2, 0, 0, 0
+			BortleLevel 6: 4, 2, 2, 0, 0, 0
+			BortleLevel 7: 5, 3, 0, 0, 0, 0
+			BortleLevel 8: 7, 2, 0, 0, 0, 0
+			BortleLevel 9: 7, 2, 0, 0, 0, 0
+			GX+GC
+			BortleLevel 1: 0, 0, 0, 0, 0, 0
+			BortleLevel 2: 0, 0, 0, 0, 0, 0
+			BortleLevel 3: 0, 0, 0, 0, 0, 0
+			BortleLevel 4: 0, 0, 0, 0, 0, 0
+			BortleLevel 5: 0, 0, 0, 0, 0, 0
+			BortleLevel 6: 0, 0, 0, 0, 0, 0
+			BortleLevel 7: 0, 0, 0, 0, 0, 0
+			BortleLevel 8: 0, 0, 0, 0, 0, 0
+			BortleLevel 9: 0, 0, 0, 0, 0, 0
+			GX+DN
+			BortleLevel 1: 0, 0, 0, 0, 0, 0
+			BortleLevel 2: 0, 0, 0, 0, 0, 0
+			BortleLevel 3: 0, 0, 0, 0, 0, 0
+			BortleLevel 4: 0, 0, 0, 0, 0, 0
+			BortleLevel 5: 0, 0, 0, 0, 0, 0
+			BortleLevel 6: 0, 0, 0, 0, 0, 0
+			BortleLevel 7: 0, 0, 0, 0, 0, 0
+			BortleLevel 8: 0, 0, 0, 0, 0, 0
+			BortleLevel 9: 1, 0, 0, 0, 0, 0
+			SMCGC
+			BortleLevel 1: 0, 0, 0, 3, 0, 1
+			BortleLevel 2: 0, 0, 0, 1, 1, 0
+			BortleLevel 3: 0, 0, 1, 1, 0, 0
+			BortleLevel 4: 1, 0, 1, 2, 0, 0
+			BortleLevel 5: 1, 1, 2, 0, 0, 0
+			BortleLevel 6: 2, 2, 1, 0, 0, 0
+			BortleLevel 7: 2, 3, 0, 0, 0, 0
+			BortleLevel 8: 3, 3, 0, 0, 0, 0
+			BortleLevel 9: 6, 0, 0, 0, 0, 0
+			SMCDN
+			BortleLevel 1: 0, 0, 0, 0, 0, 0
+			BortleLevel 2: 0, 0, 0, 0, 0, 0
+			BortleLevel 3: 0, 0, 0, 0, 0, 0
+			BortleLevel 4: 0, 1, 0, 0, 0, 0
+			BortleLevel 5: 1, 0, 0, 0, 0, 0
+			BortleLevel 6: 1, 0, 0, 0, 0, 0
+			BortleLevel 7: 1, 0, 0, 0, 0, 0
+			BortleLevel 8: 1, 0, 0, 0, 0, 0
+			BortleLevel 9: 1, 0, 0, 0, 0, 0
+			SMCCN
+			BortleLevel 1: 0, 0, 0, 0, 0, 0
+			BortleLevel 2: 0, 0, 0, 0, 0, 0
+			BortleLevel 3: 0, 0, 0, 0, 0, 0
+			BortleLevel 4: 0, 0, 0, 0, 0, 0
+			BortleLevel 5: 0, 0, 0, 0, 0, 0
+			BortleLevel 6: 0, 0, 0, 0, 0, 0
+			BortleLevel 7: 1, 0, 0, 0, 0, 0
+			BortleLevel 8: 1, 0, 0, 0, 0, 0
+			BortleLevel 9: 1, 0, 0, 0, 0, 0, 		
+		*/
+		assert.equal(true, true);
 	});
 });
 

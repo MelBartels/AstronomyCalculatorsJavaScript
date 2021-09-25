@@ -23,6 +23,7 @@
     <script src="objectLib.js"></script>
 	<script src='json/SAC_DeepSky_Ver81_abbr.js'></script>
 	<script src='json/SAC_DeepSky_Ver81_Json.js'></script>
+	<script src='json/BortleScale.js'></script>
 </head>
 <body>
 	<div id="qunit"></div>
@@ -31,11 +32,18 @@
 
 <script>$(document).ready(function () {
 	'use strict';
-	var openClusters = MLB.objectLib.openClusters,
+	var withinRange = MLB.sharedLib.withinRange,
+		openClusters = MLB.objectLib.openClusters,
 		decodeObjectSize = MLB.objectLib.decodeObjectSize,
 		createObjectFieldsString = MLB.objectLib.createObjectFieldsString,
 		createObjectDescriptionString = MLB.objectLib.createObjectDescriptionString,
 	    getObjectSize = MLB.objectLib.getObjectSize,
+		getObjectSizeDeg = MLB.objectLib.getObjectSizeDeg,
+		validMagSurB = MLB.objectLib.validMagSurB,
+		validRecordToCalcSurfaceBrightness = MLB.objectLib.validRecordToCalcSurfaceBrightness,
+		getSurfaceBrightness = MLB.objectLib.getSurfaceBrightness,
+		getSurfaceBrightnessAndSizeIfPossible = MLB.objectLib.getSurfaceBrightnessAndSizeIfPossible,
+		getDetectionLevelForApertureAndBortle = MLB.objectLib.getDetectionLevelForApertureAndBortle,
 		filterObjectCatalog = MLB.objectLib.filterObjectCatalog,
 	    convertRomanNumeral = MLB.objectLib.convertRomanNumeral,
 	    getConstellation = MLB.objectLib.getConstellation,
@@ -117,7 +125,158 @@
 		result = getObjectSize('5 d');
 		assert.equal(result, expected, result + ' should be ' + expected);
 	});
+	
+	QUnit.module('Saguaro db');
+
+	QUnit.test('getObjectSizeDeg', assert => {
+		var allowableError = 0.0001,
+		    expected = 0.1483,
+			result = getObjectSizeDeg('8.9 m');
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'The size in deg should be ' + expected + ', is ' + result);
+
+		result = getObjectSizeDeg('8.9 mins');
+		assert.equal(withinRange(result, expected, allowableError), true, 'The size in deg should be ' + expected + ', is ' + result);
+					
+		expected = 0.0083;
+		result = getObjectSizeDeg('30 s');
+		assert.equal(withinRange(result, expected, allowableError), true, 'The size in deg should be ' + expected + ', is ' + result);
+
+		expected = 5;
+		result = getObjectSizeDeg('5 d');
+		assert.equal(withinRange(result, expected, allowableError), true, 'The size in deg should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('validMagSurB', assert => {
+		var value = 8,
+		    expected = true,
+		    result = validMagSurB(value)
 		
+		assert.equal(result, expected, result + ' should be ' + expected);
+		
+		value = 99.9;
+		expected = false;
+		result = validMagSurB(value)
+		assert.equal(result, expected, result + ' should be ' + expected);
+
+		value = '';
+		expected = false;
+		result = validMagSurB(value)
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});
+		
+	QUnit.test('validRecordToCalcSurfaceBrightness', assert => {
+		var record = {SIZE_MAX: '5   s', SIZE_MIN: '', MAG: 8, SUBR: ''},
+		    expected = true,
+		    result = validRecordToCalcSurfaceBrightness(record);
+		
+		assert.equal(result, expected, result + ' should be ' + expected);
+		
+		record = {SIZE_MAX: '5 m', SIZE_MIN: '5 m', MAG: 8, SUBR: 99.9};
+		expected = true;
+		result = validRecordToCalcSurfaceBrightness(record);
+		assert.equal(result, expected, result + ' should be ' + expected);
+
+		record = {SIZE_MAX: '', SIZE_MIN: '', MAG: 8, SUBR: ''};
+		expected = false;
+		result = validRecordToCalcSurfaceBrightness(record);
+		assert.equal(result, expected, result + ' should be ' + expected);
+		
+		record = {SIZE_MAX: '5 m', SIZE_MIN: '', MAG: 79.9, SUBR: ''};
+		expected = false;
+		result = validRecordToCalcSurfaceBrightness(record);
+		assert.equal(result, expected, result + ' should be ' + expected);
+		
+		record = {SIZE_MAX: '5 m', SIZE_MIN: '', MAG: '', SUBR: 99.9};
+		expected = false;
+		result = validRecordToCalcSurfaceBrightness(record);
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});
+	
+	QUnit.test('getSurfaceBrightness', assert => {
+		var allowableError = 0.01,
+			// Saguaro's NGC 1275 but missing SB
+		    record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: ''},
+			useSB = true,
+		    expected = 21.94,
+		    result = getSurfaceBrightness(record, useSB);
+		
+		assert.equal(withinRange(result, expected, allowableError), true, 'The surface brightness should be ' + expected + ', is ' + result);
+
+		// including Saguaro's SB: note the diff
+		record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: 13.1};
+		useSB = true;
+		expected = 21.73;
+		result = getSurfaceBrightness(record, useSB);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The surface brightness should be ' + expected + ', is ' + result);
+
+		// tell the algorithm to calc SB regardless of valid SB
+		record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: 13.1};
+		useSB = false;
+		expected = 21.94;
+		result = getSurfaceBrightness(record, useSB);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The surface brightness should be ' + expected + ', is ' + result);
+	});	
+	
+	QUnit.test('getSurfaceBrightnessAndSizeIfPossible', assert => {
+		var allowableError = 0.01,
+			// Saguaro's NGC 1275 but missing SB
+		    record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: ''},
+			useSB = true,
+		    expected = 21.94,
+		    result = getSurfaceBrightnessAndSizeIfPossible(record, useSB).SB;
+		
+		assert.equal(withinRange(result, expected, allowableError), true, 'The surface brightness should be ' + expected + ', is ' + result);
+
+		// including Saguaro's SB: note the diff
+		record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: 13.1};
+		useSB = true;
+		expected = 21.73;
+		result = getSurfaceBrightnessAndSizeIfPossible(record, useSB).SB;
+		assert.equal(withinRange(result, expected, allowableError), true, 'The surface brightness should be ' + expected + ', is ' + result);
+
+		// tell the algorithm to calc SB regardless of valid SB
+		record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: 13.1};
+		useSB = false;
+		expected = 21.94;
+		result = getSurfaceBrightnessAndSizeIfPossible(record, useSB).SB;
+		assert.equal(withinRange(result, expected, allowableError), true, 'The surface brightness should be ' + expected + ', is ' + result);
+
+		record = {SIZE_MAX: '', SIZE_MIN: '', MAG: 8, SUBR: ''};
+		expected = false;
+		result = getSurfaceBrightnessAndSizeIfPossible(record, useSB);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The record should be ' + expected + ', is ' + result);
+		
+		record = {SIZE_MAX: '5 m', SIZE_MIN: '', MAG: 79.9, SUBR: ''};
+		expected = false;
+		result = getSurfaceBrightnessAndSizeIfPossible(record, useSB);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The record should be ' + expected + ', is ' + result);
+		
+		record = {SIZE_MAX: '5 m', SIZE_MIN: '', MAG: '', SUBR: 99.9};
+		result = getSurfaceBrightnessAndSizeIfPossible(record, useSB);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The record should be ' + expected + ', is ' + result);
+	});	
+	
+	QUnit.test('getDetectionLevelForApertureAndBortle', assert => {
+		var allowableError = 0.01,
+			apertureInches = 10,
+			BortleLevel = 3,
+			// Saguaro's NGC 1275
+		    record = {SIZE_MAX: '2.3 m', SIZE_MIN: '1.6 m', MAG: 11.9, SUBR: 13.1},
+			useSB = false,
+		    expected = {detectionLevelNumber: 4, objectSB: 21.94, backgroundSB: 21.6, objectSBPlusSkySB: 21.01, contrastPercent: 72.91},
+		    result = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevel, record, useSB);
+		
+		assert.equal(withinRange(result.backgroundSB, expected.backgroundSB, allowableError), true, 'The backgroundSB should be ' + expected.backgroundSB + ', is ' + result.backgroundSB);
+		assert.equal(withinRange(result.contrastPercent, expected.contrastPercent, allowableError), true, 'The contrastPercent should be ' + expected.contrastPercent + ', is ' + result.contrastPercent);
+		assert.equal(withinRange(result.detectionLevelNumber, expected.detectionLevelNumber, allowableError), true, 'The detectionLevelNumber should be ' + expected.detectionLevelNumber + ', is ' + result.detectionLevelNumber);
+		
+		expected = false;
+		record = {SIZE_MAX: '5 m', SIZE_MIN: '', MAG: '', SUBR: 99.9};
+		result = getDetectionLevelForApertureAndBortle(apertureInches, BortleLevel, record, useSB);
+		assert.equal(withinRange(result, expected, allowableError), true, 'The record should be ' + expected + ', is ' + result);
+	});		
+			
 	QUnit.module('filterObjectCatalog results');
 	
 	QUnit.test('filterObjectCatalog', assert => {
