@@ -125,7 +125,8 @@ thead tr th:first-child, tbody tr td:first-child {
 #starCountTable td,
 #exitPupilTable td,
 #maxApertureTable td,
-#M31compareTable td {
+#M31compareTable td,
+#focalRatiosForEyepiecesWith8mmExitPupil td {
 	table-layout: fixed;
 	width: auto; !important
 }
