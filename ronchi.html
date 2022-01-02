@@ -11,35 +11,36 @@
 </head>
 <body>
 <div>
+	<h2>Ronchi Matching Test</h2>
+
+	<a href='#myInteractiveExamples'>Interactive examples</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#aboutTheRonchi'>About the Ronchi test</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#mirrorQualityStandard'>Mirror quality</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#SchultzReich'>Dr Sherman Schultz, Dennis Reich comments</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#generalComments'>General comments</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#MatchingRonchiTape'>Matching Ronchi tape test</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#pitfalls'>Pitfalls</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#TDE'>Turned edge</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#atTheFocuser'>At the focuser</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#examples'>Examples</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#IFcomparison'>Comparison with interferometry</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#tester'>The tester</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#using'>Using the Ronchi test during parabolizing</a> &nbsp;&nbsp;&nbsp;&nbsp;
+	<br><br>
+</div>
+<div>
     <table>
     <tbody>
-        <tr>
-            <td class='title' colspan='2'>
-                <h4>Ronchi Matching Test</h4>
-            </td>
-        </tr>
         <tr>
             <td class='label'>
                  Mirror diameter =
             </td>
             <td>
                 <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Mirror radius of curvature =
-            </td>
-            <td>
-                <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Central obstruction =
-            </td>
-            <td>
-                <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
+				Mirror radius of curvature =
+				<input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
+				Central obstruction =
+				<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
             </td>
         </tr>
         <tr>
@@ -162,7 +163,7 @@
 	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
 	<br>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
 	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk, the theoretical resolution of a mirror. The weighted ML tolerance is a measure of how well the light rays pass through the Airy Disk.
-	<br>For more, see <a href='ratemirrors.html'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy'>Newtonian Telescope Designer, section on the Airy Disk</a>.
+	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div class='floatDiv'>
 	<h4>Suggested polishing actions</h4>
@@ -172,7 +173,11 @@
 	</div>
 </div>
 <div class='clearFloat'>
+</div>
+<div>
+	<a name='myInteractiveExamples'></a>
 	<h4>Matching Ronchi examples</h4>
+
     <p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. With careful matching, I have found that this test gets me to 'snap focus' quality even on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized 6' f2.8, 10.5' f2.7, 13.2' f3.0, 25' f2.6 and 30' f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead. </p>
 
     <p>Here are some examples:</br>
@@ -187,8 +192,9 @@
     <p>Moving inside the radius of curvature is a negative offset; outside the radius of curvature is a positive offset. Inside of the radius of curvature, the bands bow outward as you center your attention to the middle of the mirror. Outside of the radius of curvature, the bands bow outward as you move your eye towards the edge of the mirror. I added an optional Ronchigram where you can compare defects like under and over correction and a low or high 70% zone. This comparison Ronchigram uses the third and last grating offset.
 	
 	<p>It is important to accurately measure the clear diameter of the mirror, i.e., the reflective diameter, not the outside diameter, and to accurately measure the radius of curvature. The accuracy of the computed Ronchi bands is proportional to the mirror's clear diameter to the 4th power divided by the radius of curvature cubed.
-    </p>		 
-
+</div>
+<div>
+	<a name='aboutTheRonchi'></a>
     <h4>About the Ronchi test</h4>
 
     <p>The Ronchi test, discovered by Vasco Ronchi in 1923, is one of the most versatile and easy to use tests. It is an interferometer that can be used geometrically. There is a large body of literature about the Ronchi test. For a review, see Malacara's, 'Optical Shop Testing', second edition, chapter 9, 'Ronchi Test'. I use the test geometrically which measures the transverse aberration (the Foucault test measures longitudinal aberration).
@@ -196,14 +202,15 @@
     <p>There are a number of variants of the Ronchi test including the Mosby, the Null Ronchi, the Ronchi Star Test, the Concentric Grid Ronchi, the Phase Shifting Ronchi Test, the Sideband Ronchi Test, the Lower Test, and the Ronchi Hartmann tests. I'm convinced that there are variations on the Ronchi Test waiting to be discovered and characterized. Inventive amateurs have suggested variants that I hope to try in the future.		
     
 	<p>I've successfully figured dozens of superb mirrors over many years using the Ronchi Test with notable examples being 
-		20 inch F5 (I used <a href='6000X.html'>6000X on one famous night of perfect seeing at the Oregon Star Party</a>),		
-		<A href='30/30 inch mirrors log.html'>twin 30 inch F2.7 mirrors, 	
-		<a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html'>25 inch F2.6</a>, 
-		<a href='ZipDob/ZipDob.html'>13 inch F3.0</a>, 
-		<a href='JoyOfMirrorMaking/10.5 inch log.doc'>10.5 inch F2.7</a> and 
-		<a href='JoyOfMirrorMaking/6 inch log.doc'>6 inch F2.8</a> 
-		mirrors and I have led mirror making classes using the Ronchi as the principal test. I had a 6 inch F4 checked with the Hartman test. The surface was 1/20 wave peak to valley and the RMS was 1/60 wave.
+		20 inch F5 (I used <a href='6000X.html' target='_blank'>6000X on one famous night of perfect seeing at the Oregon Star Party</a>),		
+		<A href='30/30 inch mirrors log.html' target='_blank'>twin 30 inch F2.7 mirrors, 	
+		<a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html' target='_blank'>25 inch F2.6</a>, 
+		<a href='ZipDob/ZipDob.html' target='_blank'>13 inch F3.0</a>, 
+		<a href='JoyOfMirrorMaking/10.5 inch log.doc' target='_blank'>10.5 inch F2.7</a> and 
+		<a href='JoyOfMirrorMaking/6 inch log.doc' target='_blank'>6 inch F2.8</a> 
+		mirrors and I have led mirror making classes using the Ronchi as the principal test. I had a 6 inch F4 checked with the Hartmann test. The surface was 1/20 wave peak to valley and the RMS was 1/60 wave.
 
+	<a name='mirrorQualityStandard'></a>
 	<h4>Mirror quality</h4>
 	
 	<p>The Danjon-Couder standard states two conditions:<br>
@@ -212,7 +219,7 @@
 			<li>The overall peak to valley error on the mirror's surface should be a small fraction of the wavelength of light
 		</ol>		
 
-	<p>The Ronchi is a good test for smoothness and the <a href='JoyOfMirrorMaking/StarTesting.html'> star test</a> is very critical of focusing errors.  Using these tests, the mirror maker can finish a mirror to a high standard, more than good enough to give outstanding images.
+	<p>The Ronchi is a good test for smoothness and the <a href='JoyOfMirrorMaking/StarTesting.html' target='_blank'> star test</a> is very critical of focusing errors.  Using these tests, the mirror maker can finish a mirror to a high standard, more than good enough to give outstanding images.
 
     <p>I make mirrors to the best of my ability, regardless of how long it takes for two reasons:
 	<ol>
@@ -237,9 +244,10 @@
 
     <p>The better the mirror maker, the better the process and the more the process can be counted to preclude mirror defects and deliver a good mirror. The zonal Foucault test used with a good process that prohibits astigmatism has been used for centuries to make unimpeachable mirrors. Neophyte mirror makers struggle with testing, figuring and process. The best they can do is obtain the help of a master mirror maker in order to establish a process. The worst they can do is to thrash about, without process, trying wild disjointed ideas.
 
+	<a name='SchultzReich'></a>
     <h4>Dr. Sherman Schultz</h4>
 
-    <p>One of the most successful practitioners was Dr. Sherman Schultz of Macalester College in St Paul Minnesota. He used the Ronchi test in his mirror making classes with countless students successfully completing their telescopes. <a href='http://digitalcommons.macalester.edu/cgi/viewcontent.cgi?article=1000&context=physics_oralhist'>
+    <p>One of the most successful practitioners was Dr. Sherman Schultz of Macalester College in St Paul Minnesota. He used the Ronchi test in his mirror making classes with countless students successfully completing their telescopes. <a href='http://digitalcommons.macalester.edu/cgi/viewcontent.cgi?article=1000&context=physics_oralhist' target='_blank'>
         Here's an interview with Dr Schultz.</a> See Telescope Making #9 for an article by Dr Schultz on the Ronchi test.
 
     <p>He lists the following advantages of the Ronchi test.
@@ -257,6 +265,7 @@
 	
     <p>'When someone asks me to look at their mirror, I have them send me the parameters of the mirror and then I use a Ronchi program to show them what the Ronchi pattern should look like. We then print out the pattern on my big printer at exact scale and tape it to the back of the mirror. We then trace the Ronchi lines onto the front of the mirror with a Sharpie and then test it. And then, within seconds they can see exactly what their mirror should look like compared to what it actually is. A spherical mirror shows straight lines and as the center is lowered towards a parabola, the lines bow outwards. The deeper the curve, the more the lines bow. When the bowed Ronchi lines exactly meet the Sharpie lines, we have a parabola. Lines not bowed enough, rub a little more.   Lines too bowed, rub everything else a little more. Lines all wonky, rub only the zones with flat lines or go back and correct the sphere. It is fast, it is accurate and one sees the entire mirror surface, not just a line of a  couple of zones across the mirror. When Carl Zambuto first tried machine fabrication, he commented on the wonderful figure of revolution that comes from using a machine vs, hand work. The Ronchi test shows this immediately, Foucault does not.'
 
+	<a name='generalComments'></a>
     <h4>General comments</h4>
 
 	<p>I use the Ronchi test in two positions: inside and outside the radius of curvature. I also use the Ronchi test dynamically, sliding the tester back and forth. This can reveal subtle issues.<br>
@@ -304,7 +313,7 @@
     <p>How tightly must we judge the curved Ronchi bands? Perhaps surprisingly, paraboloidal accuracy is solely dependent on focal ratio (mirror size does not matter at all). This is also an indication of the difficult of faster focal ratios where an F4 is twice as demanding as an F8. The graph is for worse case 1/4 wavefront; for the more demanding 1/8 wavefront, halve these values. While slower focal ratios have a larger allowable parabolic deviation percentage, because the paraboloidal correction is smaller, the deviation in absolute terms is also smaller. I've added the capability to see the maximum allowed under and over correction impact on the bands. Select 'zero correction at edge' to best see center band changes and select 'zero correction at center' to best see edge band changes. The conclusion is that regardless of mirror diameter and focal ratio, the shape and curve of each band must be judged critically from top to bottom.<br>
         <img alt='' loading='lazy' src='acceptable parabolic devision.jpg'>
 
-    <p>I derived this relationship by using a standard algorithm that calculates wave error given a set of zonal readings. I iteratively fed it zonal readings smoothly varying by a correction factor, deriving the maximum correction factor that fit the quarter wavefront error envelope. For more, see the comments, code and unit tests in <a href='' 'lib/ronchi.js'>lib/Ronchi.js</a> and <a href='' 'lib/calclib unittests.htm'>calcLib unitTests.htm</a>.
+    <p>I derived this relationship by using a standard algorithm that calculates wave error given a set of zonal readings. I iteratively fed it zonal readings smoothly varying by a correction factor, deriving the maximum correction factor that fit the quarter wavefront error envelope. For more, see the comments, code and unit tests in <a href='lib/ronchi.js' target='_blank'>lib/Ronchi.js</a> and <a href='lib/calclib unittests.htm' target='_blank'>calcLib unitTests.htm</a>.
 
     <p>You can see that zonal errors are easy to detect. Using a 16' [41cm] F5 mirror, compare a high 70% zone (sometimes seen in commercial optics) on the left to perfectly parabolized in the middle to a low 70% zone (a common malady when figuring large fast mirrors) on the right. Note how the bands curve too sharply in the low 70% zone image, particularly at the 70% zone, and in the high 70% zone image do not exhibit enough curvature, looking too flat at the 70% zone. Additionally, the center looks too flat in the low 70% zone and the center looks too curved in the high 70% zone Ronchigrams.<br>
         <img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 high 70percent zone.png' class='smallImage'>
@@ -316,7 +325,7 @@
 
     <p>I like a grating of about 100 lines per inch [4 lines per millimeter]. Smaller slower mirrors can profit from a finer grating and large very fast mirrors from a coarser rating.
 
-    <p>The Ronchi test can also be used far away from the radius of curvature. Here, any kinks in the bands will show as ragged bands or inteference effects. The first example shows rough zones towards the edge; the second example shows smooth bands.<br>
+    <p>The Ronchi test can also be used far away from the radius of curvature. Here, any kinks in the bands will show as ragged bands or interference effects. The first example shows rough zones towards the edge; the second example shows smooth bands.<br>
         <img alt='' loading='lazy' src='JoyOfMirrorMaking/far from RoC showing not so smooth edge zones.jpg'>
         <img alt='' loading='lazy' src='JoyOfMirrorMaking/far from RoC smooth bands.jpg'>
 		
@@ -334,6 +343,19 @@
 
 	<p>It can be quite revealing to dynamically move the grating back and forth. Small discontinuities that can hardly be seen in the static Ronchigram reveal themselves. Astigmatism in the form of the bands twisting one direction just inside the radius of curvature and twisting the other direction just outside the radius of curvature can be seen. But be careful: the astigmatism might be in the mirror, it might be in the test stand, it might be in the air between the mirror and the tester, it might be in the grating and it might be caused by tester mis-alignment. Finally, I've seen cases where the astigmatism is caused by eyeglasses and the tester's eye; even a camera lens off-axis might cause trouble. Rotate the mirror by 90 degrees and see if the twist goes in the opposite direction. If so then the mirror is the prime suspect. Rotate the mirror back to the original orientation. If the twist returns to the original configuration, then the mirror is surely the cause. If not, then the test stand must be investigated.
 
+	<a name='pitfalls'></a>
+	<h4>Pitfalls</h4>
+	
+	<ul>
+		<li>Comparing the mirror's Ronchigram with the computer generated Ronchigram by looking back and forth. This will not work the way you think it will: it is too inaccurate. Experienced amateurs with trained eyes might make this work in certain circumstances. Using the Matching Ronchi overlay is so much easier and accurate. Though of course, the bands' smoothness can be judged in isolation.
+		<li>Not judging the mirror Ronchigram's bands critically. The bands must fit exactly within the computer generated bands. See the <a href='#examples'>examples </a>below for the visual exactness required. 
+		<li>Not knowing the grating's frequency (lines per inch) or the mirror's exact radius of curvature or its clear aperture to a tenth of an inch [millimeter].
+		<li>Ronchigrams need to be sharp with good contrast, centered, aligned vertically and cropped.
+		<li>Not pairing the Matching Ronchi test with another test that is sensitive to overall correction, like the star test or Hartmann test or interferometry.
+		<li>The Matching Ronchi is best used as an integrated part of mirror making. While the Matching Ronchi is an excellent judge of smoothness, it is insufficient as the only judge of a finished mirror.
+	</ul>
+
+	<a name='MatchingRonchiTape'></a>
 	<h4>The Matching Ronchi tape band variant</h4>
 	
 	<p>Of course ideally one prints out the Matching Ronchi image to scale and places it behind the mirror. Barring that, I invented a variant of the Matching Ronchi test while parabolizing twin 30 inch [76cm] F2.75 thin meniscus mirrors. I found that a tape stretched across the middle of the mirror with marks indicating where the Ronchi bands cross very useful. I can instantly test every session and see minute differences, continuing on if the mirror is improving, and stopping early before a major setback if not.<br>
@@ -348,17 +370,22 @@
 
 	<p>This test reminds of the Poor Man's Caustic test. Note that marking the edge of the mirror with the tape band can improve Matching Ronchi results, as Ronchigrams suffer from multiple edges (which, interestingly, can be used to deduce the lines per inch of the grating).
 
+	<a name='TDE'></a>
 	<h4>Turned edge</h4>
 
 	<p>Besides the bands turning in while outside the radius of curvature, you can look for a narrow bright ring at the edge like this.<br>
-        <img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi test TDE test narrow band of light.jpg'>	
+        <img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi test TDE test narrow band of light.jpg'>
 	
+	<p>Don't be fooled by diffraction effects at the edge that mimic sharply turning Ronchi bands. If necessary, mask off a bit of the edge to remove the diffraction effects, then test again.
+	
+	<a name='atTheFocuser'></a>
     <h4>The Ronchi test at the focuser</h4>
 
     <p>The Ronchi test can be used at the telescope's focus. As such it measures the entire optical system including all optics, thermal issues and seeing conditions. This test is commonly thought to be rather crude, in that any deviation from straight bands means a significant error. Used casually such a test ferrets out poor quality mirrors that have trouble with critical high magnification planetary and lunar viewing. At focus the test is half as sensitive as at the radius of curvature or at focus with an auto-collimating flat in the shop. But under the hypothesis that it is the optician that makes the mirror, not the test, can the Ronchi test at focus be used more critically?
 
     <p>It is possible to extract critical information using a quality grating of greater than 100 lines per inch (lpi) [4 lines per millimeter] under good seeing conditions and thermally stabilized optics if the grating is slowly racked back and forth focus where one to three bands cross the illuminated disc. It is critical that the tester have experience judging how the Ronchi bands change dynamically. With care defects to 1/8 wavefront are detectable, with great care and time twice that sensitivity can be achieved.
 		
+	<a name='examples'></a>
     <h4>Here are more examples</h4>
 	
     <p>Here's my 13.2 inch [34cm] F3.0 mirror (2008) that I made before I developed the Matching Ronchi test. Using the test I see a bit of an undercorrected edge. It does not show in the star test however. The results at the eyepiece are very pleasing at high powers.<br>
@@ -400,11 +427,13 @@
 	<p>Here's a 12.5 inch [32cm] F3.9 mirror made by Jerry Oltion. It gives a perfect star test with the slightest hint of a narrow turned edge (note the extremely narrow glowing ring at the top of the Ronchigrams). Jerry is using the old DOS version of my Ronchigram softaware.<br>
         <img alt='' loading='lazy' src='JoyOfMirrorMaking/Jerry 12.5 inch Ronchigrams Nov 2015.jpg'>
 
+	<a name='IFcomparison'></a>
 	<h4>Comparing to interferometry</h4>
 	
 	<p>A friend who uses a Zygo interferometer at work sent me a Ronchigram of a commercial mass produced 12 inch [30cm] mirror. It was quite undercorrected. Using the matching tool above, I found that it was 0.6 wave undercorrected. After I communicated my results, he told me that the Zygo had found that the mirror had a spherical deviation of 3.7 waves when a fully corrected mirror should have a deviation of 4.3 waves. That is a difference of 0.6 waves, which matched my results to within a 1/10 of a wave. The first Ronchigram is the match to a perfect paraboloidal surface while the second Ronchigram is the match to the 0.6 wave undercorrected Ronchigram.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Matching Ronchi results with error - MLB.jpg'>
 	
+	<a name='tester'></a>
 	<h4>The tester</h4>
 	
 	<p>My trusty tester that I've used for countless mirrors over 40 years.<br>
@@ -413,9 +442,11 @@
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi tester back.jpg'>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi tester layout.jpg'>
 
+	<a name='using'></a>
+	<h4>The Ronchi test as part of the parabolizing process</h4>
 	<p>See my pages on polishing and parabolizing mirrors where I discuss how to use the Ronchi test during figuring.<br>
-        <a href='JoyOfMirrorMaking/Polishing.html'>Polishing</a><br>
-        <a href='JoyOfMirrorMaking/Parabolizing.html'>Parabolizing</a><br>
+        <a href='JoyOfMirrorMaking/Polishing.html' target='_blank'>Polishing</a><br>
+        <a href='JoyOfMirrorMaking/Parabolizing.html' target='_blank'>Parabolizing</a><br>
         <br>
         Mel Bartels
         <br>
