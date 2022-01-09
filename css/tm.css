@@ -28,6 +28,12 @@ a:hover {
 	padding: 5px;
 }
 
+.topLinks {
+	background-color: lightgray;
+	padding: 5px;
+	font-weight: bold;
+}
+
 .bigImage {
 	width: 90%;
 	height: 90%;
