@@ -55,6 +55,7 @@
 		getDiagIllumArray = MLB.calcLib.getDiagIllumArray,
 		calcBinoscopeMinimumFocalPlaneToSecondaryDistance = MLB.calcLib.calcBinoscopeMinimumFocalPlaneToSecondaryDistance,
 		calcBinoscopeSecondaryBendingAngle = MLB.calcLib.calcBinoscopeSecondaryBendingAngle,
+		calcBinoscopeEquivalentApertureBinoviewer = MLB.calcLib.calcBinoscopeEquivalentApertureBinoviewer,
 		calcBinoscopeEquivalentApertureStar = MLB.calcLib.calcBinoscopeEquivalentApertureStar,
 		calcBinoscopeEquivalentApertureNebulosity = MLB.calcLib.calcBinoscopeEquivalentApertureNebulosity,
 		calcEyepieceDivergenceFromTertiaryBendingAngle = MLB.calcLib.calcEyepieceDivergenceFromTertiaryBendingAngle,
@@ -133,7 +134,8 @@
 		calcMirrorCellDimensions = MLB.calcLib.calcMirrorCellDimensions,
 		calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction,
 		findOffsetCenterBetweenTwoPoints = MLB.calcLib.findOffsetCenterBetweenTwoPoints,
-		findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints;
+		findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints,
+		WaineoSphericalNull = MLB.calcLib.WaineoSphericalNull;
 
 	QUnit.module('sagitta');
 
@@ -471,6 +473,15 @@
 		assert.equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
 	});
 		
+	QUnit.test('calcBinoscopeEquivalentApertureBinoviewer', assert => {
+		var allowableError = 0.001,
+		    aperture = 10,
+			result = calcBinoscopeEquivalentApertureBinoviewer(aperture),
+			expected = 14;
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'The binoscope aperture gain should be ' + expected + ', is ' + result);
+	});
+	
 	QUnit.test('calcBinoscopeEquivalentApertureStar', assert => {
 		var allowableError = 0.001,
 		    aperture = 10,
@@ -2004,6 +2015,36 @@ note that visible? is coded from impossible=1 to very easy=6
 
 		assert.equal(withinRange(result.x, expected.x, allowableError), true, 'offset x should be ' + expected.x + ', is ' + result.x);
 		assert.equal(withinRange(result.y, expected.y, allowableError), true, 'offset y should be ' + expected.y + ', is ' + result.y);
+	});
+
+	QUnit.module('WaineoSphericalNull');
+
+	QUnit.skip('WaineoSphericalNull', assert => {
+		var inParms = {
+			// in mm
+			paraboloidalDia: 500,
+			KEpositionBehindSphere: 150,
+			nullingSphereRoC: 2000,
+			paraboloidRoC: 5000
+		},
+		expected = {
+			lightSourceDistanceInFrontOfSphere: 69.36592,
+			minimumSphereDia: 18.18299,
+			minimumHoleInSphereDia: 1.806831,
+			paraboloidDistanceFromSphere: 400.7165,
+			paraboloidToFocusKEDistance: 415.7165,
+			marginalSphericalAberration: -0.000000000000004440892, //difference between central and marginal focus of null system; should be less than 1.0E-15
+			opticalPathSifference: 0.08211839,                     // OPD between central and marginal rays expressed in wave lengths of 0.00055mm
+			sphericalAberrationZone707: -0.03745461,
+			zoneOPD707: 0.04089487,
+			minOPD: 0.01030829,              // minimized maximum OPD using 24 zones
+			incrementalBestFocus: 0.02805132 // KE adjustment for MinOPD
+		},			
+		allowableError = 0.00001,
+		result = WaineoSphericalNull(inParms);
+			
+		assert.equal(withinRange(result.lightSourceDistanceInFrontOfSphere, expected.lightSourceDistanceInFrontOfSphere, allowableError), true, 'lightSourceDistanceInFrontOfSphere should be ' + expected.lightSourceDistanceInFrontOfSphere + ', is ' + result.lightSourceDistanceInFrontOfSphere);
+
 	});
 
 });
