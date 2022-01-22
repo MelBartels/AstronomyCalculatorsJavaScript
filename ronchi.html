@@ -47,9 +47,9 @@
             </td>
             <td>
                 <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-				Mirror radius of curvature =
+				&nbsp;&nbsp; Mirror radius of curvature =
 				<input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-				Central obstruction =
+				&nbsp;&nbsp; Central obstruction =
 				<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
             </td>
         </tr>
@@ -59,13 +59,7 @@
             </td>
             <td>
                 <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                 Grating offsets from radius of curvature =
-            </td>
-            <td>
+                &nbsp;&nbsp; Grating offsets from radius of curvature =
                 <input class='inputTextGratingOffsets' name='gratingOffsetSeries' value='-0.2, 0.0, 0.4' onfocus='select()' type='text'>
                 or adjust
                 <input id='btnIncreaseGratingOffsets' value='+' type='button'>
@@ -73,12 +67,13 @@
                 <input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
             </td>
         </tr>
-        <tr>
+		<tr>
             <td class='label'>
+                 Parabolic correction =
             </td>
-            <td>
+			<td><input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
             </td>
-        </tr>
+		</tr>
         <tr>
             <td class='label'>
                  Ronchigram size in pixels =
@@ -87,13 +82,7 @@
                 <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
 				&nbsp;&nbsp; Border size = 
 				<input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
-            </td>
-        </tr>
-        <tr>
-            <td class='label'>
-                Band color (R,G,B) = 
-            </td>
-            <td>
+                &nbsp;&nbsp; Band color (R,G,B) = 
                 <input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
 				&nbsp;&nbsp; Invert bands?
 				<input name='invertBands' value='yes' type='radio'>yes
