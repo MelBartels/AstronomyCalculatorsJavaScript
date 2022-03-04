@@ -117,6 +117,7 @@
 		scalingFactor = MLB.calcLib.scalingFactor,
 		calcMaxMagnification = MLB.calcLib.calcMaxMagnification,
 		calcMinMagnification = MLB.calcLib.calcMinMagnification,
+		calcWilliamHerschelSpacePenetratingPower = MLB.calcLib.calcWilliamHerschelSpacePenetratingPower,
 		calcComaFreeDiaInches = MLB.calcLib.calcComaFreeDiaInches,
 		calcDiopter = MLB.calcLib.calcDiopter,
 		calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches,
@@ -1680,6 +1681,22 @@ note that visible? is coded from impossible=1 to very easy=6
 			result = calcMinMagnification(apertureInches);
 
 		assert.equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);
+	});
+	
+	QUnit.test('calcWilliamHerschelSpacePenetratingPower', assert => {
+		var apertureInches = 10,
+			diagSizeInches = 0, 
+			combinedMirrorsReflectivity = 1,
+			expected = 50,
+			result = calcWilliamHerschelSpacePenetratingPower(apertureInches, diagSizeInches, combinedMirrorsReflectivity);
+
+		assert.equal(withinRange(result, expected, 0.001), true, "William Herschel's space penetrating power should be " + expected + ', is ' + result);
+		
+		diagSizeInches = 2, 
+		combinedMirrorsReflectivity = 0.8,
+		expected = 39.192,
+		result = calcWilliamHerschelSpacePenetratingPower(apertureInches, diagSizeInches, combinedMirrorsReflectivity);		
+		assert.equal(withinRange(result, expected, 0.001), true, "William Herschel's space penetrating power should be " + expected + ', is ' + result);
 	});
 
 	QUnit.test('calcComaFreeDiaInches', assert => {
