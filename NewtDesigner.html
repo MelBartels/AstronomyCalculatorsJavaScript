@@ -20,7 +20,7 @@ copyright Mel Bartels, 2016 - 2022-->
 		<h3>Select a designer...</h3>
 	</div>
 	<div>
-		<input class='designSelect' id='btnSelectIntro'            value='Introduction'              type='button'>
+		<input class='designSelect' id='btnSelectIntro'            value='Introduction'              type='button'>    <!-- to disable: style='display:none;' -->
 		<input class='designSelect' id='btnSelectTelescope'        value='Telescope'                 type='button'>
 		<input class='designSelect' id='btnSelectVisual'           value='Visual detection'          type='button'>
 		<input class='designSelect' id='btnSelectEyepieces'        value='Eyepieces'                 type='button'>
@@ -31,7 +31,7 @@ copyright Mel Bartels, 2016 - 2022-->
 		<input class='designSelect' id='btnSelectFocuser'          value='Focuser         '          type='button'>
 		<input class='designSelect' id='btnSelectBaffling'         value='Optical layout, baffling'  type='button'>
 		<input class='designSelect' id='btnSelectLowriderBaffling' value='Lowrider layout, baffling' type='button'>
-		<input class='designSelect' id='btnSelectBinoscope'        value='Binoscope'                 type='button'> <!-- to disable: style='display:none;' -->
+		<input class='designSelect' id='btnSelectBinoscope'        value='Binoscope'                 type='button'>
 		<input class='designSelect' id='btnSelectCG'               value='Center of gravity'         type='button'>
 		<input class='designSelect' id='btnSelectTube'             value='Tube types'                type='button'>
 		<input class='designSelect' id='btnSelectMount'            value='Mount types'               type='button'>
@@ -823,7 +823,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 			<br><br>
 			<div id='turbulence'></div>
-			<button class='accordion' id='btnTurbulence'>Notes on seeing and atmospheric turbulence</button>
+			<button class='accordion' id='btnTurbulence'>Seeing and atmospheric turbulence: bad optics or bad seeing?</button>
 			<div class='panel'>
 				<p>The theory of atmospheric seeing was developed in the '60's-'80's and is now well proven. Measuring the temperature structure coefficient predicts image quality (essentially, a plot of index of refraction versus altitude).
 
@@ -869,7 +869,16 @@ copyright Mel Bartels, 2016 - 2022-->
 				The percentage of nights with excellent seeing versus average seeing is a probability function with a long tail. Nights of excellent seeing are one	in ten to one in fifty, or several times a year.
 
 				<p>Scopes larger than the Fried Length are also preferred when digitally imaging the planets. Perhaps the median scope here is a 16 inch [40cm]. MacEvoy says that the best aperture is 3.5 * R0, or ~ 14 inches [35cm] for	R0 of 10cm. At this aperture it is virtually certain that lucky imaging	will greatly increase image quality. That is because the extra aperture	allows short exposures that freeze the seeing, the hundreds to thousands of	images taken are gone through after the fact where the worst ones discarded	and the best ones are stacked into a single image of exquisite detail.
-
+				
+				<h4>Bad optics or bad seeing?</h4>
+				
+				<p>Focus outward a bit or use a Ronchi eyepiece. Do you see variations fly past in one direction? That's high altitude seeing. At focus the image will appear fuzzy in a rather consistent way. Weather forecast calls for the jetstream to be overhead? The jetstream causes high altitude seeing.<br>
+				Does the out of focus or Ronchi image look like a rapid jumble, rumbling around? That's medium distance heat sources, like house roofs and hot pavement. It can be caused by roughed up air, broken up by nearby mountains or forests.<br>
+				Do you slow moving disturbances? That's heat problems right at the telescope: hot optics or possibly set up on hot asphalt. This is the type of seeing that makes stars twinkle.<br>
+				If it moves, then it is bad seeing. The more it moves, the closer the issue is to the telescope.
+				
+				<p>Temperature issues cause distortions in most types of glass (exception being quartz or zero-expansion glass). The thicker the glass the greater the change and the longer it will take for the glass to reach equilibrium with the outside temperature. Of course the outside temperature falls during the night. Some optics may never reach equilibrium. Hence the adoption of air flow cooling approaches. If you see variation from night to night or during the night then that's seeing, not poor optics. Temperature effects are minimal in the morning hours.
+				
 				<h4>References</h4>
 
 				<p>Bely: The Design and Construction of Large Optical Telescopes, 2003,	section 1.3.4 pg 13-, section 12.2.1 pg 394- (contains citations)<br>
@@ -976,6 +985,15 @@ copyright Mel Bartels, 2016 - 2022-->
 				<img alt='' loading='lazy' src='Large telescope performance.jpg'>
 
 				<p>These factors can be judged at the eyepiece with the star test, a subjective and sensitive test, that works by dynamically examining the distribution of light. For more <a href='JoyOfMirrorMaking/StarTesting.html' target='_blank'>see my star test page</a>.
+			</div>
+
+			<br><br>
+			<div id='fieldCurvature'></div>
+			<button class='accordion' id='btnFieldCurvature'>Field curvature</button>
+			<div class='panel'>
+				<p>Field curvature in a Newtonian is minor compared to other optical designs. For example, consider optical designs of the same focal length. A Schmidt-Cassegrain will have a relative field curvature of 4x, a refractor 3x, while a Newtonian a relative factor of 1x, far flatter than the other two designs.
+
+				<p>The coma of a fast Newtonian is quite bad. Luckily one can purchase a lens set called a coma corrector that removes coma.
 			</div>
 
 			<br><br>
@@ -1938,6 +1956,8 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p>Etendue is calculated as the surface area of the eyepiece's apparent field times the eye's pupil's area, limited to 7mm. Etendue needs to be reduced to take into account the mirrors' reflectivity, the light absorbed by the glass in the eyepiece and coma corrector and the light loss due to diagonal obstruction and integrated light loss due to field illumination drop-off. Hence, the above etendue values are approximate, but serve as good relative values.
 
 				<p>The knowledgeable observer will note that the first eyepiece for the f2.7 example produces an oversized pupil. I find this eyepiece on my 30 inch f2.7 to be surprising and remarkable, clearly superior to the 1.1 degree field of my 25 inch [64cm] f2.6 with the 21mm Ethos producing a 7mm exit pupil (etendue ~2700). The oversized pupil means that the on-axis light is shrunk to that of a 26 inch scope given a 7mm pupil (note that off-axis, the illumination fall-off is reduced). How can this be? I have a potential <a href='#oversizedExitPupil' target='_blank'> explanation here</a>. In effect, I am extending the capabilities of my f2.7, an advantage for the f2.7 option.
+				
+				<p>Some eyepieces suddenly 'black out'. Sometimes mistakingly attributed to oversized pupils, this blacking out is actually due to improper eye placement above the eyepiece. Some eyepieces have an eye placement extension. Without it, keeping one's eye at the correct distance above the eyepiece can be hard and frustrating.
 				
 				<p>Significantly, I have three magnifications available to me with the f2.7 and only two with the f4, giving me a richer perspective into the wide angle object that I am viewing and a slightly larger field. There are literally hundreds and hundreds of wide field objects, many of them little known to amateurs (almost seems to be a bias more than an oversight), and combinations of objects in a single view, not to mention simply scanning the Milky Way, a treat that Clyde Tombaugh extolled. To truly explore the celestial sphere, a wide angle perspective is vital.
 				
@@ -4534,6 +4554,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<li><a href='#airy'>#airy</a>
 				<li><a href='#telescopeValue'>#telescopeValue</a>
 				<li><a href='#telescopePerformance'>#telescopePerformance</a>
+				<li><a href='#fieldCurvature'>#fieldCurvature</a>
 				<li><a href='#telescopeRequirements'>#telescopeRequirements</a>
 				<li><a href='#foldingSlidingScopes'>#foldingSlidingScopes</a>
 				<li><a href='#selectingTelescope'>#selectingTelescope</a>
@@ -4650,7 +4671,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 6-Apr-2022
+				Last updated 20-Apr-2022
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
