@@ -914,7 +914,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				Scopes 'A' and 'B' have the same focal length,<br>
 				scopes 'A' and 'C' have the same aperture,<br>
 				scopes 'B' and 'C' have the same focal ratio.<br>
-				Scope 'B', with twice the aperture resolves twice that of scope 'A' so  the Airy disk is half the size of scope 'A'.<br>
+				Scope 'B', with twice the aperture resolves twice that of scope 'A' so the Airy disk is half the size of scope 'A'.<br>
 				Scope 'C' with the same aperture of scope 'A' resolves the same but with half the focal length, the Airy disk diameter is half the size. So I see that the Airy disk diameter depends solely on the focal ratio where faster focal ratios result in smaller Airy disk diameters.<br>
 				Scope 'B' resolves twice that of scope 'C' but with twice the focal length the Airy disk ends up the same linear size.
 
@@ -1181,7 +1181,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p>I also designed and built a folding spider design which takes up very little room.<br>
 				<a href='https://3dwarehouse.sketchup.com/model.html?id=18d7ba37a579484899c9bc4868836a56' target='_blank'>Google Sketchup is found here</a><br>
 				<img alt='' loading='lazy' src='FoldingScopes/iteration 2.jpg'>
-					  
+
 				<p><a href='https://3dwarehouse.sketchup.com/model.html?id=f1eaaf10973bdc94bfd7348943bf41c' target='_blank'>The Google Sketchup of my Zip Dob is here</a>
 
 				<h3>Some folding telescopes...</h3>
@@ -1698,6 +1698,45 @@ copyright Mel Bartels, 2016 - 2022-->
 			</div>
 
 			<br><br>
+			<div id='etendue'></div>
+			<button class='accordion' id='btnEtendue'>Etendue or luminance</button>
+			<div class='panel'>
+				<p>Etendue or luminance is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
+
+				<p>Since the eye's pupil also forms an aperture, luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
+
+				<p>Etendue can be maximized by increasing aperture, increasing field or both. The first example shows the very real effect of increasing aperture from 8 inches to 10 inches [20cm to 25cm]. The second example shows the very real effect of increasing field from 80 to 100 apparent degrees.<br>
+				<img alt='' loading='lazy' class='bigImage' src='Co Com etendue comparison.jpg'>
+				<img alt='' loading='lazy' class='bigImage' src='25/M51 etendue comparison f5 with 31mm Nagler compared to f2.6 with 17mm Ethos.jpg'>
+
+				<p>Any object with an extended size such as nebulae and star clusters can benefit from maximizing etendue.
+
+				<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length and our eye's pupil. The focal ratio that maximizes etendue (luminance) should be the same as the focal ratio of the eyepiece and eye which equals the eyepiece focal length / eye pupil; further divided by any coma corrector magnification factor.
+
+				<p>Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
+				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
+				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL with P2.jpg'>
+
+				<h4>Focal ratio for max etendue calculator</h4>
+				<p>Your eye's pupil mm <input class='inputText' id='calcFRMaxEtendueEyePupilmm' value='7' onfocus='select()' type='text'>
+				Eyepiece focal length mm <input class='inputText' id='calcFRMaxEtendueEyepieceFLmm' value='31' onfocus='select()' type='text'>
+				Coma corrector magnification factor <input class='inputText' id='calcFRMaxEtendueComaCorrectorMag' value='1' onfocus='select()' type='text'>
+				<input value='Calculate focal ratio' id='btnCalcFRMaxEtendue' type='button'>
+				Resulting focal ratio is <input class='inputText' id='calcFRMaxEtendueResultFR' readonly='readonly' type='text'>
+				<br>Eyepiece apparent field of view in degrees <input class='inputText' id='calcFRMaxEtendueEyepieceFOV' value='82' onfocus='select()' type='text'>
+				<input value='Calculate etendue' id='btnCalcFREtendue' type='button'>
+				Resulting etendue (cm^2deg^2) is <input class='inputText' id='calcFRMaxEtendueResultEtendue' readonly='readonly' type='text'>
+
+				<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field and therefore produce greater etendue or luminance.<br>
+
+				<img alt='' loading='lazy' src='aperture vs field of view for selected eyepieces.jpg'>
+
+				<p>Brightest fields are obtained when the telescope's exit pupil matches your eye's pupil.
+
+				<p>The eye can begin resolve the aperture's resolution when exit pupil is 2mm; it is easier to resolve when the exit pupil is 1mm.
+			</div>
+
+			<br><br>
 			<div id='HET'></div>
 			<button class='accordion' id='btnHET'>High Etendue Telescopes</button>
 			<div class='panel'>
@@ -1825,7 +1864,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				</tbody>
 				</table>
 
-				<p>Going down to f/3.6, f/3.0 or f/2.5 means jumping up in aperture from 10 inches to 13 inches. In other words, what we could see previously with 8 inch scopes and wide angle Erfle eyepieces in the 1960's to 1990's and  with 10 inch scopes equipped with Naglers in the 1990's and 2000's is now seen with 13 inches aperture. This increase in aperture increases the limiting magnitude by a whole number.
+				<p>Going down to f/3.6, f/3.0 or f/2.5 means jumping up in aperture from 10 inches to 13 inches. In other words, what we could see previously with 8 inch scopes and wide angle Erfle eyepieces in the 1960's to 1990's and with 10 inch scopes equipped with Naglers in the 1990's and 2000's is now seen with 13 inches aperture. This increase in aperture increases the limiting magnitude by a whole number.
 
 				<p>A New Relationship: Maximum Aperture or Field of View Based on Varying Focal Ratio While Holding Eye Pupil Constant<br>
 				<img alt=''	loading='lazy' src='ZipDob/ApertureVsFocalRatioVsFOV.gif'>
@@ -1930,8 +1969,8 @@ copyright Mel Bartels, 2016 - 2022-->
 				<table id='HETvsRFTTable'>
 				<tbody>
 					<tr>
-						<th>Eyepiece</th> <th>Focal length &nbsp;&nbsp;</th> <th>Apparent field &nbsp;&nbsp;</th> <th>Magnification &nbsp;&nbsp;</th> <th>Exit pupil &nbsp;&nbsp;</th> <th>Actual field &nbsp;&nbsp;</th> <th>Etendue</th>
 					</tr>
+					<th>Eyepiece</th> <th>Focal length &nbsp;&nbsp;</th> <th>Apparent field &nbsp;&nbsp;</th> <th>Magnification &nbsp;&nbsp;</th> <th>Exit pupil &nbsp;&nbsp;</th> <th>Actual field &nbsp;&nbsp;</th> <th>Etendue</th>
 					<tr>
 						<td colspan='7'><h4>F2.7 HET</h4></td>
 					</tr>
@@ -1965,7 +2004,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				
 				<p>Significantly, I have three magnifications available to me with the f2.7 and only two with the f4, giving me a richer perspective into the wide angle object that I am viewing and a slightly larger field. There are literally hundreds and hundreds of wide field objects, many of them little known to amateurs (almost seems to be a bias more than an oversight), and combinations of objects in a single view, not to mention simply scanning the Milky Way, a treat that Clyde Tombaugh extolled. To truly explore the celestial sphere, a wide angle perspective is vital.
 				
-				<p>Looking at the etendue, the field times the aperture, the f2.7's 25mm ES, the 21mm TV and the 30mm ES 3 inch on the f4 are similar. The 25mm ES on the f4 falls short. Is the reduced etendue for the 25mm ES 2 inch eyepiece on the f4 significant? Having conducted side-by-side tests I conclude that once an object has been seen at maximum etendue, it can also be seen at a slightly reduced etendue though it appears somewhat fainter. I find that an etendue difference of 10% is detectable and a difference of 25% is distinctly noticeable. Some experienced observers do not see that much difference. This may be due to what we  pay attention to in the field of view. Regardless, the lower etendue handicaps discovering large scale very faint objects like IFN. It is simply easier to detect an object that spans, say three fields, versus four. See my <a href='Herschels Ghosts.html' target='_blank'> Herschel's Ghosts story</a>. This is what I mean by a 'High Etendue Telescope': maximum combination of field and aperture. Advantage f2.7.
+				<p>Looking at the etendue, the field times the aperture, the f2.7's 25mm ES, the 21mm TV and the 30mm ES 3 inch on the f4 are similar. The 25mm ES on the f4 falls short. Is the reduced etendue for the 25mm ES 2 inch eyepiece on the f4 significant? Having conducted side-by-side tests I conclude that once an object has been seen at maximum etendue, it can also be seen at a slightly reduced etendue though it appears somewhat fainter. I find that an etendue difference of 10% is detectable and a difference of 25% is distinctly noticeable. Some experienced observers do not see that much difference. This may be due to what we pay attention to in the field of view. Regardless, the lower etendue handicaps discovering large scale very faint objects like IFN. It is simply easier to detect an object that spans, say three fields, versus four. See my <a href='Herschels Ghosts.html' target='_blank'> Herschel's Ghosts story</a>. This is what I mean by a 'High Etendue Telescope': maximum combination of field and aperture. Advantage f2.7.
 				
 				<p>What if a tiny planetary or far away galaxy is your target? Then magnification becomes important. The f2.7 can magnify sufficiently, but the f4 will always have an innate advantage because of its longer focal length: 120 inches [305cm] versus 81 inches [206cm]. I spent many wonderful years with my 24 inch [61cm] f5.5 (focal length of 132 inches [335cm]) tracking down galaxy clusters and beautiful planetaries along with distant globulars. But I will never make a 24 inch f5.5 scope again. Let me tell you why. Focal length advantage, by the way, goes to the f4.
 				
@@ -1989,7 +2028,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				
 				<p>For any given magnification or image scale, it is always better to maximize exit pupil. Otherwise it is equivalent to stopping down the telescope's aperture. See <a href='NewtDesigner.html#comparingAperture' target='_blank'> is aperture king?</a> For example, the dimming when going from 7mm to 6mm exit pupil is 30%, the difference in shrinking the exit pupil to 5mm is 50%! Of course this applies to extended nebulae and not to star clusters since they are point sources and not to many planetary nebulae since they are bright. Also keep in mind that when the light is reduced, the sky background and the object light are reduced equally, leaving the contrast of object+sky vs the sky unchanged. However, lower contrasts are better seen in brighter settings. For more, see my <a href='#visual' target='_blank'>visual detection discussion</a>.
 				
-				<p>Given maximum exit pupil, the image scale will be set by the eyepiece's field diameter and the primary mirror's focal length. This then sets magnification and the overall length of the telescope. This means selecting an eyepiece or a range of eyepieces first. The question then becomes, "What is the largest aperture I dare squeeze into this focal length?" Consider a focal length of 60 inches [152cm]. We might  imagine a 6 inch [15cm] f10, a 10 inch [25cm] f6, maybe a 15 inch [38cm] f4, or even a 20 inch [51cm] f3, finally a 22 inch [56cm] f2.7. From 6 inches to 22 inches: what aperture do we dare squeeze into the 60 inch focal length?
+				<p>Given maximum exit pupil, the image scale will be set by the eyepiece's field diameter and the primary mirror's focal length. This then sets magnification and the overall length of the telescope. This means selecting an eyepiece or a range of eyepieces first. The question then becomes, "What is the largest aperture I dare squeeze into this focal length?" Consider a focal length of 60 inches [152cm]. We might imagine a 6 inch [15cm] f10, a 10 inch [25cm] f6, maybe a 15 inch [38cm] f4, or even a 20 inch [51cm] f3, finally a 22 inch [56cm] f2.7. From 6 inches to 22 inches: what aperture do we dare squeeze into the 60 inch focal length?
 				
 				<p>For an extended object its apparent size should be made as large as possible while allowing room around the object for context. This means adjusting the focal length while keeping the focal ratio constant.
 				
@@ -2009,7 +2048,74 @@ copyright Mel Bartels, 2016 - 2022-->
 				
 				<p>Interestingly, William Herschel had quite the stable of telescopes. What was the sequence of focal lengths and apertures that he used? They were focal lengths of 7, 10, 20 and 40 feet, with matching apertures of 6.2, 9, 18.7 and 48 inches.<br><br>
 				
-				<img alt='' loading='lazy' src='WilliamHerschelTelescopeStable.jpg'>				
+				<img alt='' loading='lazy' src='WilliamHerschelTelescopeStable.jpg'>			
+			</div>
+
+			<br><br>
+			<div id='designByExitPupil'></div>
+			<button class='accordion' id='btnDesignByExitPupil'>Design by exit pupil</button>
+			<div class='panel'>
+				<p>Before we get to 'pupil diagrams', let's make sure that we understand how a telescope works. Here are two visuals: the first is a schematic and the second is to scale.<br>
+				<img alt='' loading='lazy' src='pupils schematic.jpg'>
+				<img alt='' loading='lazy' src='pupils to scale with insert.jpg'>
+				
+				<p>Discussion:
+				<ul>
+					<li>The entrance pupil is the aperture of the telescope - the light that is being captured.
+					<li>The objective, which can be a lens or mirror or a combination, focus the captured light onto the image plane, forming a real image.
+					<li>The real image can be seen by placing a piece of paper at focus, or by placing a camera at focus to capture the image.
+					<li>The real image is formed at the objective's focal length.
+					<li>The size of the real image is simply the angle subtended by the object in the sky projected at the focal length. For example, an object that appears one degree in size in the sky at a focal length of 60 inches [152cm] will be 60/Radian = 1.05 inches [27mm] in size at the image plane. A Radian=Pi/180.
+					<li>An eyepieces take the real image and projects it into our eye.
+					<li>Eyepieces define the size of the image by a field stop, a blackened ring near the bottom of the eyepiece barrel. Sometimes the bottom of the barrel is the field stop. Complex eyepieces often place the field stop inside the eyepiece.
+					<li>The area where our eye's pupil goes, the area where the eyepiece concentrates the light is called the exit pupil.
+					<li>The exit pupil is sometimes called the Ramsden's disc, as it can be seen as a bright disk of light floating above the eyepiece when the telescope is pointed at the blue sky (always away from the Sun).
+					<li>Interestingly, the exit pupil is an 'image' of the entrance pupil or aperture. All light flowing (the light flux) through the entrance pupil and reflected or refracted by the objective lens or mirror passes through and is concentrated at the exit pupil.
+					<li>The exit pupil is not a real image. The eye projects the light rays flowing through the exit pupil onto the retina, forming an image.
+					<li>Magnification is the ratio of the entrance pupil to the exit pupil.
+					<li>The size of the field as seen through the eyepiece is the eyepiece's apparent field of view divided by the magnification.
+					<li>The light gain of a point source like a star is the increase of magnitude due to the concentration of light from the aperture into the eye.
+					<li>William Herschel's Space Magnification Power is the ratio of the entrance pupil to a standardized exit pupil of 5mm. This number helps us compare telescopes.
+					<li>The surface brightness of an extended object can never be greater than that of the object in the sky (the Law of Etendue). Just as aperture increases the light, magnification spreads it out, leaving surface brightness (magnitudes per square arcsec) unchanged.
+					<li>As surface brightness can never be increased, neither can the contrast of the object (plus the sky background that the object is seen through) to the sky background can never be increased.
+					<li>I get how we can see fainter stars, but then how can we see faint galaxies and nebulae? The answer is that our eye-brain excels at detecting low contrast objects when they are large in apparent size. The larger the apparent size, the easier we can see the object and detail within the object. For example, the galaxy M87 (Virgo A) with its billions of stars in the Virgo Cluster is invisible to our unaided eyes (though a few observers can detect it in very dark skies) becomes a glowing cotton ball in the telescope. With large scopes the background galaxy PCG 41342 that is often mistaken for the jet that comes from the massive black hole at the center of the galaxy) can be seen and with very large scopes <a href='drawings\M87 jet white on black annotated.jpg' target='_blank'>the jet itself</a> can be seen.
+				</ul>
+
+				<p>Let's take this understanding, using the entrance and exit pupils, to investigate telescope design further. Let's consider the following three situations:
+				
+				<p>Example 1: the exit pupil matches our eye's pupil under darkened skies, about 7mm. The surface brightness of the object and the sky are maximized. This is a wide-field view, often called a <a href='#RFT' target='_blank'>Richest Field Telescope</a> or if the eyepiece has an exceptionally wide apparent field, a <a href='#HET' target='_blank'>High Etendue Telescope</a>. Deep sky filters are effective because they reduce sky background glow. Resolution is limited by the relatively low magnification. And because the sky background brightness is at a maximum, the very faintest stars are not visible.<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit equals eye.jpg'>
+				
+				<p>Example 2: the exit pupil is undersized to our eye's pupil, for example, 2-5mm. The telescope's resolution is matched to the eye's resolution at about 1mm. Here the object surface brightness is dimmed. Wide field objects lose their context. However, the planets look beautiful in good seeing, small bright objects like planetaries reveal details and globular clusters are large and reveal individual stars. Brighter detail in nebulae come into visibility. Whether an object is detectable depends on this contest between increasing its apparent size and the dimming that is caused by magnification. For more, see my <A href='#visual' target='_blank'>visual calculator</a>.<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit less than eye.jpg'>
+								
+				<p>Example 3: the exit pupil is oversized compared to our eye's pupil, for example, an exit pupil of 8mm while our eye opens up only to 7mm. Here the eye sees the maximum possible surface brightness, the effective aperture is reduced and the real field size is increased - an extra low gear if you will.<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit greater than eye.jpg'>				
+				
+				<h4>Can we have it all?</h4>
+
+				<p>We can combine example 2's resolution with example 1's (also example 3's) maximum surface brightness by increasing the entrance pupil (the aperture) which increases exit pupil. Since the focal length remains the same, the aperture's focal ratio must decrease, becoming faster. The resolution as seen through the eyepiece is the same. While the increased aperture offers the potential of increased resolution, this can only be achieved by increasing magnification which decreases the exit pupil, decreases surface brightness and field size.<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- enlarge exit pupil by enlarging entrance pupil.jpg'>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='magnitude gain per focal ratio increase.jpg'>
+				
+				<h4>Circular reasoning</h4>
+				
+				<p>	Consider a constant focal length of 60 inches [152cm].
+				
+				<table id='apertureFocalRatioConstantFocalLength'>
+				<tbody>
+					<th>Aperture (inches) &nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Focal ratio</th>
+					<tr> <td>6</td> <td>10</td> </tr>
+					<tr> <td>10</td> <td>6</td> </tr>
+					<tr> <td>15</td> <td>4</td> </tr>
+					<tr> <td>20</td> <td>3</td> </tr>
+					<tr> <td>22</td> <td>2.7</td> </tr>
+				</tbody>
+				</table>
+				
+				<p>For a given eyepiece, each of these aperture and focal ratio combinations offer the same resolution and magnification. Faster apertures offer brighter surface brightness but at a cost: more coma, more stringent alignments and more difficult optics not to mention heavier and bulker tube assemblies and the desirability of a coma corrector. Maybe that 10 inch f6 isn't so bad after considering the challenge of a 22 inch f2.7. OF course, brighter surface brightnesses are attractive, so maybe that 15 inch f4 is ideal. But then maybe we should check out that 20 inch f3. Round and round in a circle we go.
+				
+				<p>This is one of the reasons why I created <a href='#eyepieces' target='_blank'>NewtDesigner's eyepiece section</a>: to quickly explore the pluses and minuses, the optimizations that I'm interested in.
 			</div>
 
 			<br><br>
@@ -2146,8 +2252,8 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div class='floatDiv' id='visualDetectionCalcChart'>
 			</div>
 			<br>
-			<div class='floatDiv'>
 			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class='floatDiv'>
 			</div>
 			<div class='floatDiv' id='visualDetectionObjectApparentSizeVsMagnificationChart'>
 			</div>
@@ -2176,7 +2282,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div id='visualMagnitudeScale'></div>
 			<button class='accordion' id='btnVisualMagnitudeScale'>The magnitude scale</button>
 			<div class='panel'>
-				<p>The Greek astronomer Hipparchus in the 2nd century BC invented the  magnitude system where the brightest stars are of 1st magnitude and the dimmest are of 6th magnitude. I suspect that this system was in use beforehand: it’s common for humans to divide groups of things into sixes and it would have been natural for us to call the brightest stars “first class”.
+				<p>The Greek astronomer Hipparchus in the 2nd century BC invented the magnitude system where the brightest stars are of 1st magnitude and the dimmest are of 6th magnitude. I suspect that this system was in use beforehand: it’s common for humans to divide groups of things into sixes and it would have been natural for us to call the brightest stars “first class”.
 
 				<p>The magnitude system is logarithmic not linear. This no doubt because our eyes work logarithmically (or at least semi-logarithmically). For example a star that is 1 magnitude brighter is 250% brighter; conversely a star that is 0.1 magnitudes dimmer is 10% dimmer.
 
@@ -2535,47 +2641,6 @@ copyright Mel Bartels, 2016 - 2022-->
 			</div>
 
 			<br><br>
-			<div id='etendue'></div>
-			<button class='accordion' id='btnEtendue'>Etendue or luminance</button>
-			<div class='panel'>
-				<p>Etendue or luminance is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
-
-				<p>Since the eye's pupil also forms an aperture, luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
-
-				<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length and our eye's pupil. The focal ratio that maximizes etendue (luminance) should be the same as the focal ratio of the eyepiece and eye which equals the eyepiece focal length / eye pupil; further divided by any coma corrector magnification factor.
-
-				<p>Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
-				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
-				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL with P2.jpg'>
-
-				<h4>Focal ratio for max etendue calculator</h4>
-				<p>Your eye's pupil mm <input class='inputText' id='calcFRMaxEtendueEyePupilmm' value='7' onfocus='select()' type='text'>
-				Eyepiece focal length mm <input class='inputText' id='calcFRMaxEtendueEyepieceFLmm' value='31' onfocus='select()' type='text'>
-				Coma corrector magnification factor <input class='inputText' id='calcFRMaxEtendueComaCorrectorMag' value='1' onfocus='select()' type='text'>
-				<input value='Calculate focal ratio' id='btnCalcFRMaxEtendue' type='button'>
-				Resulting focal ratio is <input class='inputText' id='calcFRMaxEtendueResultFR' readonly='readonly' type='text'>
-				<br>Eyepiece apparent field of view in degrees <input class='inputText' id='calcFRMaxEtendueEyepieceFOV' value='82' onfocus='select()' type='text'>
-				<input value='Calculate etendue' id='btnCalcFREtendue' type='button'>
-				Resulting etendue (cm^2deg^2) is <input class='inputText' id='calcFRMaxEtendueResultEtendue' readonly='readonly' type='text'>
-
-				<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field and therefore produce greater etendue or luminance.<br>
-
-				<img alt='' loading='lazy' src='aperture vs field of view for selected eyepieces.jpg'>
-
-				<p>Brightest fields are obtained when the telescope's exit pupil matches your eye's pupil. <a href='NewtDesigner.html#HET' target='_blank'>Go here for more information on my high etendue telescopes</a>.
-
-				<p>The eye can begin resolve the aperture's resolution when exit pupil is 2mm; it is easier to resolve when the exit pupil is 1mm.
-				
-				<p>For etendue's impact on telescope design and performance, see my other sections:
-				
-				<ul>
-					<li><a href='#HET' target='_blank'>High Etendue Telescopes</a>
-					<li><a href='#HETrealWorldComparison' target='_blank'>Real world comparison between a f2.7 and f4 telescopes</a>
-					<li><a href='#designingWithEtendue' target='_blank'>Designing with etendue in mind</a>
-				</ul>
-			</div>
-
-			<br><br>
 			<div id='oversizedExitPupil'></div>
 			<button class='accordion' id='btnOversizedExitPupil'>Why an oversized exit pupil</button>
 			<div class='panel'>
@@ -2826,7 +2891,7 @@ copyright Mel Bartels, 2016 - 2022-->
 							form.mag.value = mag + 'x';
 							apertureIn = (mag / 3.6 + 0.5) | 0;
 							apertureCm = roundToDecimal(apertureIn * 2.54, decimalPointsCm)
-							form.apertureFromFOVobjectSizeArcMin.value = apertureIn  + 'in (' + apertureCm + 'cm)';
+							form.apertureFromFOVobjectSizeArcMin.value = apertureIn + 'in (' + apertureCm + 'cm)';
 						}
 					</script>
 					Eyepiece apparent field of view is
@@ -3048,7 +3113,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 			<p>Coma correctors like barlow lenses are best thought of as eyepiece accessories. Just reduce the desired field size by the coma corrector or barlow's magnification factor. Ignore the change in the focal plane. For example, if the coma corrector magnifies 15% then reduce the desired field to illuminate by 15%. Vignetting is not an issue down to F2.6 for pupils 7mm and smaller.
 
-			<p>I find light loss of less than 0.3 magnitude hardly noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects.  A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 10 inch and a 11 inch telescope is much smaller at 0.2 magnitudes and not readily apparent.
+			<p>I find light loss of less than 0.3 magnitude hardly noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects. A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 10 inch and a 11 inch telescope is much smaller at 0.2 magnitudes and not readily apparent.
 
 			<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field.
 			<!-- note that jumping to NewtDesigner.html#visual does not work because it needs a refresh -->
@@ -3086,7 +3151,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>Could there be a difference in optical quality of the diagonals? Perhaps the 1.83 diagonal had a slight edge problem. After all, only when a diagonal is absolutely minimally sized will its edge be used to form the image at the center of the field of view. I was forced to conclude that this was the most likely reason.
 
-				<p>The real message though is that closely sized diagonals do not make a discernable difference in visual performance. Intrigued I set about making larger masks of 1/4, 1/3 and 1/2 the size of the primary. Over several nights I saw a consistent result: the 1/4 mask give nearly almost identical performance to the existing diagonals, but the 1/3 mask caused a modest degradation and the 1/2 sized mask gave sad images. I also realized that the best mask for star testing spherical  aberration or overall correction of a telescope is a 1/3 mask. Well, how about them apples, as my father used to say.
+				<p>The real message though is that closely sized diagonals do not make a discernable difference in visual performance. Intrigued I set about making larger masks of 1/4, 1/3 and 1/2 the size of the primary. Over several nights I saw a consistent result: the 1/4 mask give nearly almost identical performance to the existing diagonals, but the 1/3 mask caused a modest degradation and the 1/2 sized mask gave sad images. I also realized that the best mask for star testing spherical aberration or overall correction of a telescope is a 1/3 mask. Well, how about them apples, as my father used to say.
 
 				<p>I learned to avoid worrying about secondary size, and became aware of Parkinson's Law of Triviality. I also learned to ignore fear and concentrate on getting the most from all the factors involved.
 			</div>
@@ -3204,7 +3269,7 @@ copyright Mel Bartels, 2016 - 2022-->
 		<div class='designer' id='designSpider'>
 			<p>Babinet's principle states that diffracted light is proportional to the area obstructed, not the edges. And the length of the diffraction spike is inversely proportional to the spider vanes thickness. For example, if the spider vanes can be made half as thick then the total diffracted light is cut by half and the length of the spikes is increased, causing a further reduction in the brightness of the diffraction spikes.
 
-			<p>Today I use wire spiders because they are very thin. In fact, I only see small spikes in large apertures on the brightest stars. I find the refractor like views aesthetically satisfying. Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965. Today there is an explosion of creativity thanks to Larry Shaper, Mark Cowan, Jerry Oltion and others. The strength of the wires is dependent on gemetry and  independent of tension; consequently, I tighten the wires only to the point of avoiding sagging.
+			<p>Today I use wire spiders because they are very thin. In fact, I only see small spikes in large apertures on the brightest stars. I find the refractor like views aesthetically satisfying. Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965. Today there is an explosion of creativity thanks to Larry Shaper, Mark Cowan, Jerry Oltion and others. The strength of the wires is dependent on gemetry and independent of tension; consequently, I tighten the wires only to the point of avoiding sagging.
 
 			<p>If using a hub to hold the diagonal, orient the hub vertically. I measure a 3x reduction in laser collimator dot travel on the primary mirror compared to orienting the hub horizontally. Tom Otvos and Mark Cowan pointed this out to me. Luckily I oriented the 25" hub vertically; my previous scopes had the hub horizontally.
 
@@ -3783,33 +3848,33 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div id='vibration'></div>
 			<button class='accordion' id='btnVibration'>Telescope vibration</button>
 			<div class='panel'>
-				<p>Vibration is a particular concern to telescope users.  Not only are telescopes prone to vibration thanks to heavy weights at one or both ends, but whatever vibrations are present are highly magnified when looking through the eyepiece.  That's why telescopes have massive mountings - to combat vibration.  In the old days (1960's), the most popular type of amateur telescope was a 6 inch newtonian on a pipe mount.  The rule of thumb was to focus, then stand back and count to twelve to let the vibrations quiet down.  Nowadays amateur telescopes are typically mounted on a Dobsonian mount - a form of an altazimuth mount much like a battleship's guns.  An excellently designed and built Dobsonian telescope will quiet down in one second or less.
+				<p>Vibration is a particular concern to telescope users. Not only are telescopes prone to vibration thanks to heavy weights at one or both ends, but whatever vibrations are present are highly magnified when looking through the eyepiece. That's why telescopes have massive mountings - to combat vibration. In the old days (1960's), the most popular type of amateur telescope was a 6 inch newtonian on a pipe mount. The rule of thumb was to focus, then stand back and count to twelve to let the vibrations quiet down. Nowadays amateur telescopes are typically mounted on a Dobsonian mount - a form of an altazimuth mount much like a battleship's guns. An excellently designed and built Dobsonian telescope will quiet down in one second or less.
 
-				<p>There are three sources of vibration: wind, hand touching, and motor drives.  As the wind buffets a telescope, the scope's cross section, substantial thanks to its length, absorbs a surprising amount of energy, moving the telescope tube about its center of gravity imperceptibly.  When the wind calms or momentarily swirls, the tube will spring back, setting up a vibration.  Similarly when hand touching a telescope to focus an eyepiece or to make a positional adjustment, the telescope will spring back when the hand is let go.
+				<p>There are three sources of vibration: wind, hand touching, and motor drives. As the wind buffets a telescope, the scope's cross section, substantial thanks to its length, absorbs a surprising amount of energy, moving the telescope tube about its center of gravity imperceptibly. When the wind calms or momentarily swirls, the tube will spring back, setting up a vibration. Similarly when hand touching a telescope to focus an eyepiece or to make a positional adjustment, the telescope will spring back when the hand is let go.
 
-				<p>Telescope users care about three principal characteristics of telescope vibration: the amplitude, the frequency, and the dampening time.  The amplitude is the amount of back and forth movement.  This can be measured at the eyepiece in arc-minutes or arc-seconds where the planet Jupiter is on average 45 arcseconds of size.  The frequency is the number of vibrations per second.  Most telescopes vibrate at a low enough rate to be estimated by counting the shakes over a second or two.  The dampening time is the amount of time in seconds that it takes for the vibration to come to a halt.   An ideal telescope will have small amplitude and short dampening time.  For instance, a Dobsonian telescope might have an amplitude of 1 arcminute, a frequency of 5 Hertz, and a dampening time of 1 second.
+				<p>Telescope users care about three principal characteristics of telescope vibration: the amplitude, the frequency, and the dampening time. The amplitude is the amount of back and forth movement. This can be measured at the eyepiece in arc-minutes or arc-seconds where the planet Jupiter is on average 45 arcseconds of size. The frequency is the number of vibrations per second. Most telescopes vibrate at a low enough rate to be estimated by counting the shakes over a second or two. The dampening time is the amount of time in seconds that it takes for the vibration to come to a halt. An ideal telescope will have small amplitude and short dampening time. For instance, a Dobsonian telescope might have an amplitude of 1 arcminute, a frequency of 5 Hertz, and a dampening time of 1 second.
 
-				<p>Wooden and aluminum truss Dobsonian telescopes typically have a frequency of several Hertz, that is, they vibrate back and forth several times a second.   The relatively slow speed is due to large masses at some distance from the center of gravity.  The frequency can be increased by making the upper end lighter, by making the mirror box lighter, and by shorting the tube.   Increasing the frequency is desirable as the overall dampening time will often shorten.
+				<p>Wooden and aluminum truss Dobsonian telescopes typically have a frequency of several Hertz, that is, they vibrate back and forth several times a second. The relatively slow speed is due to large masses at some distance from the center of gravity. The frequency can be increased by making the upper end lighter, by making the mirror box lighter, and by shorting the tube. Increasing the frequency is desirable as the overall dampening time will often shorten.
 
-				<p>Vibration is absorbed by the ground and by the mount itself.  A slightly soft surface such as grass or dirt will absorb vibration much better than concrete.  But if the ground is too soft then it may act to amplify slow telescope vibrations.  To promote absorption, sorbathane pads should be placed between the mount's feet and the ground.    These pads absorb vibrations, prevent vibrations from traveling back into the telescope, and give the mount a slower characteristic resonant frequency.   Wooden and aluminum mounts are somewhat flexible and therefore have more vibration absorbing ability.  The frequency is lower with these mounts.   In addition, these mounts suppress harmonics.  The sorbathane pads respond slowly to vibration and therefore lower the natural frequency of the mount.   Dangling chains from the upper end of the tube absorb vibration as they clang together.  Another more common tactic is to place vibration absorbing material such as sorbathane-, rubber, and leather between critical components of the mount.
+				<p>Vibration is absorbed by the ground and by the mount itself. A slightly soft surface such as grass or dirt will absorb vibration much better than concrete. But if the ground is too soft then it may act to amplify slow telescope vibrations. To promote absorption, sorbathane pads should be placed between the mount's feet and the ground. These pads absorb vibrations, prevent vibrations from traveling back into the telescope, and give the mount a slower characteristic resonant frequency. Wooden and aluminum mounts are somewhat flexible and therefore have more vibration absorbing ability. The frequency is lower with these mounts. In addition, these mounts suppress harmonics. The sorbathane pads respond slowly to vibration and therefore lower the natural frequency of the mount. Dangling chains from the upper end of the tube absorb vibration as they clang together. Another more common tactic is to place vibration absorbing material such as sorbathane-, rubber, and leather between critical components of the mount.
 
 				<p>While the hand can be a source of vibration moving and focusing the telescope, the hand can also be used to absorb vibration by touching the upper end while viewing.
 
-				<p>Vibration caused by wind can be significantly reduced by removing as much as possible of the telescope tube's cross section.  Instead of the completely encircled upper cage and shroud, amateur telescope makers have used single ring upper ends drilled with holes without shrouds to good effect in windy conditions.
+				<p>Vibration caused by wind can be significantly reduced by removing as much as possible of the telescope tube's cross section. Instead of the completely encircled upper cage and shroud, amateur telescope makers have used single ring upper ends drilled with holes without shrouds to good effect in windy conditions.
 
-				<p>This will expose the diagonal to the wind, consequently an ordinary spider may no longer suffice.   In windy conditions, the heavy diagonal causes the diagonal holder to very rapidly vibrate about the spider center in a back and forth rotational arc.  Splitting the spider so that the four vanes come to two points forming what looks like two 'V's that are not quite touching, removes the ability of the diagonal to rotate about the diagonal axis.
+				<p>This will expose the diagonal to the wind, consequently an ordinary spider may no longer suffice. In windy conditions, the heavy diagonal causes the diagonal holder to very rapidly vibrate about the spider center in a back and forth rotational arc. Splitting the spider so that the four vanes come to two points forming what looks like two 'V's that are not quite touching, removes the ability of the diagonal to rotate about the diagonal axis.
 
-				<p>Finally, the motor tracking system can induce vibration.  Any change from a completely smooth motor movement can induce vibration.  This can come from the motor, from the motor coupling, and from the gearing.  Very rarely if at all does the gearing cause vibration.  But if a repeating or periodic error in the gearing is bumping or throwing the scope, and if the frequency of this error coincides with the natural resonant frequency of the mount, vibration not only would be induced but also amplified.
+				<p>Finally, the motor tracking system can induce vibration. Any change from a completely smooth motor movement can induce vibration. This can come from the motor, from the motor coupling, and from the gearing. Very rarely if at all does the gearing cause vibration. But if a repeating or periodic error in the gearing is bumping or throwing the scope, and if the frequency of this error coincides with the natural resonant frequency of the mount, vibration not only would be induced but also amplified.
 
-				<p>A coupler between the motor and the gearing is designed ease misalignment of the shafts and possibly absorb motor vibration.  However even with a flexible coupler, badly misaligned shafts can cause vibration as they spin.  The coupler itself can induce vibration also.  If it is flexible, it might tighten and relax on its own accord, causing a sporadic jitter at the eyepiece.  This can occur when the friction to rotate the output shaft is significant compared to the force required to twist the coupler.  Here the coupler will tighten until finally it can transmit enough torque, at which point the shaft will skip ahead and the coupler will relax and shaft movement will cease until the coupler is would up again.  The coupler can also indirectly cause vibration if the motor control feedback is on the opposite end of the coupler from the motor.  The feedback algorithm will have a varying delay caused by the twist up of the coupler introduced, causing it to feed large control signals to the motor first one way, then the other way.  These control signals can cause the motor to transmit large oscillatory movements through the coupler into the telescope mount.
+				<p>A coupler between the motor and the gearing is designed ease misalignment of the shafts and possibly absorb motor vibration. However even with a flexible coupler, badly misaligned shafts can cause vibration as they spin. The coupler itself can induce vibration also. If it is flexible, it might tighten and relax on its own accord, causing a sporadic jitter at the eyepiece. This can occur when the friction to rotate the output shaft is significant compared to the force required to twist the coupler. Here the coupler will tighten until finally it can transmit enough torque, at which point the shaft will skip ahead and the coupler will relax and shaft movement will cease until the coupler is would up again. The coupler can also indirectly cause vibration if the motor control feedback is on the opposite end of the coupler from the motor. The feedback algorithm will have a varying delay caused by the twist up of the coupler introduced, causing it to feed large control signals to the motor first one way, then the other way. These control signals can cause the motor to transmit large oscillatory movements through the coupler into the telescope mount.
 
-				<p>Typically in servo motor systems, the overall gearing reduction is less, putting a premium on the coupler.  So couplers for servo systems should be rigid, particularly if geared lightly and if the motor control feedback is on the other side of the coupler.  The coupler can be somewhat flexible in highly geared servo systems and in stepper motor systems.  The coupler should be as short as possible otherwise the windup effects mimic a long spring.
+				<p>Typically in servo motor systems, the overall gearing reduction is less, putting a premium on the coupler. So couplers for servo systems should be rigid, particularly if geared lightly and if the motor control feedback is on the other side of the coupler. The coupler can be somewhat flexible in highly geared servo systems and in stepper motor systems. The coupler should be as short as possible otherwise the windup effects mimic a long spring.
 
-				<p>With modern servo systems, the control system can induce very slight vibrations.  The pulse width modulation often used to control the motor velocity might be felt.  The control system algorithm may have periodicies and the feedback loop may  induce vibration under certain load conditions.
+				<p>With modern servo systems, the control system can induce very slight vibrations. The pulse width modulation often used to control the motor velocity might be felt. The control system algorithm may have periodicies and the feedback loop may induce vibration under certain load conditions.
 
-				<p>With stepper systems and their typically highly geared drivetrain, a somewhat flexible coupler can help smooth out any jerkiness in the stepper motor as it moves from step to step.  Stepper motors snap from step to step when operating in fullstep or halfstep mode.  This causes a jittery motion in the eyepiece that can be quite objectionable.   A good test for this is to turn the drive off and on to see if there is any difference in the image quality.  Another way to test is to put fingers lightly on the eyepiece.  Jittery and higher speed oscillations can often be felt, if not downright heard by the ear.
+				<p>With stepper systems and their typically highly geared drivetrain, a somewhat flexible coupler can help smooth out any jerkiness in the stepper motor as it moves from step to step. Stepper motors snap from step to step when operating in fullstep or halfstep mode. This causes a jittery motion in the eyepiece that can be quite objectionable. A good test for this is to turn the drive off and on to see if there is any difference in the image quality. Another way to test is to put fingers lightly on the eyepiece. Jittery and higher speed oscillations can often be felt, if not downright heard by the ear.
 
-				<p>Metal tubed telescopes such as refractors don't have the natural frequency absorbing characteristics of wood and aluminum Dobsonian mounts.  Metal tubed telescopes also tend to not only vibrate at the lower frequencies caused by the entire tube shaking, but also tend to vibrate at higher frequencies and at harmonics of lower frequencies.  This is manifested in the eyepiece as a very high speed wobble, perhaps only detectable by a frame to frame analysis by a camcorder, by the drive off and on test, or possibly by the finger test.   Ideas to try to cure high speed vibrations include placing a piece of dampening material between tube and cradle, significantly beefing up the mount, and not allowing potential sources of vibration to occur.  These include stomping around the scope, wind, pulling and shaking of cables, and nearby car and rail traffic.
+				<p>Metal tubed telescopes such as refractors don't have the natural frequency absorbing characteristics of wood and aluminum Dobsonian mounts. Metal tubed telescopes also tend to not only vibrate at the lower frequencies caused by the entire tube shaking, but also tend to vibrate at higher frequencies and at harmonics of lower frequencies. This is manifested in the eyepiece as a very high speed wobble, perhaps only detectable by a frame to frame analysis by a camcorder, by the drive off and on test, or possibly by the finger test. Ideas to try to cure high speed vibrations include placing a piece of dampening material between tube and cradle, significantly beefing up the mount, and not allowing potential sources of vibration to occur. These include stomping around the scope, wind, pulling and shaking of cables, and nearby car and rail traffic.
 			</div>
 
 			<br><br>
@@ -4039,7 +4104,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>Both equatorial axes and both altazimuth axes intersecting is an optimized design. I strongly suspect that the designers started with less optimal designs where the equatorial portion of the transformer was below or at the side of the altazimuth portion. This takes us back into the rich sophisticated world of analog devices and mechanical linkages. It also gives the modern day amateur new design possibilities.
 
-				<p>After some thought, mental gymnastics and immersing myself in the mechanical analog world of linkages I devised an equatorial to altazimuth transformer where the equatorial portion is placed at the side of the altazimuth mount. Two disks, one  under the altazimuth mount and the other at the bottom of the equatorial section, rotate against each other such that the equatorial portion maintains its polar alignment. The altitude arm is coupled to the curved Declination arm. Just as in the Morse transformer proper, all four axes intersect at one point to the side of the rocker: altitude, azimuth, polar equatorial and Declination. Here I've scaled the polar portion smaller, albeit increasing leverage.<br>
+				<p>After some thought, mental gymnastics and immersing myself in the mechanical analog world of linkages I devised an equatorial to altazimuth transformer where the equatorial portion is placed at the side of the altazimuth mount. Two disks, one under the altazimuth mount and the other at the bottom of the equatorial section, rotate against each other such that the equatorial portion maintains its polar alignment. The altitude arm is coupled to the curved Declination arm. Just as in the Morse transformer proper, all four axes intersect at one point to the side of the rocker: altitude, azimuth, polar equatorial and Declination. Here I've scaled the polar portion smaller, albeit increasing leverage.<br>
 				<br><img alt='' loading='lazy' src='MORSE/morse extended axes detail.jpg'><br>
 
 				<p>As the equatorial portion tracks, it forces the altazimuth portion to track also. Interestingly, the equatorial portion could be set free to move as needed as the scope is aimed about the sky. This causes the equatorial portion to act as setting circles. In fact, the field rotation angle can be read too.
@@ -4563,9 +4628,11 @@ copyright Mel Bartels, 2016 - 2022-->
 				<li><a href='#foldingSlidingScopes'>#foldingSlidingScopes</a>
 				<li><a href='#selectingTelescope'>#selectingTelescope</a>
 				<li><a href='#RFT'>#RFT</a>
+				<li><a href='#etendue'>#etendue</a>
 				<li><a href='#HET'>#HET</a>
 				<li><a href='#HETrealWorldComparison'>#HETrealWorldComparison</a>
 				<li><a href='#designingWithEtendue'>#designingWithEtendue</a>
+				<li><a href='#designByExitPupil'>#designByExitPupil</a>
 				<li><a href='#collimation'>#collimation</a>
 				<li><a href='#formulae'>#formulae</a>
 			</ul>
@@ -4593,7 +4660,6 @@ copyright Mel Bartels, 2016 - 2022-->
 			<ul>
 				<li><a href='#eyepieces'>#eyepieces</a>
 				<li><a href='#exitPupil'>#exitPupil</a>
-				<li><a href='#etendue'>#etendue</a>
 				<li><a href='#oversizedExitPupil'>#oversizedExitPupil</a>				
 				<li><a href='#magnification'>#magnification</a>
 				<li><a href='#stoppingDownMatchingApertureWithEyeResolution'>#stoppingDownMatchingApertureWithEyeResolution</a>
@@ -4675,7 +4741,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 3-May-2022
+				Last updated 8-May-2022
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end

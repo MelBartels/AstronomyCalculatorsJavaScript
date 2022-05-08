@@ -127,7 +127,8 @@ thead tr th:first-child, tbody tr td:first-child {
 #maxApertureTable td,
 #M31compareTable td,
 #HETvsRFTTable td,
-#focalRatiosForEyepiecesWith8mmExitPupil td {
+#focalRatiosForEyepiecesWith8mmExitPupil td,
+#apertureFocalRatioConstantFocalLength td {
 	table-layout: fixed;
 	width: auto; !important
 }
