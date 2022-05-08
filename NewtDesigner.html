@@ -313,7 +313,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<button class='accordion' id='btnWhatDoesATelescopeDo'>What does a telescope do?</button>
 			<div class='panel'>
 				<p>A telescope <b>magnifies</b>, <b>resolves</b>, and <b>brightens</b>.
-				
+
 				<p>A telescope <b>magnifies</b> distant objects, making them appear larger. We call this magnification. An object made to appear five times larger is said to magnify ‘5x’.
 
 				<p>At the same time, we expect the magnified image to <b>resolve</b> details otherwise invisible. An image magnified 5x should have five times more resolution otherwise we experience 'empty magnification', a blurring of the image. Aperture sets the limit on resolution: greater aperture means greater resolution. Matching our eye's resolution to the aperture resolution requires a magnification of roughly 25x per inch of aperture [10x per centimeter].
@@ -383,11 +383,11 @@ copyright Mel Bartels, 2016 - 2022-->
 			<button class='accordion' id='btnWhoInventedTheReflectingTelescope'>Who invented the reflecting telescope?</button>
 			<div class='panel'>
 				<p>The inventor of the reflecting telescope is even more difficult to pin down than the inventor of the refracting telescope which is still being debated today. There is a case to be made that the inventor of the reflecting telescope was actually <b>Thomas Digges (1546-1595)</b>, not Sir Isaac Newton.
-				
+
 				<p>I imagine that humans have held up pieces of glass to the sky for millennium; after all Egyptians were making glass lenses 5000 years ago and there's evidence that they knew that curved pieces concentrated the Sun's rays to start fires. Perhaps the quality of the glass was so poor that not much could be seen. Only after glass dramatically improved in clarity the 1500's was the telescope 'invented' in 1608, spreading like wildfire through Europe. Tantalizing historical fragments that could imply a telescope are well known: Aristophanes' play The Clouds, written in the 4th century BC, describes a 'transparent stone by which they kindle fire', a century later Euclid described refraction and reflection and Seneca the Younger (~65AD) wrote about lenses that magnified objects. The Camara Obscura was an important advance, first noted by the Chinese philosopher Mo-Ti in the fourth century BC and Aristotle in the third century BC then commented on by Anthemius of Tralles in the 6th century AD; later the astronomer Alhazen (1028 AD) correctly described the concept.
-				
+
 				<p>Writings from antiquity that might talk about telescopes include the Chinese emperor Tchuen hio, 2444 BC, who invented an instrument that gave a more distinct view of the heavenly bodies. The Babylonian Talmud, ~100 AD, describes a tube with which one could see a distance of 2000 cubits. Roger Bacon in 1268 AD wrote that refracting lenses can make distant objects appear closer and that print appears bigger when the lens is placed on the page. Not too many years later Italians began using bi-concave lenses to correct for loss of near-focus vision. Leonardo da Vinci essentially described a telescope using the mathematical rage of the day, catacaustic curves. Not knowing about the wave nature of light, he vastly underestimated the exactness needed for a good image. In the 1500's, with increasing frequency, more authors write about experiments with lenses.
-				
+
 				<p>By 1585, William Bourne writes, "... that the Glasse that ys grounde, beeynge of very cleare stuffe, and of a good largenes, and placed so, that the beame dothe come thorowe, and so reseaved into a very large concave lookinge Glasse, that yt it will shewe the thinge of marvelous largenes, in manner uncredable to bee beleeved of the common people." Here, largeness means focal length, not aperture. Bourne goes on, "Wherefore yt ys to bee supposed, and allso, I am of that opinyon, that having dyvers, and sondry sortes of these concave Looking Glasses, made of greate largeness,... yt ys lykely yt ys true to see a smalle thinge, of very greate distance, ffor that the one Glasse dothe rayse and inlarge, the beame of the other so wonderfully. So that those things that Mr Thomas Digges hathe written that his father hathe done, may bee accomplished very well, withowte any dowbte of the matter: But that the greatest impediment ys, that yow cannot beholde, and see, butt the smaller quantity at a tyme." Here Bourne refers to the use of long focal mirrors for greater magnification, and he finishes by describing the narrow field of view of a telescope. Something that we understand today, but would have been unknown in the era.
 
 				<p>Bourne describes concave reflectors being coated on the rear surface of tin or antimony plating. Of course this gives ghost images, due to reflections from the front surface of the glass mirror.
@@ -713,7 +713,7 @@ copyright Mel Bartels, 2016 - 2022-->
 					<li>The third vertical line from the left is the most popular very large scope size: 16 inches aperture. It's heavier yet, can be made to F4 focal ratio (thus not needing a ladder or coma corrector) and is limited by seeing. The 16 inch favors relative brightness with an increasing ergonomic cost; apertures up to 20 inches look similar but at increasing ergonomic cost.
 					<li>The rightmost vertical line represents the largest scope size commonly seen in large star parties, 25 inches aperture. While the greatest brightness, all other factors are trending badly negative: very heavy, needs a fast focal ratio, requires a ladder and is strongly limited by seeing. The 25 inch favors relative brightness at the cost of four negative attributes.
 				</ul>
-				
+
 				<p>Another way to approach telescope design is to select a focal length based on ergonomic factors like ease of transport and setup. Then select a focal ratio based on purpose, say, general observing or wide field observing or perhaps a secondary factor such as price. For example, in the solid tube / equatorial mount days, I wanted the biggest scope I could fit across the backseat of my car. Should I pick a 6 inch f/8, a 8 inch f/6, a 10 inch f/5 a 12 inch f/4? These chart shows the magnitude gain moving from a focal ratio of 10 to a focal ratio of 2.5. Interestingly, the curve is rather linear, illustrating that the popular focal ratios have roughly the same magnitude increase (and aperture increase) from previous to next.<br>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='magnitude gain per increasing focal ratio.jpg'>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='magnitude gain per focal ratio increase.jpg'>
@@ -790,11 +790,11 @@ copyright Mel Bartels, 2016 - 2022-->
 				Limit eye pupil (mm) to <input class='inputText' id='AEFPupil' onfocus='select();' value='7' type='text'><br>
 				<!-- FOV of M42 -->
 				True field of view (deg) <input class='inputText' id='AEFFOVDeg' onfocus='select();' value='1.5' type='text'>
-				
+
 				<p><b>Results:</b><br>
 				<label id='AEFResultsLabel'></label>
-				
-				<p><img alt='' loading='lazy' src='aperture - eyepiece - FOV.jpg'>				
+
+				<p><img alt='' loading='lazy' src='aperture - eyepiece - FOV.jpg'>
 				<p>What aperture best covers an object, say, the Orion Nebula (M 42), which is 1.5 x 1 degree in size? Besides setting the field of view, this calculator includes selecting the eyepiece that you have in mind and the pupil of your dark adapted eye.
 				<p>This graphic shows the relationship between field of view an aperture, mediated by eyepiece and the eye's pupil, along with the resulting etendue.
 				<p>The best way see the wide variety of astronomical objects is to have two or three scopes of varying size, using the smaller scopes at their widest field. This is 'telescope mode' viewing. For smaller objects, the largest aperture with higher power eyepieces will be necessary: this is 'eyepiece mode'.
@@ -804,7 +804,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div id='resolution'></div>
 			<button class='accordion' id='btnResolution'>Resolution</button>
 			<div class='panel'>
-			
+
 				<p>Resolution is set by the diameter of the main optic, this due to the diffractive nature of light. Dawes determined empirically that resolution of two stars of the same brightness and not too bright is about 4.6 / aperture inches or 240 / aperture millimeters. For example, roughly speaking, a 5 inch [125mm] telescope can resolve a double star of one arc-second separation, a 10 inch [25mm] resolves 1/2 arc-second.
 				<p>That doesn't mean that we cannot see thinner objects, for example, we can see very thin black wire against a blue sky, though we cannot resolve the line's thickness.
 				<p>A central obstruction acts to shrink the Airy disc slightly and dump this light into the rings. This lessons the resolution of close-in detail and slightly increases resolution of coarser detail. An obstruction of 1/5 diameter ratio (e.g., a secondary of size '2' with a primary of size '10'or 20% has a negligible impact on resolution while an obstruction of 1/3 or 33% has an observable impact. Even so, the impact on the finest resolvable detail is minimal. However, obstructions greater than 40% should be avoided.
@@ -818,7 +818,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p>A lack of perfect focus and a lack of adequate optical alignment also act to degrade optical performance.
 				<p>An aberration on a lens produces 1/4 the error that of a mirror.
 				<p>Smaller mirrors up to 12 inches [30cm] should be at least 1/8 P-V wave front and smooth (an RMS of about 1/30 wave front) and larger mirrors at least 1/5 P-V (1/18 RMS wave front). Larger mirrors can be plagued by zones therefore the RMS becomes an increasingly important measure. Lower quality than this readily shows at the eyepiece.
-				
+
 				<h4>Planetary resolution</h4>
 				<p>The eye reaches optimal resolution with a pupil of 0.8mm. And fine detail can be seen down to 0.25mm eye pupil. But only if the planet is bright enough, which comes from aperture.
 			</div>
@@ -871,16 +871,16 @@ copyright Mel Bartels, 2016 - 2022-->
 				The percentage of nights with excellent seeing versus average seeing is a probability function with a long tail. Nights of excellent seeing are one	in ten to one in fifty, or several times a year.
 
 				<p>Scopes larger than the Fried Length are also preferred when digitally imaging the planets. Perhaps the median scope here is a 16 inch [40cm]. MacEvoy says that the best aperture is 3.5 * R0, or ~ 14 inches [35cm] for	R0 of 10cm. At this aperture it is virtually certain that lucky imaging	will greatly increase image quality. That is because the extra aperture	allows short exposures that freeze the seeing, the hundreds to thousands of	images taken are gone through after the fact where the worst ones discarded	and the best ones are stacked into a single image of exquisite detail.
-				
+
 				<h4>Bad optics or bad seeing?</h4>
-				
+
 				<p>Focus outward a bit or use a Ronchi eyepiece. Do you see variations fly past in one direction? That's high altitude seeing. At focus the image will appear fuzzy in a rather consistent way. Weather forecast calls for the jetstream to be overhead? The jetstream causes high altitude seeing.<br>
 				Does the out of focus or Ronchi image look like a rapid jumble, rumbling around? That's medium distance heat sources, like house roofs and hot pavement. It can be caused by roughed up air, broken up by nearby mountains or forests.<br>
 				Do you slow moving disturbances? That's heat problems right at the telescope: hot optics or possibly set up on hot asphalt. This is the type of seeing that makes stars twinkle.<br>
 				If it moves, then it is bad seeing. The more it moves, the closer the issue is to the telescope.
-				
+
 				<p>Temperature issues cause distortions in most types of glass (exception being quartz or zero-expansion glass). The thicker the glass the greater the change and the longer it will take for the glass to reach equilibrium with the outside temperature. Of course the outside temperature falls during the night. Some optics may never reach equilibrium. Hence the adoption of air flow cooling approaches. If you see variation from night to night or during the night then that's seeing, not poor optics. Temperature effects are minimal in the morning hours.
-				
+
 				<h4>References</h4>
 
 				<p>Bely: The Design and Construction of Large Optical Telescopes, 2003,	section 1.3.4 pg 13-, section 12.2.1 pg 394- (contains citations)<br>
@@ -1120,7 +1120,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>A sliding telescope slides in one direction to observe and slides back to transport. The telescope's parts slide over each other so that they fit within each other.
 
-				<p>Here's Bert Bogchelman's scope that unfolds in seconds. Bert says, 'The telescope has a very quick setup, within a few seconds you can set up and collapse the tube. I have build a few truss Dobsons (I still have the word record smallest 8 inch) but I was sick and tired to set them up and even worse, to collapse them again after a long night of observations.But a full tube 12.5 inch Dobson has a huge tube and don't fit in a small car. So, I build this telescope and honest, I am very, very happy with it. I have had a star party a few weeks before, and I was the only one with a big telescope who was able to look between the rain showers. 
+				<p>Here's Bert Bogchelman's scope that unfolds in seconds. Bert says, 'The telescope has a very quick setup, within a few seconds you can set up and collapse the tube. I have build a few truss Dobsons (I still have the word record smallest 8 inch) but I was sick and tired to set them up and even worse, to collapse them again after a long night of observations.But a full tube 12.5 inch Dobson has a huge tube and don't fit in a small car. So, I build this telescope and honest, I am very, very happy with it. I have had a star party a few weeks before, and I was the only one with a big telescope who was able to look between the rain showers.
 
 				<p>After the launch (3 seconds) you only have to turn the focuser and the finder from inside the tube to outside, and they snap into their places with magnets. The scope needs after setup only some minor collimation, like a truss design.
 
@@ -1168,7 +1168,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>The design and building challenge? Iterate, grow by small changes, favor fewer number of simpler ideas, build on ideas of others, make it beautiful, be a creator and craftsman.
 
-				<p>I judge telescope designs by asking, 'Is it more useful than before, is it more exciting than before?' In the end, I develop for myself. Perhaps others will find my designs worth looking at. I studied Origami for folding inspirations along with other fields, particularly engineered products like folding bicycles. My goal is to squeeze air out of the telescope. 
+				<p>I judge telescope designs by asking, 'Is it more useful than before, is it more exciting than before?' In the end, I develop for myself. Perhaps others will find my designs worth looking at. I studied Origami for folding inspirations along with other fields, particularly engineered products like folding bicycles. My goal is to squeeze air out of the telescope.
 
 				<p>Here are my concept sketches.<br>
 				<img alt='' loading='lazy' src='FoldingScopes/initial concept - ota mount.jpg'><br>
@@ -1193,7 +1193,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>Horace Dall's folding Cassegrain. (images by Peter Abrahams). Also check out a video interview with Horace at <a href='http://vimeo.com/28160854' target='_blank'>http://vimeo.com/28160854</a><br>
 				<img alt='' loading='lazy' src='FoldingScopes/HoraceDall1.jpg'>
-				<img alt='' loading='lazy' src='FoldingScopes/HoraceDall2.jpg'>			
+				<img alt='' loading='lazy' src='FoldingScopes/HoraceDall2.jpg'>
 
 				<p>Bob Cox's folding Cassegrain<br>
 				<img alt='' loading='lazy' src='FoldingScopes/BobCox1.jpg'>
@@ -1238,8 +1238,8 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>Folding kayaks, see <a href='http://www.foldingkayaks.org/WP/' target='_blank'>http://www.foldingkayaks.org/WP/</a>
 
-				<p>Folding bicycles, see <a href='http://www.bikefriday.com/' target='_blank'>http://www.bikefriday.com/</a> 
-				and <a href='http://www.designswan.com/archives/12-creative-folding-bike-design.html' target='_blank'>http://www.designswan.com/archives/12-creative-folding-bike-design.html</a> 
+				<p>Folding bicycles, see <a href='http://www.bikefriday.com/' target='_blank'>http://www.bikefriday.com/</a>
+				and <a href='http://www.designswan.com/archives/12-creative-folding-bike-design.html' target='_blank'>http://www.designswan.com/archives/12-creative-folding-bike-design.html</a>
 				along with <a href='http://www.a-bike.co.uk/' target='_blank'>http://www.a-bike.co.uk/</a>
 
 				<p>Folding structures, see <a href='http://www.brianmicklethwait.com/culture/archives/2005/01/bridge_that_rol.html' target='_blank'>http://www.brianmicklethwait.com/culture/archives/2005/01/bridge_that_rol.html</a>
@@ -1387,7 +1387,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p><b>Faint stars don't impress me.</b> Hmm, OK, then increase the aperture. The star count is about the same, but the stars will be brighter with larger aperture, the best aperture being broadly centered on 24 inches.
 
 				<p><b>How about counting the total starlight, not just the star count?</b> Then the best views will be with the greatest aperture. The counts of the dimmest Milky Way stars do eventually bottom out: an aperture of 24-60 inches works best.
-				
+
 				<p><b>How about colors in stars?</b> The colors and hues of stars become striking with aperture. In <a href='30\30 inch mirrors log.html' target='_blank'>my 30 inch</a> at low power richest field views the colors are astonishing, whereas in my 6 inch the stars are a much dimmer gray-white in comparison.
 
 				<h3>Why smaller scopes?</h3>
@@ -1487,7 +1487,7 @@ copyright Mel Bartels, 2016 - 2022-->
 					</tr>
 				</tbody>
 				</table>
-				
+
 				<p>I have found over the many years from observing with a variety of telescopes as fast as F2.6 and a variety of apertures up to 30 inches [76cm] that a slightly oversized exit pupil gives the best combination of field and brightness. <a href='#oversizedExitPupil' target='_blank'>Here is a possible explanation</a>.
 
 				<h3>What else can a Richest Field Telescope do?</h3>
@@ -1870,9 +1870,9 @@ copyright Mel Bartels, 2016 - 2022-->
 				<img alt=''	loading='lazy' src='ZipDob/ApertureVsFocalRatioVsFOV.gif'>
 
 				<p>The impact of greater aperture for the same field of view is dramatic. Objects like the Horsehead, barely detectable in an 8 inch, are readily detectable in a 13 inch. Otherwise invisible galaxies pop into view. 	Instead of a faint object or two, many objects are visible at once.
-				
+
 				<p>I find observationally that an oversized exit pupil maximizes the brightness of the field while maintaining the widest possible field. <a href='#oversizedExitPupil' target='_blank'> Here is my explanation why</a>. For a 8mm exit pupil, the focal ratios that match popular 100 degree eyepieces are:
-				
+
 				<table id='focalRatiosForEyepiecesWith8mmExitPupil' class='focalRatiosForEyepiecesWith8mmExitPupil'>
 				<tbody>
 					<tr>
@@ -1959,13 +1959,13 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div class='panel'>
 
 				<h3>High Etendue Telescope vs Richest Field Telescope real world comparison</h3>
-				
+
 				<p>To show how etendue works into telescope design and performance, let's consider two 30 inch [76cm] telescopes. The first is my f2.7 (81 inch [206cm]) and the second is a f4 (120 inch [305cm]). The f2.7 is representative of the new HET (High Etendue Telescopes) telescopes; the f4 is representative of large aperture Dobsonian RFTs (Richest Field Telescopes).
-				
+
 				<p>Widest angle for the f2.7 is 1 degree field; for the f4 it is 0.67 degrees unless you are willing to go to a 3 inch eyepiece with a 3 inch focuser and a 3 inch coma corrector, in which case the widest field is 0.85 degrees.
 
 				<p>I use three widest angle eyepieces, each giving a unique view that trade field for detail. Once I drop below 5mm exit pupil, the view no longer feels 'wide angle - low power'. Here is a table of the three eyepieces, their real fields and etendue based on a 7mm pupil. For f4, I think there are two suitable eyepieces keeping in mind that the 30mm requires a 3 inch TV P2 coma corrector:
-				
+
 				<table id='HETvsRFTTable'>
 				<tbody>
 					<tr>
@@ -1995,27 +1995,27 @@ copyright Mel Bartels, 2016 - 2022-->
 				</tbody>
 				</table>
 				<br>
-				
+
 				<p>Etendue is calculated as the surface area of the eyepiece's apparent field times the eye's pupil's area, limited to 7mm. Etendue needs to be reduced to take into account the mirrors' reflectivity, the light absorbed by the glass in the eyepiece and coma corrector and the light loss due to diagonal obstruction and integrated light loss due to field illumination drop-off. Hence, the above etendue values are approximate, but serve as good relative values.
 
 				<p>The knowledgeable observer will note that the first eyepiece for the f2.7 example produces an oversized pupil. I find this eyepiece on my 30 inch f2.7 to be surprising and remarkable, clearly superior to the 1.1 degree field of my 25 inch [64cm] f2.6 with the 21mm Ethos producing a 7mm exit pupil (etendue ~2700). The oversized pupil means that the on-axis light is shrunk to that of a 26 inch scope given a 7mm pupil (note that off-axis, the illumination fall-off is reduced). How can this be? I have a potential <a href='#oversizedExitPupil' target='_blank'> explanation here</a>. In effect, I am extending the capabilities of my f2.7, an advantage for the f2.7 option.
-				
+
 				<p>Some eyepieces suddenly 'black out'. Sometimes mistakingly attributed to oversized pupils, this blacking out is actually due to improper eye placement above the eyepiece. Some eyepieces have an eye placement extension. Without it, keeping one's eye at the correct distance above the eyepiece can be hard and frustrating.
-				
+
 				<p>Significantly, I have three magnifications available to me with the f2.7 and only two with the f4, giving me a richer perspective into the wide angle object that I am viewing and a slightly larger field. There are literally hundreds and hundreds of wide field objects, many of them little known to amateurs (almost seems to be a bias more than an oversight), and combinations of objects in a single view, not to mention simply scanning the Milky Way, a treat that Clyde Tombaugh extolled. To truly explore the celestial sphere, a wide angle perspective is vital.
-				
+
 				<p>Looking at the etendue, the field times the aperture, the f2.7's 25mm ES, the 21mm TV and the 30mm ES 3 inch on the f4 are similar. The 25mm ES on the f4 falls short. Is the reduced etendue for the 25mm ES 2 inch eyepiece on the f4 significant? Having conducted side-by-side tests I conclude that once an object has been seen at maximum etendue, it can also be seen at a slightly reduced etendue though it appears somewhat fainter. I find that an etendue difference of 10% is detectable and a difference of 25% is distinctly noticeable. Some experienced observers do not see that much difference. This may be due to what we pay attention to in the field of view. Regardless, the lower etendue handicaps discovering large scale very faint objects like IFN. It is simply easier to detect an object that spans, say three fields, versus four. See my <a href='Herschels Ghosts.html' target='_blank'> Herschel's Ghosts story</a>. This is what I mean by a 'High Etendue Telescope': maximum combination of field and aperture. Advantage f2.7.
-				
+
 				<p>What if a tiny planetary or far away galaxy is your target? Then magnification becomes important. The f2.7 can magnify sufficiently, but the f4 will always have an innate advantage because of its longer focal length: 120 inches [305cm] versus 81 inches [206cm]. I spent many wonderful years with my 24 inch [61cm] f5.5 (focal length of 132 inches [335cm]) tracking down galaxy clusters and beautiful planetaries along with distant globulars. But I will never make a 24 inch f5.5 scope again. Let me tell you why. Focal length advantage, by the way, goes to the f4.
-				
+
 				<p>We need to make a cognitive shift from aperture to focal length. When it comes to scale, longer focal lengths always have the advantage when considering magnification and space penetration power to view small objects. But given a particular focal length, what aperture should we use - what focal ratio is best? Given a 120 inch [305cm] focal length, wouldn't I want to make a 40 inch [102cm] f3 or even a 44 inch [112cm] f2.7? This is why I will never make a 24 inch f5.5 scope again: my strategy is to squeeze in as much aperture as possible for the given focal length. I suppose if I ever needed observationally to return to f5.5 then I could stop down the mirror for that observation.
-				
+
 				<p>Very fast focal ratio mirrors are murderously difficult to parabolize. I could have made six f4 30 inchers in the time it took me to make the two f2.7s. That's why I started with much smaller super-fast focal ratio mirrors. And it was the first light views through my newly minted super wide angle smaller scopes that surprised me with a new perspective, so much so that a new understanding of wide angle viewing became necessary. I re-discovered the <a href='dneb/PleiadesBubble.jpg' target='_blank'> Pleiades Bubble</a> with the 6 inch [15cm] f2.8 upon first light - first object; and saw what I call the 'Andromeda Twist' for the second object that I observed. <a href='drawings/M31 and clouds.jpg' target='_blank'>Here is a drawing of M31 with my 25 inch showing the twist</a>. There is so much satisfaction in observing with a mirror that I've made myself. And one can purchase fast mirrors that are incredibly well made. <a href='osp19/osp19.html' target='_blank'>Ed Allen's Elvira 24 inch f2.75 with Mike Lockwood mirror</a> is astonishing - he often uses it at jaw-dropping high magnifications. It's almost a sport to listen to the people lined up to observe through his scope: people who come full of doubt and leave speechless. Seeing is believing. That being said, faster optics are expensive if purchased, and harder to make, if home grown. So advantage f4.
-				
+
 				<p>Longer focal lengths pose their own problems. My 30 inch f2.7 does not require a ladder. I observe with less pain when standing on the ground. I used a 12 foot [366cm] ladder with my 24 inch f5.5. I got quite used to it. However, the 16 foot ladder [almost 5m] for <a href='https://i.postimg.cc/pLsqwtrb/photo-2021-10-27-07-39-34.jpg' target='_blank'>Steve Swayze's 40 inch [102cm] f5</a> was intimidating. When aimed high and perched atop the ladder, attempting to move the scope often resulted in tipping the ladder away! It took an assistant down on the ground to help push the scope around. And at that focal length, without motorized tracking, required scope movements to track came often. Of course, this can be dealt with by using a motorized scope. Another focal length drawback is the sheer length of the telescope. I used a 30 inch f5 with an OMI mirror by James Mulherin that was optically perfect. But the scope shook so badly in the wind that the only way I could use it was to pull it tight to me, holding it against my body. Again, this can be dealt with by building a more rigid tube assembly, but a shorter focal length will always be easier to deal with. Advantage f2.7.
-				
+
 				<p>Diagonal sizing is another issue. Once a large scope was producing elliptical stars. The mirror maker was taking all sorts of grief over this. Something seemed odd about the star images to me. I instinctively reached out to touch the diagonal holder and found that it was quivering in the wind! Touching it made the stars look round. It wasn't the primary mirror's fault at all, but instead, an inadequate spider that failed to take into account the dynamic situation of shedding energy that is being pumped by the wind into the spider and diagonal holder. Again, this can be dealt with, but smaller diagonals will always be easier to handle. My 30 inch f2.7 uses a 6.5 inch [17cm] minor axis diagonal; a f4 might use a 5 inch [13cm] diagonal. Which by the way is less expensive to purchase. Advantage f4.
-				
+
 				<p>If you haven't looked through an ultra wide RFT or high etendue telescope, and you probably haven't, you owe yourself the chance to see what all the excitement is about. Maybe you'll even join in on the fun.
 			</div>
 
@@ -2025,15 +2025,15 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div class='panel'>
 
 				<p>The scope that is best for you is the one maximizes the advantages that you see and minimizes the disadvantages that you wish to avoid. The view through a 100 degree eyepiece at maximum exit pupil struck me immediately as qualitatively better. <a href='Herschels Ghosts.html' target='_blank'>My discovery of IFN</a> and is a result of this type of viewing. How does this inform my Newtonian telescope designs?
-				
+
 				<p>For any given magnification or image scale, it is always better to maximize exit pupil. Otherwise it is equivalent to stopping down the telescope's aperture. See <a href='NewtDesigner.html#comparingAperture' target='_blank'> is aperture king?</a> For example, the dimming when going from 7mm to 6mm exit pupil is 30%, the difference in shrinking the exit pupil to 5mm is 50%! Of course this applies to extended nebulae and not to star clusters since they are point sources and not to many planetary nebulae since they are bright. Also keep in mind that when the light is reduced, the sky background and the object light are reduced equally, leaving the contrast of object+sky vs the sky unchanged. However, lower contrasts are better seen in brighter settings. For more, see my <a href='#visual' target='_blank'>visual detection discussion</a>.
-				
+
 				<p>Given maximum exit pupil, the image scale will be set by the eyepiece's field diameter and the primary mirror's focal length. This then sets magnification and the overall length of the telescope. This means selecting an eyepiece or a range of eyepieces first. The question then becomes, "What is the largest aperture I dare squeeze into this focal length?" Consider a focal length of 60 inches [152cm]. We might imagine a 6 inch [15cm] f10, a 10 inch [25cm] f6, maybe a 15 inch [38cm] f4, or even a 20 inch [51cm] f3, finally a 22 inch [56cm] f2.7. From 6 inches to 22 inches: what aperture do we dare squeeze into the 60 inch focal length?
-				
+
 				<p>For an extended object its apparent size should be made as large as possible while allowing room around the object for context. This means adjusting the focal length while keeping the focal ratio constant.
-				
+
 				<p>A quick way to calculate the mirror size given the eyepieces that I mention is to find the required magnification by dividing the apparent field of the eyepiece by the object size. For example, a one degree wide object divided into a 100 degree field eyepiece is 100x. Take this 100x and multiply it by the eye's pupil size (about 1/3 inch - all this can be done in cm too). That gives 30, the mirror size in inches. Shortening the equation leads to: aperture (inches) = 30 / objectSize (degrees).
-				
+
 				<p>If you use 80 degree apparent field eyepieces and wish to max out your exit pupil, then your shorthand number becomes something close to 24: aperture (inches) = 24 / objectSize (degrees). This because 80 degree eyepieces are not limited to 17-25mm focal length. And your target focal ratio becomes f4.5-ish.
 
 				<p>It follows then that I should use several telescopes that form a sequence of focal lengths so as to cover a wide range of observing situations. <a href='30/30 inch mirrors log.html#36' target='_blank'>First light with the 30 inch f2.7</a> astonished me with so much more that I could see compared to the 25 inch <a href='25/first light observing notes.html' target='_blank'>(first light report available here)</a>, ostensibly not that much different in aperture (but perhaps in focal length: 81 inches [206cm] compared to 65 inches [165cm]). As of end of 2021, here are the three scopes that I use:<br><br>
@@ -2045,10 +2045,10 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<img alt='' loading='lazy' src='focal lengths per scope.jpg'>
 				<img alt='' loading='lazy' src='FOV per aperture per eyepiece.jpg'>
-				
+
 				<p>Interestingly, William Herschel had quite the stable of telescopes. What was the sequence of focal lengths and apertures that he used? They were focal lengths of 7, 10, 20 and 40 feet, with matching apertures of 6.2, 9, 18.7 and 48 inches.<br><br>
-				
-				<img alt='' loading='lazy' src='WilliamHerschelTelescopeStable.jpg'>			
+
+				<img alt='' loading='lazy' src='WilliamHerschelTelescopeStable.jpg'>
 			</div>
 
 			<br><br>
@@ -2058,7 +2058,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p>Before we get to 'pupil diagrams', let's make sure that we understand how a telescope works. Here are two visuals: the first is a schematic and the second is to scale.<br>
 				<img alt='' loading='lazy' src='pupils schematic.jpg'>
 				<img alt='' loading='lazy' src='pupils to scale with insert.jpg'>
-				
+
 				<p>Discussion:
 				<ul>
 					<li>The entrance pupil is the aperture of the telescope - the light that is being captured.
@@ -2082,40 +2082,28 @@ copyright Mel Bartels, 2016 - 2022-->
 				</ul>
 
 				<p>Let's take this understanding, using the entrance and exit pupils, to investigate telescope design further. Let's consider the following three situations:
-				
+
 				<p>Example 1: the exit pupil matches our eye's pupil under darkened skies, about 7mm. The surface brightness of the object and the sky are maximized. This is a wide-field view, often called a <a href='#RFT' target='_blank'>Richest Field Telescope</a> or if the eyepiece has an exceptionally wide apparent field, a <a href='#HET' target='_blank'>High Etendue Telescope</a>. Deep sky filters are effective because they reduce sky background glow. Resolution is limited by the relatively low magnification. And because the sky background brightness is at a maximum, the very faintest stars are not visible.<br>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit equals eye.jpg'>
-				
+
 				<p>Example 2: the exit pupil is undersized to our eye's pupil, for example, 2-5mm. The telescope's resolution is matched to the eye's resolution at about 1mm. Here the object surface brightness is dimmed. Wide field objects lose their context. However, the planets look beautiful in good seeing, small bright objects like planetaries reveal details and globular clusters are large and reveal individual stars. Brighter detail in nebulae come into visibility. Whether an object is detectable depends on this contest between increasing its apparent size and the dimming that is caused by magnification. For more, see my <A href='#visual' target='_blank'>visual calculator</a>.<br>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit less than eye.jpg'>
-								
+
 				<p>Example 3: the exit pupil is oversized compared to our eye's pupil, for example, an exit pupil of 8mm while our eye opens up only to 7mm. Here the eye sees the maximum possible surface brightness, the effective aperture is reduced and the real field size is increased - an extra low gear if you will.<br>
-				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit greater than eye.jpg'>				
-				
+				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- exit greater than eye.jpg'>
+
 				<h4>Can we have it all?</h4>
 
 				<p>We can combine example 2's resolution with example 1's (also example 3's) maximum surface brightness by increasing the entrance pupil (the aperture) which increases exit pupil. Since the focal length remains the same, the aperture's focal ratio must decrease, becoming faster. The resolution as seen through the eyepiece is the same. While the increased aperture offers the potential of increased resolution, this can only be achieved by increasing magnification which decreases the exit pupil, decreases surface brightness and field size.<br>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='entrance pupil exit pupil and the eye scenarios --- enlarge exit pupil by enlarging entrance pupil.jpg'>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='magnitude gain per focal ratio increase.jpg'>
-				
-				<h4>Circular reasoning</h4>
-				
-				<p>	Consider a constant focal length of 60 inches [152cm].
-				
-				<table id='apertureFocalRatioConstantFocalLength'>
-				<tbody>
-					<th>Aperture (inches) &nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Focal ratio</th>
-					<tr> <td>6</td> <td>10</td> </tr>
-					<tr> <td>10</td> <td>6</td> </tr>
-					<tr> <td>15</td> <td>4</td> </tr>
-					<tr> <td>20</td> <td>3</td> </tr>
-					<tr> <td>22</td> <td>2.7</td> </tr>
-				</tbody>
-				</table>
-				
-				<p>For a given eyepiece, each of these aperture and focal ratio combinations offer the same resolution and magnification. Faster apertures offer brighter surface brightness but at a cost: more coma, more stringent alignments and more difficult optics not to mention heavier and bulker tube assemblies and the desirability of a coma corrector. Maybe that 10 inch f6 isn't so bad after considering the challenge of a 22 inch f2.7. OF course, brighter surface brightnesses are attractive, so maybe that 15 inch f4 is ideal. But then maybe we should check out that 20 inch f3. Round and round in a circle we go.
-				
-				<p>This is one of the reasons why I created <a href='#eyepieces' target='_blank'>NewtDesigner's eyepiece section</a>: to quickly explore the pluses and minuses, the optimizations that I'm interested in.
+
+				<p>Here is a series of sketches comparing exit pupils at the same magnifications.<br>
+				<img alt='' loading='lazy' src='Sombrero Galaxy through 6 and 13 inch telescopes.jpg'>
+
+				<p>Ideally then we need a series of apertures from small to large, each designed to maximize surface brightness. I call this 'telescope mode'. Only with our largest aperture should be switch to 'eyepiece mode' where we use high power eyepieces to achieve maximum resolution. For example, 30, 13, 10.5 and 6 inch apertures.<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='30/no ladder zenith viewing.jpg'>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='Mel 6 10.5 13.2 scopes.JPG'>
 			</div>
 
 			<br><br>
@@ -2123,12 +2111,12 @@ copyright Mel Bartels, 2016 - 2022-->
 			<button class='accordion' id='btnCollimation'>Collimation</button>
 			<div class='panel'>
 				<p>Collimation, or optical alignment, is the act of bringing the eyepiece and focuser axis coincident with the primary mirror's axis.
-				
+
 				<p>Many amateurs have trouble with collimating their scopes. At a recent dark sky star party five of the seven Dobsonian telescopes were horribly mis-collimated. Many amateurs are not aware that they should check collimation, they do not know what to look for, and run into troubles attempting to collimate.
-				
+
 				<p>One of the biggest issues is trying to center the diagonal under the focuser while collimating. I can attest that this is confusing and frustrating. Far better to align the focuser first, then position the diagonal properly, ensuring that the diagonal is properly centered under the focuser. I use a target on the far side of the upper end to line up the focuser like this.<br>
 				<img alt='' loading='lazy' src='30/focuser alignment during construction.jpg'>
-				
+
 				<p>I then add the diagonal, keeping in mind the diagonal offset to center the field illumination. Collimation at this point is a breeze: adjust the diagonal rotation and z-axis slightly by centering the primary mirror reflection in the diagonal, tilt-tip the diagonal to center the laser collimator dot on the center dot of the primary, finally adjusting the primary so that the laser collimator's reflection is centered on itself.
 
 				<p>It appears to be a little known consideration that, once aligned, rarely does the primary mirror need realignment. This because the diagonal holder invariable works lose. The key is to start by adjusting only the diagonal holder such that the eyepiece and focuser axis is once again coincident with the primary mirror's axis.
@@ -2162,9 +2150,9 @@ copyright Mel Bartels, 2016 - 2022-->
 				<img alt='' loading='lazy' src="collimateF3/laserreturn.JPG">
 
 				<p>For those using setting circles or computer control, the optical axis needs to be coincident or collimated with the mechanical axis, otherwise pointing and tracking errors occur.
-				
+
 				<h4>Collimation references</h4>
-				
+
 				<a href='kolli/kolli.html' target='_blank'>Nils Olaf Carlson's pages on collimation</a><br>
 				<a href='https://www.fpi-protostar.com/bgreer/collim.htm' target='_blank'>Adventures in collimation by Byran Greer</a>
 			</div>
@@ -2247,7 +2235,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			</table>
 			<div id='visualDetectionResultsTable'>
 			</div>
-			
+
 			<p>Vary aperture by <input class='inputText' id='visualDetectionApertureVariance' value='2' onfocus='select()' type='text'> x for the following chart
 			<div class='floatDiv' id='visualDetectionCalcChart'>
 			</div>
@@ -2259,9 +2247,9 @@ copyright Mel Bartels, 2016 - 2022-->
 			</div>
 			<div class='stopFloat'>
 			</div>
-			
+
 			<p>Objects less than 3% contrast are pretty much impossible to see; objects 3-6% contrast can be seen as very faint with extended concentration; objects with greater than 6% contrast are increasingly easy to see. Objects less than several degrees in apparent size are more difficult to see. Use magnification to increase the apparent size, making the object easier to see. The contrast does not change. You can test this yourself in a darkened room. I combine the two factors together, contrast and apparent size, to predict likely detection of the object. The predicted level should be thought of more as a range, one level easier to one level harder. Factor in observer experience and vagaries of the object data, and the prediction becomes more fuzzy. This calculator also shows the relationship between object visibility and light pollution as expressed by the Bortle level (see below). It appears that it takes a significant gain in aperture to make a practical difference and that increasing light pollution drags down all apertures rather proportionally. For example, tripling the aperture is worth one to two Bortle levels.
-			
+
 			<h3>Magnitude adder</h3>
 			Enter a series of magnitudes to add (can be space delimited or comma delimited)
 			<input class='inputText' id='magnitudesToAdd' value='8, 8 9 9.5' onfocus='select()' type='text'>
@@ -2298,17 +2286,17 @@ copyright Mel Bartels, 2016 - 2022-->
 				<img alt='' loading='lazy' src='Bortle Scales.jpg'>
 
 				<p>The first three Bortle levels concern themselves with what we typically call a 'dark sky', distinguishing between good, better and best skies. Bortle levels 4-6 represent suburban skies, a transition to urban skies that are covered by Bortle levels 7-9.
-				
+
 				<p>Do the Bortle levels, subjective as they are, evenly represent the range of sky brightness? Take a look at this graph of Bortle levels versus object detection. I used the Saguaro object database, a popular and vetted library of more than ten thousand objects, of which 8661 have surface brightness measurements or the surface brightness can be calculated. I use the object contrast multiplied by the apparent size in a 10 inch telescope to determine object visibility. As you can see the Bortle scale is nicely balanced.<br>
-				
+
 				<img alt='' loading='lazy' src='obs/object detection by Bortle Levels for 10 inch scope.jpg'>
-				
+
 				<h4>How far should I drive for darker skies?</h4>
-				
+
 				<p>Dividing object visibility into six categories: very easy, easy, moderate, difficult, very difficult, and impossible, I investigated how much the aperture needs to be increased when comparing Bortle level 1 to level 4 skies. The answer is that aperture needs to be doubled. This is true in a coarse sense for all object types.<br>
-				
+
 				<img alt='' loading='lazy' src='obs/Bortle levels 1 vs 4 when aperture is doubled.jpg'>
-				
+
 				<p>Each person will have to answer the question of how far to drive for themselves, but its helpful to know that a scope of half the size suffices in the darkest skies compared to dark suburban skies when considering object detection. One approach that this suggests then, is to make most observations in suburban skies, occasionally traveling to dark skies to finalize the observations.
 			</div>
 
@@ -2381,7 +2369,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<img alt='' loading='lazy' src='avertvis.gif'>
 
 				<p>Move your averted vision zone around the field of view as you desire. Look for a bit here, look for a bit there (your scan pattern), as the objects in the field need. Do not try to fixate on the center of the field! For one thing, this mis-places the zone of averted vision towards the bottom of the field, for another thing, it is not possible to prevent the eye from moving. Several times a second, your eye jumps (a saccade). Between these jumps the eye gathers information. Even between saccades, the eye is jittering. Finally, if you stare too long as a single point, objects will literally begin to disappear from your view. In a sense, seeing is reflective: if the eye didn't move then little could be seen. Move the scope in addition to your eye: this helps to 'pop' objects into conscious visibility.
-				
+
 				<p>Take breaks, drink some water, remember to blink your eye; try different eyepieces and filters.
 
 				<p>Eye shields that block extraneous light, even natural dark-sky light, are amazingly effective. Here's an example:<br>
@@ -2396,7 +2384,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div id='visualObservingLanguage'></div>
 			<button class='accordion' id='btnVisualObservingLanguage'>The language of observing: experienced observing</button>
 			<div class='panel'>
-				<p>It is as if there is a visual language of observing, a language of dim pinpoints of light, fine planetary detail, planetary filters and faint to bright blobs and streamers. If you speak a language, then you can understand a faint conversation in a loud room. It is the same for observing at the eyepiece. The language is learned through many hours at the eyepiece. Looking for faintest magnitude stars in a field, or studying numerous galaxies, flipping between planetary filters on the planets, sketching to learn to see the boundaries of nebulosity.				
+				<p>It is as if there is a visual language of observing, a language of dim pinpoints of light, fine planetary detail, planetary filters and faint to bright blobs and streamers. If you speak a language, then you can understand a faint conversation in a loud room. It is the same for observing at the eyepiece. The language is learned through many hours at the eyepiece. Looking for faintest magnitude stars in a field, or studying numerous galaxies, flipping between planetary filters on the planets, sketching to learn to see the boundaries of nebulosity.
 
 				<p>An experienced observer comes to the eyepiece starting with a visual memory of the object that has been built up from previous sessions. If not the particular object, then the object type. The object is tackled in a systematic manner, moving from easiest highest contrast features to medium contrast to low contrast to difficult detail. Each detail is studied, forming a visual memory that sets the stage for the next level of detail or adjoining features. The subsequent night resumes with the object in mind, checking off from easy to hard and adding new detail now visible.
 			</div>
@@ -2645,21 +2633,21 @@ copyright Mel Bartels, 2016 - 2022-->
 			<button class='accordion' id='btnOversizedExitPupil'>Why an oversized exit pupil</button>
 			<div class='panel'>
 				<p>TLDR version: observing with an exit pupil slightly larger than your eye's pupil is a surprisingly useful and effective approach.
-				
+
 				<p>First light with my 30 inch [76cm] F2.7 with a 25mm ES 100 degree eyepiece giving an apparent field of one degree (just imagine, a 30 inch scope with a 1 degree field!) became an observing highlight of my life: we had lifetime views of the majority of objects that we looked at. Yet the scope and eyepiece combination produced an exit pupil of 8mm, which compared to my eye's pupil of 6.5mm, should have been less than optimal. And this is not the first time I've experienced unexpectedly good views with an oversized exit pupil. What is going on?
-				
+
 				<p>It came to me suddenly one night. I have a hard time holding my eye perfectly steady, even when gripping the eyepiece with my hand then pressing my eye into my hand. My eye is always moving back and forth a little bit. It's obvious in the slightly defocused star image. Think of it - if I am using an exit pupil perfectly matched to my eye, then I am actually losing light as my eye jitters back and forth.
-				
+
 				<p>If my eye is moving back and forth 1 mm and my eye's pupil is 6.5mm, then I am losing 0.1 magnitude of light when my eye is maximally displaced (the telescope's exit pupil is no longer perfectly centered on my eye's pupil, a case of displaced but overlapping circles). Which means that I am also losing 10% of the etendue (etendue being the light flux calculated as apparent field squared times apparent pupil squared).
-				
+
 				<p>The 8mm exit pupil that the 30 inch F2.7 with 25mm 100 degree eyepiece provides means that I am wasting 0.3 magnitude of light, but I am operating at maximum possible etendue since my eye's pupil is always filled with the maximum possible light since my eye's jitter doesn't cause my eye's pupil to fall outside of the telescope's exit pupil. The view with 0.3 magnitude light loss but maximum etendue is comparable to the view with 0.1 magnitude light loss and 10% etendue loss, but crucially better in one important aspect: a wider field!
-				
+
 				<p>This also explains why the 30 inch at 8mm exit pupil is noticeably better than my 25 inch at 6.5mm exit pupil. The 25 inch is 0.4 magnitude fainter than the 30 inch and operating at a loss of 0.1 magnitude and 10% etendue due to eye jitter, netting a total magnitude loss of 0.5 and 10% etendue loss. The 30 inch is operating at 0.3 magnitude loss with no etendue loss, a net gain of 0.2 magnitude and 10% etendue compared to the 25 inch (the apparent fields of view are the same), enough to result in a rather surprising comparison.
-				
+
 				<p>If we optimize for our lowest power, widest angle eyepiece, e.g., a ES 25mm 100 deg, then the primary mirror's optical focal ratio will be 25mm/8mm/1.15 (since I am using the P2 coma corrector) which comes to 2.72, the same focal ratio as the 30 inch.
-				
+
 				<p>Interestingly, if I use an exit pupil that is slightly smaller than my eye, then I do not waste the telescope's light with eye jitter; ditto for an exit pupil slightly larger than my eye (other than of course the light loss due to the ratio of the telescope's exit pupil to my eye's pupil).
-				
+
 				<p>Views through all three 'low power & wide angle eyepieces': the 25mm 100 deg ES [8mm exit pupil], the 21mm 100 deg Ethos [6.7mm exit pupil] and the 17mm 102 deg Nikon [5.4mm exit pupil] are striking. As I progress through the series, the overall impression is one of a richest field view, with more magnification and detail albeit tighter overall field of view. Each eyepiece's view is unique: all three are equally 'best' in their own way. It is as if I have three Richest Field or Highest Etendue telescopes.
 			</div>
 
@@ -3660,15 +3648,15 @@ copyright Mel Bartels, 2016 - 2022-->
 			<h4>Visual observations</h4>
 
 			<p>The topic of binocular summation, or what is an equivalent monoscope aperture compared to a binoscope, is popular. The views in the monoscope and binoscope are not comparable, unless the monoscope is equipped with a binoviewer that splits the light between the two eyes. With this in mind along with the observation that results vary from observer to observer and from binoscope to binoscope, I find that faint stars are enhanced by anywhere from 20% to 40% and faint extended nebulae by 40% to 80%. The binocular summation factor is thought to be a combination of probability summation, an increase in the signal to noise ratio, and neural summation. For a cogent discussion, see <a href='https://arieotte-binoscopes.nl/Binocular%20Summation%20Factor.pdf' target='_blank'>https://arieotte-binoscopes.nl/Binocular%20Summation%20Factor.pdf</a>
-			
+
 			<p>Let's compare a monoscope with a binoviewer to a binoscope, say a 10 inch [25cm] monoscope. With the binoviewer each eye gets half of the 10 inch aperture's light or the equivalent light from a 7 inch [18cm] binoscope. The comparison then is that a binoscope is equivalent to a monoscope of 40% greater aperture equipped with a binoviewer.
 
 			<p>Notwithstanding binocular summation, I find the greatest advantage of a binoscope to be a milky smooth perspective to extended objects. Returning to monocular viewing (as simple as closing one eye), I see extensive and bothersome mottling and scintillation that gradually recedes over an hour or two.
-			
+
 			<p>At a 2018 shootout between 10 inch [25cm] telescopes of varying focal ratio, an 8 inch [20cm] binoscope and my 25 inch [64cm] f2.6, the 8 inch binoscope on the Veil Nebula performed closer to the 25 inch, clearly outpacing the 10 inch scopes by a considerable margin.
 
 			<p>Here is my report of our 'shootout' between a 28 inch [71cm] monoscope and a 22 inch [56cm] binoscope. In a test conducted October 24-25, 2003 at the Shingletown air strip three of us experienced observers were able to compare the 22" binocular to Dan Gray's innovative new 28" string telescope.Benchmark objects included the NGC 281 edge-on galaxy, the Andromeda galaxy, the Perseus double cluster and the Great Orion nebula. The consensus:
-			
+
 			<ul>
 				<li>In general, views were essentially the same.
 				<li>Low power 95X, 80° field of views were unique to the 22" binocular.
@@ -3677,23 +3665,23 @@ copyright Mel Bartels, 2016 - 2022-->
 				<li>Nebulosity in M42 was equally impressive, and the pink color in M42 was easy to detect in both telescopes.
 				<li>The brain much prefers the comfort of binocular viewing: the sense of presence, the silkiness of faint, distended objects, the ability to concentrate and the removal of "background noise" by the brain were all noted as improvements due to the binocular view.
 			</ul>
-			
+
 			<p>The Richest Field views of bright and dark nebulae through Bruce's 22 inch were breathtaking - higher contrast than I've seen in any scope of any aperture; plus don't forget that milky smooth image. That's priceless. The faintest magnitude didn't quite stack up to the simple case of doubling the aperture. Elements of Einstein's Cross were just a slightest bit more visible in the 28 inch than the 22 inch binocs - say 90% of the way between the 22 inch mono view and the 28 inch mono view.
-			
-			<p>Later at the Shingletown (California) Star Party, Randy Muller (responding to a question from a TAC-SAC listserv member, "What was your favorite [view] at SSP this year?") wrote, "The Lagoon Nebula, (M8) (in OIII) at around 100x through Bruce Sayre's 22" binocular. I visited Bruce near the end of the evening (actually I kept him up longer than he wanted to be up, but he graciously allowed me to look through his scope), so there was no line, and I was able to adjust precisely the inter-ocular distance and focus of each OTA." 
-			
+
+			<p>Later at the Shingletown (California) Star Party, Randy Muller (responding to a question from a TAC-SAC listserv member, "What was your favorite [view] at SSP this year?") wrote, "The Lagoon Nebula, (M8) (in OIII) at around 100x through Bruce Sayre's 22" binocular. I visited Bruce near the end of the evening (actually I kept him up longer than he wanted to be up, but he graciously allowed me to look through his scope), so there was no line, and I was able to adjust precisely the inter-ocular distance and focus of each OTA."
+
 			<p>"Never have I viewed such bright and overwhelming detail in this object. My brain interpreted the stars as being in the foreground, bright billows and wisps of nebulosity being in the middle-ground and the fainter parts of the nebula as being in the background."
-			
+
 			<p>"The wide-angle eyepieces, plus the illusion of depth made me feel like I was inside the nebula. As I looked, the whole thing had an almost windswept feel as if I was standing on a hill with fog billowing and blowing around me. But the image was still, so that gave it a peaceful, calm and serene tone, rather than stormy and violent."
-			
+
 			<p>"The color was that unearthly fluorescent blue-green typical of all the bright emission nebulae, but instead of being present only in the brightest central area, it was suffused throughout the whole nebula, with varying intensity, giving rise to a sense of varying density and thickness."
-			
+
 			<p>"It was an incredible view that I will never forget."
-			
+
 			<p>A good video by Peter Vercauteren, an experienced binoscope viewer is at <a href='https://www.youtube.com/watch?v=-zeKqdjMVtQ' target='_blank'>https://www.youtube.com/watch?v=-zeKqdjMVtQ</a>.
-			
+
 			<h4>Binoscopes featured on the Oregon Star Party Telescope Walkabout</h4>
-			
+
 			<p>Frank Szczepanski 8 inch [20cm]<br>
 			<img alt='' loading='lazy' class='mediumSizeImage' src='osp02/Frank.jpg'>
 			<img alt='' loading='lazy' class='mediumSizeImage' src='osp98/frank.jpg'>
@@ -3883,13 +3871,13 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div class='panel'>
 				<p>The ballscope is a wonderful mount; it commands a loyal following. With a single push the scope can move in both axes and rotate the eyepiece to a comfortable viewing angle. And there is no overhead 'Dobson' hole at the zenith, the bane of altazimuth scopes.
 
-				<p>Ballscopes can track. Norm James (San Diego, California) in the late 1960's devised a motorized polar axis attached by suction cup on his 'spheremount'. 
+				<p>Ballscopes can track. Norm James (San Diego, California) in the late 1960's devised a motorized polar axis attached by suction cup on his 'spheremount'.
 				See <a href= 'http://www.cloudynights.com/ubbthreads/attachments/3729721-JAMES%2C NORM - spheremount - 1A.jpg' target='_blank'> http://www.cloudynights.com/ubbthreads/attachments/3729721-JAMES%2C NORM - spheremount - 1A.jpg</a>.
 
-				<p>Circa 1990 Alphonse Pouplier (Belgium) invented a two drive wheel and two motor 'crossed parallel' mounting that tracked, slewed to an object and tracked satellites (August 1993, Sky and Telescope magazine).<br> Pierre LeMay (Quebec) in the mid-1990's devised a polar oriented two roller drive system. Pierre's 20 inch f3.9 scope is pictured here 
+				<p>Circa 1990 Alphonse Pouplier (Belgium) invented a two drive wheel and two motor 'crossed parallel' mounting that tracked, slewed to an object and tracked satellites (August 1993, Sky and Telescope magazine).<br> Pierre LeMay (Quebec) in the mid-1990's devised a polar oriented two roller drive system. Pierre's 20 inch f3.9 scope is pictured here
 				<a href= 'http://stellafane.org/convention/2013/images/scopes/scope14a.jpg' target='_blank'>http://stellafane.org/convention/2013/images/scopes/scope14a.jpg</a>.
 
-				<p>About 2010 Jerry Oltion independently invented a single motorized polar axis drive system that he calls the TrackBall. 
+				<p>About 2010 Jerry Oltion independently invented a single motorized polar axis drive system that he calls the TrackBall.
 				See <a href= 'http://www.sff.net/people/j.oltion/trackball.htm' target='_blank'>http://www.sff.net/people/j.oltion/trackball.htm</a>
 
 				<p>The size and weight of the ball becomes prohibitive in scopes larger than 20 inches [0.5m] aperture.Here are my ideas to modify the ballscope for larger apertures. First, the standard ball scope: a ball for pointing with the attached upper telescope tube:<br>
@@ -3970,7 +3958,7 @@ copyright Mel Bartels, 2016 - 2022-->
 
 				<p>The following graphic shows the telescope equatorially tracking perfectly for two hours. The arc shows the slow movement of the telescope's optical axis across the sky. Check out how the optical axis is perfectly aligned with the end of the tracking arc.<br>
 				<img alt='' loading='lazy' src='EarlofCrawford/reflectorAfterTwoHoursPerfectTracking.jpg'>
-				 
+
 				<p>Now let's check out where the telescope is pointed after two hours of simulated equatorial tracking motion by the Earl of Crawford arm. You can see an error in the tracking motion. In this case it is a substantial six degrees. That means that an object will drift out of the field of view in 10-20 minutes.<br>
 				<img alt='' loading='lazy' src='EarlofCrawford/reflectorAfterTwoHoursCrawfordTracking.jpg'>
 
@@ -3998,7 +3986,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p>Google Sketchups:<br>
 				<a href='https://3dwarehouse.sketchup.com/model.html?id=u76150d3a-087b-4f34-92c7-af017c5a2526' target='_blank'>the Earl of Crawford arm study</a><br>
 				<a href='https://3dwarehouse.sketchup.com/model.html?id=53af76a186e18e456ed97933d0fe8bb5' target='_blank'>the Morse Equatorial Transformer</a>
-				 
+
 				<h3>References</h3>
 				<a href='http://stargazerslounge.com/uploads/monthly_01_2013/post-21003-0-91107600-1359309666.jpg' target='_blank'>Three Crawford armed telescopes</a><br>
 				<a href='http://tinyurl.com/ogx63od' target='_blank'>Amateur Astronomer's Handbook</a> by Sidgwick: a description<br>
@@ -4660,7 +4648,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<ul>
 				<li><a href='#eyepieces'>#eyepieces</a>
 				<li><a href='#exitPupil'>#exitPupil</a>
-				<li><a href='#oversizedExitPupil'>#oversizedExitPupil</a>				
+				<li><a href='#oversizedExitPupil'>#oversizedExitPupil</a>
 				<li><a href='#magnification'>#magnification</a>
 				<li><a href='#stoppingDownMatchingApertureWithEyeResolution'>#stoppingDownMatchingApertureWithEyeResolution</a>
 			</ul>
