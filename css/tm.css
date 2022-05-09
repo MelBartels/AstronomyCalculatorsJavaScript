@@ -30,8 +30,9 @@ a:hover {
 
 .topLinks {
 	background-color: lightgray;
-	padding: 5px;
 	font-weight: bold;
+	float: left;
+	margin: 5px;
 }
 
 .bigImage {
