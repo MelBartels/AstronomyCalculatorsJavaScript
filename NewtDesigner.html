@@ -1701,39 +1701,21 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div id='etendue'></div>
 			<button class='accordion' id='btnEtendue'>Etendue or luminance</button>
 			<div class='panel'>
-				<p>Etendue or luminance is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to improve luminance in popular amateur telescope designs.
+				<p>Etendue or luminance is the flux gathering capability of the telescope. The greater the aperture and the greater the true field of view, the greater the luminance, or light flowing through the telescope onto our eye's retina. Luminance is simply the mirror's area in centimeters squared times the true field's area in degrees squared (cm^2deg^2). A difference of 20% is probably the minimally meaningful change. There is room to increase luminance in amateur telescope designs.
 
-				<p>Since the eye's pupil also forms an aperture, luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). From this perspective we see that luminance is ultimately limited by only two factors: the eye's pupil and the eyepiece's apparent field of view.
+				<p>Since the eye's pupil also forms an aperture, luminance can also be calculated by the eye pupil's area in cm^2 times the area of the eyepiece's apparent field in degrees^2 (cm^2deg^2). Either formula gives the same number! Thus we see that luminance is ultimately limited by two factors: the eye's pupil and the eyepiece's apparent field of view.
 
 				<p>Etendue can be maximized by increasing aperture, increasing field or both. The first example shows the very real effect of increasing aperture from 8 inches to 10 inches [20cm to 25cm]. The second example shows the very real effect of increasing field from 80 to 100 apparent degrees.<br>
 				<img alt='' loading='lazy' class='bigImage' src='Co Com etendue comparison.jpg'>
 				<img alt='' loading='lazy' class='bigImage' src='25/M51 etendue comparison f5 with 31mm Nagler compared to f2.6 with 17mm Ethos.jpg'>
 
-				<p>Any object with an extended size such as nebulae and star clusters can benefit from maximizing etendue.
+				<p>Brightest fields are obtained when the telescope's exit pupil matches your eye's pupil. Any object with an extended size such as nebulae and star clusters can benefit from maximizing etendue.
 
-				<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length and our eye's pupil. The focal ratio that maximizes etendue (luminance) should be the same as the focal ratio of the eyepiece and eye which equals the eyepiece focal length / eye pupil; further divided by any coma corrector magnification factor.
+				<p>However, for planets, stars and star clusters along with small, bright objects like planetary nebulae, it's more important to magnify the image to see details as the eye's resolution matches the aperture's resolution when exit pupil is a much smaller 1-2mm.
 
-				<p>Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
-				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
-				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL with P2.jpg'>
+				<p>It's not possible to 'have it all', that is, maximum brightness at maximum resolution, at least in one telescope.
 
-				<h4>Focal ratio for max etendue calculator</h4>
-				<p>Your eye's pupil mm <input class='inputText' id='calcFRMaxEtendueEyePupilmm' value='7' onfocus='select()' type='text'>
-				Eyepiece focal length mm <input class='inputText' id='calcFRMaxEtendueEyepieceFLmm' value='31' onfocus='select()' type='text'>
-				Coma corrector magnification factor <input class='inputText' id='calcFRMaxEtendueComaCorrectorMag' value='1' onfocus='select()' type='text'>
-				<input value='Calculate focal ratio' id='btnCalcFRMaxEtendue' type='button'>
-				Resulting focal ratio is <input class='inputText' id='calcFRMaxEtendueResultFR' readonly='readonly' type='text'>
-				<br>Eyepiece apparent field of view in degrees <input class='inputText' id='calcFRMaxEtendueEyepieceFOV' value='82' onfocus='select()' type='text'>
-				<input value='Calculate etendue' id='btnCalcFREtendue' type='button'>
-				Resulting etendue (cm^2deg^2) is <input class='inputText' id='calcFRMaxEtendueResultEtendue' readonly='readonly' type='text'>
-
-				<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field and therefore produce greater etendue or luminance.<br>
-
-				<img alt='' loading='lazy' src='aperture vs field of view for selected eyepieces.jpg'>
-
-				<p>Brightest fields are obtained when the telescope's exit pupil matches your eye's pupil.
-
-				<p>The eye can begin resolve the aperture's resolution when exit pupil is 2mm; it is easier to resolve when the exit pupil is 1mm.
+				<p><a href='https://s3.amazonaws.com/celestron-site-support-files/support_files/rasa_white_paper_web.pdf' target='_blank'>Celestron Rowe-Ackermann white paper discussing etendue</a>.
 			</div>
 
 			<br><br>
@@ -1742,215 +1724,29 @@ copyright Mel Bartels, 2016 - 2022-->
 			<div class='panel'>
 				<h3>Inspired by Richest Field Telescopes</h3>
 
-				<p>A Richest Field Telescope, first proposed by Mr Walkin in 1916, is a telescope that could show the most stars in a field of view when pointed to the Milky Way. Since then the idea has broadened to telescopes that can provide low power, wide angle views. My F3 and faster RFTs with coma corrected 100 degree apparent fields of view make surprisingly low contrast objects visible.
+				<p>A Richest Field Telescope, first proposed by Mr Walkin in 1916, is a telescope that reveals the most stars in a field of view when pointed to the star rich Milky Way.
 
-				<p>My 6 inch f2.8<br>
-				<img alt='' loading='lazy' src='6inchF2.8/6 inch telescope iteration 2.JPG'>
+				<p>A High Etendue Telescope (HET) that maximizes light throughput into the eye is comprised of a 100 degree eyepiece, a very fast F3 mirror, and probably a coma corrector. These three components provide extraordinarily wide fields at maximum exit pupil. The view through such a telescope is noticeably different: very faint large objects in context with amazing detail. What is going on? The explanation is  <a href='#etendue' target='_blank'>etendue</a>.
 
-				<p>Sketching with my 6 inch<br>
+				<p>The first HETs designed for 100 degree eyepieces include Mike Lockwood's 14.5 inch [36cm] f2.55 and my 13.2 inch [34cm] f3.0.<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='Lockwood14p5me.jpg'>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='ZIPDOB/13inchObservingConfigurationOSP2010.jpg'>
+
+				<p>HET scopes can be small as in my 6 inch f2.8<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='6inchF2.8/6 inch telescope iteration 2.JPG'>
+
+				<p>Sketching with my 6 inch: Betelgeuse's ring of dark nebulae and the Andromeda Galaxy:<br>
 				<img alt='' loading='lazy' src='dneb/Betelgeuse Ring B 35 B36 LDN 1597 LDN 1594 LDN1598 LDN1602 LDN1611 .jpg'>
 				<img alt='' loading='lazy' src='6inchF2.8/Andromeda M31 M110 shelf.jpg'>
 
-				<p>My 10 inch f2.7<br>
-				<img alt='' loading='lazy' src='10.5inchF2.7/10.5 inch finished 3.JPG'>
+				<p>HET scopes can be large as in my 25 inch f2.6<br>
+				<img alt='' loading='lazy' class='mediumSizeImage' src='25/ready for 1st light Aug 4 2018.jpg'>
 
-				<p>Sketching with my 10 inch<br>
-				<img alt='' loading='lazy' src='drawings/CO Cam IFN.jpg'>
-				<img alt='' loading='lazy' src='drawings/SH2-240 Spaghetti Neb.jpg'>
-
-				<p>My 13 inch f3.0<br>
-				<img alt='' loading='lazy' src='ZipDob/ZipDobII/side.JPG'>
-
-				<p>Sketching with my 13 inch<br>
-				<img alt='' loading='lazy' src='dneb/Horsehead area 13 inch.jpg'>
-				<img alt='' loading='lazy' src='drawings/Cone ChristmasTree 13 inch 13mm 1.1 degFOV UHC filter.jpg'>
-
-				<p>My 25 inch f2.6<br>
-				<img alt='' loading='lazy' src='25/ready for 1st light Aug 4 2018.jpg'>
-
-				<p>Sketching with my 25 inch<br>
+				<p>Sketching with my 25 inch: Integrated Flux Nebulae in the field iwht M51 the Whirlpool Galaxy and M13 the Hercules globular cluster:<br>
 				<img alt='' loading='lazy' src='drawings/M51 IFN through 25 inch f2.6.jpg'>
 				<img alt='' loading='lazy' src='drawings/M13 NGC6207 IC4617 IFN with 25 inch f2.6.jpg'>
 
-				<p>What is going on? The concept of etendue best explains the new RFTs that I am calling 'HET's (High Etendue Telescopes).
-
-				<h3>what is a HET (High Etendue Telescope)?</h3>
-
-				<p>Imagine a water pipe. Etendue is the total amount of water flowing through the pipe. How can we get more water? Well, we can enlarge the pipe allowing more water to flow through and we can turn the valve on more to increase the flow of water. Enlarging the pipe is equivalent to increasing the apparent field of view while turning on the value more is equivalent to increasing aperture. Etendue is the amount of light flowing through the field of view into the eye.
-
-				<p>To calculate etendue, use this simple formula: etendue = aperture squared * real field squared.
-
-				<p>For example, a 12 inch f4 with a 21mm Ethos eyepiece has an etendue close to 1700 cm^2deg^2<br>
-				where as a 12 inch f3 with the same eyepiece and coma corrector has a greater etendue close to 2200 cm^2deg^2.
-
-				<p>The increased etendue allows me to see lower contrast objects. In dark skies with my High Etendue Telescopes I can get down to ~3% contrast (ratio of object+sky to sky). I have an <a href='NewtDesigner.html#visual' target='_blank'>object contrast calculator here</a>. And if the real field is held constant, then greater etendue allows me to see fainter stars.
-
-				<p>Looking at the equation again, we see two factors that drive etendue: aperture and real field. Compared to a conventional RFT, a HET (High Etendue Telescope) has either increased aperture for the same field or increased field for the same aperture.
-
-				<h4>Increasing etendue by increasing aperture</h4>
-
-				<p>Here's an example of higher etendue by increasing aperture. The field on the left is with an 8 inch scope and the field on the right is with a 10 inch scope. Not only does the aperture increase the brightness and number of stars, but also every single point in the field of view receives more light with the 10 inch compared to the 8 inch.<br>
-				<img alt='' loading='lazy' class='bigImage' src='Co Com etendue comparison.jpg'>
-
-				<p>Another interesting way to look at it is to calculate the maximum aperture possible for different focal ratios given a field of view. The focal ratios are optimized for widest angle eyepieces.
-
-				<p>field of view = 1.8 deg, eye pupil = 6mm
-
-				<table id='maxApertureTable' class='maxApertureTable'>
-				<tbody>
-					<tr>
-						<td>Telescope F.R.</td>
-						<td>Eyepiece</td>
-						<td>Eyepiece Focal Length mm</td>
-						<td>Apparent FOV deg</td>
-						<td>Eyepiece Field Stop mm</td>
-						<td>Coma corrector X</td>
-						<td>Max Mirror Diameter</td>
-					</tr>
-					<tr>
-						<td>2.5</td>
-						<td>Ethos</td>
-						<td>17</td>
-						<td>100.0</td>
-						<td>29.6</td>
-						<td>1.15</td>
-						<td>13.1</td>
-					</tr>
-					<tr>
-						<td>3.0</td>
-						<td>Ethos</td>
-						<td>21</td>
-						<td>100.0</td>
-						<td>36.2</td>
-						<td>1.15</td>
-						<td>13.0</td>
-					</tr>
-					<tr>
-						<td>3.6</td>
-						<td>ES100</td>
-						<td>25</td>
-						<td>100.0</td>
-						<td>41</td>
-						<td>1.15</td>
-						<td>12.2</td>
-					</tr>
-					<tr>
-						<td>3.8</td>
-						<td>Nagler</td>
-						<td>26</td>
-						<td>82.0</td>
-						<td>35.0</td>
-						<td>1.15</td>
-						<td>10.1</td>
-					</tr>
-					<tr>
-						<td>5.2</td>
-						<td>Nagler</td>
-						<td>31</td>
-						<td>82.0</td>
-						<td>42.0</td>
-						<td>1</td>
-						<td>10.2</td>
-					</tr>
-					<tr>
-						<td>6.3</td>
-						<td>OrionQ70</td>
-						<td>38</td>
-						<td>70.0</td>
-						<td>44.0</td>
-						<td>1</td>
-						<td>8.7</td>
-					</tr>
-				</tbody>
-				</table>
-
-				<p>Going down to f/3.6, f/3.0 or f/2.5 means jumping up in aperture from 10 inches to 13 inches. In other words, what we could see previously with 8 inch scopes and wide angle Erfle eyepieces in the 1960's to 1990's and with 10 inch scopes equipped with Naglers in the 1990's and 2000's is now seen with 13 inches aperture. This increase in aperture increases the limiting magnitude by a whole number.
-
-				<p>A New Relationship: Maximum Aperture or Field of View Based on Varying Focal Ratio While Holding Eye Pupil Constant<br>
-				<img alt=''	loading='lazy' src='ZipDob/ApertureVsFocalRatioVsFOV.gif'>
-
-				<p>The impact of greater aperture for the same field of view is dramatic. Objects like the Horsehead, barely detectable in an 8 inch, are readily detectable in a 13 inch. Otherwise invisible galaxies pop into view. 	Instead of a faint object or two, many objects are visible at once.
-
-				<p>I find observationally that an oversized exit pupil maximizes the brightness of the field while maintaining the widest possible field. <a href='#oversizedExitPupil' target='_blank'> Here is my explanation why</a>. For a 8mm exit pupil, the focal ratios that match popular 100 degree eyepieces are:
-
-				<table id='focalRatiosForEyepiecesWith8mmExitPupil' class='focalRatiosForEyepiecesWith8mmExitPupil'>
-				<tbody>
-					<tr>
-						<td class='columnHeaders'>Eyepiece</td>
-						<td class='columnHeaders'>Focal ratio</td>
-						<td class='columnHeaders'>Focal ratio with P2 coma corrector</td>
-					</tr>
-					<tr>
-						<td>Explorer Scientific ES100 30mm</td>
-						<td>3.8</td>
-						<td>3.3</td>
-					</tr>
-					<tr>
-						<td>Explorer Scientific ES100 25mm</td>
-						<td>3.1</td>
-						<td>2.7</td>
-					</tr>
-					<tr>
-						<td>TeleVue Ethos 21mm</td>
-						<td>2.6</td>
-						<td>2.3</td>
-					</tr>
-					<tr>
-						<td>Nikon Nav 17mm</td>
-						<td>2.1</td>
-						<td>1.8</td>
-					</tr>
-				</tbody>
-				</table>
-
-				<h4>Increasing etendue by increasing field</h4>
-
-				<p>Here is an example of higher etendue by increasing field. The first view is M51 the Whirlpool Galaxy through a 25 inch f5 telescope using a 31mm Nagler 82 degree eyepiece with etendue ~1400 cm^2deg^2 at an eye pupil of 6.2mm and true field of 0.76 deg, and the second with the same aperture of 25 inches but at f2.6 telescope using a 17mm Ethos 100 degree eyepiece and coma corrector with etendue ~2000 cm^2deg^2 at a slighter smaller eye pupil of 5.7mm and true field of 0.89 deg. You can see that the larger field with etendue growing from 2300 to 3200 gives a richer experience making the IFN boundaries easier to see.<br>
-				<img alt='' loading='lazy' class='bigImage' src='25/M51 etendue comparison f5 with 31mm Nagler compared to f2.6 with 17mm Ethos.jpg'>
-
-				<p>Here are the widest fields possible (each at 6mm eye pupil) for the above focal ratios through 13 inches aperture observing M31 (image from Stellarium):
-
-				<table id='M31compareTable' class='M31compareTable'>
-				<tbody>
-					<tr>
-						<td class='tableCellImageText'>
-							F/6.3<br>
-							1.1 square deg field<br>
-							70 deg wide field<br>
-							<br><br><br>
-							<img alt='' loading='lazy' src='ZipDob/M31_1.1_deg_FOV.gif' style='width: 157px; height: 144px;'>
-							<br><br><br>
-						</td>
-						<td class='tableCellImageText'>
-							F/3.8 - F/5.2<br>
-							1.5 square deg field<br>
-							82 deg Nagler<br>
-							<br><br>
-							<img alt='' loading='lazy' src='ZipDob/M31_1.4_deg_FOV.gif' style='width: 190px; height: 182px;'>
-							<br><br>
-						</td>
-						<td class='tableCellImageText'>
-							F/2.5 - F/3.6<br>
-							2.5 square deg field<br>
-							100 deg Ethos/ES<br>
-							<img alt='' loading='lazy' src='ZipDob/M31_1.8_deg_FOV.gif' style='width: 260px; height: 242px;'>
-						</td>
-					</tr>
-				</tbody>
-				</table>
-
-				<p>You can see that the increased field makes the dust lanes and the 'twist' along with more of the galaxy easier to see.
-
-				<h3>Maximizing etendue</h3>
-
-				<p>In designing a telescope that optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece and our eye's pupil. Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
-				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
-				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL with P2.jpg'>
-
-				<h3>More information</h3>
-
-				<p><a href='https://s3.amazonaws.com/celestron-site-support-files/support_files/rasa_white_paper_web.pdf' target='_blank'>Celestron Rowe-Ackermann white paper discussing etendue</a>.
-				<p><a href='ZipDob/ZipDob.html#Other' target='_blank'>More High Etendue Telescopes</a>
+				<p>Since my first HET, all my telescopes have been HETs.
 			</div>
 
 			<br><br>
@@ -2024,17 +1820,44 @@ copyright Mel Bartels, 2016 - 2022-->
 			<button class='accordion' id='btnDesigningWithEtendue'>Designing a Newtonian telescope with etendue in mind</button>
 			<div class='panel'>
 
-				<p>The scope that is best for you is the one maximizes the advantages that you see and minimizes the disadvantages that you wish to avoid. The view through a 100 degree eyepiece at maximum exit pupil struck me immediately as qualitatively better. <a href='Herschels Ghosts.html' target='_blank'>My discovery of IFN</a> and is a result of this type of viewing. How does this inform my Newtonian telescope designs?
+				<h4>Introduction</h4>
 
-				<p>For any given magnification or image scale, it is always better to maximize exit pupil. Otherwise it is equivalent to stopping down the telescope's aperture. See <a href='NewtDesigner.html#comparingAperture' target='_blank'> is aperture king?</a> For example, the dimming when going from 7mm to 6mm exit pupil is 30%, the difference in shrinking the exit pupil to 5mm is 50%! Of course this applies to extended nebulae and not to star clusters since they are point sources and not to many planetary nebulae since they are bright. Also keep in mind that when the light is reduced, the sky background and the object light are reduced equally, leaving the contrast of object+sky vs the sky unchanged. However, lower contrasts are better seen in brighter settings. For more, see my <a href='#visual' target='_blank'>visual detection discussion</a>.
+				<p>The scope that is best for you is the one maximizes the advantages that you see and minimizes the disadvantages that you wish to avoid. The view through a 100 degree eyepiece at maximum exit pupil struck me immediately as qualitatively better. <a href='Herschels Ghosts.html' target='_blank'>My discovery of IFN</a> was a result of this type of viewing. How does this inform my Newtonian telescope designs?
 
-				<p>Given maximum exit pupil, the image scale will be set by the eyepiece's field diameter and the primary mirror's focal length. This then sets magnification and the overall length of the telescope. This means selecting an eyepiece or a range of eyepieces first. The question then becomes, "What is the largest aperture I dare squeeze into this focal length?" Consider a focal length of 60 inches [152cm]. We might imagine a 6 inch [15cm] f10, a 10 inch [25cm] f6, maybe a 15 inch [38cm] f4, or even a 20 inch [51cm] f3, finally a 22 inch [56cm] f2.7. From 6 inches to 22 inches: what aperture do we dare squeeze into the 60 inch focal length?
+				<h4>Maximizing exit pupil</h4>
+
+				<p>For any given magnification or image scale, it is always best to maximize exit pupil. Otherwise it is equivalent to stopping down the telescope's aperture. See <a href='NewtDesigner.html#comparingAperture' target='_blank'> is aperture king?</a> For example, the dimming when going from 7mm to 6mm exit pupil is 30%, the difference in shrinking the exit pupil to 5mm is 50%! Of course this applies to extended nebulae and not to star clusters since they are point sources and not to many planetary nebulae since they are bright. Also keep in mind that when the light is reduced, the sky background and the object light are reduced equally, leaving the contrast of object+sky vs the sky unchanged. However, lower contrasts are better seen in larger, brighter settings. For more, see my <a href='#visual' target='_blank'>visual detection discussion</a>.
+
+				<p>This graph demonstrates that eyepieces with larger apparent fields allow greater aperture for a given real field and therefore produce greater etendue or luminance. Note that the required focal ratios become very fast.<br>
+				<img alt='' loading='lazy' src='aperture vs field of view for selected eyepieces.jpg'>
+
+				<p>Given our individual maximum exit pupil, to design a telescope optimized for lowest power / widest angle observing, we may wish to calculate the focal ratio given a particular eyepiece focal length. The focal ratio that maximizes etendue (luminance) should be the same as the focal ratio of the eyepiece and eye which equals the eyepiece focal length / eye pupil; further divided by any coma corrector magnification factor.
+
+				<p>Here are two graphs, the last taking into account the TeleVue P2 coma corrector's magnification factor, that can be used to find the focal ratio that maximizes etendue.<br>
+				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL.jpg'>
+				<img alt='' loading='lazy' src='FR to maximize etendue from pupil and eyepiece FL with P2.jpg'>
+
+				<h4>Focal ratio for max etendue calculator</h4>
+				<p>Your eye's pupil mm <input class='inputText' id='calcFRMaxEtendueEyePupilmm' value='7' onfocus='select()' type='text'>
+				Eyepiece focal length mm <input class='inputText' id='calcFRMaxEtendueEyepieceFLmm' value='31' onfocus='select()' type='text'>
+				Coma corrector magnification factor <input class='inputText' id='calcFRMaxEtendueComaCorrectorMag' value='1' onfocus='select()' type='text'>
+				<input value='Calculate focal ratio' id='btnCalcFRMaxEtendue' type='button'>
+				Resulting focal ratio is <input class='inputText' id='calcFRMaxEtendueResultFR' readonly='readonly' type='text'>
+				<br>Eyepiece apparent field of view in degrees <input class='inputText' id='calcFRMaxEtendueEyepieceFOV' value='82' onfocus='select()' type='text'>
+				<input value='Calculate etendue' id='btnCalcFREtendue' type='button'>
+				Resulting etendue (cm^2deg^2) is <input class='inputText' id='calcFRMaxEtendueResultEtendue' readonly='readonly' type='text'>
 
 				<p>For an extended object its apparent size should be made as large as possible while allowing room around the object for context. This means adjusting the focal length while keeping the focal ratio constant.
+
+				<h4>Maximizing aperture</h4>
+
+				<p>Given maximum exit pupil, the image scale will be set by the eyepiece's field diameter and the primary mirror's focal length. This then sets magnification and the overall length of the telescope. This means selecting an eyepiece or a range of eyepieces first. The question then becomes, "What is the largest aperture I dare squeeze into this focal length?" Consider a focal length of 60 inches [152cm]. We might imagine a 6 inch [15cm] f10, a 10 inch [25cm] f6, maybe a 15 inch [38cm] f4, or even a 20 inch [51cm] f3, finally a 22 inch [56cm] f2.7. From 6 inches to 22 inches: what aperture do we dare squeeze into the 60 inch focal length?
 
 				<p>A quick way to calculate the mirror size given the eyepieces that I mention is to find the required magnification by dividing the apparent field of the eyepiece by the object size. For example, a one degree wide object divided into a 100 degree field eyepiece is 100x. Take this 100x and multiply it by the eye's pupil size (about 1/3 inch - all this can be done in cm too). That gives 30, the mirror size in inches. Shortening the equation leads to: aperture (inches) = 30 / objectSize (degrees).
 
 				<p>If you use 80 degree apparent field eyepieces and wish to max out your exit pupil, then your shorthand number becomes something close to 24: aperture (inches) = 24 / objectSize (degrees). This because 80 degree eyepieces are not limited to 17-25mm focal length. And your target focal ratio becomes f4.5-ish.
+
+				<h4>A stable of telescopes</h4>
 
 				<p>It follows then that I should use several telescopes that form a sequence of focal lengths so as to cover a wide range of observing situations. <a href='30/30 inch mirrors log.html#36' target='_blank'>First light with the 30 inch f2.7</a> astonished me with so much more that I could see compared to the 25 inch <a href='25/first light observing notes.html' target='_blank'>(first light report available here)</a>, ostensibly not that much different in aperture (but perhaps in focal length: 81 inches [206cm] compared to 65 inches [165cm]). As of end of 2021, here are the three scopes that I use:<br><br>
 
@@ -2049,6 +1872,40 @@ copyright Mel Bartels, 2016 - 2022-->
 				<p>Interestingly, William Herschel had quite the stable of telescopes. What was the sequence of focal lengths and apertures that he used? They were focal lengths of 7, 10, 20 and 40 feet, with matching apertures of 6.2, 9, 18.7 and 48 inches.<br><br>
 
 				<img alt='' loading='lazy' src='WilliamHerschelTelescopeStable.jpg'>
+
+				<h4>Oversized exit pupil</h4>
+
+				<p>I find observationally that an oversized exit pupil maximizes the brightness of the field while maintaining the widest possible field. <a href='#oversizedExitPupil' target='_blank'> Here is my explanation why</a>. For a 8mm exit pupil, the focal ratios that match popular 100 degree eyepieces are:
+
+				<table id='focalRatiosForEyepiecesWith8mmExitPupil' class='focalRatiosForEyepiecesWith8mmExitPupil'>
+				<tbody>
+					<tr>
+						<td class='columnHeaders'>Eyepiece</td>
+						<td class='columnHeaders'>Focal ratio</td>
+						<td class='columnHeaders'>Focal ratio with P2 coma corrector</td>
+					</tr>
+					<tr>
+						<td>Explorer Scientific ES100 30mm</td>
+						<td>3.8</td>
+						<td>3.3</td>
+					</tr>
+					<tr>
+						<td>Explorer Scientific ES100 25mm</td>
+						<td>3.1</td>
+						<td>2.7</td>
+					</tr>
+					<tr>
+						<td>TeleVue Ethos 21mm</td>
+						<td>2.6</td>
+						<td>2.3</td>
+					</tr>
+					<tr>
+						<td>Nikon Nav 17mm</td>
+						<td>2.1</td>
+						<td>1.8</td>
+					</tr>
+				</tbody>
+				</table>
 			</div>
 
 			<br><br>
@@ -2111,7 +1968,7 @@ copyright Mel Bartels, 2016 - 2022-->
 				<img alt='' loading='lazy' class='mediumSizeImage' src='drawings/M51 M63 IFN.jpg'>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='drawings/M51 IFN 13 inch 1.8 deg FOV.jpg'>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='drawings/M51 IFN through 25 inch f2.6.jpg'>
-				
+
 				<p>There is no reason to despair if you have a single telescope, say a 8 inch [20cm] f7. There are countless brighter smaller objects that when magnified to smaller exit pupils do well despite lower surface brightness. Here is M104, the Sombrero Galaxy, in 6 and 13 inch telescopes at a series of magnifications.<br>
 				<img alt='' loading='lazy' src='Sombrero Galaxy through 6 and 13 inch telescopes.jpg'>
 			</div>
@@ -4739,7 +4596,7 @@ copyright Mel Bartels, 2016 - 2022-->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 8-May-2022
+				Last updated 11-May-2022
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
