@@ -35598,28 +35598,215 @@
 		assert.equal(result, expected, result + ' should be ' + expected);
 	});
 	
-	// count of object clusters that fit w/in the specified separation
+	// count of object clusters
 	QUnit.test('findClosestObjects analysis', assert => {
 		var minCount = 3,
+			minNonGalaxyCount,
 			maxDistanceDeg = 1,
 			minMagnitude = 6,
+			minDecDeg,
+			allowedTypes,
 			result,
 			expected = 4;
 				
-		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude).length;
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
 		assert.equal(result, expected, result + ' should be ' + expected);
 		
 		minMagnitude = 8;
 		expected = 14;
-		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude).length;
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
 		assert.equal(result, expected, result + ' should be ' + expected);
 
 		maxDistanceDeg = 2;
 		minMagnitude = 6;
 		expected = 8;
-		result = findClosestObjects(minCount, maxDistanceDeg, minMagnitude).length;
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
 		assert.equal(result, expected, result + ' should be ' + expected);
 	});		
+	
+	QUnit.test('findClosestObjects analysis non-galaxies, minimum Dec', assert => {
+		var minCount = 3,
+			minNonGalaxyCount = 2,
+			// brighter objects within 1 deg of each other
+			maxDistanceDeg = 1,
+			minMagnitude = 8,
+			minDecDeg = -45,
+			allowedTypes,
+			result,
+			expected = 10;
+				
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});
+	
+	QUnit.test('findClosestObjects analysis explicit types', assert => {
+		var minCount = 3,
+			minNonGalaxyCount,
+			maxDistanceDeg = 1.5,
+			minMagnitude = 12,
+			minDecDeg,
+			allowedTypes = ["OPNCL", "GLOCL"], // when setting allowedTypes, be sure to adjust minNonGalaxyCount
+			result,
+			expected = 56;
+				
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});
+	
+/*
+starting findClosestObjects...
+final object cluster list
+group 0 (count of 19), (types: GALCL, GALXY,): Abell 2151 / Hercules Galxy Cl / GALCL, Abell 2152 /  / GALCL, NGC 6030 / UGC 10139 / GALXY, NGC 6034 / MCG 3-41- 62 / GALXY, NGC 6039 / NGC 6042 / GALXY, NGC 6040 / UGC 10165 / GALXY, NGC 6041 / UGC 10170 / GALXY, NGC 6042 / NGC 6039 / GALXY, NGC 6043 / MCG 3-41- 86 / GALXY, NGC 6044 / IC 1172 / GALXY, NGC 6045 / UGC 10177 / GALXY, NGC 6047 / MCG 3-41- 87 / GALXY, NGC 6050 / UGC 10186 / GALXY, NGC 6053 / NGC 6057 / GALXY, NGC 6054 / IC 1179 / GALXY, NGC 6055 / UGC 10191 / GALXY, NGC 6056 / IC 1176 / GALXY, NGC 6057 / NGC 6053 / GALXY, NGC 6061 / UGC 10199 / GALXY, 
+group 1 (count of 20), (types: GALCL, GALXY,): Abell 2197 /  / GALCL, Abell 2199 /  / GALCL, NGC 6138 / MCG 7-34- 20 / GALXY, NGC 6141 /  / GALXY, NGC 6145 / MCG 7-34- 21 / GALXY, NGC 6146 / UGC 10379 / GALXY, NGC 6147 / MCG 7-34- 22 / GALXY, NGC 6150A / NGC 6150 / GALXY, NGC 6150B / MCG 7-34- 27 / GALXY, NGC 6158 / MCG 7-34- 41 / GALXY, NGC 6160 / UGC 10400 / GALXY, NGC 6166 / UGC 10409 / GALXY, NGC 6166A / MCG 7-34- 50 / GALXY, NGC 6166B / MCG 7-34- 76 / GALXY, NGC 6166C / MCG 7-34- 48 / GALXY, NGC 6166D / MCG 7-34- 56 / GALXY, NGC 6173 / UGC 10421 / GALXY, NGC 6175 / UGC 10422 / GALXY, NGC 6180 / MCG 7-34- 95 / GALXY, NGC 6184 / MCG 7-34-109 / GALXY, 
+group 2 (count of 25), (types: GALCL, GALXY, 2STAR,): Abell 426 / Perseus I / GALCL, NGC 1212 / IC 1883 / GALXY, NGC 1224 / UGC 2578 / GALXY, NGC 1250 / UGC 2613 / GALXY, NGC 1257 / ZwG 540 73 / 2STAR, NGC 1259 / ZwG 540 78 / GALXY, NGC 1260 / UGC 2634 / GALXY, NGC 1264 / UGC 2643 / GALXY, NGC 1265 / UGC 2651 / GALXY, NGC 1267 / UGC 2657 / GALXY, NGC 1268 / UGC 2658 / GALXY, NGC 1270 / UGC 2660 / GALXY, NGC 1271 / ZwG 540. 96 / GALXY, NGC 1272 / UGC 2662 / GALXY, NGC 1273 / MCG 7- 7- 59 / GALXY, NGC 1274 / IC 1907 / GALXY, NGC 1275 / 3C84;UGC 2669 / GALXY, NGC 1277 / MCG 7- 7- 64 / GALXY, NGC 1278 / IC 1907 / GALXY, NGC 1279 / PGC 12449 / GALXY, NGC 1281 / MCG 7- 7- 67 / GALXY, NGC 1282 / UGC 2675 / GALXY, NGC 1283 / UGC 2676 / GALXY, NGC 1293 / MCG 7- 7- 75 / GALXY, NGC 1294 / UGC 2694 / GALXY, 
+group 3 (count of 10), (types: OPNCL, PLNNB,): Basel 1 / Apriamasvili 1 / OPNCL, NGC 6705 / M 11 / OPNCL, PK 25- 2.1 / Perek 1-15 / PLNNB, PK 26- 1.1 / K4- 5 / PLNNB, PK 26- 1.2 / Perek 2-15 / PLNNB, PK 26- 2.1 / Perek 1-16 / PLNNB, PK 26- 2.3 / Perek 1-19 / PLNNB, PK 27- 2.1 / Perek 1-18 / PLNNB, PK 27- 3.1 / Abell 49 / PLNNB, PK 27- 3.2 / Vy 1-4 / PLNNB, 
+group 4 (count of 3), (types: OPNCL,): Basel 10 /  / OPNCL, NGC 869 / OCL 350 / OPNCL, NGC 884 / OCL 353 / OPNCL, 
+group 5 (count of 4), (types: OPNCL, PLNNB, BRTNB,): Basel 6 /  / OPNCL, IC 4996 / Cr 418 / OPNCL, NGC 6881 / PK 74+2.1 / PLNNB, NGC 6888 / LBN 203 / BRTNB, 
+group 6 (count of 7), (types: OPNCL,): Berk 58 /  / OPNCL, Frolov 1 /  / OPNCL, Harvard 21 /  / OPNCL, King 12 /  / OPNCL, NGC 7788 / OCL 275 / OPNCL, NGC 7790 / OCL 276 / OPNCL, NGC 7795 /  / OPNCL, 
+group 7 (count of 3), (types: OPNCL,): Biur 2 /  / OPNCL, NGC 6871 / OCL 148 / OPNCL, NGC 6883 / OCL 148 / OPNCL, 
+group 8 (count of 3), (types: OPNCL,): Bochum 2 /  / OPNCL, Do 25 /  / OPNCL, NGC 2301 / OCL 540 / OPNCL, 
+group 9 (count of 3), (types: OPNCL,): Bochum 4 /  / OPNCL, Bochum 5 /  / OPNCL, NGC 2409 /  / OPNCL, 
+group 10 (count of 5), (types: OPNCL, PLNNB,): Bochum 6 /  / OPNCL, NGC 2383 / OCL 616 / OPNCL, NGC 2384 / OCL 618 / OPNCL, PK 234- 0.1 / M1-15 / PLNNB, PK 235- 1.1 / M1-14 / PLNNB, 
+group 11 (count of 4), (types: OPNCL, GALXY, PLNNB,): Cr 196 /  / OPNCL, NGC 2658 / OCL 723 / OPNCL, NGC 2663 / ESO 371-14 / GALXY, PK 254+ 5.1 / M3- 6 / PLNNB, 
+group 12 (count of 3), (types: OPNCL,): Cr 197 /  / OPNCL, NGC 2671 / OCL 745 / OPNCL, Tr 10 / Cr 203 / OPNCL, 
+group 13 (count of 3), (types: OPNCL, GLOCL,): Cr 302 /  / OPNCL, NGC 6121 / M 4 / GLOCL, NGC 6144 / GCL 42 / GLOCL, 
+group 14 (count of 6), (types: OPNCL, PLNNB,): Cr 316 /  / OPNCL, NGC 6227 / ESO 332-**5 / OPNCL, NGC 6231 / Dunlop 520 / OPNCL, PK 342+ 0.1 / Haro 1- 3 / PLNNB, PK 344+ 0.1 / Haro 1- 5 / PLNNB, Tr 24 / Harvard 12 / OPNCL, 
+group 15 (count of 3), (types: OPNCL, CL+NB,): Cr 33 /  / OPNCL, Cr 34 /  / OPNCL, IC 1848 / OCL 364 / CL+NB, 
+group 16 (count of 16), (types: OPNCL, GLOCL, PLNNB,): Cr 345 /  / OPNCL, NGC 6415 / ESO 393-?18 / OPNCL, NGC 6421 / ESO 393-?22 / OPNCL, NGC 6437 / ESO 393-?28 / OPNCL, NGC 6453 / GCL 79 / GLOCL, NGC 6475 / M 7 / OPNCL, PK 355- 2.1 / M3-14 / PLNNB, PK 355- 2.2 / He2-270 / PLNNB, PK 355- 2.3 / He2-278 / PLNNB, PK 355- 2.4 /  / PLNNB, PK 355- 3.1 / He2-283 / PLNNB, PK 355- 3.3 / He2-228 / PLNNB, PK 355- 4.1 / Hoffleit 2-1 / PLNNB, PK 355- 4.2 / M1-30 / PLNNB, PK 356- 3.3 / He2-300 / PLNNB, PK 356- 4.1 / Cannon 2-1 / PLNNB, 
+group 17 (count of 7), (types: OPNCL, CL+NB, PLNNB,): Cr 367 /  / OPNCL, NGC 6514 / M 20 / CL+NB, NGC 6530 / OCL 19 / OPNCL, NGC 6531 / M 21 / OPNCL, NGC 6546 / OCL 24 / OPNCL, PK 6- 2.1 / M1-41 / PLNNB, PK 8- 1.1 / M1-40 / PLNNB, 
+group 18 (count of 4), (types: OPNCL, PLNNB,): Cr 399 /  / OPNCL, NGC 6802 / OCL 114 / OPNCL, PK 55+ 2.1 / He2-432 / PLNNB, PK 55+ 2.2 / He1- 1 / PLNNB, 
+group 19 (count of 4), (types: OPNCL, BRTNB,): Cr 419 /  / OPNCL, Cr 421 /  / OPNCL, IC 1318 / Sh2-108 / BRTNB, NGC 6910 / OCL 181 / OPNCL, 
+group 20 (count of 5), (types: OPNCL, BRTNB,): Cr 428 /  / OPNCL, IC 5070 / IC 5070; LBN 350 / BRTNB, NGC 6996 /  / OPNCL, NGC 6997 / OCL 197 / OPNCL, NGC 7000 / LBN 373 / BRTNB, 
+group 21 (count of 5), (types: OPNCL, BRTNB,): Cr 465 /  / OPNCL, Cr 466 /  / OPNCL, NGC 2335 / OCL 562 / OPNCL, NGC 2343 / OCL 565 / OPNCL, PK 223- 2.1 / K1- 8 / BRTNB, 
+group 22 (count of 14), (types: OPNCL, GLOCL, PLNNB,): Cr 468 /  / OPNCL, ESO 456-SC38 / Djorgovski 2 / GLOCL, IC 4673 / PK 3-2.3 / PLNNB, NGC 6520 / OCL 10 / OPNCL, NGC 6540 / Djorgovski 3 / GLOCL, PK 2- 2.2 / M3-20 / PLNNB, PK 2- 2.4 / M2-23 / PLNNB, PK 2- 3.2 / Haro 2-37 / PLNNB, PK 2- 3.5 / He2-344 / PLNNB, PK 3- 2.1 / M1-35 / PLNNB, PK 3- 2.2 / M2-26 / PLNNB, PK 4- 3.1 / M2-29 / PLNNB, Ter 9 /  / GLOCL, Tr 31 / Cr 357 / OPNCL, 
+group 23 (count of 5), (types: OPNCL, PLNNB,): Cr 469 /  / OPNCL, IC 4715 / M 24 / OPNCL, NGC 6567 / PK 11-0.2 / PLNNB, NGC 6595 / IC 4700 / OPNCL, PK 11- 0.1 / M1-43 / PLNNB, 
+group 24 (count of 9), (types: OPNCL, CL+NB, BRTNB,): Cr 97 /  / OPNCL, Cr 104 /  / OPNCL, Cr 106 /  / OPNCL, Cr 107 /  / OPNCL, NGC 2237 / OCL 511 / CL+NB, NGC 2238 / LBN 948 / BRTNB, NGC 2239 / NGC 2244 / OPNCL, NGC 2244 / NGC 2239 / CL+NB, NGC 2252 / OCL 514 / OPNCL, 
+group 25 (count of 4), (types: OPNCL, CL+NB,): Czernik 13 /  / OPNCL, IC 1805 / Mel 15 / CL+NB, Mel 15 / Cr 26 / OPNCL, NGC 1027 / OCL 357 / OPNCL, 
+group 26 (count of 3), (types: OPNCL,): Czernik 29 /  / OPNCL, Haffner 10 /  / OPNCL, NGC 2414 / OCL 598 / OPNCL, 
+group 27 (count of 3), (types: OPNCL,): Czernik 3 / OCL 315 / OPNCL, NGC 366 / OCL 316 / OPNCL, NGC 381 / OCL 317 / OPNCL, 
+group 28 (count of 4), (types: OPNCL, GALXY,): Czernik 8 /  / OPNCL, King 4 /  / OPNCL, Maffei 1 /  / GALXY, NGC 957 / OCL 362 / OPNCL, 
+group 29 (count of 8), (types: OPNCL, PLNNB, CL+NB,): Haffner 16 /  / OPNCL, Haffner 18 /  / OPNCL, Haffner 19 /  / OPNCL, NGC 2452 / PK 243-1.1 / PLNNB, NGC 2453 / OCL 670 / OPNCL, NGC 2467 / OCL 668 / CL+NB, Ru 32 /  / OPNCL, Ru 36 /  / OPNCL, 
+group 30 (count of 6), (types: OPNCL, PLNNB,): Haffner 21 /  / OPNCL, NGC 2520 / NGC 2527 / OPNCL, NGC 2527 / NGC 2520 / OPNCL, PK 245+ 1.1 / M3- 5 / PLNNB, Ru 44 /  / OPNCL, Ru 49 /  / OPNCL, 
+group 31 (count of 4), (types: OPNCL,): Haffner 6 /  / OPNCL, Haffner 8 /  / OPNCL, NGC 2374 / OCL 585 / OPNCL, NGC 2396 / OCL 579 / OPNCL, 
+group 32 (count of 3), (types: OPNCL, PLNNB,): IC 1369 / Cr 432 / OPNCL, NGC 7026 / PK 89+0.1 / PLNNB, PK 89- 0.1 / Sh1- 89 / PLNNB, 
+group 33 (count of 5), (types: OPNCL,): IC 166 / OCL 334 / OPNCL, NGC 654 / OCL 330 / OPNCL, NGC 659 / OCL 332 / OPNCL, NGC 663 / OCL 333 / OPNCL, Tr 1 / Cr 15 / OPNCL, 
+group 34 (count of 4), (types: OPNCL,): IC 2157 / Cr 80 / OPNCL, NGC 2129 / OCL 467 / OPNCL, NGC 2158 / OCL 468 / OPNCL, NGC 2168 / M 35 / OPNCL, 
+group 35 (count of 4), (types: PLNNB, GLOCL,): IC 4732 / PK 10-6.1 / PLNNB, NGC 6642 / GCL 97 / GLOCL, NGC 6656 / M 22 / GLOCL, PK 10- 6.2 / Perek 1-13 / PLNNB, 
+group 36 (count of 6), (types: OPNCL, PLNNB,): King 14 /  / OPNCL, NGC 133 / OCL 296 / OPNCL, NGC 146 / OCL 299 / OPNCL, NGC 225 / OCL 305 / OPNCL, PK 121+ 0.1 /  / PLNNB, Stock 24 / Berk 3 / OPNCL, 
+group 37 (count of 6), (types: OPNCL,): Lynga 14 /  / OPNCL, NGC 6216 / NGC 6222 / OPNCL, NGC 6222 / NGC 6216 / OPNCL, NGC 6249 / OCL 994 / OPNCL, NGC 6250 / OCL 991 / OPNCL, NGC 6259 / OCL 996 / OPNCL, 
+group 38 (count of 3), (types: CL+NB, BRTNB,): Mel 22 / M 45 / CL+NB, vdB 20 / IC 349 / BRTNB, vdB 23 /  / BRTNB, 
+group 39 (count of 3), (types: OPNCL, PLNNB,): Mel 72 / Cr 467 / OPNCL, PK 226+ 5.1 / M1-16 / PLNNB, PK 228+ 5.1 / M1-17 / PLNNB, 
+group 40 (count of 4), (types: OPNCL, BRTNB,): Mrk 50 /  / OPNCL, NGC 7510 / OCL 256 / OPNCL, NGC 7635 / LBN 549 / BRTNB, NGC 7654 / M 52 / OPNCL, 
+group 41 (count of 4), (types: OPNCL, GALXY, PLNNB,): NGC 1039 / M 34 / OPNCL, NGC 1040 / NGC 1053-1 / GALXY, NGC 1053 / NGC 1040-1 / GALXY, PK 144-15.1 / Abell 4 / PLNNB, 
+group 42 (count of 7), (types: BRTNB, CL+NB, OPNCL,): NGC 1973 / Ced 55B / BRTNB, NGC 1975 / Ced 55C / BRTNB, NGC 1976 / M 42 / CL+NB, NGC 1977 / OCL 525 / CL+NB, NGC 1980 / OCL 529 / CL+NB, NGC 1981 / OCL 525 / OPNCL, NGC 1982 / M 43 / BRTNB, 
+group 43 (count of 3), (types: OPNCL,): NGC 2299 / NGC 2302 / OPNCL, NGC 2302 / NGC 2302 / OPNCL, NGC 2309 / OCL 557 / OPNCL, 
+group 44 (count of 3), (types: OPNCL,): NGC 2422 / M 47 / OPNCL, NGC 2423 / OCL 592 / OPNCL, NGC 2478 / NGC 2422 / OPNCL, 
+group 45 (count of 3), (types: OPNCL, PLNNB,): NGC 2437 / M 46 / OPNCL, NGC 2438 / PK 231+4.2 / PLNNB, PK 231+ 4.1 / M1-18 / PLNNB, 
+group 46 (count of 4), (types: OPNCL, CL+NB,): NGC 2546 / OCL 726 / OPNCL, NGC 2568 / OCL 727 / OPNCL, NGC 2579 / OCL 724 / CL+NB, Pismis 1 /  / OPNCL, 
+group 47 (count of 4), (types: OPNCL,): NGC 2567 / OCL 708 / OPNCL, NGC 2571 / OCL 701 / OPNCL, NGC 2580 / OCL 709 / OPNCL, NGC 2587 / OCL 706 / OPNCL, 
+group 48 (count of 8), (types: GALXY, GLOCL,): NGC 4048 / UGC 7023 / GALXY, NGC 4049 / UGC 7027 / GALXY, NGC 4064 / UGC 7054 / GALXY, NGC 4110 / UGC 7102 / GALXY, NGC 4147 / NGC 4153 / GLOCL, NGC 4153 / NGC 4147 / GLOCL, NGC 4155 / UGC 7172 / GALXY, UGC 7170 / PGC 38748 / GALXY, 
+group 49 (count of 3), (types: GALXY, GLOCL,): NGC 4978 / UGC 8212 / GALXY, NGC 5024 / M 53 / GLOCL, NGC 5053 / GCL 23 / GLOCL, 
+group 50 (count of 3), (types: GLOCL, PLNNB,): NGC 6266 / M 62 / GLOCL, PK 353+ 6.1 / M2- 7 / PLNNB, PK 353+ 6.2 / M2- 6 / PLNNB, 
+group 51 (count of 3), (types: GLOCL, PLNNB,): NGC 6293 / GCL 55 / GLOCL, PK 357+ 7.1 / M4- 3 / PLNNB, PK 358+ 7.1 / M3-36 / PLNNB, 
+group 52 (count of 3), (types: PLNNB,): NGC 6369 / PK 2+5.1;H IV 11 / PLNNB, PK 1+ 5.1 / Haro 1-14 / PLNNB, PK 1+ 5.2 / Haro 1-15 / PLNNB, 
+group 53 (count of 5), (types: GLOCL, PLNNB,): NGC 6380 / Ton 1 / GLOCL, PK 349- 4.1 / Longmore 16 / PLNNB, PK 350- 2.1 / He2-241 / PLNNB, PK 350- 3.1 / Haro 1-26 / PLNNB, Ton 2 /  / GLOCL, 
+group 54 (count of 4), (types: GLOCL, PLNNB,): NGC 6401 / GCL 73 / GLOCL, PK 3+ 2.1 / Hubble 4 / PLNNB, PK 3+ 3.1 / ESO 520-14 / PLNNB, PK 3+ 3.2 / He2-267 / PLNNB, 
+group 55 (count of 15), (types: OPNCL, CL+NB, PLNNB, GLOCL,): NGC 6425 / OCL 1033 / OPNCL, NGC 6451 / OCL 1035 / OPNCL, NGC 6480 / ESO 456-?13 / CL+NB, PK 0- 1.1 / ESO 455-48 / PLNNB, PK 0- 1.5 / M2-19 / PLNNB, PK 358- 0.2 / M1-26 / PLNNB, PK 358- 1.1 / ESO 455-34 / PLNNB, PK 358- 2.1 / M4- 7 / PLNNB, PK 359- 0.1 / Hubble 5 / PLNNB, PK 359- 1.1 / M1-29 / PLNNB, PK 359- 1.2 / M3-44 / PLNNB, PK 359- 1.3 / M3-45 / PLNNB, PK 359- 2.2 / M3-16 / PLNNB, PK 359- 2.3 / Haro 1-40 / PLNNB, Ter 6 /  / GLOCL, 
+group 56 (count of 3), (types: OPNCL, PLNNB,): NGC 6494 / M 23 / OPNCL, NGC 6507 / OCL 32 / OPNCL, PK 10+ 3.1 / The 4-10 / PLNNB, 
+group 57 (count of 6), (types: GLOCL, PLNNB,): NGC 6626 / M 28 / GLOCL, NGC 6629 / PK 9-5.1;H II 204 / PLNNB, PK 7- 3.1 / M2-34 / PLNNB, PK 7- 4.1 / ESO 522-18 / PLNNB, PK 8- 4.1 / ESO 522-20 / PLNNB, PK 8- 4.2 / M2-42 / PLNNB, 
+group 58 (count of 3), (types: PLNNB,): NGC 6629 / PK 9-5.1;H II 204 / PLNNB, PK 9- 4.1 / Haro 1-67 / PLNNB, PK 11- 5.1 / M1-47 / PLNNB, 
+group 59 (count of 3), (types: GLOCL, PLNNB,): NGC 6637 / M 69 / GLOCL, NGC 6652 / GCL 98 / GLOCL, PK 2- 9.1 / Cannon 1-5 / PLNNB, 
+group 60 (count of 4), (types: GLOCL, PLNNB,): NGC 6638 / GCL 95 / GLOCL, NGC 6644 / PK 8-7.2 / PLNNB, PK 7- 6.2 / Vy 2-1 / PLNNB, PK 8- 7.1 / ESO 522-31 / PLNNB, 
+group 61 (count of 6), (types: OPNCL, PLNNB,): NGC 6645 / OCL 48 / OPNCL, NGC 6647 / OCL 45 / OPNCL, PK 14- 4.1 / M1-50 / PLNNB, PK 15- 3.1 / Abell 44 / PLNNB, PK 15- 4.1 / M1-53 / PLNNB, PK 16- 4.1 / M1-54 / PLNNB, 
+group 62 (count of 4), (types: OPNCL, PLNNB,): NGC 6649 / OCL 66 / OPNCL, PK 20- 0.1 / Abell 45 / PLNNB, PK 21- 0.1 / M3-28 / PLNNB, PK 21- 1.1 / M1-51 / PLNNB, 
+group 63 (count of 4), (types: OPNCL, PLNNB,): NGC 6694 / M 26 / OPNCL, PK 23- 2.1 / M1-59 / PLNNB, PK 24- 3.1 / Perek 1-17 / PLNNB, Tr 34 / Cr 387 / OPNCL, 
+group 64 (count of 3), (types: GLOCL, BRTNB, PLNNB,): NGC 6749 / GCL 107 / GLOCL, PK 35- 0.1 / AP 2-1 / BRTNB, PK 36- 1.1 / Sh2- 71 / PLNNB, 
+group 65 (count of 4), (types: PLNNB,): NGC 6803 / PK 46-4.1 / PLNNB, NGC 6804 / PK 45-4.1 / PLNNB, PK 46- 3.1 / Peimbert 9 / PLNNB, PK 47- 4.1 / Abell 62 / PLNNB, 
+group 66 (count of 3), (types: OPNCL, PLNNB,): NGC 6830 / OCL 125 / OPNCL, PK 57- 1.1 / He2-447 / PLNNB, PK 59- 1.1 / He1- 3 / PLNNB, 
+group 67 (count of 3), (types: OPNCL, PLNNB,): NGC 6834 / OCL 134 / OPNCL, NGC 6842 / PK 65+0.1 / PLNNB, NGC 6846 / OCL 139 / OPNCL, 
+group 68 (count of 4), (types: OPNCL, PLNNB,): NGC 6866 / OCL 183 / OPNCL, PK 79+ 5.1 / M4-17 / PLNNB, PK 79+ 6.1 / K3-56 / PLNNB, PK 84+ 9.1 / K3-74 / PLNNB, 
+group 69 (count of 5), (types: OPNCL, PLNNB,): NGC 7234 / Cr 447 / OPNCL, NGC 7235 / OCL 229 / OPNCL, NGC 7261 / OCL 237 / OPNCL, PK 103+ 0.1 / M2-51 / PLNNB, PK 103+ 0.2 / M2-52 / PLNNB, 
+group 70 (count of 15), (types: GALXY, 1STAR,): NGC 79 / MCG 4- 2- 3 / GALXY, NGC 80 / UGC 203 / GALXY, NGC 81 / NPM1G +22 016 / GALXY, NGC 82 /  / 1STAR, NGC 83 / UGC 206 / GALXY, NGC 84 /  / 1STAR, NGC 85A / NGC 85 / GALXY, NGC 85B / IC 1546 / GALXY, NGC 86 / MCG 4- 2- 9 / GALXY, NGC 90 / UGC 208 / GALXY, NGC 91 /  / 1STAR, NGC 93 / UGC 209 / GALXY, NGC 94 / ZwG 479. 17 / GALXY, NGC 96 / MCG 4- 2- 14 / GALXY, NGC 109 / UGC 251 / GALXY, 
+group 71 (count of 4), (types: PLNNB, GLOCL,): PK 0+ 3.1 / He2-250 / PLNNB, PK 1+ 1.1 / ESO 520-16 / PLNNB, PK 1+ 2.1 / He2-262 / PLNNB, Pal 6 /  / GLOCL, 
+group 72 (count of 4), (types: PLNNB, GLOCL,): PK 12- 7.1 /  / PLNNB, PK 13- 7.1 / Peimbert 21 / PLNNB, PK 14- 7.1 / M3-31 / PLNNB, Pal 8 /  / GLOCL, 
+group 73 (count of 6), (types: PLNNB,): PK 3+ 5.1 / Haro 2-15 / PLNNB, PK 4+ 4.1 / M1-25 / PLNNB, PK 4+ 6.2 / Haro 1-24 / PLNNB, PK 5+ 4.1 / Haro 1-27 / PLNNB, PK 5+ 5.1 / M3-12 / PLNNB, PK 5+ 5.2 / Haro 2-16 / PLNNB, 
+group 74 (count of 4), (types: PLNNB,): PK 350+ 4.1 / Haro 2- 1 / PLNNB, PK 351+ 4.1 / M1-19 / PLNNB, PK 351+ 5.1 / M2- 5 / PLNNB, PK 352+ 5.1 / M2- 8 / PLNNB, 
+group 75 (count of 12), (types: PLNNB, OPNCL,): PK 357+ 2.4 / Haro 1-18 / PLNNB, PK 357+ 3.1 / M3- 7 / PLNNB, PK 357+ 3.4 / M3-42 / PLNNB, PK 357+ 4.1 / Haro 2- 7 / PLNNB, PK 358+ 3.1 / M3-10 / PLNNB, PK 358+ 3.2 / He2-226 / PLNNB, PK 358+ 3.4 / He2-237 / PLNNB, PK 358+ 3.6 / Haro 1-20 / PLNNB, PK 358+ 3.7 / He2-233 / PLNNB, PK 358+ 3.8 / The 3-26 / PLNNB, PK 358+ 4.1 / M3- 8 / PLNNB, Tr 26 / Cr 331 / OPNCL, 
+group 76 (count of 4), (types: PLNNB,): PK 37- 3.2 / Abell 56 / PLNNB, PK 38- 3.2 / M1-69 / PLNNB, PK 38- 3.3 / K2-11 / PLNNB, PK 39- 2.1 / M2-47 / PLNNB, 
+group 77 (count of 4), (types: PLNNB,): PK 51- 3.1 / M1-73 / PLNNB, PK 51- 4.1 / Ap 22 / PLNNB, PK 52- 2.2 / Merrill 1-1 / PLNNB, PK 52- 4.1 / M1-74 / PLNNB, 
+group 78 (count of 4), (types: PLNNB,): PK 7+ 6.1 / M1-23 / PLNNB, PK 7+ 6.2 / M1-24 / PLNNB, PK 7+ 7.1 / M1-22 / PLNNB, PK 8+ 6.1 / He2-260 / PLNNB, 
+...ending findClosestObjects
+*/
+	QUnit.test.skip('findClosestObjects analysis 30 inch [long running]', assert => {
+	//QUnit.test('findClosestObjects non-galaxies analysis 30 inch [long running]', assert => {
+		var minCount = 3,
+			minNonGalaxyCount = 2,
+			maxDistanceDeg = 1.25,
+			minMagnitude = 18,
+			minDecDeg = -45,
+			allowedTypes,
+			result,
+			expected = 79;
+				
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});	
+
+/*
+starting findClosestObjects...
+final object cluster list
+group 0 (count of 6), (types: GLOCL,): ESO 456-SC38 / Djorgovski 2 / GLOCL, NGC 6540 / Djorgovski 3 / GLOCL, NGC 6544 / GCL 87 / GLOCL, NGC 6553 / GCL 88 / GLOCL, Ter 9 /  / GLOCL, Ter 10 /  / GLOCL, 
+group 1 (count of 3), (types: GLOCL,): HP 1 /  / GLOCL, Ter 1 /  / GLOCL, Ter 2 /  / GLOCL, 
+group 2 (count of 3), (types: GLOCL,): IC 1276 / Pal 7 / GLOCL, NGC 6517 / GCL 81 / GLOCL, NGC 6539 / GCL 85 / GLOCL, 
+group 3 (count of 3), (types: GLOCL,): NGC 6273 / M 19 / GLOCL, NGC 6284 / GCL 53 / GLOCL, NGC 6293 / GCL 55 / GLOCL, 
+group 4 (count of 3), (types: GLOCL,): NGC 6333 / M 9 / GLOCL, NGC 6342 / GCL 61 / GLOCL, NGC 6356 / GCL 62 / GLOCL, 
+group 5 (count of 3), (types: GLOCL,): NGC 6637 / M 69 / GLOCL, NGC 6652 / GCL 98 / GLOCL, NGC 6681 / M 70 / GLOCL, 
+...ending findClosestObjects
+*/
+	QUnit.test('findClosestObjects analysis globular clusters [long running]', assert => {
+		var minCount = 3,
+			minNonGalaxyCount,
+			maxDistanceDeg = 2,
+			minMagnitude = 18,
+			minDecDeg = -45,
+			allowedTypes = ["GLOCL"], // when setting allowedTypes, be sure to adjust minNonGalaxyCount
+			result,
+			expected = 6;
+				
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});	
+
+/*
+starting findClosestObjects...
+final object cluster list
+group 0 (count of 3), (types: GLOCL,): ESO 456-SC38 / Djorgovski 2 / GLOCL, NGC 6540 / Djorgovski 3 / GLOCL, Ter 9 /  / GLOCL, 
+group 1 (count of 3), (types: GLOCL,): HP 1 /  / GLOCL, Ter 1 /  / GLOCL, Ter 2 /  / GLOCL, 
+group 2 (count of 2), (types: GLOCL,): NGC 4147 / NGC 4153 / GLOCL, NGC 4153 / NGC 4147 / GLOCL, 
+group 3 (count of 2), (types: GLOCL,): NGC 5024 / M 53 / GLOCL, NGC 5053 / GCL 23 / GLOCL, 
+group 4 (count of 2), (types: GLOCL,): NGC 5824 / NGC 5834 / GLOCL, NGC 5834 / ESO 387-SC001 / GLOCL, 
+group 5 (count of 2), (types: GLOCL,): NGC 6121 / M 4 / GLOCL, NGC 6144 / GCL 42 / GLOCL, 
+group 6 (count of 2), (types: GLOCL,): NGC 6333 / M 9 / GLOCL, NGC 6342 / GCL 61 / GLOCL, 
+group 7 (count of 2), (types: GLOCL,): NGC 6380 / Ton 1 / GLOCL, Ton 2 /  / GLOCL, 
+group 8 (count of 2), (types: GLOCL,): NGC 6522 / GCL 82 / GLOCL, NGC 6528 / GCL 84 / GLOCL, 
+group 9 (count of 2), (types: GLOCL,): NGC 6544 / GCL 87 / GLOCL, NGC 6553 / GCL 88 / GLOCL, 
+group 10 (count of 2), (types: GLOCL,): NGC 6558 / GCL 89 / GLOCL, NGC 6569 / GCL 91 / GLOCL, 
+group 11 (count of 2), (types: GLOCL,): NGC 6637 / M 69 / GLOCL, NGC 6652 / GCL 98 / GLOCL, 
+group 12 (count of 2), (types: GLOCL,): NGC 6642 / GCL 97 / GLOCL, NGC 6656 / M 22 / GLOCL, 
+...ending findClosestObjects*/
+	QUnit.test('findClosestObjects analysis 30 inch globular clusters [long running]', assert => {
+		var minCount = 2,
+			minNonGalaxyCount,
+			maxDistanceDeg = 1.25,
+			minMagnitude = 18,
+			minDecDeg = -45,
+			allowedTypes = ["GLOCL"], // when setting allowedTypes, be sure to adjust minNonGalaxyCount
+			result,
+			expected = 13;
+				
+		result = findClosestObjects(minCount, minNonGalaxyCount, maxDistanceDeg, minMagnitude, minDecDeg, allowedTypes).length;
+		assert.equal(result, expected, result + ' should be ' + expected);
+	});	
 });
 
 </script>
