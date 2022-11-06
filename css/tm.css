@@ -57,6 +57,7 @@ table {
 
 .myProjectsHalfImage {
 	width: 40%;
+	vertical-align: middle;
 }
 
 .telescope {
