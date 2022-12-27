@@ -31,16 +31,23 @@ html {
 	text-align: center;
 }
 
-#titleTextArea {
-	width: 40%;
+#titleTextDiv {
 	float: left;
+	width: 40%;
 	padding-left: 1%;
 	padding-right: 1%;
 }
 
-.titleImage {
-	width: 20%;
+.titleImage1 {
 	float: left;
+	width: 20%;
+	padding-left: 1%;
+	padding-right: 1%;
+}
+
+.titleImage2 {
+	float: left;
+	width: 30%;
 	padding-left: 1%;
 	padding-right: 1%;
 }
