@@ -27,28 +27,25 @@ html {
 	margin-left: 10px;
 }
 
-.titleImage {
-	 width: 15%;
-	 height: auto;
-	 float: left;
-}
-
 #titleText {
 	text-align: center;
 }
 
 #titleTextArea {
-	width: 60%;
+	width: 40%;
 	float: left;
-	padding-left: 5%;
-	padding-right: 5%;
+	padding-left: 1%;
+	padding-right: 1%;
+}
+
+.titleImage {
+	width: 20%;
+	float: left;
+	padding-left: 1%;
+	padding-right: 1%;
 }
 
 .title {
-	text-align: center;
-}
-
-.selectDesigner {
 	text-align: center;
 }
 
@@ -62,9 +59,9 @@ html {
 
 .designSelect {
 	float: left;
-	width: 190px;
-	padding: 7px;
-	margin: 7px;
+	width: 175px;
+	padding: 5px;
+	margin: 5px;
   	background: lightgrey;
 }
 
@@ -261,13 +258,23 @@ thead tr th:first-child, tbody tr td:first-child {
 	width: 300px;
 }
 
+.smallSizeImage {
+	margin: 5px;
+	width: 15%;
+	height: 15%;
+}
+
 .mediumSizeImage {
 	margin: 10px;
 	width: 30%;
 	height: 30%;
 }
 
-/* for accordian collapsing sections
+.verticalAlignMiddle {
+	vertical-align: middle;
+}	
+
+/* for accordion collapsing sections
    .active class added/removed in JS */
 .accordion {
 	background-color: #ddd;
