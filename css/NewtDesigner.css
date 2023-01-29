@@ -133,7 +133,9 @@ thead tr th:first-child, tbody tr td:first-child {
 #M31compareTable td,
 #HETvsRFTTable td,
 #focalRatiosForEyepiecesWith8mmExitPupil td,
-#apertureFocalRatioConstantFocalLength td {
+#apertureFocalRatioConstantFocalLength td,
+#diagResultsTable td,
+#offAxisMaskResultsTable td {
 	table-layout: fixed;
 	width: auto; !important
 }

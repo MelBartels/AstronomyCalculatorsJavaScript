@@ -496,7 +496,11 @@ copyright Mel Bartels, 2016-2023 -->
 							<li>Etendue is maximized by a wide angle eyepiece, allowing the edges of large apparent sized objects to be detectable.
 							<li>The object is at least 2-3 degrees in apparent size.
 						</ol>
-						An eye contains 90 million rods. Two to three degrees apparent size involves 25,000 adjacent rods. For 2% contrast that's 500 rods in the 25,000 that signal at a higher level than the surrounding forest of rods. These specs are not that dissimilar to digital cameras: the eye-brain is an amazing detector.
+
+						<p>An eye contains 90 million rods. Two to three degrees apparent size involves 25,000 adjacent rods. For 2% contrast that's 500 rods in the 25,000 that signal at a higher level than the surrounding forest of rods. These specs are not that dissimilar to digital cameras: the eye-brain is an amazing detector.
+
+						<p>The eye's background noise is on the order of 25 to 26 magnitudes per square arc-second. Because of the Law Of Etendue, the surface brightness of an object in the eye cannot exceed that of the object in the sky. However, etendue can be reduced by increasing magnification which shrinks the telescope's exit pupil. An exit pupil of 3.5mm as compared to 7mm reduces the object's surface brightness by 3/4 magnitude, rending invisible very faint objects no brighter than the eye's background noise.
+
 					<li>The eye's resolution is maximum at roughly 2mm pupil, our daytime pupil size. We typically resolve better than two arc-minutes in the sky, depending on the object to resolve (double stars of equal brightness that are not too bright or dim, double stars of unequal brightness or lunar and planetary detail; deep-sky detail depends on object brightness). This sets up a conflict between lowest power, widest angle viewing and highest resolution viewing.
 				</ol>
 
@@ -520,6 +524,7 @@ copyright Mel Bartels, 2016-2023 -->
 					<li><a href='#idealAperture'>The ideal aperture</a>
 					<li><a href='#lowMags'>A range of widest fields, lowest magnifications</a>
 					<li><a href='#combinationScopes'>Combination telescopes</a>
+					<li><a href='#apertureFever'>Aperture Fever</a>
 				</ul>
 
 				<p>An 8 inch [2-cm] f6-f7 is an great choice when equipped with appropriate eyepieces. It is the perfect balance between aperture and portability, between short and long focal lengths; it is easy to align and point. Inexpensive eyepieces work nicely with a wide range of magnification. And if you wish to make your own primary mirror, it is a straightforward mirror that you can grind, polish and parabolize.
@@ -742,6 +747,23 @@ copyright Mel Bartels, 2016-2023 -->
 				<p>With a combo scope, the small scope goes from low power to high power, then the large scope takes over.
 
 				<p><img alt='' loading='lazy' class='' src='telescope to eyepiece mode for 30-6 combo scope.jpg'>
+
+				<a name='apertureFever'></a>
+				<div id='apertureFever'></div>
+				<h3>Aperture fever</h3>
+				
+				<p>Aperture fever is caught by looking through a much bigger scope than yours, or possibly reading about the views through such a scope. Objects are larger in apparent size, reveal astonishing detail; many more faint stars become visible and there is color to stars and bright nebulosity.
+				
+				<p>As we see from the discussion above, increasing the aperture fulfills more fully the telescope's three great purposes:
+				<ol>
+					<li>Magnifies far away incredibly tiny in apparent size objects so as to make them visible
+					<li>Increases detectable detail
+					<li>Brightens faint stars and pinpoint sources like quasars and increases the apparent brightness of nebulae by allowing us to use larger exit pupils for more objects
+				</ol>
+				
+				<p>What increase in aperture should we consider? It is most important to consider the relative size: doubling the aperture doubles the apparent size, making objects that much smaller detectable and making detail in larger objects more apparent. Increasing the aperture by 40%, eg, from a 10 inch to a 14 inch [25cm to 36cm] increases the magnitude penetration by 3/4 of a magnitude (we can detect an increase of roughly 1/3 magnitude). This 40% increase is the minimum that justifies a larger aperture telescope. However, based on object size, it is more appropriate to consider doubling the aperture. With combination scopes, an aperture ratio of the main to the auxiliary scope of 4:1 seems ideal.
+				
+				<p>While a 25 inch [64cm] telescope shows a bit more than a 20 inch [51cm], going to the 25 inch if you already have a 20 inch is hardly justifiable. This is one reason why 16 inch to 20 inch [41 to 51cm] are the most popular large telescope sizes.
 			</div>
 
 			<br><br>
@@ -2578,7 +2600,7 @@ copyright Mel Bartels, 2016-2023 -->
 				</div>
 
 				<table>
-				<tbody>
+				<tbody id='diagResultsTable'>
 					<tr>
 						<td class='label'>
 							Results:
@@ -2589,6 +2611,10 @@ copyright Mel Bartels, 2016-2023 -->
 				</tbody>
 				</table>
 			</div>
+
+			<p><input id='chBoxIncludeP2Intrusion' type='checkbox'>Include any P2 intrusion?
+			 &nbsp; &nbsp; &nbsp; &nbsp;<label id='P2IntrusionResultsLabel'></label>
+			
 			<div class='floatDiv' id='offsetShadowCanvasDiv'>
 				<!-- canvas created in JavaScript -->
 			</div>
@@ -2597,8 +2623,10 @@ copyright Mel Bartels, 2016-2023 -->
 			</div>
 			<div class='stopFloat'>
 			</div>
+
+			<p>
 			<div>
-				<table>
+				<table id='offAxisMaskResultsTable'>
 				<tbody>
 					<tr>
 						<td class='label'>
@@ -4143,6 +4171,7 @@ copyright Mel Bartels, 2016-2023 -->
 				<li><a href='#idealAperture'>#idealAperture</a>
 				<li><a href='#lowMags'>#lowMags</a>
 				<li><a href='#combinationScopes'>#combinationScopes</a>
+				<li><a href='#apertureFever'>#apertureFever</a>				
 				<li><a href='#RFT'>#RFT</a>
 				<li><a href='#collimation'>#collimation</a>
 				<li><a href='#selectingTelescope'>#selectingTelescope</a>
@@ -4262,7 +4291,7 @@ copyright Mel Bartels, 2016-2023 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 6-January-2023
+				Last updated 29-January-2023
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
