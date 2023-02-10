@@ -78,6 +78,7 @@
 		VisualDetectCalcApertures = MLB.calcLib.VisualDetectCalcApertures,
 		calcContrastOfObjectPlusSkyToSky = MLB.calcLib.calcContrastOfObjectPlusSkyToSky,
 		calcContrastOfObjectPlusSkyToSky2 = MLB.calcLib.calcContrastOfObjectPlusSkyToSky2,
+		calcSkyFromObjectPlusSky = MLB.calcLib.calcSkyFromObjectPlusSky,
 		calcNewtBaffle = MLB.calcLib.calcNewtBaffle,
 		createAltazConstantMotionTrackingErrors = MLB.calcLib.createAltazConstantMotionTrackingErrors,
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
@@ -473,7 +474,7 @@
 
 		assert.equal(withinRange(result.elbowAngleDeg, expected, allowableError), true, 'The binoscope secondary bending angle should be ' + expected + ', is ' + result.elbowAngleDeg);
 	});
-		
+
 	QUnit.test('calcBinoscopeEquivalentApertureBinoviewer', assert => {
 		var allowableError = 0.001,
 		    aperture = 10,
@@ -482,7 +483,7 @@
 
 		assert.equal(withinRange(result, expected, allowableError), true, 'The binoscope aperture gain should be ' + expected + ', is ' + result);
 	});
-	
+
 	QUnit.test('calcBinoscopeEquivalentApertureStar', assert => {
 		var allowableError = 0.001,
 		    aperture = 10,
@@ -492,7 +493,7 @@
 		assert.equal(withinRange(result.low, expected.low, allowableError), true, 'The binoscope aperture gain should be ' + expected.low + ', is ' + result.low);
 		assert.equal(withinRange(result.high, expected.high, allowableError), true, 'The binoscope aperture gain should be ' + expected.high + ', is ' + result.high);
 	});
-	
+
 	QUnit.test('calcBinoscopeEquivalentApertureNebulosity', assert => {
 		var allowableError = 0.001,
 		    aperture = 10,
@@ -501,7 +502,7 @@
 
 		assert.equal(withinRange(result.low, expected.low, allowableError), true, 'The binoscope aperture gain should be ' + expected.low + ', is ' + result.low);
 		assert.equal(withinRange(result.high, expected.high, allowableError), true, 'The binoscope aperture gain should be ' + expected.high + ', is ' + result.high);
-	});	
+	});
 
 	QUnit.test('calcEyepieceDivergenceFromTertiaryBendingAngle', assert => {
 		var allowableError = 0.001,
@@ -1064,6 +1065,20 @@
 
 		assert.equal(withinRange(results.contrastPercent, expected.contrastPercent, 0.01), true, 'Contrast of M51 to sky background of 21.6 should be ' + expected.contrastPercent + ', is ' + results.contrastPercent);
 		assert.equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
+	});
+
+	QUnit.test('calcSkyFromObjectPlusSky', assert => {
+		// M51
+		var objectSurfaceBrightness = 21.6609,
+			contrastPercent = 94.55,
+			expected = {
+				bkgndBrightEye: 21.6,
+				objectPlusSkyBackgroundSurfaceBrightness: 20.88
+			},
+		    results = calcSkyFromObjectPlusSky(objectSurfaceBrightness, contrastPercent);
+
+		assert.equal(withinRange(results.bkgndBrightEye, expected.bkgndBrightEye, 0.01), true, 'bkgndBrightEye should be ' + expected.bkgndBrightEye + ', is ' + results.bkgndBrightEye);
+		assert.equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
 	});
 
 	QUnit.module('calcNewtBaffle');
@@ -1682,20 +1697,20 @@ note that visible? is coded from impossible=1 to very easy=6
 
 		assert.equal(withinRange(result, expected, 0.001), true, 'Min magnification should be ' + expected + ', is ' + result);
 	});
-	
+
 	QUnit.test('calcWilliamHerschelSpacePenetratingPower', assert => {
 		var apertureInches = 10,
-			diagSizeInches = 0, 
+			diagSizeInches = 0,
 			combinedMirrorsReflectivity = 1,
 			expected = 50,
 			result = calcWilliamHerschelSpacePenetratingPower(apertureInches, diagSizeInches, combinedMirrorsReflectivity);
 
 		assert.equal(withinRange(result, expected, 0.001), true, "William Herschel's space penetrating power should be " + expected + ', is ' + result);
-		
-		diagSizeInches = 2, 
+
+		diagSizeInches = 2,
 		combinedMirrorsReflectivity = 0.8,
 		expected = 39.192,
-		result = calcWilliamHerschelSpacePenetratingPower(apertureInches, diagSizeInches, combinedMirrorsReflectivity);		
+		result = calcWilliamHerschelSpacePenetratingPower(apertureInches, diagSizeInches, combinedMirrorsReflectivity);
 		assert.equal(withinRange(result, expected, 0.001), true, "William Herschel's space penetrating power should be " + expected + ', is ' + result);
 	});
 
@@ -2056,10 +2071,10 @@ note that visible? is coded from impossible=1 to very easy=6
 			zoneOPD707: 0.04089487,
 			minOPD: 0.01030829,              // minimized maximum OPD using 24 zones
 			incrementalBestFocus: 0.02805132 // KE adjustment for MinOPD
-		},			
+		},
 		allowableError = 0.00001,
 		result = WaineoSphericalNull(inParms);
-			
+
 		assert.equal(withinRange(result.lightSourceDistanceInFrontOfSphere, expected.lightSourceDistanceInFrontOfSphere, allowableError), true, 'lightSourceDistanceInFrontOfSphere should be ' + expected.lightSourceDistanceInFrontOfSphere + ', is ' + result.lightSourceDistanceInFrontOfSphere);
 
 	});
