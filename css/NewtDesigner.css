@@ -253,6 +253,10 @@ thead tr th:first-child, tbody tr td:first-child {
 	height: 300px;
 }
 
+#visualDetectionSQMsForObjectContrastsChart {
+	margin-left: 30px;
+}
+
 .indent {
 	padding-left: 56px;
 }

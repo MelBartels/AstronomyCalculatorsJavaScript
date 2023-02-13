@@ -503,7 +503,7 @@ copyright Mel Bartels, 2016-2023 -->
 
 						<p>The eye's background noise is on the order of 25 to 26 magnitudes per square arc-second. Because of the Law Of Etendue, the surface brightness of an object in the eye cannot exceed that of the object in the sky. However, etendue can be reduced by increasing magnification which shrinks the telescope's exit pupil. An exit pupil of 3.5mm as compared to 7mm reduces the object's surface brightness by 0.75 magnitude, rending invisible very faint objects no brighter than the eye's background noise.
 
-						<p>At maximum etendue in dark skies, the dark adapted experienced eye can detect 26 mag per arc-sec^2 surface brightness as long as the object is at least several degrees in apparent size. That's a contrast of 2%. Filtered views such as OIII and HBeta filters make the sky background fainter with the detectable contrast as low as 0.5-1%, implying objects as faint as 27-28 mag per arc-sec^2. That is astoundingly faint.
+						<p>At maximum etendue in dark skies, the dark adapted experienced eye can detect objects of 25.5 mag per arc-sec^2 surface brightness as long as the object is at least several degrees in apparent size. That's a contrast of 3%. Filtered views such as OIII and HBeta filters make the sky background fainter with the detectable contrast as low as 0.5-1%, implying objects as faint as 27 mag per arc-sec^2. That is astoundingly faint.
 
 					<li>The eye's resolution is maximum at roughly 2mm pupil, our daytime pupil size. We typically resolve better than two arc-minutes in the sky, depending on the object to resolve (double stars of equal brightness that are not too bright or dim, double stars of unequal brightness or lunar and planetary detail; deep-sky detail depends on object brightness). This sets up a conflict between lowest power, widest angle viewing and highest resolution viewing.
 				</ol>
@@ -1745,10 +1745,12 @@ copyright Mel Bartels, 2016-2023 -->
 			</div>
 			<div class='floatDiv' id='visualDetectionObjectApparentSizeVsMagnificationChart'>
 			</div>
+			<div class='floatDiv' id='visualDetectionSQMsForObjectContrastsChart'>
+			</div>
 			<div class='stopFloat'>
 			</div>
 
-			<p>Objects less than 3% contrast are pretty much impossible to see though objects down to 1% can be seen in special circumstances; objects 3-6% contrast can be seen as very faint with extended concentration; objects with greater than 6% contrast are increasingly easy to see. Objects less than several degrees in apparent size are more difficult to see. Use magnification to increase the apparent size, making the object easier to see. The contrast does not change. You can test this yourself in a darkened room. I combine the two factors together, contrast and apparent size, to predict likely detection of the object. The predicted level should be thought of more as a range, one level easier to one level harder. Factor in observer experience and vagaries of the object data, and the prediction becomes more fuzzy. This calculator also shows the relationship between object visibility and light pollution as expressed by the Bortle level (see below). It appears that it takes a significant gain in aperture to make a practical difference and that increasing light pollution drags down all apertures rather proportionally. For example, tripling the aperture is worth one to two Bortle levels.
+			<p>Objects less than 2% contrast are pretty much impossible to see though objects down to 1% can be seen in special circumstances; objects 2-3-6% contrast can be seen as very faint with extended concentration; objects with greater than 6% contrast are increasingly easy to see. Objects less than several degrees in apparent size are more difficult to see. Use magnification to increase the apparent size, making the object easier to see. The contrast does not change. You can test this yourself in a darkened room. I combine the two factors together, contrast and apparent size, to predict likely detection of the object. The predicted level should be thought of more as a range, one level easier to one level harder. Factor in observer experience and vagaries of the object data, and the prediction becomes more fuzzy. This calculator also shows the relationship between object visibility and light pollution as expressed by the Bortle level (see below). It appears that it takes a significant gain in aperture to make a practical difference and that increasing light pollution drags down all apertures rather proportionally. For example, tripling the aperture is worth one to two Bortle levels.
 
 			<h3>Magnitude adder</h3>
 			Enter a series of magnitudes to add (can be space delimited or comma delimited)
@@ -4297,7 +4299,7 @@ copyright Mel Bartels, 2016-2023 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last updated 4-February-2023
+				Last updated 12-February-2023
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end

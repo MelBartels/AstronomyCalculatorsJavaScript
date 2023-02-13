@@ -78,7 +78,7 @@
 		VisualDetectCalcApertures = MLB.calcLib.VisualDetectCalcApertures,
 		calcContrastOfObjectPlusSkyToSky = MLB.calcLib.calcContrastOfObjectPlusSkyToSky,
 		calcContrastOfObjectPlusSkyToSky2 = MLB.calcLib.calcContrastOfObjectPlusSkyToSky2,
-		calcSkyFromObjectPlusSky = MLB.calcLib.calcSkyFromObjectPlusSky,
+		calcSkyFromObjectPlusContrast = MLB.calcLib.calcSkyFromObjectPlusContrast,
 		calcNewtBaffle = MLB.calcLib.calcNewtBaffle,
 		createAltazConstantMotionTrackingErrors = MLB.calcLib.createAltazConstantMotionTrackingErrors,
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
@@ -1067,7 +1067,7 @@
 		assert.equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness of M51 + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
 	});
 
-	QUnit.test('calcSkyFromObjectPlusSky', assert => {
+	QUnit.test('calcSkyFromObjectPlusContrast', assert => {
 		// M51
 		var objectSurfaceBrightness = 21.6609,
 			contrastPercent = 94.55,
@@ -1075,7 +1075,7 @@
 				bkgndBrightEye: 21.6,
 				objectPlusSkyBackgroundSurfaceBrightness: 20.88
 			},
-		    results = calcSkyFromObjectPlusSky(objectSurfaceBrightness, contrastPercent);
+		    results = calcSkyFromObjectPlusContrast(objectSurfaceBrightness, contrastPercent);
 
 		assert.equal(withinRange(results.bkgndBrightEye, expected.bkgndBrightEye, 0.01), true, 'bkgndBrightEye should be ' + expected.bkgndBrightEye + ', is ' + results.bkgndBrightEye);
 		assert.equal(withinRange(results.objectPlusSkyBackgroundSurfaceBrightness, expected.objectPlusSkyBackgroundSurfaceBrightness, 0.01), true, 'Object surface brightness + sky background should be ' + expected.objectPlusSkyBackgroundSurfaceBrightness + ', is ' + results.objectPlusSkyBackgroundSurfaceBrightness);
