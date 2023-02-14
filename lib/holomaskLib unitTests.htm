@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>QUnit test for holomaskLib.js</title>
-	
+
 	<link rel='stylesheet' href='qunit/qunit-2.17.1.css' />
 	<script src='jquery/jquery-2.1.1.min.js'></script>
 	<script src='qunit/qunit-2.17.1.js'></script>
@@ -20,14 +20,14 @@
 
 <script>$(document).ready(function () {
 	'use strict';
-	
+
 	var withinRange = MLB.sharedLib.withinRange,
 	    inputParms = MLB.holomaskLib.inputParms,
 	    parms = MLB.holomaskLib.parms,
 		output = MLB.holomaskLib.output,
 		setInputParms = MLB.holomaskLib.setInputParms,
 		calcParms = MLB.holomaskLib.calcParms,
-		buildContentPreamble = MLB.holomaskLib.buildContentPreamble,
+		buildContentPreambleFull = MLB.holomaskLib.buildContentPreambleFull,
 		generateEPSfileHeader = MLB.holomaskLib.generateEPSfileHeader,
 		fringes = MLB.holomaskLib.fringes,
 		addCenterSpotAndFooter = MLB.holomaskLib.addCenterSpotAndFooter,
@@ -36,35 +36,35 @@
 	QUnit.module('holomask');
 
 	/* from php debugging:
-	$ERRLIM	float	0.001	
-	$R	string	"400"	
-	$SCALE	float	2.8346456692913	
-	$STEP_SIZE	float	1	
-	$a	float	0.1244140625	
-	$center	float	0.8503937007874	
-	$deviation	float	-0.63578287760417	
-	$diam	string	"50"	
-	$k	string	"-1"	
-	$l	float	1.171875	
-	$lamb	float	0.0006	
-	$max_period_on_mirror	float	2.4	
-	$mean_period_on_mirror	float	1.9290423861852	
-	$min_period_on_mirror	float	1.6125984251969	
-	$order	string	"1"	
-	$phs	float	0.25	
-	$r	float	25	
-	$ref_zon	float	0.75	
-	$required_spacing	float	0.0244140625	
-	$slit_size	string	".1"	
+	$ERRLIM	float	0.001
+	$R	string	"400"
+	$SCALE	float	2.8346456692913
+	$STEP_SIZE	float	1
+	$a	float	0.1244140625
+	$center	float	0.8503937007874
+	$deviation	float	-0.63578287760417
+	$diam	string	"50"
+	$k	string	"-1"
+	$l	float	1.171875
+	$lamb	float	0.0006
+	$max_period_on_mirror	float	2.4
+	$mean_period_on_mirror	float	1.9290423861852
+	$min_period_on_mirror	float	1.6125984251969
+	$order	string	"1"
+	$phs	float	0.25
+	$r	float	25
+	$ref_zon	float	0.75
+	$required_spacing	float	0.0244140625
+	$slit_size	string	".1"
 	*/
 
 	QUnit.test('calcParms', assert => {
 		var allowedError = 0.0000000000001,
 		    expected = {
 				mirrorRadiusMm: 25,
-				l: 1.171875, 
+				l: 1.171875,
 				requiredSpacing: 0.0244140625,
-				a: 0.1244140625, 
+				a: 0.1244140625,
 				mirrorMeanPeriod: 1.9290423861852,
 				mirrorMaxPeriod: 2.4,
 				mirrorMinPeriod: 1.6125984251969,
@@ -79,11 +79,11 @@
 		assert.equal(withinRange(parms.requiredSpacing, expected.requiredSpacing, allowedError), true, 'requiredSpacing should be ' + expected.requiredSpacing + ', is ' + parms.requiredSpacing);
 		assert.equal(withinRange(parms.a, expected.a, allowedError), true, 'a (diffraction order separation in mm) should be ' + expected.a + ', is ' + parms.a);
 		assert.equal(withinRange(parms.mirrorMeanPeriod, expected.mirrorMeanPeriod, allowedError), true, 'mirrorMeanPeriod should be ' + expected.mirrorMeanPeriod + ', is ' + parms.mirrorMeanPeriod);
-		assert.equal(withinRange(parms.mirrorMaxPeriod, expected.mirrorMaxPeriod, allowedError), true, 'mirrorMaxPeriod should be ' + expected.mirrorMaxPeriod + ', is ' + parms.mirrorMaxPeriod);	
-		assert.equal(withinRange(parms.mirrorMinPeriod, expected.mirrorMinPeriod, allowedError), true, 'mirrorMinPeriod should be ' + expected.mirrorMinPeriod + ', is ' + parms.mirrorMinPeriod);	
-		assert.equal(withinRange(parms.deviation, expected.deviation, allowedError), true, ' deviation should be ' + expected.deviation + ', is ' + parms.deviation);	
+		assert.equal(withinRange(parms.mirrorMaxPeriod, expected.mirrorMaxPeriod, allowedError), true, 'mirrorMaxPeriod should be ' + expected.mirrorMaxPeriod + ', is ' + parms.mirrorMaxPeriod);
+		assert.equal(withinRange(parms.mirrorMinPeriod, expected.mirrorMinPeriod, allowedError), true, 'mirrorMinPeriod should be ' + expected.mirrorMinPeriod + ', is ' + parms.mirrorMinPeriod);
+		assert.equal(withinRange(parms.deviation, expected.deviation, allowedError), true, ' deviation should be ' + expected.deviation + ', is ' + parms.deviation);
 	});
-			
+
 	/* from php:
 	Results
 	Diffraction order m=	1
@@ -98,16 +98,16 @@
 	Deviation from sphere (lambda)	-0.63578287760417
 	Wavelength and tolerance, PV=lambda/10 (nm)	600 +- 47.18592
 	*/
-	QUnit.test('buildContentPreamble', assert => {
-		var expected = "<h3>Results</h3><table><tr><td>Diffraction order m</td><td>1</td></tr><tr><td>Mirror diameter (mm)</td><td>50</td></tr><tr><td>Mirror radius of curvature (mm)</td><td>400</td></tr><tr><td>Conic</td><td>-1<br><tr><td>Wavelength (nm)</td><td>600</td></tr><tr><td>Diffraction order separation (mm)</td><td>0.1244140625</td></tr><tr><td>Max slit size (mm)</td><td>0.1</td></tr><tr><td>Resolution on mirror,max period (mm)</td><td>2.4</td></tr><tr><td>min period (mm)</td><td>1.6125984251968504</td></tr><tr><td>Deviation from sphere (lambda)</td><td>-0.6357828776041664</td></tr><tr><td>Wavelength and tolerance, PV = lambda/10 (nm)</td><td>600 +- 47.18592000000002</td></tr></table>";
+	QUnit.test('buildContentPreambleFull', assert => {
+		var expected = "<h3>Results</h3><table><tr><td>Diffraction order m<td>1<tr><td>Mirror diameter (mm)<td>50<tr><td>Mirror radius of curvature (mm)<td>400<tr><td>Conic<td>-1<br><tr><td>Wavelength (nm)<td>600<tr><td>Diffraction order separation (mm)<td>0.1244140625<tr><td>Max slit size (mm)<td>0.1<tr><td>Resolution on mirror, max period (mm)<td>2.4<tr><td> &nbsp; &nbsp; &nbsp; &nbsp; min period (mm)<td>1.6125984251968504<tr><td>Deviation from sphere (lambda)<td>-0.6357828776041664<tr><td>Wavelength and tolerance, PV = lambda/10 (nm)<td>600 +- 47.18592000000002</table>";
 
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
-		buildContentPreamble();
+		buildContentPreambleFull();
 
 		assert.equal(output.parms, expected, 'content preamble is ' + output.parms + ' should be ' + expected);
 	});
-	
+
 	/*
 	%!PS-Adobe-2.0 EPSF-1.2
 	%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels
@@ -132,7 +132,7 @@
 	/xdef {exch def} bdef
 	% graphic state operators
 	/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef
-	/_k /setmybcolor where {/setcmybcolor get} 
+	/_k /setmybcolor where {/setcmybcolor get}
 		{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def
 	/g {/_b xdef /p {_b setgray} def} bdef
 	/G {/_B xdef /P {_B setgray} def} bdef
@@ -163,9 +163,9 @@
 		/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966
 		_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]
 		e _f t T grestore} if} bdef
-	/_fill {{fill} stopped {/_e [pathbbox] def /_f 
+	/_fill {{fill} stopped {/_e [pathbbox] def /_f
 		(ERROR: can't fill, increase flatness) def n _E} if} bdef
-	/_stroke {{stroke} stopped {/_e [pathbbox] def /_f 
+	/_stroke {{stroke} stopped {/_e [pathbbox] def /_f
 		(ERROR: can't stroke, increase flatness) def n _E} if} bdef
 	% path painting operators
 	/n /newpath ldef
@@ -178,15 +178,15 @@
 	/b {closepath B} bdef
 	% text block construction and painting operators
 	/_s /ashow /def
-	/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint 
-		_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall 
+	/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint
+		_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall
 		pop pop pop n} bdef
 	/_A {_a moveto _t exch 0 exch} bdef
 	/_L {0 _l neg translate _G currentmatrix pop} bdef
 	/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef
-	/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} 
+	/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div}
 		{dup _w exch neg exch neg}] bdef
-	/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont 
+	/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont
 		setfont} bdef
 	/_g matrix def
 	/_G matrix def
@@ -200,11 +200,11 @@
 	/u {} bdef
 	/U {} bdef
 	% font construction operators
-	/Z {{findfont begin 
-			currentdict dup length dict begin 
+	/Z {{findfont begin
+			currentdict dup length dict begin
 				1 index /FID ne {def} {pop pop} ifelse
-		} forall 
-		FontName exch def dup length 0 ne 
+		} forall
+		FontName exch def dup length 0 ne
 		{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq
 		{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop
 		currentdict dup end end /FontName get exch definefont pop} bdef
@@ -221,10 +221,10 @@
 	0 J
 	0 w
 	0.000 0.000 0.000 1.000 k
-	*/	
+	*/
 	QUnit.test('generateEPSfileHeader', assert => {
-		var result, 
-		    expected = 
+		var result,
+		    expected =
 			'%!PS-Adobe-2.0 EPSF-1.2' + '\n' +
 			'%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels' + '\n' +
 			'%%Title:HoloMask' + '\n' +
@@ -249,7 +249,7 @@
 			'% graphic state operators' + '\n' +
 			'/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef' + '\n' +
 			'/_k /setmybcolor where {/setcmybcolor get} ' + '\n' +
-			'	{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def' + '\n' +
+			'   {{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def' + '\n' +
 			'/g {/_b xdef /p {_b setgray} def} bdef' + '\n' +
 			'/G {/_B xdef /P {_B setgray} def} bdef' + '\n' +
 			'/k {/_b xdef /_y xdef /_m xdef /_c xdef /p {_c _m _y _b _k} def} bdef' + '\n' +
@@ -276,13 +276,13 @@
 			'% error operators' + '\n' +
 			'/_e [] def' + '\n' +
 			'/_E {_e length 0 ne {gsave 0 g 0 G 0 i 0 J 0 j 1 w 10 M [] 0 d' + '\n' +
-			'	/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966' + '\n' +
-			'	_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]' + '\n' +
-			'	e _f t T grestore} if} bdef' + '\n' +
+			'   /Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966' + '\n' +
+			'   _e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]' + '\n' +
+			'   e _f t T grestore} if} bdef' + '\n' +
 			'/_fill {{fill} stopped {/_e [pathbbox] def /_f ' + '\n' +
-			'	(ERROR: cannot fill, increase flatness) def n _E} if} bdef' + '\n' +
+			'   (ERROR: cannot fill, increase flatness) def n _E} if} bdef' + '\n' +
 			'/_stroke {{stroke} stopped {/_e [pathbbox] def /_f ' + '\n' +
-			'	(ERROR: cannot stroke, increase flatness) def n _E} if} bdef' + '\n' +
+			'   (ERROR: cannot stroke, increase flatness) def n _E} if} bdef' + '\n' +
 			'% path painting operators' + '\n' +
 			'/n /newpath ldef' + '\n' +
 			'/N /n ldef' + '\n' +
@@ -295,15 +295,15 @@
 			'% text block construction and painting operators' + '\n' +
 			'/_s /ashow /def' + '\n' +
 			'/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint ' + '\n' +
-			'	_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall ' + '\n' +
-			'	pop pop pop n} bdef' + '\n' +
+			'   _g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall ' + '\n' +
+			'   pop pop pop n} bdef' + '\n' +
 			'/_A {_a moveto _t exch 0 exch} bdef' + '\n' +
 			'/_L {0 _l neg translate _G currentmatrix pop} bdef' + '\n' +
 			'/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef' + '\n' +
 			'/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} ' + '\n' +
-			'	{dup _w exch neg exch neg}] bdef' + '\n' +
+			'   {dup _w exch neg exch neg}] bdef' + '\n' +
 			'/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont ' + '\n' +
-			'	setfont} bdef' + '\n' +
+			'   setfont} bdef' + '\n' +
 			'/_g matrix def' + '\n' +
 			'/_G matrix def' + '\n' +
 			'/_D {_g currentmatrix pop gsave concat _G currentmatrix pop} bdef' + '\n' +
@@ -317,14 +317,14 @@
 			'/U {} bdef' + '\n' +
 			'% font construction operators' + '\n' +
 			'/Z {{findfont begin ' + '\n' +
-			'		currentdict dup length dict begin ' + '\n' +
-			'			1 index /FID ne {def} {pop pop} ifelse' + '\n' +
-			'	} forall ' + '\n' +
-			'	FontName exch def dup length 0 ne ' + '\n' +
-			'	{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq' + '\n' +
-			'	{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop' + '\n' +
-			'	currentdict dup end end /FontName get exch definefont pop} bdef' + '\n' +
-			'	end' + '\n' +
+			'       currentdict dup length dict begin ' + '\n' +
+			'           1 index /FID ne {def} {pop pop} ifelse' + '\n' +
+			'   } forall ' + '\n' +
+			'   FontName exch def dup length 0 ne ' + '\n' +
+			'   {/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq' + '\n' +
+			'   {/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop' + '\n' +
+			'   currentdict dup end end /FontName get exch definefont pop} bdef' + '\n' +
+			'   end' + '\n' +
 			'%%EndProcSet' + '\n' +
 			'%%EndProlog' + '\n' +
 			'%%BeginSetup' + '\n' +
@@ -370,7 +370,7 @@
 	/xdef {exch def} bdef
 	% graphic state operators
 	/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef
-	/_k /setmybcolor where {/setcmybcolor get} 
+	/_k /setmybcolor where {/setcmybcolor get}
 		{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def
 	/g {/_b xdef /p {_b setgray} def} bdef
 	/G {/_B xdef /P {_B setgray} def} bdef
@@ -401,9 +401,9 @@
 		/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966
 		_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]
 		e _f t T grestore} if} bdef
-	/_fill {{fill} stopped {/_e [pathbbox] def /_f 
+	/_fill {{fill} stopped {/_e [pathbbox] def /_f
 		(ERROR: cannot fill, increase flatness) def n _E} if} bdef
-	/_stroke {{stroke} stopped {/_e [pathbbox] def /_f 
+	/_stroke {{stroke} stopped {/_e [pathbbox] def /_f
 		(ERROR: cannot stroke, increase flatness) def n _E} if} bdef
 	% path painting operators
 	/n /newpath ldef
@@ -416,15 +416,15 @@
 	/b {closepath B} bdef
 	% text block construction and painting operators
 	/_s /ashow /def
-	/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint 
-		_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall 
+	/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint
+		_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall
 		pop pop pop n} bdef
 	/_A {_a moveto _t exch 0 exch} bdef
 	/_L {0 _l neg translate _G currentmatrix pop} bdef
 	/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef
-	/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} 
+	/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div}
 		{dup _w exch neg exch neg}] bdef
-	/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont 
+	/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont
 		setfont} bdef
 	/_g matrix def
 	/_G matrix def
@@ -438,11 +438,11 @@
 	/u {} bdef
 	/U {} bdef
 	% font construction operators
-	/Z {{findfont begin 
-			currentdict dup length dict begin 
+	/Z {{findfont begin
+			currentdict dup length dict begin
 				1 index /FID ne {def} {pop pop} ifelse
-		} forall 
-		FontName exch def dup length 0 ne 
+		} forall
+		FontName exch def dup length 0 ne
 		{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq
 		{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop
 		currentdict dup end end /FontName get exch definefont pop} bdef
@@ -2649,7 +2649,7 @@
 	*/
 	QUnit.test('fringes', assert => {
 		var result,
-		    expected = 
+		    expected =
 		'%!PS-Adobe-2.0 EPSF-1.2\n' +
 		'%%Creator:Mauritz Andersson, HoloMask; JavaScript port by Mel Bartels\n' +
 		'%%Title:HoloMask\n' +
@@ -2674,7 +2674,7 @@
 		'% graphic state operators\n' +
 		'/_K {3 index add neg dup 0 lt {pop 0} if 3 1 roll} bdef\n' +
 		'/_k /setmybcolor where {/setcmybcolor get} \n' +
-		'	{{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def\n' +
+		'   {{1 sub 4 1 roll _K _K _K setrgbcolor pop} bind} ifelse def\n' +
 		'/g {/_b xdef /p {_b setgray} def} bdef\n' +
 		'/G {/_B xdef /P {_B setgray} def} bdef\n' +
 		'/k {/_b xdef /_y xdef /_m xdef /_c xdef /p {_c _m _y _b _k} def} bdef\n' +
@@ -2701,13 +2701,13 @@
 		'% error operators\n' +
 		'/_e [] def\n' +
 		'/_E {_e length 0 ne {gsave 0 g 0 G 0 i 0 J 0 j 1 w 10 M [] 0 d\n' +
-		'	/Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966\n' +
-		'	_e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]\n' +
-		'	e _f t T grestore} if} bdef\n' +
+		'   /Courier 20 0 0 1 z [0.966 0.259 -0.259 0.966\n' +
+		'   _e 0 get _e 2 get add 2 div _e 1 get _e 3 get add 2 div]\n' +
+		'   e _f t T grestore} if} bdef\n' +
 		'/_fill {{fill} stopped {/_e [pathbbox] def /_f \n' +
-		'	(ERROR: cannot fill, increase flatness) def n _E} if} bdef\n' +
+		'   (ERROR: cannot fill, increase flatness) def n _E} if} bdef\n' +
 		'/_stroke {{stroke} stopped {/_e [pathbbox] def /_f \n' +
-		'	(ERROR: cannot stroke, increase flatness) def n _E} if} bdef\n' +
+		'   (ERROR: cannot stroke, increase flatness) def n _E} if} bdef\n' +
 		'% path painting operators\n' +
 		'/n /newpath ldef\n' +
 		'/N /n ldef\n' +
@@ -2720,15 +2720,15 @@
 		'% text block construction and painting operators\n' +
 		'/_s /ashow /def\n' +
 		'/_S {(?) exch {2 copy 0 exch put pop dup false charpath currentpoint \n' +
-		'	_g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall \n' +
-		'	pop pop pop n} bdef\n' +
+		'   _g setmatrix _stroke _G setmatrix moveto 3 copy pop rmoveto} forall \n' +
+		'   pop pop pop n} bdef\n' +
 		'/_A {_a moveto _t exch 0 exch} bdef\n' +
 		'/_L {0 _l neg translate _G currentmatrix pop} bdef\n' +
 		'/_w {dup stringwidth exch 3 -1 roll length 1 sub _t mul add exch} bdef\n' +
 		'/_z [{0 0} {dup _w exch neg 2 div exch neg 2 div} \n' +
-		'	{dup _w exch neg exch neg}] bdef\n' +
+		'   {dup _w exch neg exch neg}] bdef\n' +
 		'/z {_z exch get /_a xdef /_t xdef /_l xdef exch findfont exch scalefont \n' +
-		'	setfont} bdef\n' +
+		'   setfont} bdef\n' +
 		'/_g matrix def\n' +
 		'/_G matrix def\n' +
 		'/_D {_g currentmatrix pop gsave concat _G currentmatrix pop} bdef\n' +
@@ -2742,14 +2742,14 @@
 		'/U {} bdef\n' +
 		'% font construction operators\n' +
 		'/Z {{findfont begin \n' +
-		'		currentdict dup length dict begin \n' +
-		'			1 index /FID ne {def} {pop pop} ifelse\n' +
-		'	} forall \n' +
-		'	FontName exch def dup length 0 ne \n' +
-		'	{/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq\n' +
-		'	{/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop\n' +
-		'	currentdict dup end end /FontName get exch definefont pop} bdef\n' +
-		'	end\n' +
+		'       currentdict dup length dict begin \n' +
+		'           1 index /FID ne {def} {pop pop} ifelse\n' +
+		'   } forall \n' +
+		'   FontName exch def dup length 0 ne \n' +
+		'   {/Encoding Encoding 256 array copy def 0 exch {dup type /nametype eq\n' +
+		'   {/Encoding 2 index 2 index put pop 1 add} {exch pop} ifelse} forall} if pop\n' +
+		'   currentdict dup end end /FontName get exch definefont pop} bdef\n' +
+		'   end\n' +
 		'%%EndProcSet\n' +
 		'%%EndProlog\n' +
 		'%%BeginSetup\n' +
@@ -4948,46 +4948,49 @@
 		'f\n' +
 		'\n' +
 		'%%Trailer\n' +
-		'_E end\n';
+		'_E end\n',
+		decimalPrecision = 2;
 
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
 		generateEPSfileHeader();
-		buildContentPreamble();
-		fringes();
+		buildContentPreambleFull();
+		fringes(decimalPrecision);
 		addCenterSpotAndFooter();
 
 		result = output.fileContents;
 		assert.equal(result, expected, 'result is ' + result + ' should be ' + expected);
 		// save MLB.holomaskLib.output.fileContents to a file, *.eps, then convert to Adobe PDF to view/print or go online http://convertepstojpg.com/
-	});	
+	});
 
 	QUnit.test('fringe count', assert => {
 		var result,
-		    expected = '<table><tr><td>Number of fringes</td><td>25</td></tr></table>';
+		    expected = '<table><tr><td>Number of fringes</td><td>25</td></tr></table>',
+			decimalPrecision = 2;
 
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
 		generateEPSfileHeader();
-		buildContentPreamble();
-		fringes();
+		buildContentPreambleFull();
+		fringes(decimalPrecision);
 		addCenterSpotAndFooter();
 
 		result = output.fringeCount;
 		assert.equal(result, expected, 'result is ' + result + ' should be ' + expected);
 	});
-	
+
 	QUnit.test('extractGraphics', assert => {
 		var result,
-		    expected;
+		    expected,
+			decimalPrecision = 2;;
 
 		setInputParms(1, 50, 400, -1, 600 * 1e-6, 0.1);
 		calcParms();
 		generateEPSfileHeader();
-		buildContentPreamble();
-		fringes();
+		buildContentPreambleFull();
+		fringes(decimalPrecision);
 		addCenterSpotAndFooter();
-		
+
 		extractGraphics();
 
 		result = output.graphicLines.length;
@@ -5000,13 +5003,13 @@
 
 		result = output.graphicLines[2157];
 		expected = '135.62 63.78 l';
-		assert.equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);		
+		assert.equal(result, expected, 'graphicLines 1st line is ' + result + ' should be ' + expected);
 
 		result = output.graphicLines[output.graphicLines.length - 1];
 		expected = 'f';
 		assert.equal(result, expected, 'graphicLines last line is ' + result + ' should be ' + expected);
 	});
-	
+
 });
 
 </script>

@@ -13,13 +13,13 @@
 <div id="intro">
 	<h3>Holomask Calculator</h3>
 
-	<p>The holographic Foucault null test is a Foucault null test that uses a computer generated holographic mask in front of the mirror. 
-	 
-	<p>Mauritz Andersson has developed the ground-breaking mirror test at <a href="http://xiluma.se/holomask/">http://xiluma.se/holomask/</a>. He's made the source code open source under the MIT License at <a href="https://github.com/ztiruam/holomask">https://github.com/ztiruam/holomask</a>. 
-	 
-	<p>Mauritz's application requires access to a server running PHP. I determined to write a version in JavaScript that calculates the holomask entirely in the browser. 
-	 
-	<p>For information on the test itself, please see Mauritz's webpage. And thanks to Mauritz for making the code open source. 
+	<p>The holographic Foucault null test is a Foucault null test that uses a computer generated holographic mask in front of the mirror.
+
+	<p>Mauritz Andersson has developed the ground-breaking mirror test at <a href="http://xiluma.se/holomask/">http://xiluma.se/holomask/</a>. He's made the source code open source under the MIT License at <a href="https://github.com/ztiruam/holomask">https://github.com/ztiruam/holomask</a>.
+
+	<p>Mauritz's application requires access to a server running PHP. I determined to write a version in JavaScript that calculates the holomask entirely in the browser.
+
+	<p>For information on the test itself, please see Mauritz's webpage. And thanks to Mauritz for making the code open source.
 </div>
 
 <div style='float:left;'>
@@ -27,26 +27,29 @@
 	<table>
 	<tbody>
 	<tr>
-		<td class='label'> Diffraction order =		 
+		<td class='label'> Diffraction order =
 		<td> <input class='inputText' name="diffractionOrder" value="1" onfocus="select()" type="text">
 	<tr>
-		<td class='label'> Mirror diameter (mm) =		 
+		<td class='label'> Mirror diameter (mm) =
 		<td> <input class='inputText' name="mirrorDiameterMm" value="50" onfocus="select()" type="text">
 	<tr>
-		<td class='label'> Radius of curvature (mm) =		 
+		<td class='label'> Radius of curvature (mm) =
 		<td> <input class='inputText' name="radiusCurvatureMm" value="400" onfocus="select()" type="text">
 	<tr>
-		<td class='label'> Conic (-1 parabola) =		 
+		<td class='label'> Conic (-1 parabola) =
 		<td> <input class='inputText' name="conic" value="-1" onfocus="select()" type="text">
 	<tr>
-		<td class='label'> Wavelength (nm) =		 
+		<td class='label'> Wavelength (nm) =
 		<td> <input class='inputText' name="wavelengthNm" value="600" onfocus="select()" type="text">
 	<tr>
-		<td class='label'> Max slit size (mm) =		 
+		<td class='label'> Max slit size (mm) =
 		<td> <input class='inputText' name="slitSizeMm" value="0.1" onfocus="select()" type="text">
 	<tr>
-		<td class='label'> Canvas size below =		 
+		<td class='label'> Canvas size below =
 		<td> <input class='inputText' name="canvasSize" value="800" onfocus="select()" type="text">
+	<tr>
+		<td class='label'> Decimal precision (eps file) =
+		<td> <input class='inputText' name="decimalPrecision" value="4" onfocus="select()" type="text">
 	</tbody>
 	</table>
 	<br>
@@ -72,7 +75,7 @@
 </div>
 
 <div>
-	<p>Notes: 
+	<p>Notes:
 	<p>I applied minimal refracting, mainly namespaces and scope, mirroring Mauritz's PHP code as much as possible. This helps others understand my port, helps with debugging and will help when updating the JS code when the PHP side changes.
 	<p>Mel Bartels, 2015
 	<br>
