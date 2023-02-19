@@ -17,24 +17,21 @@
 	<table>
 	<tbody id='menuTable'>
 		<tr>
-			<td><a href='#aboutTheRonchi'>About the Ronchi test</a></td>
-			<td><a href='#mirrorQualityStandard'>Mirror quality</a></td>
-			<td><a href='#SchultzReich'>Dr Sherman Schultz, Dennis Reich</a></td>
-			<td><a href='#generalComments'>General comments</a></td>
-			<td><a href='#TDE'>Turned edge</a></td>
-			<td><a href='#atTheFocuser'>At the focuser</a></td>
-		</tr>
+			<td><a href='#aboutTheRonchi'>About the Ronchi test</a>
+			<td><a href='#mirrorQualityStandard'>Mirror quality</a>
+			<td><a href='#SchultzReich'>Dr Sherman Schultz, Dennis Reich</a>
+			<td><a href='#generalComments'>General comments</a>
+			<td><a href='#TDE'>Turned edge</a>
+			<td><a href='#atTheFocuser'>At the focuser</a>
 		<tr>
-			<td><a href='#pitfalls'>Pitfalls</a></td>
-			<td><a href='#myInteractiveExamples'>Interactive examples</a></td>
-			<td><a href='#examples'>Examples</a></td>
-			<td><a href='#MatchingRonchiTape'>Matching Ronchi tape test</a></td>
-			<td><a href='#using'>Ronchi testing while parabolizing</a></td>
-			<td><a href='#IFcomparison'>Comparison with interferometry</a></td>
-		</tr>
+			<td><a href='#pitfalls'>Pitfalls</a>
+			<td><a href='#myInteractiveExamples'>Interactive examples</a>
+			<td><a href='#examples'>Examples</a>
+			<td><a href='#MatchingRonchiTape'>Matching Ronchi tape test</a>
+			<td><a href='#using'>Ronchi testing while parabolizing</a>
+			<td><a href='#IFcomparison'>Comparison with interferometry</a>
 		<tr>
-			<td><a href='#tester'>The tester</a></td>
-		</tr>
+			<td><a href='#tester'>The tester</a>
 	</tbody>
 	</table>
 </div>
@@ -44,7 +41,6 @@
         <tr>
             <td class='label'>
                  Mirror diameter =
-            </td>
             <td>
                 <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
 				&nbsp;&nbsp; Mirror radius of curvature =
@@ -55,12 +51,9 @@
 				<input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
 				&nbsp;&nbsp; Central obstruction =
 				<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
-            </td>
-        </tr>
         <tr>
             <td class='label'>
                  Grating frequency (lines per unit of measurement) =
-            </td>
             <td>
                 <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
                 &nbsp;&nbsp; Grating offsets from radius of curvature =
@@ -69,19 +62,13 @@
                 <input id='btnIncreaseGratingOffsets' value='+' type='button'>
                 <input id='btnDecreaseGratingOffsets' value='-' type='button'>
                 <input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
-            </td>
-        </tr>
 		<tr>
             <td class='label'>
                  Parabolic correction =
-            </td>
 			<td><input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
-            </td>
-		</tr>
         <tr>
             <td class='label'>
                  Ronchigram size in pixels =
-            </td>
             <td>
                 <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
 				&nbsp;&nbsp; Border size =
@@ -91,20 +78,18 @@
 				&nbsp;&nbsp; Invert bands?
 				<input name='invertBands' value='yes' type='radio'>yes
 				<input name='invertBands' value='no' type='radio'>no
-            </td>
-        </tr>
+				&nbsp;&nbsp; Ronchi tape?
+				<input name='RonchiTape' value='yes' type='radio'>yes
+				<input name='RonchiTape' value='no' type='radio'>no
         <tr>
             <td class='label'>
 				Ruler =
-            </td>
             <td>
 				<input name='btnDrawRuler' value='none' type='radio'>none
 				<input name='btnDrawRuler' value='zonal' type='radio'>zonal
 				<input name='btnDrawRuler' value='uomCenter' type='radio'>center
 				<input name='btnDrawRuler' value='uomEdge' type='radio'>edge
 				<input name='btnDrawRuler' value='zones307093' type='radio'>30/70/93% zones
-            </td>
-        </tr>
     </tbody>
     </table>
 
@@ -141,8 +126,6 @@
     <tbody>
         <tr>
             <td id='waveNotes'>
-            </td>
-        </tr>
     </tbody>
     </table>
 </div>
@@ -261,13 +244,13 @@
 
     <p>He lists the following advantages of the Ronchi test.
     <ol>
-        <li>Ease of interpretation. Leads to confidence which leads to a better mirror surface. Getting mired down in numbers, spreadsheets and equipment adjustments just isn't confidence inspiring.</li>
-        <li>His students made 275 mirrors. Not a single student gave up or quit. Testing can be the point of failure for telescope makers. But not with the Ronchi test.</li>
-        <li>The Ronchi test is sensitive enough to distinguish between excellent, good, fair and poor. Every little irregularity is seen. It doesn't matter if the error is 1/6 or 1/8 wave - you don't need to know the magnitude of the error. A drowning person doesn't need to know how deep the water is once he is in over his head. He just needs to know how to swim.</li>
-        <li>You work until the curves match. The curves are not a mysterious table of numbers or a grid of coefficients. You can see the perfect simulated curve; remember it in your mind's eye. Each mirror diameter and focal length combination has its own curves (and for that matter, its own set of Foucault zonal measurements).</li>
-        <li>You can easily detect, better than any other test, the most common issue, that of turned edge. And the next most common issue, zonal roughness.</li>
-        <li>The student immediately recognizes the overall curve as compared to the sphere. The correct corrective action is quickly devised. There is no plotting of the mirror profile as reconstituted from zonal measurements, which by the way, misses issues between the arbitrarily designated zones.</li>
-        <li>The test image is bright. The Ronchi test can be used in an ordinarily lit room in daytime. It's easy to setup, easy to see, easy to understand.</li>
+        <li>Ease of interpretation. Leads to confidence which leads to a better mirror surface. Getting mired down in numbers, spreadsheets and equipment adjustments just isn't confidence inspiring.
+        <li>His students made 275 mirrors. Not a single student gave up or quit. Testing can be the point of failure for telescope makers. But not with the Ronchi test.
+        <li>The Ronchi test is sensitive enough to distinguish between excellent, good, fair and poor. Every little irregularity is seen. It doesn't matter if the error is 1/6 or 1/8 wave - you don't need to know the magnitude of the error. A drowning person doesn't need to know how deep the water is once he is in over his head. He just needs to know how to swim.
+        <li>You work until the curves match. The curves are not a mysterious table of numbers or a grid of coefficients. You can see the perfect simulated curve; remember it in your mind's eye. Each mirror diameter and focal length combination has its own curves (and for that matter, its own set of Foucault zonal measurements).
+        <li>You can easily detect, better than any other test, the most common issue, that of turned edge. And the next most common issue, zonal roughness.
+        <li>The student immediately recognizes the overall curve as compared to the sphere. The correct corrective action is quickly devised. There is no plotting of the mirror profile as reconstituted from zonal measurements, which by the way, misses issues between the arbitrarily designated zones.
+        <li>The test image is bright. The Ronchi test can be used in an ordinarily lit room in daytime. It's easy to setup, easy to see, easy to understand.
     </ol>
 
     <h4>Dennis Rech's comments, inventor of the Mirror-O-Matic mirror grinding machine</h4>
@@ -292,15 +275,9 @@
 
     <p>The three levels of comparisons are:<br>
         <ol>
-            <li>
-                A quick comparison reveals the overall shape and gross errors of the mirror's surface, e.g., is it an oblate spheroid, a paraboloid or a turned edge?
-            </li>
-            <li>
-                A careful side by side comparison reveals zonal errors, i.e., zones of the mirror that are a little high (underparabolized) or a little low (overparabolized).
-            </li>
-            <li>
-                Layering the actual Ronchigram with the theoretical Ronchigram reveals subtle errors.
-            </li>
+            <li>A quick comparison reveals the overall shape and gross errors of the mirror's surface, e.g., is it an oblate spheroid, a paraboloid or a turned edge?            
+            <li>A careful side by side comparison reveals zonal errors, i.e., zones of the mirror that are a little high (underparabolized) or a little low (overparabolized).
+            <li>Layering the actual Ronchigram with the theoretical Ronchigram reveals subtle errors.            
         </ol>
         Here's a quick comparison image showing a turned down edge in a 6 inch [15cm] F2.8 that's being returned to spherical after the initial parabolization attempt:<br>
         <img alt='' loading='lazy' src='JoyOfMirrorMaking/6 inch session q.jpg' class='smallImage'><br>
@@ -342,11 +319,10 @@
 
 	<p>In some situations diffraction effects can be annoying, even obscuring results. You can<br>
 		<ul>
-			<li>Find a grating that suppresses the diffraction effects</li>
-			<li>Use the grating at a Talbot position</li>
-			<li>Study the diffraction pattern itself, which can reveal subtle zones</li>
+			<li>Find a grating that suppresses the diffraction effects
+			<li>Use the grating at a Talbot position
+			<li>Study the diffraction pattern itself, which can reveal subtle zones
 		</ul>
-	
 
     <h4>The dynamic Ronchi</h4>
 
