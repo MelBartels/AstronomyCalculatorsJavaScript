@@ -16,8 +16,6 @@
 	<p>The holographic Foucault null test is a Foucault null test that uses a computer generated holographic mask in front of the mirror.
 
 	<p>Mauritz Andersson developed the mirror test at <a href="http://xiluma.se/holomask/">http://xiluma.se/holomask/</a>. He's made the source code open source under the MIT License at <a href="https://github.com/ztiruam/holomask">https://github.com/ztiruam/holomask</a>. Mauritz's application requires access to a server running PHP. I determined to write a version in JavaScript that calculates the holomask entirely in the browser. For information on the test itself, please see Mauritz's webpage. And thanks to Mauritz for making the code open source.
-
-	<p>Steve Koehler wrote in 2007 that the holographic mask is an interferogram of a perfect optic. Just like with interferometry you can arbitrarily change tilt (number of fringes) and defocus. To pick the tilt, balance the separation of the diffraction orders against the difficulty in cutting out too fine a fringe pattern. Defocus moves the diffraction orders back and forth perpendicular to the focal plane. To null out spherical aberration, increase diffraction order separation by including a little defocus.
 </div>
 
 <div style='float:left;'>
@@ -74,11 +72,30 @@
 </div>
 
 <div>
-	<p>Notes:
-	<p>I applied minimal refracting, mainly namespaces and scope, mirroring Mauritz's PHP code as much as possible. This helps others understand my port, helps with debugging and will help when updating the JS code when the PHP side changes.
-	<p>Mel Bartels, 2015
-	<br>
-	<br>
+	<h4>Notes:</h4>
+
+	<p>I applied minimal refracting, mainly namespaces and scope, mirroring Mauritz's PHP code as much as possible. This helps others understand my port, helps with debugging and will help when updating the JS code when the PHP side changes. Mel Bartels, 2015
+
+	<p>Steve Koehler wrote in 2007 that the holographic mask is an interferogram of a perfect optic. Just like with interferometry you can arbitrarily change tilt (number of fringes) and defocus. To pick the tilt, balance the separation of the diffraction orders against the difficulty in cutting out too fine a fringe pattern. Defocus moves the diffraction orders back and forth perpendicular to the focal plane. To null out spherical aberration, increase diffraction order separation by including a little defocus.
+
+	<h4>A note from Mauritz Andersson</h4>
+
+	<p>## Grating explanation
+
+	<p>- Basics: Light can be considered a wave with a specific wavelength. Two waves hitting the same spot in space will be added together to increase intensity (in phase, constructive interference) or to decrease intensity (out of phase, destructive interference). Thus for two waves it does not really matter when the difference in their path lengths changes by exactly a multiple of a wavelength, the final intensity will be the same.
+
+	<p>- Grating: If you have a planar mirror covered by periodic straight stripes with transmission/block, the regular reflection is still there, same path length difference as before. But now you can also have the case that each transmission strip can add one wave of path difference compared to its neighbor to one side. When all transmission strips do this a reflection will occur as again all waves will be in phase and add constructively. This corresponds to a planar tilted wavefront compared to the direct reflected wavefront. The tilt is one wavelength per period of the strips. Thus the diffraction reflection will be at an angle compared to the original mirror reflection. This tilt can in principle be any integer "m" waves per strip, what is called diffraction orders.
+
+	<p>- Holomask: If you modulate the grating period you introduce a varying wavefront tilt. This is the same as introducing aberration in the wavefront relative to the direct reflection. The shape of the transmission strips are such that the first order diffraction introduces an opposite spherical aberration compared to the parabolic mirror tested at RoC. Put differently, light reflected in a specific transmission strip have constant path length from a point source to a point detector. Same for the next neighbor strip but with path length increased by one wave. Thus light from all strips will interfere constructively (in phase) to form a good focus point. If we block all other diffraction order except this first order we get a Foucault null test. This is the reason why you need to use two knife edges to form a slit.
+
+	<p>## Hologram explanation.
+
+	<p>If you understand a hologram, the mask is essentially the hologram of the desired surface but with opposite sign on the aspheric surface. When illuminated by the spherical waveform from a spherical test mirror, the returning light (order m=1) is a aspheric wave. But when illuminated by the correctly aspherized test mirror the aspheric wavefront of the mirror is cancelled by the hologram aspheric waveform (m=1) to form a spherical returning wavefront. Hence the name "computer generated hologram". Holograms work by diffraction, and for a CGH with only binary levels (transmit/block) there are also other diffraction orders present. m=+-1,+-3,+-5 etc. (Even number orders are zero intensity if the stripe width of the blocking is equal to the width of the transmission.)
+
+	<p>## Higher order diffraction
+
+	<p>There will be a bit less light in the higher m=3 diffraction order, but we can also design a mask for using this higher diffraction order. There will be less strips to cut and therefore easier to make the mask for
+	faster mirrors. This is implemented as an experimental feature now at http://xiluma.se/holomask/ I have not used this myself in practice, so please try it out and see how it works!
 </div>
 
 </body>
