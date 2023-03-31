@@ -137,19 +137,21 @@
 </div>
 <div class='floatDiv'>
 	<h4>Zonal errors: manual manipulation of zones and radius of curvature offset</h4>
-	<p>Wavelength of light for your unit of measurement (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
 	   <input id='btnResetCorrectionFactors' value='Reset correction factors to 1' type='button'>
+	   <input id='btnCopyBands' value='Use Ronchi band positions' type='button'>
+	   <input id='btnResetDefaultZones' value='Reset zones to default' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
+	<p>Wavelength of light for your unit of measurement (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
 	<p>Results: <label id='zonalErrorsResultsLabel'></label>
 	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
 	<br>The correction factor is the parabolic correction required for the zone, e.g., a parabolic correction of 1.1 means that the zone is overcorrected by a factor of 1.1.
 	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk, the theoretical resolution of a mirror. The weighted ML tolerance is a measure of how well the light rays pass through the Airy Disk.
-	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#airy' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
+	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div class='floatDiv'>
 	<h4>Suggested polishing actions</h4>
@@ -182,6 +184,8 @@
     <p>Moving inside the radius of curvature is a negative offset; outside the radius of curvature is a positive offset. Inside of the radius of curvature, the bands bow outward as you center your attention to the middle of the mirror. Outside of the radius of curvature, the bands bow outward as you move your eye towards the edge of the mirror. I added an optional Ronchigram where you can compare defects like under and over correction and a low or high 70% zone. This comparison Ronchigram uses the third and last grating offset.
 
 	<p>It is important to accurately measure the clear diameter of the mirror, i.e., the reflective diameter, not the outside diameter, and to accurately measure the radius of curvature. The accuracy of the computed Ronchi bands is proportional to the mirror's clear diameter to the 4th power divided by the radius of curvature cubed.
+	
+	<p>The minimum information needed is the total number of grating lines across the aperture and the radius of curvature or focal length also in grating lines. The mirror's edges in relation to the Ronchi bands are also needed. The quality of the paraboloidal curve as denoted by the Ronchi bands can then be inspected. This is also true of other slope tests such as the Hartmann, Foucault and so forth.
 
 	<p>When close to finish, test with a second type of test. The star test and the Bath IF are excellent choices. This will confirm small errors and help weigh were the final effort should be directed.
 </div>
