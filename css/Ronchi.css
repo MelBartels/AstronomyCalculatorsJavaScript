@@ -35,6 +35,7 @@ html {
 
 #sliderOffset, #sliderZonalError {
 	width: 200px;
+	vertical-align: middle;
 }
 
 .floatDiv {
