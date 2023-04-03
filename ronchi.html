@@ -21,45 +21,43 @@
 				 Mirror diameter =
 			<td>
 				<input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Mirror radius of curvature =
+				&ensp; Mirror radius of curvature =
 				<input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Focal length =
+				&ensp; Focal length =
 				<input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Focal ratio =
+				&ensp; Focal ratio =
 				<input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Central obstruction =
+				&ensp; Central obstruction =
 				<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
 		<tr>
 			<td class='label'>
-				 Grating frequency (lines per unit of measurement) =
+				 Grating freq. (lines per unit of meas.) =
 			<td>
 				<input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Grating offsets from radius of curvature =
+				&ensp; Grating offsets from radius of curvature =
 				<input class='inputTextGratingOffsets' name='gratingOffsetSeries' value='-0.3, 0.0, 0.3, 0.6' onfocus='select()' type='text'>
 				or adjust
 				<input id='btnIncreaseGratingOffsets' value='+' type='button'>
 				<input id='btnDecreaseGratingOffsets' value='-' type='button'>
 				<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
-		<tr>
-			<td class='label'>
-				 Parabolic correction =
-			<td><input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
+				&emsp;&emsp; Parabolic correction =
+			    <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
 		<tr>
 			<td class='label'>
 				 Ronchigram size in pixels =
 			<td>
 				<input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Border size =
+				&ensp; Border size =
 				<input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Band color (R,G,B) =
+				&ensp; Band color (R,G,B) =
 				<input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-				&nbsp;&nbsp; Invert bands?
+				&ensp; Invert bands?
 				<input name='invertBands' value='yes' type='radio'>yes
 				<input name='invertBands' value='no' type='radio'>no
-				&nbsp;&nbsp;&nbsp;&nbsp; Ronchi tape?
+				&emsp; Ronchi tape?
 				<input name='RonchiTape' value='yes' type='radio'>yes
 				<input name='RonchiTape' value='no' type='radio'>no
-				&nbsp;&nbsp;&nbsp;&nbsp; Ronchi grid?
+				&emsp; Ronchi grid?
 				<input name='RonchiGrid' value='yes' type='radio'>yes
 				<input name='RonchiGrid' value='no' type='radio'>no
 		<tr>
@@ -254,7 +252,7 @@
 
 	<p>A glance reveals the overall shape and gross errors of the mirror's surface, e.g., is the edge turned? Matching the actual Ronchigram with either the Ronchi Tape Band or by copying and pasting into the webclient software reveals subtle errors.
 
-	<p>Here's a quick comparison image showing a turned down edge in a 6 inch [15cm]mirror:<br>
+	<p>Here's a quick comparison image showing a turned down edge in a 6 inch [15cm]mirror (be wary of diffraction effects at the edge; if necessary mask off a portion of the edge using blue masking tape):<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/6 inch session q.jpg' class='smallImage'><br>
 	Here's a side by side comparison revealing an overparabolized 70% zone in a 6 inch [15cm] F2.8 in the midst of parabolizing:<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/6 inch session l 1.jpg' class='smallImage'>
@@ -304,12 +302,11 @@
 
 	<p>It can be quite revealing to dynamically move the grating back and forth. Small discontinuities that can hardly be seen in the static Ronchigram reveal themselves. Astigmatism in the form of the bands twisting is seen. Be careful: the astigmatism might be in the mirror, it might be in the test stand, it might be in the air between the mirror and the tester, it might be in the grating and it might be caused by tester mis-alignment. Finally, I've seen cases where the astigmatism is caused by eyeglasses and the tester's eye; even a camera lens' distortion cause trouble. Rotate the mirror by 60 degrees and see if the twist changes (be sure to reposition the mirror back in the original orientation to reveal if the mirror is being placed on the test stand inconsistently).
 
-	<h4>Turned edge</h4>
+	<h4>The Ronchi test at the focuser</h4>
 
-	<p>Besides the bands turning in while outside the radius of curvature, you can look for a narrow bright ring at the edge like this.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi test TDE test narrow band of light.jpg'>
+	<p>The Ronchi test can be used at the telescope's focus. As such it measures the entire optical system including all optics, thermal issues and seeing conditions. This test is commonly thought to be rather crude, in that any deviation from straight bands means a significant error. Used casually such a test ferrets out poor quality mirrors that have trouble with critical high magnification planetary and lunar viewing. At focus the test is half as sensitive as at the radius of curvature or at focus with an auto-collimating flat in the shop. But under the hypothesis that it is the optician that makes the mirror, not the test, can the Ronchi test at focus be used more critically?
 
-	<p>Don't be fooled by diffraction effects at the edge that mimic sharply turning Ronchi bands. If necessary, mask off a bit of the edge to remove the diffraction effects, then test again.
+	<p>It is possible to extract critical information using a quality grating of greater than 100 lines per inch (lpi) [4 lines per millimeter] under good seeing conditions and thermally stabilized optics if the grating is slowly racked back and forth focus where one to three bands cross the illuminated disc. It is critical that the tester have experience judging how the Ronchi bands change dynamically. With care defects to 1/10 wavefront are detectable.
 
 	<h4>The Ronchi test as part of the parabolizing process</h4>
 
@@ -334,12 +331,6 @@
 		<li>Testing at the telescope's focus in place of the eyepiece is half as sensitive as testing at the radius of curvature. Detecting any curvature at focus means a poor mirror.
 	</ul>
 
-	<h4>The Ronchi test at the focuser</h4>
-
-	<p>The Ronchi test can be used at the telescope's focus. As such it measures the entire optical system including all optics, thermal issues and seeing conditions. This test is commonly thought to be rather crude, in that any deviation from straight bands means a significant error. Used casually such a test ferrets out poor quality mirrors that have trouble with critical high magnification planetary and lunar viewing. At focus the test is half as sensitive as at the radius of curvature or at focus with an auto-collimating flat in the shop. But under the hypothesis that it is the optician that makes the mirror, not the test, can the Ronchi test at focus be used more critically?
-
-	<p>It is possible to extract critical information using a quality grating of greater than 100 lines per inch (lpi) [4 lines per millimeter] under good seeing conditions and thermally stabilized optics if the grating is slowly racked back and forth focus where one to three bands cross the illuminated disc. It is critical that the tester have experience judging how the Ronchi bands change dynamically. With care defects to 1/10 wavefront are detectable.
-
 	<h4>Here are more examples</h4>
 
 	<p>My first 16 inch [41cm] F5.5 porthole plate glass mirror ~1980.<br>
@@ -353,11 +344,11 @@
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/24 inch MR.jpg' class='smallImage'>
 
 	<p>Here is an Astroscan 4 inch mirror measured to better than 1/6 wave with an interferometer. You can see that the Ronchi bands are a little too flat near the edge and a little too curved at the center.<br>
-		<img alt='' loading='lazy' src='RonchiExamples/Astroscan Matching Ronchi.jpg'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Astroscan Matching Ronchi.jpg'>
 
-	<p>Here is a 15 inch [38cm] f4.5 mirror that gives breathtaking planetary images showing an overcorrected kink in the Ronchi bands at the 80% zone and a bit of a high center. The star test is consistent. This shows that the both the Matching Ronchi and star tests are sensitive to slight, insignificant errors. The IF reports indicate a 1/5 wavefront error.<br>
-		<img alt='' loading='lazy' src='RonchiExamples/15 inch f4.5 analysis showing one-sixth wavefront.jpg'>
-		<img alt='' loading='lazy' src='RonchiExamples/15 inch f4.5 star test.jpg'>
+	<p>Here is a 15 inch [38cm] f4.5 mirror that gives breathtaking planetary images showing an overcorrected kink in the Ronchi bands at the 80% zone and a bit of a high center. Here I have adjusted the Ronchigram's bands to include the overcorrected kink. The star test is consistent. This shows that the both the Matching Ronchi and star tests are sensitive to slight, insignificant errors. The IF reports indicate a 1/5 wavefront error.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/15 inch f4.5 analysis showing one-sixth wavefront.jpg'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/15 inch f4.5 star test.jpg' class='smallImage'>
 
 	<p>Here's one of the best mirrors I've ever seen, an 8 inch [20cm] F7.5 custom mirror made by a high end optician.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Richard Fagin 8 inch F7.5 Ronchigram 84 LPI Matching Ronchi Test.jpg'>
@@ -365,9 +356,8 @@
 	<p>Here is a 24 inch F3.3 mirror made by a leading optician serving the amateur market. It is wonderfully smooth and accurate with no faults - impressive.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Kennedy 24 inch f3.3 Ronchi matching test.jpg'>
 
-	<p>Here's a 10 inch [25cm] F5 mirror (1976). Note that the mirror's bands are slightly too curved near the edge, indicating a low 90% zone with no turned edge and that the center is somewhat undercorrected. Nonetheless, this mirror proved excellent on planetary images.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 Ronchi results.png' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch F5 ronchi theoretical.png' class='smallImage'>
+	<p>Here's a 10 inch [25cm] F5 mirror (1976). Note the rolled edge. Nonetheless, this mirror proved excellent on planetary images visually and photographically.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 MR.png' class='smallImage'>
 
 	<p>Here's a 12.5 inch [32cm] F3.9 mirror made by Jerry Oltion. It gives a perfect star test with the slightest hint of a narrow turned edge (note the extremely narrow glowing ring at the top of the Ronchigrams). Jerry is using the old DOS version of my Ronchigram software.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Jerry 12.5 inch Ronchigrams Nov 2015.jpg'>
