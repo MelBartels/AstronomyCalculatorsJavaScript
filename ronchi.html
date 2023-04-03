@@ -11,75 +11,63 @@
 </head>
 <body>
 <div id='topDiv'>
-	<h2 class='title'>Ronchi Matching Test</h2>
+	<h2 class='title'>Matching Ronchi and Ronchi Tape Band Tests</h2>
 </div>
 <div>
-	<table>
-	<tbody>
-		<tr>
-			<td class='label'>
-				 Mirror diameter =
-			<td>
-				<input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-				&ensp; Mirror radius of curvature =
-				<input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-				&ensp; Focal length =
-				<input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
-				&ensp; Focal ratio =
-				<input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
-				&ensp; Central obstruction =
-				<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
-		<tr>
-			<td class='label'>
-				 Grating freq. (lines per unit of meas.) =
-			<td>
-				<input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-				&ensp; Grating offsets from radius of curvature =
-				<input class='inputTextGratingOffsets' name='gratingOffsetSeries' value='-0.3, 0.0, 0.3, 0.6' onfocus='select()' type='text'>
-				or adjust
-				<input id='btnIncreaseGratingOffsets' value='+' type='button'>
-				<input id='btnDecreaseGratingOffsets' value='-' type='button'>
-				<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
-				&emsp;&emsp; Parabolic correction =
-			    <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
-		<tr>
-			<td class='label'>
-				 Ronchigram size in pixels =
-			<td>
-				<input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
-				&ensp; Border size =
-				<input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
-				&ensp; Band color (R,G,B) =
-				<input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-				&ensp; Invert bands?
-				<input name='invertBands' value='yes' type='radio'>yes
-				<input name='invertBands' value='no' type='radio'>no
-				&emsp; Ronchi tape?
-				<input name='RonchiTape' value='yes' type='radio'>yes
-				<input name='RonchiTape' value='no' type='radio'>no
-				&emsp; Ronchi grid?
-				<input name='RonchiGrid' value='yes' type='radio'>yes
-				<input name='RonchiGrid' value='no' type='radio'>no
-		<tr>
-			<td class='label'>
-				Ruler =
-			<td>
-				<input name='btnDrawRuler' value='none' type='radio'>none
-				<input name='btnDrawRuler' value='zonal' type='radio'>zonal (25/50/75% zones)
-				<input name='btnDrawRuler' value='zones307093' type='radio'>30/70/93% zones
-				<input name='btnDrawRuler' value='uomCenter' type='radio'>center
-				<input name='btnDrawRuler' value='uomEdge' type='radio'>edge
-	</tbody>
-	</table>
-
-	<p>Save and get data to local storage
+	 Mirror diameter =
+	<input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
+	&ensp; Radius of curvature =
+	<input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
+	&ensp; Focal length =
+	<input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
+	&ensp; Focal ratio =
+	<input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
+	<br>
+	Grating freq. (lines per unit of meas.) =
+	<input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
+	&ensp; Grating offsets from radius of curvature =
+	<input class='inputTextGratingOffsets' name='gratingOffsetSeries' value='-0.3, 0.0, 0.3, 0.6' onfocus='select()' type='text'>
+	or adjust
+	<input id='btnIncreaseGratingOffsets' value='+' type='button'>
+	<input id='btnDecreaseGratingOffsets' value='-' type='button'>
+	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
+	<br>
+	 Ronchigram size in pixels =
+	<input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
+	&ensp; Border size =
+	<input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
+	&ensp; Band color (R,G,B) =
+	<input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
+	<br>
+	Parabolic correction =
+	<input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
+	&ensp; Central obstruction =
+	<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
+	<br>
+	Invert bands?
+	<input name='invertBands' value='yes' type='radio'>yes
+	<input name='invertBands' value='no' type='radio'>no
+	&emsp; Ronchi tape?
+	<input name='RonchiTape' value='yes' type='radio'>yes
+	<input name='RonchiTape' value='no' type='radio'>no
+	&emsp; Ronchi grid?
+	<input name='RonchiGrid' value='yes' type='radio'>yes
+	<input name='RonchiGrid' value='no' type='radio'>no
+	&emsp; Ruler =
+	<input name='btnDrawRuler' value='none' type='radio'>none
+	<input name='btnDrawRuler' value='zonal' type='radio'>zonal (25/50/75% zones)
+	<input name='btnDrawRuler' value='zones307093' type='radio'>30/70/93% zones
+	<input name='btnDrawRuler' value='uomCenter' type='radio'>center
+	<input name='btnDrawRuler' value='uomEdge' type='radio'>edge
+	<p>
+	Save and get data to local storage
 	<input id='btnPutData' value='save data with name: ' type='button'>
 	<input class='inputText' name='dataName' value='my data' onfocus='select()' type='text'>
 	<input id='btnGetData' value=' get data' type='button'>
 	<input id='btnShowDataNames' value='show saved data names' type='button'>
 	<input id='btnDeleteData' value='delete saved data' type='button'>
-
-	<p>Show pasted image?
+	<br>
+	Show pasted image?
 	<input name='pastedImageActive' value='yes' type='radio'>yes
 	<input name='pastedImageActive' value='no' type='radio'>no
 	&emsp;
