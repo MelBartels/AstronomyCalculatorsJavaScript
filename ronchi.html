@@ -425,10 +425,115 @@
 
     <p>This test reminds of the Poor Man's Caustic test. Note that marking the edge of the mirror with the tape band improves Matching Ronchi results. Ronchigrams suffer from multiple edges (which, interestingly, can be used to deduce the lines per inch of the grating).
 
-<!--
     <h4>Ronchi math</h4>
 
-    <p>in progress
+    <p>Ronchi math is all about calculating which light rays make it through the grating.
+	
+	<p>I use an algorithm that starts with the mirror, since this is where the Ronchi bands appear to rest upon. The Ronchigram is displayed with a particular size using pixels. Taking each pixel in turn (the x, y location of the pixel measured from the mirror's center) that lies within the mirror's perimeter, I calculate the mirror's zone for the pixel then that zone's radius of curvature. This gives me a triangle. I look at the grating's offset from the zonal radius of curvature and using similar triangles, determine if the light ray coming from the mirror makes it past the grating. Grating positions behind the zonal radius of curvature result in the same triangle. By convention, if the light ray makes it through, then its pixel on the mirror's face is marked. The data array of mirror pixels (x, y, visible or not) is then easily manipulated, eg, to invert the bands, to calculate the band's center, or to create a Ronchi-Hartmann like grid. Also, the zonal radius of curvature can be changed per the parabolic correction desired and further by the zonal error correction set by the user. One quadrant of the mirror is calculated, then applied to the other three quadrants.
+	
+	<p>Since the zonal radius of curvature depends on the mirror's zone, the triangles for each zone have differing angles. Consequently, determining the mirror's zone from the grating results in a complex cubic equation. This is best solved numerically as just mentioned starting with the light ray's location on the mirror's face.
+	
+	<p>The equation determining the light ray's height at the grating is (RoC = radius of curvature):
+	
+	<p>xAtGrating = abs((RoC + gratingOffset * 2 - zonalRoC) * x / zonalRoC) where zonalRoC = RoC + (x * x + y * y)^2 / RoC
+	<br>xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / (RoC + (x * x + y * y)^2 / RoC))
+	
+	<p>Refactoring this extensively in order to solve for the pixel's 'x' location leads to this complex cubic equation:
+	
+	<p>-x^3 + x^2 * xAtGrating - x * (- RoC * gatingOffset * 2 - y^2) + RoC^2 * xAtGrating * (y^2 + 1) = 0
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi math.jpg' class='bigImage'>
+
+<!--	
+	
+Ronchi math refactoring
+
+xAtGrating = Math.abs(gratingToZonalRoC * x / zonalRoC)
+
+xAtGrating = Math.abs((scaledRadiusOfCurvature + scaledGratingOffset * 2 - zonalRoC) * x / zonalRoC)
+
+zonalRoC * xAtGrating = (scaledRadiusOfCurvature + scaledGratingOffset * 2 - zonalRoC) * x
+
+zonalRoC * xAtGrating / x = (scaledRadiusOfCurvature + scaledGratingOffset * 2 - zonalRoC)
+
+zonalRoC * xAtGrating / x = -(scaledRadiusOfCurvature + scaledGratingOffset * 2 - zonalRoC)
+
+zonalRoC * xAtGrating / x = -scaledRadiusOfCurvature - scaledGratingOffset * 2 + zonalRoC
+
+-zonalRoC + zonalRoC * xAtGrating / x = -scaledRadiusOfCurvature - scaledGratingOffset * 2
+
+zonalRoC * (xAtGrating / x - 1) = -scaledRadiusOfCurvature - scaledGratingOffset * 2
+
+zonalRoC  = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) / (xAtGrating / x - 1)
+
+zonalRoC  = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) / (xAtGrating - x) / x
+
+zonalRoC  = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x / (xAtGrating - x)
+
+scaledRadiusOfCurvature + scaledMirrorZoneSquared / scaledRadiusOfCurvature = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x / (xAtGrating - x)
+
+scaledRadiusOfCurvature + (x * x + y * y) / scaledRadiusOfCurvature = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x / (xAtGrating - x)
+
+(xAtGrating - x) * (scaledRadiusOfCurvature + (x * x + y * y) / scaledRadiusOfCurvature) = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+(xAtGrating - x) * scaledRadiusOfCurvature + (xAtGrating - x) * ((x * x + y * y) / scaledRadiusOfCurvature) = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+xAtGrating * scaledRadiusOfCurvature - x * scaledRadiusOfCurvature + (xAtGrating - x) * ((x * x + y * y) / scaledRadiusOfCurvature) = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+xAtGrating * scaledRadiusOfCurvature - x * scaledRadiusOfCurvature + (xAtGrating - x) * (x * x + y * y) / scaledRadiusOfCurvature = (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature - x * scaledRadiusOfCurvature * scaledRadiusOfCurvature + (xAtGrating - x) * (x * x + y * y) = scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+(xAtGrating - x) * (x * x + y * y) 
+xAtGrating * x * x + xAtGrating * y * y - x * x * x - x * y * y
+x * x * xAtGrating + xAtGrating * y * y - x * x * x - x * y * y
+x * x * xAtGrating - x * x * x - x * y * y + xAtGrating * y * y 
+- x * x * x + x * x * xAtGrating - x * y * y + xAtGrating * y * y
+
+xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature - x * scaledRadiusOfCurvature * scaledRadiusOfCurvature + - x * x * x + x * x * xAtGrating - x * y * y + xAtGrating * y * y = scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+- x * scaledRadiusOfCurvature * scaledRadiusOfCurvature + - x * x * x + x * x * xAtGrating - x * y * y + xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature = scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) * x
+
+- scaledRadiusOfCurvature * scaledRadiusOfCurvature + - x * x + x * xAtGrating - y * y + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) / x = scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2)
+
+-x * x + x * xAtGrating - y * y + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) / x = scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) + scaledRadiusOfCurvature * scaledRadiusOfCurvature
+
+-x * x + x * xAtGrating + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) / x = scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) + scaledRadiusOfCurvature * scaledRadiusOfCurvature + y * y 
+
+-x * x + x * xAtGrating + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) / x - scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) - scaledRadiusOfCurvature * scaledRadiusOfCurvature - y * y = 0
+
+-x * x * x + x * x * xAtGrating + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) - x * scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) - x * scaledRadiusOfCurvature * scaledRadiusOfCurvature - x * y * y = 0
+
+-x * x * x + x * x * xAtGrating + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) - x * scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) - x * (scaledRadiusOfCurvature * scaledRadiusOfCurvature - y * y) = 0
+
+-x * x * x + x * x * xAtGrating - x * scaledRadiusOfCurvature * (-scaledRadiusOfCurvature - scaledGratingOffset * 2) - x * (scaledRadiusOfCurvature * scaledRadiusOfCurvature - y * y) + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) = 0
+
+-x * x * x + x * x * xAtGrating - x * (scaledRadiusOfCurvature * -scaledRadiusOfCurvature - scaledRadiusOfCurvature * scaledGratingOffset * 2) - x * (scaledRadiusOfCurvature * scaledRadiusOfCurvature - y * y) + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) = 0
+
+-x * x * x + x * x * xAtGrating - x * (-scaledRadiusOfCurvature * scaledRadiusOfCurvature - scaledRadiusOfCurvature * scaledGratingOffset * 2) - x * (scaledRadiusOfCurvature * scaledRadiusOfCurvature - y * y) + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) = 0
+
+-x * x * x + x * x * xAtGrating - x * ((-scaledRadiusOfCurvature * scaledRadiusOfCurvature - scaledRadiusOfCurvature * scaledGratingOffset * 2) + (scaledRadiusOfCurvature * scaledRadiusOfCurvature - y * y)) + (xAtGrating * y * y + xAtGrating * scaledRadiusOfCurvature * scaledRadiusOfCurvature) = 0
+
+-Math.pow(x, 3) + Math.pow(x, 2) * xAtGrating - x * ((-Math.pow(scaledRadiusOfCurvature, 2) - scaledRadiusOfCurvature * scaledGratingOffset * 2) + (Math.pow(scaledRadiusOfCurvature, 2) - Math.pow(y, 2))) + (xAtGrating * Math.pow(y, 2) + xAtGrating * Math.pow(scaledRadiusOfCurvature, 2)) = 0
+
+-Math.pow(x, 3) + Math.pow(x, 2) * xAtGrating - x * ((-Math.pow(scaledRadiusOfCurvature, 2) - scaledRadiusOfCurvature * scaledGratingOffset * 2) + Math.pow(scaledRadiusOfCurvature, 2) - Math.pow(y, 2)) + (xAtGrating * (Math.pow(y, 2) + 1) * Math.pow(scaledRadiusOfCurvature, 2)) = 0
+
+-Math.pow(x, 3) + Math.pow(x, 2) * xAtGrating - x * ((-Math.pow(scaledRadiusOfCurvature, 2) - scaledRadiusOfCurvature * scaledGratingOffset * 2) + Math.pow(scaledRadiusOfCurvature, 2) - Math.pow(y, 2)) + Math.pow(scaledRadiusOfCurvature, 2) * xAtGrating * (Math.pow(y, 2) + 1) = 0
+
+-Math.pow(x, 3) + Math.pow(x, 2) * xAtGrating - x * (-Math.pow(scaledRadiusOfCurvature, 2) - scaledRadiusOfCurvature * scaledGratingOffset * 2 + Math.pow(scaledRadiusOfCurvature, 2) - Math.pow(y, 2)) + Math.pow(scaledRadiusOfCurvature, 2) * xAtGrating * (Math.pow(y, 2) + 1) = 0
+
+-Math.pow(x, 3) + Math.pow(x, 2) * xAtGrating - x * (- scaledRadiusOfCurvature * scaledGratingOffset * 2 - Math.pow(y, 2)) + Math.pow(scaledRadiusOfCurvature, 2) * xAtGrating * (Math.pow(y, 2) + 1) = 0
+
+or in common units, 
+-x^3 + x^2 * xAtGrating - x * (- RoC * gatingOffset * 2 - y^2) + RoC^2 * xAtGrating * (y^2 + 1) = 0
+
+starting as above but in common units,
+xAtGrating = abs((RoC + gratingOffset * 2 - zonalRoC) * x / zonalRoC)
+
+xAtGrating = abs((RoC + gratingOffset * 2 - zonalRoC) * x / zonalRoC) where zonalRoC = RoC + (x * x + y * y)^2 / RoC
+
+xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / (RoC + (x * x + y * y)^2 / RoC))
+	
 -->
 
     <h4>Named sections</h4>
@@ -438,7 +543,7 @@
         <li><a href='#MatchingRonchiTape'>#MatchingRonchiTape</a>
     </ul>
 
-    <h4>by Mel Bartels, April 4, 2023</h4>
+    <h4>by Mel Bartels, April 5, 2023</h4>
     <br>
     <br>
 </div>
