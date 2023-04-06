@@ -8,12 +8,16 @@ html {
 	text-align: center;
 }
 
-#menuDiv {
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%/4, max(200px, 100%/8)), 1fr));
 }
 
-#menuTable td {
-  	background: #e0e0e0;
-	width: 300px;
+.grid-item {
+	margin: 1px;
+	padding: 1px;
+	border: 2px solid white;
+	background: #e3e3e3;
 }
 
 .label {
