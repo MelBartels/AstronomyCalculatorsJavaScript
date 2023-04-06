@@ -325,8 +325,6 @@
 	<p>See my pages on polishing and parabolizing mirrors where I discuss how to use the Ronchi test during figuring.<br>
 		<a href='JoyOfMirrorMaking/Polishing.html' target='_blank'>Polishing</a><br>
 		<a href='JoyOfMirrorMaking/Parabolizing.html' target='_blank'>Parabolizing</a><br>
-		<a href='16/16 inch log.html' target='_blank'>16 inch F2.9 mirror log</a><br>
-		<a href='30/30 inch mirrors log.html' target='_blank'>30 inch F2.7 mirror log</a><br>
 		<a href='JoyOfMirrorMaking/16 inch F3 meniscus mirror making class.html' target='_blank'>Class notes for the 16F3 master meniscus mirror making class</a><br>
 
 	<a name='analysis'></a>
@@ -496,7 +494,7 @@
 
 	<p>Since the zonal radius of curvature depends on the mirror's zone, the triangles for each zone have differing angles. Consequently, determining the mirror's zone from the grating results in a complex cubic equation. This is best solved numerically as just mentioned starting with the light ray's location on the mirror's face.
 
-	<p>The equation determining the light ray's height at the grating is (RoC = radius of curvature):
+	<p>The equation determining the light ray's height at the grating is (RoC = radius of curvature) (light source moves with grating):
 
 	<p>xAtGrating = abs((RoC + gratingOffset * 2 - zonalRoC) * x / zonalRoC) where zonalRoC = RoC + (x * x + y * y)^2 / RoC
 	<br>xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / (RoC + (x * x + y * y)^2 / RoC))
