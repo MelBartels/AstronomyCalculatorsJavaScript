@@ -45,15 +45,12 @@ html {
 	img {
 		margin: 10px;
 		width: 60%;
-		height: 60%;
 	}
 	.bigImage {
 		width: 80%;
-		height: 80%;
 	}
 	.smallImage {
 		width: 35%;
-		height: 35%;
 	}
 	.unscaledImage {
 		width: 100%;
@@ -66,15 +63,12 @@ html {
 	img {
 		margin: 10px;
 		width: 40%;
-		height: 40%;
 	}
 	.bigImage {
 		width: 60%;
-		height: 60%;
 	}
 	.smallImage {
 		width: 25%;
-		height: 25%;
 	}
 	.unscaledImage {
 		width: 100%;
