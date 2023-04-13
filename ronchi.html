@@ -14,57 +14,23 @@
 	<h2 class='title'>Matching Ronchi and Ronchi Tape Band Tests</h2>
 </div>
 <div class='grid-container'>
-	<div class='grid-item'>
-	    <a href='#matchingExamples'>Matching examples</a>
-	</div>
-	<div class='grid-item'>
-	    <a href='#discussion'>Discussion</a>
-	</div>
-	<div class='grid-item'>
-	    <a href='#about'>About</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#DrShermanSchultz'>Dr Sherman Schultz</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#mirrorQuality'>Mirror quality</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#parabolizing'>Parabolizing</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#analysis'>Analysis</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#MSP'>Mirror surface profile</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#diffractionEffects'>Diffraction effects</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#dynamicRonchi'>Dynamic Ronchi</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#atFocus'>At focus</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#pitfalls'>Pitfalls</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#moreExamples'>More examples</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#IFcomparison'>IF comparison</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#tester'>Tester</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#MatchingRonchiTape'>Matching Ronchi Tape</a>
-	</div>
-	<div class='grid-item'>
-		<a href='#math'>Math</a>
-	</div>
+	<div class='grid-item'> <a href='#matchingExamples'>Matching examples</a>	   </div>
+	<div class='grid-item'> <a href='#discussion'>Discussion</a>                   </div>
+	<div class='grid-item'> <a href='#about'>About</a>                             </div>
+	<div class='grid-item'> <a href='#DrShermanSchultz'>Dr Sherman Schultz</a>	   </div>
+	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
+	<div class='grid-item'>	<a href='#parabolizing'>Parabolizing</a>               </div>
+	<div class='grid-item'> <a href='#analysis'>Analysis</a>                       </div>
+	<div class='grid-item'>	<a href='#MSP'>Mirror surface profile</a>              </div>
+	<div class='grid-item'>	<a href='#diffractionEffects'>Diffraction effects</a>  </div>
+	<div class='grid-item'>	<a href='#dynamicRonchi'>Dynamic Ronchi</a>            </div>
+	<div class='grid-item'>	<a href='#atFocus'>At focus</a>	                       </div>
+	<div class='grid-item'>	<a href='#pitfalls'>Pitfalls</a>                       </div>
+	<div class='grid-item'>	<a href='#moreExamples'>More examples</a>              </div>
+	<div class='grid-item'>	<a href='#IFcomparison'>IF comparison</a>              </div>
+	<div class='grid-item'>	<a href='#tester'>Tester</a>                           </div>
+	<div class='grid-item'>	<a href='#MatchingRonchiTape'>Matching Ronchi Tape</a> </div>
+	<div class='grid-item'>	<a href='#math'>Math</a>                               </div>
 </div>
 <br>
 <div>
@@ -166,8 +132,10 @@
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
-	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
-	<br>The correction factor is the parabolic correction for the zone.
+	<p>The center zone is zero and the edge zone is '1'.
+	<br>Zones can be entered in any order.
+	<br>The correction factor is the parabolic correction for the zone. That is, the radius of curvature is extended by the correction value. If '1', then the radius of curvature for is extended by the ideal parabolic correction. If greater than '1', then the zone's radius of curvature is extended further, making the zone 'long' or 'high'. Conversely, if the parabolic correction is less than '1', then the zone's radius of curvature is shorted. A value of '0' leaves the radius of curvature unchanged from spherical.
+	<br>Depending on the circumstances, setting the zone's radius of curvature differently than the ideal parabolic value may be seen as undercorrected or overcorrected.
 </div>
 <div class='floatDiv'>
 <h4>Mirror surface profile relative to ideal parabola</h4>
@@ -175,12 +143,13 @@
 		<!-- canvas created in JavaScript -->
 	</div>
 	<p>Uses the zonal error table. Plot is scaled to greatest deviation. <A href='#MSP'>Here are analysis examples</a>.
+	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the taller portions of the mirror.
 </div>
 <div class='floatDiv'>
 	<h4>Results</h4>
 	<p>Wavelength of light (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
 	<p><label id='zonalErrorsResultsLabel'></label>
-	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
+	The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
 	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div class='clearFloat'>
@@ -425,6 +394,13 @@
 		<a href='JoyOfMirrorMaking/slopes low high zones pivoting.jpg' target='_blank'>graphic 3</a>.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/low 70 percent zone MSP analysis.jpg' class='bigImage'>
 
+	<h5>Dealing with a high 70% zone</h5>
+
+	<p>Using the mirror surface profile is consistent with my slope analysis of a high 70% zone. See
+		<a href='JoyOfMirrorMaking/slopes fix low high zones.jpg' target='_blank'>graphic 1</a>,
+		<a href='JoyOfMirrorMaking/slopes low high zones pivoting.jpg' target='_blank'>graphic 2</a>.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/high 70 percent zone MSP analysis.jpg' class='bigImage'>
+
 	<a name='diffractionEffects'></a>
 	<h4>Diffraction effects</h4>
 
@@ -668,7 +644,7 @@ xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / 
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, April 12, 2023</h4>
+	<h4>by Mel Bartels, April 13, 2023</h4>
 	<br>
 	<br>
 </div>
