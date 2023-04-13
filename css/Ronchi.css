@@ -10,7 +10,7 @@ html {
 
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%/4, max(200px, 100%/8)), 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(min(100%/4, max(200px, 100%/9)), 1fr));
 }
 
 .grid-item {

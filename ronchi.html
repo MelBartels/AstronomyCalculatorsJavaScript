@@ -36,6 +36,9 @@
 		<a href='#analysis'>Analysis</a>
 	</div>
 	<div class='grid-item'>
+		<a href='#MSP'>Mirror surface profile</a>
+	</div>
+	<div class='grid-item'>
 		<a href='#diffractionEffects'>Diffraction effects</a>
 	</div>
 	<div class='grid-item'>
@@ -106,8 +109,7 @@
 	<input name='RonchiGrid' value='no' type='radio'>no
 	&emsp; Ruler =
 	<input name='btnDrawRuler' value='none' type='radio'>none
-	<input name='btnDrawRuler' value='zonal' type='radio'>25/50/75% zones
-	<input name='btnDrawRuler' value='zones307093' type='radio'>30/70/93% zones
+	<input name='btnDrawRuler' value='zonal' type='radio'>25,50,75% zones
 	<input name='btnDrawRuler' value='uomCenter' type='radio'>center
 	<input name='btnDrawRuler' value='uomEdge' type='radio'>edge
 	<input name='btnDrawRuler' value='RonchiTapeMarks' type='radio'>tape marks
@@ -158,26 +160,28 @@
 	<h4>Zonal errors: manual manipulation of zones</h4>
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
 	   <input id='btnResetCorrectionFactors' value='Reset correction factors to 1' type='button'>
-	   <input id='btnCopyBands' value='Use Ronchi band positions' type='button'>
-	   <input id='btnResetDefaultZones' value='Reset zones to default' type='button'>
+	   <input id='btnCopyBands' value='Update to Ronchi band positions' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
-	<p>Wavelength of light (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
-	<p>Results: <label id='zonalErrorsResultsLabel'></label>
 	<p>The center zone is zero and the edge zone is one. Zones can be entered in any order.
 	<br>The correction factor is the parabolic correction for the zone.
-	<br>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
-	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div class='floatDiv'>
-	<h4>Suggested polishing actions</h4>
-	<p>The brighter the blue the more the slope of the zone needs changing by polishing. For suggestions on stroke and pitch lap, see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a>. For more on parabolizing, see <a href='JoyOfMirrorMaking/JoyOfMirrorMaking.html' target='_blank'>my pages on mirror making</a>. Texereau's How To Make a Telescope is an invaluable reference (PDF version can be downloaded from various sites).
-	<div id='polishActionCanvasDiv'>
+<h4>Mirror surface profile relative to ideal parabola</h4>
+	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
+	<p>Uses the zonal error table. Plot is scaled to greatest deviation.
+</div>
+<div class='floatDiv'>
+	<h4>Results</h4>
+	<p>Wavelength of light (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
+	<p><label id='zonalErrorsResultsLabel'></label>
+	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
+	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div class='clearFloat'>
 </div>
@@ -386,6 +390,24 @@
 	<p>The Ronchi test can also be used far away from the radius of curvature. Here, any kinks in the bands will show as ragged bands or interference effects. The first example shows rough zones towards the edge; the second example shows smooth bands.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/far from RoC showing not so smooth edge zones.jpg'>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/far from RoC smooth bands.jpg'>
+
+	<a name='MSP'></a>
+	<h4>Mirror surface profile analysis</h4>
+	
+	<p>Using the mirror surface profile analysis depends on offsetting the grating properly. Here are some examples.
+
+	<h5>Partway through parabolizing</h5>
+	
+	<p>Center is parabolized, edge lags as intended.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10.5F2.8 inch early parab MSP analysis.jpg' class='bigImage'>
+
+<!-- note todo -->
+	
+	<h5>Rolled edge</h5>
+
+	
+	<h5>Penultimate stage parabolizing</h5>
+
 
 	<a name='diffractionEffects'></a>
 	<h4>Diffraction effects</h4>
