@@ -24,17 +24,16 @@ html {
 	text-align: right; 
 }
 
-.labelTop  {
-	text-align: right;
-	vertical-align: top;
+.inputTextShort {
+	width: 50px;
 }
 
 .inputText {
-	width: 100px;
+	width: 75px;
 }
 
-.inputTextGratingOffsets {
-	width: 100px;
+.inputTextLong {
+	width: 150px;
 }
 
 #sliderOffset, #sliderZonalError {
