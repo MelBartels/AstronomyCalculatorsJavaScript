@@ -135,6 +135,7 @@
 	<p>The center zone is zero and the edge zone is '1'.
 	<br>Zones can be entered in any order.
 	<br>The correction factor is the parabolic correction for the zone. That is, the radius of curvature is extended by the correction value. If '1', then the radius of curvature is extended by the ideal parabolic correction. If greater than '1', then the zone's radius of curvature is extended further, making the zone 'long' or 'high'. Conversely, if the parabolic correction is less than '1', then the zone's radius of curvature is shorted. A value of '0' leaves the radius of curvature unchanged from spherical.
+	<br>The zonal correction factor is based on the ideal parabolic correction for that zone. For center zones, this value is very small. Multiplying a tiny value by a large factor results in a relatively modest radius of curvature change. This is 'OK'.
 	<br>Depending on the circumstances, setting the zone's radius of curvature differently than the ideal parabolic value may be seen as undercorrected or overcorrected.
 </div>
 <div class='floatDiv'>
@@ -364,6 +365,22 @@
 	<h4>Mirror surface profile analysis</h4>
 
 	<p>Using the mirror surface profile analysis depends on offsetting the grating properly. Here are examples.
+
+	<h5>Starting spherical</h5>
+
+	<p>We can envision three approaches to parabolizing:
+	<ol>
+		<li>Polish down the edge Having tried this, I concluded that while the curve was very smooth, controlling the curve towards the extreme edge was challenging.
+		<li>Polish down the center. Easiest approach for large fast mirrors.
+		<li>Polish the edge and center. Removes 1/4th the depth of glass compared to above.
+	</ol>
+
+	<p>We can see these three parabolizing approaches in these Ronchigram profiles. Each one has a different grating offset. The bands are made straight by adjusting the parabolic correction of the zones.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/spherical MSP analysis.jpg'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/spherical 2 MSP analysis.jpg'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/spherical 3 MSP analysis.jpg'>
+
+	<p>Note: the zonal correction factor is based on the ideal parabolic correction for that zone. For center zones, this value is very small. Multiplying a tiny value by a large factor results in a relatively modest radius of curvature change. This is 'OK'.
 
 	<h5>Early parabolizing</h5>
 
