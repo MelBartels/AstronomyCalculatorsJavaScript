@@ -34,35 +34,24 @@
 </div>
 <br>
 <div>
-	 Mirror diameter =
-	<input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-	&ensp; Radius of curvature =
-	<input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-	&ensp; Focal length =
-	<input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
-	&ensp; Focal ratio =
-	<input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
+	 Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
+	&ensp; Radius of curvature = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
+	&ensp; Focal length = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
+	&ensp; Focal ratio = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
 	<br>
-	Grating freq. (lines per unit of meas.) =
-	<input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-	&ensp; Grating offsets from radius of curvature =
-	<input class='inputTextLong' name='gratingOffsetSeries' value='-0.3, 0.0, 0.3, 0.6' onfocus='select()' type='text'>
+	Grating freq. (lines per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
+	&ensp; Grating offsets from radius of curvature = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.3, 0.0, 0.3, 0.6' onfocus='select()' type='text'>
 	or adjust
 	<input id='btnIncreaseGratingOffsets' value='+' type='button'>
 	<input id='btnDecreaseGratingOffsets' value='-' type='button'>
 	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
 	<br>
-	 Ronchigram size in pixels =
-	<input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
-	&ensp; Border size =
-	<input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
-	&ensp; Band color (R,G,B) =
-	<input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
+	 Ronchigram size in pixels = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
+	&ensp; Border size = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
+	&ensp; Band color (R,G,B) = <input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
 	<br>
-	Parabolic correction =
-	<input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
-	&ensp; Central obstruction =
-	<input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
+	Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
+	&ensp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
 	<br>
 	Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
@@ -139,11 +128,12 @@
 	<br>Depending on the circumstances, setting the zone's radius of curvature differently than the ideal parabolic value may be seen as undercorrected or overcorrected.
 </div>
 <div class='floatDiv'>
-<h4>Mirror surface profile relative to ideal parabola</h4>
+<h4>Mirror surface profile: ideal parabola minus zonal corrections</h4>
 	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	<p>Uses the zonal error table. Plot is scaled to greatest deviation. <A href='#MSP'>Here are analysis examples</a>.
+	Adjust ideal radius of curvature by <input class='inputText' name='adjustIdealRoC' value='0' onfocus='select()' type='text'>
+	<p>Plot is scaled to greatest deviation. <A href='#MSP'>Here are analysis examples</a>.
 	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the taller portions of the mirror.
 </div>
 <div class='floatDiv'>
@@ -661,7 +651,7 @@ xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / 
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, April 14, 2023</h4>
+	<h4>by Mel Bartels, April 15, 2023</h4>
 	<br>
 	<br>
 </div>
