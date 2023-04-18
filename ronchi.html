@@ -21,7 +21,6 @@
 	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
 	<div class='grid-item'>	<a href='#parabolizing'>Parabolizing</a>               </div>
 	<div class='grid-item'> <a href='#analysis'>Analysis</a>                       </div>
-	<div class='grid-item'>	<a href='#MSP'>Mirror surface profile</a>              </div>
 	<div class='grid-item'>	<a href='#diffractionEffects'>Diffraction effects</a>  </div>
 	<div class='grid-item'>	<a href='#dynamicRonchi'>Dynamic Ronchi</a>            </div>
 	<div class='grid-item'>	<a href='#atFocus'>At focus</a>	                       </div>
@@ -105,7 +104,8 @@
 </div>
 <div class='floatDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
-	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
+	<p><input id='btnUpdateZonalCorrectionTable' value='Update table' type='button'>
+	   <input id='btnSortZonalCorrectionTableByZone' value='Sort table by zone' type='button'>
 	   <input id='btnResetCorrectionFactors' value='Reset correction factors to 1' type='button'>
 	   <input id='btnCopyBands' value='Update to Ronchi band positions' type='button'>
 	<table id='zonalCorrectionTable'>
@@ -124,13 +124,15 @@
 	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	Adjust ideal radius of curvature by <input class='inputText' name='adjustIdealRoC' value='0' onfocus='select()' type='text'> Start with small values, eg, 0.01 or -0.01
-	<p>Plot is scaled to greatest deviation. <A href='#MSP'>Here are analysis examples</a>.
-	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the taller portions of the mirror.
+	Find the best mirror surface profile to polish out errors by offsetting the RoC by <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>.
+	<br>Start with values smaller than the parabolic RoC zonal changes.
+	<p>Plot is scaled to greatest deviation.
+	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 </div>
 <div class='floatDiv'>
 	<h4>Results</h4>
 	<p>Wavelength of light (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
+	<p><label id='MSPResultsLabel'></label>
 	<p><label id='zonalErrorsResultsLabel'></label>
 	The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
 	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
@@ -343,63 +345,6 @@
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/far from RoC showing not so smooth edge zones.jpg'>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/far from RoC smooth bands.jpg'>
 
-	<a name='MSP'></a>
-	<h4>Mirror surface profile analysis</h4>
-
-	<p>Using the mirror surface profile analysis depends on offsetting the grating properly. Here are examples.
-
-	<h5>Starting spherical</h5>
-
-	<p>We can envision three approaches to parabolizing:
-	<ol>
-		<li>Polish down the edge Having tried this, I concluded that while the curve was very smooth, controlling the curve towards the extreme edge was challenging.
-		<li>Polish down the center. Easiest approach for large fast mirrors.
-		<li>Polish the edge and center. Removes 1/4th the depth of glass compared to above.
-	</ol>
-
-	<p>We can see these three parabolizing approaches in these Ronchigram profiles. Each one has a different grating offset. The bands are made straight by adjusting the parabolic correction of the zones.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/spherical MSP analysis.jpg'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/spherical 2 MSP analysis.jpg'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/spherical 3 MSP analysis.jpg'>
-
-	<p>Note: the zonal correction factor is based on the ideal parabolic correction for that zone. For center zones, this value is very small. Multiplying a tiny value by a large factor results in a relatively modest radius of curvature change. This is 'OK'.
-
-	<h5>Early parabolizing</h5>
-
-	<p>Center is parabolized, edge lags as intended. I like to use the Matching Ronchi inside the radius of curvature during early stage parabolizing. I match up the center to see what further polishing action is needed near the edge.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10.5F2.8 inch early parab MSP analysis.jpg' class='bigImage'>
-
-	<h5>Late parabolizing</h5>
-
-	<p>Center is lagging. I like to use the Matching Ronchi outside the radius of curvature during late stage parabolizing. I match up the edge to see what further polishing action is needed in the center. This is the opposite of early parabolizing.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/25F2.6 inch mid parab MSP analysis.jpg' class='bigImage'>
-
-	<h5>Dealing with a turned edge</h5>
-
-	<p>There are three ways to deal with a TDE (turned down edge):
-	<ol>
-		<li>Return to a sphere (the surest though longest solution)
-		<li>Greatly deepen the center, merging the curve into the turned edge (very difficult, invariably fails)
-		<li>Polish just inside the edge and deepen the center though not to the degree in #2
-	</ol>
-	<p>Here's an example of #3.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/6F2.8 inch TDE MSP analysis.jpg' class='bigImage'>
-
-	<h5>Dealing with a low 70% zone</h5>
-
-	<p>Using the mirror surface profile is consistent with my slope analysis of a low 70% zone. See
-		<a href='JoyOfMirrorMaking/slopes.jpg' target='_blank'>graphic 1</a>,
-		<a href='JoyOfMirrorMaking/slopes fix low high zones.jpg' target='_blank'>graphic 2</a>,
-		<a href='JoyOfMirrorMaking/slopes low high zones pivoting.jpg' target='_blank'>graphic 3</a>.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/low 70 percent zone MSP analysis.jpg' class='bigImage'>
-
-	<h5>Dealing with a high 70% zone</h5>
-
-	<p>Using the mirror surface profile is consistent with my slope analysis of a high 70% zone. See
-		<a href='JoyOfMirrorMaking/slopes fix low high zones.jpg' target='_blank'>graphic 1</a>,
-		<a href='JoyOfMirrorMaking/slopes low high zones pivoting.jpg' target='_blank'>graphic 2</a>.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/high 70 percent zone MSP analysis.jpg' class='bigImage'>
-
 	<a name='diffractionEffects'></a>
 	<h4>Diffraction effects</h4>
 
@@ -526,6 +471,10 @@
 	<p>If y=0, then simplifies to x^3 - x^2 * xAtGrating + x * (-RoC * gatingOffset * 2) - (RoC^2 * xAtGrating) = 0
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi math.jpg' class='bigImage'>
+	
+	<h5>Mirror Surface Profile math</h5>
+	
+	<p>Based on user input zonal error corrections, the radius of curvature for each zone is calculated. The ideal radius of curvature for each zone is also calculated. Then the two are compared. 
 
 	<p>An article on the Mosby Null test can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
@@ -631,7 +580,6 @@ xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / 
 		<li><a href='#mirrorQuality'>#mirrorQuality</a>
 		<li><a href='#parabolizing'>#parabolizing</a>
 		<li><a href='#analysis'>#analysis</a>
-		<li><a href='#MSP'>#MSP</a>
 		<li><a href='#diffractionEffects'>#diffractionEffects</a>
 		<li><a href='#dynamicRonchi'>#dynamicRonchi</a>
 		<li><a href='#atFocus'>#atFocus</a>
@@ -643,7 +591,7 @@ xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / 
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, April 15, 2023</h4>
+	<h4>by Mel Bartels, April 18, 2023</h4>
 	<br>
 	<br>
 </div>
