@@ -124,8 +124,9 @@
 	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	Find the best mirror surface profile to polish out errors by offsetting the RoC by <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>.
+	Find the best mirror surface profile to polish out errors and minimize wavefront errors by offsetting the RoC by <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>.
 	<br>Start with values smaller than the parabolic RoC zonal changes.
+	<br>For example, <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>here's an analysis of my 25 inch F2.6 finished mirror</a>.
 	<p>Plot is scaled to greatest deviation.
 	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 </div>
@@ -474,9 +475,9 @@
 	
 	<h5>Mirror Surface Profile math</h5>
 	
-	<p>Based on user input zonal error corrections, the radius of curvature for each zone is calculated. The ideal radius of curvature for each zone is also calculated. Then the two are compared. 
+	<p>The radius of curvature for each zone is calculated along with the sphere to parabola deviation in waves at focus (the wavefront). The ideal RoC offset is compared to the user input zonal error corrections. For example, if the user sets the parabolic correction to zero, then the wave error is the full sphere to parabola deviation for that zone.
 
-	<p>An article on the Mosby Null test can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
+	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
 <!--
 
