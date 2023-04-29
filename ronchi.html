@@ -45,12 +45,12 @@
 	<input id='btnDecreaseGratingOffsets' value='-' type='button'>
 	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
 	<br>
+	Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
+	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
+	<br>
 	 Ronchigram size in pixels = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
 	&emsp; Border size = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
 	&emsp; Band color (R,G,B) = <input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-	<br>
-	Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
-	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
 	<br>
 	Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
@@ -79,35 +79,28 @@
 	<input name='pastedImageActive' value='yes' type='radio'>yes
 	<input name='pastedImageActive' value='no' type='radio'>no
 	&emsp; transparency <input class='inputText' id='pastedImageTransparency' value='0.8' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
-	&emsp; width <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
+	width <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
 	height <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
-	&emsp; x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
+	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
+	&emsp; <input id='btnUnwrapFirstRonchigram' value='Unwrap fist Ronchigram' type='button'>
+	stretch factor <input class='inputText' id='stretchX' value='1.25' onfocus='select()' type='number' step='.1' min='1.0'>
+	<input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
 </div>
-<div id='Ronchigrams'>
-	<!-- canvases added in JavaScript -->
-</div>
+<div id='Ronchigrams'> <!-- canvases added in JavaScript --> </div>
+<div id='waveNotes'></div>
+<div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
 <div>
-	<table>
-	<tbody>
-		<tr>
-			<td id='waveNotes'>
-	</tbody>
-	</table>
-</div>
-<div id='matchingRonchiTapeBands'>
-	<!-- text added in JavaScript -->
-</div>
-<div>
-	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key.
+	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key. Match by adjusting the grating offset. Unwrapping the first Ronchigram to remove the parabolic distortion reveals the straightness of the bands.
 </div>
 <div class='floatDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
-	<p><input id='btnUpdateZonalCorrectionTable' value='Update' type='button'>
-	   <input id='btnSortZonalCorrectionTableByZone' value='Sort' type='button'>
+	<p><input id='btnUpdateZonalCorrectionTable' value='Update table and mirror surface profile' type='button'>
+	   <input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
 	   <input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
-	   <input id='btnCopyBands' value='Update to Ronchi band positions' type='button'>
+	   <input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
+	   <input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
@@ -120,7 +113,7 @@
 	<br>Depending on the circumstances, setting the zone's radius of curvature differently than the ideal parabolic value may be seen as undercorrected or overcorrected.
 </div>
 <div class='floatDiv'>
-<h4>Mirror surface profile: ideal parabola minus zonal corrections</h4>
+	<h4>Mirror surface profile: ideal parabola minus zonal corrections</h4>
 	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
@@ -136,13 +129,12 @@
 	The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
 	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
-<div class='clearFloat'>
-</div>
+<div class='clearFloat'></div>
 <div>
 	<a name='matchingExamples'></a>
 	<h4>Matching Ronchi examples</h4>
 
-	<p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror's smoothness and overall correction can be evaluated. With careful matching, I have found that this test gets me to 'snap focus' quality even on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized 6 inch f2.8, 10.5 inch f2.7, 13.2 inch f3.0, 25 inch f2.6 and 30 inch f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image to this webpage, adjust the grating offset along with any image parameters, then inspect for high and low zones to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.
+	<p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror can be evaluated objectively, just like measuring a piece of paper with a ruler to determine if it is 8.5x11 inches or A4 in size. With careful matching, I have found that this test gets me to 'snap focus' quality on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized very fast 6 inch f2.8, 10.5 inch f2.7, 13.2 inch f3.0, 16 inch f2.9, 25 inch f2.6 and two 30 inch f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image into this webpage, adjust the grating offset along with any image parameters for best match, then inspect the mirror surface profile to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.
 
 	<p>Here are some examples:</br>
 	&emsp; <input id='btnPasteExampleRonchigram16in' value='click here' type='button'> to paste a Ronchigram of my 16.25 inch f2.9 mirror (inside RoC);
@@ -477,7 +469,61 @@
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi math zones and errors in waves.jpg' class='bigImage'>
 
+	<h5>Unwrapping the Ronchigram</h5>
+
+	<p>Unwrapping the Ronchigram means removing the parabolic distortion. Straight vertical bands indicate a paraboloidal mirror surface.
+
+	<p>We calculate the image distortion caused by the mirror's paraboloidal surface. To start, the spheroidal surface has a constant factor of gratingOffset * 2 across all zones, resulting in straight bands. The paraboloidal surface factor is:
+	
+	<p>(RoC + gratingOffset * 2 - zonalRoC) * zoneLocationOnMirrorSurface / zonalRoC
+	<br>where zonalRoC = RoC + mirrorZone^2 / RoC.
+
+	<p> Parabolic distortion then = paraboloidal factor / spheroidal factor. This is calculated and the values saved for all x,y in a quadrant of the Ronchigram.
+
+	<p>For example, if the zone on the mirror's face is halfway from the center to the edge and the parabolic distortion is 1.4, then the zone will appear 1.4 times further along towards the edge. Applying the parabolic distortion for all x,y of the Ronchigram results in a new Ronchigram where the bands are unwrapped or straightened.
+	
+	<p>Here are two plots of the parabolic distortion of the default first Ronchigram where 'y=0' is across the mirror's center and 'y=62' is halfway towards the top edge:<br>
+	<img alt='' loading='lazy' src='JoyOfMirrorMaking\parabolic distortion spreadsheet.jpg' class='bigImage'>
+
+	<h5>Other Ronchi math</h5>
+
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
+
+	<h4>Named sections</h4>
+
+	<ul>
+	    <li><a href='#matchingExamples'>#matchingExamples</a>
+	    <li><a href='#discussion'>#discussion</a>
+	    <li><a href='#about'>#about</a>
+		<li><a href='#DrShermanSchultz'>#DrShermanSchultz</a>
+		<li><a href='#mirrorQuality'>#mirrorQuality</a>
+		<li><a href='#parabolizing'>#parabolizing</a>
+		<li><a href='#analysis'>#analysis</a>
+		<li><a href='#diffractionEffects'>#diffractionEffects</a>
+		<li><a href='#dynamicRonchi'>#dynamicRonchi</a>
+		<li><a href='#atFocus'>#atFocus</a>
+		<li><a href='#pitfalls'>#pitfalls</a>
+		<li><a href='#moreExamples'>#moreExamples</a>
+		<li><a href='#IFcomparison'>#IFcomparison</a>
+		<li><a href='#tester'>#tester</a>
+		<li><a href='#MatchingRonchiTape'>#MatchingRonchiTape</a>
+		<li><a href='#math'>#math</a>
+	</ul>
+
+	<h4>by Mel Bartels, April 29, 2023</h4>
+	<br>
+	<br>
+</div>
+<script src='lib/jquery/jquery-3.1.1.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
+<script src='lib/sharedLib.js'></script>
+<script src='lib/coordLib.js'></script>
+<script src='lib/calcLib.js'></script>
+<script src='lib/images/base64images.js'></script>
+<!-- load last as it refers to the above files -->
+<script src='lib/Ronchi.js'></script>
+</body>
+</html>
 
 <!--
 
@@ -570,37 +616,3 @@ xAtGrating = abs((RoC + gratingOffset * 2 - zonalRoC) * x / zonalRoC) where zona
 xAtGrating = abs((RoC + gatingOffset * 2 - RoC + (x * x + y * y)^2 / RoC) * x / (RoC + (x * x + y * y)^2 / RoC))
 
 -->
-
-	<h4>Named sections</h4>
-
-	<ul>
-	    <li><a href='#matchingExamples'>#matchingExamples</a>
-	    <li><a href='#discussion'>#discussion</a>
-	    <li><a href='#about'>#about</a>
-		<li><a href='#DrShermanSchultz'>#DrShermanSchultz</a>
-		<li><a href='#mirrorQuality'>#mirrorQuality</a>
-		<li><a href='#parabolizing'>#parabolizing</a>
-		<li><a href='#analysis'>#analysis</a>
-		<li><a href='#diffractionEffects'>#diffractionEffects</a>
-		<li><a href='#dynamicRonchi'>#dynamicRonchi</a>
-		<li><a href='#atFocus'>#atFocus</a>
-		<li><a href='#pitfalls'>#pitfalls</a>
-		<li><a href='#moreExamples'>#moreExamples</a>
-		<li><a href='#IFcomparison'>#IFcomparison</a>
-		<li><a href='#tester'>#tester</a>
-		<li><a href='#MatchingRonchiTape'>#MatchingRonchiTape</a>
-		<li><a href='#math'>#math</a>
-	</ul>
-
-	<h4>by Mel Bartels, April 21, 2023</h4>
-	<br>
-	<br>
-</div>
-<script src='lib/jquery/jquery-3.1.1.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
-<script src='lib/sharedLib.js'></script>
-<script src='lib/coordLib.js'></script>
-<script src='lib/calcLib.js'></script>
-<script src='lib/Ronchi.js'></script>
-</body>
-</html>
