@@ -29,6 +29,7 @@
 	<div class='grid-item'>	<a href='#IFcomparison'>IF comparison</a>              </div>
 	<div class='grid-item'>	<a href='#tester'>Tester</a>                           </div>
 	<div class='grid-item'>	<a href='#MatchingRonchiTape'>Matching Ronchi Tape</a> </div>
+	<div class='grid-item'>	<a href='#unwrap'>Unwrapping bands</a>                 </div>
 	<div class='grid-item'>	<a href='#math'>Math</a>                               </div>
 </div>
 <br>
@@ -39,7 +40,7 @@
 	&emsp; Focal ratio = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
 	<br>
 	Grating freq. (lines per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-	&emsp; Grating offsets from RoC = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.3, 0.0, 0.3, 0.6' onfocus='select()' type='text'>
+	&emsp; Grating offsets from RoC = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.2, 0.4' onfocus='select()' type='text'>
 	or adjust
 	<input id='btnIncreaseGratingOffsets' value='+' type='button'>
 	<input id='btnDecreaseGratingOffsets' value='-' type='button'>
@@ -87,6 +88,7 @@
 	<br>
 	<input id='btnUnwrapFirstRonchigram' value='Unwrap first Ronchigram' type='button'>
 	<input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
+	<input id='btnUnwrapExample' value='Unwrap example' type='button'>
 	&emsp; Unwrap Y axis <input name='unwrapY' value='yes' type='radio'>yes
 	<input name='unwrapY' value='no' type='radio'>no
 	&emsp; Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
@@ -95,7 +97,7 @@
 <div id='waveNotes'></div>
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
 <div>
-	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key. Match by adjusting the grating offset. Unwrapping the first Ronchigram to remove the parabolic distortion reveals the straightness of the bands.
+	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key. Match by adjusting the grating offset. <b>Unwrapping</b> the first Ronchigram to remove the parabolic distortion reveals the straightness of the bands. See the <a href='#unwrap'>unwrapping Ronchigram section</a>.
 </div>
 <div class='floatDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
@@ -444,6 +446,19 @@
 
 	<p>This test reminds of the Poor Man's Caustic test. Note that marking the edge of the mirror with the tape band improves Matching Ronchi results. Ronchigrams suffer from multiple edges (which, interestingly, can be used to deduce the lines per inch of the grating).
 
+	<a name='unwrap'></a>
+	<h4>Unwrapping a Ronchigram</h4>
+
+	<p>Unwrapping a Ronchigram removes the parabolic distortion, returning the bands to their straight and vertical appearance. Optionally the vertical 'Y' axis can be unwrapped too and the horizontal 'X' axis can be stretched out.
+
+	<p>Here is an example using my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge. <br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
+
+	<p>I am able to see grating tilt, mirror test stand and other issues more easily.
+
+	<p>Avoid unwrapping Ronchigrams with loops: the unwrapping loops back on itself. Use Ronchigrams with more, not less, bands.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\avoid looping while unwrapping.jpg' class='bigImage'>
+
 	<a name='math'></a>
 	<h4>Ronchi math</h4>
 
@@ -465,9 +480,9 @@
 	<p>If y=0, then simplifies to x^3 - x^2 * xAtGrating + x * (-RoC * gatingOffset * 2) - (RoC^2 * xAtGrating) = 0
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi math.jpg' class='bigImage'>
-	
+
 	<h5>Mirror Surface Profile math</h5>
-	
+
 	<p>The radius of curvature for each zone is calculated along with the sphere to parabola deviation in waves at focus (the wavefront). The ideal RoC offset is compared to the user input zonal error corrections. For example, if the user sets the parabolic correction to zero, then the wave error is the full sphere to parabola deviation for that zone.
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi math zones and errors in waves.jpg' class='bigImage'>
@@ -477,14 +492,14 @@
 	<p>Unwrapping the Ronchigram means removing the parabolic distortion. Straight vertical bands indicate a paraboloidal mirror surface.
 
 	<p>We calculate the image distortion caused by the mirror's paraboloidal surface. To start, the spheroidal surface has a constant factor of gratingOffset * 2 across all zones, resulting in straight bands. The paraboloidal surface factor is:
-	
+
 	<p>(RoC + gratingOffset * 2 - zonalRoC) * zoneLocationOnMirrorSurface / zonalRoC
 	<br>where zonalRoC = RoC + mirrorZone^2 / RoC.
 
 	<p> Parabolic distortion then = paraboloidal factor / spheroidal factor. This is calculated and the values saved for all x,y in a quadrant of the Ronchigram.
 
 	<p>For example, if the zone on the mirror's face is halfway from the center to the edge and the parabolic distortion is 1.4, then the zone will appear 1.4 times further along towards the edge. Applying the parabolic distortion for all x,y of the Ronchigram results in a new Ronchigram where the bands are unwrapped or straightened.
-	
+
 	<p>Here are two plots of the parabolic distortion of the default first Ronchigram where 'y=0' is across the mirror's center and 'y=62' is halfway towards the top edge:<br>
 	<img alt='' loading='lazy' src='JoyOfMirrorMaking\parabolic distortion spreadsheet.jpg' class='bigImage'>
 
@@ -510,10 +525,11 @@
 		<li><a href='#IFcomparison'>#IFcomparison</a>
 		<li><a href='#tester'>#tester</a>
 		<li><a href='#MatchingRonchiTape'>#MatchingRonchiTape</a>
+		<li><a href='#unwrap'>#unwrap</a>
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, April 29, 2023</h4>
+	<h4>by Mel Bartels, April 30, 2023</h4>
 	<br>
 	<br>
 </div>
