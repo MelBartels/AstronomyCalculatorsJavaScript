@@ -38,25 +38,24 @@
 	&emsp; Radius of curvature (RoC) = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
 	&emsp; Focal length = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
 	&emsp; Focal ratio = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
+	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
 	<br>
 	Grating freq. (lines per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-	&emsp; Grating offsets from RoC = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.2, 0.4' onfocus='select()' type='text'>
+	&emsp; Grating offsets from RoC = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.2, 0.5' onfocus='select()' type='text'>
 	or adjust
 	<input id='btnIncreaseGratingOffsets' value='+' type='button'>
 	<input id='btnDecreaseGratingOffsets' value='-' type='button'>
 	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
-	<br>
-	Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
-	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
+	&emsp; Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
 	<br>
 	Ronchigram size in pixels = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
 	&emsp; Border size = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
 	&emsp; Band color (R,G,B) = <input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-	<br>
-	Invert bands?
+	&emsp; Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
-	&emsp; Ronchi tape?
+	<br>
+	Ronchi tape?
 	<input name='RonchiTape' value='yes' type='radio'>yes
 	<input name='RonchiTape' value='no' type='radio'>no
 	&emsp; Ronchi grid?
@@ -84,15 +83,15 @@
 	height <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
 	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
-	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
+	&emsp; <input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
 	<br>
 	<input id='btnUnwrapFirstRonchigram' value='Unwrap first Ronchigram' type='button'>
-	<input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
 	<input id='btnUnwrapExample' value='Unwrap example' type='button'>
 	&emsp; Unwrap Y axis <input name='unwrapY' value='yes' type='radio'>yes
 	<input name='unwrapY' value='no' type='radio'>no
 	&emsp; Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
-</div>
+	&emsp; <input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
+	</div>
 <div id='Ronchigrams'> <!-- canvases added in JavaScript --> </div>
 <div id='waveNotes'></div>
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
