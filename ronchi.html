@@ -33,7 +33,7 @@
 </div>
 <br>
 <div>
-	 Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
+	Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
 	&emsp; Radius of curvature (RoC) = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
 	&emsp; Focal length = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
 	&emsp; Focal ratio = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
@@ -48,7 +48,7 @@
 	Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
 	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
 	<br>
-	 Ronchigram size in pixels = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
+	Ronchigram size in pixels = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
 	&emsp; Border size = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
 	&emsp; Band color (R,G,B) = <input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
 	<br>
@@ -84,8 +84,12 @@
 	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
-	&emsp; <input id='btnUnwrapFirstRonchigram' value='Unwrap first Ronchigram' type='button'>
+	<br>
+	<input id='btnUnwrapFirstRonchigram' value='Unwrap first Ronchigram' type='button'>
 	<input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
+	&emsp; Unwrap Y axis <input name='unwrapY' value='yes' type='radio'>yes
+	<input name='unwrapY' value='no' type='radio'>no
+	&emsp; Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
 </div>
 <div id='Ronchigrams'> <!-- canvases added in JavaScript --> </div>
 <div id='waveNotes'></div>
