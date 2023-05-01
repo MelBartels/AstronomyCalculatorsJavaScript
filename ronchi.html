@@ -69,28 +69,28 @@
 	<input name='btnDrawRuler' value='RonchiTapeMarks' type='radio'>tape marks
 	<p>
 	Save and get data to local storage
-	<input id='btnPutData' value='save data with name: ' type='button'>
-	<input class='inputText' name='dataName' value='my data' onfocus='select()' type='text'>
-	<input id='btnGetData' value=' get data' type='button'>
-	<input id='btnShowDataNames' value='show saved data names' type='button'>
-	<input id='btnDeleteData' value='delete saved data' type='button'>
+	<input id='btnPutData' value='Save data with name: ' type='button'>
+	<input class='inputText' name='dataName' value='My data' onfocus='select()' type='text'>
+	<input id='btnGetData' value='Get data' type='button'>
+	<input id='btnShowDataNames' value='Show saved data names' type='button'>
+	<input id='btnDeleteData' value='Delete saved data' type='button'>
 	<br>
 	Show pasted image?
 	<input name='pastedImageActive' value='yes' type='radio'>yes
 	<input name='pastedImageActive' value='no' type='radio'>no
+	&emsp; <input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
 	&emsp; transparency <input class='inputText' id='pastedImageTransparency' value='0.8' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
 	width <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
 	height <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
 	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
-	&emsp; <input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
 	<br>
 	<input id='btnUnwrapFirstRonchigram' value='Unwrap first Ronchigram' type='button'>
-	<input id='btnUnwrapExample' value='Unwrap example' type='button'>
+	&emsp; <input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
 	&emsp; Unwrap Y axis <input name='unwrapY' value='yes' type='radio'>yes
 	<input name='unwrapY' value='no' type='radio'>no
 	&emsp; Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
-	&emsp; <input id='btnDeleteUnwrap' value='Delete unwrap Ronchigram' type='button'>
+	&emsp; <input id='btnUnwrapExample' value='Unwrap example' type='button'>
 	</div>
 <div id='Ronchigrams'> <!-- canvases added in JavaScript --> </div>
 <div id='waveNotes'></div>
@@ -141,15 +141,15 @@
 	<p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror can be evaluated objectively, just like measuring a piece of paper with a ruler to determine if it is 8.5x11 inches or A4 in size. With careful matching, I have found that this test gets me to 'snap focus' quality on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized very fast 6 inch f2.8, 10.5 inch f2.7, 13.2 inch f3.0, 16 inch f2.9, 25 inch f2.6 and two 30 inch f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image into this webpage, adjust the grating offset along with any image parameters for best match, then inspect the mirror surface profile to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.
 
 	<p>Here are some examples:</br>
-	&emsp; <input id='btnPasteExampleRonchigram16in' value='click here' type='button'> to paste a Ronchigram of my 16.25 inch f2.9 mirror (inside RoC);
-		   <input id='btnPasteExampleRonchigram16out' value='click here' type='button'> same mirror (outside RoC).
+	&emsp; <input id='btnPasteExampleRonchigram16in' value='Click here' type='button'> to paste a Ronchigram of my 16.25 inch f2.9 mirror (inside RoC);
+		   <input id='btnPasteExampleRonchigram16out' value='Click here' type='button'> same mirror (outside RoC).
 		   <a href='16/16 inch log.html' target='_blank'>How I made the mirror</a><br>
-	&emsp; <input id='btnPasteExampleRonchigram25' value='click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.
+	&emsp; <input id='btnPasteExampleRonchigram25' value='Click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.
 		   <a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html' target='_blank'>How I made the mirror</a><br>
-	&emsp; <input id='btnPasteExampleRonchigram13' value='click here' type='button'> to paste a Ronchigram of my 13.2 inch f3.0 mirror.<br>
-	&emsp; <input id='btnPasteExampleRonchigram10in' value='click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror (inside RoC);
-	       <input id='btnPasteExampleRonchigram10' value='click here' type='button'> same mirror (outside RoC).<br>
-	&emsp; <input id='btnPasteExampleRonchigram6' value='click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.
+	&emsp; <input id='btnPasteExampleRonchigram13' value='Click here' type='button'> to paste a Ronchigram of my 13.2 inch f3.0 mirror.<br>
+	&emsp; <input id='btnPasteExampleRonchigram10in' value='Click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror (inside RoC);
+	       <input id='btnPasteExampleRonchigram10' value='Click here' type='button'> same mirror (outside RoC).<br>
+	&emsp; <input id='btnPasteExampleRonchigram6' value='Click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.
 </div>
 <div>
 	<a name='discussion'></a>
@@ -455,14 +455,22 @@
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
 
-	<p>My 13.2x1 inch [335x25mm] F3.0 and 10.5 inch [267x19mm] F2.7 mirrors unwrapped.
-	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\13F3 unwrap example.jpg' class='bigImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 10.5F2.8.jpg' class='bigImage'>
-
 	<p>I am able to see grating tilt, mirror test stand and other issues more easily.
 
 	<p>Avoid unwrapping Ronchigrams with loops: the unwrapping loops back on itself. Use Ronchigrams with more, not less, bands.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\avoid looping while unwrapping.jpg' class='bigImage'>
+
+	<p>My 10.5 inch [267x19mm] F2.7 mirror unwrapped.
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 10.5F2.8.jpg' class='bigImage'>
+
+	<p>Astroscan mirror.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapped Astroscan Matching Ronchi.jpg' class='bigImage'>
+
+	<p>My  25x1/2 inch [635x13mm] F2.6 mirror in progress.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 25 inch in progress.jpg' class='bigImage'>
+
+	<p>My  24 inch F5.5 mirror.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 24F5.5.jpg' class='bigImage'>
 
 	<a name='math'></a>
 	<h4>Ronchi math</h4>
