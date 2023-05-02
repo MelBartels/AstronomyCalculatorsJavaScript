@@ -90,8 +90,11 @@
 	&emsp; Unwrap Y axis <input name='unwrapY' value='yes' type='radio'>yes
 	<input name='unwrapY' value='no' type='radio'>no
 	&emsp; Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
+	&emsp; Display band ruler?
+	<input name='unwrapBandRuler' value='yes' type='radio'>yes
+	<input name='unwrapBandRuler' value='no' type='radio'>no
 	&emsp; <input id='btnUnwrapExample' value='Unwrap example' type='button'>
-	</div>
+</div>
 <div id='Ronchigrams'> <!-- canvases added in JavaScript --> </div>
 <div id='waveNotes'></div>
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
@@ -455,11 +458,13 @@
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
 
-	<p>I am able to see grating tilt, mirror test stand and other issues more easily.
+	<p>I am able to see grating tilt, smartphone tilt, mirror test stand and other issues more easily. Here's an example showing grating and smartphone tilt that is not visible by other means. I entered a large value of '3' to the stretch factor. The artifacts making the bands look rough are from the grating bleeding through in the image.
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap bands tilted.jpg' class='bigImage'>
 
 	<p>Avoid unwrapping Ronchigrams with loops: the unwrapping loops back on itself. Use Ronchigrams with more, not less, bands.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\avoid looping while unwrapping.jpg' class='bigImage'>
-	
+
 	<p>If the 'Y' axis unwrap is on, then a Ronchi grid can be used for 2-D full mirror testing.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\grid unwrap.jpg' class='bigImage'>
 
@@ -505,16 +510,28 @@
 
 	<h5>Unwrapping the Ronchigram</h5>
 
-	<p>Unwrapping the Ronchigram means removing the parabolic distortion. Straight vertical bands indicate a paraboloidal mirror surface.
+	<p>Unwrapping the Ronchigram means removing the parabolic distortion. Straight vertical evenly spaced bands indicate a paraboloidal mirror surface.
 
-	<p>We calculate the image distortion caused by the mirror's paraboloidal surface. To start, the spheroidal surface has a constant factor of gratingOffset * 2 across all zones, resulting in straight bands. The paraboloidal surface factor is:
+	<p>To start, we compare the ray height at the grating for parabolic and spherical surfaces to get the distortion ratio. We then apply the distortion ratio to the original image's x,y pixels shifting the pixels by the distortion ratio. If inside RoC, then the pixels are shifted inward.
+
+	<p>The spheroidal surface has a constant factor of gratingOffset * 2 across all zones, resulting in straight bands. Whereas the paraboloidal surface factor is:
 
 	<p>(RoC + gratingOffset * 2 - zonalRoC) * zoneLocationOnMirrorSurface / zonalRoC
 	<br>where zonalRoC = RoC + mirrorZone^2 / RoC.
 
-	<p> Parabolic distortion then = paraboloidal factor / spheroidal factor. This is calculated and the values saved for all x,y in a quadrant of the Ronchigram.
+	<p>Parabolic distortion then = paraboloidal factor / spheroidal factor. These values are saved for all x,y in a quadrant of the Ronchigram.
 
-	<p>For example, if the zone on the mirror's face is halfway from the center to the edge and the parabolic distortion is 1.4, then the zone will appear 1.4 times further along towards the edge. Applying the parabolic distortion for all x,y of the Ronchigram results in a new Ronchigram where the bands are unwrapped or straightened.
+	<p>For example, the default Ronchi tape bands fall on the 0, 2.62, 4.34, 5.54 mirror zones. That's 0, 0.4366666666666667, 0.7233333333333333, 0.9233333333333333 relative to the mirror's radius.
+
+	<p>The default Ronchigram display display size is 250x250 or 125 for the radius. The bands then fall on the 'x's: 0, 54, 90, 115. These are parabolic or warped x's as they appear in the first Ronchigram.
+
+	<p>The Distortions for the bands are: NaN, 1.1394363845604456, 1.3870024448314904, 1.6313480674892065 and when divided by the maxDistortion of 1.733782617356102 for the Ronchigram overall, are: NaN, 0.6571967980034353, 0.7999863598509095, 0.9409184583802662.
+
+	<p>The unwrapped or undistorted 'x's (0, 54, 90, 115) then become: 0, 35, 71, 108.
+
+	<p>The original Ronchigram + pasted image's pixels at x's of (0, 54, 90, 115) are pasted to x's of (0, 35, 71, 108) in the new unwrapped Ronchigram. Here, in this example, the 'y' axis is set to zero.
+
+	<p>This is done for each x,y value in the distortion data array; missing values are filled in by extending the current pixel a couple of x's.
 
 	<p>Here are two plots of the parabolic distortion of the default first Ronchigram where 'y=0' is across the mirror's center and 'y=62' is halfway towards the top edge:<br>
 	<img alt='' loading='lazy' src='JoyOfMirrorMaking\parabolic distortion spreadsheet.jpg' class='bigImage'>
@@ -545,7 +562,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992, last update: May 1, 2023</h4>
+	<h4>by Mel Bartels, 1992, last update: May 2, 2023</h4>
 	<br>
 	<br>
 </div>
