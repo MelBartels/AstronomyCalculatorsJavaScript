@@ -134,7 +134,10 @@
 </div>
 <div class='floatDiv'>
 	<h4>Results</h4>
-	<p>Wavelength of light (green light = 0.000022 inches or 0.00056mm) <input class='inputText' name='wavelengthLight' value='0.000022' onfocus='select()' type='text'>
+	Wavelength of light measured in
+	<input name='wavelengthLightUOM' value='imperial' type='radio'>imperial
+	<input name='wavelengthLightUOM' value='metric' type='radio'>metric
+	units
 	<p><label id='MSPResultsLabel'></label>
 	<p><label id='zonalErrorsResultsLabel'></label>
 	The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
@@ -492,7 +495,7 @@
 
 	<p>The Matching Ronchi unwrapping can be used as a full surface grid test. Either make a grid Ronchi grating using it at the radius of curvature, or use a Hartmann mask over the mirror (the latter requires a pinpoint light source, for example, a laser with the lens removed and operated at less than lasing voltage). The Matching Ronchi grid software unwraps the parabolically distorted image for easy grid inspection.
 
-	<p>Turn on the 'Y' axis unwrapso that the test can be used for 2-D full mirror testing.<br>
+	<p>Turn on the 'Y' axis unwrap so that the test can be used for 2-D full mirror testing.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\grid unwrap.jpg' class='bigImage'>
 
 	<p>A terrible Ronchigram grid but shows the potential for the unwrapped grid version of the Matching Ronchi. A software version of the Ronchi-Hartmann 2D test? Here I crossed two gratings, attaching them to my Ronchi tester, hand holding the tester in front of the telescope while holding the smartphone with my other hand.<br>
@@ -580,7 +583,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992, last update: May 6, 2023</h4>
+	<h4>by Mel Bartels, 1992, last update: May 7, 2023</h4>
 	<br>
 	<br>
 </div>
