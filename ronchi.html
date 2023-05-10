@@ -103,7 +103,7 @@
 <div id='waveNotes'></div>
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
 <div>
-	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key. Match by adjusting the grating offset. <b>Unwrapping</b> the first Ronchigram to remove the parabolic distortion reveals the straightness of the bands. See the <a href='#unwrap'>unwrapping Ronchigram section</a>.
+	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key. Match by adjusting the grating offset. <b>Unwrapping</b> the first Ronchigram to remove the parabolic distortion reveals the straightness of the bands. See the <a href='#unwrap'>unwrapping bands section</a>. The <b>grid</b> and <b>unwrap Y axis</b> are used to analyze Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See the <a href='#grid'>grid testing section</a>.
 </div>
 <div class='floatDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
@@ -129,7 +129,6 @@
 		<!-- canvas created in JavaScript -->
 	</div>
 	Offset RoC <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'> Find the best mirror surface profile to polish out errors and minimize wavefront error by adjusting the RoC. Start with values smaller than the parabolic RoC zonal changes. For example, <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>here's an analysis of my 25 inch F2.6 finished mirror</a>.
-	<p>Plot is scaled to greatest wavefront deviation.
 	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 </div>
 <div class='floatDiv'>
@@ -140,7 +139,7 @@
 	units
 	<p><label id='MSPResultsLabel'></label>
 	<p><label id='zonalErrorsResultsLabel'></label>
-	The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
+	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
 	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 </div>
 <div class='clearFloat'></div>
@@ -461,6 +460,8 @@
 
 	<p>Unwrapping a Ronchigram removes the parabolic distortion, returning the bands to their straight and vertical appearance. Optionally the vertical 'Y' axis can be unwrapped too and the horizontal 'X' axis can be stretched out.
 
+	<p>Note that unwrapping uses the zonal error table, consequently the calculated Ronchi bands are always unwrapped straight: whatever zonal errors that cause the first Ronchigram's calculated bands to distort from ideal are also used to unwrap, removing the zonal error corrections from the calculated Ronchi bands. The pasted image is also unwrapped per the zonal correction table, resulting in the image's bands changing. I think of it this way: the standard Ronchigram does not distort the pasted image but the computed Ronchi bands do follow the zonal error table, allowing the bands to be matched to each other. The Mirror Surface Profile and wave error is computed from the zonal error table. Changes to the zonal error table alters the unwrapped image's bands straightness, the goal being to make the pasted image bands as straight as possible.
+
 	<p>Here is an example using my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge.
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
@@ -481,7 +482,7 @@
 	<p>My 10.5 inch [267x19mm] F2.7 mirror unwrapped.
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 10.5F2.8.jpg' class='bigImage'>
 
-	<p>Astroscan mirror.<br>
+	<p>Astroscan mirror measured to better than 1/6 wave with an interferometer.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapped Astroscan Matching Ronchi.jpg' class='bigImage'>
 
 	<p>My  25x1/2 inch [635x13mm] F2.6 mirror in progress.<br>
@@ -584,7 +585,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992, last update: May 8, 2023</h4>
+	<h4>by Mel Bartels, 1992, last update: May 9, 2023</h4>
 	<br>
 	<br>
 </div>
