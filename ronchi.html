@@ -33,8 +33,7 @@
 	<div class='grid-item'>	<a href='#grid'>Grid testing</a>                       </div>
 	<div class='grid-item'>	<a href='#math'>Math</a>                               </div>
 </div>
-<br>
-<div>
+<div class='floatLeftInputDiv'>
 	Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
 	&emsp; Radius of curvature (RoC) = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
 	&emsp; Focal length = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
@@ -49,14 +48,14 @@
 	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
 	&emsp; Parabolic correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
 	<br>
-	Ronchigram size in pixels = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
-	&emsp; Border size = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
+	Ronchigram size = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
+	Border = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
 	&emsp; Band color (R,G,B) = <input class='inputText' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-	&emsp; Background band color (R,G,B) = <input class='inputText' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
+	Bkgnd band color (R,G,B) = <input class='inputText' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
 	&emsp; Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
-	&emsp; Application background color <input class='inputText' name='backgroundColor' value='#f0f0f0' onfocus='select()' type='text'>
+	&emsp; App bkgnd color <input class='inputText' name='backgroundColor' value='#f0f0f0' onfocus='select()' type='text'>
 	<br>
 	Ronchi tape?
 	<input name='RonchiTape' value='yes' type='radio'>yes
@@ -97,15 +96,26 @@
 	&emsp; Display band ruler?
 	<input name='unwrapBandRuler' value='yes' type='radio'>yes
 	<input name='unwrapBandRuler' value='no' type='radio'>no
-	&emsp; <input id='btnUnwrapExample' value='Unwrap example' type='button'>
 </div>
+<div class='floatLeftExampleDiv''>
+	<a name='matchingExamples'></a>
+	<b>My matching examples</b>
+	<p>
+	<input id='btnPasteExampleRonchigram16' value='16.25 inch f2.9' type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram30' value='30 inch f2.7'    type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram25' value='25 inch f2.6'    type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram10' value='10.5 inch f2.7'  type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram6'  value='6 inch f2.8.'    type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13' value='13.2 inch f3.0'  type='button' class='exBtn'>
+</div>
+<div class='clearFloat'></div>
 <div id='Ronchigrams'> <!-- canvases added in JavaScript --> </div>
 <div id='waveNotes'></div>
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
 <div>
 	<b>To match bands</b>, drag and drop your image, or paste your mirror's Ronchigram into this browser page (you may have to first open the image in a program then copy from there). To remove the image press your delete or escape key. Match by adjusting the grating offset. <b>Unwrapping</b> the first Ronchigram to remove the parabolic distortion reveals the straightness of the bands. See the <a href='#unwrap'>unwrapping bands section</a>. The <b>grid</b> and <b>unwrap Y axis</b> are used to analyze Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See the <a href='#grid'>grid testing section</a>.
 </div>
-<div class='floatDiv'>
+<div class='floatLeftDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
 	<p><input id='btnUpdateZonalCorrectionTable' value='Update table and mirror surface profile' type='button'>
 	   <input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
@@ -123,7 +133,7 @@
 	<br>The zonal correction factor is based on the ideal parabolic correction for that zone. For center zones, this value is very small. Multiplying a tiny value by a large factor results in a relatively modest radius of curvature change. This is 'OK'.
 	<br>Depending on the circumstances, setting the zone's radius of curvature differently than the ideal parabolic value may be seen as undercorrected or overcorrected.
 </div>
-<div class='floatDiv'>
+<div class='floatLeftDiv'>
 	<h4>Mirror surface profile: ideal parabola minus zonal corrections</h4>
 	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
@@ -131,7 +141,7 @@
 	Offset RoC <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'> Find the best mirror surface profile to polish out errors and minimize wavefront error by adjusting the RoC. Start with values smaller than the parabolic RoC zonal changes. For example, <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>here's an analysis of my 25 inch F2.6 finished mirror</a>.
 	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 </div>
-<div class='floatDiv'>
+<div class='floatLeftDiv'>
 	<h4>Results</h4>
 	Wavelength of light measured in
 	<input name='wavelengthLightUOM' value='imperial' type='radio'>imperial
@@ -144,23 +154,6 @@
 </div>
 <div class='clearFloat'></div>
 <div>
-	<a name='matchingExamples'></a>
-	<h4>Matching Ronchi examples</h4>
-
-	<p>By matching the mirror's actual Ronchigram with the computed Ronchigram, the mirror can be evaluated objectively, just like measuring a piece of paper with a ruler to determine if it is 8.5x11 inches or A4 in size. With careful matching, I have found that this test gets me to 'snap focus' quality on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized very fast 6 inch f2.8, 10.5 inch f2.7, 13.2 inch f3.0, 16 inch f2.9, 25 inch f2.6 and two 30 inch f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image into this webpage, adjust the grating offset along with any image parameters for best match, then inspect the mirror surface profile to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.
-
-	<p>Here are some examples:</br>
-	&emsp; <input id='btnPasteExampleRonchigram16in' value='Click here' type='button'> to paste a Ronchigram of my 16.25 inch f2.9 mirror (inside RoC);
-		   <input id='btnPasteExampleRonchigram16out' value='Click here' type='button'> same mirror (outside RoC).
-		   <a href='16/16 inch log.html' target='_blank'>How I made the mirror</a><br>
-	&emsp; <input id='btnPasteExampleRonchigram25' value='Click here' type='button'> to paste a Ronchigram of my 25 inch f2.6 mirror.
-		   <a href='JoyOfMirrorMaking/25 inch f2.6 mirror.html' target='_blank'>How I made the mirror</a><br>
-	&emsp; <input id='btnPasteExampleRonchigram13' value='Click here' type='button'> to paste a Ronchigram of my 13.2 inch f3.0 mirror.<br>
-	&emsp; <input id='btnPasteExampleRonchigram10in' value='Click here' type='button'> to paste a Ronchigram of my 10.5 inch f2.7 mirror (inside RoC);
-	       <input id='btnPasteExampleRonchigram10' value='Click here' type='button'> same mirror (outside RoC).<br>
-	&emsp; <input id='btnPasteExampleRonchigram6' value='Click here' type='button'> to paste a Ronchigram of my 6 inch f2.8 mirror.
-</div>
-<div>
 	<a name='discussion'></a>
 	<h4>Discussion</h4>
 
@@ -171,6 +164,8 @@
 	<p>The minimum information needed is the total number of grating lines across the aperture and the radius of curvature or focal length also in grating lines. The mirror's edges in relation to the Ronchi bands are also needed. The quality of the paraboloidal curve as denoted by the Ronchi bands can then be inspected. This is also true of other slope tests such as the Hartmann, Foucault and so forth.
 
 	<p>When close to finish, test with a second type of test. The star test and the Bath IF are excellent choices. This will confirm small errors.
+
+	<p>Matching the mirror's Ronchigram with the computed Ronchigram allows us to analyze the mirror objectively, just like measuring a piece of paper with a ruler to determine if it is 8.5x11 inches or A4 in size. With careful matching, I have found that this test gets me to 'snap focus' quality on super fast very large mirrors, where I then switch to the star test for final adjustments. I've successfully parabolized very fast 6 inch f2.8, 10.5 inch f2.7, 13.2 inch f3.0, 16 inch f2.9, 25 inch f2.6 and two 30 inch f2.7 mirrors using the Ronchi Matching Test and star test combination. And the Ronchi Matching test is quick: take a Ronchigram with the phone, copy and paste the image into this webpage, adjust the grating offset along with any image parameters for best match, then inspect the mirror surface profile to determine next parabolizing work session. It is important to precisely mark the edges of the clear aperture, otherwise the overlapping edges in the Ronchigram can mislead.
 </div>
 <div>
 	<a name='about'></a>
@@ -568,7 +563,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992, last update: May 10, 2023</h4>
+	<h4>by Mel Bartels, 1992, last update: May 11, 2023</h4>
 	<br>
 	<br>
 </div>

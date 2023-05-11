@@ -1,6 +1,6 @@
 html {
-	font-family: Verdana, Geneva, sans-serif; 
-	margin-left: auto; 
+	font-family: Verdana, Geneva, sans-serif;
+	margin-left: auto;
 	margin-right: auto;
 }
 
@@ -21,7 +21,7 @@ html {
 }
 
 .label {
-	text-align: right; 
+	text-align: right;
 }
 
 .inputTextShort {
@@ -41,9 +41,21 @@ html {
 	vertical-align: middle;
 }
 
-.floatDiv {
+.floatLeftDiv {
 	float: left;
 	width: 800px;
+	padding: 10px;
+}
+
+.floatLeftInputDiv {
+	float: left;
+	width: 85%;
+	padding: 10px;
+}
+
+.floatLeftExampleDiv {
+	float: left;
+	width: 12%;
 	padding: 10px;
 }
 
@@ -51,24 +63,28 @@ html {
 	clear: both;
 }
 
+.exBtn {
+	width: 200px;
+}
+
 @media all and (min-width: 0px) {
 	.bigImage {
-		width: 100%; 
+		width: 100%;
 		height: 100%;
 	}
 	.smallImage {
-		width: 30%; 
+		width: 30%;
 		height: 30%;
 	}
 }
 
 @media all and (min-width: 768px) {
 	.bigImage {
-		width: 50%; 
+		width: 50%;
 		height: 50%;
 	}
 	.smallImage {
-		width: 15%; 
+		width: 15%;
 		height: 15%;
 	}
 }
