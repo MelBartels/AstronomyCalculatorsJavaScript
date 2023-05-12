@@ -62,12 +62,10 @@ html {
 
 .floatLeftRonchigramsDiv {
 	float: left;
-	width: 65%;
 }
 
 .floatLeftDiscussionDiv {
 	float: left;
-	width: 30%;
 }
 
 .clearFloat {
