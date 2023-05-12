@@ -29,35 +29,45 @@ html {
 }
 
 .inputText {
-	width: 75px;
+	width: 50px;
 }
 
 .inputTextLong {
-	width: 150px;
+	width: 75px;
 }
 
-#sliderOffset, #sliderZonalError {
-	width: 200px;
+#sliderOffset {
+	width: 150px;
 	vertical-align: middle;
 }
 
 .floatLeftDiv {
 	float: left;
-	width: 800px;
-	padding: 10px;
+	width: 45%;
+	padding: 5px;
 }
 
 .floatLeftInputDiv {
 	float: left;
 	width: 85%;
-	padding: 10px;
+	padding: 5px;
 }
 
 .floatLeftExampleDiv {
 	float: left;
 	width: 12%;
-	padding: 10px;
+	padding: 5px;
 	text-align: center;
+}
+
+.floatLeftRonchigramsDiv {
+	float: left;
+	width: 65%;
+}
+
+.floatLeftDiscussionDiv {
+	float: left;
+	width: 30%;
 }
 
 .clearFloat {
