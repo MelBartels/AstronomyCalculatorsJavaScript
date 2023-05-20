@@ -514,11 +514,11 @@
 
 	<p>The Distortions for the bands are: NaN, 1.1394363845604456, 1.3870024448314904, 1.6313480674892065 and when divided by the maxDistortion of 1.733782617356102 for the Ronchigram overall, are: NaN, 0.6571967980034353, 0.7999863598509095, 0.9409184583802662.
 
-	<p>The unwrapped or undistorted 'x's (0, 54, 90, 115) then become: 0, 35, 71, 108.
+	<p>The unwrapped or undistorted 'x's: 0, 54, 90, 115 then become: 0, 35, 71, 108.
 
 	<p>The original Ronchigram + pasted image's pixels at x's of (0, 54, 90, 115) are pasted to x's of (0, 35, 71, 108) in the new unwrapped Ronchigram. Here, in this example, the 'y' axis is set to zero.
 
-	<p>This is done for each x,y value in the distortion data array; missing values are filled in by extending the current pixel a couple of x's.
+	<p>This is done for each x,y value in the distortion data array; to fill in otherwise missing pixels, the distortion data array is enlarged by the 'unwrap fill factor'.
 
 	<p>Here are two plots of the parabolic distortion of the default first Ronchigram where 'y=0' is across the mirror's center and 'y=62' is halfway towards the top edge:<br>
 	<img alt='' loading='lazy' src='JoyOfMirrorMaking\parabolic distortion spreadsheet.jpg' class='bigImage'>
@@ -549,7 +549,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992, last update: May 15, 2023</h4>
+	<h4>by Mel Bartels, 1992, last update: May 19, 2023</h4>
 	<br>
 	<br>
 </div>
