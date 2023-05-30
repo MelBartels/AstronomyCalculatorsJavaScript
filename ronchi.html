@@ -86,13 +86,14 @@
 	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 	<br>
-	Unwrap Y axis <input name='unwrapY' value='yes' type='radio'>yes
-	<input name='unwrapY' value='no' type='radio'>no
-	&emsp; Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
+	Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
 	&emsp; Unwrap fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='text'>
 	&emsp; Display band ruler?
 	<input name='unwrapBandRuler' value='yes' type='radio'>yes
 	<input name='unwrapBandRuler' value='no' type='radio'>no
+	&emsp; Show bullseye zones?
+	<input name='showBullseyeZones' value='yes' type='radio'>yes
+	<input name='showBullseyeZones' value='no' type='radio'>no
 </div>
 <div class='floatLeftExampleDiv''>
 	<a name='matchingExamples'></a>
@@ -109,7 +110,7 @@
 <div id='discussionDiv' class='floatLeftDiscussionDiv'>
 	<p>A positive grating offset is outside the RoC where bands curve inward. Accurately measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
 	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the delete or escape key. Match by adjusting the grating offset. This gets me to 'snap focus'. Switch to the star test for final adjustments.
-	<p><b>Unwrapping</b> the first Ronchigram removes parabolic distortion and straightens the bands. See <a href='#unwrap'>unwrapping bands section</a>. The <b>grid</b> and <b>unwrap Y axis</b> analyze Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See <a href='#grid'>grid testing section</a>.
+	<p><b>Unwrapping</b> the first Ronchigram removes parabolic distortion and straightens the bands. See <a href='#unwrap'>unwrapping bands section</a>. The <b>grid</b> analyzes Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See <a href='#grid'>grid testing section</a>.
 </div>
 <div class='clearFloat'></div>
 <div id='waveNotes'></div>
@@ -437,6 +438,10 @@
 	<p>Avoid unwrapping Ronchigrams with loops: the unwrapping loops back on itself. Use Ronchigrams with more, not less, bands.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\avoid looping while unwrapping.jpg' class='bigImage'>
 
+	<p>If unwrapping loops cannot be avoided then use the control, 'Show bullseye zones?', to show the portion of the bullseye that is otherwise hidden. Each bullseye is a zone that circles a point representing the radius of curvature of the bulleye's center. Unwrapping the bullseye into a bar means that one half of the bullseye will be unwrapped onto the other half.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\bullseye.jpg' class='bigImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\bullseye 25F2.6 example.jpg' class='bigImage'>
+
 	<p>And if unwrapped pixels show up, increase the 'unwrap fill factor' number.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\increase unwrap fill factor to fill in pixels.jpg' class='bigImage'>
 
@@ -457,7 +462,7 @@
 
 	<p>Wouldn't it be easier to judge and measure if the bands could be straightened out? The Matching Ronchi unwrapping can be used as a full surface rectilinear grid test. Either make a grid Ronchi grating using it at the radius of curvature, or use a Hartmann mask over the mirror (the latter requires a pinpoint light source, for example, a laser with the lens removed and operated at less than lasing voltage). The Matching Ronchi grid software unwraps the parabolically distorted image into a grid for easy inspection and measuring.
 
-	<p>Turn on the Ronchi grid and Unwrap Y axis options so that the test can be used for 2-D full mirror testing.<br>
+	<p>Turn on the Ronchi grid option so that the test can be used for 2-D full mirror testing.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\grid unwrap.jpg' class=''>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\grid unwrap 25-50-75 zones.jpg' class=''>
 
@@ -549,7 +554,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992; last update 19-May-2023</h4>
+	<h4>by Mel Bartels, 1992; last update 30-May-2023</h4>
 	<br>
 	<br>
 </div>
