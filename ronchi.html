@@ -47,8 +47,8 @@
 	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
 	&emsp; Parab. correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='text'>
 	<br>
-	Ronchigram size = <input class='inputText' name='RonchigramSize' value='250' onfocus='select()' type='text'>
-	Border = <input class='inputText' name='borderSize' value='10' onfocus='select()' type='text'>
+	Ronchigram size = <input class='inputText' name='RonchigramSize' value='350' onfocus='select()' type='text'>
+	Border = <input class='inputText' name='borderSize' value='0' onfocus='select()' type='text'>
 	&emsp; Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
 	Bkgnd band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
 	&emsp; Invert bands?
@@ -80,18 +80,17 @@
 	<input name='pastedImageActive' value='yes' type='radio'>yes
 	<input name='pastedImageActive' value='no' type='radio'>no
 	<input id='btnDeletedPastedImage' value='Delete pasted image' type='button'>
-	&emsp; transparency <input class='inputText' id='pastedImageTransparency' value='0.8' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
-	width <input class='inputText' id='pastedImageWidth' value='250' onfocus='select()' type='number' step='1' min='1'>
-	height <input class='inputText' id='pastedImageHeight' value='250' onfocus='select()' type='number' step='1' min='1'>
+	&emsp; transparency <input class='inputText' id='pastedImageTransparency' value='0.9' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
+	width <input class='inputText' id='pastedImageWidth' value='350' onfocus='select()' type='number' step='1' min='1'>
+	height <input class='inputText' id='pastedImageHeight' value='350' onfocus='select()' type='number' step='1' min='1'>
 	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 	<br>
-	Stretch X axis factor = <input class='inputText' name='stretchX' value='1' onfocus='select()' type='text'>
-	&emsp; Unwrap fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='text'>
-	&emsp; Display band ruler?
+	Unwrap fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='text'>
+	&emsp; Display unwrapped band ruler?
 	<input name='unwrapBandRuler' value='yes' type='radio'>yes
 	<input name='unwrapBandRuler' value='no' type='radio'>no
-	&emsp; Show bullseye zones?
+	&emsp; Show unwrapped bullseye zones?
 	<input name='showBullseyeZones' value='yes' type='radio'>yes
 	<input name='showBullseyeZones' value='no' type='radio'>no
 </div>
@@ -422,13 +421,9 @@
 
 	<p>Note that unwrapping uses the zonal error table, consequently the calculated Ronchi bands are always unwrapped straight: whatever zonal errors that cause the first Ronchigram's calculated bands to distort from ideal are also used to unwrap, removing the zonal error corrections from the calculated Ronchi bands. The pasted image is also unwrapped per the zonal correction table, resulting in the image's bands changing. I think of it this way: the standard Ronchigram does not distort the pasted image but the computed Ronchi bands do follow the zonal error table, allowing the bands to be matched to each other. The Mirror Surface Profile and wave error is computed from the zonal error table. Changes to the zonal error table alters the unwrapped image's bands straightness, the goal being to make the pasted image bands as straight as possible.
 
-	<p>Here is an example using my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge.
+	<p>Here is an example using my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge. I am able to see grating tilt, smartphone tilt, mirror test stand and other issues more easily. The artifacts making the bands look rough are from the grating lines bleeding through the smartphone's image.
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
-
-	<p>I am able to see grating tilt, smartphone tilt, mirror test stand and other issues more easily. Here's an example showing grating and smartphone tilt that is not visible by other means. I entered a large value of '3' to the stretch factor. The artifacts making the bands look rough are from the grating bleeding through in the image.
-
-	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap bands tilted.jpg' class='bigImage'>
 
 	<p>Here are comparisons of one-fourth wavefront undercorrection for a 8 inch [20cm] F7, the default 12 inch [31cm] F5 and for the 16.25 inch [41cm] F2.9.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\8F7 one-quarter wavefront change.JPG' class='smallImage'>
