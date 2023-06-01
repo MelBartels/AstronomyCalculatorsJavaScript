@@ -18,6 +18,7 @@
 	<div class='grid-item'> <a href='#about'>About</a>                             </div>
 	<div class='grid-item'> <a href='#DrShermanSchultz'>Dr Sherman Schultz</a>	   </div>
 	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
+	<div class='grid-item'>	<a href='#instructions'>Instructions</a>               </div>
 	<div class='grid-item'>	<a href='#parabolizing'>Parabolizing</a>               </div>
 	<div class='grid-item'> <a href='#analysis'>Analysis</a>                       </div>
 	<div class='grid-item'>	<a href='#diffractionEffects'>Diffraction effects</a>  </div>
@@ -209,6 +210,71 @@
 		<li>Our bias that may judge a mirror better than it really is
 		<li>I am keen to continually improve my mirror making technique
 	</ul>
+
+	<a name='instructions'></a>
+	<h4>Instructions, how to use the Ronchi Calculator</h4>
+
+	<p>Two steps:
+	<ol>
+		<li>Take the Ronchigram then prep the image.
+		<li>Import the image into the Ronchi Calculator and analyze.
+	</ol>
+
+	<h5>Take the Ronchigram then prep the image</h5>
+
+	<p>For the unwrap Ronchigram matchup, set up inside the radius of curvature (RoC) such that the bands bow outward in the mirror's center. Aim for 7 bands across the mirror's face. Fewer bands means greater sensitivity while more bands mean more coverage of the mirror's area from center to edge. For smaller slower mirrors 5 bands is fine; for larger faster mirrors 9 bands is better.
+
+	<p>I use my smartphone to take the image through the my Ronchi tester. Try to center the Ronchigram by either placing a dark band or a bright band over the mirror's center. Precise centering is no longer necessary with the new unwrap matching Ronchigram capability but it helps. Sometimes the phone picks up the grating just in front of the phone causing vertical striping. I ignore it. Smartphone cameras could distort the Ronchigram if it fills the camera view or the phone is tilted. I've never seen these issues interfere.
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi frontside.jpg'>
+	   <img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi tester back.jpg'>
+	   <img alt='' loading='lazy' src='JoyOfMirrorMaking/smartphone snap through Ronchi tester.jpg'>
+
+	<p>I prep the image using a freeware image processing program like FastStone.
+	<ol>
+		<li>Rotate the image so that the bands are vertically aligned.
+		<li>Crop the image top/bottom/left/right. I use masking tape stuck on the mirror's edges to clear up the diffraction that makes distinguishing the mirror's edges problematic. In fact, I can tell how fine of Ronchi grating by inspecting the diffraction. Otherwise adjust the left/right crop to match the top/bottom crop, forming a square.
+		<li>Resize to a comfortable number for the Ronchi Calculator. I like 400x400.
+		<li>Copy to the clipboard.
+	</ol>
+
+	<h5>Import the image into the Ronchi Calculator and analyze</h5>
+
+	<p>Set up the Ronchi Calculator for your mirror. The calculator needs you to select a unit of measurement, say inches or millimeters, then enter the mirror's diameter and grating frequency in those unit of measurements. The calculator also needs the focal ratio (or focal length or radius of curvature) to know how to computer the parabolic curves. The grating offset of your Ronchi tester is also needed.
+
+	<ol>
+		<li>Enter the mirror diameter.
+		<li>Enter the radius of curvature, or the focal length or the focal ratio.
+		<li>Enter the Ronchi grating frequency. Be aware that some manufacturers double count the lines. If any doubt, use a magnifying lens and count the lines. The software expects you to enter the number of dark bands per unit of measurement. If 100 is entered, then you should count 100 dark bars and 100 light bars in your unit of measurement (inches, millimeters).
+		<li>Enter a single grating offset, eg, -0.2 for inside RoC or 0.5 for outside RoC. We'll adjust this later.
+		<li>Enter the Ronchigram size you set when prepping the image.
+		<li>Set transparency to '1'.
+		<li>Turn on 'Display unwrapped band ruler?'.
+	</ol>
+
+	<p>for convenience, once you've entered these values you can save them for future use.
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi calculator entering values.jpg' class=''>
+
+	<p>Next, paste the image into the Ronchi calculator.
+
+	<p>Adjust the matching. Be prepared to turn on 'Invert bands?' if this makes it easier to see the bands. Looking at the unwrap Ronchigram matchup, use the Grating offset adjustment slider to do two things at once:
+	<ol>
+		<li>Make the bands as straight as possible.
+		<li>Fit the bands within the red ruler.
+	</ol>
+
+	<p>If the Ronchigram was not perfectly centered on the bands as this Ronchigram from 1975, then adjust using the 'x offset'.
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/centering unwrap Ronchigram.jpg' class=''>
+
+	<p>If the bands are perfectly straight and fit perfectly within the red ruler marks, then you are done! This will not be the case though until the mirror is finished. What will be apparent is a bowing of the bands. Start analyzing by adjusting the 'Parab. correction =' value. If the bands bow outward in the center then the mirror is overcorrected. If the bands bow inward towards the center then the mirror is undercorrected. The goal is to make the bands straight by adjusting the parabolic correction. Note that you may have to adjust the grating offset during this process to keep the bands centered with respect to the red ruler markings.
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/adjust parab correction grating offset.jpg' class=''>
+
+	<p>By noting any turned edge and degree of parabolic correction, you will often know what needs to be done to the mirror. For how to accomplish the polishing action, see my <a href='JoyOfMirrorMaking/Parabolizing.html' target='_blank'>parabolizing webpage</a>.
+
+	<!-- note todo -->
 
 	<a name='parabolizing'></a>
 	<h4>The Ronchi as part of the parabolizing process</h4>
