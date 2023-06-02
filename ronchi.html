@@ -119,9 +119,10 @@
 	<h4>Zonal errors: manual manipulation of zones</h4>
 	<p><input id='btnUpdateZonalCorrectionTable' value='Update table and mirror surface profile' type='button'>
 	   <input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
-	   <input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
 	   <input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
 	   <input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
+	   <input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
+	   <input id='btnResetCorrectionFactorsToParabCorrection' value='Reset corrections to parabolic correction' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
@@ -274,7 +275,13 @@
 
 	<p>By noting any turned edge and degree of parabolic correction, you will often know what needs to be done to the mirror. For how to accomplish the polishing action, see my <a href='JoyOfMirrorMaking/Parabolizing.html' target='_blank'>parabolizing webpage</a>.
 
-	<!-- note todo -->
+	<p>To use the zonal errors table, press two buttons in the 'Zonal errors: manual manipulation of zones' division.
+	<ol>
+		<li>'Update zones to Ronchi band positions'.
+		<li>'Reset corrections to parabolic correction'.
+	</ol>
+
+	<p>Adjust the individual zonal corrections to best straighten the bands appearing in the Ronchigrams. The results will appear in the Mirror Surface Profile graph.
 
 	<a name='parabolizing'></a>
 	<h4>The Ronchi as part of the parabolizing process</h4>
