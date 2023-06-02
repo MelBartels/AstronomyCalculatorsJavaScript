@@ -36,7 +36,7 @@ html {
 	width: 75px;
 }
 
-#sliderOffset {
+#sliderOffset, #sliderParabolicCorrection {
 	width: 150px;
 	vertical-align: middle;
 }
