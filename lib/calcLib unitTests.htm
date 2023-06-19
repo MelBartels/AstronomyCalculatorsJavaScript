@@ -1601,7 +1601,7 @@ note that visible? is coded from impossible=1 to very easy=6
 
 		// can't reach DawesLimit: resolution limited by magnification
 		magnification = 30;
-		expected = 8;
+		expected = 4.6;
 		result = resolutionFromAperture_Magnification(apertureInches, magnification);
 		assert.equal(withinRange(result, expected, 0.001), true, 'result = ' + result + ', should be ' + expected);
 
