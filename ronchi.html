@@ -130,11 +130,9 @@
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
-	<p>The center zone is zero and the edge zone is '1'.
-	<br>Zones can be entered in any order.
-	<br>The correction factor is the parabolic correction for the zone. That is, the radius of curvature is extended by the correction value. If '1', then the radius of curvature is extended by the ideal parabolic correction. If greater than '1', then the zone's radius of curvature is extended further, making the zone 'long' or 'high'. Conversely, if the parabolic correction is less than '1', then the zone's radius of curvature is shorted. A value of '0' leaves the radius of curvature unchanged from spherical.
-	<br>The zonal correction factor is based on the ideal parabolic correction for that zone. For center zones, this value is very small. Multiplying a tiny value by a large factor results in a relatively modest radius of curvature change. This is 'OK'.
-	<br>Depending on the circumstances, setting the zone's radius of curvature differently than the ideal parabolic value may be seen as undercorrected or overcorrected.
+	<p>The center zone is zero and the edge zone is 1. Zones can be entered in any order. The correction factor is the parabolic correction for the zone. 0 is no correction or spherical; 1 is full parabolic correction; 2 is double parabolic correction.
+	<p>If the mirror is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user supplied pasted unwrap Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased. The Mirror Surface Profile can be used to distinguish overcorrected/low from undercorrected/high zones.
+	<p>For center zones, the parabolic difference from spherical is small. Consequently large corrective values may be needed.
 </div>
 <div class='floatLeftDiv'>
 	<h4>Mirror surface profile: ideal parabola minus zonal corrections</h4>
@@ -638,7 +636,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992; last update 8-June-2023</h4>
+	<h4>by Mel Bartels, 1992; last update 20-June-2023</h4>
 	<br>
 	<br>
 </div>
