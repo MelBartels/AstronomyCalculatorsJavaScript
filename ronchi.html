@@ -507,6 +507,10 @@
 
 	<p>Note that unwrapping uses the zonal error table, consequently the calculated Ronchi bands are always unwrapped straight: whatever zonal errors that cause the first Ronchigram's calculated bands to distort from ideal are also used to unwrap, removing the zonal error corrections from the calculated Ronchi bands. The pasted image is also unwrapped per the zonal correction table, resulting in the image's bands changing. I think of it this way: the standard Ronchigram does not distort the pasted image but the computed Ronchi bands do follow the zonal error table, allowing the bands to be matched to each other. The Mirror Surface Profile and wave error is computed from the zonal error table. Changes to the zonal error table alters the unwrapped image's bands straightness, the goal being to make the pasted image bands as straight as possible.
 
+	<p>To make the unwrapped pasted image bands as straight as possible, if the mirror is undercorrected, then then zonal error will need to be overcorrected, that is, above 1. Similarly for an overcorrected mirror, then zonal error will need to be undercorrected, below 1. For example:
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\RB Z1 undercorrected 50 percent zone.jpg' class='bigImage'>
+	<img alt='' loading='lazy' src='JoyOfMirrorMaking\RB Z1 zonal errors applied.jpg' class='bigImage'>
+
 	<p>Here is an example using my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge. I am able to see grating tilt, smartphone tilt, mirror test stand and other issues more easily. The artifacts making the bands look rough are from the grating lines bleeding through the smartphone's image.
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
