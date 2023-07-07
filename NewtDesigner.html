@@ -1820,14 +1820,17 @@ copyright Mel Bartels, 2016-2023 -->
 				<p>Do the Bortle levels, subjective as they are, evenly represent the range of sky brightness? Take a look at this graph of Bortle levels versus object detection. I used the Saguaro object database, a popular and vetted library of more than ten thousand objects, of which 8661 have surface brightness measurements or the surface brightness can be calculated. I use the object contrast multiplied by the apparent size in a 10 inch telescope to determine object visibility. As you can see the Bortle scale is nicely balanced.<br>
 
 				<img alt='' loading='lazy' src='obs/object detection by Bortle Levels for 10 inch scope.jpg'>
+			</div>
 
-				<h4>How far should I drive for darker skies?</h4>
+			<br><br>
+			<div id='visualApertureVsLP'></div>
+			<button class='accordion' id='btnVisualApertureVsLP'>Aperture vs Light Pollution</button>
+			<div class='panel'>
+				<p>Dividing object visibility into six categories: very easy, easy, moderate, difficult, very difficult, and impossible, I investigated how much the aperture needs to be increased when comparing Bortle level 1 to level 4 skies.
 
-				<p>Dividing object visibility into six categories: very easy, easy, moderate, difficult, very difficult, and impossible, I investigated how much the aperture needs to be increased when comparing Bortle level 1 to level 4 skies. The answer is that aperture needs to be doubled. This is true in a coarse sense for all object types.<br>
+				<p><img alt='' loading='lazy' src='obs/Bortle levels 1 vs 4 when aperture is doubled.jpg'>
 
-				<img alt='' loading='lazy' src='obs/Bortle levels 1 vs 4 when aperture is doubled.jpg'>
-
-				<p>Each person will have to answer the question of how far to drive for themselves, but its helpful to know that a scope of half the size suffices in the darkest skies compared to dark suburban skies when considering object detection. One approach that this suggests then, is to make most observations in suburban skies, occasionally traveling to dark skies to finalize the observations.
+				<p>We see that a scope of size 'x' in dark skies (Bortle 1) performs roughly as a scope of size '2x' in modestly light polluted skies (Bortle 4). This is true in a coarse sense for all object types. Put another way, increases in aperture make more of a difference in object detection in darker skies compared to light polluted skies. In heavily light polluted skies, aperture must be dramatically increased to make a practical difference not to mention that low magnification / high etendue views are precluded. Generally speaking, darker skies are more important than aperture. Each person will have to answer the question of how far to drive with what size of scope. One approach that this suggests then, is to make most observations in suburban skies, occasionally traveling to dark skies to finalize the observations.
 			</div>
 
 			<br><br>
@@ -4282,6 +4285,7 @@ copyright Mel Bartels, 2016-2023 -->
 				<li><a href='#visualUom'>#visualUom</a>
 				<li><a href='#visualMagnitudeScale'>#visualMagnitudeScale</a>
 				<li><a href='#visualBortleScale'>#visualBortleScale</a>
+				<li><a href='#visualApertureVsLP'>#visualApertureVsLP</a>
 				<li><a href='#visualSkyBackgroundBrightness'>#visualSkyBackgroundBrightness</a>
 				<li><a href='#visualObjectBrightness'>#visualObjectBrightness</a>
 				<li><a href='#visualHowFaint'>#visualHowFaint</a>
@@ -4382,7 +4386,7 @@ copyright Mel Bartels, 2016-2023 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 11-June-2023
+				Last update 6-July-2023
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
