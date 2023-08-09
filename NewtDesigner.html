@@ -363,7 +363,6 @@ copyright Mel Bartels, 2016-2023 -->
 					<li><a href='#HET'>Highest etendue (light throughput) telescopes</a>
 					<li><a href='#lowMags'>A range of widest fields, lowest magnifications</a>
 					<li><a href='#idealTelescope'>The ideal telescope</a>
-					<li><a href='#combinationScopes'>Combination telescopes</a>
 				</ul>
 
 				<a name='scopePerformanceAsAFunctionOfExitPupil'></a>
@@ -589,18 +588,16 @@ copyright Mel Bartels, 2016-2023 -->
 
 				<p>I could see with first light that the 13.2 inch that views are qualitatively different. I set about going down this path of thin fast meniscus mirrors, participating in the newly formed Altaz Initiative's efforts to create 1-2 meter telescopes at a fraction of the current cost. To solidify my fast mirror making skills, I made 6 inch f2.8 and 10.5 inch f2.7 telescopes. First light with these scopes revealed the Pleaides Bubble, the Andromeda Twist, and later, astonishing views of Integrated Flux Nebulae.
 
-				<p>Sketching with my 6 inch: Betelgeuse's ring of dark nebulae and the Andromeda Galaxy:
+				<p>Sketching with my 6 inch: Betelgeuse's ring of dark nebulae:
 
 				<p><img alt='' loading='lazy' src='dneb/Betelgeuse Ring B 35 B36 LDN 1597 LDN 1594 LDN1598 LDN1602 LDN1611 .jpg'>
-				<img alt='' loading='lazy' src='6inchF2.8/Andromeda M31 M110 shelf.jpg'>
 
 				<p>Sketching with my 10.5 inch: first drawing of an IFN:
 
 				<p><img alt='' loading='lazy' src='drawings/inverted/Volcano IFN.jpg'>
 
-				<p>Sketching with my 25 inch [64cm] f2.6: Integrated Flux Nebulae in the field with M51 the Whirlpool Galaxy and M13 the Hercules globular cluster:
+				<p>Sketching with my 25 inch [64cm] f2.6: Integrated Flux Nebulae in the field with M13 the Hercules globular cluster:
 
-				<p><img alt='' loading='lazy' src='drawings/M51 IFN through 25 inch f2.6.jpg'>
 				<img alt='' loading='lazy' src='drawings/M13 NGC6207 IC4617 IFN with 25 inch f2.6.jpg'>
 
 				<h4>Etendue calculator</h4>
@@ -642,10 +639,6 @@ copyright Mel Bartels, 2016-2023 -->
 				<p><img alt='' loading='lazy' class='mediumSizeImage' src='truths/aperture differences.jpg'>
 
 				<p>From 25 years of Oregon Star Party Telescope Walkabouts, 16 inch [41cm] size is the most popular large scope size.
-
-				<a name='combinationScopes'></a>
-				<div id='combinationScopes'></div>
-				<h3>Combination telescopes</h3>
 
 				<p>Amateurs sometimes combine a small scope with a large scope, maximizing etendue for more than one true field of view.
 
@@ -1496,14 +1489,22 @@ copyright Mel Bartels, 2016-2023 -->
 			</div>
 
 			<br><br>
-			<div id='visualApertureVsLP'></div>
-			<button class='accordion' id='btnVisualApertureVsLP'>Aperture vs Light Pollution</button>
+			<div id='visualObjectTypes'></div>
+			<button class='accordion' id='btnVisualObjectTypes'>Object types</button>
 			<div class='panel'>
-				<p>Dividing object visibility into six categories: very easy, easy, moderate, difficult, very difficult, and impossible, I investigated how much the aperture needs to be increased when comparing Bortle level 1 to level 4 skies.
+				<ul>
+					<li><b>Stars</b>, or point sources. A star's visibility depends on aperture: the telescope's light gathering power. Higher powers darken the field, increasing contrast and making the faintest stars more visible. Since the star is a point source, magnification does not affect its brightness. However, poor seeing that ruins high power viewing will make faint stars harder to see.<br><br>
 
-				<p><img alt='' loading='lazy' src='obs/Bortle levels 1 vs 4 when aperture is doubled.jpg'>
+					<li><b>Open clusters</b>. Large apparent size clusters are usually bright so less aperture and wider field of view is ideal.<br><br>
 
-				<p>We see that a scope of size 'x' in dark skies (Bortle 1) performs roughly as a scope of size '2x' in modestly light polluted skies (Bortle 4). This is true in a coarse sense for all object types. Put another way, increases in aperture make more of a difference in object detection in darker skies compared to light polluted skies. In heavily light polluted skies, aperture must be dramatically increased to make a practical difference not to mention that low magnification / high etendue views are precluded. Generally speaking, darker skies are more important than aperture. Each person will have to answer the question of how far to drive with what size of scope. One approach that this suggests then, is to make most observations in suburban skies, occasionally traveling to dark skies to finalize the observations.
+					<li><b>Globular clusters</b>. It is all about aperture, not only in terms of the fainter members of bright clusters and brighter stars of faint clusters but also in resolution. Larger aperture also allows for greater magnification, making the cluster larger in the eyepiece.<br><br>
+
+					<li><b>Galaxies and clusters of galaxies</b>. Aperture can be used to bring in detail with good magnification for bright galaxies; aperture also dominates for the vast majority of galaxies which are faint and small. Galaxy clusters need all the aperture that can be mustered. For the largest galaxy clusters, Virgo and Perseus, for example, lower power wider angle fields of view that show more galaxies (Richest Field Galaxy Observing) need to be balanced with higher power narrower fields that reveal the faintest galaxy members.<br><br>
+
+					<li><b>Small sized nebulae</b>. Small scopes at low power can reveal smaller sized nebulae; larger scopes at higher power reveal detail. Nebula filters can help significantly. Dark skies are important.<br><br>
+
+					<li><b>Wide angle nebulae</b>. Wider angle eyepieces help to frame the wide angle nebula with a black border. Experienced observers will find that nebulae with surface brightness down to three magnitudes fainter than sky background easy (6% contrast); nebulae four magnitudes fainter than sky background (3% contrast) is close to the limit.<br><br>
+				</ul>
 			</div>
 
 			<br><br>
@@ -1538,66 +1539,106 @@ copyright Mel Bartels, 2016-2023 -->
 			</div>
 
 			<br><br>
-			<div id='visualObjectTypes'></div>
-			<button class='accordion' id='btnVisualObjectTypes'>Object types</button>
+			<div id='visualApertureVsLP'></div>
+			<button class='accordion' id='btnVisualApertureVsLP'>Aperture vs Light Pollution</button>
 			<div class='panel'>
-				<ul>
-					<li><b>Stars</b>, or point sources. A star's visibility depends on aperture: the telescope's light gathering power. Higher powers darken the field, increasing contrast and making the faintest stars more visible. Since the star is a point source, magnification does not affect its brightness. However, poor seeing that ruins high power viewing will make faint stars harder to see.<br><br>
+				<p>Dividing object visibility into six categories: very easy, easy, moderate, difficult, very difficult, and impossible, I investigated how much the aperture needs to be increased when comparing Bortle level 1 to level 4 skies.
 
-					<li><b>Open clusters</b>. Large apparent size clusters are usually bright so less aperture and wider field of view is ideal.<br><br>
+				<p><img alt='' loading='lazy' src='obs/Bortle levels 1 vs 4 when aperture is doubled.jpg'>
 
-					<li><b>Globular clusters</b>. It is all about aperture, not only in terms of the fainter members of bright clusters and brighter stars of faint clusters but also in resolution. Larger aperture also allows for greater magnification, making the cluster larger in the eyepiece.<br><br>
-
-					<li><b>Galaxies and clusters of galaxies</b>. Aperture can be used to bring in detail with good magnification for bright galaxies; aperture also dominates for the vast majority of galaxies which are faint and small. Galaxy clusters need all the aperture that can be mustered. For the largest galaxy clusters, Virgo and Perseus, for example, lower power wider angle fields of view that show more galaxies (Richest Field Galaxy Observing) need to be balanced with higher power narrower fields that reveal the faintest galaxy members.<br><br>
-
-					<li><b>Small sized nebulae</b>. Small scopes at low power can reveal smaller sized nebulae; larger scopes at higher power reveal detail. Nebula filters can help significantly. Dark skies are important.<br><br>
-
-					<li><b>Wide angle nebulae</b>. Wider angle eyepieces help to frame the wide angle nebula with a black border. Experienced observers will find that nebulae with surface brightness down to three magnitudes fainter than sky background easy (6% contrast); nebulae four magnitudes fainter than sky background (3% contrast) is close to the limit.<br><br>
-				</ul>
+				<p>We see that a scope of size 'x' in dark skies (Bortle 1) performs roughly as a scope of size '2x' in modestly light polluted skies (Bortle 4). This is true in a coarse sense for all object types. Put another way, increases in aperture make more of a difference in object detection in darker skies compared to light polluted skies. In heavily light polluted skies, aperture must be dramatically increased to make a practical difference not to mention that low magnification / high etendue views are precluded. Generally speaking, darker skies are more important than aperture. Each person will have to answer the question of how far to drive with what size of scope. One approach that this suggests then, is to make most observations in suburban skies, occasionally traveling to dark skies to finalize the observations.
 			</div>
 
 			<br><br>
-			<div id='visualHowToLookThroughEyepiece'></div>
-			<button class='accordion' id='btnVisualHowToLookThroughEyepiece'>How to look through an eyepiece</button>
+			<div id='visualHowToObserve'></div>
+			<button class='accordion' id='btnVisualHowToObserve'>How to observe</button>
 			<div class='panel'>
-				<p>Characteristics of a good view through the eyepiece that we want to capture
-				<ul>
-					<li>Dynamic range or contrast
-					<li>Detail in bright areas
-					<li>Detail in dim areas
-					<li>Structure, fractal structure
-					<li>Spatial detail: big scale detail, medium scale detail, small scale detail
-					<li>Perspective (objects closer and further away)
-					<li>Dark gray background
-					<li>Movement increases the view, helps us see what otherwise will quickly fade into non-notice
-					<li>Views give a sense of place, where you are, and a timeless connection
-					<li>Time spent observing and sketching links us to the sky through experience and memory
-					<li>Stargazing satisfies our innate sense of 'gazing'
-				</ul>
+				<h4>Remove the lens cap, eyepiece cap and off-axis mask</h4>
 
-				<p>Your eye needs to be centered over the eyepiece and looking down its axis. You also need to position your eye above the eyepiece at the correct distance. Some eyepieces come with a rubber cup that places your eye at the correct spacing above the eyepiece. You can look up the eye relief spec for the eyepiece to get a guide. In the field move your eye away and towards the eyepiece. Slowly move your eye inward until you can see the field stop - the black edge of the field of view.
+				<p>Seriously. It's happened to the best of us, leaving a stop-down off-axis mask in place, wondering why the views are dim or incredibly murky, wondering why that object cannot be found.
 
-				<p>Unless you have astigmatism, look without glasses. Refocusing the eyepiece will take care of near and far sighted eyes. In fact, try to position the eyepiece as far outward as possible. To do this, move the eyepiece outward such that the stars look out of focus. Now slowly move the focuser inward until the stars just come to focus. This is the most relaxed, infinity focused position for your eye. Moving the focuser inward results in a slightly more magnified view, but at the expense of focusing your eye close-in, which is tiring.
+				<h4>Get the most from dark adaptation</h4>
+
+				<p>For deep-sky objects, dark adaptation is essential. Benefits continue to accrue for hours: the difference between 20 minutes of dark adaptation and two hours is 1/2 a magnitude.
+
+				<h4>Averted vision</h4>
 
 				<p>Averted vision works best if you know where to aim your eyes in the field of view. Here's a chart to help.<br>
 				<img alt='' loading='lazy' src='avertvis.gif'>
 
-				<p>Move your averted vision zone around the field of view as you desire. Look for a bit here, look for a bit there (your scan pattern), as the objects in the field need. Do not try to fixate on the center of the field! For one thing, this mis-places the zone of averted vision towards the bottom of the field, for another thing, it is not possible to prevent the eye from moving. Several times a second, your eye jumps (a saccade). Between these jumps the eye gathers information. Even between saccades, the eye jitters. Finally, if you stare too long as a single point, objects will literally begin to disappear from your view. In a sense, seeing is reflective: if the eye didn't move then little could be seen. Move the scope in addition to your eye: this helps to 'pop' objects into conscious visibility.
+				<h4>Use filters</h4>
 
-				<p>Take breaks, drink some water, remember to blink your eye; try different eyepieces and filters.
+				<p>Get a dark sky or nebula filter. These filters really help to make subtle detail more noticeable. A filter is more important than aperture because a nebula filter increases contrast more so than aperture. Try different filters, try different filters with different eyepieces.
+
+				<h4>Vary magnifications up to the seeing limit</h4>
+
+				<p>I am constantly surprised by the view at very different magnifications. However, going past what seeing allows that night is always painful. What is the seeing limit? Only way to know for sure is to run through your sequence of eyepieces.
+
+				<h4>Eye shields</h4>
 
 				<p>Eye shields that block extraneous light, even natural dark-sky light, are amazingly effective. Here's an example:<br>
 				<img alt='' loading='lazy' src='osp01/chuck-shield.jpg'>
 
 				<p>Look down at the dark ground as much possible - your night vision is affected deleteriously by looking up at the sky for too long of periods of time.
 
-				<p><a href='drawings.html' target='_blank'>Here are very faint objects that I've sketched using this simple natural technique.</a>
-			</div>
+				<h4>Rest and comfort</h4>
 
-			<br><br>
-			<div id='visualPsychology'></div>
-			<button class='accordion' id='btnVisualPsychology'>The psychology of observing</button>
-			<div class='panel'>
+				<p>Take breaks, drink some water, remember to blink. Comfort at the eyepiece is worth a half magnitude. Get an observing chair, rotate the focuser to a better viewing angle, set up a small table next to you for your eyepiece case, tool chest and tablet or phone. Make it easy on yourself.
+
+				<h4>Check glasses, focus starting outward</h4>
+
+				<p>Unless you have astigmatism, try looking without glasses. Refocusing the eyepiece will take care of near and far sighted eyes.
+
+				<p>Position the eyepiece as far outward as possible then focus inward until the stars just come to focus. This is the most relaxed, infinity focused position for your eye. Moving the focuser inward results in a slightly more magnified view, but at the expense of focusing your eye close-in, which is tiring.
+
+				<h4>Center your eye</h4>
+
+				<p>Your eye needs to be centered over the eyepiece and looking down its axis. You also need to position your eye at the correct distance from the eyepiece. Some eyepieces come with a rubber cup that places your eye at the correct spacing above the eyepiece. You can look up the eye relief spec for the eyepiece to get a guide. In the field move your eye away and towards the eyepiece. Slowly move your eye inward until you can see the field stop - the black edge of the field of view.
+
+				<h4>Move your eye, move the scope</h4>
+
+				<p>Move your averted vision zone around the field of view as you desire. Look for a bit here, look for a bit there (your scan pattern). Do not fixate on the center of the field. For one thing, this mis-places the zone of averted vision towards the bottom of the field, for another thing, it is not possible to prevent the eye from moving. Several times a second, your eye jumps (called a saccade). Even between saccades, the eye jitters. Finally, if you stare too long as a single point, objects will literally begin to disappear from your view. In a sense, seeing is reflective: if the eye didn't move then little could be seen. Move the scope in addition to your eye: this helps to 'pop' objects into conscious visibility.
+
+				<h4>Observe, observe, observe</h4>
+
+				<p>Observer experience is worth 2 magnitudes (I have a series of sketches of M31 from childhood onward showing my increasing ability to see). There is no substitute for hours at the eyepiece. How often do you observe a week? What can you do to increase your observing hours? Make the telescope more portable, join others observing. Aim to observe one to two times a week on average. Malcolm Gladwell's book, "Outliers", states that thousands of hours of practice are necessary to become an expert. How many hours do you think that Stephen O'Meara has observed? How many have you?
+
+				<h4>Keep a notebook, sketch to observe</h4>
+
+				<p>In particular we want to build on our visual memories of previous observations  stretching through the years. I practice by sketching charcoal drawings of nature, blurring digital images then sketching them, studying the grays in clouds and looking into the dark grays of landscapes and so forth. How we draw influences what we see too.
+
+				<h4>Take some time</h4>
+
+				<p>Time at the eyepiece is worth a magnitude (objects gradually become recognizable or detectable over a period of time and then they fade after a prolonged period of continuous observing). A few minutes brings awareness to detail that's thrilling and satisfying but do not stop there. More awareness and detail comes after observing for an hour or more on an object. The most difficult objects are only there part of the time. The seeing will stabilize and your concentration will be at your peak with your eyes paying attention to the proper place in the field. My personal standard is that I have to see the object or detail in question three times over a 20 minute session to say that I 'saw it'.
+
+				<h4>Research if you want, know where to look</h4>
+
+				<p>Knowing where to look and what to look for worth a magnitude.
+
+				<h4>Observe for yourself</h4>
+
+				<p>The vast majority of observers are truthful to themselves, knowing or not caring that they will fail to convince doubters. It's all subjective. Look at sketches by observers. Each observer tends to notice or emphasize certain features. If I see something, great; if I don't, that's great too. Knowing that it is beyond my observational powers is worthwhile too. I certainly add the negative results to my lists of "impossibles" to go after on those rare nights of perfect transparency when I find myself under the darkest skies.
+
+				<p>The variation in appearance on different nights with different transparency and seeing through different eyepieces can be striking. M1, the Crab Nebula, can look quite different from scope to scope and night to night.
+
+				<p>Occasionally an object will be plotted in the wrong location or you will look in the wrong spot. You should never detect something that is not there. This is a great check on your observing skills. For example, many years ago one of the Palomar Globular Clusters was plotted incorrectly in the first edition of Uranometria (the negative/positive sign for Declination had been reversed, resulting in a 20 degree positional error). I spent hours looking for this Palomar Cluster with my 24 inch over two nights. Never could spot it. Importantly, I never fooled myself into thinking that I had spotted it. This happens from time to time and serves as a great check.
+
+				<h4>Favor dark transparent skies over aperture</h4>
+
+				<p>Let's dispense with the myth that aperture makes all the difference. One of the greatest observers of all time, Stephen O'Meara, uses a 5 inch [13cm] telescope. I've seen expert observers work their magic with telescopes regardless of the telescope's aperture and quality. I've never seen an increase of aperture turn a so-so observer into a great observer. I have witnessed amateurs regrettably leave the hobby after quickly jumping up in aperture or purchasing expensive high-end telescopes, their dreams unfulfilled. A common progression goes like this: entry level middle of the road scope, then a larger aperture scope followed ultimately by the realization that aperture does not make the observer followed by stirring a smaller scope into the mix. Advanced amateurs favor telescopes optimized for their favorite objects: giant telescopes for clusters of galaxies, long focal ratio scopes for lunar and planetary, very portable scopes for traveling to dark skies.
+
+				<p>To an experienced observer, transparency is everything. A wonderfully transparent night renders aperture insignificant. Every telescope becomes a winner on an exceptional night. Learn to look for signs of excellent transparency during the daytime such as blue sky right up to the edge of the Sun (mask the Sun with your hand), jet trails (the trails should be short, not stretching across the sky, indicating a dry upper atmosphere), and clear sunsets and sunrises.
+
+				<h4>Equipment hype</h4>
+
+				<p>I suppose we all lust after that model '700' instead of the '500' model that we have. It's natural to want the best; we all strive for it, but will it magically endow you with the experience of hundreds of hours of observing time? At star parties I tend to gravitate to the humble observer with the used looking telescope, maybe a bit scuffed up from many nights of use, with optics of decent quality. For example, thanks to the Denomination Bias, amateurs will pay more money for a 1/12 wave mirror than a 1/10 wave mirror, yet the difference between these two ratings is an undetectable 1/60 wave. During a night of perfect seeing and incredible transparency at the 1997 Oregon Star Party, I took time from observing at 2000x, even 6000x, to check out the views in various scopes. Even 'ordinary' scopes gave astonishing views, demonstrating that transparency and seeing are near 'everything'.
+
+				<h4>Big scope, small scope; bright object, dim object</h4>
+
+				<p>Seeing the object in a larger scope then returning immediately to your smaller scope can result in a half magnitude gain. Swing over to a BBBB object (Jerry Oltion's Big Bright Beautiful and Bold) after a couple of hours of going after one or two very faint objects. That BBBB object will look more glorious than ever before.
+
+				<h4>The psychology of seeing</h4>
+
 				<p>Psychological factors are as important as physical factors such as sky darkness, object brightness, aperture and magnification.
 
 				<p>What we consciously see is heavily influenced by our expectation of what is to be seen and of our training. These expectations and training can be said to form a bias. We want to ensure that training and knowledge of an object's particulars helps us see more but does not fool us. For example, I practice drawing M51, the Whirlpool Galaxy, with small apertures. The galaxy does not look spiral and the connecting spiral arm to the companion galaxy is hardly noticeable.<br>
@@ -1605,24 +1646,7 @@ copyright Mel Bartels, 2016-2023 -->
 
 				<p>Tricks of the eye should not stop us. It is OK to be fooled. For example, very faint very close (almost touching) double stars can mimic tiny elliptical galaxies in a field of galaxies, suggesting a cluster of galaxies where one does not exist. For example, looking above NGC4565 past NGC4562, we see what looks to be a galaxy cluster. But several of the IC objects are actually very faint very close double stars. The fact that they have IC designations means that I am not the only one fooled by the scene.<br>
 
-				<p>Speaking of being fooled, f you watch magic tricks then the sky will be more vivid and you will see more that night through the telescopes. It is about pushing aside our preconceived notions that hush our ability to see what is really there.
-
-				<p>It is OK, indeed desirable, to study an area ahead of time to know where to direct your attention. But don't let research stop you from looking with an open mind throughout the field of view. This is how I rediscovered IFNs, the Andromeda Twist and the Pleiades Bubble, among many other unknown features.<br>
-				<img alt='' loading='lazy' src='drawings/Volcano IFN.jpg'>
-				<img alt='' loading='lazy' src='6inchF2.8/Andromeda M31 M110 shelf.jpg'>
-				<img alt='' loading='lazy' src='dneb/PleiadesBubble.jpg'>
-
-				<p>In particular we want to build on our visual memories of previous observations, constantly building a grand sketch over many observations stretching through the years.
-
-				<p>I practice by sketching charcoal drawings of nature, blurring digital images then sketching them, studying the grays in clouds and looking into the dark grays of landscapes and so forth.
-
-				<p>How we draw influences what we see too.
-
-				<p>Occasionally an object will be plotted in the wrong location or you will look in the wrong spot. You should never detect something that is not there. This is a great check on your observing skills. For example, many years ago one of the Palomar Globular Clusters was plotted incorrectly in the first edition of Uranometria (the negative/positive sign for Declination had been reversed, resulting in a 20 degree positional error). I spent hours looking for this Palomar Cluster with my 24 inch over two nights. Never could spot it. Importantly, I never fooled myself into thinking that I had spotted it. This happens from time to time and serves as a great check.
-
-				<p>Don't forget to nudge the field of view to shake lose faint objects, don't forget to try different magnifications, particularly maximum exit pupils that result in a faint grayish background. And treasure those special nights of incredible transparency with good seeing.
-
-				<p>Keep in mind contrasts: swing over to a BBBB object (Jerry Oltion's Big Bright Beautiful and Bold) after a couple of hours of going after one or two very faint objects. That BBBB object will look more glorious than ever before.
+				<p>Speaking of being fooled, if you watch magic tricks then the sky will be more vivid and you will see more that night through the telescopes. It is about pushing aside our preconceived notions that hush our ability to see what is really there.
 			</div>
 
 			<br><br>
@@ -1644,34 +1668,6 @@ copyright Mel Bartels, 2016-2023 -->
 			</div>
 
 			<br><br>
-			<div id='visualObservingFactors'></div>
-			<button class='accordion' id='btnVisualObservingFactors'>Observing factors</button>
-			<div class='panel'>
-				<p>I've been enthusiastically observing for a number of decades. Here are the factors that influence what I can see that night through the eyepiece of my telescope.
-
-				<ul>
-					<li>Focal length gives you scale; it's important to understand the role of magnification.
-					<li>Aperture increases visibility and detail not only because of greater light gathering power but also because the greater magnification brings the object in closer.
-					<li>Seeing the object in a larger scope then returning immediately to your smaller scope can result in a half magnitude gain.
-					<li>Observer experience is worth 2 magnitudes (I have a series of sketches of M31 from childhood onward showing my increasing ability to see).
-					<li>Observer variation is a half magnitude or more.
-					<li>Age matters a magnitude: young kids can see very faint stars; as we get older our lens yellows and ability to detect fades.
-					<li>Knowing where to look and what to look for worth a magnitude.
-					<li>Averted vision is worth a magnitude.
-					<li>Dark adaption continues to produce increasing benefits for hours ultimately worth maybe a half a magnitude.
-					<li>Field baffling is an overwhelming factor: the difference between nonexistent and fully baffled views can be worth magnitudes.
-					<li>Covering your head with a black cloth also yields improvements perhaps on the order of a fraction of a magnitude.
-					<li>Time at the eyepiece is worth a magnitude (objects gradually become recognizable or detectable over a period of time and then they fade after a prolonged period of continuous observing).
-					<li>Comfort at the eyepiece is worth a half magnitude.
-					<li>Rested eyes are worth half a magnitude. I often take short breaks throughout the night. Upon returning to the eyepiece I can see more until my eyes tire.
-					<li>Sky transparency is such an overwhelming factor; on rare perfect nights I’ve seen scopes perform as if they had almost unlimited aperture; let’s call superb sky transparency worth a magnitude or two.
-					<li>Filters are worth a magnitude.
-					<li>Visibility appears to correlate most with aperture then apparent size (the greater the aperture the greater the apparent size limited by the full field of view).
-					<li>True binocular or two eyed viewing results in a half magnitude gain in stellar limiting magnitude and about a magnitude gain for extended objects. Check out <a href='http://www.brucesayre.net/' target='_blank'>Bruce Sayre's experiences building and observing with binoscopes</a> over the many years.
-				</ul>
-			</div>
-
-			<br><br>
 			<div id='visualNightVisionDevices'></div>
 			<button class='accordion' id='btnVisualNightVisionDevices'>Night vision (NV) devices</button>
 			<div class='panel'>
@@ -1682,77 +1678,6 @@ copyright Mel Bartels, 2016-2023 -->
 				<p>Observing later through Howard Banich's 30 inch f2.7, the twin of my mirror, I am blown away with the Night Vision device's views. Take the Pelican Nebula, for example. Visually I barely make out the two black lanes; with the NV the edges of the lanes glow as well as the heads! I grabbed an image from the Wikipedia page then reprocessed it to look like the view through the NV device. Image attribution: By Urmymuse - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=107860278<br>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='drawings/Pelican Nebula.jpg'>
 				<img alt='' loading='lazy' class='mediumSizeImage' src='30/Pelican NV 30 inch.jpg'>
-			</div>
-
-			<br><br>
-			<div id='visualTipsImproveObserving'></div>
-			<button class='accordion' id='btnVisualTipsImproveObserving'>Tips to improve observing</button>
-			<div class='panel'>
-				<p>My tips are different from the usual run of the mill lists because I have found that improving myself, not obsessing over the telescope, the key to deeply satisfying sessions at the eyepiece.
-
-				<p>I have found three factors, in order of importance:
-				<ol>
-				  <li>The observer</li>
-				  <li>The skies</li>
-				  <li>The telescope especially ergonomics and filters</li>
-				</ol>
-				<p><img alt='' loading='lazy' src='ScopeTelescopeSkyTriad.jpg'>
-
-				<p>I've seen too many cases where an experienced observer sees more from urban skies than a beginner from dark skies. I've seen too many cases where the telescope is blamed when the problem lay with the observer or the skies.
-
-				<p>Let's dispense with<b> the myth that aperture makes all the difference</b>. One of the greatest observers of all time, Stephen O'Meara, uses a 5 inch [13cm] telescope. I've seen expert observers work their magic with telescopes regardless of the telescope's aperture and quality. I've never seen an increase of aperture turn a so-so observer into a great observer. I have witnessed amateurs regrettably leave the hobby after quickly jumping up in aperture or purchasing expensive high-end telescopes, their dreams unfulfilled. A common progression goes like this: entry level middle of the road scope, then a larger aperture scope followed ultimately by the realization that aperture does not make the observer followed by stirring a smaller scope into the mix. Advanced amateurs favor telescopes optimized for their favorite objects: giant telescopes for clusters of galaxies, long focal ratio scopes for lunar and planetary, very portable scopes for traveling to dark skies.
-
-				<p>To an experienced observer,<b> transparency is everything</b>. A wonderfully transparent night renders aperture insignificant. Every telescope becomes a winner on an exceptional night. Use weather forecasts along with Clear Sky Clock to target those transparent nights. Learn to look for signs of excellent transparency during the daytime such as blue sky right up to the edge of the Sun (mask the Sun with your hand), jet trails (the trails should be short, not stretching across the sky, indicating a dry upper atmosphere), and clear sunsets and sunrises.
-
-				<h4>Here are my top tips.</h4>
-
-				<ol>
-					<li>Remove the <b>lens cap</b>. Seriously. It's happened to the best of us, leaving a stop-down off-axis mask in place all night, wondering why the views are dim, wondering why that object cannot be found.<br><br>
-
-					<li>Overcome your <b>cognitive biases</b>. Most amateur beliefs about telescopes and observing result from bias, are simply not true, and seriously limit your observational results.<br><br>
-
-					<li><b>Observe, observe, observe. </b>There is no substitute for hours at the eyepiece. How often do you observe a week? What can you do to increase your observing hours? Make the telescope more portable, join others observing. Aim to observe one to two times a week on average. Malcolm Gladwell's book, "Outliers", states that thousands of hours of practice are necessary to become an expert. How many hours do you think that Stephen O'Meara has observed? How many have you?<br><br>
-
-					<li><b>Keep an observing notebook.</b> Sketch, sketch, sketch. It's not about the drawing as much as it is about your skills to notice detail. Study the objects ahead of time. Locate them on a planetarium sky chart and note how best to star hop to them.<br><br>
-
-					<li><b>Dark adapt your eyes and work to keep them dark adapted.</b> Use an eyepiece shroud or equivalent. A variable brightness dim light flashlight makes a big difference. And set your planetarium programs on tablets to night mode along with red or green covers that further dim the light.<br><br>
-
-					<li>Learn <b>how to use your eyepieces</b>. Ever watch attendees at public star parties use your scope for the first time? They move their eye around searching for the field, in and out, left and right, up and down. You too need to learn how to position your eye and how to observe the field of view for each eyepiece. If you must use glasses then be sure to pick eyepieces with sufficient eye relief.<br><br>
-
-					<li><b>Take time at the eyepiece for each object.</b> <b>More time spent observing an object is like increasing the aperture and resolution of your telescope!</b><br>
-					<img alt='' loading='lazy' src='MoreTimeObservingMeansMorePowerfulScope.jpg'><br>
-					A few minutes brings awareness to detail that's thrilling and satisfying but do not stop there. More awareness and detail comes after observing for an hour or more on an object. The most difficult objects are only there 20% to 50% of the time. The seeing will stabilize and your concentration will be at your peak with your eyes paying attention to the proper place in the field for a few moments. My personal standard is that I have to see the object or detail in question three times over a 20 minute session to say that I 'saw it'. Observe for yourself. The vast majority of observers are truthful to themselves, knowing or not caring that they will fail to convince doubters. It's all subjective. Look at sketches by observers. Each observer tends to notice or emphasize certain features. They can invariably be traced back to digital images, to reality. I study digital images ahead of time, to get a sense of detail that might be glimpsed. If I see it, great; if I don't, that's great too. Knowing that it is beyond my observational powers is worthwhile too. I certainly add the negative results to my lists of "impossibles" to go after on those rare nights of perfect transparency when I find myself under the darkest skies.<br><br>
-
-					<li><b>Get a dark sky or nebula filter.</b> These filters really help to make subtle detail more noticeable. A filter is more important than aperture because a nebula filter increases contrast more so than aperture.<br><br>
-
-					<li><b>What can you do to increase comfort at the eyepiece?</b> A better observing chair, rotating the focuser to a better viewing angle, a small table next to you for your eyepiece case, tool chest and tablet, eyepiece cases that make it easy to retrieve and swap eyepieces. Use a checklist for your gear. I have a couple of checklists, one for short trips and one for longer multi-night star parties.<br><br>
-
-					<li><b>Try different eyepieces, try different filters.</b> Walk away for a minute then return to the eyepiece. Aim the scope at different points in the field of view. Test your exit pupil by using your lowest power eyepieces. Calculate the exit pupil of the telescope-eyepiece by dividing the eyepiece's focal length in mm by the scope's focal ratio, e.g., a 20mm eyepiece used with a F5 telescope gives an exit pupil of 20/5 = 4mm. Defocus slightly to see if you can see the primary mirror's edge (hint: look for the edge clips). If so then your eye covers that exit pupil. Borrow lower power eyepieces from friends until you find your eye's limit. You may be surprised by how big of exit pupil you can use.<br><br>
-
-					<li>Consider the interplay between <b>aperture, magnification, apparent field of view and exit pupil</b>. Aperture sets star brightness and magnification along with field size given a standard set of eyepieces. Magnification sets the image scale. Apparent field of view sets the overall width of the field. Some like wide fields, others like narrow fields. Eyepieces designed for wide fields perform slightly differently than narrow field eyepieces. Finally, exit pupil sets background brightness. <br><br>
-
-					<li><b>Drink water during the night, rest your eyes periodically</b>, don't strain your eyes during the daytime with bright light - instead use good sunglasses, have snacks on hand to fight off tiredness and dress warmly in layers.<br><br>
-
-					<li><b>Attend observing oriented star parties like the Oregon Star Party.</b> Talk to the top observers (like Chuck and Judy Dethloff and Howard Banich) and read their writings. Usually in their introductory comments and occasionally while talking about their observations, they will mention what they do to improve their observations. Read their comments a second time and then a third time.<br><br>
-
-					<li><b>Find dark skies. </b>Enough said.<br><br>
-
-					<li><b>Baffling is the single greatest improvement that you make to your telescope.</b> Improve the telescope's baffling until you cannot detect any glare through your eyepieces from a flashlight aimed at various angles at the telescope by a friend. Most important are the focuser baffle, the diagonal baffle and the primary mirror baffle.<br><br>
-
-					<li><b>Optical alignment or collimation.</b> Keep it simple: precisely center dot your primary with a notebook ring, use a good laser collimator to adjust the secondary until the laser points exactly in the center of the primary (rotate the laser to confirm that there is no wobble or angle to the laser), finally adjusting the primary so that the return beam coincides with the start of the laser beam.<br> <br>
-
-					<li>Add <b>tracking</b> to your telescope if the field of view is under a degree. Motorize the equatorial mount, computerize and motorize the altazimuth mount, or place your telescope on an equatorial platform.<br><br>
-
-					<li><b>Cooling the primary mirror to the night time ambient temperature.</b> A 0.1 degree difference within the primary mirror amounts to a tenth wave error.<br><br>
-
-					<li><b>A precision focuser with a two stage knob,</b> particularly if the focal ratio is very short. The zone of good focus on a F3.0 mirror is a thousandth of an inch.<br><br>
-
-					<li>Advanced observers should consider a <b>second telescope specialized</b> for their interests.
-				</ol>
-
-				<p>What about the endless myopic discussions on internet forums? I offer one word of advice:<b> pay attention to experienced telescope makers who are also experienced observers</b>. Two joys await the amateur astronomer: making a telescope then using it to view the heavens. Each telescope made is a departure from the previous telescope as the maker applies hard won lessons to satisfy desires. Lessons learned at the eyepiece by the telescope maker are lessons of hard truth. Search out these people as they are often busy observing and building.
-
-				<p>What about exquisite optical quality and high end equipment? It's natural to want the best; we all strive for it, but will it magically endow you with hundreds of hours of observing time? At star parties I tend to gravitate to <b>the humble observer with the used looking telescope, maybe a bit scuffed up from many nights of use, with optics of decent quality</b>. For example, thanks to the Denomination Bias, amateurs will pay much more money for a 1/12 wave mirror than a 1/8 wave mirror, yet the difference between these two ratings is far smaller (three times smaller) than the difference between 1/4 wave and 1/8 wave, a difference in some cases that is worthwhile.
 			</div>
 		</div>
 
@@ -3826,7 +3751,6 @@ copyright Mel Bartels, 2016-2023 -->
 				<li><a href='#HET'>#HET</a>
 				<li><a href='#lowMags'>#lowMags</a>
 				<li><a href='#idealTelescope'>#idealTelescope</a>
-				<li><a href='#combinationScopes'>#combinationScopes</a>
 				<li><a href='#RFT'>#RFT</a>
 				<li><a href='#collimation'>#collimation</a>
 				<li><a href='#turbulence'>#turbulence</a>
@@ -3842,14 +3766,12 @@ copyright Mel Bartels, 2016-2023 -->
 				<li><a href='#visualUom'>#visualUom</a>
 				<li><a href='#visualMagnitudeScale'>#visualMagnitudeScale</a>
 				<li><a href='#visualBortleScale'>#visualBortleScale</a>
-				<li><a href='#visualApertureVsLP'>#visualApertureVsLP</a>
 				<li><a href='#visualObjectBrightness'>#visualObjectBrightness</a>
 				<li><a href='#visualHowFaint'>#visualHowFaint</a>
+				<li><a href='#visualApertureVsLP'>#visualApertureVsLP</a>
 				<li><a href='#visualObjectTypes'>#visualObjectTypes</a>
-				<li><a href='#visualHowToLookThroughEyepiece'>#visualHowToLookThroughEyepiece</a>
-				<li><a href='#visualPsychology'>#visualPsychology</a>
+				<li><a href='#visualHowToObserve'>#visualHowToObserve</a>
 				<li><a href='#visualBinoscopes'>#visualBinoscopes</a>
-				<li><a href='#visualObservingFactors'>#visualObservingFactors</a>
 				<li><a href='#visualTipsImproveObserving'>#visualTipsImproveObserving</a>
 			</ul>
 			<p>Eyepieces
