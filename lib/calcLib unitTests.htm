@@ -137,7 +137,7 @@
 		calcRMSCausedByCentralObstruction = MLB.calcLib.calcRMSCausedByCentralObstruction,
 		findOffsetCenterBetweenTwoPoints = MLB.calcLib.findOffsetCenterBetweenTwoPoints,
 		findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints,
-		calcPlaster = MLB.calcLib.calcPlaster,
+		calcToolVolume = MLB.calcLib.calcToolVolume,
 		WaineoSphericalNull = MLB.calcLib.WaineoSphericalNull;
 
 	QUnit.module('sagitta');
@@ -2052,19 +2052,15 @@ note that visible? is coded from impossible=1 to very easy=6
 
 	QUnit.module('mirrorMaking');
 
-	QUnit.test('calcPlaster', assert => {
+	QUnit.test('calcToolVolume', assert => {
 		var mirrorDia = 16,
 			mirrorFocalRatio = 3,
 			plasterEdgeThickness = 1.5,
-			expected = {
-				quartsWater: 4.19,
-				poundsPlaster: 12.57
-			},
+			expected = 335.18,
 			allowableError = 0.01,
-			result = calcPlaster(mirrorDia, mirrorFocalRatio, plasterEdgeThickness);
+			result = calcToolVolume(mirrorDia, mirrorFocalRatio, plasterEdgeThickness);
 
-		assert.equal(withinRange(result.quartsWater, expected.quartsWater, allowableError), true, 'plaster quartsWater should be ' + expected.quartsWater + ', is ' + result.quartsWater);
-		assert.equal(withinRange(result.poundsPlaster, expected.poundsPlaster, allowableError), true, 'plaster poundsPlaster should be ' + expected.poundsPlaster + ', is ' + result.poundsPlaster);
+		assert.equal(withinRange(result, expected, allowableError), true, 'tool volume should be ' + expected + ', is ' + result);
 	});
 
 	QUnit.module('WaineoSphericalNull');
