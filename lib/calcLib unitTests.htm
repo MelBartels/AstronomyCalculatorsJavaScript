@@ -138,6 +138,7 @@
 		findOffsetCenterBetweenTwoPoints = MLB.calcLib.findOffsetCenterBetweenTwoPoints,
 		findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints,
 		calcToolVolume = MLB.calcLib.calcToolVolume,
+		calcMirrorWeight = MLB.calcLib.calcMirrorWeight,
 		WaineoSphericalNull = MLB.calcLib.WaineoSphericalNull;
 
 	QUnit.module('sagitta');
@@ -2061,6 +2062,23 @@ note that visible? is coded from impossible=1 to very easy=6
 			result = calcToolVolume(mirrorDia, mirrorFocalRatio, plasterEdgeThickness);
 
 		assert.equal(withinRange(result, expected, allowableError), true, 'tool volume should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.test('calcMirrorWeight', assert => {
+		var mirrorDia = 16.25,
+			mirrorFocalRatio = 2.9,
+			mirrorEdgeThickness = 0.4,
+			isMeniscus = true,
+			expected = 7.47,
+			expectedNoMeniscus = 4.19,
+			allowableError = 0.01,
+			result = calcMirrorWeight(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror weight (lbs) should be ' + expected + ', is ' + result);
+
+		isMeniscus = false;
+		result = calcMirrorWeight(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+		assert.equal(withinRange(result, expectedNoMeniscus, allowableError), true, 'mirror (not a meniscus) weight (lbs) should be ' + expectedNoMeniscus + ', is ' + result);
 	});
 
 	QUnit.module('WaineoSphericalNull');
