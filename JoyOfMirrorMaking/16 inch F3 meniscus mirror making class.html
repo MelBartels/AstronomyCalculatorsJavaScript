@@ -134,7 +134,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	<p>Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
 		Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
 		Edge thickness <input name='edgeThickness' onfocus='select()' size='4' type='text' value='0.75'>
-		<input onclick='MLB.meniscusMirrorMakingClass.calculateMirrorWeight(this.form)' type='button' value='Calculate'>
+		<input onclick='MLB.meniscusMirrorMakingClass.calculateMirrorWeight(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
 		Results <input name='results' onfocus='select()' size='20' type='text'>
 </form>
 
@@ -172,7 +172,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	<p>Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
 		Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
 		Plaster thickness <input name='plasterThickness' onfocus='select()' size='4' type='text' value='0.75'>
-		<input onclick='MLB.meniscusMirrorMakingClass.calculateToolVolume(this.form)' type='button' value='Calculate'>
+		<input onclick='MLB.meniscusMirrorMakingClass.calculateToolVolume(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
 		Results <input name='results' onfocus='select()' size='20' type='text'>
 		<a href='https://plaster.glazy.org/' target='_blank'>Now go here to calculate material and water requirements.</a>
 </form>
@@ -359,7 +359,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 	<p>Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='6'>
 		Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='8'>
-		<input onclick='MLB.meniscusMirrorMakingClass.calcSphereToParabolaDifference(this.form)' type='button' value='Calculate'>
+		<input onclick='MLB.meniscusMirrorMakingClass.calcSphereToParabolaDifference(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
 		Difference <input name='results' onfocus='select()' size='20' type='text'>
 </form>
 
