@@ -72,9 +72,19 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 <ol>
 	<li><a href='#step1'>Class ceremony: become familiar with the class, meet others, acquire the glass and materials.</a>
+	<ul>
+		<li><a href='#mirrorWeightCalc'>Mirror weight calculator
+	</ul>
 	<li><a href='#step2'>Make a grinding and polishing stand.</a>
 	<li><a href='#step3'>Make the grinding and polishing tool.</a>
+	<ul>
+		<li><a href='#toolVolumeCalc'>Tool volume calculator
+	</ul>
 	<li><a href='#step4'>Grind the slumped mirror face into a spheroidal shape by a progression of smaller grits.</a>
+	<ul>
+		<li><a href='#sagittaCalc'>Sagitta calculator
+		<li><a href='#focalRatioFocalLengthCalc'>Focal ratio and focal length calculator
+	</ul>
 	<li><a href='#step5'>Make polishing pitch lap.</a>
 	<li><a href='#step6'>Polish mirror.</a>
 	<li><a href='#step7'>Build mirror test stand.</a>
@@ -91,6 +101,9 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 		<li><a href='#definitions'>Definitions.</a>
 		<li><a href='#spheroidToParaboloid'>Parabolizing and the conundrum of many paraboloidal curves.</a>
 		<li><a href='#differenceBetweenSpheroidAndParaboloid'>Difference between spheroid and paraboloid.</a>
+		<ul>
+			<li><a href='#parabolaSphereDiffCalc'>Parabola, sphere difference calculator</a>
+		</ul>
 		<li><a href='#interference'>Interference effects.</a>
 		<li><a href='#testingAtRoC'>Testing at the Radius of Curvature</a>
 		<li><a href='#magicAtRoC'>Magic at the Radius of Curvature</a>
@@ -128,14 +141,15 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	<li>Get secondary or diagonal mirror (do not purchase until we review for exact size in class), typically 1/4 the mirror size.
 </ol>
 
+<a name='mirrorWeightCalc'></a>
 <form>
 	<h4>Meniscus mirror weight calculator</h4>
 
-	<p>Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
-		Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
-		Edge thickness <input name='edgeThickness' onfocus='select()' size='4' type='text' value='0.75'>
-		<input onclick='MLB.meniscusMirrorMakingClass.calculateMirrorWeight(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
-		Results <input name='results' onfocus='select()' size='20' type='text'>
+	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
+	Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
+	Edge thickness <input name='edgeThickness' onfocus='select()' size='4' type='text' value='0.75'>
+	<input onclick='MLB.meniscusMirrorMakingClass.calculateMirrorWeight(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
+	Results <input name='results' onfocus='select()' size='20' type='text'>
 </form>
 
 <p>There are other reasonable grit sequences. For example, skipping 500 SiC and going to 25 micron AlO2 followed by 15 micron and 9 micron.
@@ -156,25 +170,27 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 <p>I use an old printer stand that I can walk around. Possibly a work bench. If you cannot walk around it, then you will have to rotate the work every minute to simulate working the mirror as if you are walking around the work stand. Maybe a piece of plywood with very sticky feet on a sturdy table. The lateral forces pushing on the stand during polishing and parabolizing are considerable - all that you can muster to push the mirror across the pitch lap.
 
-<p>Grinding becomes messy. Ideally you have a work area other than the kitchen table or counter.
+<p>Grinding is messy and loud. Ideally you have a work area other than the kitchen table or counter. Expect to mop the floor. Use a piece of plastic underneath the work. And a bucket to wash your hands in.
 
 <p><img loading='lazy' class='smallImage' src='rough grinding the front with grit sprinkled.JPG'>
 <img loading='lazy' class='smallImage' src='Delmarva grinding stand.jpg'>
 <img loading='lazy' class='smallImage' src='grinding stand with mirror support.jpg'>
 <img loading='lazy' class='smallImage' src='Peter Pekurar grinding stand.jpg'>
+<img loading='lazy' class='smallImage' src='Bartels 20 inch initial grinding.jpg'>
 
 <a name='step3'></a>
 <h4>Step 3: Make the grinding and polishing tool.</h4>
 
+<a name='toolVolumeCalc'></a>
 <form>
 	<h4>Tool volume calculator</h4>
 
-	<p>Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
-		Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
-		Plaster thickness <input name='plasterThickness' onfocus='select()' size='4' type='text' value='0.75'>
-		<input onclick='MLB.meniscusMirrorMakingClass.calculateToolVolume(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
-		Results <input name='results' onfocus='select()' size='20' type='text'>
-		<a href='https://plaster.glazy.org/' target='_blank'>Now go here to calculate material and water requirements.</a>
+	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
+	Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
+	Plaster thickness <input name='plasterThickness' onfocus='select()' size='4' type='text' value='0.75'>
+	<input onclick='MLB.meniscusMirrorMakingClass.calculateToolVolume(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
+	Result volume <input name='results' onfocus='select()' size='20' type='text'>
+	<a href='https://plaster.glazy.org/' target='_blank'>Now go here to calculate material and water requirements.</a>
 </form>
 
 <p><img loading='lazy' class='smallImage' src='../16/tools and mirrors after fine grinding.jpg'>
@@ -184,6 +200,26 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 <p>See <a href='../16/16 inch log.html#2' target='_blank'>how I fine ground my mirror</a>. <a href='FineGrinding.html' target='_blank'>My webpage on fine grinding</a>.
 <br><img loading='lazy' class='smallImage' src='25 inch rough grinding the front with tool on top.JPG'>
+
+<a name='sagittaCalc'></a>
+<form>
+	<h4>Sagitta calculator</h4>
+
+	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
+	Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
+	<input onclick='MLB.meniscusMirrorMakingClass.calcSagittaSpherical(this.form)' type='button' value='Calculate'>
+	Resulting Sagitta <input name='sagitta' onfocus='select()' size='20' type='text'>	
+</form>
+
+<a name='focalRatioFocalLengthCalc'></a>
+<form>
+	<h4>Focal ratio, focal length calculator</h4>
+
+	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
+	Sagitta <input name='sagitta' onfocus='select()' size='4' type='text' value='0.334'>
+	<input onclick='MLB.meniscusMirrorMakingClass.calcFocalRatioAndFocalLength(this.form)' type='button' value='Calculate'>
+	Result <input name='focalRatio' onfocus='select()' size='25' type='text'>	
+</form>
 
 <p>Always maintain a bevel at the mirror's edge using a wet grinding stone. Always stroke downward to avoid lifting off glass flakes. Un-beveled glass will chip off with the slightest tap, even with ordinary grinding action. Bevel 1/16-1/8 inch wide [1-3mm] at 45 degree angle, round off the top edge.
 
@@ -209,6 +245,10 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	<li>12 AlO: 12 micron size, damage to 12 microns; clears out previous AlO defects and finalizes spherical shape.
 	<li>It might be possible to continue onto 9, 5, even 3 micron AlO particularly with small glass, but scratching becomes a big concern. The finer the last AlO size, the quicker the polishing, but not dramatically so.
 </ol>
+
+<h4>Initial grinding in of contact</h4>
+
+<p>At first the tool and mirror will grab. Keep rotating the upper piece 15 degrees every six strokes. And if the mirror is face up, rotate it 15 degrees every 15 minutes. Use lots of water. Eventually the grinding action will smooth out and the wets will last longer.
 
 <h4>How do you know if you are done with a grit size?</h4>
 
@@ -354,13 +394,14 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 <p>If we touch paraboloidal and spheroidal surfaces at their outside edge, then the difference in depth between the two surfaces is r^4/(8R^3) (r=mirror radius, R=radius of curvature). The mirror's center needs to be deepened by this amount. Or the edge needs to be reduced by this amount. Or if balancing at the 71% zone, the both the center and edge need to be reduced by 1/4 this amount.
 
+<a name='parabolaSphereDiffCalc'></a>
 <form>
 	<h4>Difference between paraboloidal and spheroidal surfaces calculator</h4>
 
-	<p>Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='6'>
-		Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='8'>
-		<input onclick='MLB.meniscusMirrorMakingClass.calcSphereToParabolaDifference(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
-		Difference <input name='results' onfocus='select()' size='20' type='text'>
+	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='6'>
+	Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='8'>
+	<input onclick='MLB.meniscusMirrorMakingClass.calcSphereToParabolaDifference(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
+	Difference <input name='results' onfocus='select()' size='20' type='text'>
 </form>
 
 <a name='interference'></a>
