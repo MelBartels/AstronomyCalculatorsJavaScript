@@ -82,8 +82,11 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	</ul>
 	<li><a href='#step4'>Grind the slumped mirror face into a spheroidal shape by a progression of smaller grits.</a>
 	<ul>
+		<li><a href='#strokeLength'>Your stroke length is too long
 		<li><a href='#sagittaCalc'>Sagitta calculator
 		<li><a href='#focalRatioFocalLengthCalc'>Focal ratio and focal length calculator
+		<li><a href='#template'>Using a template to measure the curve.</a>
+		<li><a href='#bevel'>Bevel the edge.</a>
 	</ul>
 	<li><a href='#step5'>Make polishing pitch lap.</a>
 	<li><a href='#step6'>Polish mirror.</a>
@@ -143,11 +146,12 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 <a name='mirrorWeightCalc'></a>
 <form>
-	<h4>Meniscus mirror weight calculator</h4>
+	<h4>Mirror weight calculator</h4>
 
 	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
 	Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
 	Edge thickness <input name='edgeThickness' onfocus='select()' size='4' type='text' value='0.75'>
+	Meniscus? <input id='chBoxIsMeniscus' type='checkbox' checked>
 	<input onclick='MLB.meniscusMirrorMakingClass.calculateMirrorWeight(this.form)' type='button' value='Calculate'> <!-- 'this' is the input element, 'this.form' is the form that surrounds the input element -->
 	Results <input name='results' onfocus='select()' size='20' type='text'>
 </form>
@@ -201,6 +205,14 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 <p>See <a href='../16/16 inch log.html#2' target='_blank'>how I fine ground my mirror</a>. <a href='FineGrinding.html' target='_blank'>My webpage on fine grinding</a>.
 <br><img loading='lazy' class='smallImage' src='25 inch rough grinding the front with tool on top.JPG'>
 
+<a name='strokeLength'></a>
+<h4>Your stroke length is too long</h4>
+
+<p>It is too easy to overstroke while grinding. A stroke that maintains the sagittal depth and thus the focal ratio and focal length is no more than a 1/3 CoC. That's a stroke length of +-1/6 the mirror diameter, Center over Center.
+
+<p>Counting 1 inch square tiles is an easy way to measure your strokes. For a 16 inch, the strokes should be +-2 1/2 inches or about two tiles overhang in each direction. The proper stroke length for a 20 inch is 3 tiles, shown here:
+<br><img loading='lazy' class='smallImage' src='grinding stroke length.jpg'>
+
 <a name='sagittaCalc'></a>
 <form>
 	<h4>Sagitta calculator</h4>
@@ -221,7 +233,18 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	Result <input name='focalRatio' onfocus='select()' size='25' type='text'>	
 </form>
 
+<a name='template'></a>
+<h4>Template to measure the curve</h4>
+
+<p>A great way to measure your mirror's curve is a template. Here a 14 inch F3 is being measured. A perfect fit! Keep in mind that the radius of the curve you cut is the radius of curvature which is double the focal length. This 14 inch F3 has a focal length of 42 inches or 107cm. Double that makes 84 inches or 214cm - the radius to cut.
+<br><img loading='lazy' class='smallImage' src='template measuring 14F3.jpg'>
+
+<a name='bevel'></a>
+<h4>Bevel the edge</h4>
+
 <p>Always maintain a bevel at the mirror's edge using a wet grinding stone. Always stroke downward to avoid lifting off glass flakes. Un-beveled glass will chip off with the slightest tap, even with ordinary grinding action. Bevel 1/16-1/8 inch wide [1-3mm] at 45 degree angle, round off the top edge.
+
+<h4>Grit types</h4>
 
 <p>We use two grit types: silicon carbide grit and aluminum oxide powder.
 
@@ -588,4 +611,3 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 </body>
 </html>
-
