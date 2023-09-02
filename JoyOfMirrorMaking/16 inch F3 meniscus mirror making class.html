@@ -85,6 +85,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 		<li><a href='#sagittaCalc'>Sagitta calculator</a>
 		<li><a href='#focalRatioFocalLengthCalc'>Focal ratio and focal length calculator</a>
 		<li><a href='#strokeLength'>Your stroke length is too long</a>
+		<li><a href='#strokePattern'>The stroke pattern</a>
 		<li><a href='#shrinkingFR'>The incredible shrinking focal ratio</a>
 		<li><a href='#template'>Using a template to measure the curve.</a>
 		<li><a href='#bevel'>Bevel the edge.</a>
@@ -103,6 +104,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	<li><a href='#step11'>Parabolize by short cycles of parabolizing and testing. May need to return to spheroidal to start again if the parabolizing fails.</a>
 	<ul>
 		<li><a href='#parabolizingIntro'>Introduction to parabolizing.</a>
+		<li><a href='#padPolishing'>Pad polishing.</a>
 		<li><a href='#spheroidalStarTest'>How a polished out mirror, prior to parabolizing, looks using the star test.</a>
 		<li><a href='#definitions'>Definitions.</a>
 		<li><a href='#spheroidToParaboloid'>Parabolizing and the conundrum of many paraboloidal curves.</a>
@@ -119,6 +121,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 		<li><a href='#zones'>Dealing with kinks and zones</a>
 		<li><a href='#slopesSurfaces'>Slopes and surface: calculating one from the other</a>
 		<li><a href='#fixingTDE'>Fixing Turned Down Edge</a>
+		<li><a href='#fixingStig'>Fixing astigmatism</a>
 		<li><a href='#criteria'>What are the criteria for a finished mirror? How will we know that we are done?</a>
 		<li><a href='#finishingByStarTest'>Finishing the mirror using the star test</a>
 	</ul>
@@ -142,6 +145,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	<li>Get 12 micron AlO2. 1/2 lb (1/4 kg).
 	<li>Get pitch: Acculap medium 1-2 kg. 2 lbs (1 kg).
 	<li>Get cerium oxide polishing compound. (1 lb (1/2 kg).
+	<li>Get four dozen polishing pads, double the amount needed, as the pads can come off if they are not applied properly.
 	<li>Get 65-100 lines per inch Ronchi grating (be careful: we want 60-100 bars per inch, some vendors label this as double the LPI) 1.5-2 inches tall.
 	<li>Get materials to make the test mirror stand (typically cut from 1/4 sheet plywood).
 	<li>Get secondary or diagonal mirror (do not purchase until we review for exact size in class), typically 1/4 the mirror size.
@@ -217,7 +221,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
 	Focal ratio <input name='focalRatio' onfocus='select()' size='4' type='text' value='3'>
 	<input onclick='MLB.meniscusMirrorMakingClass.calcSagittaSpherical(this.form)' type='button' value='Calculate'>
-	Resulting Sagitta <input name='sagitta' onfocus='select()' size='20' type='text'>	
+	Resulting Sagitta <input name='sagitta' onfocus='select()' size='20' type='text'>
 </form>
 
 <a name='focalRatioFocalLengthCalc'></a>
@@ -227,7 +231,7 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 	Mirror diameter (inches) <input name='mirrorDia' onfocus='select()' size='4' type='text' value='16'>
 	Sagitta <input name='sagitta' onfocus='select()' size='4' type='text' value='0.334'>
 	<input onclick='MLB.meniscusMirrorMakingClass.calcFocalRatioAndFocalLength(this.form)' type='button' value='Calculate'>
-	Result <input name='focalRatio' onfocus='select()' size='25' type='text'>	
+	Result <input name='focalRatio' onfocus='select()' size='25' type='text'>
 </form>
 
 <a name='strokeLength'></a>
@@ -237,6 +241,19 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 
 <p>Counting 1 inch square tiles is an easy way to measure your strokes. For a 16 inch, the strokes should be +-2 1/2 inches or about two tiles overhang in each direction. The proper stroke length for a 20 inch is 3 tiles, shown here:
 <br><img loading='lazy' class='smallImage' src='grinding stroke length.jpg'>
+
+<a name='strokePattern'></a>
+<h4>The stroke pattern</h4>
+
+<ol>
+	<li>Six back and forth strokes, the top and bottom of the stroke extending 1/6 the diameter.
+	<li>Circular swirl to help distribute grit. You'll hear a pickup in the grinding sound.
+	<li>Twirl upper piece clockwise ~ 30 degrees. Main point is to make it consistent.
+	<li>Take one step counter-clockwise around the grinding stand. If you get bored, then reverse these last two directions.
+	<li>If the mirror is on the bottom face up then for every wet rotate the mirror 30 degrees.
+</ol>
+
+<p>The steady periodic rotation of the mirror prevents low order or saddle astigmatism. And I've never seen Turned Down Edge (TDE) after flash polishing a fine ground mirror. TDE occurs during polishing. Flash polishing can be used at any stage of grinding. Create and press the pitch lap, attach polishing pads, then polish for 5 minutes. A faint reflection from the mirror's face can be seen in the mirror tester.
 
 <a name='shrinkingFR'></a>
 
@@ -411,6 +428,13 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 <p>We adjust the mirror's face until it forms a paraboloidal curve, focusing light arriving from distant astronomical objects. This was sometimes called 'figuring' in the 1900's when amateurs used the Foucault test with a Couder mask and pencil and paper to calculate the mirror's ability to focus light.
 
 <p>Much of parabolizing consists of learning what to do: what works and doesn't work. Inevitably, we spend a lot of time on the first parabolizing attempt. When this fails we return to spheroidal and zip through the parabolizing much faster the second time. If only we'd known exactly what to do the first time. It's not unusual to return to spheroidal multiple times. It's best to think of the first parabolizing attempt as an orientation, learning and experimenting time. Then go for real the second time. For example, I spent 12 hours on my first parabolizing attempt followed by 5 hours to return to spheroidal after the first attempt failed. I finished the mirror in my second go-around in 4.5 hrs.
+
+<a name='padPolishing'></a>
+<h4>Pad polishing</h4>
+
+<p>Using pads is a great way to speed initial polishing and fix up sleeks and minor scratches. Typically pads are applied to the top of the pitch lap but I've had good luck applying them directly to the tool. Be sure to heat the tool with a hot air gun to get the pads to stick well, otherwise they can be pushed off the tool after a few hours of polishing. Charge the pads with cerium oxide then polish dry. Do not keep adding water. After the mirror looks polished then remove the pads and resume with the pitch lap to finish the mirror to a smooth surface. Here is my grinding tool with pads applied directly.
+
+<p><img loading='lazy' class='smallImage' src='../16/polishing pads attached.jpg'>
 
 <a name='spheroidalStarTest'></a>
 <h4>How a polished out mirror, prior to parabolizing, looks using the star test</h4>
@@ -598,6 +622,11 @@ My 16.25x3/8 inch [410x10mm] F2.9 scope and mirror</a>. For comparison, the firs
 <br><a href='../ronchi.html#parabolizing' target='_blank'>The Ronchi as part of the parabolizing process</a>
 <br><a href='../ronchi.html#MSP' target='_blank'>Using the mirror surface profile</a>
 <br><a href='../ronchi.html#MatchingRonchiTape' target='_blank'>The Matching Ronchi Tape test</a>
+
+<a name='fixingStig'></a>
+<h4>Fixing astigmatism</h4>
+
+<p>Low order or primary astigmatism is caused by the mirror's face resembling a saddle. One direction is high and the other direction at 90 degrees has low edges like a saddle. To fix, press the mirror on the tool, embedding the saddle shape into the tool. Rotate the mirror 90 degrees then execute short strokes, forcing the mirror back and forth across the tool with no rotation whatsoever and no side to side variation. After 10-20 minutes stop to check progress and repress. Repeat as needed. A few cycles should turn the mirror into an lumpy oblate ellipsoid possibly with a Turned Down Edge.
 
 <a name='finishingByStarTest'></a>
 <h4>Finishing the mirror using the star test</h4>
