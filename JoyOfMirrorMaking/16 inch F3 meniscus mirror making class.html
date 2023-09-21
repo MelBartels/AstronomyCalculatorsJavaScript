@@ -122,6 +122,7 @@ Perseverance. Don't need patient, don't need superb hand-eye coordination. Just 
 	<li><a href='#step12'>Parabolize by short cycles of parabolizing and testing. May need to return to spheroidal to start again if the parabolizing fails.</a>
 	<ul>
 		<li><a href='#parabolizingIntro'>Introduction to parabolizing.</a>
+		<li><a href='#parabolizingMethod'>Parabolizing method</a>
 		<li><a href='#spheroidalStarTest'>How a polished out mirror, prior to parabolizing, looks using the star test.</a>
 		<li><a href='#definitions'>Definitions.</a>
 		<li><a href='#spheroidToParaboloid'>Parabolizing and the conundrum of many paraboloidal curves.</a>
@@ -134,7 +135,6 @@ Perseverance. Don't need patient, don't need superb hand-eye coordination. Just 
 		<li><a href='#magicAtRoC'>Magic at the Radius of Curvature</a>
 		<li><a href='#caustic'>The Caustic curve</a>
 		<li><a href='#Ronchi'>The Matching Ronchi and Matching Ronchi tape band tests</a>
-		<li><a href='#parabolizingMethod'>Parabolizing method</a>
 		<li><a href='#zones'>Dealing with kinks and zones</a>
 		<li><a href='#slopesSurfaces'>Slopes and surface: calculating one from the other</a>
 		<li><a href='#fixingTDE'>Fixing Turned Down Edge</a>
@@ -462,7 +462,14 @@ Perseverance. Don't need patient, don't need superb hand-eye coordination. Just 
 
 <p>We want softer pitch. Make the pitch lap at least 3/8 inch [10mm] thick. Channel and microfacet the lap.
 
-<p>It took me 1.5 hours to make the pitch lap for the 20.25 inch [51cm]. Here are five images showing the setup including a thrift-store pot used to heat the pitch, then my use of a template to properly pour and mound the pitch with my soapy wet hands (I keep the pitch warm with a hot air gun), followed by initial channeling using a soapy wooden dowel and polishing for a few minutes to establish contact. I used 2 kg of 55 Gugolz pitch, 3/8 inch [10mm) thick. The last two images show the white cerium oxide polishing compound with a drop of Dawn dishwashing detergent during initial polishing for contact. After two hours of pitch polishing following 10 hrs of pad polishing post 12 micron AlO fine grinding, the mirror is fully polished out - no haze visible with focused light.
+<p>It took me 1.5 hours to make the pitch lap for the 20.25 inch [51cm]. Here are five images:
+
+<ol>
+	<li>Thrift-store pot used to heat the pitch.
+	<li>I use a template to properly pour and mound the pitch with my soapy wet hands (I keep the pitch warm with a hot air gun).
+	<li>Initial channeling using a soapy wooden dowel and polishing for a few minutes to establish contact. I use deep channeling of 1/4 inch [6mm] with pitch squares about 1 1/2 inches wide [40mm]. This gives room for the pitch to comply with the mirror's changing curve. Just putting the mirror on the lap and polishing for a bit warms the mirror's center, causing the mirror to curve ever so slightly more. And when parabolizing, the mirror's curve is constantly changing too. I used 2 kg of 55 Gugolz pitch, 3/8 inch [10mm] thick for the 20.25 inch [51cm].
+	<li>White cerium oxide polishing compound with a drop of Dawn dishwashing detergent during initial polishing for contact as seen from top and from underneath.
+</ol>
 
 <p><img loading='lazy' class='smallImage' src='../20/work area ready for pitch heating and pouring.jpg'>
 <img loading='lazy' class='smallImage' src='../20/poured lap using template.jpg'>
@@ -576,6 +583,29 @@ Perseverance. Don't need patient, don't need superb hand-eye coordination. Just 
 
 <p>Much of parabolizing consists of learning what to do: what works and doesn't work. Inevitably, we spend a lot of time on the first parabolizing attempt. When this fails we return to spheroidal and zip through the parabolizing much faster the second time. If only we'd known exactly what to do the first time. It's not unusual to return to spheroidal multiple times. It's best to think of the first parabolizing attempt as an orientation, learning and experimenting time. Then go for real the second time. For example, I spent 12 hours on my first parabolizing attempt followed by 5 hours to return to spheroidal after the first attempt failed. I finished the mirror in my second go-around in 4.5 hrs.
 
+<a name='parabolizingMethod'></a>
+<h4>The parabolizing method</h4>
+
+<p><img alt='' loading='lazy' class='bigImage' src='Parabolizing.jpg'>
+
+<p>Parabolizing strategies: how to transition from spheroidal to paraboloidal. The rate of change of the radius of curvature increases as we move towards the edge of the mirror. Controlling and matching up to this increasing rate of change in the slopes of the outer zones is key.
+
+<p>Another factor is the difference between spheroidal and paraboloidal surfaces. The tool tends to return the mirror to spheroidal, making it hard to decrease the center's radius of curvature and keep it there. On the helpful side, the tool when pressed (formed to the mirror) assumes the reverse shape of the mirror. As the tool and mirror are stroked against each other, the zones where the radius of curvature changes dramatically rub preferentially.
+
+<p>Using <a href='../PitchLapCalc.html' target='_blank'>my pitch lap calculator</a>, we can explore strokes and pitch lap configurations that generate paraboloidal surfaces.
+
+<p>Here is the classic parabolizing method that worked for me on my 16F3. Note the preponderance of center over edge strokes compared to long center over center strokes.
+<br><img alt='' loading='lazy' class='bigImage' src='classic parabolizing method.jpg'>
+
+<p>If this proves insufficient to dig out the center relative to the edge, then use a petal lap with center over center strokes. Here I created a five pointed petal lap using a short wood dowel to 'pop up' the pitch, the flat areas then no longer in contact.
+<br><img alt='' loading='lazy' class='smallImage' src='petal lap parabolizing method.jpg'>
+<img alt='' loading='lazy' class='smallImage' src='5 pointed petal lap.jpg'>
+
+<p>The ideal parabolizing progression.
+<br><img alt='' loading='lazy' class='bigImage' src='parabolization progression.jpg'>
+
+<p>Getting the center 'low' enough, avoiding turning the edge, while dealing with zones, is the challenge with large fast mirrors.
+
 <a name='spheroidalStarTest'></a>
 <h4>How a polished out mirror, prior to parabolizing, looks using the star test</h4>
 
@@ -679,29 +709,6 @@ Perseverance. Don't need patient, don't need superb hand-eye coordination. Just 
 </ol>
 
 <p>In analyzing the Matched Ronchigram, determine the priority issue to fix. Ignore secondary issues. For example, if the edge is turned, nothing else matters. If there's a bad kink, nothing else matters. If the mirror is grossly overcorrected, nothing else matters. Try to work on one issue at a time. We all want to try parabolizing strokes that magically fix all the mirror's problems at once. The problem is that this rarely works out, and when it does, we don't learn which stroke or pitch lap contact pattern fixed which issue.
-
-<a name='parabolizingMethod'></a>
-<h4>The parabolizing method</h4>
-
-<p><img alt='' loading='lazy' class='bigImage' src='Parabolizing.jpg'>
-
-<p>Parabolizing strategies: how to transition from spheroidal to paraboloidal. The rate of change of the radius of curvature increases as we move towards the edge of the mirror. Controlling and matching up to this increasing rate of change in the slopes of the outer zones is key.
-
-<p>Another factor is the difference between spheroidal and paraboloidal surfaces. The tool tends to return the mirror to spheroidal, making it hard to decrease the center's radius of curvature and keep it there. On the helpful side, the tool when pressed (formed to the mirror) assumes the reverse shape of the mirror. As the tool and mirror are stroked against each other, the zones where the radius of curvature changes dramatically rub preferentially.
-
-<p>Using <a href='../PitchLapCalc.html' target='_blank'>my pitch lap calculator</a>, we can explore strokes and pitch lap configurations that generate paraboloidal surfaces.
-
-<p>Here is the classic parabolizing method that worked for me on my 16F3. Note the preponderance of center over edge strokes compared to long center over center strokes.
-<br><img alt='' loading='lazy' class='bigImage' src='classic parabolizing method.jpg'>
-
-<p>If this proves insufficient to dig out the center relative to the edge, then use a petal lap with center over center strokes. Here I created a five pointed petal lap using a short wood dowel to 'pop up' the pitch, the flat areas then no longer in contact.
-<br><img alt='' loading='lazy' class='smallImage' src='petal lap parabolizing method.jpg'>
-<img alt='' loading='lazy' class='smallImage' src='5 pointed petal lap.jpg'>
-
-<p>The ideal parabolizing progression.
-<br><img alt='' loading='lazy' class='bigImage' src='parabolization progression.jpg'>
-
-<p>Getting the center 'low' enough, avoiding turning the edge, while dealing with zones, is the challenge with large fast mirrors.
 
 <a name='zones'></a>
 <h4>Dealing with kinks and zones</h4>
