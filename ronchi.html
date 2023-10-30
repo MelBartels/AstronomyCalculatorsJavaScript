@@ -120,7 +120,7 @@
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
 <div class='floatLeftDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
-	<p><input id='btnUpdateZonalCorrectionTable' value='Update table and mirror surface profile' type='button'>
+	<p><input id='btnUpdateZonalCorrectionTable' value='Update table and mirror zonal errors profile' type='button'>
 	   <input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
 	   <input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
 	   <input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
@@ -134,16 +134,16 @@
 	</tbody>
 	</table>
 	<p>The center zone is zero and the edge zone is 1. Zones can be entered in any order. The correction factor is the parabolic correction for the zone. 0 is no correction or spherical; 1 is full parabolic correction; 2 is double parabolic correction.
-	<p>If the mirror is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user supplied pasted unwrap Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased. The Mirror Surface Profile can be used to distinguish overcorrected/low from undercorrected/high zones.
+	<p>If the mirror is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user supplied pasted unwrap Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased. The Mirror Zonal Errors Profile can be used to distinguish overcorrected/low from undercorrected/high zones.
 	<p>For center zones, the parabolic difference from spherical is small. Consequently large corrective values may be needed.
 </div>
 <div class='floatLeftDiv'>
-	<h4>Mirror surface profile: ideal parabola minus zonal corrections</h4>
+	<h4>Mirror zonal errors profile: ideal parabola minus zonal corrections</h4>
 	<div id='MSPCanvasDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	Offset RoC <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'> Find the best mirror surface profile to polish out errors and minimize wavefront error by adjusting the RoC. Start with values smaller than the parabolic RoC zonal changes. For example, <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>here's an analysis of my 25 inch F2.6 finished mirror</a>.
-	<p>Invert mirror surface profile?
+	Offset RoC <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'> Find the best mirror zonal errors profile to polish out errors and minimize wavefront error by adjusting the RoC. Start with values smaller than the parabolic RoC zonal changes. For example, <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>here's an analysis of my 25 inch F2.6 finished mirror</a>.
+	<p>Invert mirror zonal errors profile?
 	<input name='invertMSP' value='yes' type='radio'>yes
 	<input name='invertMSP' value='no' type='radio'>no
 	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
@@ -295,7 +295,7 @@
 		<li>'Reset corrections to parabolic correction'.
 	</ol>
 
-	<p>Adjust the individual zonal corrections to best straighten the bands appearing in the Ronchigrams. Verify your zonal corrections by turning the zones on and off by selecting/deselecting the 'Use?' checkboxes. The results will appear in the Mirror Surface Profile graph.
+	<p>Adjust the individual zonal corrections to best straighten the bands appearing in the Ronchigrams. Verify your zonal corrections by turning the zones on and off by selecting/deselecting the 'Use?' checkboxes. The results will appear in the Mirror Zonal Errors Profile graph.
 
 	<p>Here's an example using the Zonal errors correction table to judge my <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>finished 25 inch [64cm] F2.6 mirror</a>.
 
@@ -508,7 +508,7 @@
 
 	<p>Unwrapping a Ronchigram removes the parabolic distortion, returning the bands to their straight and vertical appearance. Optionally the vertical 'Y' axis can be unwrapped too and the horizontal 'X' axis can be stretched out.
 
-	<p>Note that unwrapping uses the zonal error table, consequently the calculated Ronchi bands are always unwrapped straight: whatever zonal errors that cause the first Ronchigram's calculated bands to distort from ideal are also used to unwrap, removing the zonal error corrections from the calculated Ronchi bands. The pasted image is also unwrapped per the zonal correction table, resulting in the image's bands changing. I think of it this way: the standard Ronchigram does not distort the pasted image but the computed Ronchi bands do follow the zonal error table, allowing the bands to be matched to each other. The Mirror Surface Profile and wave error is computed from the zonal error table. Changes to the zonal error table alters the unwrapped image's bands straightness, the goal being to make the pasted image bands as straight as possible.
+	<p>Note that unwrapping uses the zonal error table, consequently the calculated Ronchi bands are always unwrapped straight: whatever zonal errors that cause the first Ronchigram's calculated bands to distort from ideal are also used to unwrap, removing the zonal error corrections from the calculated Ronchi bands. The pasted image is also unwrapped per the zonal correction table, resulting in the image's bands changing. I think of it this way: the standard Ronchigram does not distort the pasted image but the computed Ronchi bands do follow the zonal error table, allowing the bands to be matched to each other. The Mirror Zonal Errors Profile and wave error is computed from the zonal error table. Changes to the zonal error table alters the unwrapped image's bands straightness, the goal being to make the pasted image bands as straight as possible.
 
 	<p>To make the unwrapped pasted image bands as straight as possible, if the mirror is undercorrected, then then zonal error will need to be overcorrected, that is, above 1. Similarly for an overcorrected mirror, then zonal error will need to be undercorrected, below 1. For example:
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\RB Z1 undercorrected 50 percent zone.jpg' class='bigImage'>
@@ -582,7 +582,7 @@
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi math.jpg' class='bigImage'>
 
-	<h5>Mirror Surface Profile math</h5>
+	<h5>Mirror Zonal Errors Profile math</h5>
 
 	<p>The radius of curvature for each zone is calculated along with the sphere to parabola deviation in waves at focus (the wavefront). The ideal RoC offset is compared to the user input zonal error corrections. For example, if the user sets the parabolic correction to zero, then the wave error is the full sphere to parabola deviation for that zone.
 
@@ -643,7 +643,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992; last update 25-Oct-2023</h4>
+	<h4>by Mel Bartels, 1992; last update 29-Oct-2023</h4>
 	<br>
 	<br>
 </div>
