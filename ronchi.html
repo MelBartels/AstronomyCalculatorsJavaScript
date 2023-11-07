@@ -10,9 +10,11 @@
 	<link rel='stylesheet' type='text/css' href='css/Ronchi.css'>
 </head>
 <body>
+
 <div id='topDiv'>
 	<h2 class='title'>Ronchi Test Calculator: match, tape band, unwrap and grid tests</h2>
 </div>
+
 <div class='grid-container'>
 	<div class='grid-item'> <a href='#matchingExamples'>Matching examples</a>	   </div>
 	<div class='grid-item'> <a href='#about'>About</a>                             </div>
@@ -33,6 +35,7 @@
 	<div class='grid-item'>	<a href='#grid'>Grid testing</a>                       </div>
 	<div class='grid-item'>	<a href='#math'>Math</a>                               </div>
 </div>
+
 <div class='floatLeftInputDiv'>
 	Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
 	&emsp; Radius of curvature (RoC) = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
@@ -98,69 +101,79 @@
 	<input name='showBullseyeZones' value='yes' type='radio'>yes
 	<input name='showBullseyeZones' value='no' type='radio'>no
 </div>
+
 <div class='floatLeftExampleDiv''>
 	<a name='matchingExamples'></a>
 	<b>Some of my mirrors</b>
 	<p>
 	<input id='btnPasteExampleRonchigram16'   value='16.25 inch f2.9' type='button' class='exBtn'>
 	<input id='btnPasteExampleRonchigram25'   value='25 inch f2.6'    type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram6'    value='6 inch f2.8'     type='button' class='exBtn'>
 	<input id='btnPasteExampleRonchigram13'   value='13.2 inch f3.0'  type='button' class='exBtn'>
 	<input id='btnPasteExampleRonchigramGrid' value='grid example'    type='button' class='exBtn'>
 </div>
+
 <div class='clearFloat'></div>
+
 <div id='Ronchigrams' class='floatLeftRonchigramsDiv'> <!-- canvases added in JavaScript --> </div>
+
 <div id='discussionDiv' class='floatLeftDiscussionDiv'>
 	<p>A positive grating offset is outside the RoC where bands curve inward. Accurately measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
 	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the delete or escape key. Match by adjusting the grating offset. This gets me to 'snap focus'. Switch to the star test for final adjustments.
 	<p><b>Unwrapping</b> the first Ronchigram removes parabolic distortion and straightens the bands. See <a href='#unwrap'>unwrapping bands section</a>. Be sure to read the note when unwrapping outside of RoC.
 	<p>The <b>grid</b> analyzes Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See <a href='#grid'>grid testing section</a>.
 </div>
+
 <div class='clearFloat'></div>
+
 <div id='waveNotes'></div>
+
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
+
 <div class='floatLeftDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
-	<p><input id='btnUpdateZonalCorrectionTable' value='Update table and mirror zonal errors profile' type='button'>
-	   <input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
-	   <input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
-	   <input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
-	   <input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
-	   <input id='btnResetCorrectionFactorsToParabCorrection' value='Reset corrections to parabolic correction' type='button'>
-	   <input id='btnUseAllZones' value='Use all zones' type='button'>
-	   <input id='btnUseNoZones' value='Use no zones' type='button'>
+	Wavelength of light measured in
+	<input name='btnWavelengthLightUOM' value='imperial' type='radio'>imperial
+	<input name='btnWavelengthLightUOM' value='metric' type='radio'>metric
+	units (to calculate the Airy Disk size)
+	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
+	<input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
+	<input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
+	<br><input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
+	<input id='btnResetCorrectionFactorsToParabCorrection' value='Reset corrections to parabolic correction' type='button'>
+	<br><input id='btnUseAllZones' value='Use all zones' type='button'>
+	<input id='btnUseNoZones' value='Use no zones' type='button'>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
-	<p>The center zone is zero and the edge zone is 1. Zones can be entered in any order. The correction factor is the parabolic correction for the zone. 0 is no correction or spherical; 1 is full parabolic correction; 2 is double parabolic correction.
-	<p>If the mirror is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user supplied pasted unwrap Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased. The Mirror Zonal Errors Profile can be used to distinguish overcorrected/low from undercorrected/high zones.
-	<p>For center zones, the parabolic difference from spherical is small. Consequently large corrective values may be needed.
+	<br><label id='zonalErrorsResultsLabel'></label>
 </div>
+
 <div class='floatLeftDiv'>
-	<h4>Mirror zonal errors profile: ideal parabola minus zonal corrections</h4>
-	<div id='MSPCanvasDiv'>
+	<h4>Zonal errors: top view</h4>
+	<div id='zonesTopViewDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	Offset RoC <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'> Find the best mirror zonal errors profile to polish out errors and minimize wavefront error by adjusting the RoC. Start with values smaller than the parabolic RoC zonal changes. For example, <a href='JoyOfMirrorMaking/25 MSP analysis.jpg' target='_blank'>here's an analysis of my 25 inch F2.6 finished mirror</a>.
-	<p>Invert mirror zonal errors profile?
-	<input name='invertMSP' value='yes' type='radio'>yes
-	<input name='invertMSP' value='no' type='radio'>no
-	<p>See my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
+	Black indicates undercorrected zones.
+	<p>Adjustment to the radius of curvature <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>
+	<p><label id='waveErrorsLabel'></label>
 </div>
-<div class='floatLeftDiv'>
-	<h4>Results</h4>
-	Wavelength of light measured in
-	<input name='wavelengthLightUOM' value='imperial' type='radio'>imperial
-	<input name='wavelengthLightUOM' value='metric' type='radio'>metric
-	units
-	<p><label id='MSPResultsLabel'></label>
-	<br><label id='zonalErrorsResultsLabel'></label>
-	The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
-	<br>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
+
+<div class='floatLeftDivWithWidth'>
+	<h4>Zonal errors: notes</h4>
+	<p>The center zone is zero and the edge zone is 1. Zones can be entered in any order.
+	<br>The correction factor is the parabolic correction for the zone, ranging from 0 for none or spherical to 1 for full parabolic correction.
+	<br>If the mirror is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user pasted Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased.
+	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
+	<br>Why do I not plot the M-L measurements? Because it is taken to be the mirror's surface profile, which it is not. Also it leads to single number wave and Strehl ratings, which involve nuances to calculate and do not capture certain objectionable, even subjective, errors at the eyepiece.
+	<p>Adjusting the radius of curvature offset may minimize the wave error. The wave error is calculated from finding the sphere to parabola difference for that zone then adjusting for any user's correction.
+	<p>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
+	<br>Also see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 </div>
+
 <div class='clearFloat'></div>
+
 <div>
 	<a name='about'></a>
 	<h4>About the Ronchi test</h4>
@@ -648,6 +661,7 @@
 	<br>
 	<br>
 </div>
+
 <script src='lib/jquery/jquery-3.1.1.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
 <script src='lib/sharedLib.js'></script>
