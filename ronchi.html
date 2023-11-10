@@ -16,10 +16,13 @@
 </div>
 
 <div class='grid-container'>
-	<div class='grid-item'> <a href='#matchingExamples'>Matching examples</a>	   </div>
 	<div class='grid-item'> <a href='#about'>About</a>                             </div>
 	<div class='grid-item'> <a href='#DrShermanSchultz'>Dr Sherman Schultz</a>	   </div>
 	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
+
+	<div class='grid-item'>	<a href='#accuracy'>Ronchi accuracy</a>                </div>
+	<div class='grid-item'>	<a href='#IFcomparison'>IF comparison</a>              </div>
+
 	<div class='grid-item'>	<a href='#instructions'>Instructions</a>               </div>
 	<div class='grid-item'>	<a href='#parabolizing'>Parabolizing</a>               </div>
 	<div class='grid-item'> <a href='#analysis'>Analysis</a>                       </div>
@@ -28,7 +31,6 @@
 	<div class='grid-item'>	<a href='#atFocus'>At focus</a>	                       </div>
 	<div class='grid-item'>	<a href='#pitfalls'>Pitfalls</a>                       </div>
 	<div class='grid-item'>	<a href='#moreExamples'>More examples</a>              </div>
-	<div class='grid-item'>	<a href='#IFcomparison'>IF comparison</a>              </div>
 	<div class='grid-item'>	<a href='#tester'>Tester</a>                           </div>
 	<div class='grid-item'>	<a href='#MatchingRonchiTape'>Matching Ronchi Tape</a> </div>
 	<div class='grid-item'>	<a href='#unwrap'>Unwrapping bands</a>                 </div>
@@ -103,7 +105,6 @@
 </div>
 
 <div class='floatLeftExampleDiv''>
-	<a name='matchingExamples'></a>
 	<b>Some of my mirrors</b>
 	<p>
 	<input id='btnPasteExampleRonchigram16'   value='16.25 inch f2.9' type='button' class='exBtn'>
@@ -117,8 +118,8 @@
 <div id='Ronchigrams' class='floatLeftRonchigramsDiv'> <!-- canvases added in JavaScript --> </div>
 
 <div id='discussionDiv' class='floatLeftDiscussionDiv'>
-	<p>A positive grating offset is outside the RoC where bands curve inward. Accurately measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
-	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the delete or escape key. Match by adjusting the grating offset. This gets me to 'snap focus'. Switch to the star test for final adjustments.
+	<p>Setting the grating outside the RoC where bands curve inward means that the offset is a positive number. It is important to measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
+	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the delete or escape key. Match by adjusting the grating offset. A good match means that the mirror will 'snap focus'. I switch to the star test for final adjustments.
 	<p><b>Unwrapping</b> the first Ronchigram removes parabolic distortion and straightens the bands. See <a href='#unwrap'>unwrapping bands section</a>. Be sure to read the note when unwrapping outside of RoC.
 	<p>The <b>grid</b> analyzes Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See <a href='#grid'>grid testing section</a>.
 </div>
@@ -168,11 +169,10 @@
 <div id='zonalErrorsNotesDiv' class='floatLeftDiv'>
 	<h4>Zonal errors: notes</h4>
 	<p>The center zone is zero and the edge zone is 1. Zones can be entered in any order.
-	<br>The correction factor is the parabolic correction for the zone, ranging from 0 for none or spherical to 1 for full parabolic correction.
-	<br>If the mirror is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user pasted Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased.
+	<p>The correction factor is the parabolic correction for the zone, ranging from 0 for spherical to 1 for full parabolic correction.
+	<p>If a zone is undercorrected, then the zonal correction factor will have to be increased greater than 1 to straighten the bands in the user pasted Ronchigram. Similarly, if the mirror is overcorrected, then the zonal correction factor will have to be decreased below 1.
 	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted ML tolerance is an overall area measurement.
-	<br>Why do I not plot the M-L measurements? Because it is taken to be the mirror's surface profile, which it is not. Also it leads to single number wave and Strehl ratings, which involve nuances to calculate and do not capture certain objectionable, even subjective, errors at the eyepiece.
-	<p>Adjusting the radius of curvature offset may minimize the wave error. The wave error is calculated from finding the sphere to parabola difference for that zone then adjusting for any user's correction.
+	<p>Adjusting the radius of curvature offset may minimize the wave error. The wave error is calculated from finding the sphere to parabola differences for the zones then adjusting for any user's correction.
 	<p>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 	<br>Also see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 </div>
@@ -198,8 +198,6 @@
 		<a href='JoyOfMirrorMaking/10.5 inch log.doc' target='_blank'>10.5 inch F2.7</a> and
 		<a href='JoyOfMirrorMaking/6 inch log.doc' target='_blank'>6 inch F2.8</a>
 		mirrors. I have led mirror making classes using the Ronchi as the principal test. I had a 6 inch F4 checked with the Hartmann test. The surface was 1/20 wave peak to valley and the RMS was 1/60 wave.
-		
-	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Diffraction effects are minimized by selecting the grating frequency and image processing and analysis. Experience shows that the resulting accuracy ranges from 1/4 wavefront (see examples below) for large fast mirrors to 1/10 wavefront for smaller slower mirrors. It's possible to see smaller narrow defects. This is more than good enough for our purposes: predicting a mirror's performance at the eyepiece and guiding our parabolization efforts while making a mirror, knowing that we will conclude with a second test such as the star test, Hartmann or Bath Interferometer.
 
 	<p>History of my Ronchi Calculator:
 	<ul>
@@ -247,9 +245,51 @@
 		<li>I am keen to continually improve my mirror making technique
 	</ul>
 
+	<a name='accuracy'></a>
+	<h4>Ronchi accuracy</h4>
+
+	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Diffraction effects are minimized by selecting the grating frequency and image processing and analysis. Experience shows that the resulting accuracy ranges from 1/4 wavefront (see examples below) for large fast mirrors to 1/10 wavefront for smaller slower mirrors. It's possible to see smaller narrow defects. This is more than good enough for our purposes: predicting a mirror's performance at the eyepiece and guiding our parabolization efforts while making a mirror, knowing that we will conclude with a second test such as the star test, Hartmann or Bath Interferometer.
+
+	<p>A criticism sometimes voiced is that the Ronchi test is insensitive because the band's curvature can look very similar for a whole series of situations. For instance, a 10 inch [25cm] F5, fully parabolized at 0.3 inch outside radius of curvature (left image) looks very similar to the same mirror but a quarter wavefront undercorrected at a different grating offset from radius of curvature (right image).<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 perfect correction 0.3 offset.png' class='smallImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 quarterwave undercorrected 0.285 offset.png' class='smallImage'><br>
+	But overlaying the images and inverting one of them shows a clear difference at the mirror's edge where the outside of radius of curvature offset is most sensitive:<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 perfect and quarter wave undercorrected overlay.jpg' class='smallImage'><br>
+	This shows that the Matching Ronchi will reveal the difference. This is similar to focusing where the discriminating visual observer will select the best compromise focus, e.g., when undercorrected, the focus will be just outside the mirror's outer zone and just inside the mirror's central zone.
+
+	<p>Zonal errors are straightforward to detect. Using a 16 inch [41cm] F5 mirror, compare a high 70% zone (sometimes seen in commercial optics) on the left to perfectly parabolized in the middle to a low 70% zone (a common malady when figuring large fast mirrors) on the right. Note how the bands curve too sharply in the low 70% zone image, particularly at the 70% zone, and in the high 70% zone image do not exhibit enough curvature, looking too flat at the 70% zone. Additionally, the center looks too flat in the low 70% zone and the center looks too curved in the high 70% zone Ronchigrams.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 high 70percent zone.png' class='smallImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 perfect.png' class='smallImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 low 70percent zone.png' class='smallImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 70percent zone edge bands comparison.jpg' class='smallImage'>
+
+	<p>Here are comparisons of one-fourth wavefront undercorrection for a 8 inch [20cm] F7, the default 12 inch [31cm] F5 and for the 16.25 inch [41cm] F2.9.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\8F7 one-quarter wavefront change.JPG' class='smallImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap Ronchigram quarter wavefront difference.jpg' class='smallImage'>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9 quarter wavefront error 70 percent zone.jpg' class='smallImage'>
+
+	<p>Here is a study of my 16.25 inch [41cm] F2.9 mirror where I minimize the differences between overcorrected and undercorrected by adjusting the grating offset from the radius of curvature. The differences with such a large very fast mirror are minute but discernible.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi tape band one-fourth wave over-under corrected comparison.jpg' class=''>
+
+	<p>A further study of my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge. I am able to see grating tilt, smartphone tilt, mirror test stand and other issues more easily. The artifacts making the bands look rough are from the grating lines bleeding through the smartphone's image.
+
+	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
+
+	<p>My  24 inch thin F5.5 mirror from the early 1980's.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 24F5.5.jpg' class='bigImage'>
+
+	<p>Astroscan mirror measured to better than 1/6 wave with an interferometer.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapped Astroscan Matching Ronchi.jpg' class='bigImage'>
+
+	<a name='IFcomparison'></a>
+	<h4>Comparing to interferometry</h4>
+
+	<p>A friend who uses a Zygo interferometer at work sent me a Ronchigram of a commercial mass produced 12 inch [30cm] mirror. It was quite undercorrected. Using the matching tool above, I found that it was 0.6 wave undercorrected. After I communicated my results, he told me that the Zygo had found that the mirror had a spherical deviation of 3.7 waves when a fully corrected mirror should have a deviation of 4.3 waves. That is a difference of 0.6 waves, which matched my results. The first Ronchigram is the match to a perfect paraboloidal surface while the second Ronchigram is the match to the 0.6 wave undercorrected Ronchigram.<br>
+		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Matching Ronchi results with error - MLB.jpg'>
+
 	<a name='instructions'></a>
 	<h4>Instructions, how to use the Ronchi Calculator</h4>
-	
+
 	<p>See <a href='https://www.youtube.com/watch?v=nTmljQDs2d4' target='_blank'>my presentation</a> on using the Ronchi Calculator's Matching Band and Unwrap tests.
 
 	<p>Two steps:
@@ -395,25 +435,7 @@
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10.5 inch overlay with computer generated Ronchigram inside RoC.jpg' class='smallImage'>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10.5 inch overlay with computer generated Ronchigram outside RoC.jpg' class='smallImage'>
 
-	<p>A criticism sometimes voiced is that the Ronchi test is insensitive because the band's curvature can look very similar for a whole series of situations. For instance, a 10 inch [25cm] F5, fully parabolized at 0.3 inch outside radius of curvature (left image) looks very similar to the same mirror but a quarter wavefront undercorrected (right image).<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 perfect correction 0.3 offset.png' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 quarterwave undercorrected 0.285 offset.png' class='smallImage'><br>
-	But overlaying the images and inverting one of them shows a clear difference at the mirror's edge where the outside of radius of curvature offset is most sensitive:<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 perfect and quarter wave undercorrected overlay.jpg' class='smallImage'><br>
-	This shows that the Matching Ronchi will reveal the difference. This is similar to focusing where the discriminating visual observer will select the best compromise focus, e.g., when undercorrected, the focus will be just outside the mirror's outer zone and just inside the mirror's central zone.
-
 	<p>To get the radius of curvature, measure from the mirror's center to the ruled side of the grating.
-
-	<p>How tightly must we judge the curved Ronchi bands?<br>
-		<img alt='' loading='lazy' src='acceptable parabolic devision.jpg'>
-
-	<p>I derived this relationship by using a standard algorithm that calculates wave error given a set of zonal readings. I iteratively fed it zonal readings smoothly varying by a correction factor, deriving the maximum correction factor that fit the quarter wavefront error envelope. For more, see the comments, code and unit tests in <a href='lib/ronchi.js' target='_blank'>lib/Ronchi.js</a> and <a href='lib/calclib unittests.htm' target='_blank'>calcLib unitTests.htm</a>.
-
-	<p>You can see that zonal errors are easy to detect. Using a 16 inch [41cm] F5 mirror, compare a high 70% zone (sometimes seen in commercial optics) on the left to perfectly parabolized in the middle to a low 70% zone (a common malady when figuring large fast mirrors) on the right. Note how the bands curve too sharply in the low 70% zone image, particularly at the 70% zone, and in the high 70% zone image do not exhibit enough curvature, looking too flat at the 70% zone. Additionally, the center looks too flat in the low 70% zone and the center looks too curved in the high 70% zone Ronchigrams.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 high 70percent zone.png' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 perfect.png' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 low 70percent zone.png' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/16 inch f5 70percent zone edge bands comparison.jpg' class='smallImage'>
 
 	<p>I like a grating of about 100 lines per inch [4 lines per millimeter]. Smaller slower mirrors can profit from a finer grating and large very fast mirrors from a coarser rating.
 
@@ -471,12 +493,6 @@
 	<p>Here's a 12.5 inch [32cm] F3.9 mirror made by Jerry Oltion. It gives a perfect star test with the slightest hint of a narrow turned edge (note the extremely narrow glowing ring at the top of the Ronchigrams). Jerry is using the old DOS version of my Ronchigram software.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Jerry 12.5 inch Ronchigrams Nov 2015.jpg'>
 
-	<a name='IFcomparison'></a>
-	<h4>Comparing to interferometry</h4>
-
-	<p>A friend who uses a Zygo interferometer at work sent me a Ronchigram of a commercial mass produced 12 inch [30cm] mirror. It was quite undercorrected. Using the matching tool above, I found that it was 0.6 wave undercorrected. After I communicated my results, he told me that the Zygo had found that the mirror had a spherical deviation of 3.7 waves when a fully corrected mirror should have a deviation of 4.3 waves. That is a difference of 0.6 waves, which matched my results. The first Ronchigram is the match to a perfect paraboloidal surface while the second Ronchigram is the match to the 0.6 wave undercorrected Ronchigram.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Matching Ronchi results with error - MLB.jpg'>
-
 	<a name='tester'></a>
 	<h4>The tester</h4>
 
@@ -498,9 +514,6 @@
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi tape band analysis.jpg' class='bigImage'>
 		<img alt='' loading='lazy' src='30\last B match Ronchigram only.jpg' class='bigImage'>
 
-	<p>Here is a study of my 16.25 inch [41cm] F2.9 mirror. The differences with such a large very fast mirror are minute but discernible.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\Ronchi tape band one-fourth wave over-under corrected comparison.jpg' class=''>
-
 	<p>If a band is 'off' from its mark, the tester can be moved laterally, centering the band on the tape mark, noting the difference in thousands of an inch, e.g., by measuring the change angle of the turn of a threaded rod with knob and pointer. This zonal radius of curvature difference can be entered into the standard Foucault zonal measurements spreadsheet to calculate the wavefront error. Using this method, I found, at one point in parabolizing the 30 inch [76cm] F2.7 thin meniscus mirrors that the wavefront peak-valley error was 0.2 waves with the greatest deviation near the 80% zone. I then compared this result to the error portion of the Matching Ronchi test and found the best match Ronchigram to have an error of 0.2 waves at the 70% zone. This method is not intended to give rigorous wavefront ratings but instead to give an order of magnitude feeling to the error at hand.
 
 	<p>Note that by convention, the band is colored on the mirror's face when the light ray passes through the grating. As a user I want to see the Ronchi Tape marks on the colored bands, which is logically inverted.
@@ -518,15 +531,6 @@
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\RB Z1 undercorrected 50 percent zone.jpg' class='bigImage'>
 	<img alt='' loading='lazy' src='JoyOfMirrorMaking\RB Z1 zonal errors applied.jpg' class='bigImage'>
 
-	<p>Here is an example using my 16.25 x 3/8 inch [410x10mm] meniscus mirror. You can see that by selecting a grating offset inside the radius of curvature with a moderate number of bands, the standard Ronchigram shows good sensitivity towards the center of the mirror while the unwrapped Ronchigram shows good sensitivity at the mirror's edge. I am able to see grating tilt, smartphone tilt, mirror test stand and other issues more easily. The artifacts making the bands look rough are from the grating lines bleeding through the smartphone's image.
-
-	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
-
-	<p>Here are comparisons of one-fourth wavefront undercorrection for a 8 inch [20cm] F7, the default 12 inch [31cm] F5 and for the 16.25 inch [41cm] F2.9.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\8F7 one-quarter wavefront change.JPG' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap Ronchigram quarter wavefront difference.jpg' class='smallImage'>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9 quarter wavefront error 70 percent zone.jpg' class='smallImage'>
-
 	<p>Avoid unwrapping Ronchigrams with loops: the unwrapping loops back on itself. Use Ronchigrams with more, not less, bands.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\avoid looping while unwrapping.jpg' class='bigImage'>
 
@@ -542,12 +546,6 @@
 
 	<p>My  25x1/2 inch [635x13mm] F2.6 mirror in progress: parabolization has not reached the extreme edge.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 25 inch in progress.jpg' class='bigImage'>
-
-	<p>My  24 inch thin F5.5 mirror from the early 1980's.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 24F5.5.jpg' class='bigImage'>
-
-	<p>Astroscan mirror measured to better than 1/6 wave with an interferometer.<br>
-		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapped Astroscan Matching Ronchi.jpg' class='bigImage'>
 
 	<a name='grid'></a>
 	<h4>The grid test</h4>
@@ -647,7 +645,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992; last update 9-Nov-2023</h4>
+	<h4>by Mel Bartels, 1992; last update 10-Nov-2023</h4>
 	<br>
 	<br>
 </div>
