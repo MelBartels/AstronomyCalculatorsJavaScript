@@ -131,10 +131,6 @@
 
 <div id='zonalErrorsTableDiv' class='floatLeftDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
-	Wavelength of light measured in
-	<input name='btnWavelengthLightUOM' value='imperial' type='radio'>imperial
-	<input name='btnWavelengthLightUOM' value='metric' type='radio'>metric
-	units (to calculate the Airy Disk size)
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
 	<input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
 	<input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
@@ -147,6 +143,10 @@
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
+	<p>Wavelength of light measured in
+	<input name='btnWavelengthLightUOM' value='imperial' type='radio'>imperial
+	<input name='btnWavelengthLightUOM' value='metric' type='radio'>metric
+	units (to calculate the Airy Disk size)
 	<p><label id='zonalErrorsResultsLabel'></label>
 	<p><label id='waveErrorsLabel'></label>
 </div>
@@ -158,10 +158,11 @@
 	</div>
 	Black shows undercorrected-long-high zones.
 	<br>White shows overcorrected-short-low zones.
-	<p>Adjustment to the radius of curvature <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>
+	<p>
 	<div id='zonesSideViewDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
+	Adjustment to the radius of curvature <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>
 </div>
 
 <div id='zonalErrorsNotesDiv' class='floatLeftDiv'>
