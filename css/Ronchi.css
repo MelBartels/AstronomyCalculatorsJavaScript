@@ -46,12 +46,6 @@ html {
 	padding: 10px;
 }
 
-.floatLeftDivWithWidth {
-	float: left;
-	width: 35%;
-	padding: 10px;
-}
-
 .floatLeftInputDiv {
 	float: left;
 	width: 85%;

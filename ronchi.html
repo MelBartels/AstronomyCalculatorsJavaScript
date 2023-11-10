@@ -37,14 +37,14 @@
 </div>
 
 <div class='floatLeftInputDiv'>
-	Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-	&emsp; Radius of curvature (RoC) = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-	Focal length = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
-	Focal ratio = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
+	<b>Mirror diameter</b> = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
+	&emsp; <b>Radius of curvature (RoC)</b> = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
+	<b>Focal length</b> = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
+	<b>Focal ratio</b> = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
 	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='0' onfocus='select()' type='text'>
 	<br>
-	Grating freq. (lines per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-	&emsp; Grating offsets from RoC = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.2, 0.5' onfocus='select()' type='text'>
+	<b>Grating freq.</b> (lines per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
+	&emsp; <b>Grating offsets from RoC</b> = <input class='inputTextLong' name='gratingOffsetSeries' value='-0.2, 0.5' onfocus='select()' type='text'>
 	or adjust
 	<input id='btnIncreaseGratingOffsets' value='+' type='button'>
 	<input id='btnDecreaseGratingOffsets' value='-' type='button'>
@@ -129,7 +129,7 @@
 
 <div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
 
-<div class='floatLeftDiv'>
+<div id='zonalErrorsTableDiv' class='floatLeftDiv'>
 	<h4>Zonal errors: manual manipulation of zones</h4>
 	Wavelength of light measured in
 	<input name='btnWavelengthLightUOM' value='imperial' type='radio'>imperial
@@ -147,10 +147,11 @@
 		<!--zonal rows added in JavaScript-->
 	</tbody>
 	</table>
-	<br><label id='zonalErrorsResultsLabel'></label>
+	<p><label id='zonalErrorsResultsLabel'></label>
+	<p><label id='waveErrorsLabel'></label>
 </div>
 
-<div class='floatLeftDiv'>
+<div id='zonalErrorsViewDiv' class='floatLeftDiv'>
 	<h4>Zonal errors: top view</h4>
 	<div id='zonesTopViewDiv'>
 		<!-- canvas created in JavaScript -->
@@ -158,10 +159,12 @@
 	Black shows undercorrected-long-high zones.
 	<br>White shows overcorrected-short-low zones.
 	<p>Adjustment to the radius of curvature <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>
-	<p><label id='waveErrorsLabel'></label>
+	<div id='zonesSideViewDiv'>
+		<!-- canvas created in JavaScript -->
+	</div>
 </div>
 
-<div class='floatLeftDivWithWidth'>
+<div id='zonalErrorsNotesDiv' class='floatLeftDiv'>
 	<h4>Zonal errors: notes</h4>
 	<p>The center zone is zero and the edge zone is 1. Zones can be entered in any order.
 	<br>The correction factor is the parabolic correction for the zone, ranging from 0 for none or spherical to 1 for full parabolic correction.
@@ -194,6 +197,8 @@
 		<a href='JoyOfMirrorMaking/10.5 inch log.doc' target='_blank'>10.5 inch F2.7</a> and
 		<a href='JoyOfMirrorMaking/6 inch log.doc' target='_blank'>6 inch F2.8</a>
 		mirrors. I have led mirror making classes using the Ronchi as the principal test. I had a 6 inch F4 checked with the Hartmann test. The surface was 1/20 wave peak to valley and the RMS was 1/60 wave.
+		
+	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Diffraction effects are minimized by selecting the grating frequency and image processing and analysis. Experience shows that the resulting accuracy ranges from 1/4 wavefront (see examples below) for large fast mirrors to 1/10 wavefront for smaller slower mirrors. It's possible to see smaller narrow defects. This is more than good enough for our purposes: predicting a mirror's performance at the eyepiece and guiding our parabolization efforts while making a mirror, knowing that we will conclude with a second test such as the star test, Hartmann or Bath Interferometer.
 
 	<p>History of my Ronchi Calculator:
 	<ul>
@@ -243,6 +248,8 @@
 
 	<a name='instructions'></a>
 	<h4>Instructions, how to use the Ronchi Calculator</h4>
+	
+	<p>See <a href='https://www.youtube.com/watch?v=nTmljQDs2d4' target='_blank'>my presentation</a> on using the Ronchi Calculator's Matching Band and Unwrap tests.
 
 	<p>Two steps:
 	<ol>
@@ -639,7 +646,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992; last update 8-Nov-2023</h4>
+	<h4>by Mel Bartels, 1992; last update 9-Nov-2023</h4>
 	<br>
 	<br>
 </div>
