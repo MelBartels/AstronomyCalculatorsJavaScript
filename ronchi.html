@@ -596,12 +596,12 @@
 
 	<p>To start, we compare the ray height at the grating for parabolic and spherical surfaces to get the distortion ratio. We then apply the distortion ratio to the original image's x,y pixels shifting the pixels by the distortion ratio. If inside RoC, then the pixels are shifted inward.
 
-	<p>The spheroidal surface has a constant factor of gratingOffset * 2 across all zones, resulting in straight bands. Whereas the paraboloidal surface factor is:
+	<p>The spherical surface has a constant factor of gratingOffset * 2 across all zones, resulting in straight bands. Whereas the paraboloidal surface factor is:
 
 	<p>(RoC + gratingOffset * 2 - zonalRoC) * zoneLocationOnMirrorSurface / zonalRoC
 	<br>where zonalRoC = RoC + mirrorZone^2 / RoC.
 
-	<p>Parabolic distortion then = paraboloidal factor / spheroidal factor. These values are saved for all x,y in a quadrant of the Ronchigram.
+	<p>Parabolic distortion then = paraboloidal factor / spherical factor. These values are saved for all x,y in a quadrant of the Ronchigram.
 
 	<p>For example, the default Ronchi tape bands fall on the 0, 2.62, 4.34, 5.54 mirror zones. That's 0, 0.4366666666666667, 0.7233333333333333, 0.9233333333333333 relative to the mirror's radius.
 
