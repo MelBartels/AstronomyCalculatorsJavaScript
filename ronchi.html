@@ -19,10 +19,8 @@
 	<div class='grid-item'> <a href='#about'>About</a>                             </div>
 	<div class='grid-item'> <a href='#DrShermanSchultz'>Dr Sherman Schultz</a>	   </div>
 	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
-
 	<div class='grid-item'>	<a href='#accuracy'>Ronchi accuracy</a>                </div>
 	<div class='grid-item'>	<a href='#IFcomparison'>IF comparison</a>              </div>
-
 	<div class='grid-item'>	<a href='#instructions'>Instructions</a>               </div>
 	<div class='grid-item'>	<a href='#parabolizing'>Parabolizing</a>               </div>
 	<div class='grid-item'> <a href='#analysis'>Analysis</a>                       </div>
@@ -178,6 +176,7 @@
 	<p>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 	<br>Also see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
 	<p>To use the unwrap standard deviation, a measure of band straightness, adjust each zone's correction. Start with the edge zone then work inward to the center zone. Minimize the standard deviation for each zone before moving on to the next inward zone. Here is an <a href='20/bpi fix 2.jpg' target='_blank'>example using this process</a> on a 20 inch F2.9 mirror underway. This appears superior to <a href='20/bpi fix.jpg' target='_blank'>picking zones with the greatest deviation</a>.
+	<p>The Ronchi Calculator measures slopes, not surface profile. See <a href='JoyOfMirrorMaking/16 inch F3 meniscus mirror making class.html#zones' target='_blank'>my comments dealing with kinks and slopes</a>.
 </div>
 
 <div class='clearFloat'></div>
@@ -251,7 +250,7 @@
 	<a name='accuracy'></a>
 	<h4>Ronchi accuracy</h4>
 
-	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Diffraction effects are minimized by selecting the grating frequency and image processing and analysis. Experience shows that the resulting accuracy ranges from 1/4 wavefront (see examples below) for large fast mirrors to 1/10 wavefront for smaller slower mirrors. It's possible to see smaller narrow defects. This is more than good enough for our purposes: predicting a mirror's performance at the eyepiece and guiding our parabolization efforts while making a mirror, knowing that we will conclude with a second test such as the star test, Hartmann or Bath Interferometer.
+	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Using the new 'vertical standard deviation' feature, the software finds band deviations down to 1/50, even 1/100 of the band spacing, an astonishingly small fraction of a wavefront. Diffraction effects are minimized by selecting the grating frequency and image processing and analysis. Experience shows that the resulting accuracy ranges from at least 1/4 wavefront (see examples below) for large fast mirrors to 1/10 wavefront for smaller slower mirrors. This is more than good enough for our purposes: predicting a mirror's performance at the eyepiece and guiding our parabolization efforts while making a mirror, knowing that we will conclude with a second test such as the star test or Bath Interferometer.
 
 	<p>A criticism sometimes voiced is that the Ronchi test is insensitive because the band's curvature can look very similar for a whole series of situations. For instance, a 10 inch [25cm] F5, fully parabolized at 0.3 inch outside radius of curvature (left image) looks very similar to the same mirror but a quarter wavefront undercorrected at a different grating offset from radius of curvature (right image).<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/10 inch f5 perfect correction 0.3 offset.png' class='smallImage'>
@@ -652,7 +651,7 @@
 		<li><a href='#math'>#math</a>
 	</ul>
 
-	<h4>by Mel Bartels, 1992; last update 21-Nov-2023</h4>
+	<h4>by Mel Bartels, 1992; last update 22-Nov-2023</h4>
 	<br>
 	<br>
 </div>
