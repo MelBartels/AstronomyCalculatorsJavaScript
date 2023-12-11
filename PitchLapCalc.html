@@ -10,94 +10,109 @@
 	<link rel='stylesheet' type='text/css' href='css/calc.css'>
 </head>
 <body>
-	<div class='pitchLapDiv'>
-		<h2>Pitch Lap Calculator</h2>
-		<h4>Mel Bartels</h4>
+<div class='pitchLapDiv'>
+	<h2>Pitch Lap Calculator</h2>
+	<h4>Mel Bartels</h4>
 
-		<p>Number of stars <input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
-		<br>Tool to mirror size ratio <input class='inputText' id='toolToMirrorSizeRatio' value='1' onfocus='select()' type='number' step='0.1' min='0.1'>
-		<br> <input name='btnPressure' value='MOT' type='radio' checked='checked'>MOT
-		<input name='btnPressure' value='TOT' type='radio'>TOT
-		&nbsp;&nbsp;pressure <input class='inputText' id='pressure' value='0' onfocus='select()' type='number' step='1' min='0'>
+	<p>Number of stars <input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
+	<br>Tool to mirror size ratio <input class='inputText' id='toolToMirrorSizeRatio' value='1' onfocus='select()' type='number' step='0.1' min='0.1'>
+	<br> <input name='btnPressure' value='MOT' type='radio' checked='checked'>MOT
+	<input name='btnPressure' value='TOT' type='radio'>TOT
+	&nbsp;&nbsp;pressure <input class='inputText' id='pressure' value='0' onfocus='select()' type='number' step='1' min='0'>
 
-		<p><input name='btnStrokeMethod' value='straight' type='radio' checked='checked'>Straight stroke
-		&nbsp;&nbsp;length <input class='inputText' id='strokeLength' value='0.33' onfocus='select()' type='number' step='0.05' min='0.05' max='1.0'>
-		offset <input class='inputText' id='strokeOffset' value='0' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
-		spin <input class='inputText' id='bottomSpin' value='0' onfocus='select()' type='number' step='1' min='0'>
+	<p><input name='btnStrokeMethod' value='straight' type='radio' checked='checked'>Straight stroke
+	&nbsp;&nbsp;length <input class='inputText' id='strokeLength' value='0.33' onfocus='select()' type='number' step='0.05' min='0.05' max='1.0'>
+	offset <input class='inputText' id='strokeOffset' value='0' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
+	spin <input class='inputText' id='bottomSpin' value='0' onfocus='select()' type='number' step='1' min='0'>
 
-		<br><input name='btnStrokeMethod' value='w' type='radio'>W stroke
-		&nbsp;&nbsp;overhang <input class='inputText' id='wOverhang' value='0.2' onfocus='select()' type='number' step='0.05' min='0' max='0.5'>
+	<br><input name='btnStrokeMethod' value='w' type='radio'>W stroke
+	&nbsp;&nbsp;overhang <input class='inputText' id='wOverhang' value='0.2' onfocus='select()' type='number' step='0.05' min='0' max='0.5'>
 
-		<p>Presets
-		<input name='btnPreset' value='fullContact' type='radio'>full contact
-		<input name='btnPreset' value='petalLap' type='radio' checked='checked'>petal lap
-		<input name='btnPreset' value='reversePetalLap' type='radio'>reverse petal lap
+	<p>Presets
+	<input name='btnPreset' value='fullContact' type='radio'>full contact
+	<input name='btnPreset' value='petalLap' type='radio' checked='checked'>petal lap
+	<input name='btnPreset' value='reversePetalLap' type='radio'>reverse petal lap
 
-		<table id='pitchLapParmTable'>
-		<tbody id='pitchLapParmTableBody'>
-			<!--zonal rows added in JavaScript-->
-		</tbody>
-		</table>
+	<table id='pitchLapParmTable'>
+	<tbody id='pitchLapParmTableBody'>
+		<!--zonal rows added in JavaScript-->
+	</tbody>
+	</table>
 
-		<p><input ID='btnSortZones' value='Sort zones' type='button'>
-		<input ID='btnUpdatePitchLap' value='Update graphs' type='button'>
+	<p><input ID='btnSortZones' value='Sort zones' type='button'>
+	<input ID='btnUpdatePitchLap' value='Update graphs' type='button'>
 
-		<div class='pitchLapNotes'>
-			<p>Notes
-			<ul>
-				<li>MOT is Mirror On Top
-				<li>TOT is Tool On Top
-				<li>Pressure is a relative number.<br>Zero means that MOT or TOT does not matter.
-				<li>Stroke length and offset are relative to mirror diameter
-				<li>Zones: 0=center, 1=edge; enter in any order
-			</ul>
-		</div>
-		<p>Created 2017, last updated Oct 12, 2023
+	<div class='pitchLapNotes'>
+		<h4>Notes</h4>
+		<ul>
+			<li>MOT is Mirror On Top. TOT is Tool On Top.
+			<p>
+			<li>Zones: 0=center, 1=edge; enter in any order.
+			<p>
+			<li>Pressure is a relative number.
+				<br>Zero means that MOT or TOT does not matter.
+			<p>
+			<li>Stroke length and offset are relative to mirror diameter.
+				<br>For example, a 10 inch mirror with 0.2 stroke means
+				<br>1 inch stroke up, then 2 inches stroke down, then 1 inch stroke up,
+				<br>returning to the starting position.
+			<p>
+		</ul>
+		<p><b>For spin polishing, see below.</b>
 	</div>
+</div>
 
+<div class='pitchLapDiv'>
+	<center>
+	<p>Pitch lap top view (black is pitch)
+	<br><canvas class='pitchLapCanvas' id='pitchLapCanvas' width='400' height='400'></canvas>
+	<p>Relative polishing action on the mirror - side view
+	<br><canvas class='polishingActionSideViewCanvas' id='polishingActionSideViewCanvas' width='400' height='100'></canvas>
+	<br>Relative polishing action on the mirror - top view
+	<br><canvas class='polishingActionTopViewCanvas' id='polishingActionTopViewCanvas' width='400' height='400'></canvas>
+</div>
+
+<div class='pitchLapDiv'>
+	<h3>Tool spinning on rotating mirror section</h3>
+	First, find tool rotation rate than zeros out the net rotational vector. This is the tool's free spinning rate. Then inspect the polishing action.
 	<div class='pitchLapDiv'>
-		<p>Pitch lap top view (black is pitch, yellow is absence of pitch)
-		<br><canvas class='pitchLapCanvas' id='pitchLapCanvas' width='400' height='400'></canvas>
+		<p>Rotational vector inspector
+		<p>Green CW rotational vector, red CCW rotational vector.<br>
+		For example, with mirror rotating at a fixed rate, what is the rotation rate of a freely rotating tool (Net direction = 0)?
+		<p>Tool to mirror size ratio
+		<input class='inputText' id='spinToolToMirrorSizeRatio' value='0.8' onfocus='select()' type='number' step='0.1' min='0.1'>
+		<br>Mirror rotation rate
+		<input class='inputText' id='spinMirrorRotation' value='1' onfocus='select()' type='number' step='0.1' min='0'>
+		<br>Tool rotation rate
+		<input class='inputText' id='spinToolRotation' value='1.25' onfocus='select()' type='number' step='0.25'>
+		<br>Tool offset
+		<input class='inputText' id='spinOffset' value='0.15' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
+		<br>Use pitch lap contact pattern from above? <input id='chBoxUsePitchLapContact' type='checkbox'>
+		<p><canvas class='spinRotationalVectorCanvas' id='spinRotationalVectorCanvas' width='400' height='400'></canvas>
+		<div id='netRotationResults'></div>
+	</div>
+	<div class='pitchLapDiv'>
 		<p>Relative polishing action on the mirror - side view
-		<br><canvas class='polishingActionSideViewCanvas' id='polishingActionSideViewCanvas' width='400' height='100'></canvas>
+		<br><canvas class='spinPolishingActionSideViewCanvas' id='spinPolishingActionSideViewCanvas' width='400' height='100'></canvas>
 		<br>Relative polishing action on the mirror - top view
-		<br><canvas class='polishingActionTopViewCanvas' id='polishingActionTopViewCanvas' width='400' height='400'></canvas>
+		<br><canvas class='spinPolishingActionTopViewCanvas' id='spinPolishingActionTopViewCanvas' width='400' height='400'></canvas>
 	</div>
-
 	<div class='pitchLapDiv'>
-		<h3>Tool spinning on rotating mirror section</h3>
-		First, find tool rotation rate than zeros out the net rotational vector. This is the tool's free spinning rate. Then inspect the polishing action.
-		<div class='pitchLapDiv'>
-			<p>Rotational vector inspector
-			<p>Green CW rotational vector, red CCW rotational vector.<br>
-			For example, with mirror rotating at a fixed rate, what is the rotation rate of a freely rotating tool (Net direction = 0)?
-			<p>Tool to mirror size ratio
-			<input class='inputText' id='spinToolToMirrorSizeRatio' value='0.8' onfocus='select()' type='number' step='0.1' min='0.1'>
-			<br>Mirror rotation rate
-			<input class='inputText' id='spinMirrorRotation' value='1' onfocus='select()' type='number' step='0.1' min='0'>
-			<br>Tool rotation rate
-			<input class='inputText' id='spinToolRotation' value='1.25' onfocus='select()' type='number' step='0.25'>
-			<br>Tool offset
-			<input class='inputText' id='spinOffset' value='0.15' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
-			<br>Use pitch lap contact pattern from above? <input id='chBoxUsePitchLapContact' type='checkbox'>
-			<p><canvas class='spinRotationalVectorCanvas' id='spinRotationalVectorCanvas' width='400' height='400'></canvas>
-			<div id='netRotationResults'></div>
-		</div>
-		<div class='pitchLapDiv'>
-			<p>Relative polishing action on the mirror - side view
-			<br><canvas class='spinPolishingActionSideViewCanvas' id='spinPolishingActionSideViewCanvas' width='400' height='100'></canvas>
-			<br>Relative polishing action on the mirror - top view
-			<br><canvas class='spinPolishingActionTopViewCanvas' id='spinPolishingActionTopViewCanvas' width='400' height='400'></canvas>
-		</div>
-		<div class='pitchLapDiv'>
-			<p>Consider these three examples with the tool centered on the mirror. The tool matches the mirror's rotation in the first example, netting zero rotational action. In the second example the tool does not rotate at all, causing the mirror to generate a clockwise rotational vector. In the third example the tool spins faster than the mirror, causing counter-clockwise action.<br>
-			<img src='lib/pitch lap calc examples.jpg'>
+		<p>Consider these three examples with the tool centered on the mirror. The tool matches the mirror's rotation in the first example, netting zero rotational action. In the second example the tool does not rotate at all, causing the mirror to generate a clockwise rotational vector. In the third example the tool spins faster than the mirror, causing counter-clockwise action.<br>
+		<img src='lib/pitch lap calc examples.jpg'>
 
-			<p>Here's how I work out the rotational vector (distinct from the polishing action:<br>
-			<img src='lib/rotational vectors test example.jpg'>
-		</div>
+		<p>Here's how I work out the rotational vector (distinct from the polishing action:<br>
+		<img src='lib/rotational vectors test example.jpg'>
 	</div>
+</div>
+
+<div class='pitchLapDiv'>
+	<p>Created 2017, last updated Dec 12, 2023
+	<br><br>
+</div>
+
 </body>
+
 <script src='lib/jquery/jquery-3.1.1.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
 <script src='lib/sharedLib.js'></script>
