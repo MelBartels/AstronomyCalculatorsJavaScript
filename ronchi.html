@@ -133,8 +133,10 @@
 	<p><input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
 	<input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
 	<input id='btn11Zones' value='Set zones to 0.1 increment' type='button'>
-	<br><input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
+	<br>
+	<input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
 	<input id='btnResetCorrectionFactorsToParabCorrection' value='Reset corrections to parabolic correction' type='button'>
+	<br>
 	<input id='btnSaveCorrections' value='Save corrections' type='button'>
 	<input id='btnRestoreCorrections' value='Restore corrections' type='button'>
 	<table id='zonalCorrectionTable'>
@@ -166,6 +168,7 @@
 	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted M-L tolerance is an overall area measurement.
 	<p>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 	<br>Also see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
+	<p>Wavefront errors are calculated by taking the parabola-sphere difference for each zone, then applying the user entered parabolic correction. For example if the zone's parabola-sphere difference is 3 waves and the user entered parabolic correction is 0.8, then the wavefront error is (1-0.8) * 3 = 0.6 waves.
 	<p>To use the unwrap standard deviation, a measure of band straightness, adjust each zone's correction. Start with the edge zone then work inward to the center zone. Minimize the standard deviation for each zone before moving on to the next inward zone.
 	<p>The Ronchi Calculator measures slopes, not surface profile. See <a href='JoyOfMirrorMaking/16 inch F3 meniscus mirror making class.html#zones' target='_blank'>my comments dealing with kinks and slopes</a>.
 </div>
