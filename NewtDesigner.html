@@ -2446,7 +2446,24 @@ copyright Mel Bartels, 2016-2023 -->
 
 			<p>Most important is the quality of construction and the balance of the pieces.
 
-			<p>Edge supports are analyzed in R.N.Wilson's Reflecting Telescope Optics, Volume II. A simple edge support with points at exactly 90 degrees separation cancels primary astigmatism, fairing quite well. Each support point can be replaced with a 2-point whiffle tree in order to spread the load, lessening local deformation next to each support point. Slings are even better, though tough to build without side effects, whilst the best support is a ring of astatic levers where the lower levers support the mirror from bottom up and the upper levers pull up on the mirror's upper edge. Edge supports should be compliant so that they do not hold up the mirror as it settles into the cell as the telescope points upward.
+			<h4>Edge support</h4>
+
+			<p>Edge supports are analyzed in R.N.Wilson's Reflecting Telescope Optics, Volume II, pages 264-271. The author summaries modeling and results of various edge support designs on 1-4 meter mirrors. He finds that:
+			<ul>
+				<li>a simple edge support with two points at exactly 90 degrees separation cancels primary or low-order astigmatism.
+				<li>Each support point can be replaced with a 2-point whiffle tree in order to spread the load, lessening local deformation next to each support point.
+				<li>Slings are even better (~3-8x improvement over the 2-pt or whiffle tree), though challenging to build and hold the mirror without side effects (carefully slide the mirror into the sling which can be made from a non-stretch material such as thin aluminum strip, Formica® or a wire cable),
+				<li>whilst the best support is a ring of astatic levers where the lower levers support the mirror from bottom up and the upper levers pull up on the mirror's upper edge to preclude mirror fold-over (~5-10x improvement over a sling). A meniscus shaped mirror will help reduce mirror fold-over.
+			</ul>
+
+			<p>Edge supports should be compliant so that they do not hold up the mirror as it settles into the cell as the telescope points upward. This can be done with
+			<ul>
+				<li>slippery support points
+				<li>wheels or bearings that rotate as the mirror settles
+				<li>whiskers (think stiff piano wire pushed into a pad)
+			</ul>
+
+			<p>The edge support points or sling should be at the mirror's center of gravity. I've found for large thin mirrors that even a small displacement of 1/8 inch [3mm] can cause noticeable deformation in the high power star test.
 
 			<p>Typically the mirror's defects dominate the mirror cell, meaning that the mirror cell adds very little error to the optical system. For example, consider a mirror of 1/6 wavefront peak-valley error that is otherwise smooth. The 1/6 peak-valley wavefront is about 90 nm peak-valley wavefront error in green light. That is 45 nm peak-valley on the mirror's surface. Even a crude mirror cell of say 35 nm peak-valley error (10 nm RMS) does not materially degrade the optical performance. Errors are added by root mean square, so a mirror of 45 nm peak-valley added to a mirror cell error of 35 nm peak-valley results in a total error of nearly 57 nm peak-valley or 1/4.6 wavefront. This is a degradation of only 1/20 wavefront from the mirror's 1/6 wavefront!
 		</div>
@@ -3854,7 +3871,7 @@ copyright Mel Bartels, 2016-2023 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 12-September-2023
+				Last update 25-December-2023
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
