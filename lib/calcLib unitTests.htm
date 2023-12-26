@@ -139,6 +139,8 @@
 		findWeightedCenterOfPoints = MLB.calcLib.findWeightedCenterOfPoints,
 		calcToolVolume = MLB.calcLib.calcToolVolume,
 		calcMirrorWeight = MLB.calcLib.calcMirrorWeight,
+		calcLensCG = MLB.calcLib.calcLensCG,
+		calcMirrorCG = MLB.calcLib.calcMirrorCG,
 		WaineoSphericalNull = MLB.calcLib.WaineoSphericalNull;
 
 	QUnit.module('sagitta');
@@ -2079,6 +2081,67 @@ note that visible? is coded from impossible=1 to very easy=6
 		isMeniscus = false;
 		result = calcMirrorWeight(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
 		assert.equal(withinRange(result, expectedNoMeniscus, allowableError), true, 'mirror (not a meniscus) weight (lbs) should be ' + expectedNoMeniscus + ', is ' + result);
+	});
+
+	QUnit.test('calcLensCG', assert => {
+		// 20 inch F2 where sag = 0.625; CG measured from the flat side of the convex lens should be a little less than the 5/8 thickness
+		var thickness = 0.625,
+			radius = 80,
+			expected = 0.208,
+			allowableError = 0.01,
+			result = calcLensCG(thickness, radius);
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'lens CG should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.test('calcMirrorCG', assert => {
+		// 20 inch x 2 inch thick F2; expected CG should be further from the mirror's top edge than half the sagitta
+		var mirrorDia = 20,
+			mirrorFocalRatio = 2,
+			mirrorEdgeThickness = 0.625,
+			isMeniscus = false,
+			expected = 0.418,
+			allowableError = 0.01,
+			result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror CG should be ' + expected + ', is ' + result);
+
+		// add a bit more thickness; CG should increase to more than half the mirror's edge thickness
+		mirrorEdgeThickness = 1;
+		expected = 0.576;
+		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror CG should be ' + expected + ', is ' + result);
+
+		// make mirror nearly flat; CG should be just over half the mirror's edge thickness
+		mirrorFocalRatio = 100;
+		expected = 0.501;
+		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror CG should be ' + expected + ', is ' + result);
+
+		//a more normal mirror
+		mirrorFocalRatio = 5;
+		mirrorEdgeThickness = 2;
+		expected = 1.022;
+		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror CG should be ' + expected + ', is ' + result);
+
+		// meniscus mirrors...
+
+		// edge thickness = sagitta
+		isMeniscus = true;
+		mirrorFocalRatio = 2;
+		mirrorEdgeThickness = 0.625;
+		expected = 0.625;
+		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror (meniscus) CG should be ' + expected + ', is ' + result);
+
+		// real life mirror
+		mirrorDia = 20.25;
+		mirrorFocalRatio = 2.9;
+		mirrorEdgeThickness = 0.75;
+		expected = 0.594;
+		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
+		assert.equal(withinRange(result, expected, allowableError), true, 'mirror (meniscus) CG should be ' + expected + ', is ' + result);
 	});
 
 	QUnit.module('WaineoSphericalNull');
