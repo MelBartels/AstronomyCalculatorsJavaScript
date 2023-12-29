@@ -1858,12 +1858,16 @@ note that visible? is coded from impossible=1 to very easy=6
 	});
 
 	QUnit.test('calcCollimationToleranceInches', assert => {
-		var focalRatio = 4,
-			expected = 0.0448,
+		// https://www.cloudynights.com/topic/902119-the-refractor-crowd-is-making-fun-of-us/?p=13157624
+		// where focuserAlignment should be 5.4mm for a 16 inch F3
+		var apertureInches = 16,
+			focalRatio = 3,
+			expected = {focuserAlignment: 0.216, primaryMirrorAlignment: 0.0189},
 			allowableError = 0.001,
-			result = calcCollimationToleranceInches(focalRatio);
+			result = calcCollimationToleranceInches(apertureInches, focalRatio);
 
-		assert.equal(withinRange(result, expected, allowableError), true, 'collimation tolerance should be ' + expected + ', is ' + result);
+		assert.equal(withinRange(result.focuserAlignment, expected.focuserAlignment, allowableError), true, 'collimation tolerance (focuser) should be ' + expected.focuserAlignment + ', is ' + result.focuserAlignment);
+		assert.equal(withinRange(result.primaryMirrorAlignment, expected.primaryMirrorAlignment, allowableError), true, 'collimation tolerance (primary mirror) should be ' + expected.primaryMirrorAlignment + ', is ' + result.primaryMirrorAlignment);
 	});
 
 	QUnit.test('calcMinimumMirrorSupportPoints', assert => {
