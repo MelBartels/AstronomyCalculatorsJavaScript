@@ -16,6 +16,7 @@
 </div>
 
 <div class='grid-container'>
+	<div class='grid-item'> <a href='#roleOfTesting'>The role of testing</a>       </div>
 	<div class='grid-item'> <a href='#about'>About</a>                             </div>
 	<div class='grid-item'> <a href='#DrShermanSchultz'>Dr Sherman Schultz</a>	   </div>
 	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
@@ -30,7 +31,7 @@
 	<div class='grid-item'>	<a href='#pitfalls'>Pitfalls</a>                       </div>
 	<div class='grid-item'>	<a href='#moreExamples'>More examples</a>              </div>
 	<div class='grid-item'>	<a href='#tester'>Tester</a>                           </div>
-	<div class='grid-item'>	<a href='#MatchingRonchiTape'>Matching Ronchi Tape</a> </div>
+	<div class='grid-item'>	<a href='#RonchiTape'>Ronchi Tape</a>                  </div>
 	<div class='grid-item'>	<a href='#unwrap'>Unwrapping bands</a>                 </div>
 	<div class='grid-item'>	<a href='#grid'>Grid testing</a>                       </div>
 	<div class='grid-item'>	<a href='#math'>Math</a>                               </div>
@@ -116,9 +117,10 @@
 <div id='Ronchigrams' class='floatLeftRonchigramsDiv'> <!-- canvases added in JavaScript --> </div>
 
 <div id='discussionDiv' class='floatLeftDiscussionDiv'> <!-- width adjusted in JavaScript -->
-	<p>Setting the grating outside the RoC where bands curve inward means that the offset is a positive number. It is important to measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
-	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the delete or escape key. Match by adjusting the grating offset. A good match means that the mirror will 'snap focus'. I switch to the star test for final adjustments.
-	<p><b>Unwrapping</b> the first Ronchigram removes parabolic distortion and straightens the bands. See <a href='#unwrap'>unwrapping bands section</a>. Be sure to read the note when unwrapping outside of RoC.
+	<p>Positive grating offsets indicate that the grating is outside the RoC.
+	<p>It is important to measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
+	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the delete or escape key. Match by adjusting the grating offset.
+	<p><b>Unwrapping</b> the left most Ronchigram removes parabolic distortion, straightening the bands. See <a href='#unwrap'>unwrapping bands section</a>. Be sure to read the note when unwrapping outside of RoC.
 	<p>The <b>grid</b> analyzes Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See <a href='#grid'>grid testing section</a>.
 </div>
 
@@ -126,7 +128,7 @@
 
 <div id='waveNotes'></div>
 
-<div id='matchingRonchiTapeBands'> <!-- text added in JavaScript --> </div>
+<div id='RonchiTapeBands'> <!-- text added in JavaScript --> </div>
 
 <div id='zonalErrorsTableDiv' class='floatLeftDiv'>
 	<h4>Zonal slope errors: manual manipulation of zones</h4>
@@ -171,7 +173,7 @@
 	<p>The M-L (Milles-Lacroix) tolerance ensures that the light rays geometrically pass through the Airy Disk. The weighted M-L tolerance is an overall area measurement.
 	<p>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 	<br>Also see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
-	<p>Wavefront errors are calculated by taking the parabola-sphere difference for each zone, then applying the user entered parabolic correction. For example if the zone's parabola-sphere difference is 3 waves and the user entered parabolic correction is 0.8, then the wavefront error is (1-0.8) * 3 = 0.6 waves.
+	<p>Wavefront errors are calculated by taking the parabola-sphere difference for each zone, then applying the user entered parabolic correction. For example if the zone's calculated parabola-sphere difference should be 3 waves and the user entered parabolic correction is 0.8, then the wavefront error is (1-0.8) * 3 = 0.6 waves.
 	<p>To use the unwrap standard deviation, a measure of band straightness, adjust each zone's correction. Start with the edge zone then work inward to the center zone. Minimize the standard deviation for each zone before moving on to the next inward zone.
 	<p>The Ronchi Calculator measures slopes, not surface profile. See <a href='JoyOfMirrorMaking/16 inch F3 meniscus mirror making class.html#zones' target='_blank'>my comments dealing with kinks and slopes</a>.
 </div>
@@ -179,6 +181,11 @@
 <div class='clearFloat'></div>
 
 <div>
+	<a name='roleOfTesting'></a>
+	<h4>The role of testing</h4>
+
+	<p>Testing verifies that our process is proceeding satisfactorily. Since amateur mirror making uses several processes, we use several tests. Starting from a smooth spherical mirror surface free of astigmatism, the mirror maker gradually changes the mirror's shape from spherical to parabolic by preferential polishing. The Matching Ronchi test helps the mirror maker continually monitor progress. Steady progress increases the chances of a quality result and builds confidence. The Ronchi tester is made from simple materials, is easy to understand and quickly executed, allowing the mirror maker to concentrate on the mirror. Here's <a href='#parabolizing' target='_blank'>how I integrate the Matching Ronchi into the parabolizing process</a>.
+
 	<a name='about'></a>
 	<h4>About the Ronchi test</h4>
 
@@ -250,9 +257,9 @@
 	<a name='accuracy'></a>
 	<h4>Ronchi accuracy</h4>
 
-	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Using the new 'vertical standard deviation' feature, the software finds band deviations down to 1/50, even 1/100 of the band spacing, an astonishingly small fraction of a wavefront. Diffraction effects are minimized by selecting the grating frequency. Experience shows that the resulting accuracy ranges from 1/4 wavefront for large fast mirrors to 1/10 wavefront for smaller slower mirrors. This is more than good enough for our purposes: guiding our parabolization efforts while making a mirror, knowing that we will conclude with a second test such as the star test or Bath Interferometer.
+	<p>With careful inspection using the Matching, Unwrap, Tape Band and Grid tests, band locations for each zone can be determined to 1/20th of the band spacing. Using the new 'vertical standard deviation' feature, the software finds band deviations down to 1/50, even 1/100 of the band spacing, an astonishingly small fraction of a wavefront. Diffraction effects are minimized by selecting the grating frequency. Experience shows that the resulting accuracy ranges from 1/4 wavefront for large fast mirrors to 1/10 wavefront for smaller slower mirrors. This is more than good enough for our purposes: guiding our parabolization process while making a mirror, knowing that we will conclude with a second test such as the star test or Bath Interferometer.
 
-	<p>I think of it this way: The Ronchi tester is very simple: a ruled grid, a light source and a smartphone to take the Ronchigram. The mirror's information is there but difficult to get at. I use software to make the information available. Still, one has to inspect carefully. I consider this a reasonable trade-off. For example, my 20.25 inch [51cm] x 3/4 inch thick [19mm] F2.9 meniscus mirror had a high center of 0.5 wavefront. My process was to polish down the high center, checking every two times around the grinding stand. Using the Matching Ronchi's unwrap Ronchigram along with the zonal errors analysis, I was able to lower the high center from a wavefront error of 0.5 to 0.4 then to 0.3 and 0.2 and so on in a controlled fashion. The Matching Ronchi test took but moments, allowing me to put the mirror back on the lap right away, avoiding lengthy waits to re-press the lap. I was able to conduct all the sessions in a single evening. See the 'before' and 'after' below: concentrate on the mirror's center.
+	<p>I think of it this way: The Ronchi tester is very simple: a ruled grid, a light source and a smartphone to take the Ronchigram. The mirror's information is there but difficult to get at. I use software to make the information available. Still, one has to inspect carefully. I consider this a reasonable trade-off. For example, my 20.25 inch [51cm] x 3/4 inch thick [19mm] F2.9 meniscus mirror had a high center of 0.5 wavefront. My process was to polish down the high center, checking every two times around the polishing stand. Using the Matching Ronchi's unwrap Ronchigram along with the zonal errors analysis, I was able to lower the high center from a wavefront error of 0.5 to 0.4 then to 0.3 and 0.2 and so on in a controlled fashion. The Matching Ronchi test took but moments, allowing me to put the mirror back on the lap right away, avoiding lengthy waits to re-press the lap. I was able to conduct all the sessions in a single evening. See the 'before' and 'after' below: concentrate on the mirror's center.
 
 	<p>Before<img alt='' loading='lazy' src='20/dti MR.jpg' class=''>
 	After<img alt='' loading='lazy' src='20/dvi MR.jpg' class=''>
@@ -284,7 +291,7 @@
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrapping Ronchi bands example 16F2.9.jpg' class='bigImage'>
 
-	<p>My  24 inch thin F5.5 mirror from the early 1980's which gave pinpoint star images and which I used with observing success for a number of years.<br>
+	<p>My 24 inch thin F5.5 mirror from the early 1980's which gave pinpoint star images - a successful and much used telescope.<br>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking\unwrap 24F5.5.jpg' class='bigImage'>
 
 	<p>Astroscan mirror measured to better than 1/6 wave with an interferometer.<br>
@@ -309,9 +316,9 @@
 
 	<h5>Take the Ronchigram then prep the image</h5>
 
-	<p>For the unwrap Ronchigram matchup, set up inside the radius of curvature (RoC) such that the bands bow outward in the mirror's center. Aim for 7 bands across the mirror's face. Fewer bands means greater sensitivity while more bands mean more coverage of the mirror's area from center to edge. For smaller slower mirrors 5 bands is fine; for larger faster mirrors 9 bands is better.
+	<p>For the unwrap Ronchigram matchup, set up inside the radius of curvature (RoC) such that the bands bow outward in the mirror's center. Aim for a few bands across the mirror's face. Fewer bands means greater sensitivity while more bands mean more coverage of the mirror's area from center to edge.
 
-	<p>I use my smartphone to take the image through the my Ronchi tester. Try to center the Ronchigram by either placing a dark band or a bright band over the mirror's center. Precise centering is no longer necessary with the new unwrap matching Ronchigram capability but it helps. Sometimes the phone picks up the grating just in front of the phone causing vertical striping. I ignore it. Smartphone cameras could distort the Ronchigram if it fills the camera view or the phone is tilted. I've never seen these issues interfere.
+	<p>I use my smartphone to take the image through the my Ronchi tester. Try to center the Ronchigram by either placing a dark band or a bright band over the mirror's center. Precise centering is no longer necessary with the new unwrap matching Ronchigram capability but it helps. Sometimes the phone picks up the grating just in front of the phone causing vertical striping. I ignore it. Smartphone cameras can distort the Ronchigram if it fills the camera view, is taken off-center, or the phone is tilted. So square-on the smartphone to the mirror when taking the Ronchigram.
 
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi frontside.jpg'>
 	   <img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi tester back.jpg'>
@@ -404,7 +411,7 @@
 				<li>Least change to the pitch lap.
 			</ul>
 		<li>Execute the action for the minimum time for a detectable change in the mirror’s figure (20 seconds to 2 minutes).
-		<li>Quickly test to see if the mirror’s figure is changing in the desired direction. The Ronchi Tape Band test is ideal.
+		<li>Quickly test to see if the mirror’s figure is changing in the desired direction. The Ronchi Tape Band test is ideal, the Matching Ronchi best if the changes are very small.
 		<li>If so then continue on with the figuring action to its conclusion.
 	</ul>
 
@@ -412,7 +419,7 @@
 
 	<p>I concentrate on deviations from the ideal paraboloid, not worrying about a deviation’s hard numerical value, which would be the case if I were making the mirror to an explicit numerical rating.
 
-	<p>The better the mirror maker, the better the process and the more the process can be counted to preclude mirror defects and deliver a good mirror. The zonal Foucault test used with a good process that suppresses astigmatism has been used for centuries to make unimpeachable mirrors. Neophyte mirror makers struggle with testing, figuring and process. I advise obtaining the advice of a master mirror maker to establish a process.
+	<p>The better the mirror maker, the better the process and the more the process can be counted to preclude mirror defects and deliver a good mirror. The zonal Foucault test used with a good process that suppresses astigmatism has been used for centuries to make unimpeachable mirrors. Neophyte mirror makers struggle with testing and figuring because they have not yet developed a parabolizing process. I advise obtaining the advice of a master mirror maker to establish a process - key to success.
 
 	<p>See my pages on polishing and parabolizing mirrors where I discuss how to use the Ronchi test during figuring.<br>
 		<a href='JoyOfMirrorMaking/Polishing.html' target='_blank'>Polishing</a><br>
@@ -517,7 +524,7 @@
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi tester back.jpg'>
 		<img alt='' loading='lazy' src='JoyOfMirrorMaking/Ronchi tester layout.jpg'>
 
-	<a name='MatchingRonchiTape'></a>
+	<a name='RonchiTape'></a>
 	<h4>The Matching Ronchi tape band variant</h4>
 
 	<p>One can print out the Matching Ronchi image to scale and place it behind the mirror. Barring that, I invented a variant of the Matching Ronchi test while parabolizing twin 30 inch [76cm] F2.7 thin meniscus mirrors. I used it successfully on my 16.25 inch [41cm] F2.9 thin meniscus mirror.
@@ -654,7 +661,7 @@
 		<li><a href='#moreExamples'>#moreExamples</a>
 		<li><a href='#IFcomparison'>#IFcomparison</a>
 		<li><a href='#tester'>#tester</a>
-		<li><a href='#MatchingRonchiTape'>#MatchingRonchiTape</a>
+		<li><a href='#RonchiTape'>#RonchiTape</a>
 		<li><a href='#unwrap'>#unwrap</a>
 		<li><a href='#grid'>#grid</a>
 		<li><a href='#math'>#math</a>
