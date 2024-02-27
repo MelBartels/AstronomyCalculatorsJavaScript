@@ -61,10 +61,28 @@ html {
 
 .floatLeftRonchigramsDiv {
 	float: left;
+	padding: 5px;
 }
 
-.floatLeftDiscussionDiv {
+.zonalErrorsTableDiv {
 	float: left;
+	padding: 0px 15px 15px 15px;
+}
+
+.zonalErrorsViewDiv {
+	float: left;
+}
+
+.discussionDiv {
+	float: left;
+	width: 35%;
+	padding: 5px;
+}
+
+.zonalErrorsNotesDiv {
+	float: left;
+	width: 60%;
+	padding: 5px;
 }
 
 .clearFloat {
