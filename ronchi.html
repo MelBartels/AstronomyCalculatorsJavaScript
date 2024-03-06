@@ -61,7 +61,7 @@
 	<input name='invertBands' value='no' type='radio'>no
 	&emsp; Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
 	&emsp; Bkgnd band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
-	&emsp; App bkgnd color <input class='inputText' name='backgroundColor' value='#f0f0f0' onfocus='select()' type='text'>
+	&emsp; App bkgnd color (R,G,B) = <input class='inputTextLong' name='backgroundColor' value='240,240,240' onfocus='select()' type='text'>
 	<br>
 	Ronchi grid?
 	<input name='RonchiGrid' value='yes' type='radio'>yes
@@ -70,13 +70,14 @@
 	<input name='zonalRuler' value='yes' type='radio'>yes
 	<input name='zonalRuler' value='no' type='radio'>no
 	&emsp; Ruler/Text color (R,G,B) = <input class='inputTextLong' name='rulerTextRGB' value='255,0,0' onfocus='select()' type='text'>
-	&emsp; Null fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='number' step='1'>
-	&emsp; Nulled ruler?
-	<input name='nullRuler' value='yes' type='radio'>yes
-	<input name='nullRuler' value='no' type='radio'>no
-	&emsp; Bullseye zones?
+	<br>
+	Null fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='number' step='1'>
+	&emsp; Nulled bullseye zones?
 	<input name='showBullseyeZones' value='yes' type='radio'>yes
 	<input name='showBullseyeZones' value='no' type='radio'>no
+	&emsp; Thin nulled Ronchi bands?
+	<input name='thinBands' value='yes' type='radio'>yes
+	<input name='thinBands' value='no' type='radio'>no
 	<p>
 	Save and get data to local storage
 	<input id='btnPutData' value='Save data with name: ' type='button'>
@@ -636,7 +637,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 26-Feb-2024</h4>
+	<h4>by Mel Bartels, 1992; last update 5-March-2024</h4>
 	<br>
 	<br>
 </div>
