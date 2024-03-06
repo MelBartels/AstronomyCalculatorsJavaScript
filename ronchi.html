@@ -55,7 +55,6 @@
 	<input id='sliderParabolicCorrection' min='0' max='2' step='0.02' type='range'/>
 	<p>
 	Ronchigram size = <input class='inputText' name='RonchigramSize' value='400' onfocus='select()' type='text'>
-	Border = <input class='inputText' name='borderSize' value='0' onfocus='select()' type='text'>
 	&emsp; Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
@@ -99,12 +98,10 @@
 
 <div class='floatLeftExampleDiv'>
 	<br>
-	<b>Some of my mirrors</b>
+	<b>My 13.2 inch F3.0 mirror</b>
 	<p>
-	<input id='btnPasteExampleRonchigram13'   value='13.2 inch f3.0 inside RoC'  type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram16'   value='16.25 inch f2.9 inside RoC' type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram25'   value='25 inch f2.6 outside RoC'   type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigramGrid' value='grid example'               type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13'   value='inside RoC' type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigramGrid' value='grid '      type='button' class='exBtn'>
 </div>
 
 <div class='clearFloat'></div>
@@ -637,7 +634,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 5-March-2024</h4>
+	<h4>by Mel Bartels, 1992; last update 6-March-2024</h4>
 	<br>
 	<br>
 </div>
@@ -649,6 +646,6 @@
 <script src='lib/calcLib.js'></script>
 <script src='lib/images/base64images.js'></script>
 <!-- load last as it refers to the above files -->
-<script src='lib/Ronchi.js'></script>
+<script src='lib/Ronchi.js?1'></script>
 </body>
 </html>
