@@ -119,13 +119,15 @@
 	<b>Zonal slope errors: manual manipulation of zones</b>
 	<p>
 	<input id='btnSortZonalCorrectionTableByZone' value='Sort zones' type='button'>
+	&emsp; <input id='btnSaveCorrections' value='Save corrections' type='button'>
+	<input id='btnRestoreCorrections' value='Restore corrections' type='button'>
 	<br>
-	<input id='btnCopyBands' value='Update zones to Ronchi band positions' type='button'>
+	<input id='btnCopyBands' value='Update zones to Ronchi bands' type='button'>
 	<input id='btn10Zones' value='Set zones to 0.1 increment' type='button'>
 	<br>
 	<input id='btnResetCorrectionFactors' value='Reset corrections to 1' type='button'>
-	<input id='btnSaveCorrections' value='Save corrections' type='button'>
-	<input id='btnRestoreCorrections' value='Restore corrections' type='button'>
+	<input id='btnResetCorrectionFactorsToParabCorrection' value='Reset corrections to parab. correction' type='button'>
+	<br>
 	<table id='zonalCorrectionTable'>
 	<tbody id='zonalCorrectionTableBody'>
 		<!-- zonal rows added in JavaScript -->
@@ -612,9 +614,9 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
 <script src='lib/sharedLib.js'></script>
 <script src='lib/coordLib.js'></script>
-<script src='lib/calcLib.js?2'></script>
-<script src='lib/images/base64images.js?2'></script>
+<script src='lib/calcLib.js'></script>
+<script src='lib/images/base64images.js'></script>
 <!-- load last as it refers to the above files -->
-<script src='lib/Ronchi.js?2'></script>
+<script src='lib/Ronchi.js'></script>
 </body>
 </html>
