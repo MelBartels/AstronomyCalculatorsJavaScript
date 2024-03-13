@@ -141,10 +141,6 @@
 	<div id='zonesSideViewDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	Adjustment to the RoC <input class='inputText' name='offsetRoC' value='0' onfocus='select()' type='text'>
-	<p>Chain errors to create mirror profile?
-	<input name='chainWaveErrors' value='yes' type='radio'>yes
-	<input name='chainWaveErrors' value='no' type='radio'>no
 	<p><label id='zonalErrorsResultsLabel'></label>
 	<p>Wavelength of light
 	<input name='wavelengthLightUOM' value='imperial' type='radio'>imperial
@@ -265,7 +261,7 @@
 	<p>Here's a study of a 12 inch [30cm] F5, undercorrected to 1/5th wavefront.
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/12F5 one-fifth wave undercorrected study.jpg' class=''>
 
-	<p>Increasing the resolution of the Ronchigram allows small errors to be more easily seen. Match the software setting's Ronchigram resolution to the size of the Ronchigram taken by the camera. Be careful of the camera lens' distortion which can significantly alter the apparent parabolization. Here is a study of a 12 inch F5, 1/10 wavefront error, at 400x400 then 800x800 Ronchigram sizes.
+	<p>Increasing the resolution of the Ronchigram allows small errors to be more easily seen. Match the software setting's Ronchigram resolution to the size of the Ronchigram taken by the camera. Be careful of the camera lens' distortion which can significantly alter the apparent parabolization. Here is the same study at a size of 800x800.
 	<p><img alt='' loading='lazy' src='JoyOfMirrorMaking/higher resolution Ronchigrams discern finer errors.jpg' class=''>
 
 	<a name='IFcomparison'></a>
@@ -609,7 +605,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 11-March-2024</h4>
+	<h4>by Mel Bartels, 1992; last update 12-March-2024</h4>
 	<br>
 	<br>
 </div>
@@ -618,9 +614,9 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js'></script>
 <script src='lib/sharedLib.js'></script>
 <script src='lib/coordLib.js'></script>
-<script src='lib/calcLib.js'></script>
-<script src='lib/images/base64images.js?1'></script>
+<script src='lib/calcLib.js?2'></script>
+<script src='lib/images/base64images.js?2'></script>
 <!-- load last as it refers to the above files -->
-<script src='lib/Ronchi.js?1'></script>
+<script src='lib/Ronchi.js?2'></script>
 </body>
 </html>

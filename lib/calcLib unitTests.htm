@@ -84,6 +84,7 @@
 		calcMirrorSlumpingParms = MLB.calcLib.calcMirrorSlumpingParms,
 		calcSphereParabolaDifference = MLB.calcLib.calcSphereParabolaDifference,
 		wavefrontError = MLB.calcLib.wavefrontError,
+		wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight = MLB.calcLib.wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight,
 		wavefrontErrorFromCorrectionsArray = MLB.calcLib.wavefrontErrorFromCorrectionsArray,
 		findAllowableCorrection = MLB.calcLib.findAllowableCorrection,
 		calcAllowableParabolicDeviationForQuarterWavefront = MLB.calcLib.calcAllowableParabolicDeviationForQuarterWavefront,
@@ -1182,6 +1183,21 @@
 			correctionFactor = 0.86,
 			result = wavefrontError(mirrorDia, radiusOfCurvature, correctionFactor),
 			expected = 0.5108704878136372;
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
+	});
+
+	QUnit.test('wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight', assert => {
+		var mirrorDia = 20,
+			radiusOfCurvature = 200,
+			correctionFactor = 0.86,
+			wavelengthLight = 0.000022,
+			result = wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight(mirrorDia, radiusOfCurvature, correctionFactor, wavelengthLight),
+			expected = -0.5108704878136372;
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
+
+		correctionFactor = 1.14,
+		result = wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight(mirrorDia, radiusOfCurvature, correctionFactor, wavelengthLight),
+		expected = 0.5108704878136364;
 		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
 	});
 
