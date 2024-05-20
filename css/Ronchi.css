@@ -46,17 +46,14 @@ html {
 	padding: 10px;
 }
 
-.floatLeftInputDiv {
-	float: left;
-	width: 80%;
+.inputDiv {
 	padding: 5px;
+	// don't breakup explanatory text from the user input area
+	white-space: nowrap;
 }
 
-.floatLeftExampleDiv {
-	float: left;
-	width: 18%;
+.exampleDiv {
 	padding: 5px;
-	text-align: center;
 }
 
 .floatLeftRonchigramsDiv {
@@ -90,7 +87,7 @@ html {
 }
 
 .exBtn {
-	width: 200px;
+	width: 100px;
 }
 
 @media all and (min-width: 0px) {

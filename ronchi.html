@@ -37,8 +37,8 @@
 	<div class='grid-item'>	<a href='#math'>Math</a>                               </div>
 </div>
 
-<div class='floatLeftInputDiv'>
-	<br>
+<br>
+<div class='inputDiv'>
 	<b>Mirror diameter</b> = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
 	&emsp; <b>Radius of curvature (RoC)</b> = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
 	<b>Focal length</b> = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
@@ -59,7 +59,7 @@
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
 	&emsp; Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-	&emsp; Bkgnd band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
+	&emsp; Non-band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
 	&emsp; App bkgnd color (R,G,B) = <input class='inputTextLong' name='backgroundColor' value='240,240,240' onfocus='select()' type='text'>
 	<br>
 	Ronchi grid?
@@ -96,23 +96,19 @@
 	name <input class='inputTextLong' id='pastedImageName' value='' onfocus='select()'>
 </div>
 
-<div class='floatLeftExampleDiv'>
-	<br>
-	<b>My 13.2 inch F3.0 mirror</b>
-	<br>
-	<input id='btnPasteExampleRonchigram13Inside'  value='inside RoC'  type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram13Inside2' value='thinned'     type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram13Outside' value='outside RoC' type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigramGrid'      value='grid '       type='button' class='exBtn'>
-	<p>
-	<b>12 inch F5 1/5th w.f. study</b>
-	<br>
-	<input id='btnPasteExampleRonchigram12F5Under' value='inside RoC' type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram12F5Under2' value='thinned' type='button' class='exBtn'>
+<div class='exampleDiv'>
+	<b>Examples:</b>
+	&emsp; <b>My 13.2 inch F3.0 mirror</b>
+	<input id='btnPasteExampleRonchigram13Inside'   value='inside RoC'  type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13Inside2'  value='thinned'     type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13Outside'  value='outside RoC' type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigramGrid'       value='grid '       type='button' class='exBtn'>
+	&emsp; <b>12 inch F5 1/5th w.f. study</b>
+	<input id='btnPasteExampleRonchigram12F5Under'  value='inside RoC'  type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram12F5Under2' value='thinned'     type='button' class='exBtn'>
 </div>
 
-<div class='clearFloat'></div>
-
+<br>
 <div id='Ronchigrams' class='floatLeftRonchigramsDiv'> <!-- canvases added in JavaScript --> </div>
 
 <div id='zonalErrorsTableDiv' class='zonalErrorsTableDiv'>
@@ -602,7 +598,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 6-May-2024</h4>
+	<h4>by Mel Bartels, 1992; last update 20-May-2024</h4>
 	<br>
 	<br>
 </div>
