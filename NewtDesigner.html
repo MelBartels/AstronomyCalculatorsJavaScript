@@ -2478,30 +2478,56 @@ copyright Mel Bartels, 2016-2024 -->
 
 			<p>Most important is the quality of construction and the balance of the pieces.
 
-			<h4>Edge support</h4>
+			<div id='mirrorEdgeSupport'></div>
+			<button class='accordion' id='btnMirrorEdgeSupport'>Mirror edge support</button>
+			<div class='panel'>
+				<p>Edge supports are analyzed in R.N.Wilson's Reflecting Telescope Optics, Volume II, pages 264-271. The author summaries modeling and results of various edge support designs on 1-4 meter mirrors. He finds that:
+				<ul>
+					<li>a simple edge support with two points at exactly 90 degrees separation cancels primary or low-order astigmatism.
+					<br><img alt='' loading='lazy' class='mediumSizeImage' src='16/star test rig 2.jpg'>
+					<li>Each support point can be replaced with a 2-point whiffle tree in order to spread the load, lessening local deformation next to each support point.
+					<br><br>
+					<li>Slings are even better (~3-8x improvement over the 2-pt or whiffle tree), though challenging to build and hold the mirror without side effects (carefully slide the mirror into the sling which can be made from a non-stretch material such as thin aluminum strip, Formica® or a wire cable),
+					<br><img alt='' loading='lazy' class='mediumSizeImage' src='30/mirror edge support aluminum strap.jpg'>
+					<li>whilst the best support is a ring of astatic levers where the lower levers support the mirror from bottom up and the upper levers pull up on the mirror's upper edge to preclude mirror fold-over (~5-10x improvement over a sling). A meniscus shaped mirror will help reduce mirror fold-over.
+					<br><img alt='' loading='lazy' class='mediumSizeImage' src='Schwesinger edge support.jpg'>
+				</ul>
 
-			<p>Edge supports are analyzed in R.N.Wilson's Reflecting Telescope Optics, Volume II, pages 264-271. The author summaries modeling and results of various edge support designs on 1-4 meter mirrors. He finds that:
-			<ul>
-				<li>a simple edge support with two points at exactly 90 degrees separation cancels primary or low-order astigmatism.
-				<br><img alt='' loading='lazy' class='mediumSizeImage' src='16/star test rig 2.jpg'>
-				<li>Each support point can be replaced with a 2-point whiffle tree in order to spread the load, lessening local deformation next to each support point.
-				<br><br>
-				<li>Slings are even better (~3-8x improvement over the 2-pt or whiffle tree), though challenging to build and hold the mirror without side effects (carefully slide the mirror into the sling which can be made from a non-stretch material such as thin aluminum strip, Formica® or a wire cable),
-				<br><img alt='' loading='lazy' class='mediumSizeImage' src='30/mirror edge support aluminum strap.jpg'>
-				<li>whilst the best support is a ring of astatic levers where the lower levers support the mirror from bottom up and the upper levers pull up on the mirror's upper edge to preclude mirror fold-over (~5-10x improvement over a sling). A meniscus shaped mirror will help reduce mirror fold-over.
-				<br><img alt='' loading='lazy' class='mediumSizeImage' src='Schwesinger edge support.jpg'>
-			</ul>
+				<p>Edge supports should be compliant so that they do not hold up the mirror as it settles into the cell as the telescope points upward. This can be done with
+				<ul>
+					<li>slippery support points
+					<li>wheels or bearings that rotate as the mirror settles
+					<li>whiskers (think stiff piano wire pushed into a pad)
+				</ul>
 
-			<p>Edge supports should be compliant so that they do not hold up the mirror as it settles into the cell as the telescope points upward. This can be done with
-			<ul>
-				<li>slippery support points
-				<li>wheels or bearings that rotate as the mirror settles
-				<li>whiskers (think stiff piano wire pushed into a pad)
-			</ul>
+				<p>The edge support points or sling should be at the mirror's center of gravity. I've found for large thin mirrors that even a small displacement of 1/8 inch [3mm] can cause noticeable deformation in the high power star test.
 
-			<p>The edge support points or sling should be at the mirror's center of gravity. I've found for large thin mirrors that even a small displacement of 1/8 inch [3mm] can cause noticeable deformation in the high power star test.
+				<p>Typically the mirror's defects dominate the mirror cell, meaning that the mirror cell adds very little error to the optical system. For example, consider a mirror of 1/6 wavefront peak-valley error that is otherwise smooth. The 1/6 peak-valley wavefront is about 90 nm peak-valley wavefront error in green light. That is 45 nm peak-valley on the mirror's surface. Even a crude mirror cell of say 35 nm peak-valley error (10 nm RMS) does not materially degrade the optical performance. Errors are added by root mean square, so a mirror of 45 nm peak-valley added to a mirror cell error of 35 nm peak-valley results in a total error of nearly 57 nm peak-valley or 1/4.6 wavefront. This is a degradation of only 1/20 wavefront from the mirror's 1/6 wavefront!
+			</div>
 
-			<p>Typically the mirror's defects dominate the mirror cell, meaning that the mirror cell adds very little error to the optical system. For example, consider a mirror of 1/6 wavefront peak-valley error that is otherwise smooth. The 1/6 peak-valley wavefront is about 90 nm peak-valley wavefront error in green light. That is 45 nm peak-valley on the mirror's surface. Even a crude mirror cell of say 35 nm peak-valley error (10 nm RMS) does not materially degrade the optical performance. Errors are added by root mean square, so a mirror of 45 nm peak-valley added to a mirror cell error of 35 nm peak-valley results in a total error of nearly 57 nm peak-valley or 1/4.6 wavefront. This is a degradation of only 1/20 wavefront from the mirror's 1/6 wavefront!
+			<br><br>
+			<div id='mirrorVentilation'></div>
+			<button class='accordion' id='btnMirrorVentilation'>Mirror ventilation</button>
+			<div class='panel'>
+				<p>A warm telescope set up in the colder night air undergoes cooling. If the primary mirror has a thermal coefficient of expansion, for example, borosilicate (Pyrex) glass and plate glass (quartz does not), then the mirror will deform as it cools. In fact, as the night time temperature drops until the early morning hours, the mirror undergoes continuous cooling.
+
+				<p>The mirror's face is exposed to the cold dark sky as the telescope is aimed at astronomical objects. The mirror's face contracts and deepens, becoming overcorrected. In addition, the edge shrinks back as it cools, creating more overcorrection.
+
+				<p>So we cool our mirrors to restore the curve of the glass. But it is not just the mirror that needs cooling. The warm glass heats the air that clings to the front of the glass. We call this air the boundary layer. This air needs to be scrubbed away.
+
+				<p>Consequently it is best to blow air on the mirror's back and on the mirror's face.
+
+				<p>Dealing with the mirror's face, Alan Adler discovered that a fan blowing air across the mirror's face with an escape hole in the tube on the other side of the fan effectively clears out the boundary layer. The demonstration is impressive. As soon as the fan is turned on, the high power planetary image stabilizes. Turn off the fan and the image disintegrates. Chuck Dethloff and others demonstrated that hanging a centrally located fan on thin wires directly above the mirror's face works. Ed Allen developed a system where the air blowing on the mirror's back side is directed around the mirror's edge then channeled to scrub the mirror's face. And Mike Lockwood has shown that four corner fans blowing obliquely on the mirror's face is effective too.
+
+				<p>Owners of larger mirrors need to be careful about where the fan blows. It is easy for three fans arranged in a triangle to preferentially cool three areas of the mirror's back side, creating trefoil astigmatism.
+
+				<p>References:
+				<br><a href='https://www.amazon.com/Making-Your-Telescope-allyn-thompson/dp/B000GP1ZNK' target='_blank'>Allyn Thompson's Making Your Own Telescope</a> and <a href='https://www.amazon.com/Making-Telescope-Dover-Books-Astronomy/dp/0486428834' target='_blank'>Jean Texereau's How to Make A Telescope</a>. These books discuss thermal experiments done mid-century</a>.
+				<br><a href='https://skyandtelescope.org/wp-content/uploads/Adler-NewtThermal.pdf' target='_blank'>Ed Allen's thermal management system.</a>
+				<br><a href='https://bbastrodesigns.com/osp2003/OSP2003.html' target='_blank'>Chuck Dethloff's face-on fan.</a>
+				<br><a href='https://www.youtube.com/watch?v=8vn2wkkR_N8' target='_blank'>Ed Allen's Complete Ventilation System (C.V.S.) for Amateur Telescopes, 2020.</a>
+				<br><a href='https://www.youtube.com/watch?v=gIjUFTaZHkI' target='_blank'>Mike Lockwood, "Thermals and Telescope Optics", Winter Star Party, 2024.</a>
+			</div>
 		</div>
 
 		<div class='designer' id='designFocuser'>
@@ -3852,6 +3878,8 @@ copyright Mel Bartels, 2016-2024 -->
 			<p>Mirror cell
 			<ul>
 				<li><a href='#mirrorCell'>#mirrorCell</a>
+				<li><a href='#mirrorEdgeSupport'>#mirrorEdgeSupport</a>
+				<li><a href='#mirrorVentilation'>#mirrorVentilation</a>
 			</ul>
 			<p>Focuser
 			<ul>
@@ -3909,7 +3937,7 @@ copyright Mel Bartels, 2016-2024 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 5-May-2024
+				Last update 19-May-2024
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
