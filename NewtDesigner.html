@@ -353,14 +353,11 @@ copyright Mel Bartels, 2016-2024 -->
 					<p>
 					<li>primary mirror focal length and eyepiece determine true field of view and magnfication
 					<li>true field of view times aperture determine etendue (light throughput)
-					<li>light leaving the telescope = exit pupil times eyepiece apparent field of view also = light entering the telescope (etendue) thus the Law of Conservation of Etendue
-					<br>e.g., object is 2 degrees in size, eyepiece apparent field of view is 80 degrees, primary mirror diameter is 6 inches, and eyepiece selected so that the object fills the eyepiece field
-					<br>then 80 deg apparent field / 2 degree real field = 40x (matches the magnification determined by mirror focal length / eyepiece focal length)
-					<br>and exit pupil must equal 6 inch aperture / 40x = 0.15 inches = 3.8mm exit pupil (aperture : exit pupil ratio changes as the apparent field : actual field changes)
+					<li>etendue is the light throughput, ie, light leaving the telescope (exit pupil times eyepiece apparent field of view) = light entering the telescope (true field times the aperture)
 					<p>
 					<li>contrast = (object+ sky background) / sky background
 					<li>eye detects lowest contrast (~3%) when at max etendue (but objects needs to be at least several degrees in apparent size)
-					<li>eye's best resolution at 4x-8x the magnification of max etendue (here sky background is black, lowest contrast objects no longer detectable)
+					<li>eye detects the telescope's maximum resolution when the telescope's exit pupil is 0.5mm to 2mm (here sky background is black, lowest contrast objects no longer detectable)
 				</ul>
 
 				<br>
@@ -507,7 +504,7 @@ copyright Mel Bartels, 2016-2024 -->
 
 						<p>At maximum etendue in dark skies, the dark adapted experienced eye can detect objects of 25.5 mag per arc-sec^2 surface brightness as long as the object is at least several degrees in apparent size. That's a contrast of 3%. Filtered views such as OIII and HBeta filters make the sky background fainter with the detectable contrast as low as 0.5-1%, implying objects as faint as 27 mag per arc-sec^2. That is astoundingly faint.
 
-					<li>The eye's resolution is maximum at roughly 2mm pupil, our daytime pupil size. We typically resolve better than two arc-minutes in the sky, depending on the object to resolve (double stars of equal brightness that are not too bright or dim, double stars of unequal brightness or lunar and planetary detail; deep-sky detail depends on object brightness). This sets up a conflict between lowest power, widest angle viewing and highest resolution viewing.
+					<li>The eye can resolve all that the detail telescope has to offer roughly 1-2mm pupil. We typically resolve better than two arc-minutes in the sky, depending on the object to resolve (double stars of equal brightness that are not too bright or dim, double stars of unequal brightness or lunar and planetary detail; deep-sky detail depends on object brightness). This sets up a conflict between lowest power, widest angle viewing and highest resolution viewing.
 				</ol>
 
 				<p>As the magnification increases going from maximum exit pupil to minimum exit pupil, how does the eye respond? We can see from the following drawings, that for smaller scale objects like M104, a galaxy in the Virgo Cluster, the eye hangs onto faint nebulosity surprisingly well (though the faintest nebulosity is no longer visible) while the increasing resolution makes for a beautiful view.
@@ -558,9 +555,9 @@ copyright Mel Bartels, 2016-2024 -->
 					<li>Can Sunlight be focused with a very strong lens into a spot hotter than the Sun’s surface? (Protect your eyes if the lens is fast: the light reflecting from the hot spot may be too much.)
 				</ol>
 
-				<p><b>Etendue is a French word meaning optical throughput, that is, the amount of light flowing through a telescope</b>. Light enters the telescope through the entrance pupil and leaves the telescope through the exit pupil. The exit pupil is an image of the entrance pupil. All the light passing through the entrance pupil leaves through the exit pupil. These limiting apertures, entrance and exit pupils, are also called stops. Light can also flow backwards, from the exit stop to the entrance stop.
+				<p><b>Etendue is a French word meaning optical throughput, that is, the amount of light flowing through a telescope</b>. Light enters the telescope through the entrance pupil or stop and leaves the telescope through the exit pupil or stop. The exit pupil is an image of the entrance pupil, in our case, the primary mirror. Light can also flow backwards, from the exit pupil to the entrance pupil.
 
-				<p><b>Etendue is calculated</b> as the aperture's area times the solid angle area of the field. Since the light flowing through the entrance pupil leaves through the exit pupil, the etendue of a telescope will be the same whether calculated from the entrance pupil or calculated from the exit pupil. The cone of light entering the telescope is shallow and broad: 1.4 degrees cone with a 34cm opening. The cone of light exiting a telescope is steep and narrow: a 100 degree cone with a 4.8mm opening.
+				<p><b>Etendue is calculated</b> either as the aperture's area times the solid angle area of the true field or the exit pupil times the solid angle area of the eyepiece's apparent field of view. The cone of light entering the telescope is shallow and broad: 1.4 degrees cone with a 34cm opening. The cone of light exiting a telescope is steep and narrow: a 100 degree cone with a 4.8mm opening. The ratio of the entrance come to the exit cone, 100 deg / 1.4 deg, is 71x. The ratio of the aperture to the exit pupil, 34cm / 0.48cm is the same ratio, 71x. The magnification of the telescope and eyepiece is the same 71x.
 
 				<p><img alt='' loading='lazy' class='' src='etendue calculation example.jpg'>
 
@@ -579,7 +576,7 @@ copyright Mel Bartels, 2016-2024 -->
 				<p><img alt='' loading='lazy' class='' src='Co Com etendue comparison.jpg'>
 				<br><img alt='' loading='lazy' class='' src='25/M51 etendue comparison f5 with 31mm Nagler compared to f2.6 with 17mm Ethos.jpg'>
 
-				<p>We see that the <b>light throughput entering the scope equals the light throughput exiting the scope</b>. All the light rays entering the scope leave the scope: they are neither increased nor decreased (except for the insignificant losses due to imperfect reflection, absorption in glass, reflected from glass surfaces and occasionally filtered). Indeed, this is a law of nature.
+				<p>All light rays entering the scope leave the scope</b>: they are neither increased nor decreased (except for the insignificant losses due to imperfect reflection, absorption in glass, reflected from glass surfaces and occasionally filtered). Indeed, this is a law of nature.
 
 				<p><b>The Law of Conservation of Etendue</b> states that etendue is conserved. It can never be increased. Formally, entropy can never decrease in a passive optical system due to the 2nd Law of Thermodynamics. Now we know how to answer the two questions posed at the start.
 
