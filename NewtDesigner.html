@@ -1403,8 +1403,17 @@ copyright Mel Bartels, 2016-2024 -->
 		</div>
 
 		<div class='designer' id='designVisual'>
-			<p>Select an object from the catalog or enter the object total magnitude and object size as commonly given in catalogs. The program will calculate the surface brightness along with the surface brightness at magnification. Other useful values are calculated and displayed. These values are then used to search through the Blackwell data to determine object visibility for a range of apertures. Detection thresholds for various eye pupils are plotted as long as the object fits into the magnified field. Simple contrast is also calculated, which when combined with object apparent size, is an useful approach to predicting object visibility. For more, see the notes below.
+			<p>Select an object from the catalog or enter the object total magnitude and object size as commonly given in catalogs.
 
+			<p>The eye's background noise is about 26 mag/arc-sec^2. Objects fainter than this seem impossible to see. Objects near this threshold need an apparent size of 2-3 degrees to be detected. That's an area of 150x150 rods in the eye out of a total of 90,000,000. The brightest IFN (Integrated Flux Nebulae or galactic cirrus) near M81/82 is about 24.5 mag SB (Surface Brightness), the faintest IFN I've visually detected is about 26th mag SB.
+
+			<p>These observations are in dark skies. Brighter skies lower the contrast (ratio of object+sky to the sky). It appears that the eye needs about 2% contrast or a 50:1 ratio (~21.75 mag sky background for a object of 26th mag SB 2-3 degrees in apparent size) such that these 150x150 rods create sufficient signal for our conscious brain. For example, a SQM reading of 20.74 (Bortle 4) lowers faintest detectable SB to 25th mag.
+
+			<p>Object size makes a significant difference. A 14th mag galaxy when 2x2 arc-minutes size is 24.1 mag SB; if 4x4 arc-minutes size then the SB lowers to 25.6 mag. Doubling magnification reduces SB by 1.5 mag. Face on spiral galaxies are harder!
+
+			<p>This calculator also shows the relationship between object visibility and light pollution as expressed by the Bortle level (see below). It appears that it takes a significant gain in aperture to make a practical difference and that increasing light pollution drags down all apertures rather proportionally. For example, tripling the aperture is worth one to two Bortle levels.
+
+			<br><br>
 			<p>Search for an object from the catalog
 			<input class='inputText' id='searchObjectString' value='NGC 1275' onfocus='select()' type='text'>
 			<input value='Search catalog' id='btnSearchObjectCatalog' type='button'>
@@ -1472,8 +1481,6 @@ copyright Mel Bartels, 2016-2024 -->
 			</div>
 			<div class='stopFloat'>
 			</div>
-
-			<p>Objects less than 2% contrast are pretty much impossible to see though objects down to 1% can be seen in special circumstances; objects 2-3-6% contrast can be seen as very faint with extended concentration; objects with greater than 6% contrast are increasingly easy to see. Objects less than several degrees in apparent size are more difficult to see. Use magnification to increase the apparent size, making the object easier to see. The contrast does not change. You can test this yourself in a darkened room. I combine the two factors together, contrast and apparent size, to predict likely detection of the object. The predicted level should be thought of more as a range, one level easier to one level harder. Factor in observer experience and vagaries of the object data, and the prediction becomes more fuzzy. This calculator also shows the relationship between object visibility and light pollution as expressed by the Bortle level (see below). It appears that it takes a significant gain in aperture to make a practical difference and that increasing light pollution drags down all apertures rather proportionally. For example, tripling the aperture is worth one to two Bortle levels.
 
 			<h3>Magnitude adder</h3>
 			Enter a series of magnitudes to add (can be space delimited or comma delimited)
@@ -3846,7 +3853,7 @@ copyright Mel Bartels, 2016-2024 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 30-July-2024
+				Last update 13-August-2024
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
