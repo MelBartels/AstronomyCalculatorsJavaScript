@@ -113,7 +113,7 @@
 		resolutionFromAperture_Magnification = MLB.calcLib.resolutionFromAperture_Magnification,
 		calcTheoreticalResolutionArcsec = MLB.calcLib.calcTheoreticalResolutionArcsec,
 		calcAiryDiskInches = MLB.calcLib.calcAiryDiskInches,
-		calcMillesLacroixTolerance = MLB.calcLib.calcMillesLacroixTolerance,
+		calcMilliesLacroixTolerance = MLB.calcLib.calcMilliesLacroixTolerance,
 		calcParabolicCorrectionForZone = MLB.calcLib.calcParabolicCorrectionForZone,
 		calcProjectedFocuserBaffleRadius = MLB.calcLib.calcProjectedFocuserBaffleRadius,
 		scalingFactor = MLB.calcLib.scalingFactor,
@@ -1650,7 +1650,7 @@ note that visible? is coded from impossible=1 to very easy=6
 		assert.equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
-	QUnit.test('calcMillesLacroixTolerance', assert => {
+	QUnit.test('calcMilliesLacroixTolerance', assert => {
 		var wavelengthLight = 0.000022,
 			mirrorDia = 20,
 			radiusOfCurvature = 200,
@@ -1658,7 +1658,7 @@ note that visible? is coded from impossible=1 to very easy=6
 			result,
 			expected = 0.005772043;
 
-		result = calcMillesLacroixTolerance(wavelengthLight, mirrorDia, radiusOfCurvature, zonalRadius);
+		result = calcMilliesLacroixTolerance(wavelengthLight, mirrorDia, radiusOfCurvature, zonalRadius);
 		assert.equal(withinRange(result, expected, 0.00001), true, 'result = ' + result + ', should be ' + expected);
 	});
 
