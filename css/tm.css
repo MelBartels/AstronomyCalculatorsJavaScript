@@ -1,37 +1,34 @@
-html {
-	height: 100%;
-	color: darkslategray;
-	font-family: Verdana, Geneva, sans-serif;
-	margin-left: 10px;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
 * {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
+html {
+	font-family: Verdana, Geneva, sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+ a:hover {
+	text-decoration: underline;
+	font-weight:bold;
+}
+
 .title {
 	text-align: center;
 }
 
-.links {
-	background-color: lightgray;
+.gridContainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 250px));
 }
 
-.topLinks {
-	background-color: lightgray;
-	font-weight: bold;
-	float: left;
-	margin: 5px;
+.gridItem {
+	margin: 1px;
+	padding: 1px;
+	border: 2px solid white;
+	background: #e3e3e3;
 }
 
 .bigImage {
@@ -39,25 +36,31 @@ a:hover {
 	height: 90%;
 }
 
-table {
-	border-collapse: collapse;
+.mediumImage {
+	width: 45%;
+	height: 45%;
 }
 
-.myProjectsTableImageColumn {
-	width: 30%;
+.smallImage {
+	width: 23%;
+	height: 23%;
 }
 
-.myProjectsTableTextColumn {
-	width: 70%;
+.threeImagesWidth {
+	width: 33%;
+	height: 33%;
 }
 
-.myProjectsImage {
-	width: 80%;
+.textSections {
+	clear: both;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.myProjectsHalfImage {
+.articleColumn {
 	width: 40%;
-	vertical-align: middle;
+	float: left;
+	padding: 0px 5px;
 }
 
 .telescope {
@@ -65,17 +68,4 @@ table {
 	height: 200px;
 	width: 300px;
 	padding: 10px 10px;
-}
-
-.articleColumn {
-	width: 50%;
-	float: left;
-	padding: 0px 5px;
-}
-
-.textSections {
-	clear: both;
-	width: 75%;
-	margin-left: auto;
-	margin-right: auto;
 }

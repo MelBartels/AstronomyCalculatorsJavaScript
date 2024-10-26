@@ -21,27 +21,21 @@ a:hover {
 	box-sizing: border-box;
 }
 
-#accordion .ui-accordion-header a {
-	color: white;
-	line-height: 40px;
-	display: block;
-	width: 100%;
-}
-
-#accordion .ui-accordion-content > * {
-}
-
 .title {
 	text-align: center;
 }
 
 .floatImages {
-	padding: 20px 20px 00px 0px;
 	float: left;
 }
 
 .stopFloat {
 	clear: both;
+}
+
+img {
+	margin: 10px;
+	width: 400px;
 }
 
 /* 
