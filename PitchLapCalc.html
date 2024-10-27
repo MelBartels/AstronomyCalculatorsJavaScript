@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class='pitchLapDiv'>
-	<h2>Pitch Lap Calculator (for spin polishing, see below)</h2>
+	<h2>Pitch Lap Calculator (for spin polishing, <a href='#spin'>see below</a>)</h2>
 	<h4>Mel Bartels</h4>
 
 	<p>Number of stars <input class='inputText' id='stars' value='7' onfocus='select()' type='number' step='1' min='0'>
@@ -72,14 +72,17 @@
 </div>
 
 <div class='pitchLapDiv'>
+	<hr>
+	<a name='spin'></a>
 	<h3>Tool spinning on rotating mirror section</h3>
-	<p>First, find tool rotation rate than zeros out the net rotational vector. This is the tool's free spinning rate.
+	<p>First, find a tool rotation rate than zeros out the net direction. This is the tool's free spinning rate.
 	<br>Do this by minimizing the net direction value below the graphic. Then inspect the polishing action.
 	<div class='pitchLapDiv'>
 		<p>Rotational vector inspector
 		<p>Green CW rotational vector, red CCW rotational vector.<br>
 		For example, with mirror rotating at a fixed rate, what is 
 		<br>the rotation rate of a freely rotating tool (Net direction = 0)?
+		<div id='netRotationResults'></div>
 		<p>Tool to mirror size ratio
 		<input class='inputText' id='spinToolToMirrorSizeRatio' value='0.8' onfocus='select()' type='number' step='0.1' min='0.1'>
 		<br>Mirror rotation rate
@@ -90,7 +93,6 @@
 		<input class='inputText' id='spinOffset' value='0.3' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
 		<br>Use pitch lap contact pattern from above? <input id='chBoxUsePitchLapContact' type='checkbox'>
 		<p><canvas class='spinRotationalVectorCanvas' id='spinRotationalVectorCanvas' width='400' height='400'></canvas>
-		<div id='netRotationResults'></div>
 	</div>
 	<div class='pitchLapDiv'>
 		<p>Relative polishing action on the mirror - side view
@@ -108,7 +110,7 @@
 </div>
 
 <div class='pitchLapDiv'>
-	<p>Created 2017, last updated Jan 29, 2024
+	<p>Created 2017, last updated 27 Oct, 2024
 	<br><br>
 </div>
 
