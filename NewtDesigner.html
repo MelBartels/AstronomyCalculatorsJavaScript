@@ -2228,16 +2228,23 @@ copyright Mel Bartels, 2016-2024 -->
 
 			<p>In particular I recommend analysis on the effects of central obstruction and optical quality like Damien Peach's at <a href='http://www.damianpeach.com/simulation.htm' target='_blank'>http://www.damianpeach.com/simulation.htm</a>.
 
-			<h4>Interpreting diagonal offsets</h4>
+			<h4>The diagonal offset</h4>
 
-			<p>The diagonal offset varies slightly because the apparent size and shape of the diagonal changes depending on perspective. For example, the apparent view of the diagonal on one side of the field is different from the other side because the diagonal appears slightly tipped from its 45 degree angle when viewed from the field edge. Since there is 'more' diagonal on the far side, the field edge closer to the primary receives a touch more illumination.
-
-			<p>The 'circle of even illumination' is actually egg shaped without a center. I select an average offset based on focal plane center and balancing illumination at the field edges. I mark the diagonal at this offset with a very fine point permanent marker, then use a laser collimator to align upper end, focuser, eyepiece, diagonal and primary components, with the goal to center the eyepiece axis and primary mirror axis on each other. For example, see how I <a href='30/30 inch mirrors log.html#24' target='_blank'> built the focuser adapter assembly</a> for my 30 inch [76cm] F2.7 telescope.
-
-			<p>I call out four different diagonal offsets depending on perspective.
-
-			<p>Note that the diagonal intercept distance does not change when the diagonal is offset.<br>
+			<p>Diagonals are offset because the diagonal's edge closest to the primary mirror has further to travel to focus. Commonly the diagonal is positioned further away from the focal plane and closer to the primary mirror, in effect sliding the diagonal along its major axis. Here the diagonal intercept distance does not change.<br>
+			<img alt='' loading='' src='DiagonalOffsetStudy\diagonal offset.jpg'>
 			<img alt='' loading='' src='DiagonalOffsetStudy\diagonal intercept vis-a-vis offset.jpg'>
+
+			<p>I calculate four different offsets which vary depending on perspective.
+			<ol>
+				<li>The most common offset is based on the center of the field of view. As drawn above.
+				<li>However, the 'circle of even illumination' is not a circle but actually is an ovoid egg-shaped. Viewing the diagonal from the edge of the field of view results in the diagonal appearing to be tipped slightly away from 45 degrees. Balancing the illumination from the field of view's edges results in a slightly different offset.
+				<li>If instead the edge of the fully illuminated field is used, then yet another offset can be calculated.
+				<li>Many amateurs use a collimator that's set above the plane of the field of view. This results in yet a different offset.
+			</ol>
+
+			<p>In other words, the offset moves the center of illumination (there are at least four 'centers' as noted) towards the field center. Even if the primary mirror's perimeter cannot be seen in its entirely this hardly affects resolution and can be seen as a matter of the center of illumination vis-a-vis the eyepiece's center.
+
+			<p>When designing a telescope I select an average offset based on focal plane center and balancing illumination at the field edges. I mark the diagonal at this offset with a very fine point permanent marker, then use a laser collimator to align upper end, focuser, eyepiece, diagonal and primary components, with the goal to center the eyepiece axis and primary mirror axis on each other. For example, see how I <a href='30/30 inch mirrors log.html#24' target='_blank'> built the focuser adapter assembly</a> for my 30 inch [76cm] F2.7 telescope. In practice it is impossible to visually detect these different offsets and digital imagers will flat field anyhow.
 
 			<div id='secondarySizeExperiment'></div>
 			<button class='accordion' id='btnSecondarySizeExperiment'>The 1974 Telescope Secondary Experiment</button>
@@ -3905,7 +3912,7 @@ copyright Mel Bartels, 2016-2024 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 25-Nov-2024
+				Last update 1-Dec-2024
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
