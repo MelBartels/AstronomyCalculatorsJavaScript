@@ -147,26 +147,18 @@ copyright Mel Bartels, 2016-2024 -->
 			<tr>
 				<td class='calcSectionHeader'>
 					Focal plane...
-				</td>
-				<td></td>
-			</tr>
+				<td>
 			<tr>
 				<td class='label' id='focalPlaneToDiagDistanceLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='focalPlaneToDiagDistance' value='8.5' onfocus='select();' type='text'>
 					<input id='btnCalcFocalPlaneToDiagDistanceFromFocuserDesigner' value='Calculate using focuser designer' type='button'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='maxFieldDiaDiagLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='maxFieldDiaDiag' value='1.6' onfocus='select()' type='text'>
-				</td>
-			</tr>
 		</tbody>
 		</table>
 		<br>
@@ -177,25 +169,17 @@ copyright Mel Bartels, 2016-2024 -->
 			<tr>
 				<td class='calcSectionHeader'>
 					Telescope tube...
-				</td>
-				<td></td>
-			</tr>
+				<td>
 			<tr>
 				<td class='label' id='tubeODLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='telescopeTubeOD' value='14.5' onfocus='select();' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='tubeThicknessLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
-				</td>
-			</tr>
 		</tbody>
 		</table>
 	</div>
@@ -205,58 +189,37 @@ copyright Mel Bartels, 2016-2024 -->
 			<tr>
 				<td class='calcSectionHeader'>
 					Focuser...
-				</td>
-				<td></td>
-			</tr>
+				<td>
 			<tr>
 				<td class='label'>
 					Select a focuser
-				</td>
 				<td>
-					<select id='focuserSelect'>
-					</select>
-				</td>
-			</tr>
+					<select id='focuserSelect'></select>
 			<tr>
 				<td class='label' id='focuserRackedInHeightLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='focuserRackedInHeight' onfocus='select();' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='focuserTravelLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='focuserTravel' onfocus='select();' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='barrelTubeInsideDiameterLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='barrelTubeInsideDiameter' onfocus='select();' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='barrelTubeLengthLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='barrelTubeLength' onfocus='select();' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='focuserInwardFocusingDistanceLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='focuserInwardFocusingDistance' value='0.5' onfocus='select();' type='text'>
-				</td>
-			</tr>
 		</tbody>
 		</table>
 	</div>
@@ -266,25 +229,17 @@ copyright Mel Bartels, 2016-2024 -->
 			<tr>
 				<td class='calcSectionHeader'>
 					Diagonal...
-				</td>
-				<td></td>
-			</tr>
+				<td>
 			<tr>
 				<td class='label' id='sharedDiagSizeLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='sharedDiagSize' onfocus='select();' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label' id='diagOffsetLabel'>
 					<!-- label html set in JavaScript -->
-				</td>
 				<td>
 					<input class='inputText' id='diagOffset' onfocus='select();' type='text'>
-				</td>
-			</tr>
 		</tbody>
 		</table>
 	</div>
@@ -714,47 +669,47 @@ copyright Mel Bartels, 2016-2024 -->
 				<table id='starCountTable' class='starCountTable'>
 				<tbody>
 					<tr>
-						<td class='columnTitle'>Aperture &nbsp;&nbsp;&nbsp;</td>
-						<td class='columnTitle'>Field (60 deg eyepiece) &nbsp;&nbsp;</td>
-						<td class='columnTitle'>Stars &nbsp;&nbsp;</td>
-						<td class='columnTitle'>Field (100 deg eyepiece) &nbsp;&nbsp;</td>
-						<td class='columnTitle'>Stars</td>
+						<td class='columnTitle'>Aperture &nbsp;&nbsp;&nbsp;
+						<td class='columnTitle'>Field (60 deg eyepiece) &nbsp;&nbsp;
+						<td class='columnTitle'>Stars &nbsp;&nbsp;
+						<td class='columnTitle'>Field (100 deg eyepiece) &nbsp;&nbsp;
+						<td class='columnTitle'>Stars
 						<tr>
-						<td>eye (7mm)</td>
-						<td>60 deg</td>
-						<td>1300</td>
-						<td>100 deg</td>
-						<td>3600</td>
+						<td>eye (7mm)
+						<td>60 deg
+						<td>1300
+						<td>100 deg
+						<td>3600
 						<tr>
-						<td>50mm</td>
-						<td>8 deg</td>
-						<td>2500</td>
-						<td>14 deg</td>
-						<td>6900</td>
+						<td>50mm
+						<td>8 deg
+						<td>2500
+						<td>14 deg
+						<td>6900
 						<tr>
-						<td>4 inch</td>
-						<td>4 deg</td>
-						<td>2700</td>
-						<td>6 deg</td>
-						<td>7600</td>
+						<td>4 inch
+						<td>4 deg
+						<td>2700
+						<td>6 deg
+						<td>7600
 						<tr>
-						<td>8 inch</td>
-						<td>2 deg</td>
-						<td>2800</td>
-						<td>3.4 deg</td>
-						<td>7800</td>
+						<td>8 inch
+						<td>2 deg
+						<td>2800
+						<td>3.4 deg
+						<td>7800
 						<tr>
-						<td>16 inch</td>
-						<td>1.1 deg</td>
-						<td>2700</td>
-						<td>1.8 deg</td>
-						<td>7600</td>
+						<td>16 inch
+						<td>1.1 deg
+						<td>2700
+						<td>1.8 deg
+						<td>7600
 						<tr>
-						<td>32 inch</td>
-						<td>0.5 deg</td>
-						<td>2200</td>
-						<td>0.9 deg</td>
-						<td>6200</td>
+						<td>32 inch
+						<td>0.5 deg
+						<td>2200
+						<td>0.9 deg
+						<td>6200
 					</tbody>
 				</table>
 
@@ -805,77 +760,77 @@ copyright Mel Bartels, 2016-2024 -->
 				<table id='exitPupilTable' class='exitPupilTable'>
 				<tbody>
 					<tr>
-						<td>Exit pupil &nbsp;&nbsp;</td>
-						<td>f/3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td>f/3+P2 &nbsp;&nbsp;</td>
-						<td>f/4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td>f/4+P2 &nbsp;&nbsp;</td>
-						<td>f/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td>f/6</td>
+						<td>Exit pupil &nbsp;&nbsp;
+						<td>f/3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<td>f/3+P2 &nbsp;&nbsp;
+						<td>f/4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<td>f/4+P2 &nbsp;&nbsp;
+						<td>f/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<td>f/6
 						<tr>
-						<td>8mm</td>
-						<td>24mm</td>
-						<td>28mm</td>
-						<td>32mm</td>
-						<td>37mm</td>
-						<td>40mm</td>
-						<td>46mm</td>
+						<td>8mm
+						<td>24mm
+						<td>28mm
+						<td>32mm
+						<td>37mm
+						<td>40mm
+						<td>46mm
 						<tr>
-						<td>7mm</td>
-						<td>21mm</td>
-						<td>24mm</td>
-						<td>28mm</td>
-						<td>32mm</td>
-						<td>35mm</td>
-						<td>42mm</td>
+						<td>7mm
+						<td>21mm
+						<td>24mm
+						<td>28mm
+						<td>32mm
+						<td>35mm
+						<td>42mm
 						<tr>
-						<td>6mm</td>
-						<td>18mm</td>
-						<td>21mm</td>
-						<td>24mm</td>
-						<td>28mm</td>
-						<td>30mm</td>
-						<td>36mm</td>
+						<td>6mm
+						<td>18mm
+						<td>21mm
+						<td>24mm
+						<td>28mm
+						<td>30mm
+						<td>36mm
 						<tr>
-						<td>5mm</td>
-						<td>15mm</td>
-						<td>17mm</td>
-						<td>20mm</td>
-						<td>23mm</td>
-						<td>25mm</td>
-						<td>30mm</td>
+						<td>5mm
+						<td>15mm
+						<td>17mm
+						<td>20mm
+						<td>23mm
+						<td>25mm
+						<td>30mm
 						<tr>
-						<td>4mm</td>
-						<td>12mm</td>
-						<td>14mm</td>
-						<td>16mm</td>
-						<td>18mm</td>
-						<td>20mm</td>
-						<td>24mm</td>
+						<td>4mm
+						<td>12mm
+						<td>14mm
+						<td>16mm
+						<td>18mm
+						<td>20mm
+						<td>24mm
 						<tr>
-						<td>3mm</td>
-						<td>9mm</td>
-						<td>10mm</td>
-						<td>12mm</td>
-						<td>14mm</td>
-						<td>15mm</td>
-						<td>18mm</td>
+						<td>3mm
+						<td>9mm
+						<td>10mm
+						<td>12mm
+						<td>14mm
+						<td>15mm
+						<td>18mm
 						<tr>
-						<td>2mm</td>
-						<td>6mm</td>
-						<td>7mm</td>
-						<td>8mm</td>
-						<td>9mm</td>
-						<td>10mm</td>
-						<td>12mm</td>
+						<td>2mm
+						<td>6mm
+						<td>7mm
+						<td>8mm
+						<td>9mm
+						<td>10mm
+						<td>12mm
 						<tr>
-						<td>1mm</td>
-						<td>3mm</td>
-						<td>3.5mm</td>
-						<td>4mm</td>
-						<td>5mm</td>
-						<td>5mm</td>
-						<td>6mm</td>
+						<td>1mm
+						<td>3mm
+						<td>3.5mm
+						<td>4mm
+						<td>5mm
+						<td>5mm
+						<td>6mm
 					</tbody>
 				</table>
 
@@ -1458,45 +1413,30 @@ copyright Mel Bartels, 2016-2024 -->
 			<tr>
 				<td class='label'>
 					 Object name =
-				</td>
 				<td>
 					<input class='inputText' id='objectName' value='NGC 1275' onfocus='select()' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label'>
 					 Object apparent magnitude =
-				</td>
 				<td>
 					<input class='inputText' id='objectApparentMagnitude' value='11.9' onfocus='select()' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label'>
 					 Object size (arc-minutes) =
-				</td>
 				<td>
 					<input class='inputText' id='objectSizeArcMin1' value='2.3' onfocus='select()' type='text'>
 					by <input class='inputText' id='objectSizeArcMin2' value='1.6' onfocus='select()' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label'>
 					 Sky background brightness =
-				</td>
 				<td>
 					<input class='inputText' id='skyBackgroundBrightnessUnaidedEye' value='21.6' onfocus='select()' type='text'>
-				</td>
-			</tr>
 			<tr>
 				<td class='label'>
 					 or use the Bortle Scale
-				</td>
 				<td>
 					<input class='sliderHalf' id='sliderBortleScale' min='1' max='9' step='1' type='range'/>
 					<input class='inputText' id='BortleScale' value='3' onfocus='select()' type='text'>
-				</td>
-			</tr>
 			</tbody>
 			</table>
 			<div id='visualDetectionResultsTable'>
@@ -1793,20 +1733,20 @@ copyright Mel Bartels, 2016-2024 -->
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
 				<tr>
-					<td class='columnHeaders'>Select eyepiece</td>
-					<td class='columnHeaders'>Manufacturer</td>
-					<td class='columnHeaders'>Type</td>
-					<td class='columnHeaders'>FocalLength</td>
-					<td class='columnHeaders'>FieldStop</td>
-					<td class='columnHeaders'>Field</td>
-					<td class='columnHeaders'>ExitPupil</td>
-					<td class='columnHeaders'>TrueFOV</td>
-					<td class='columnHeaders'>MagX</td>
-					<td class='columnHeaders'>PerInch</td>
-					<td class='columnHeaders'>Res</td>
-					<td class='columnHeaders'>MagLimit</td>
-					<td class='columnHeaders'>Etendue</td>
-					<td class='columnHeaders'>ComaAtEdge</td>
+					<td class='columnHeaders'>Select eyepiece
+					<td class='columnHeaders'>Manufacturer
+					<td class='columnHeaders'>Type
+					<td class='columnHeaders'>FocalLength
+					<td class='columnHeaders'>FieldStop
+					<td class='columnHeaders'>Field
+					<td class='columnHeaders'>ExitPupil
+					<td class='columnHeaders'>TrueFOV
+					<td class='columnHeaders'>MagX
+					<td class='columnHeaders'>PerInch
+					<td class='columnHeaders'>Res
+					<td class='columnHeaders'>MagLimit
+					<td class='columnHeaders'>Etendue
+					<td class='columnHeaders'>ComaAtEdge
 				<!--detail rows added in JavaScript-->
 			</tbody>
 			</table>
@@ -1861,143 +1801,143 @@ copyright Mel Bartels, 2016-2024 -->
 				<table id='magnificationTable' class='magnificationTable'>
 				<tbody>
 					<tr>
-						<td class='tableHeaderRow tableColumnsFirstColor'>Aperture</td>
-						<td class='tableHeaderRow tableColumnsSecondColor'>Lowest Mag</td>
-						<td class='tableHeaderRow tableColumnsSecondColor'>Lowest Mag</td>
-						<td class='tableHeaderRow tableColumnsThirdColor'>Highest Mag</td>
-						<td class='tableHeaderRow tableColumnsThirdColor'>Highest Mag</td>
+						<td class='tableHeaderRow tableColumnsFirstColor'>Aperture
+						<td class='tableHeaderRow tableColumnsSecondColor'>Lowest Mag
+						<td class='tableHeaderRow tableColumnsSecondColor'>Lowest Mag
+						<td class='tableHeaderRow tableColumnsThirdColor'>Highest Mag
+						<td class='tableHeaderRow tableColumnsThirdColor'>Highest Mag
 						<tr>
-						<td class='tableHeaderRow tableColumnsFirstColor'>inches</td>
-						<td class='tableHeaderRow tableColumnsSecondColor'>7mm pupil</td>
-						<td class='tableHeaderRow tableColumnsSecondColor'>5mm pupil</td>
-						<td class='tableHeaderRow tableColumnsThirdColor'><br></td>
-						<td class='tableHeaderRow tableColumnsThirdColor'>doubled</td>
+						<td class='tableHeaderRow tableColumnsFirstColor'>inches
+						<td class='tableHeaderRow tableColumnsSecondColor'>7mm pupil
+						<td class='tableHeaderRow tableColumnsSecondColor'>5mm pupil
+						<td class='tableHeaderRow tableColumnsThirdColor'><br>
+						<td class='tableHeaderRow tableColumnsThirdColor'>doubled
 						<tr>
-						<td class='tableColumnsFirstColor'>0.3</td>
-						<td class='tableColumnsSecondColor'>1</td>
-						<td class='tableColumnsSecondColor'>1</td>
-						<td class='tableColumnsThirdColor'>7</td>
-						<td class='tableColumnsThirdColor'>15</td>
+						<td class='tableColumnsFirstColor'>0.3
+						<td class='tableColumnsSecondColor'>1
+						<td class='tableColumnsSecondColor'>1
+						<td class='tableColumnsThirdColor'>7
+						<td class='tableColumnsThirdColor'>15
 						<tr>
-						<td class='tableColumnsFirstColor'>1</td>
-						<td class='tableColumnsSecondColor'>4</td>
-						<td class='tableColumnsSecondColor'>5</td>
-						<td class='tableColumnsThirdColor'>27</td>
-						<td class='tableColumnsThirdColor'>54</td>
+						<td class='tableColumnsFirstColor'>1
+						<td class='tableColumnsSecondColor'>4
+						<td class='tableColumnsSecondColor'>5
+						<td class='tableColumnsThirdColor'>27
+						<td class='tableColumnsThirdColor'>54
 						<tr>
-						<td class='tableColumnsFirstColor'>2</td>
-						<td class='tableColumnsSecondColor'>7</td>
-						<td class='tableColumnsSecondColor'>10</td>
-						<td class='tableColumnsThirdColor'>54</td>
-						<td class='tableColumnsThirdColor'>108</td>
+						<td class='tableColumnsFirstColor'>2
+						<td class='tableColumnsSecondColor'>7
+						<td class='tableColumnsSecondColor'>10
+						<td class='tableColumnsThirdColor'>54
+						<td class='tableColumnsThirdColor'>108
 						<tr>
-						<td class='tableColumnsFirstColor'>4</td>
-						<td class='tableColumnsSecondColor'>14</td>
-						<td class='tableColumnsSecondColor'>20</td>
-						<td class='tableColumnsThirdColor'>108</td>
-						<td class='tableColumnsThirdColor'>216</td>
+						<td class='tableColumnsFirstColor'>4
+						<td class='tableColumnsSecondColor'>14
+						<td class='tableColumnsSecondColor'>20
+						<td class='tableColumnsThirdColor'>108
+						<td class='tableColumnsThirdColor'>216
 						<tr>
-						<td class='tableColumnsFirstColor'>6</td>
-						<td class='tableColumnsSecondColor'>22</td>
-						<td class='tableColumnsSecondColor'>30</td>
-						<td class='tableColumnsThirdColor'>162</td>
-						<td class='tableColumnsThirdColor'>324</td>
+						<td class='tableColumnsFirstColor'>6
+						<td class='tableColumnsSecondColor'>22
+						<td class='tableColumnsSecondColor'>30
+						<td class='tableColumnsThirdColor'>162
+						<td class='tableColumnsThirdColor'>324
 						<tr>
-						<td class='tableColumnsFirstColor'>8</td>
-						<td class='tableColumnsSecondColor'>29</td>
-						<td class='tableColumnsSecondColor'>40</td>
-						<td class='tableColumnsThirdColor'>216</td>
-						<td class='tableColumnsThirdColor'>432</td>
+						<td class='tableColumnsFirstColor'>8
+						<td class='tableColumnsSecondColor'>29
+						<td class='tableColumnsSecondColor'>40
+						<td class='tableColumnsThirdColor'>216
+						<td class='tableColumnsThirdColor'>432
 						<tr>
-						<td class='tableColumnsFirstColor'>10</td>
-						<td class='tableColumnsSecondColor'>36</td>
-						<td class='tableColumnsSecondColor'>50</td>
-						<td class='tableColumnsThirdColor'>270</td>
-						<td class='tableColumnsThirdColor'>540</td>
+						<td class='tableColumnsFirstColor'>10
+						<td class='tableColumnsSecondColor'>36
+						<td class='tableColumnsSecondColor'>50
+						<td class='tableColumnsThirdColor'>270
+						<td class='tableColumnsThirdColor'>540
 						<tr>
-						<td class='tableColumnsFirstColor'>13</td>
-						<td class='tableColumnsSecondColor'>45</td>
-						<td class='tableColumnsSecondColor'>63</td>
-						<td class='tableColumnsThirdColor'>338</td>
-						<td class='tableColumnsThirdColor'>675</td>
+						<td class='tableColumnsFirstColor'>13
+						<td class='tableColumnsSecondColor'>45
+						<td class='tableColumnsSecondColor'>63
+						<td class='tableColumnsThirdColor'>338
+						<td class='tableColumnsThirdColor'>675
 						<tr>
-						<td class='tableColumnsFirstColor'>14</td>
-						<td class='tableColumnsSecondColor'>51</td>
-						<td class='tableColumnsSecondColor'>71</td>
-						<td class='tableColumnsThirdColor'>385</td>
-						<td class='tableColumnsThirdColor'>770</td>
+						<td class='tableColumnsFirstColor'>14
+						<td class='tableColumnsSecondColor'>51
+						<td class='tableColumnsSecondColor'>71
+						<td class='tableColumnsThirdColor'>385
+						<td class='tableColumnsThirdColor'>770
 						<tr>
-						<td class='tableColumnsFirstColor'>16</td>
-						<td class='tableColumnsSecondColor'>58</td>
-						<td class='tableColumnsSecondColor'>80</td>
-						<td class='tableColumnsThirdColor'>432</td>
-						<td class='tableColumnsThirdColor'>864</td>
+						<td class='tableColumnsFirstColor'>16
+						<td class='tableColumnsSecondColor'>58
+						<td class='tableColumnsSecondColor'>80
+						<td class='tableColumnsThirdColor'>432
+						<td class='tableColumnsThirdColor'>864
 						<tr>
-						<td class='tableColumnsFirstColor'>18</td>
-						<td class='tableColumnsSecondColor'>65</td>
-						<td class='tableColumnsSecondColor'>90</td>
-						<td class='tableColumnsThirdColor'>486</td>
-						<td class='tableColumnsThirdColor'>972</td>
+						<td class='tableColumnsFirstColor'>18
+						<td class='tableColumnsSecondColor'>65
+						<td class='tableColumnsSecondColor'>90
+						<td class='tableColumnsThirdColor'>486
+						<td class='tableColumnsThirdColor'>972
 						<tr>
-						<td class='tableColumnsFirstColor'>20</td>
-						<td class='tableColumnsSecondColor'>72</td>
-						<td class='tableColumnsSecondColor'>100</td>
-						<td class='tableColumnsThirdColor'>540</td>
-						<td class='tableColumnsThirdColor'>1080</td>
+						<td class='tableColumnsFirstColor'>20
+						<td class='tableColumnsSecondColor'>72
+						<td class='tableColumnsSecondColor'>100
+						<td class='tableColumnsThirdColor'>540
+						<td class='tableColumnsThirdColor'>1080
 						<tr>
-						<td class='tableColumnsFirstColor'>22</td>
-						<td class='tableColumnsSecondColor'>79</td>
-						<td class='tableColumnsSecondColor'>110</td>
-						<td class='tableColumnsThirdColor'>594</td>
-						<td class='tableColumnsThirdColor'>1188</td>
+						<td class='tableColumnsFirstColor'>22
+						<td class='tableColumnsSecondColor'>79
+						<td class='tableColumnsSecondColor'>110
+						<td class='tableColumnsThirdColor'>594
+						<td class='tableColumnsThirdColor'>1188
 						<tr>
-						<td class='tableColumnsFirstColor'>24</td>
-						<td class='tableColumnsSecondColor'>86</td>
-						<td class='tableColumnsSecondColor'>120</td>
-						<td class='tableColumnsThirdColor'>648</td>
-						<td class='tableColumnsThirdColor'>1296</td>
+						<td class='tableColumnsFirstColor'>24
+						<td class='tableColumnsSecondColor'>86
+						<td class='tableColumnsSecondColor'>120
+						<td class='tableColumnsThirdColor'>648
+						<td class='tableColumnsThirdColor'>1296
 						<tr>
-						<td class='tableColumnsFirstColor'>25</td>
-						<td class='tableColumnsSecondColor'>90</td>
-						<td class='tableColumnsSecondColor'>125</td>
-						<td class='tableColumnsThirdColor'>675</td>
-						<td class='tableColumnsThirdColor'>1350</td>
+						<td class='tableColumnsFirstColor'>25
+						<td class='tableColumnsSecondColor'>90
+						<td class='tableColumnsSecondColor'>125
+						<td class='tableColumnsThirdColor'>675
+						<td class='tableColumnsThirdColor'>1350
 						<tr>
-						<td class='tableColumnsFirstColor'>28</td>
-						<td class='tableColumnsSecondColor'>101</td>
-						<td class='tableColumnsSecondColor'>140</td>
-						<td class='tableColumnsThirdColor'>756</td>
-						<td class='tableColumnsThirdColor'>1512</td>
+						<td class='tableColumnsFirstColor'>28
+						<td class='tableColumnsSecondColor'>101
+						<td class='tableColumnsSecondColor'>140
+						<td class='tableColumnsThirdColor'>756
+						<td class='tableColumnsThirdColor'>1512
 						<tr>
-						<td class='tableColumnsFirstColor'>30</td>
-						<td class='tableColumnsSecondColor'>108</td>
-						<td class='tableColumnsSecondColor'>150</td>
-						<td class='tableColumnsThirdColor'>810</td>
-						<td class='tableColumnsThirdColor'>1620</td>
+						<td class='tableColumnsFirstColor'>30
+						<td class='tableColumnsSecondColor'>108
+						<td class='tableColumnsSecondColor'>150
+						<td class='tableColumnsThirdColor'>810
+						<td class='tableColumnsThirdColor'>1620
 						<tr>
-						<td class='tableColumnsFirstColor'>36</td>
-						<td class='tableColumnsSecondColor'>130</td>
-						<td class='tableColumnsSecondColor'>180</td>
-						<td class='tableColumnsThirdColor'>972</td>
-						<td class='tableColumnsThirdColor'>1944</td>
+						<td class='tableColumnsFirstColor'>36
+						<td class='tableColumnsSecondColor'>130
+						<td class='tableColumnsSecondColor'>180
+						<td class='tableColumnsThirdColor'>972
+						<td class='tableColumnsThirdColor'>1944
 						<tr>
-						<td class='tableColumnsFirstColor'>40</td>
-						<td class='tableColumnsSecondColor'>144</td>
-						<td class='tableColumnsSecondColor'>200</td>
-						<td class='tableColumnsThirdColor'>1080</td>
-						<td class='tableColumnsThirdColor'>2160</td>
+						<td class='tableColumnsFirstColor'>40
+						<td class='tableColumnsSecondColor'>144
+						<td class='tableColumnsSecondColor'>200
+						<td class='tableColumnsThirdColor'>1080
+						<td class='tableColumnsThirdColor'>2160
 						<tr>
-						<td class='tableColumnsFirstColor'>48</td>
-						<td class='tableColumnsSecondColor'>173</td>
-						<td class='tableColumnsSecondColor'>240</td>
-						<td class='tableColumnsThirdColor'>1296</td>
-						<td class='tableColumnsThirdColor'>2592</td>
+						<td class='tableColumnsFirstColor'>48
+						<td class='tableColumnsSecondColor'>173
+						<td class='tableColumnsSecondColor'>240
+						<td class='tableColumnsThirdColor'>1296
+						<td class='tableColumnsThirdColor'>2592
 						<tr>
-						<td class='tableColumnsFirstColor'>60</td>
-						<td class='tableColumnsSecondColor'>216</td>
-						<td class='tableColumnsSecondColor'>300</td>
-						<td class='tableColumnsThirdColor'>1620</td>
-						<td class='tableColumnsThirdColor'>3240</td>
+						<td class='tableColumnsFirstColor'>60
+						<td class='tableColumnsSecondColor'>216
+						<td class='tableColumnsSecondColor'>300
+						<td class='tableColumnsThirdColor'>1620
+						<td class='tableColumnsThirdColor'>3240
 					</tbody>
 				</table>
 
@@ -2052,11 +1992,11 @@ copyright Mel Bartels, 2016-2024 -->
 				<table id='apparentFOV' class='magnificationTable'>
 				<tbody>
 					<tr>
-						<td><br></td>
+						<td><br>
 						<td colspan='6' class='tableHeaderRow'>
 							Eyepiece apparent field of view
 							<tr>
-						<td><br></td>
+						<td><br>
 						<td colspan='2' class='tableHeaderRow tableColumnsSecondColor'>
 							60 degrees
 							<td colspan='2' class='tableHeaderRow tableColumnsThirdColor'>
@@ -2086,37 +2026,37 @@ copyright Mel Bartels, 2016-2024 -->
 							aperture<br>
 							inches
 							<tr>
-						<td class='tableColumnsFirstColor'>180</td>
-						<td class='tableColumnsSecondColor'>16x</td>
-						<td class='tableColumnsSecondColor'>5</td>
-						<td class='tableColumnsThirdColor'>22x</td>
-						<td class='tableColumnsThirdColor'>7</td>
-						<td class='tableColumnsFourthColor'>27x</td>
-						<td class='tableColumnsFourthColor'>8</td>
+						<td class='tableColumnsFirstColor'>180
+						<td class='tableColumnsSecondColor'>16x
+						<td class='tableColumnsSecondColor'>5
+						<td class='tableColumnsThirdColor'>22x
+						<td class='tableColumnsThirdColor'>7
+						<td class='tableColumnsFourthColor'>27x
+						<td class='tableColumnsFourthColor'>8
 						<tr>
-						<td class='tableColumnsFirstColor'>60</td>
-						<td class='tableColumnsSecondColor'>48x</td>
-						<td class='tableColumnsSecondColor'>14</td>
-						<td class='tableColumnsThirdColor'>64x</td>
-						<td class='tableColumnsThirdColor'>18</td>
-						<td class='tableColumnsFourthColor'>80x</td>
-						<td class='tableColumnsFourthColor'>23</td>
+						<td class='tableColumnsFirstColor'>60
+						<td class='tableColumnsSecondColor'>48x
+						<td class='tableColumnsSecondColor'>14
+						<td class='tableColumnsThirdColor'>64x
+						<td class='tableColumnsThirdColor'>18
+						<td class='tableColumnsFourthColor'>80x
+						<td class='tableColumnsFourthColor'>23
 						<tr>
-						<td class='tableColumnsFirstColor'>20</td>
-						<td class='tableColumnsSecondColor'>64x</td>
-						<td class='tableColumnsSecondColor'>18</td>
-						<td class='tableColumnsThirdColor'>85x</td>
-						<td class='tableColumnsThirdColor'>24</td>
-						<td class='tableColumnsFourthColor'>107x</td>
-						<td class='tableColumnsFourthColor'>30</td>
+						<td class='tableColumnsFirstColor'>20
+						<td class='tableColumnsSecondColor'>64x
+						<td class='tableColumnsSecondColor'>18
+						<td class='tableColumnsThirdColor'>85x
+						<td class='tableColumnsThirdColor'>24
+						<td class='tableColumnsFourthColor'>107x
+						<td class='tableColumnsFourthColor'>30
 						<tr>
-						<td class='tableColumnsFirstColor'>5</td>
-						<td class='tableColumnsSecondColor'>224x</td>
-						<td class='tableColumnsSecondColor'>63</td>
-						<td class='tableColumnsThirdColor'>299x</td>
-						<td class='tableColumnsThirdColor'>83</td>
-						<td class='tableColumnsFourthColor'>373x</td>
-						<td class='tableColumnsFourthColor'>104</td>
+						<td class='tableColumnsFirstColor'>5
+						<td class='tableColumnsSecondColor'>224x
+						<td class='tableColumnsSecondColor'>63
+						<td class='tableColumnsThirdColor'>299x
+						<td class='tableColumnsThirdColor'>83
+						<td class='tableColumnsFourthColor'>373x
+						<td class='tableColumnsFourthColor'>104
 					</tbody>
 				</table>
 
@@ -2153,14 +2093,14 @@ copyright Mel Bartels, 2016-2024 -->
 					<tr>
 						<td class='label'>
 							 Acceptable magnitude loss =
-							<td>
+						<td>
 							<input class='inputText' id='acceptableMagLoss' value='0.4' onfocus='select();' type='text'>
-							<tr>
+					<tr>
 						<td class='label' id='diagSizesLabel'>
 							<!-- label html set in JavaScript -->
-							<td>
+						<td>
 							<input class='inputDiags' id='diagSizes' onfocus='select();' type='text'>
-							<tr>
+					<tr>
 						<td colspan='2'>
 							<br>
 							<input id='btnUpdateDiagIllum' value='Update diagonal illumination' type='button'>
@@ -2409,12 +2349,12 @@ copyright Mel Bartels, 2016-2024 -->
 			</colgroup>
 			<tbody id='spiderTypeTableBody'>
 				<tr>
-					<td class='columnHeaders'>Spider Type</td>
-					<td class='columnHeaders'>Diffraction Pattern</td>
-					<td class='columnHeaders'>Description</td>
-					<td class='columnHeaders'>Strength</td>
-					<td class='columnHeaders'>Weakness</td>
-					<td class='columnHeaders'>Examples</td>
+					<td class='columnHeaders'>Spider Type
+					<td class='columnHeaders'>Diffraction Pattern
+					<td class='columnHeaders'>Description
+					<td class='columnHeaders'>Strength
+					<td class='columnHeaders'>Weakness
+					<td class='columnHeaders'>Examples
 				<!--part rows added in JavaScript from JSON-->
 			</tbody>
 			</table>
@@ -2907,10 +2847,10 @@ copyright Mel Bartels, 2016-2024 -->
 			<table id='CGTable'>
 			<tbody id='CGTableBody'>
 				<tr>
-					<td class='columnHeaders'>Part</td>
-					<td class='columnHeaders'>Weight</td>
-					<td class='columnHeaders'>Distance</td>
-					<td class='columnHeaders'>Vertical offset</td>
+					<td class='columnHeaders'>Part
+					<td class='columnHeaders'>Weight
+					<td class='columnHeaders'>Distance
+					<td class='columnHeaders'>Vertical offset
 				<!--part rows added in JavaScript-->
 			</tbody>
 			</table>
@@ -2956,11 +2896,11 @@ copyright Mel Bartels, 2016-2024 -->
 			</colgroup>
 			<tbody id='tubeTypeTableBody'>
 				<tr>
-					<td class='columnHeaders'>Tube Type</td>
-					<td class='columnHeaders'>Truss Count</td>
-					<td class='columnHeaders'>Local Seeing Issues</td>
-					<td class='columnHeaders'>Engineering Note</td>
-					<td class='columnHeaders'>Examples</td>
+					<td class='columnHeaders'>Tube Type
+					<td class='columnHeaders'>Truss Count
+					<td class='columnHeaders'>Local Seeing Issues
+					<td class='columnHeaders'>Engineering Note
+					<td class='columnHeaders'>Examples
 				<!--part rows added in JavaScript from JSON-->
 			</tbody>
 			</table>
@@ -2987,13 +2927,13 @@ copyright Mel Bartels, 2016-2024 -->
 			<table id='mountTypeTable'>
 			<tbody id='mountTypeTableBody'>
 				<tr>
-					<td class='columnHeaders'>MountType</td>
-					<td class='columnHeaders'>Primary<br>Axis<br>Access</td>
-					<td class='columnHeaders'>Move<br>Past<br>Primary<br>Axis</td>
-					<td class='columnHeaders'>Primary<br>Axis<br>Fully<br>Rotates</td>
-					<td class='columnHeaders'>Meridian<br>Flip<br>Possible</td>
-					<td class='columnHeaders'>Meridian<br>Flip<br>Required</td>
-					<td class='columnHeaders'>Notes</td>
+					<td class='columnHeaders'>MountType
+					<td class='columnHeaders'>Primary<br>Axis<br>Access
+					<td class='columnHeaders'>Move<br>Past<br>Primary<br>Axis
+					<td class='columnHeaders'>Primary<br>Axis<br>Fully<br>Rotates
+					<td class='columnHeaders'>Meridian<br>Flip<br>Possible
+					<td class='columnHeaders'>Meridian<br>Flip<br>Required
+					<td class='columnHeaders'>Notes
 				<!--part rows added in JavaScript from JSON-->
 			</tbody>
 			</table>
@@ -3387,7 +3327,7 @@ copyright Mel Bartels, 2016-2024 -->
 				<tr>
 					<td class='calcSectionHeader'>
 						Altitude movement...
-					<td></td>
+					<td>
 				<tr>
 					<td class='label'>
 						 Altitude bearing separation (deg) =
@@ -3407,7 +3347,7 @@ copyright Mel Bartels, 2016-2024 -->
 				<tr>
 					<td class='calcSectionHeader'>
 						Azimuth movement...
-					<td></td>
+					<td>
 				<tr>
 					<td class='label' id='azBearingRadiusLabel'>
 						<!-- label html set in JavaScript -->
@@ -3422,7 +3362,7 @@ copyright Mel Bartels, 2016-2024 -->
 				<tr>
 					<td class='calcSectionHeader'>
 						Rocker...
-					<td></td>
+					<td>
 				<tr>
 					<td class='label' id='rockerWeightLabel'>
 						<!-- label html set in JavaScript -->
@@ -3509,7 +3449,7 @@ copyright Mel Bartels, 2016-2024 -->
 				<tr>
 					<td class='calcSectionHeader'>
 						Rocker...
-					<td></td>
+					<td>
 				<tr>
 					<td class='label' id='flexRockerWeightLabel'>
 						<!-- label html set in JavaScript -->
