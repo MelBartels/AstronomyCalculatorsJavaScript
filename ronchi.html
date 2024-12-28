@@ -567,7 +567,9 @@
 	<a name='math'></a>
 	<h4>Ronchi math</h4>
 
-	<p>Ronchi math is all about calculating which light rays make it through the grating.
+	<p>Interestingly, <b>we need only two parameters</b>: the ratio of grating size to the mirror diameter, and the focal ratio of the mirror. This because what counts is the characteristic of the parabolic curve, that is, what portion of the parabolic curve should we fit to the mirror. Any test that produces slope measurements can be used in the Ronchi Calculator, including Foucault, Hartmann and the Wire test, just to name a couple of examples. Create a graph of the measurements and input it into the calculator, or, match the zonal readings to the Ronchi Tape band. This then leads directly to the art of parabolizing or figuring the mirror, where we choose the best fitting parabola that has the least glass to polish with the highest chance of success.
+
+	<p>Geometrically, Ronchi math is all about calculating <b>which light rays make it through the grating</b>.
 
 	<p>I use an algorithm that starts with the mirror, since this is where the Ronchi bands appear to rest upon. The Ronchigram is displayed with a particular size using pixels. Taking each pixel in turn (the x, y location of the pixel measured from the mirror's center) that lies within the mirror's perimeter, I calculate the mirror's zone for the pixel then that zone's radius of curvature. This gives me a triangle. I look at the grating's offset from the zonal radius of curvature and using similar triangles, determine if the light ray coming from the mirror makes it past the grating. Grating positions behind the zonal radius of curvature result in the same triangle. By convention, if the light ray makes it through, then its pixel on the mirror's face is marked. The data array of mirror pixels (x, y, visible or not) is then easily manipulated, eg, to invert the bands, to calculate the band's center, or to create a Ronchi-Hartmann like grid. Also, the zonal radius of curvature can be changed per the parabolic correction desired and further by the zonal error correction set by the user. One quadrant of the mirror is calculated, then applied to the other three quadrants.
 
@@ -624,7 +626,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 18-Dec-2024</h4>
+	<h4>by Mel Bartels, 1992; last update 28-Dec-2024</h4>
 	<br>
 	<br>
 </div>
