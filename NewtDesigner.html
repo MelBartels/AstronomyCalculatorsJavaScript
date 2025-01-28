@@ -2111,12 +2111,15 @@ copyright Mel Bartels, 2016-2025 -->
 						<td>
 							<input class='inputDiags' id='diagSizes' onfocus='select();' type='text'>
 					<tr>
-						<td colspan='2'>
-							<br>
-							<input id='btnUpdateDiagIllum' value='Update diagonal illumination' type='button'>
-						</tbody>
+						<td class='label'>
+							<br><input id='chBoxIncludeFocuserBarrelVignetting' type='checkbox'>Include focuser barrel vignetting?&emsp;
+						<td>
+							<br><input id='btnUpdateDiagIllum' value='Update diagonal illumination' type='button'>
+				</tbody>
 				</table>
+			</div>
 
+			<div>
 				<div class='floatDiv' id='diagChart'>
 				</div>
 				<div class='forceDisplayToRight' id='diagIntegratedIllumChart'>
@@ -3862,7 +3865,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 19-Jan-2025
+				Last update 27-Jan-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
