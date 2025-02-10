@@ -2491,24 +2491,48 @@ copyright Mel Bartels, 2016-2025 -->
 			<div id='mirrorVentilation'></div>
 			<button class='accordion' id='btnMirrorVentilation'>Mirror ventilation</button>
 			<div class='panel'>
-				<p>A warm telescope set up in the colder night air undergoes cooling. If the primary mirror has a thermal coefficient of expansion, for example, borosilicate (Pyrex) glass and plate glass (quartz does not), then the mirror will deform as it cools. In fact, as the night time temperature drops until the early morning hours, the mirror undergoes continuous cooling.
+				<p>We need to ventilate the mirror to:
+				<ol>
+					<li>Cool the warm mirror and
+					<li>Remove warmed air from the face of the mirror
+				</ol>
+
+				<p>A warm telescope set up in the colder night air undergoes cooling. If the primary mirror has a thermal coefficient of expansion, for example, borosilicate (Pyrex) glass and plate glass (quartz does not), then the mirror will deform as it cools. In fact, as the night time temperature drops until the early morning hours, the mirror undergoes continuous cooling. Additionally, the glass warms the air around it, causing deformed views like looking down at a swimming pool.
 
 				<p>The mirror's face is exposed to the cold dark sky as the telescope is aimed at astronomical objects. The mirror's face contracts and deepens, becoming overcorrected. In addition, the edge shrinks back as it cools, creating more overcorrection.
 
 				<p>So we cool our mirrors to restore the curve of the glass. But it is not just the mirror that needs cooling. The warm glass heats the air that clings to the front of the glass. We call this air the boundary layer. This air needs to be scrubbed away.
 
-				<p>Consequently it is best to blow air on the mirror's back and on the mirror's face.
+				<p>Consequently we may blow air on the mirror's back and on the mirror's face.
 
 				<p>Dealing with the mirror's face, Alan Adler discovered that a fan blowing air across the mirror's face with an escape hole in the tube on the other side of the fan effectively clears out the boundary layer. The demonstration is impressive. As soon as the fan is turned on, the high power planetary image stabilizes. Turn off the fan and the image disintegrates. Chuck Dethloff and others demonstrated that hanging a centrally located fan on thin wires directly above the mirror's face works. Ed Allen developed a system where the air blowing on the mirror's back side is directed around the mirror's edge then channeled to scrub the mirror's face. And Mike Lockwood has shown that four corner fans blowing obliquely on the mirror's face is effective too. He's also found that turbulence is better than laminar flow in removing heat from the mirror.
 
 				<p>Owners of larger mirrors need to be careful about where the fan blows. It is easy for three fans arranged in a triangle to preferentially cool three areas of the mirror's back side, creating trefoil astigmatism.
 
+				<p>Large ultra thin meniscus mirrors can change their parabolic shape due to the glass acting as a bi-metalic strip where the front cools faster than the back.
+
+				<p>Large mirror cooling strategies that worked for me:
+				<ol>
+					<li><p>24 inch F5.5 x 1.5 inches thick borosilicate: in a deep enclosed mirror box. Performed well after a cooldown period of 30 minutes. No fan.
+					<li><p>20.5 inch F4.8 x 2 inches thick borosilicate: very open framework without a fan. Often used at 1000x, one night at nearly 6000x.
+					<li><p>16.25 inch F2.9 x 3/8 inch thick meniscus shaped plate glass: enclosed tube assembly: the mirror is ready to go as soon as I remove the dust covers and performs well all night with no issues. No fan.
+					<li><p>30 inch F2.7 x 5/8 inches thick meniscus shaped plate glass: enclosed tube assembly, a small fan blowing at the center of the mirror's backside and four small corner fans blowing air across the mirror's face.
+						<ol>
+							<li>Initially the mirror performs perfectly. Even in summer's plunging evening temperatures of the Oregon high desert, at worse the mirror comes to proper shape with no air current issues within moments.
+							<li>After an hour or so the mirror begins to overcorrect. If left unmanaged, the mirror will arrive at a state where the stars no longer come to perfect little specs of light. Turning on the front fans restores the mirror within a minute or two - amazingly fast.
+							<li>Thereafter a minute or two of the front fans every so often keeps the mirror performing well and improves the steadiness of the star images.
+						</ol>
+				</ol>
+
 				<p>References:
-				<br><a href='https://www.amazon.com/Making-Your-Telescope-allyn-thompson/dp/B000GP1ZNK' target='_blank'>Allyn Thompson's Making Your Own Telescope</a> and <a href='https://www.amazon.com/Making-Telescope-Dover-Books-Astronomy/dp/0486428834' target='_blank'>Jean Texereau's How to Make A Telescope</a>. These books discuss thermal experiments done mid-century</a>.
-				<br><a href='https://skyandtelescope.org/wp-content/uploads/Adler-NewtThermal.pdf' target='_blank'>Ed Allen's thermal management system.</a>
-				<br><a href='https://bbastrodesigns.com/osp2003/OSP2003.html' target='_blank'>Chuck Dethloff's face-on fan.</a>
+				<br><a href='https://www.cruxis.com/scope/mirrorcooling.htm' target='_blank'>Robert Houdart's mirror cooling discussion and software</a>
+				<br><a href='https://www.fpi-protostar.com/bgreer/fanselect.htm' target='_blank'> Bryan Greer's fan discussion</a>
 				<br><a href='https://www.youtube.com/watch?v=8vn2wkkR_N8' target='_blank'>Ed Allen's Complete Ventilation System (C.V.S.) for Amateur Telescopes, 2020.</a>
 				<br><a href='https://www.youtube.com/watch?v=gIjUFTaZHkI' target='_blank'>Mike Lockwood, "Thermals and Telescope Optics", Winter Star Party, 2024.</a>
+				<br><a href='https://skyandtelescope.org/wp-content/uploads/Adler-NewtThermal.pdf' target='_blank'>Ed Allen's thermal management system.</a>
+				<br><a href='https://bbastrodesigns.com/osp2003/OSP2003.html' target='_blank'>Chuck Dethloff's face-on fan.</a>
+				<br><a href='https://www.amazon.com/Making-Your-Telescope-allyn-thompson/dp/B000GP1ZNK' target='_blank'>Allyn Thompson's Making Your Own Telescope</a> and
+				<a href='https://www.amazon.com/Making-Telescope-Dover-Books-Astronomy/dp/0486428834' target='_blank'>Jean Texereau's How to Make A Telescope</a>. These books discuss thermal experiments done mid-century.
 			</div>
 		</div>
 
@@ -3880,7 +3904,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 9-Feb-2025
+				Last update 10-Feb-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
