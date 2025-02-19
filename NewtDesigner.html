@@ -345,6 +345,7 @@ copyright Mel Bartels, 2016-2025 -->
 					<li><a href='#rayTracing'>Ray tracing</a>
 					<li><a href='#theEyepiece'>The eyepiece</a>
 					<li><a href='#theEye'>The eye</a>
+					<li><a href='#resolution'>Resolution</a>
 					<li><a href='#diffractionAiryDisk'>Diffraction and the Airy disk</a>
 					<li><a href='#etendue'>Etendue</a>
 					<li><a href='#HET'>Highest etendue (light throughput) telescopes</a>
@@ -491,12 +492,24 @@ copyright Mel Bartels, 2016-2025 -->
 
 						<p>Filtered views such as OIII and HBeta filters make the sky background fainter increasing detectable contrast.
 
-					<li>The eye can detect all that the detail telescope has to offer roughly 1-2mm pupil. We typically resolve better than two arc-minutes in the sky, depending on the object to resolve (double stars of equal brightness that are not too bright or dim, double stars of unequal brightness or lunar and planetary detail; deep-sky detail depends on object brightness). This sets up a conflict between lowest power, widest angle viewing and highest resolution viewing.
+					<li>The eye can detect all that the detail telescope has to offer at 1-2mm pupil. We typically resolve better than two arc-minutes in the sky, depending on the object to resolve (double stars of equal brightness that are not too bright or dim, double stars of unequal brightness or lunar and planetary detail; deep-sky detail depends on object brightness). This sets up a conflict between lowest power, widest angle viewing and highest resolution viewing.
 				</ol>
 
 				<p>As the magnification increases going from maximum exit pupil to minimum exit pupil, how does the eye respond? We can see from the following drawings, that for smaller scale objects like M104, a galaxy in the Virgo Cluster, the eye hangs onto faint nebulosity surprisingly well (though the faintest nebulosity is no longer visible) while the increasing resolution makes for a beautiful view.
 
 				<p><img alt='' loading='' class='' src='Sombrero Galaxy through 6 and 13 inch telescopes.jpg'>
+
+				<a name='resolution'></a>
+				<div id='resolution'></div>
+				<h3>Resolution</h3>
+
+				<p>Rayleigh's resolution criteria (in radians) = wavelength of light / mirror diameter. Commonsense suggests that an aperture can resolve it's diameter. For example, a 6 inch mirror resolves 1.3 arc-seconds. See the <a href='https://en.wikipedia.org/wiki/Airy_disk' target='_blank'>mathematical formula section in the Wikipedia page on the Airy disk</a>. However, in the case of equally bright double stars, it is possible to squeeze the two Airy disks closer together. Dawe found empirically that double star resolution for a 6 inch mirror is closer to 0.8 arc-seconds, about a third closer. Dawe's formula (in arc-seconds) is 4.56 / mirror diameter.
+
+				<p>What magnification and exit pupil do we need then, with a 6 inch telescope? Empirically we know that amateurs with our bare eyes can resolve 1 arc-minute. The difference between 1 arc-minute and 1 arc-second is 60x. A 6inch at 60x produces a 2.5mm exit pupil.
+
+				<p>Spacing between the eye's rod cells, used in night vision, suggest a similar resolution.
+
+				<p>Higher magnifications make sufficiently bright objects easier to see, including close double stars. Smaller aperture scopes can profit from higher magnifications; larger apertures not so much, thanks to seeing.
 
 				<a name='diffractionAiryDisk'></a>
 				<div id='diffractionAiryDisk'></div>
@@ -3790,6 +3803,7 @@ copyright Mel Bartels, 2016-2025 -->
 				<li><a href='#rayTracing'>#rayTracing</a>
 				<li><a href='#theEyepiece'>#theEyepiece</a>
 				<li><a href='#theEye'>#theEye</a>
+				<li><a href='#resolution'>#resolution</a>
 				<li><a href='#diffractionAiryDisk'>#diffractionAiryDisk</a>
 				<li><a href='#etendue'>#etendue</a>
 				<li><a href='#HET'>#HET</a>
@@ -3904,7 +3918,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 17-Feb-2025
+				Last update 18-Feb-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
