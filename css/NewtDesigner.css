@@ -142,7 +142,7 @@ thead tr th:first-child, tbody tr td:first-child {
 
 #telescopeEyepieceMode {
 	border: 0;
-	border-collapse: collapse;	
+	border-collapse: collapse;
 	cellpadding: 3;
 	cellspacing: 0;
 }
@@ -238,17 +238,19 @@ thead tr th:first-child, tbody tr td:first-child {
 }
 
 #diagChart {
-	margin-top: 20px;
+	//to align the charts comment this out --- margin-top: 20px;
 	margin-bottom: 20px;
-	margin-left: 20px;
-	width: 800px;
+	margin-left: 40px;
+	margin-right: 40px;
+	width: 700px;
 	height: 300px;
 }
 
 #diagIntegratedIllumChart {
 	margin-top: 20px;
 	margin-bottom: 20px;
-	margin-left: 20px;
+	margin-left: 40px;
+	margin-right: 40px;
 	width: 600px;
 	height: 300px;
 }
@@ -285,7 +287,7 @@ thead tr th:first-child, tbody tr td:first-child {
 
 .verticalAlignMiddle {
 	vertical-align: middle;
-}	
+}
 
 /* for accordion collapsing sections
    .active class added/removed in JS */
