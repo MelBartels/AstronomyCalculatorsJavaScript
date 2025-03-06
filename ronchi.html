@@ -45,7 +45,7 @@
 	<b>Focal ratio</b> = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
 	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='2.6' onfocus='select()' type='text'>
 	<br>
-	<b>Grating freq.</b> (bars per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
+	<b>Grating freq. (bars per unit of meas.)</b> = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
 	&emsp; <b>Grating offset from RoC</b> = <input class='inputText' name='gratingOffset' value='-0.2' onfocus='select()' type='text'>
 	or adjust
 	<input id='btnDecreaseGratingOffset' value='-' type='button'>
@@ -570,9 +570,9 @@
 
 	<p>Refactoring this extensively in order to solve for the pixel's 'x' location leads to this complex cubic equation:
 
-	<p>x^3 - x^2 * xAtGrating + x * (-RoC * gatingOffset * 2 - y^2) - RoC^2 * xAtGrating * (y^2 + 1) = 0
+	<p>x^3 - x^2 * xAtGrating - x * (RoC * gatingOffset * 2 + y^2) - RoC^2 * xAtGrating * (y^2 + 1) = 0
 
-	<p>If y=0, then simplifies to x^3 - x^2 * xAtGrating + x * (-RoC * gatingOffset * 2) - (RoC^2 * xAtGrating) = 0
+	<p>If y=0, then simplifies to x^3 - x^2 * xAtGrating - x * RoC * gatingOffset * 2 - RoC^2 * xAtGrating = 0
 
 	<p><img alt='' loading='' src='JoyOfMirrorMaking\Ronchi math.jpg' class='bigImage'>
 
@@ -614,7 +614,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 5-March-2025</h4>
+	<h4>by Mel Bartels, 1992; last update 6-March-2025</h4>
 	<br>
 	<br>
 </div>
