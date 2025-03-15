@@ -70,7 +70,6 @@ copyright Mel Bartels, 2016-2025 -->
 		<img alt='' loading='' src='14 inch guiding design.JPG'>
 	</div>
 	<div class='designerImage' id='designMirrorCellImage'>
-		<img alt='' loading='' src='30/mirror edge support aluminum strap.jpg'>
 	</div>
 	<div class='designerImage' id='designFocuserImage'>
 	</div>
@@ -349,8 +348,6 @@ copyright Mel Bartels, 2016-2025 -->
 					<li><a href='#etendue'>Etendue</a>
 					<li><a href='#HET'>Highest etendue (light throughput) telescopes</a>
 					<li><a href='#lowMags'>A range of widest fields, lowest magnifications</a>
-					<li><a href='#idealTelescope'>The ideal telescope</a>
-					<li><a href='#makingYourOwnTelescope'>Making your own telescope</a>
 				</ul>
 
 				<a name='scopePerformanceAsAFunctionOfExitPupil'></a>
@@ -508,6 +505,8 @@ copyright Mel Bartels, 2016-2025 -->
 
 				<p>Spacing between the eye's rod cells, used in night vision, suggest a similar resolution.
 
+				<p>Another perspective is to find the intersection between reducing aberrations of the eye (worse at large pupils) and the eye's ability to resolve stars' diffraction (least at large pupils). This intersection occurs at an exit pupil of about 3.5mm. This pupil produces the tightest diameter stellar image and the brightest stellar image.
+
 				<p>Higher magnifications make sufficiently bright objects easier to see, including close double stars. Smaller aperture scopes can profit from higher magnifications; larger apertures not so much, thanks to seeing.
 
 				<a name='diffractionAiryDisk'></a>
@@ -637,11 +636,12 @@ copyright Mel Bartels, 2016-2025 -->
 				<img class='mediumSizeImage' alt='' loading='' src='30/low power eyepieces table.jpg'>
 
 				<p>I find observationally that an <b>oversized exit pupil maximizes the brightness of the field</b> while maintaining the widest possible field. The eye is filled with as much light as it can handle: there is no etendue or light throughput wasted though some aperture may not be used. And it is easier to center the eye within the oversized exit pupil.
+			</div>
 
-				<a name='idealTelescope'></a>
-				<div id='idealTelescope'></div>
-				<h3>The ideal telescope</h3>
-
+			<br><br>
+			<div id='idealTelescope'></div>
+			<button class='accordion' id='idealTelescope'>The ideal telescope</button>
+			<div class='panel'>
 				<p>The scope that is best for you is the one maximizes the advantages that you see and minimizes the disadvantages that you wish to avoid. Here are topics to consider.
 
 				<p>An 8 inch [20cm] f6-f7 is an great choice when equipped with appropriate eyepieces. It is the perfect balance between aperture and portability, between short and long focal lengths; it is easy to align and point. Inexpensive eyepieces work nicely with a wide range of magnification. And if you wish to make your own primary mirror, it is a straightforward mirror that you can grind, polish and parabolize.
@@ -666,22 +666,70 @@ copyright Mel Bartels, 2016-2025 -->
 				<img alt='' loading='' class='mediumSizeImage' src='17 inch horseshoe.JPG'>
 				<img alt='' loading='' class='mediumSizeImage' src='24 inch Greenhill.jpg'>
 				<img alt='' loading='' class='mediumSizeImage' src='14 inch in alleyway.JPG'>
+			</div>
 
-				<a name='makingYourOwnTelescope'></a>
-				<div id='makingYourOwnTelescope'></div>
-				<h3>Making your own telescope</h3>
-
+			<br><br>
+			<div id='makingYourOwnTelescope'></div>
+			<button class='accordion' id='btnMakeYourOwnTelescope'>Making your own telescope</button>
+			<div class='panel'>
 				<p>Yes, you can make your own telescope including grinding your own mirror if you desire. You can make as much or as little of the telescope as you wish.
 
 				<p>Grit, perseverance and creativity are more useful than raw intellectual power. Telescopes are built with the hands as well as the mind.
 
-				<p>I suggest starting with an 8 inch or 10 inch mirror on a Dobsonian mount. 6 inch mirrors are rather small to hold.
+				<p>I suggest starting with a focal length of 48 inches and a mirror of 8 inch or 10 inches on a sidewalk mount.
 
 				<p><img alt='' loading='' class='mediumSizeImage' src='8 inch plastic tube.JPG'>
 
 				<p><a href='https://www.youtube.com/watch?v=snz7JJlSZvw' target='_blank'>John Dobson's video is a great place to start.</a>
 
 				<p><a href='JoyOfMirrorMaking/JoyOfMirrorMaking.html' target='_blank'>My pages on mirror making</a>.
+
+				<p>Here's how I design a telescope.
+
+				<ol>
+					<li>Settle on a focal Length. The focal length sets the tube length. How long of a tube can you carry about, use and store? I suggest 48 inches which fits in most cars.
+						<p>
+					<li>Chose a mirror diameter. It's a question of stuffing aperture. With a 48 inch focal length you can choose from:
+						<ul>
+							<li>4 inch F12
+							<li>6 inch F8
+							<li>8 inch F6
+							<li>10 inch F4.8
+							<li>12 inch f4
+							<li>16 inch F3
+						</ul>
+						<p>Smaller apertures resolve less, produce images that are less bright, are more easily collimated, easier to focus, less affected by seeing and are lighter and less expensive.
+						<p>
+					<li>Select a tube. A truss tube is more appropriate for larger scope sizes starting such as a 16 inch. Plus truss tubes often need shrouds. A solid tube is far easily and less complicated and more likely to hold collimation. A concrete form tube from the local building supply store is a time tested solution. Sometimes you can find thin walled plastic tubing. Carbon fiber is very lightweight but expensive.
+						<p>
+					<li>Pick a Focuser. Slower focal ratios have more focus tolerance. For example, a F12 is 60-thousandths of an inch, a F6 15-thousandths of an inch, and a F3 4-thousandths. Consequently slower scopes can use simple focusers, even sliding tubes, while faster scopes require two stage precision focusers.
+						<p>
+					<li>Decide on a diagonal size. See my <a href='#diagonal' target='_blank'>diagonal designer</a>.
+						<p>
+					<li>Pick a diagonal holder and a spider design. You can make your own or purchase.
+						<p>
+					<li>Buy or build a mirror cell, which holds the primary mirror and provides for aligning the mirror. A 3 pt back flotation with 2 pt edge support is fine. See my <a href='#mirrorCell' target='_blank'>mirror cell designer</a>.
+						<p>
+					<li>Chose a finder. A zero-power red dot finder works well, as do the far more expensive plate solving camera computers.
+						<p>
+					<li>Calculate the center of gravity. Use my <a href='#COG' target='_blank'>calculator</a>.
+						<p>
+					<li>Assemble the tube assembly.
+						<p>
+					<li>Select the altitude bearing radius and contact material which leads to the rocker and ground board.
+						<p>A sidewalk telescope uses a mount design popularized by John Dobson and the San Francisco Sidewalk Astronomers. The tube assembly 'rocks' up and down in a easy to make, non-precision design. Key is the PTFE (Teflon, UHMW, Nylon) on a strip of Formica or similar.
+						<p>Here are the parts you'll need to make.
+						<br><img alt='' loading='' class='largeSizeImage' src='reflector telescope parts labeled.jpg'>
+						<p>See my <a href='#rocker' target='_blank'>rocker designer</a>.
+						<p>
+					<li>Collimate the Optics.
+						<p>
+					<li>Align the finder.
+						<p>
+					<li>Verify using the Moon.
+				</ol>
+
+				<p>Here's a <a href='https://astroworkshop.com/dobsonian-project/' target='_blank'>comprehensive webpage detailing the design and construction of a large truss tube telescope</a>.
 			</div>
 
 			<br><br>
@@ -3786,7 +3834,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 10-March-2025
+				Last update 14-March-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
