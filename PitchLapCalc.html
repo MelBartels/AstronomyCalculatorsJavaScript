@@ -78,17 +78,15 @@
 	<p>First, find a tool rotation rate than zeros out the net direction. This is the tool's free spinning rate.
 	<br>Do this by minimizing the net direction value below the graphic. Then inspect the polishing action.
 	<div class='pitchLapDiv'>
-		<p>Rotational vector inspector
-		<p>Green CW rotational vector, red CCW rotational vector.<br>
-		For example, with mirror rotating at a fixed rate, what is 
-		<br>the rotation rate of a freely rotating tool (Net direction = 0)?
-		<div id='netRotationResults'></div>
+		<p>Rotational vector inspector.
+		<br>Green is CW, red is CCW.
+		<div id='freeToolRotationRate'></div>
+		or force a tool rotation rate of 
+		<input class='inputText' id='spinToolRotation' value='1.2' onfocus='select()' type='number' step='0.1'>
 		<p>Tool to mirror size ratio
 		<input class='inputText' id='spinToolToMirrorSizeRatio' value='0.8' onfocus='select()' type='number' step='0.1' min='0.1'>
 		<br>Mirror rotation rate
 		<input class='inputText' id='spinMirrorRotation' value='1' onfocus='select()' type='number' step='0.1' min='0'>
-		<br>Tool rotation rate
-		<input class='inputText' id='spinToolRotation' value='1.2189' onfocus='select()' type='number' step='0.25'>
 		<br>Tool offset
 		<input class='inputText' id='spinOffset' value='0.3' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
 		<br>Use pitch lap contact pattern from above? <input id='chBoxUsePitchLapContact' type='checkbox'>
@@ -101,6 +99,8 @@
 		<br><canvas class='spinPolishingActionTopViewCanvas' id='spinPolishingActionTopViewCanvas' width='400' height='400'></canvas>
 	</div>
 	<div class='pitchLapDiv'>
+		<hr>
+		<h3>Examples and math explanation</h3>
 		<p>Consider these three examples with the tool centered on the mirror. The tool matches the mirror's rotation in the first example, netting zero rotational action. In the second example the tool does not rotate at all, causing the mirror to generate a clockwise rotational vector. In the third example the tool spins faster than the mirror, causing counter-clockwise action.<br>
 		<img src='lib/pitch lap calc examples.jpg'>
 
@@ -110,7 +110,7 @@
 </div>
 
 <div class='pitchLapDiv'>
-	<p>Created 2017, last updated 27 Oct, 2024
+	<p>Created 2017, last updated 15 March, 2025
 	<br><br>
 </div>
 
