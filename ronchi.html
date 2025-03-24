@@ -58,7 +58,7 @@
 	&emsp; Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
-	&emsp; Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
+	&emsp; &emsp; Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
 	&emsp; Non-band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
 	&emsp; App bkgnd color (R,G,B) = <input class='inputTextLong' name='backgroundColor' value='240,240,240' onfocus='select()' type='text'>
 	<br>
@@ -66,7 +66,7 @@
 	<input name='RonchiGrid' value='yes' type='radio'>yes
 	<input name='RonchiGrid' value='no' type='radio'>no
 	&emsp; Circular zonal rulers = <input class='inputText' name='circularZonalRulerCount' value='4' onfocus='select()' type='text'>
-	&emsp; Ruler/Text color (R,G,B) = <input class='inputTextLong' name='rulerTextRGB' value='255,0,0' onfocus='select()' type='text'>
+	&emsp; &emsp; Ruler/Text color (R,G,B) = <input class='inputTextLong' name='rulerTextRGB' value='255,0,0' onfocus='select()' type='text'>
 	<br>
 	Null fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='number' step='1'>
 	&emsp; Nulled bullseye zones?
@@ -144,13 +144,12 @@
 <div class='exampleDiv'>
 	<b>Examples:</b>
 	&emsp; <b>My 13.2 inch F3.0 mirror</b>
-	<input id='btnPasteExampleRonchigram13Inside'   value='inside RoC'  type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram13Inside2'  value='thinned'     type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram13Outside'  value='outside RoC' type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigramGrid'       value='grid '       type='button' class='exBtn'>
-	&emsp; <b>12 inch F5 1/5th wavefront error</b>
-	<input id='btnPasteExampleRonchigram12F5Under'  value='inside RoC'  type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram12F5Under2' value='thinned'     type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13Inside'  value='inside RoC'  type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13Inside2' value='thinned'     type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram13Outside' value='outside RoC' type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigramGrid'      value='grid '       type='button' class='exBtn'>
+	&emsp; &emsp; <b>12 inch F5 1/5th wavefront error</b>
+	<input id='btnPasteExampleRonchigram12F5Under' value='thinned'     type='button' class='exBtn'>
 </div>
 
 <div id='discussionDiv' class='discussionDiv'>
@@ -253,17 +252,25 @@
 	<a name='accuracy'></a>
 	<h4>Ronchi accuracy</h4>
 
-	<p>With careful inspection using the Matching, Null, Tape Band and Grid tests, band locations for each zone can be determined to a small percent of the Ronchi band's width. Information is maximized and diffraction effects are minimized by selecting the grating frequency. This is good enough for our purposes: guiding our parabolization process while making a mirror, knowing that we conclude by adding the star test once snap focus at the eyepiece is achieved. Parabolize with the Matching Ronchi during the day, verify with the star test at night.
+	<p>Matching the Ronchi bands:
+	<ol>
+		<li>Side by side comparison: looking through the Ronchi grating while holding a printout or smartphone near. I've done some great mirrors with this approach, most notably a <a href='20inch.html' target='_blank'>20 inch F5</a> that I regularly used at 1000x (one night of perfect seeing I went to nearly <a href='6000X.html' target=-"blank'>6000x</a>). Other amateurs have made some excellent mirrors using this approach too. However, it takes very careful scrutiny. A lot of ghastly mirrors have been made this way too. Most authorities that critize the Ronchi test for subjectivity and inaccuracy are likely thinking of this manner.
+		<p>
+		<li>Overlaying a Ronchigram taken with a camera or phone onto the computer generated bands. I found this a leap forward: much easier to see small issues and to properly gauge overall correction. I've made most of my large fast mirrors with this, for example the <a href='30/30 inch mirrors log.html' target='_blank'>twin 30 inch F2.7s</a> and the example that I give above, my first fast mirror, a <a href='ZipDob/ZipDob.html' target='_blank'>13 inch F3.0</a>.
+		<p>
+		<li>An alternative approach is the Ronchi Tape Band test. I use this a lot: it is lightning quick and accurate. See the section on this version or <a href='ronchi.html#RonchiTape' target='_blank'>go here</a>.
+		<p>
+		<li>Software nulling then thinning the bands for sub-pixel resolution. This is equivalent to a DPAC (Double Pass AutoCollimation) test but with the advantage that the bands' exact locations can be measured against a reference line. Here's what a 1/5 wavefront undercorrected 12 inch F5 mirror looks like.
+		<p><img alt='' loading='' src='JoyOfMirrorMaking/higher resolution Ronchigrams discern finer errors.jpg' class=''>
+	</ol>
+
+	<p>Information is maximized and diffraction effects are minimized by selecting the grating frequency. This is good enough for our purposes: guiding our parabolization process while making a mirror, knowing that we conclude by adding the star test once snap focus at the eyepiece is achieved. Parabolize with the Matching Ronchi during the day, verify with the star test at night.
 
 	<p>I think of it this way: The Ronchi tester is very simple: a ruled grid, a light source and a smartphone to take the Ronchigram. The mirror's information is there but difficult to get at. I use software to make the information available. Still, one has to inspect carefully. I consider this a reasonable trade-off. But accuracy is not enough. A test that is easy and quick to analyze lets us to mentally focus on the next corrective action enabling us to execute many sessions in a single evening.
 
 	<p>Incidentally, a second test helps overcome the psychological tendency to optimistically overlook errors, hoping that our mirror will perform nicely. Seen from a different testing perspective, errors in the mirror are harder to ignore. Looking back, we can see them in the first testing method. Put another way, stand on a street corner, point up at the sky like you're spotting superman or superwoman. People ignore you - you're slightly wacko. Get a second person to join you, then a third. Now, people stop and ask what are you pointing at.
 
-	<p>Here's a study of a 12 inch [30cm] F5, undercorrected to 1/5th wavefront.
-	<p><img alt='' loading='' src='JoyOfMirrorMaking/12F5 one-fifth wave undercorrected study.jpg' class=''>
-
 	<p>Increasing the resolution of the Ronchigram allows small errors to be more easily seen. Match the software setting's Ronchigram resolution to the size of the Ronchigram taken by the camera. Be careful of the camera lens' distortion which can significantly alter the apparent parabolization. Here is the same study at a size of 800x800.
-	<p><img alt='' loading='' src='JoyOfMirrorMaking/higher resolution Ronchigrams discern finer errors.jpg' class=''>
 
 	<a name='IFcomparison'></a>
 	<h4>Comparing to interferometry</h4>
@@ -615,7 +622,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 16-March-2025</h4>
+	<h4>by Mel Bartels, 1992; last update 24-March-2025</h4>
 	<br>
 	<br>
 </div>
