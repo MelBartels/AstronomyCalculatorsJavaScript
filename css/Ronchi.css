@@ -71,15 +71,25 @@ html {
 	float: left;
 }
 
+.MLErrorsDiv {
+	float: left;
+}
+
 .discussionDiv {
 	float: left;
-	width: 44%;
+	width: 30%;
 	padding: 5px;
 }
 
 .zonalErrorsNotesDiv {
 	float: left;
-	width: 50%;
+	width: 30%;
+	padding: 5px;
+}
+
+.MLToleranceNotesDiv {
+	float: left;
+	width: 30%;
 	padding: 5px;
 }
 

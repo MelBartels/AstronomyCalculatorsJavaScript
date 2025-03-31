@@ -121,20 +121,27 @@
 
 <div id='zonalErrorsViewDiv' class='zonalErrorsViewDiv'>
 	<b>Zonal slope errors: side view</b>
-	<p>
 	<div id='zonesSideViewDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	<p>(Not the mirror surface profile)
+	(Not the mirror surface profile)
 	<p>Chain slopes?
 		<input name='chainSlopes' value='no' checked='checked' type='radio'>no
 		<input name='chainSlopes' value='inward' type='radio'>inward
 		<input name='chainSlopes' value='outward' type='radio'>outward
-	<p>Wavelength of light
+	<br>Wavelength of light
 	<input name='wavelengthLightUOM' value='imperial' type='radio'>imperial
 	<input name='wavelengthLightUOM' value='metric' type='radio'>metric
 	<br><label id='waveErrorsLabel'></label>
-	<br>Peak-valley M-L: <label id='MLErrorsLabel'></label>
+</div>
+
+<div id='MLErrorsDiv' class='MLErrorsDiv'>
+	<b>M-L errors with tolerance envelope</b>
+	<div id='MLErrorsViewDiv'>
+		<!-- canvas created in JavaScript -->
+	</div>
+	Offset <input class='inputText' name='MLOffset' value='0' onfocus='select()' type='number' step='0.02'>
+	&emsp; M-L Peak-Valley: <label id='MLErrorsLabel'></label>
 </div>
 
 <div class='clearFloat'></div>
@@ -173,6 +180,15 @@
 	<p>Look <a href='https://www.youtube.com/watch?v=NVlI_PUor-0' target='_blank'>here for a video explaining how to use the zonal slope errors</a>.
 	<p>For more, see <a href='ratemirrors.html' target='_blank'>Rating a Mirror</a> and <a href='NewtDesigner.html#diffractionAiryDisk' target='_blank'>Newtonian Telescope Designer, section on the Airy Disk</a>.
 	<br>Also see my <a href='PitchLapCalc.html' target='_blank'>pitch lap calculator</a> for strokes and lap patterns to match with polishing down the relatively high zones of the mirror.
+</div>
+
+<div id = 'MLToleranceNotesDiv' class='MLToleranceNotesDiv'>
+	<h4>Milles-Lacroix tolerance envelope notes</h4>
+	<p>If the mirror's zonal slopes are within the tolerance envelope, then the reflected light rays geometrically pass through the Airy disk. To avoid substantially altering a star's diffraction pattern, it is best if the light rays pass within the central 50% of the Airy disk.
+	<p>While the mirror's center rays reflect nearly straight through the Airy disk, the mirror's edge rays are angled through the Airy disk. Consequently the mirror's edge is more constrained than the mirror's center. This creates a tolerance envelope that looks like a tornado.
+	<br><img alt='' loading='' src='JoyOfMirrorMaking/MLToleranceTornado12F5.jpg' class=''><br>
+	To make the edge zones more discernable, I normalize the ratio between the zones and their tolerances.
+	<p>Use the offset to center the edge zones. These are the zones that we use when focusing a star image.
 </div>
 
 <div class='clearFloat'></div>
