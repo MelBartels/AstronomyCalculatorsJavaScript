@@ -3210,83 +3210,142 @@ copyright Mel Bartels, 2016-2025 -->
 			<div id='panMount'></div>
 			<button class='accordion' id='btnPanMount'>The pan mount</button>
 			<div class='panel'>
+				<p>Mel Bartels, summer 2024
+
 				<p>A freezing howling winter night found a friend and I high in the remote Oregon mountains. My 10 inch F5 mirror having frozen over, I took out my Astroscan, while my friend busied himself calling for the spirit of the mountain, Bigfoot, to come observe with us, a brief discussion of Sasquatch dialect having ensured immediately prior. I was speechless: breathtaking wide field views of countless stars and nebulosity in Orion so bright that I winced. That little ballscope was a joy to use, though not the best fit for my backpack, banging into my back as I trudged up the trail. Alas, Bigfoot never showed.
-				<br><img class='mediumSizeImage' alt='' loading='' src='https://upload.wikimedia.org/wikipedia/commons/6/6b/Astroscan.jpg'>
-				<br>By AndrewBuck - Own work, CC BY-SA 4.0, <a href='https://commons.wikimedia.org/w/index.php?curid=3797504' target='_blank'>https://commons.wikimedia.org/w/index.php?curid=3797504</a>
-				&emsp;<a href='https://en.wikipedia.org/wiki/Astroscan' target='_blank'>Wikipedia article on the Astroscan</a>
+				
+				<p>The 6 inch F2.8 on the manual push 3 axis pan followed by the scope on the equatorial tracking base.
+				<br><img alt='' loading='lazy' class='' src='pan\scope and pan on base tipped.jpg'>
+				<img alt='' loading='lazy' class='' src='pan\6F2.8 on drive base.jpg'>
 
-				<p>I love the motions of my 3-axis double flex rocker telescopes. I would also love me some tracking for my larger scope. At high power objects exit stage right quickly and refinding them is not a guarantee. Though I do have Eason’s SkySolve (a plate solving finder connected to SkySafari) which makes mincemeat finding objects. Still, as I sketch to observe, the lack of tracking is less than ideal.
+				<p>A simple to make pan that acts as a smaller portion of a ballscope, enabling 3 axis motion and sidereal tracking with a constant speed motor. The 'cutaway ballscope' works because the eyepiece is positioned slightly upward, never upside down.
 
-				<p>Having designed and sold a computer control system for altazimuth telescopes, I was annoyed by the time taken initializing the software to the sky then later dealing with drive slippages. Appealing is a simple constant speed motor driving the telescope in an equatorial motion sans field rotation.
+				<p>Besides this webpage, <a href='https://www.youtube.com/watch?v=5kn7q89L4Fg&t=11087s' target='_blank'> check out my presentation at the Altaz 2024 conference</a>. I describe the pan mount at the end of my one hour talk.
 
-				<p>A ballscope with an Oltion single motor drive (and two idlers) or a Lemay two motor drive (and a universal transfer bearing) sounds ideal. But ballscopes do not scale well.
+				<h2>Features</h2>
 
-				<p>While the co-inventor of the Astroscan (Sperling) says that 95,000 were sold making it the most popular telescope of all time, and the PortaBall (Smidtka) was a commercial success, I find scaling up the ballscope design problematic. Naively, my 30 inch f2.7 telescope needs a ball of 6 to 7 feet diameter. I estimate a weight of 300-500 pounds for the fiberglass ball itself. Not to mention the jigs needed to build and smooth a ball of this size. Using Oltion’s rule that the smallest ball is 1.5x the mirror’s diameter (the tracking version precludes looking below the celestial pole) calls for a 4 foot diameter ball that weighs 130 pounds along with an equally massive counterweight - too heavy. All that weight means that the ball needs to be thicker to be rigid and that more counterweight is needed! And it will not fit into my car. Can I cut the ball down?
+				<h3>Advantages</h3>
+				<ul>
+					<li>Equatorial tracking with constant speed motor and no field rotation.
+					<li>Combines azimuth motion with limited alt2 motion; full alt1 motion.
+					<p>
+					<li>Converting existing scopes is doable: replace rocker and ground board with pan integrated with alt bearings that include a fluid head.
+					<li>Pan vs rocker: is tracking at constant speed and 3axis motion worth it?
+					<li>Pan made from squirrel baffle; go to sheet metal shop and have them cut out and roll the pan (see my formula for how to design).
+					<p>
+					<li>The pan is easily made from a piece of flat sheet metal.
+					<li>Sheet metal pan is much lighter than a full ball.
+					<li>Simulates larger ballscopes where the ball encompass most of the tube assembly.
+					<li>Ballscopes typically have a counterweight behind the mirror; the pan design needs no counterweght.
+					<p>
+					<li>A nylon ball powered by a constant speed motor is used to track the stars. The motor turns the drive ball continuously. No reset or rewind when the end of travel is reached. The pan simply stalls out.
+					<li>To aim the scope about the sky, I push the scope around which causes the pan to slide on the balls.
+					</ul>
 
-				<p>In the 2000’s innovative ballscope ideas flowered. They include:
+				<h3>Disadvantages</h3>
+				<ul>
+					<li>Like an equatorial table, the pan mount is tied to a specific latitude +-5-10 deg. It is possible to build multiple drive bases for different latitudes.
+				</ul>
+
+				<h2>Why the pan mount instead of a ballscope?</h2>
+
+				<p><b>Weight, size and complexity</b> in constructing the ball for larger telescopes. A ball for my for 30 inch F2.7 would be 6-7 feet in diameter with a surface area of 113-201 ft^2. The weight of 1/4" fiberglass is 2.6 lbs/ft^2 so total weight is 300-500 lbs. Oltion's rule is 1.5x the mirror diameter with a 100 lb cwt; here the ball's weight of 50 sqft*2.6 = 130 lbs (total OTA+counterweight+ball weight ~ 350 lbs).
+
+				<h2>Inspiration</h2>
+
+				<p>I was inspired by a small group of inventors playing around with and building ballscopes, specifically Jerry Oltion's Trackball which I have used myself and Pierre Lemay's asymmetric ballscope with dual tracking wheels. I was also inspired by equatorial tables and an article by Richard Berry explaining how the tracking platform evolves from horseshoe to split ring to cutdown split ring with limited tracking.
+
+				<p>Other ballscope variations.
 				<ol>
-					<li>Conlin's Sudiball <a href='https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/SudiBall.pdf' target='_blank'>https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/SudiBall.pdf</a>
-					<li>CN discussion <a href='https://www.cloudynights.com/topic/510223-sudiball-telescope-mounts/' target='_blank'>https://www.cloudynights.com/topic/510223-sudiball-telescope-mounts/</a>
-					<li>Lott's CloverBall and Pseudo-ball <a href='https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/SudiBall/cloverball/Chuck_Lott_cloverball.html' target='_blank'>https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/SudiBall/cloverball/Chuck_Lott_cloverball.html</a>
-					<li>various hoop and skeleton ballscopes <a href='https://stellafane.org/convention/historic/photos1998/P000337.jpg' target='_blank'>https://stellafane.org/convention/historic/photos1998/P000337.jpg</a>, <a href='https://stellafane.org/convention/historic/photos1999/P001479.jpg' target='_blank'>https://stellafane.org/convention/historic/photos1999/P001479.jpg</a>
-					<li>More references from Conlin <a href='https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/' target='_blank'>https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/</a>
+					<li><a href='https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/SudiBall.pdf' target='_blank'>Tom Conlin's Sudiball</a>.
+					<li><a href='https://ix.cs.uoregon.edu/~tomc/Hobbies/Astronomy/ATM/SudiBall/cloverball/Chuck_Lott_cloverball.html' target='_blank'>Chuck Lott's CloverBall and Pseudo-ball</a>.
+					<li>Various hoop and skeleton ballscopes
+						<a href='https://stellafane.org/convention/historic/photos1998/P000337.jpg' target='_blank'>example 1</a>
+						and <a href='https://stellafane.org/convention/historic/photos1999/P001479.jpg' target='_blank'>example 2</a>
+					<li>Also see the <a href='https://www.cloudynights.com/topic/510223-sudiball-telescope-mounts/' target='_blank'>CN discussion including more ballscope variations</a>.
 				</ol>
+				<p>These were essentially designed to avoid the trouble, expense and weight of a full ball.
 
-				<p>I concentrated on removing parts of the ball that will never come into contact with a 3 point base assuming that I will not observe with the eyepiece upside down.
-				<br><img class='largeSizeImage' alt='' loading='' src='pan/pan mount evolution.jpg'>
+				<p>Commercial ballscopes: <a href='https://en.wikipedia.org/wiki/Astroscan' target='_blank'>Astroscan</a>, <A href='https://www.cloudynights.com/topic/815895-ed-ting-reviews-125-portaball/' target='_blank'>PortaBall</a>. And of course the <a href='https://cdn.britannica.com/41/116541-050-ABAB1C11/Isaac-Newton-reflecting-telescope.jpg' target='_blank'>original ball mounted scope is by Isaac Newton</a>.
 
-				<p>The blue scope is a hemispherical design as built by Lemay. The yellow scope, my final iteration, is the most minimal design but requires an altitude motion. Note that the popular Newtonian optical tube assembly with large altitude bearings can be ‘dropped into’ this design with minimal modification.
+				<p>Tracking inspiration came from <a href='http://www.jerryoltion.com/trackball.htm' target='_blank'>Jerry Oltion</a>, <a href='https://telescopelemay.com/language/en/20-inch-ball-scope/' target='_blank'>Pierre Lemay</a>, <a href='https://www.cloudynights.com/topic/652154-help-design-a-ballscope-goto-system/' target='_blank'>Alphonse Pouplier</a> and <a href='https://stellafane.org/convention/historic/photos1967/hous0018.jpg' target='_blank'>Norm James</a>.
 
-				<p>Recently in the middle of the night it occurred to me that this last iteration is very close to a cone shape. No curved building jig, no curved sanding jig. How close? The difference in diameter between the cone’s center and edge is about 1%. That translates to a maximum tracking error of an arc-second over 10 seconds of tracking time. Certainly acceptable visually and doable with a digital camera using stacking software (individual exposures are short with my sub-F3 telescopes).
+				<h2>Evolution</h2>
 
-				<p>How to design the pan? A painfully simple formula suffices.
-				<br><img class='largeSizeImage' alt='' loading='' src='pan/formula illustrated.jpg'>
+				<p>I studied removing sections of a ballscope like this.
+				<br><img alt='' loading='lazy' class='' src='pan\pan mount evolution.jpg'>
 
-				<p>A piece of paper wrapped into a cone on a yogurt container showed me that the cone would slide easily and track equatorially if given the right push. I decided to build a prototype using my 6 inch F2.8 tube assembly. But how to make the cone?
+				<p>I cut out a paper model to verify smooth motion and sidereal tracking. I then purchased an inexpensive squirrel baffle made from sheet metal at a hardware store.
+				<br><img alt='' loading='lazy' class='' src='pan\initial playthings.jpg'>
 
-				<p>I found a squirrel baffle at the local hardware store, cut off the tip and fiberglassed it with a couple of wood rings.
-				<br><img class='mediumSizeImage' alt='' loading='' src='pan/initial playthings.jpg'>
-				<img class='mediumSizeImage' alt='' loading='' src='pan/pan wood rings fiberglass detail.jpg'>
+				<p>How to cut the pan is easily calculated.
+				<a href='formula illustrated.jpg' target='_blank'>
+				<br><img alt='' loading='lazy' class='bigImage' src='pan\formula illustrated.jpg'>
+				</a>
 
-				<p>The pan deviates insignificantly from spherical when tipped at reasonable angles.
-				<br><img class='mediumSizeImage' alt='' loading='' src='pan/ellipse at max tilt is very close to spherical.jpg'>
+				<h2>6 inch [15cm] F2.8 prototype</h2>
 
-				<p>Adding three PTFE (Teflon) contact points makes for a nice motion at the eyepiece. Second picture courtesy Courrier.
-				<br><img class='mediumSizeImage' alt='' loading='' src='pan/scope and pan on base tipped 2.jpg'>
-				<img class='mediumSizeImage' alt='' loading='' src='pan/Nate 2.jpg'>
-				<img class='mediumSizeImage' alt='' loading='' src='pan/scope and pan on base tipped.jpg'>
+				<img alt='' loading='lazy' class='' src='pan\scope and pan on base tipped 2.jpg'>
+				<img alt='' loading='lazy' class='' src='pan\scope and pan on base tipped.jpg'>
 
-				<p>The pan and base are large in comparison to the small stubby F2.8 scope but then consider the equivalent ballscope design, a ball which would encompass most of the tube assembly (unless I added a counterweight, which is pretty common in ballscopes in order to reduce the diameter of the ball).
+				<p>The altitude brake is two Teflon pads pressed against each other. Wonderfully smooth and able to handle the unbalance caused by a heavy eyepiece and coma corrector.
+				<br><img alt='' loading='lazy' class='' src='pan\alt bearing 2 Teflon pads back to back.jpg'>
 
-				<p>I designed new altitude bearings from two pieces of PTFE (Teflon) that rub against each other. These are slick; the tube assembly moves nicely in altitude.
-				<br><img class='mediumSizeImage' alt='' loading='' src='pan/alt bearing 2 Teflon pads back to back.jpg'>
+				<p>Details of the two wood rings that I cut out and fiberglassed to the squirrel baffle. The pan moves easily in a plastic bucket and demonstrates that it is essentially spherical.
+				<br><img alt='' loading='lazy' class='' src='pan\pan wood rings fiberglass detail.jpg'>
+				<img alt='' loading='lazy' class='' src='pan\ellipse at max tilt is very close to spherical.jpg'>
 
-				<h4>Tracking</h4>
+				<p>The center of gravity is calculated from all the moving parts: telescope and pan.
 
-				<p>Inspired by modern equatorial tables, we design two tracking arcs that intersect the pan like this. Note that the polar axis or latitude angle can be different than the pan's angle. This is important otherwise the pan may become too large. Here are three designs: the initial arcs, a greatly reduced southern arc, and a southern pivot.
-				<br><img class='largeSizeImage' alt='' loading='' src='pan/pan tracking arcs and pivots.jpg'>
+				<h2>Tracking</h2>
 
-				<p>Back in the early 2000’s I came up with an <a href='#omniLatitudeET' target='_blank'>Omni-latitude design</a>.
+				<p>Driving the pan is similar to driving a ballscope, per Jerry Oltion and Pierre Lemay. I estimate a +-1% tracking error because of the flat pan instead of a rounded ball segment.
 
-				<p>Here you can see the concept. Note how the platforms for site latitude of 45 degrees and site latitude of 30 degrees are identical; the only difference being that the two drive motors operate at different rates causing the platform to track on different lines of latitude. There is a slight difference in the platforms' ending angle. The platform on the left tracked for site latitude of 45 degrees, while the platform on the right tracked for a site latitude of 30 degrees.
-				<br><img class='mediumSizeImage' alt='' loading='' src='et/et level.jpg'>
-				<img class='mediumSizeImage' alt='' loading='' src='et/et ending position for 45 deg and 30 deg latitudes.jpg'>
+				<p>The pan mount's tracking wheels use great circles about the latitude axis.
+				<br><img alt='' loading='lazy' class='bigImage' src='pan\pan tracking arcs and pivots.jpg'>
 
-				<p>Here is how the pan slides with an hour of tracking motion. Note that the northern high point of the pan moves or slides a bunch but that the southern high point of the pan hardly moves... Can this point become a pivot since the polar axis just touches the top of the pan? Here the tracking error depends on where the scope is pointed in the sky, ranging from 0 to a rather large 3 arc-seconds per second tracking deviation. For reference, the equatorial tracking rate at the celestial equator on the meridian is 15 arc-seconds of motion per second of time.
-				<br><img class='mediumSizeImage' alt='' loading='' src='pan/tracking study 2.jpg'>
+				<p>The northern arc can be reduced to a single pivot.
+				<br><img alt='' loading='lazy' class='' src='pan\tracking study 2.jpg'>
 
-				<p>Another idea is to ‘slide’ the pan in such a way that this short nearly linear motion becomes stationary. See my <a href='#turretET' target='_blank'>turret table discussion</a>.
+				<h3>Initial tracking validation</h3>
 
-				<p>It might be possible to 'slide' the pan equatorially using a hexapod drive where six arms supporting three points tilt and vary in length as needed. Naively six actuators would be needed, however since we only want the pan to equatorial track and since the third support point can be stationary, only two actuators might be needed. The motors need to move at slightly different rates during the hour of tracking, controlled by a microcontroller. The microcontroller can carry a table of rates so that the this idea would work for all latitudes, that is, would be an omni-latitude design. Just tell the microcontroller the desired latitude. The three touch points need to be captured in a ring. This is similar to an idea that Richard Berry and I came up with in the 1990's.
-				<br><img class='mediumSizeImage' alt='' loading='' src='Table2.JPG'>
+				<p>Here's the tracking base that I built.
+				<br><img alt='' loading='lazy' class='' src='pan\drive base 1.jpg'>
+				<img alt='' loading='lazy' class='' src='pan\scope on drive base 1.jpg'>
 
-				<p>Finally the pan can be added to a modified equatorial table design like this. The equatorial table wings are inspired by Jerry Oltion's 20 inch.
-				<br><img class='mediumSizeImage' alt='' loading='' src='pan/30 inch F2.7 pan with circular ET.jpg'>
-				<a href='http://www.jerryoltion.com/flexeq.htm' target='_blank'><img class='mediumSizeImage' alt='' loading='' src='pan/Jerry_with_20_on_platform.jpg'></a>
+				<p>It works - the tracking motions are as hoped!
 
-				<p>Further thought needs to be given on how to move the telescope-pan smoothly by hand, yet when the telescope-pan is let go, tracking resumes. Drive wheels of Nylon that drive but slip when the scope is hand pushed? Perhaps a clutch ala Allen?
+				<p>The rotational motion of the Nylon ball which being aimed at the celestial pole, rotates equatorially, is being transferred to the pan, causing the pan to rotate equatorially about its axis.
 
-				<p>Mel Bartels, July 2024
+				<p>Here are three videos showing the tracking arc where <a href='6F2.8 manual tracking.jpg' target='_blank'>I spin one drive ball<a/>: aimed at the pole, aimed at the celestial meridian and aimed at the western horizon (I'm at 45 deg north latitude):
+				<a href='https://drive.google.com/file/d/1EtD8s-p2sHC_50-aSryL-8RbDWLQrInB/view?usp=sharing' target='_blank'>video 1,</a>
+				<a href='https://drive.google.com/file/d/1n9xbjB7QjXMK0CCbDMq0jWnsmaOYebEg/view?usp=sharing' target='_blank'>video 2,</a>
+				<a href='https://drive.google.com/file/d/1sAhwwbAVfK-uTAGIf5PMbeUgRi8F7-yX/view?usp=sharing' target='_blank'>video 3</a>.
+				<br>Here are three more videos where I push the pan, allowing it to follow the balls' natural equatorial motion:
+				<a href='https://drive.google.com/file/d/1_qh_NwCHmzxfSpdr0q7PfMj8VOBFzD7l/view?usp=sharing' target='_blank'>video 4,</a>
+				<a href='https://drive.google.com/file/d/14Zuq3GuCPq_8aAWTfLvZ80AXvt2DS5RC/view?usp=sharing' target='_blank'>video 5,</a>
+				<a href='https://drive.google.com/file/d/1UiCTjyRwGBw8VK4gahCCTPJPLFZGpQHr/view?usp=sharing' target='_blank'>video 6</a>.
+
+				<br>There are balance problems to fix because the pan weighs more than I originally estimated.
+
+				<h3>Tracking notes for digital imaging with the 6 inch F2.8</h3>
+
+				<p>image scale = 3.37 deg/inch = 12,133 arc-seconds/inch
+				<br>25400 microns per inch so image scale also = 0.48 arc-seconds/micron
+
+				<p>max tracking rate at celestial equator = 15 arc-seconds / second_of_time
+				<br>1% variation in tracking rate = 0.15 arc-seconds / second_of_time
+
+				<p>tolerance for 1% variation in tracking = 3 seconds_of_time if pixel size = 1 micron
+				<br>ASI2600MC pixel size is 3.76 microns, so tracking tolerance for 1 pixel drift is 11 seconds_of_time; binned 2x2 is 22 seconds_of_time
+				<br>therefore track and stack time per image ~ 10-20 seconds_of_time
+				<br>For the 30 inch F2.7 with the camera binned 2x2 ~ 4 seconds_of_time for 1% tracking rate variation
+
+				<h2>Proposed 30 inch</h2>
+
+				<p>The 45 degree pan of the 6 inch is fine for that size, but in larger apertures becomes too big. The pan ideally needs to be closer to 30 degrees. This fits nicely under the 30 inch f2.7. Here are two designs. The first is pan only and the second adds a equatorial tracking ring that separates the tracking motion from the azimuth + limited altitude2 motion.
+				<br><img alt='' loading='lazy' class='' src='pan\30 inch proposed pan.jpg'>
+				<img alt='' loading='lazy' class='' src='pan\30 inch F2.7 pan with circular ET.jpg'>
 			</div>
 
 			<br><br>
@@ -3879,7 +3938,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 5-May-2025
+				Last update 11-May-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
