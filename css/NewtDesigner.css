@@ -285,6 +285,12 @@ thead tr th:first-child, tbody tr td:first-child {
 	height: 30%;
 }
 
+.bigSizeImage {
+	margin: 10px;
+	width: 60%;
+	height: 60%;
+}
+
 .verticalAlignMiddle {
 	vertical-align: middle;
 }
