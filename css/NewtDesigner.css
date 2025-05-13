@@ -135,7 +135,8 @@ thead tr th:first-child, tbody tr td:first-child {
 #focalRatiosForEyepiecesWith8mmExitPupil td,
 #apertureFocalRatioConstantFocalLength td,
 #diagResultsTable td,
-#offAxisMaskResultsTable td {
+#offAxisMaskResultsTable,
+#panMountComparisonTable td {
 	table-layout: fixed;
 	width: auto; !important
 }
