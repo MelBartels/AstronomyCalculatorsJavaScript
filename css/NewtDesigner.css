@@ -135,10 +135,17 @@ thead tr th:first-child, tbody tr td:first-child {
 #focalRatiosForEyepiecesWith8mmExitPupil td,
 #apertureFocalRatioConstantFocalLength td,
 #diagResultsTable td,
-#offAxisMaskResultsTable,
-#panMountComparisonTable td {
+#offAxisMaskResultsTable td {
 	table-layout: fixed;
-	width: auto; !important
+	width: auto; !important;
+}
+
+#panMountComparisonTable {
+	border-spacing: 5px;
+}
+
+#panMountComparisonTable td {
+	border: 1px solid gray;
 }
 
 #telescopeEyepieceMode {
