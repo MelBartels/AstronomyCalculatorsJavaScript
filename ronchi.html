@@ -58,15 +58,10 @@
 	&emsp; Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
-	&emsp; &emsp; Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
-	&emsp; Non-band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
-	&emsp; App bkgnd color (R,G,B) = <input class='inputTextLong' name='backgroundColor' value='240,240,240' onfocus='select()' type='text'>
-	<br>
-	Ronchi grid?
+	&emsp; Circular zonal rulers = <input class='inputText' name='circularZonalRulerCount' value='4' onfocus='select()' type='text'>
+	&emsp; Ronchi grid?
 	<input name='RonchiGrid' value='yes' type='radio'>yes
 	<input name='RonchiGrid' value='no' type='radio'>no
-	&emsp; Circular zonal rulers = <input class='inputText' name='circularZonalRulerCount' value='4' onfocus='select()' type='text'>
-	&emsp; &emsp; Ruler/Text color (R,G,B) = <input class='inputTextLong' name='rulerTextRGB' value='255,0,0' onfocus='select()' type='text'>
 	<br>
 	Null fill factor = <input class='inputText' name='distortionResolutionFactor' value='2' onfocus='select()' type='number' step='1'>
 	&emsp; Nulled bullseye zones?
@@ -76,6 +71,12 @@
 	<input name='thinBands' value='yes' type='radio'>yes
 	<input name='thinBands' value='no' type='radio'>no</b>
 	&emsp; <input id='btnFlipThinning' value='Flip thinning/bands/transparency' type='button'>
+	<br>
+	<br>
+	Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
+	&emsp; Non-band color (R,G,B) = <input class='inputTextLong' name='backgroundBandColorRGB' value='255,255,255' onfocus='select()' type='text'>
+	&emsp; App bkgnd color (R,G,B) = <input class='inputTextLong' name='backgroundColor' value='240,240,240' onfocus='select()' type='text'>
+	&emsp; Ruler/Text color (R,G,B) = <input class='inputTextLong' name='rulerTextRGB' value='255,0,0' onfocus='select()' type='text'>
 	<p>
 	Save and get data to local storage
 	<input id='btnPutData' value='Save data with name: ' type='button'>
@@ -641,7 +642,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 21-April-2025</h4>
+	<h4>by Mel Bartels, 1992; last update 15-June-2025</h4>
 	<br>
 	<br>
 </div>
