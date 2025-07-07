@@ -1850,10 +1850,15 @@ copyright Mel Bartels, 2016-2025 -->
 			<input id='btnCopySelectedEyepieceToEyepieceTable' value='Copy to eyepiece table below' type='button'>
 
 			<br><br>
-			<p>Sort <b>Select eyepiece</b> selection by
+			<p>Sort <b>'Select eyepiece'</b> by
 			<input name='btnEyepieceSort' value='manufacturer' checked='checked' type='radio'> manufacturer
 			<input name='btnEyepieceSort' value='focalLength' type='radio'> focal length
 			<input name='btnEyepieceSort' value='realFieldOfView' type='radio'> true field of view
+
+			<!-- no default, ie, leave out checked='checked' because initial order set by default values entered in $(window).ready() -->
+			&emsp;&emsp;&emsp;&emsp;Sort <b>eyepiece table</b> by
+			<input name='btnEyepieceTableSort' value='focalLength' type='radio'> focal length
+			<input name='btnEyepieceTableSort' value='realFieldOfView' type='radio'> true field of view
 
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
@@ -3905,7 +3910,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 6-July-2025
+				Last update 7-July-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
