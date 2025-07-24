@@ -1085,6 +1085,33 @@ copyright Mel Bartels, 2016-2025 -->
 			</div>
 
 			<br><br>
+			<div id='focusingTolerance'></div>
+			<button class='accordion' id='btnFocusingTolerance'>Focusing tolerance</button>
+			<div class='panel'>
+				<p>A. E. Conrady gives the formula for the limits of de-focus where the optical path differences do not exceed the Rayleigh limit. In other words, the optical path difference between inside of perfect focus and outside of perfect focus does not exceed 1/4th wave.
+				
+				<p>Focusing tolerance = wavelength of light / sin^2(angle of light from the mirror's edge to the focal point).
+				
+				<p>The sin of the light's angle is mriror radius / focal length; 2 sin (angle) is twice this, which is the reciprocal of the focal ratio.
+				
+				<p>Therefore the formula simplies down to 0.000088 * the square of the focal ratio.
+				
+				<p>Here is a table of focusing tolerances per focal ratio:
+				
+				<table id='focuserTolerance'>
+					<tr><th>Focal ratio <th>Focus tolerance
+					<tr><td>f3  <td>0.0008 inches [0.02mm]
+					<tr><td>f4  <td>0.0014 inches [0.04mm]
+					<tr><td>f5  <td>0.0022 inches [0.06mm]
+					<tr><td>f6  <td>0.0032 inches [0.08mm]
+					<tr><td>f8  <td>0.0056 inches [0.14mm]
+					<tr><td>f10 <td>0.0088 inches [0.22mm]
+				</table>
+				
+				<p>Fast scopes demand precision focusers with ultra-fine adjustment and no tilt.
+			</div>
+
+			<br><br>
 			<div id='turbulence'></div>
 			<button class='accordion' id='btnTurbulence'>Seeing and atmospheric turbulence: bad optics or bad seeing?</button>
 			<div class='panel'>
@@ -2496,6 +2523,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<p>My wire spider for the 25 inch [64cm] f2.6. How I wired my spider for my 20.5 inch [52cm] f4.8.
 			<br><img alt='' loading='' src='25/wire spider.jpg'>
 			<img alt='' loading='' src='TrilatUpperEndGeneral2.jpg'>
+			<img alt='' loading='' src='wire spider attachment.jpg'>
 
 			<p>Wire spiders were popularized by Henry E. Paul in his "Telescopes for Skygazing", 1965, and in Sky and Telescope articles in the 1950's and 1960's. In the early 2000's, Jonathan Pogson, Mark Cowan, Jerry Oltion, Larry Shaper and I began investigating and using wire spiders. The reason is that we found that wire spiders give refractor like views.
 
@@ -3315,7 +3343,8 @@ copyright Mel Bartels, 2016-2025 -->
 				</ol>
 				<p><img alt='' loading='lazy' class='mediumSizeImage' src='pan\CG study.jpg'>
 
-				<p>The altitude brake is two Teflon pads pressed against each other. Wonderfully smooth and able to handle the unbalance caused by a heavy eyepiece and coma corrector.
+				<p>The altitude brake is two Teflon pads pressed against each other. Wonderfully smooth and able to handle the unbalance caused by a heavy eyepiece and coma corrector. This idea comes from a large equatorial mounting in a Sky and Telescope magazine article from September 1959, page 643-, by Walter Seerau. The scope featured a polar axis of two large machined metal discs with a thin Teflon sheet between for slewing. When let go the mount would resume tracking. As a result of that article, older ideas such as thin leather were successfully tried.
+
 				<br><img alt='' loading='lazy' class='mediumSizeImage' src='pan\alt bearing 2 Teflon pads back to back.jpg'>
 			</div>
 
@@ -3909,7 +3938,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 7-July-2025
+				Last update 24-July-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end

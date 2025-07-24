@@ -135,9 +135,14 @@ thead tr th:first-child, tbody tr td:first-child {
 #focalRatiosForEyepiecesWith8mmExitPupil td,
 #apertureFocalRatioConstantFocalLength td,
 #diagResultsTable td,
+#focuserTolerance td,
 #offAxisMaskResultsTable td {
 	table-layout: fixed;
 	width: auto; !important;
+}
+
+#focuserTolerance th {
+	padding: 0px 20px 0px 0px;
 }
 
 #panMountComparisonTable {
