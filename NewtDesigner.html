@@ -1089,15 +1089,15 @@ copyright Mel Bartels, 2016-2025 -->
 			<button class='accordion' id='btnFocusingTolerance'>Focusing tolerance</button>
 			<div class='panel'>
 				<p>A. E. Conrady gives the formula for the limits of de-focus where the optical path differences do not exceed the Rayleigh limit. In other words, the optical path difference between inside of perfect focus and outside of perfect focus does not exceed 1/4th wave.
-				
+
 				<p>Focusing tolerance = wavelength of light / sin^2(angle of light from the mirror's edge to the focal point).
-				
+
 				<p>The sin of the light's angle is mriror radius / focal length; 2 sin (angle) is twice this, which is the reciprocal of the focal ratio.
-				
+
 				<p>Therefore the formula simplies down to 0.000088 * the square of the focal ratio.
-				
+
 				<p>Here is a table of focusing tolerances per focal ratio:
-				
+
 				<table id='focuserTolerance'>
 					<tr><th>Focal ratio <th>Focus tolerance
 					<tr><td>f3  <td>0.0008 inches [0.02mm]
@@ -1107,7 +1107,7 @@ copyright Mel Bartels, 2016-2025 -->
 					<tr><td>f8  <td>0.0056 inches [0.14mm]
 					<tr><td>f10 <td>0.0088 inches [0.22mm]
 				</table>
-				
+
 				<p>Fast scopes demand precision focusers with ultra-fine adjustment and no tilt.
 			</div>
 
@@ -1884,7 +1884,7 @@ copyright Mel Bartels, 2016-2025 -->
 
 			&emsp;&emsp;&emsp;&emsp;Sort <b>eyepiece table</b> by
 			<input name='btnEyepieceTableSortFocalLength' value='focal  length' type='button'>
-			<input name='btnEyepieceTableSortFieldOfView' value='real  field of view' type='button'> 
+			<input name='btnEyepieceTableSortFieldOfView' value='real  field of view' type='button'>
 
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
@@ -3112,6 +3112,18 @@ copyright Mel Bartels, 2016-2025 -->
 			<img alt='' loading='' class='mediumSizeImage' src='20inch backyard 1.jpg'>
 			<img alt='' loading='' class='mediumSizeImage' src='20TriDob.jpg'>
 			<img alt='' loading='' class='mediumSizeImage' src='ZipDob/ZipDobII/side.JPG'>
+
+			<h2>Truss arrangements</h2>
+
+			<p>Ivar Hamberg in 1982 built the first amateur truss tube telescope. See Telescope Making issue 17. He used an 8 tube truss, attached to the inside of the mirror box. Here is a picture from <a href='https://escribiendoenpiedra.blogspot.com/2008/02/el-diseo-de-john-dobson.html' target='_blank'>a Spanish website</a><br>
+			<img alt='' loading='' class='mediumSizeImage' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgFeslzYWPvAr757hFWDyDAtsZ3tZU6QBdIWjsJW1xlLUJIHuH9OAmz-zUuUaL0LJUNkuXjorvDf1Ie1w90qXp-Ny-dA2oauv9lCN7AORDD6LKODMqHHZ4MOtZ_u-biDbSbkZWxiF2lffk/s1600/Dobson1.jpg'>
+
+			<p>As you can see, it was quite revolutionary, enabling the transport of large Dobsonians in small cars.
+
+			<p>The vast majority of truss tube Dobs are of this design. Another design that works nicely and looks elegant is Albert Highe's 3 truss arrangement. It is important to clamp the tubes, not letting them pivot on their connectors. Doing so increases the stiffness ~10x. Still the design sags another 10x over tradtional truss designs, so it is important to use larger diameter tubing. This image from <a href='https://www.cloudynights.com/topic/355832-3-pole-dob-experience/' target='_blank'>a CloudyNights discussion</a>.<br>
+			<img alt='' loading='' class='mediumSizeImage' src='https://www.cloudynights.com/uploads/monthly_12_2011/post-173539-14073834878442_thumb.jpg'>
+
+			<p>There are other truss arrangements: 6 truss hexapods, 4 parallel trusses, 2 parallel trusses, a single tube. Indeed, the traditional solid closed tube is just that: a single tube that happens to encompass the optics.
 		</div>
 
 		<div class='designer' id='designMount'>
@@ -3938,7 +3950,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 24-July-2025
+				Last update 29-July-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
