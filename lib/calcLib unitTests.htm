@@ -142,6 +142,7 @@
 		calcMirrorWeight = MLB.calcLib.calcMirrorWeight,
 		calcLensCG = MLB.calcLib.calcLensCG,
 		calcMirrorCG = MLB.calcLib.calcMirrorCG,
+		eyepieceTravel = MLB.calcLib.eyepieceTravel,
 		WaineoSphericalNull = MLB.calcLib.WaineoSphericalNull;
 
 	QUnit.module('sagitta');
@@ -2162,6 +2163,26 @@ note that visible? is coded from impossible=1 to very easy=6
 		expected = 0.594;
 		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
 		assert.equal(withinRange(result, expected, allowableError), true, 'mirror (meniscus) CG should be ' + expected + ', is ' + result);
+	});
+
+	QUnit.module('focusing');
+
+	QUnit.test('eyepieceTravel', assert => {
+		// 20 inch F2 where sag = 0.625; CG measured from the flat side of the convex lens should be a little less than the 5/8 thickness
+		var focalLength = 50,
+			distanceFromObjectiveToObject = 5280,
+			expected = 0.478,
+			allowableError = 0.01,
+			result = eyepieceTravel(focalLength, distanceFromObjectiveToObject);
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'eyepiece travel should be ' + expected + ', is ' + result);
+
+		//Sky and Tel example; note that the example's distance is given in feet while the focal length is given in inches
+		focalLength = 60;
+		distanceFromObjectiveToObject = 500 * 12;
+		expected = 0.606; // S&T rounds to 0.6
+		result = eyepieceTravel(focalLength, distanceFromObjectiveToObject);
+		assert.equal(withinRange(result, expected, allowableError), true, 'eyepiece travel should be ' + expected + ', is ' + result);
 	});
 
 	QUnit.module('WaineoSphericalNull');
