@@ -159,11 +159,13 @@ copyright Mel Bartels, 2016-2025 -->
 				<td>
 					<input class='inputText' id='focalPlaneToDiagDistance' value='8.5' onfocus='select();' type='text'>
 					<input id='btnCalcFocalPlaneToDiagDistanceFromFocuserDesigner' value='Calculate using focuser designer' type='button'>
+					Roughly the diagonal to eyepiece distance.
 			<tr>
 				<td class='label' id='maxFieldDiaDiagLabel'>
 					<!-- label html set in JavaScript -->
 				<td>
 					<input class='inputText' id='maxFieldDiaDiag' value='1.6' onfocus='select()' type='text'>
+					The diameter of the focal plane you care about; 2 inch focusers use 1.6 inch (40mm), 1.25 inch use 1 inch (25mm) or enter your own.
 		</tbody>
 		</table>
 		<br>
@@ -2248,14 +2250,16 @@ copyright Mel Bartels, 2016-2025 -->
 				<tbody>
 					<tr>
 						<td class='label'>
-							 Acceptable magnitude loss =
+							 Maximum charted magnitude loss =
 						<td>
 							<input class='inputText' id='acceptableMagLoss' value='0.4' onfocus='select();' type='text'>
+							It's very difficult to see light loss less than 30% or 0.3 magnitude.
 					<tr>
 						<td class='label' id='diagSizesLabel'>
 							<!-- label html set in JavaScript -->
 						<td>
 							<input class='inputDiags' id='diagSizes' onfocus='select();' type='text'>
+							Or enter your own diagonal size(s).
 					<tr>
 						<td class='label'>
 							<br><input id='chBoxIncludeFocuserBarrelVignetting' type='checkbox'>Include focuser barrel vignetting?&emsp;
@@ -2264,6 +2268,8 @@ copyright Mel Bartels, 2016-2025 -->
 				</tbody>
 				</table>
 			</div>
+			
+			<p>The chart displays the loss of light from the eyepiece field of view's center to edge. Smaller diagonals obstruct less light, degrade detail less, but suffer from loss of light to the field's edge. Also important is the total amount of light reaching the field. These charts will help you make the best diagonal size choice for your situation. For more, see the discussion below.
 
 			<div>
 				<div class='floatDiv' id='diagChart'>
@@ -3951,7 +3957,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 23-October-2025
+				Last update 24-October-2025
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
