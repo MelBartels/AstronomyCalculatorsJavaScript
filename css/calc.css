@@ -66,6 +66,10 @@ a:hover {
 	width: 100px;
 }
 
+.inputTextNarrow {
+	width: 50px;
+}
+
 .coordText {
 	text-align: right; 
 	width: 100px;
@@ -98,12 +102,13 @@ a:hover {
 }
 
 .pitchLapDiv {
-	margin: 10px;
+	margin: 4px;
 	float: left;
 }
 
-.pitchLapNotes {
-	text-align: left;
+.pitchLapDivWithBorder {
+	border: 1px solid black;
+	float: left;
 }
 
 @media all and (min-width: 0px) {
