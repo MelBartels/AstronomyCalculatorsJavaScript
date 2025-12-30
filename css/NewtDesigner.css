@@ -293,13 +293,13 @@ thead tr th:first-child, tbody tr td:first-child {
 }
 
 .mediumSizeImage {
-	margin: 10px;
+	margin: 5px;
 	width: 30%;
 	height: 30%;
 }
 
-.bigSizeImage {
-	margin: 10px;
+.largeSizeImage {
+	margin: 5px;
 	width: 60%;
 	height: 60%;
 }
