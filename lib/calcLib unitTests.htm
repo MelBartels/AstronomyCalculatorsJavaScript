@@ -88,6 +88,7 @@
 		wavefrontErrorFromCorrectionsArray = MLB.calcLib.wavefrontErrorFromCorrectionsArray,
 		findAllowableCorrection = MLB.calcLib.findAllowableCorrection,
 		calcAllowableParabolicDeviationForQuarterWavefront = MLB.calcLib.calcAllowableParabolicDeviationForQuarterWavefront,
+		calcWavefrontErrorForSphericalMirror = MLB.calcLib.calcWavefrontErrorForSphericalMirror,
 		calcDobFriction = MLB.calcLib.calcDobFriction,
 		SQMtoNELMconverter = MLB.calcLib.SQMtoNELMconverter,
 		NELMtoSQMconverter = MLB.calcLib.NELMtoSQMconverter,
@@ -1261,6 +1262,15 @@
 			expected = 0.16699999999999998,
 			result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
 		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
+	});
+
+	QUnit.test('calcWavefrontErrorForSphericalMirror', assert => {
+		var mirrorDiaInches = 6,
+			focalRatio = 8,
+			expected = 0.26,
+			allowableError = 0.01,
+			result = calcWavefrontErrorForSphericalMirror(mirrorDiaInches, focalRatio);
+		assert.equal(withinRange(result, expected, allowableError), true, 'for a spherical 6 inch F8, wavefront error  = ' + result + ', should be ' + expected + '; note that best fit focus is 1/4th this.');
 	});
 
 	QUnit.module('Dob friction of movement');
