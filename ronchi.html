@@ -41,8 +41,8 @@
 <br>
 <div class='inputDiv'>
 	<b>Units</b>
-	<input name='UOM' value='imperial' type='radio'>imperial
-	<input name='UOM' value='metric' type='radio'>metric
+	<input name='UOM' value='imperial' type='radio'>inches
+	<input name='UOM' value='metric' type='radio'>mm
 	&emsp; <b>Mirror diameter</b> = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
 	&emsp; <b>Radius of curvature (RoC)</b> = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
 	<b>Focal length</b> = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
@@ -134,7 +134,10 @@
 		<input name='chainSlopes' value='no' checked='checked' type='radio'>no
 		<input name='chainSlopes' value='inward' type='radio'>inward
 		<input name='chainSlopes' value='outward' type='radio'>outward
-	<p><label id='waveErrorsLabel'></label>
+	<p>Include parab. correction?
+		<input name='includeParabCorr' value='yes' type='radio'>yes
+		<input name='includeParabCorr' value='no' type='radio'>no
+	<br><label id='waveErrorsLabel'></label>
 </div>
 
 <div id='MLErrorsDiv' class='MLErrorsDiv'>
@@ -686,7 +689,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 23-Jan-2026</h4>
+	<h4>by Mel Bartels, 1992; last update 24-Jan-2026</h4>
 	<br>
 	<br>
 </div>
