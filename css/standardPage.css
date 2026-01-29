@@ -4,6 +4,16 @@ html {
 	margin-right: auto;
 }
 
+.floatLeftHalfWidthDiv {
+	float: left;
+	padding: 5px;
+	width: 48%;
+}
+
+.clearFloat {
+	clear: both;
+}
+
 .imageTextWrap {
 	float: right;
 }
@@ -53,7 +63,7 @@ html {
 		width: 35%;
 	}
 	.unscaledImage {
-		width: 100%;
+		width: 95%;
 	}
 }
 @media all and (min-width: 768px) {
@@ -71,6 +81,6 @@ html {
 		width: 25%;
 	}
 	.unscaledImage {
-		width: 100%;
+		width: 95%;
 	}
 }
