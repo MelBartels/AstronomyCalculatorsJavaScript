@@ -132,18 +132,18 @@ copyright Mel Bartels, 2016-2025 -->
 		<b>Focal length</b>
 		<input class='slider' id='sliderTelescopeFocalLength' type='range'>
 		<input class='inputText' id='telescopeFocalLength' value='50' onfocus='select();' type='text'>
-		<label id='telescopeFocalLengthUOMlabel'>inches</label>
+		<label id='telescopeFocalLengthUOMlabel' for=''>inches</label>
 		&nbsp;&nbsp;Lock focal length?<input id='chBoxLockFocalLength' type='checkbox'>
 		<br>
 		<b>Focal ratio</b>
 		<input class='slider' id='sliderFocalRatio' min='2.5' max='8' step='0.1' type='range'>
 		<input class='inputText' id='focalRatio' value='5' onfocus='select();' type='text'>
-		&nbsp;&nbsp;Radiance flux = <label id='RadianceFluxlabel'></label>
+		&nbsp;&nbsp;Radiance flux = <label id='RadianceFluxlabel' for=''></label>
 		<br>
 		<b>Aperture</b>
 		<input class='slider' id='sliderAperture' type='range'>
 		<input class='inputText' id='aperture' value='10' onfocus='select();' type='text'>
-		<label id='apertureUOMlabel'>inches</label>
+		<label id='apertureUOMlabel' for=''>inches</label>
 		<br>
 		<br>
 	</div>
@@ -273,7 +273,7 @@ copyright Mel Bartels, 2016-2025 -->
 
 			<div>
 				<p><b>Results:</b><br>
-				<label id='telescopeDesignerResultsLabel'></label>
+				<label id='telescopeDesignerResultsLabel' for=''></label>
 			</div>
 
 			<br><br>
@@ -423,7 +423,7 @@ copyright Mel Bartels, 2016-2025 -->
 				True field of view (deg) <input class='inputText' id='AEFFOVDeg' onfocus='select();' value='1.5' type='text'>
 
 				<p><b>Results:</b><br>
-				<label id='AEFResultsLabel'></label>
+				<label id='AEFResultsLabel' for=''></label>
 
 				<a name='fourXs'></a>
 				<div id='fourXs'></div>
@@ -1871,7 +1871,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<p><input id='btnListEyepiecesWidestFieldForEyePupil' value='List widest field eyepieces' type='button'>
 			<input id='btnCalcEyepieceWidestFieldForEyePupil' value='Find widest field eyepiece' type='button'>
 			not to exceed eye pupil of <input class='inputText' id='eyePupilmm' value='7' onfocus='select();' type='text'>mm
-			<label id='widestEyepiecesForEyePupilLabel'>no widest field eyepiece selected yet</label>
+			<label id='widestEyepiecesForEyePupilLabel' for=''>no widest field eyepiece selected yet</label>
 			<input id='btnCopySelectedEyepieceToEyepieceTable' value='Copy to eyepiece table below' type='button'>
 
 			<br><br>
@@ -2231,7 +2231,7 @@ copyright Mel Bartels, 2016-2025 -->
 
 			Distance to object is
 			<input class='inputText' id='distanceToObject' onfocus='select()' type='text' value='12000'>
-			<label id='eyepieceTravelLabel'></label>
+			<label id='eyepieceTravelLabel' for=''></label>
 		</div>
 
 		<div class='designer' id='designComaCorrector'>
@@ -2291,8 +2291,8 @@ copyright Mel Bartels, 2016-2025 -->
 				</table>
 			</div>
 
-			<p><input id='chBoxIncludeP2Intrusion' type='checkbox'>Include any P2 intrusion?
-			 &nbsp; &nbsp; &nbsp; &nbsp;<label id='P2IntrusionResultsLabel'></label>
+			<p><input id='chBoxIncludeP2Intrusion' type='checkbox' for=''>Include any P2 intrusion?
+			 &nbsp; &nbsp; &nbsp; &nbsp;<label id='P2IntrusionResultsLabel' for=''> </label>
 
 			<div class='floatDiv' id='offsetShadowCanvasDiv'>
 				<!-- canvas created in JavaScript -->
@@ -2566,7 +2566,7 @@ copyright Mel Bartels, 2016-2025 -->
 		<div class='designer' id='designMirrorCell'>
 			<div>
 				<p><b>Results:</b>
-				<label id='mirrorCellDesignerResultsLabel'></label>
+				<label id='mirrorCellDesignerResultsLabel' for=''></label>
 				<br>
 				Or select a custom value:
 				<input name='btnMirrorSupportPoints' value='3' type='radio'> 3
@@ -2584,7 +2584,7 @@ copyright Mel Bartels, 2016-2025 -->
 
 			<div>
 				<p><b>Mirror cell dimensions:</b>
-				<label id='mirrorCellDetailsLabel'></label>
+				<label id='mirrorCellDetailsLabel' for=''></label>
 			</div>
 
 			<p>The primary mirror cell has two purposes:
@@ -2744,7 +2744,7 @@ copyright Mel Bartels, 2016-2025 -->
 			</div>
 			<div>
 				<p><b>Results:</b>
-				<label id='focuserBaffleDesignerResultsLabel'></label>
+				<label id='focuserBaffleDesignerResultsLabel' for=''></label>
 			</div>
 		</div>
 
@@ -4069,7 +4069,7 @@ copyright Mel Bartels, 2016-2025 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 5-February-2026
+				Last update 9-February-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
