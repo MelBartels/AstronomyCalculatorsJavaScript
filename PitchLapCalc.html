@@ -9,8 +9,8 @@
 	<link rel='shortcut icon' href='Saucer32.ico'>
 	<link rel='stylesheet' type='text/css' href='css/calc.css'>
 </head>
-<body>
 
+<body>
 <center><h2>Pitch Lap Calculator by Mel Bartels</h2></center>
 
 <div class='pitchLapDivWithBorder'>
@@ -82,39 +82,39 @@
 	<a name='spin'></a>
 	<center><h3>Spinning</h3></center>
 
+	<p>Rotational vector inspector. Green is CW, red is CCW.
+
+	<p>Tool rotation rate:
+	<label id='toolRotationRatelabel' for=''></label>
+	; or set a tool rotation rate of
+	<input class='inputTextNarrow' id='spinToolRotation' value='' onfocus='select()' type='number' step='0.1'>
+
+	<p>Friction
+	<input class='inputTextNarrow' id='friction' value='3.5' onfocus='select()' type='number' step='0.25' min='0'>
+	set empirically by observing the tool rotation rate
+
+	<p>Tool to mirror size ratio
+	<input class='inputTextNarrow' id='spinToolToMirrorSizeRatio' value='0.75' onfocus='select()' type='number' step='0.05' min='0.1'>
+
+	<p>Tool offset from mirror center
+	<input class='inputTextNarrow' id='spinOffset' value='0.5' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
+	 % of mirror radius;
+	<label id='toolOverhanglabel' for=''></label>
+
+	<p>Use pitch lap contact pattern? <input id='chBoxUsePitchLapContact' type='checkbox'>
+	<input id='btnFanPatternExample' value='An ultra-smooth fan shaped lap example' type='button'>
+
+	<br><br><br>
+
 	<div class='pitchLapDiv'>
-		<p>Rotational vector inspector.
-		<br>Green is CW, red is CCW.
-
-		<p>Tool rotation rate:
-		<br><label id='toolRotationRatelabel' for=''></label>
-		<br>or set a tool rotation rate of
-		<input class='inputTextNarrow' id='spinToolRotation' value='' onfocus='select()' type='number' step='0.1'>
-
-		<p>Friction
-		<input class='inputTextNarrow' id='friction' value='4.5' onfocus='select()' type='number' step='0.25' min='1'>
-
-		<p>Tool to mirror size ratio
-		<input class='inputTextNarrow' id='spinToolToMirrorSizeRatio' value='0.75' onfocus='select()' type='number' step='0.05' min='0.1'>
-		<br>Tool offset from mirror center <sup>1 </sup>
-		<input class='inputTextNarrow' id='spinOffset' value='0.5' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
-		<br><label id='toolOverhanglabel' for=''></label>
-
-		<p>Use pitch lap contact pattern? <input id='chBoxUsePitchLapContact' type='checkbox'>
-		<br><input id='btnFanPatternExample' value='An ultra-smooth fan shaped lap example' type='button'>
-
-		<p><sup>1 </sup> % of mirror radius
-		<br><sup>2 </sup> % of tool diameter
-
-		<p><canvas class='spinRotationalVectorCanvas' id='spinRotationalVectorCanvas' width='300' height='300'></canvas>
-
-		<br><br><br><br><br><br> <!-- to make bottom of left/right divs match up -->
+		<canvas class='spinRotationalVectorCanvas' id='spinRotationalVectorCanvas' width='300' height='300'></canvas>
 	</div>
 
 	<div class='pitchLapDiv'>
-		<p>Relative polishing action on the mirror - side view
+		Relative polishing action on the mirror - side view
 		<br><canvas class='spinPolishingActionSideViewCanvas' id='spinPolishingActionSideViewCanvas' width='300' height='75'></canvas>
-		<br>Relative polishing action on the mirror - top view
+
+		<p>Relative polishing action on the mirror - top view
 		<br><canvas class='spinPolishingActionTopViewCanvas' id='spinPolishingActionTopViewCanvas' width='300' height='300'></canvas>
 	</div>
 </div>
@@ -134,7 +134,7 @@
 </div>
 
 <div class='pitchLapDiv'>
-	<p>Created 2017, last updated 22 February, 2026
+	<p>Created 2017, last updated 23 February, 2026
 	<br><br>
 </div>
 
