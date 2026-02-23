@@ -89,15 +89,22 @@
 		<input class='inputTextNarrow' id='spinToolRotation' value='' onfocus='select()' type='number' step='0.1'>
 
 		<p>Friction
-		<input class='inputTextNarrow' id='friction' value='2' onfocus='select()' type='number' step='0.5' min='1'>
+		<input class='inputTextNarrow' id='friction' value='4.5' onfocus='select()' type='number' step='0.25' min='1'>
 
 		<p>Tool to mirror size ratio
-		<input class='inputTextNarrow' id='spinToolToMirrorSizeRatio' value='0.8' onfocus='select()' type='number' step='0.1' min='0.1'>
-		<br>Tool offset
-		<input class='inputTextNarrow' id='spinOffset' value='0.3' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
+		<input class='inputTextNarrow' id='spinToolToMirrorSizeRatio' value='0.75' onfocus='select()' type='number' step='0.05' min='0.1'>
+		<br>Tool offset from mirror center <sup>1 </sup>
+		<input class='inputTextNarrow' id='spinOffset' value='0.5' onfocus='select()' type='number' step='0.05' min='0' max='1.0'>
+		<br><label id='toolOverhanglabel' for=''></label>
 
 		<p>Use pitch lap contact pattern? <input id='chBoxUsePitchLapContact' type='checkbox'>
+
+		<p><sup>1 </sup> % of mirror radius
+		<br><sup>2 </sup> % of tool diameter
+
 		<p><canvas class='spinRotationalVectorCanvas' id='spinRotationalVectorCanvas' width='300' height='300'></canvas>
+
+		<br><br><br><br><br><br><br> <!-- to make bottom of left/right divs match up -->
 	</div>
 
 	<div class='pitchLapDiv'>
@@ -109,10 +116,15 @@
 </div>
 
 <div class='pitchLapDivWithBorder'>
-	<h3>Spinning examples and math explanation</h3>
+	<h3>Spinning notes</h3>
+
+	<img src='lib\tool overhang study.jpg'>
+	<hr>
+
 	<p>Consider these three examples with the tool centered on the mirror. The tool matches the mirror's rotation in the first example, netting zero rotational action. In the second example the tool does not rotate at all, causing the mirror to generate a clockwise rotational vector. In the third example the tool spins faster than the mirror, causing counter-clockwise action.<br>
 	<img src='lib/pitch lap calc examples.jpg'>
 
+	<hr>
 	<p>Here's how I work out the rotational vector (distinct from the polishing action:<br>
 	<img src='lib/rotational vectors test example.jpg'>
 </div>
