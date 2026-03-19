@@ -619,6 +619,7 @@ copyright Mel Bartels, 2016-2026 -->
 				<h4>Etendue calculator</h4>
 
 				<p>A simple rule of thumb for maximum etendue is aperture (inches) = 25 / object size (degrees)
+				<br>The formula is focalRatio = eyepieceFLmm / eyePupilmm.
 
 				<p>Your eye's pupil mm <input class='inputText' id='calcFRMaxEtendueEyePupilmm' value='7' onfocus='select()' type='text'>
 				Eyepiece focal length mm <input class='inputText' id='calcFRMaxEtendueEyepieceFLmm' value='31' onfocus='select()' type='text'>
@@ -2228,8 +2229,10 @@ copyright Mel Bartels, 2016-2026 -->
 			</div>
 
 			<h3>Eyepiece focus travel due to object being nearby</h3>
+			Formula is eyepieceFocusTravel = focalLength * focalLength / (distanceFromObjectiveToObject - focalLength)
+			<br>When the object is very far away, additional eyepiece focus travel outward is practically zero.
 
-			Distance to object is
+			<p>Distance to object is
 			<input class='inputText' id='distanceToObject' onfocus='select()' type='text' value='12000'>
 			<label id='eyepieceTravelLabel' for=''></label>
 		</div>
@@ -4147,7 +4150,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 14-March-2026
+				Last update 19-March-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
