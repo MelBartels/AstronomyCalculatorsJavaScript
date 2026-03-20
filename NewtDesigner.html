@@ -2853,49 +2853,35 @@ copyright Mel Bartels, 2016-2026 -->
 		<div class='designer' id='designBinoscope'>
 			<h4>Binoscope designer</h4>
 
-			<input id='chBoxBinoscopeLockSecondaryBendingAngle' type='checkbox'>Lock secondary bending &nbsp;&nbsp;&nbsp;&nbsp;
-			<input id='chBoxBinoscopeLockEyepieceDivergence' type='checkbox'>Lock eyepiece divergence &nbsp;&nbsp;&nbsp;&nbsp;
-			<input id='chBoxBinoscopeLockEyepieceDivergenceAndTertiarySecondaryRightAngle' type='checkbox'>Lock eyepiece divergence and set secondary-tertiary bending to right-angle
-			<p>
-
 			<table>
 			<tbody>
 				<tr>
 					<td class='label' id='binoscopeFocalPlaneToSecondaryDistanceLabel'>
 						<!-- label html set in JavaScript -->
 					<td>
-						<input class='inputText' id='binoscopeFocalPlaneToSecondaryDistance' onfocus='select();' type='text'>
-						<input id='btnSetBinoscopeFocalPlaneToSecondaryToMinimumDistance' value='Set to minimum distance' type='button'>
+						<input class='inputText' id='binoscopeFocalPlaneToSecondaryDistance' onfocus='select();' value='10.5' type='text'>
+						<input class='sliderHalf' id='sliderBinoscopeFocalPlaneToSecondaryDistance' min='0' max='20' step='1' type='range'>
 				<tr>
 					<td class='label' id='binoscopeFocalPlaneToTertiaryDistanceLabel'>
 						<!-- label html set in JavaScript -->
 					<td>
-						<input class='inputText' id='binoscopeFocalPlaneToTertiaryDistance' onfocus='select();' type='text'>
-				<tr>
-					<td class='label fitWidth' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimaryLabel'>
-						<!-- label html set in JavaScript -->
-					<td>
-						<input class='inputText' id='binoscopeFocalPointPerpendicularOffsetFromEdgeOfPrimary' onfocus='select();' type='text'>
+						<input class='inputText' id='binoscopeFocalPlaneToTertiaryDistance' onfocus='select();' value ='2' type='text'>
+						<input class='sliderHalf' id='sliderBinoscopeFocalPlaneToTertiaryDistance' min='0' max='10' step='1' type='range'>
 				<tr>
 					<td class='label'>
-						Secondary bending angle from the primary mirror axis (deg) =
+						Secondary reflection angle (deg) =
 					<td>
-						<input class='inputText' id='binoscopeSecondaryBendingAngleDeg' onfocus='select();' type='text'>
+						<input class='inputText' id='binoscopeSecondaryBendingAngleDeg' onfocus='select();' value='90' type='text'>
 						<input class='sliderHalf' id='sliderBinoscopeSecondaryBendingAngleDeg' min='45' max='90' step='1' type='range'>
-				<tr>
-					<td class='label'>
-						Tertiary bending angle from the primary mirror axis (deg) =
-					<td>
-						<input class='inputText' id='binoscopeTertiaryBendingAngleDeg' onfocus='select();' value ='0' type='text'>
 				<tr>
 					<td class='label'>
 						 Eyepiece divergence (deg) =
 					<td class='fitWidth'>
-						<input class='inputText' id='binoscopeEyepieceDivergenceDeg' value='0' onfocus='select();' type='text'>
+						<input class='inputText' id='binoscopeEyepieceDivergenceAngleDeg' value='0' onfocus='select();' type='text'>
 						<input class='sliderHalf' id='sliderBinoscopeEyepieceDivergenceDeg' min='0' max='10' step='1' type='range'>
 				<tr>
 					<td class='label'>
-						 Secondary to tertiary downward tilt (deg) =
+						 Optical axis downward tilt (deg) =
 					<td>
 						<input class='inputText' id='binoscopeSecondaryAxisDownwardTiltAngleDeg' value='10' onfocus='select();' type='text'>
 						<input class='sliderHalf' id='sliderBinoscopeSecondaryAxisDownwardTiltAngleDeg' min='0' max='60' step='1' type='range'>
@@ -2904,6 +2890,7 @@ copyright Mel Bartels, 2016-2026 -->
 						 IPD (InterPupillary Distance) (mm) =
 					<td>
 						<input class='inputText' id='IPD' value='63' onfocus='select();' type='text'>
+						<input class='sliderHalf' id='sliderBinoscopeIPD' min='50' max='75' step='1' type='range'>
 				<tr>
 					<td colspan='2'>
 						<br>
