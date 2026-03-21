@@ -2892,12 +2892,14 @@ copyright Mel Bartels, 2016-2026 -->
 						<input class='inputText' id='IPD' value='63' onfocus='select();' type='text'>
 						<input class='sliderHalf' id='sliderBinoscopeIPD' min='50' max='75' step='1' type='range'>
 				<tr>
-					<td colspan='2'>
-						<br>
-						<input id='btnUpdateBinoscope' value='Update binoscope design' type='button'>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderBinoscopeScale' min='0.5' max='1.5' step='0.05' type='range'>
 			</tbody>
 			</table>
 
+			<br>
 			<div>
 				<div class='floatDiv' id='binoscopeFrontViewCanvasDiv'>
 					<!-- canvas created in JavaScript -->
@@ -4137,7 +4139,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 19-March-2026
+				Last update 21-March-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
