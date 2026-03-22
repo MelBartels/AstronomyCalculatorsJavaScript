@@ -167,7 +167,6 @@ copyright Mel Bartels, 2016-2026 -->
 				<td>
 					<input class='inputText' id='maxFieldDiaDiag' value='1.6' onfocus='select()' type='text'>
 					The diameter of the focal plane you care about; 2 inch focusers use 1.6 inch (40mm), 1.25 inch use 1 inch (25mm) or enter your own.
-		</tbody>
 		</table>
 		<br>
 	</div>
@@ -188,7 +187,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<!-- label html set in JavaScript -->
 				<td>
 					<input class='inputText' id='telescopeTubeThickness' value='0.25' onfocus='select();' type='text'>
-		</tbody>
 		</table>
 	</div>
 	<div id='focuserSharedParms'>
@@ -228,7 +226,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<!-- label html set in JavaScript -->
 				<td>
 					<input class='inputText' id='focuserInwardFocusingDistance' value='0.5' onfocus='select();' type='text'>
-		</tbody>
 		</table>
 	</div>
 	<div id='diagonalSharedParms'>
@@ -248,7 +245,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<!-- label html set in JavaScript -->
 				<td>
 					<input class='inputText' id='diagOffset' onfocus='select();' type='text'>
-		</tbody>
 		</table>
 	</div>
 
@@ -826,7 +822,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td>2200
 						<td>0.9 deg
 						<td>6200
-					</tbody>
 				</table>
 
 				<p>As you can see, a broad range of telescope sizes show close to the maximum number of stars. Therefore we say that <b>a telescope	used with a widest angle eyepiece that yields an exit pupil of 5-7mm	can be called a Richest Field Telescope - the richest field of stars possible in any single view</b>.
@@ -947,7 +942,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td>5mm
 						<td>5mm
 						<td>6mm
-					</tbody>
 				</table>
 
 				<p>I have found over the many years from observing with a variety of telescopes as fast as F2.6 and a variety of apertures up to 30 inches [76cm] that a slightly oversized exit pupil gives the best combination of field and brightness.
@@ -1579,7 +1573,6 @@ copyright Mel Bartels, 2016-2026 -->
 				<td>
 					<input class='sliderHalf' id='sliderBortleScale' min='1' max='9' step='1' type='range'>
 					<input class='inputText' id='BortleScale' value='3' onfocus='select()' type='text'>
-			</tbody>
 			</table>
 			<div id='visualDetectionResultsTable'>
 			</div>
@@ -1903,7 +1896,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='columnHeaders'>Etendue
 					<td class='columnHeaders'>ComaAtEdge
 				<!--detail rows added in JavaScript-->
-			</tbody>
 			</table>
 
 			<h4>Definitions</h4>
@@ -2093,7 +2085,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td class='tableColumnsSecondColor'>300
 						<td class='tableColumnsThirdColor'>1620
 						<td class='tableColumnsThirdColor'>3240
-					</tbody>
 				</table>
 
 				<h4>Choosing magnification and aperture.</h4>
@@ -2212,7 +2203,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td class='tableColumnsThirdColor'>83
 						<td class='tableColumnsFourthColor'>373x
 						<td class='tableColumnsFourthColor'>104
-					</tbody>
 				</table>
 
 				<p><b>The strategy</b> is to select the highest magnification that frames the object in the eyepiece's field of view, subject to seeing conditions and telescope capabilities. Then select the largest aperture available. Starting with a given aperture, select for the highest magnification that frames the object, subject to seeing. If the object is invisible, then try a lower magnification. This rarely happens. Much more common is a failure to properly frame the object. Use filters, go to dark skies and improve your observational skills.
@@ -2270,7 +2260,6 @@ copyright Mel Bartels, 2016-2026 -->
 							<br><input id='chBoxIncludeFocuserBarrelVignetting' type='checkbox'>Include focuser barrel vignetting?&emsp;
 						<td>
 							<br><input id='btnUpdateDiagIllum' value='Update diagonal illumination' type='button'>
-				</tbody>
 				</table>
 			</div>
 
@@ -2290,7 +2279,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td class='label'>
 							Results:
 							<td id='diagResults'>
-						</tbody>
 				</table>
 			</div>
 
@@ -2314,7 +2302,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td class='label'>
 							Off-axis mask results:
 							<td id='offaxisMaskResults'>
-						</tbody>
 				</table>
 			</div>
 
@@ -2526,7 +2513,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='columnHeaders'>Weakness
 					<td class='columnHeaders'>Examples
 				<!--part rows added in JavaScript from JSON-->
-			</tbody>
 			</table>
 
 			<h4>Wire spiders</h4>
@@ -2742,10 +2728,11 @@ copyright Mel Bartels, 2016-2026 -->
 					<td>
 						<input class='inputText' id="diagToFocuserBaffleDistance" value="4.5" onfocus="select()" type="text">
 				<tr>
-					<td class='title' colspan='2'>
-						<br>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderFocuserScale' min='0.5' max='1.5' step='0.01' type='range'>
 						<input ID="btnPlotFocuserBaffle" value="Update focuser baffling" type="button">
-			</tbody>
 			</table>
 			<div id='focuserBaffleCanvasDiv'>
 				<!-- canvas created in JavaScript -->
@@ -2758,8 +2745,15 @@ copyright Mel Bartels, 2016-2026 -->
 
 		<div class='designer' id='designBaffling'>
 			<br><br>
-			<input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
-
+			<table>
+			<tbody>
+				<tr>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderBaffleScale' min='0.5' max='1.5' step='0.01' type='range'>
+						<input id='btnUpdateBaffles' value='Update baffle layout' type='button'>
+			</table>
 			<div id='baffleCanvasDiv'>
 				<!-- canvas created in JavaScript -->
 			</div>
@@ -2770,7 +2764,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td class='label'>
 							Results:
 							<td id='baffleResults'>
-						</tbody>
 				</table>
 			</div>
 
@@ -2816,10 +2809,11 @@ copyright Mel Bartels, 2016-2026 -->
 					<td>
 						<input class='inputText' id='focalPointPerpendicularOffsetFromEdgeOfPrimary' value='3' onfocus='select();' type='text'>
 				<tr>
-					<td colspan='2'>
-						<br>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderLowriderScale' min='0.5' max='1.5' step='0.01' type='range'>
 						<input id='btnUpdateLowrider' value='Update low rider baffling' type='button'>
-			</tbody>
 			</table>
 
 			<div id='lowriderCanvasDiv'>
@@ -2832,7 +2826,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='label'>
 						Results:
 					<td id='lowriderResults'>
-			</tbody>
 			</table>
 
 			<h4>Lowrider discussion</h4>
@@ -2895,8 +2888,7 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='label'>
 						Adjust scaling
 					<td>
-						<input class='sliderHalf' id='sliderBinoscopeScale' min='0.5' max='1.5' step='0.05' type='range'>
-			</tbody>
+						<input class='sliderHalf' id='sliderBinoscopeScale' min='0.5' max='1.5' step='0.01' type='range'>
 			</table>
 
 			<br>
@@ -2920,7 +2912,6 @@ copyright Mel Bartels, 2016-2026 -->
 						<td class='label'>
 							Frontview results:
 							<td id='binoscopeFrontViewResults'>
-						</tbody>
 				</table>
 			</div>
 
@@ -3204,7 +3195,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='columnHeaders'>Distance
 					<td class='columnHeaders'>Vertical offset
 				<!--part rows added in JavaScript-->
-			</tbody>
 			</table>
 
 			<table>
@@ -3219,7 +3209,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='label'>
 						Results:
 					<td id='CGResults'>
-			</tbody>
 			</table>
 
 			<h4>Center of gravity discussion</h4>
@@ -3254,7 +3243,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='columnHeaders'>Engineering Note
 					<td class='columnHeaders'>Examples
 				<!--part rows added in JavaScript from JSON-->
-			</tbody>
 			</table>
 
 			<h2>Evolution of the single upper ring</h2>
@@ -3326,7 +3314,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='columnHeaders'>Meridian<br>Flip<br>Required
 					<td class='columnHeaders'>Notes
 				<!--part rows added in JavaScript from JSON-->
-			</tbody>
 			</table>
 
 			<br><br>
@@ -3779,12 +3766,11 @@ copyright Mel Bartels, 2016-2026 -->
 						<input class='inputText' id='rockerWeight' value='5' onfocus='select();' type='text'>
 						<input id='chBoxAutoCalcRockerWeight' type='checkbox' checked>use auto-calculated weight
 				<tr>
-					<td colspan='2'>
-						<br>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderRockerScale' min='0.5' max='1.5' step='0.01' type='range'>
 						<input id='btnUpdateRocker' value='Update rocker' type='button'>
-						<br>
-						<br>
-			</tbody>
 			</table>
 
 			<div id='rockerCanvasDiv'>
@@ -3797,7 +3783,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='label'>
 						Results:
 					<td id='rockerResults'>
-			</tbody>
 			</table>
 
 			<div id='movementFriction'></div>
@@ -3866,12 +3851,11 @@ copyright Mel Bartels, 2016-2026 -->
 						<input class='inputText' id='flexRockerWeight' value='5' onfocus='select();' type='text'>
 						<input id='chBoxAutoCalcFlexRockerWeight' type='checkbox' checked>use auto-calculated weight
 				<tr>
-					<td colspan='2'>
-						<br>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderFlexRockerScale' min='0.5' max='1.5' step='0.01' type='range'>
 						<input id='btnUpdateFlexRocker' value='Update flex rocker' type='button'>
-						<br>
-						<br>
-			</tbody>
 			</table>
 
 			<div id='flexRockerCanvasDiv'>
@@ -3884,7 +3868,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='label'>
 						Results:
 					<td id='flexRockerResults'>
-			</tbody>
 			</table>
 
 			<p>Imagine the altitude bearing getting bigger and bigger. The rocker's weight shrinks, which is good but so does the height, lessening its rigidity, which is bad. But what if the altitude bearing points are placed at the rocker's corners and under each corner an azimuth bearing is placed resulting in four azimuth bearings that ride on a rigid ring? In fact, the altitude and azimuth bearings can be combined into a single block or post with the rocker reduced to merely holding the bearing blocks in relative position. The flex rocker strips away unnecessary weight and structure. We can have our ultralight rocker with good rigidity. Additionally, the mirror box can swing down through the base to lower eyepiece height when pointing near the zenith.
@@ -3919,12 +3902,11 @@ copyright Mel Bartels, 2016-2026 -->
 					<td>
 						<input class='inputText' id='ETTrackingTimeMin' value='60' onfocus='select();' type='text'>
 				<tr>
-					<td colspan='2'>
-						<br>
+					<td class='label'>
+						Adjust scaling
+					<td>
+						<input class='sliderHalf' id='sliderETScale' min='0.5' max='1.5' step='0.01' type='range'>
 						<input id='btnUpdateET' value='Update equatorial table' type='button'>
-						<br>
-						<br>
-			</tbody>
 			</table>
 
 			<div id='ETCanvasDiv'>
@@ -3937,7 +3919,6 @@ copyright Mel Bartels, 2016-2026 -->
 					<td class='label'>
 						Results:
 					<td id='ETResults'>
-			</tbody>
 			</table>
 
 			<h4>Equatorial table discussion...</h4>
@@ -4139,7 +4120,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 21-March-2026
+				Last update 22-March-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
