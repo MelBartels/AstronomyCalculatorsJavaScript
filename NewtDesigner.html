@@ -1863,9 +1863,14 @@ copyright Mel Bartels, 2016-2026 -->
 			<input name='btnEyepieceSortFocalLength' value='focal length' type='button'>
 			<input name='btnEyepieceSortFieldOfView' value='real field of view' type='button'>
 
-			&emsp;&emsp;&emsp;&emsp;Sort <b>eyepiece table</b> by
-			<input name='btnEyepieceTableSortFocalLength' value='focal  length' type='button'>
-			<input name='btnEyepieceTableSortFieldOfView' value='real  field of view' type='button'>
+			&emsp;&emsp;&emsp;&emsp;
+			Sort <b>eyepiece table</b> by
+			<input name='btnEyepieceTableSortFocalLength' value='focal length' type='button'>
+			<input name='btnEyepieceTableSortFieldOfView' value='real field of view' type='button'>
+
+			&emsp;&emsp;&emsp;&emsp;
+			<input name='btnEyepieceList' value='0' type='radio'> old eyepiece list
+			<input name='btnEyepieceList' value='1' type='radio'> new eyepiece list
 
 			<table id='eyeOptTable'>
 			<tbody id='eyeOptTableBody'>
@@ -1897,8 +1902,8 @@ copyright Mel Bartels, 2016-2026 -->
 			<b>Magnitude limit</b> is the faintest star that can be seen given the aperture and magnification.<br>
 			<b>Etendue or luminance</b> is the flux or total light flowing into the eye. Values are in cm^2deg^2 (either: area _of_aperture * area_of_true_field, or, area_of_pupil * area_of_eyepiece_apparent_field)<br>
 			<b>Coma or comatic aberration</b> is the distortion of off-axis detail due to the primary mirror's paraboloidal shape,, i.e., stars appear to have a tail or coma.
-			
-			<p>Thanks to <a href='https://www.cloudynights.com/forums/topic/990705-2026-eyepieces-buyers-guide-to-eyepieces/#comment-14503113' target='_blank'>Don Pensack for eyepiece data</a> which I combined with my data for older discontinued eyepieces.
+
+			<p>Thanks to <a href='https://www.cloudynights.com/forums/topic/990705-2026-eyepieces-buyers-guide-to-eyepieces/#comment-14503113' target='_blank'>Don Pensack for eyepiece data</a> which I combined with my data for older eyepieces into a new list.
 
 			<br><br>
 			<div id='magnification'></div>
@@ -2922,10 +2927,10 @@ copyright Mel Bartels, 2016-2026 -->
 
 				<p>Here's another illustration of a proposed 8 inch F3.1 binoscope with divergent eyepieces.<br>
 				<img alt='' loading='' class='largeSizeImage' src='8F3 bino/binoscope eyepiece divergence illustration.jpg'>
-				
+
 				<p>Diverging eyepieces can also narrow the IPD; even become the IPD adjustment mechanism.<br>
 				<img alt='' loading''' class='largeSizeImage' src='8F3 bino/varying IPD by eyepiece divergence study.jpg'>
-				
+
 				<p><a href='https://app.sketchup.com/share/tc/northAmerica/gPNsR2-jWf8?source=web&stoken=fEBYC_NHSQeynsWXf35QgK1-d7GjtSveLrt_vcJ5uX0xRk7hj4-CWONcyAWeOsHH' target='_blank'>My Sketchup model is here</a>.
 
 				<p>The idea originates with Clive Milne, who writes, "To see what this looks like, just hold a pair of [low power wide angle eyepieces] up to your eyes and look at a blank wall. Concentrate on one eye; orient the eyepiece such that its field stop is visible in the direction over the bridge of your nose. Now orient the opposite eyepiece such that it's field stop edge is displaced about 1/10th the native field of view. That's what 5° tilt per side looks like. Go further and see if you like 10° per side. I suspect it is subjective and somewhat personal, but the field really seems to open up for me when you do that. When the eyepieces are parallel (with overlapping field stops) at no stage does it feel natural. Even though I can get my eyes over the exit pupils I'm very conscious of the fact that they don't really fit my face all that well in parallel mode."
@@ -4138,7 +4143,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 26-March-2026
+				Last update 27-March-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
@@ -4175,6 +4180,7 @@ copyright Mel Bartels, 2016-2026 -->
 
 	<script src='lib/json/comaCorrectors.js'></script>
 	<script src='lib/json/eyepieces.js'></script>
+	<script src='lib/json/eyepiecesPriorMarch2026.js'></script>
 	<script src='lib/json/BortleScale.js'></script>
 	<script src='lib/json/focusers.js'></script>
 	<script src='lib/json/materialFriction.js'></script>
