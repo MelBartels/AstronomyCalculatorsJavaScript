@@ -1599,6 +1599,11 @@ copyright Mel Bartels, 2016-2026 -->
 			<input value='Calc total' id='btnCalcTotalMagnitude' type='button'>
 			<input class='inputText' id='totalMagnitude' readonly='readonly' type='text'>
 
+			<h3>Contrast calculator</h3>
+			Object surface brightness in MPAS <input class='inputText' id='objSurfBright' value='22' onfocus='select()' type='text'>
+			&emsp; Sky background brightness in MPAS <input class='inputText' id='skySurfBright' value='21.6' onfocus='select()' type='text'>
+			&emsp;&emsp; Results: <label id='ContrastCalcLabel' for=''> </label>
+
 			<br><br>
 			<div id='visualUom'></div>
 			<button class='accordion' id='btnVisualUom'>Units of measurement</button>
@@ -2689,7 +2694,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<br><a href='https://www.fpi-protostar.com/bgreer/fanselect.htm' target='_blank'> Bryan Greer's fan discussion</a>
 			<br><a href='https://www.youtube.com/watch?v=8vn2wkkR_N8' target='_blank'>Ed Allen's Complete Ventilation System (C.V.S.) for Amateur Telescopes, 2020</a>.
 			<br><a href='https://skyandtelescope.org/wp-content/uploads/Adler-NewtThermal.pdf' target='_blank'>Alan Adler's thermal management system</a>.
-			<br><a href='https://bbastrodesigns.com/osp2003/OSP2003.html' target='_blank'>Chuck Dethloff's face-on fan</a>.
+			<br><a href='osp2003/OSP2003.html' target='_blank'>Chuck Dethloff's face-on fan</a>.
 			<br><a href='https://www.amazon.com/Making-Your-Telescope-allyn-thompson/dp/B000GP1ZNK' target='_blank'>Allyn Thompson's Making Your Own Telescope</a> and
 			<a href='https://www.amazon.com/Making-Telescope-Dover-Books-Astronomy/dp/0486428834' target='_blank'>Jean Texereau's How to Make A Telescope</a>. These books discuss thermal experiments done mid-century.
 		</div>
@@ -4153,7 +4158,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 3-April-2026
+				Last update 19-April-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
