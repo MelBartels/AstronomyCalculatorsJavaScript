@@ -58,10 +58,10 @@
 		calcBinoscopeEquivalentApertureBinoviewer = MLB.calcLib.calcBinoscopeEquivalentApertureBinoviewer,
 		calcBinoscopeEquivalentApertureStar = MLB.calcLib.calcBinoscopeEquivalentApertureStar,
 		calcBinoscopeEquivalentApertureNebulosity = MLB.calcLib.calcBinoscopeEquivalentApertureNebulosity,
-		calcEyepieceDivergenceFromTertiaryBendingAngle = MLB.calcLib.calcEyepieceDivergenceFromTertiaryBendingAngle,
-		calcTertiaryBendingAngleFromEyepieceDivergence = MLB.calcLib.calcTertiaryBendingAngleFromEyepieceDivergence,
 		calcEyepieceTipdownFromSecToTertTipdownAndTertBend = MLB.calcLib.calcEyepieceTipdownFromSecToTertTipdownAndTertBend,
 		calcBinoscope = MLB.calcLib.calcBinoscope,
+		calcBinoscope2 = MLB.calcLib.calcBinoscope2,
+		calcMirrorRadian = MLB.calcLib.calcMirrorRadian,
 		getFoldedNewtonianScalingFactor = MLB.calcLib.getFoldedNewtonianScalingFactor,
 		calcFoldedNewtonian = MLB.calcLib.calcFoldedNewtonian,
 		limitingMagnitude = MLB.calcLib.limitingMagnitude,
@@ -511,26 +511,6 @@
 		assert.equal(withinRange(result.high, expected.high, allowableError), true, 'The binoscope aperture gain should be ' + expected.high + ', is ' + result.high);
 	});
 
-	QUnit.test('calcEyepieceDivergenceFromTertiaryBendingAngle', assert => {
-		var allowableError = 0.001,
-		    tertiaryBendingAngleDeg = 20,
-		    secondaryAxisDownwardTiltAngleDeg = 30,
-			result = calcEyepieceDivergenceFromTertiaryBendingAngle(tertiaryBendingAngleDeg, secondaryAxisDownwardTiltAngleDeg),
-			expected = 17.32;
-
-		assert.equal(withinRange(result, expected, allowableError), true, 'The binoscope eyepiece divergence in deg should be ' + expected + ', is ' + result);
-	});
-
-	QUnit.test('calcTertiaryBendingAngleFromEyepieceDivergence', assert => {
-		var allowableError = 0.001,
-		    eyepieceDivergenceAngleDeg = 17.32,
-		    secondaryAxisDownwardTiltAngleDeg = 30,
-			result = calcTertiaryBendingAngleFromEyepieceDivergence(eyepieceDivergenceAngleDeg, secondaryAxisDownwardTiltAngleDeg),
-			expected = 20;
-
-		assert.equal(withinRange(result, expected, allowableError), true, 'The binoscope tertoaru bending angle in deg should be ' + expected + ', is ' + result);
-	});
-
 	QUnit.test('calcEyepieceTipdownFromSecToTertTipdownAndTertBend', assert => {
 		var allowableError = 0.001,
 		    eyepieceDivergenceDeg = 10,
@@ -542,10 +522,10 @@
 	});
 
 	// for matching CAD layout, see  binoLayoutForNewtDesigner1.jpg, binoLayoutForNewtDesigner2.jpg, binoLayoutForNewtDesigner3.jpg
-	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
+	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia, eyepieceLength)
 	QUnit.test('calcBinoscope', assert => {
 		var allowableError = 0.001,
-		    result = calcBinoscope(30, 3, 5, 5, 27, 65.380, 0, 4);
+		    result = calcBinoscope(30, 3, 5, 5, 27, 65.380, 0, 4, 4);
 
 		assert.equal(withinRange(result.focalLength, 90, allowableError), true, 'The focalLength should be 90, is ' + result.focalLength);
 		assert.equal(withinRange(result.primaryToSecondaryDistance, 63, allowableError), true, 'The primaryToSecondaryDistance should be 90, is ' + result.primaryToSecondaryDistance);
@@ -610,24 +590,27 @@
 	});
 
 	// see binoLayoutForNewtDesigner4: ex a and b
-	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia)
+	// function call is calcBinoscope(mirrorDia, focalRatio, focalPointOffsetFromEdgeOfPrimary, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, tertiaryBendingAngleDeg, fieldDia, eyepieceLength)
 	QUnit.test('calcBinoscope with tertiary angle', assert => {
 		var allowableError = 0.001,
 			h,
 		    // ex a
-		    result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1);
+		    result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 0, 1, 0);
 
 		assert.equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
 		assert.equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
 		assert.equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
 		assert.equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.primaryToP3HorizontalDistance, 24, allowableError), true, 'The primaryToP3HorizontalDistance should be 58.835, is ' + result.primaryToP3HorizontalDistance);
 
 		//ex b
-		result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 30, 1);
+		result = calcBinoscope(10, 4, 3, 5, 15, 53.130, 30, 1, 0);
 		assert.equal(withinRange(result.secondaryToTertiaryDistance, 10, allowableError), true, 'The secondaryToTertiaryDistance should be 10, is ' + result.secondaryToTertiaryDistance);
 		assert.equal(withinRange(result.secondaryToTertiaryVerticalLength, 8, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8, is ' + result.secondaryToTertiaryVerticalLength);
 		assert.equal(withinRange(result.secondaryToTertiaryHorizontalLength, 6, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be 6, is ' + result.secondaryToTertiaryHorizontalLength);
 		assert.equal(withinRange(result.elbowAngleDeg, 53.130, allowableError), true, 'The elbowAngleDeg should be 53.130, is ' + result.elbowAngleDeg);
+		assert.equal(withinRange(result.primaryToP3HorizontalDistance, 23.33, allowableError), true, 'The primaryToP3HorizontalDistance should be 58.835, is ' + result.primaryToP3HorizontalDistance);
+
 		// tertiary to focal point values for 30 deg angle - see binoLayoutForNewtDesigner4 ex b
 		assert.equal(withinRange(result.P3centerXLengthFromTertiaryCenter, 4.3301, allowableError), true, 'The P3centerXLengthFromTertiaryCenter should be 4.3301, is ' + result.P3centerXLengthFromTertiaryCenter);
 		assert.equal(withinRange(result.P3centerYLengthFromTertiaryCenter, 2.5, allowableError), true, 'The P3centerYLengthFromTertiaryCenter should be 2.5, is ' + result.P3centerYLengthFromTertiaryCenter);
@@ -635,13 +618,99 @@
 		assert.equal(withinRange(result.P3FieldEdgeYLengthFromP3Center, 0.433, allowableError), true, 'The P3FieldEdgeYLengthFromP3Center should be 0.433, is ' + result.P3FieldEdgeYLengthFromP3Center);
 		// hypotenuse of right angle with sides 0.25 and 0.433 should be 0.5
 		h = Math.sqrt(result.P3FieldEdgeXLengthFromP3Center * result.P3FieldEdgeXLengthFromP3Center + result.P3FieldEdgeYLengthFromP3Center * result.P3FieldEdgeYLengthFromP3Center);
-		assert.equal(withinRange(h, 0.5, allowableError), true, 'The tertiary til plane half length should be 0.5 is ' + h);
+		assert.equal(withinRange(h, 0.5, allowableError), true, 'The tertiary tilted plane half length should be 0.5 is ' + h);
 		assert.equal(withinRange(result.tertiaryAngledAtPrimaryDeg, 11.565, allowableError), true, 'The tertiaryAngledAtPrimaryDeg should be 11.565, is ' + result.tertiaryAngledAtPrimaryDeg);
 		assert.equal(withinRange(result.tertiaryAngledAtFocalPlaneDeg, 41.565, allowableError), true, 'The tertiaryAngledAtFocalPlaneDeg should be 41.565, is ' + result.tertiaryAngledAtFocalPlaneDeg);
 		assert.equal(withinRange(result.tertiaryAngledAtMaxLengthMajorAxis, 3.007, allowableError), true, 'The tertiaryAngledAtMaxLengthMajorAxis should be 3.07, is ' + result.tertiaryAngledAtMaxLengthMajorAxis);
 		assert.equal(withinRange(result.tertiaryAngledAtMaxLengthMinorAxis, 2.25, allowableError), true, 'The tertiaryAngledAtMaxLengthMinorAxis should be 2.25, is ' + result.tertiaryAngledAtMaxLengthMinorAxis);
 		assert.equal(withinRange(result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter, 0.301, allowableError), true, 'The tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter should be 0.301, is ' + result.tertiaryAngledAtXLengthMajorAxisFromTertiaryCenter);
 		assert.equal(withinRange(result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter, 1.473, allowableError), true, 'The tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter should be 1.473, is ' + result.tertiaryAngledAtYLengthMajorAxisFromTertiaryCenter);
+	});
+
+	// see test layout 10F5.jpg
+	// function call is calcBinoscope(mirrorDia, focalRatio, focalPlaneToTertiaryDistance, focalPlaneToSecondaryDistance, secondaryBendingAngleDeg, eyepieceDivergenceAngleDeg, fieldDia, eyepieceLength)
+	QUnit.test('calcBinoscope2', assert => {
+		var allowableError = 0.01,
+		    result = calcBinoscope2(10, 5, 2, 10.5, 75, 10, 1.6, 4);
+
+		assert.equal(withinRange(result.mirrorDia, 10, allowableError), true, 'The mirrorDia should be 10, is ' + result.mirrorDia);
+		assert.equal(withinRange(result.focalRatio, 5, allowableError), true, 'The focalRatio should be 5, is ' + result.focalRatio);
+		assert.equal(withinRange(result.focalPlaneToTertiaryDistance, 2, allowableError), true, 'The focalPlaneToTertiaryDistance should be 2, is ' + result.focalPlaneToTertiaryDistance);
+		assert.equal(withinRange(result.focalPlaneToSecondaryDistance, 10.5, allowableError), true, 'The focalPlaneToSecondaryDistance should be 10.5, is ' + result.focalPlaneToSecondaryDistance);
+		assert.equal(withinRange(result.secondaryBendingAngleDeg, 75, allowableError), true, 'The secondaryBendingAngleDeg should be 75, is ' + result.secondaryBendingAngleDeg);
+		assert.equal(withinRange(result.eyepieceDivergenceAngleDeg, 10, allowableError), true, 'The eyepieceDivergenceAngleDeg should be 10, is ' + result.eyepieceDivergenceAngleDeg);
+		assert.equal(withinRange(result.fieldDia, 1.6, allowableError), true, 'The fieldDia should be 1.6, is ' + result.fieldDia);
+		assert.equal(withinRange(result.eyepieceLength, 4, allowableError), true, 'The eyepieceLength should be 4, is ' + result.eyepieceLength);
+
+		assert.equal(withinRange(result.focalLength, 50, allowableError), true, 'The focalLength should be 50, is ' + result.focalLength);
+		assert.equal(withinRange(result.primaryMirrorToSecondaryHorizontalLength, 39.5, allowableError), true, 'The primaryMirrorToSecondaryHorizontalLength should be 39.5, is ' + result.primaryMirrorToSecondaryHorizontalLength);
+		assert.equal(withinRange(result.secondaryToTertiaryLength, 8.5, allowableError), true, 'The secondaryToTertiaryLength should be 8.5, is ' + result.secondaryToTertiaryLength);
+		assert.equal(withinRange(result.secondaryToTertiaryHorizontalLength, -2.20, allowableError), true, 'The secondaryToTertiaryHorizontalLength should be -2.20, is ' + result.secondaryToTertiaryHorizontalLength);
+		assert.equal(withinRange(result.secondaryToTertiaryVerticalLength, 8.21, allowableError), true, 'The secondaryToTertiaryVerticalLength should be 8.21, is ' + result.secondaryToTertiaryVerticalLength);
+		assert.equal(withinRange(result.primaryMirrorToTertiaryHorizontalLength, 37.30, allowableError), true, 'The primaryMirrorToTertiaryHorizontalLength should be 37.30, is ' + result.primaryMirrorToTertiaryHorizontalLength);
+		assert.equal(withinRange(result.secondaryToP2HorizontalLength, -2.71, allowableError), true, 'The secondaryToP2HorizontalLength should be -2.71, is ' + result.secondaryToP2HorizontalLength);
+		assert.equal(withinRange(result.secondaryToP2VerticalLength, 10.14, allowableError), true, 'The secondaryToP2VerticalLength should be 10.14, is ' + result.secondaryToP2VerticalLength);
+		assert.equal(withinRange(result.primaryMirrorToP2HorizontalLength, 36.78, allowableError), true, 'The primaryMirrorToP2HorizontalLength should be 36.78, is ' + result.primaryMirrorToP2HorizontalLength);
+		assert.equal(withinRange(result.tertiaryToFocalPlaneHorizontalLength, 1.97, allowableError), true, 'The tertiaryToFocalPlaneHorizontalLength should be 1.97, is ' + result.tertiaryToFocalPlaneHorizontalLength);
+		assert.equal(withinRange(result.tertiaryToFocalPlaneVerticalLength, 0.35, allowableError), true, 'The tertiaryToFocalPlaneVerticalLength should be 0.35, is ' + result.tertiaryToFocalPlaneVerticalLength);
+		assert.equal(withinRange(result.primaryMirrorToFocalPlaneHorizontalLength, 39.27, allowableError), true, 'The primaryMirrorToFocalPlaneHorizontalLength should be 39.27, is ' + result.primaryMirrorToFocalPlaneHorizontalLength);
+		assert.equal(withinRange(result.primaryMirrorToFocalPlaneVerticalLength, 8.56, allowableError), true, 'The primaryMirrorToFocalPlaneVerticalLength should be 8.56, is ' + result.primaryMirrorToFocalPlaneVerticalLength);
+		assert.equal(withinRange(result.primaryMirrorEdgeToFocalPlaneVerticalLength, 3.56, allowableError), true, 'The primaryMirrorEdgeToFocalPlaneVerticalLength should be 3.56, is ' + result.primaryMirrorEdgeToFocalPlaneVerticalLength);
+		assert.equal(withinRange(result.focalPlaneToEyepieceEndHorizontalLength, 3.94, allowableError), true, 'The focalPlaneToEyepieceEndHorizontalLength should be 3.94, is ' + result.focalPlaneToEyepieceEndHorizontalLength);
+		assert.equal(withinRange(result.focalPlaneToEyepieceEndVerticalLength, 0.69, allowableError), true, 'The focalPlaneToEyepieceEndVerticalLength should be 0.69, is ' + result.focalPlaneToEyepieceEndVerticalLength);
+		assert.equal(withinRange(result.primaryMirrorToEyepieceEndHorizontalLength, 43.21, allowableError), true, 'The primaryMirrorToEyepieceEndHorizontalLength should be 43.21, is ' + result.primaryMirrorToEyepieceEndHorizontalLength);
+		assert.equal(withinRange(result.primaryMirrorToEyepieceEndVerticalLength, 9.25, allowableError), true, 'The primaryMirrorToEyepieceEndVerticalLength should be 9.25, is ' + result.primaryMirrorToEyepieceEndVerticalLength
+		);
+		assert.equal(withinRange(result.primaryMirrorEdgeToEyepieceEndVerticalLength, 4.25, allowableError), true, 'The primaryMirrorEdgeToEyepieceEndVerticalLength should be 4.25, is ' + result.primaryMirrorToEyepieceEndVerticalLength
+		);
+		assert.equal(withinRange(result.secondaryAngleDeg, 52.5, allowableError), true, 'The secondaryAngleDeg should be 52.5, is ' + result.secondaryAngleDeg);
+		assert.equal(withinRange(result.tertiaryAngleDeg, 57.5, allowableError), true, 'The tertiaryAngleDeg should be 57.5, is ' + result.tertiaryAngleDeg);
+
+		assert.equal(withinRange(result.angleAtP1BetweenMirrorCenterandMirrorEdgeDeg, 5.71, allowableError), true, 'The angleAtP1BetweenMirrorCenterandMirrorEdgeDeg should be 5.71, is ' + result.angleAtP1BetweenMirrorCenterandMirrorEdgeDeg);
+
+		assert.equal(withinRange(result.angleSecondaryUpperHalfSlantedToP1Deg, 121.79, allowableError), true, 'The angleSecondaryUpperHalfSlantedToP1Deg should be 121.79, is ' + result.angleSecondaryUpperHalfSlantedToP1Deg);
+		assert.equal(withinRange(result.angleSecondaryLowerHalfSlantedToP1Deg, 46.79, allowableError), true, 'The angleSecondaryLowerHalfSlantedToP1Deg should be 46.79, is ' + result.angleSecondaryLowerHalfSlantedToP1Deg);
+		assert.equal(withinRange(result.secondaryUpperHalfSlantedLength, 1.23, allowableError), true, 'The secondaryUpperHalfSlantedLength should be 1.23, is ' + result.secondaryUpperHalfSlantedLength);
+		assert.equal(withinRange(result.secondaryLowerHalfSlantedLength, 1.43, allowableError), true, 'The secondaryLowerHalfSlantedLength should be 1.43, is ' + result.secondaryLowerHalfSlantedLength);
+
+		assert.equal(withinRange(result.secondaryMajorAxisLength, 2.66, allowableError), true, 'The secondaryMajorAxisLength should be 2.66, is ' + result.secondaryMajorAxisLength);
+		assert.equal(withinRange(result.secondaryMinorAxisLength, 2.10, allowableError), true, 'The secondaryMinorAxisLength should be 2.10, is ' + result.secondaryMinorAxisLength);
+		assert.equal(withinRange(result.secondaryOffset, 0.20, allowableError), true, 'The secondaryOffset should be 0.20, is ' + result.secondaryOffset);
+
+		assert.equal(withinRange(result.secondaryUpperEndHorizontalLength, 0.75, allowableError), true, 'The secondaryUpperEndHorizontalLength should be 0.75, is ' + result.secondaryUpperEndHorizontalLength);
+		assert.equal(withinRange(result.secondaryUpperEndVerticalLength, 0.98, allowableError), true, 'The secondaryUpperEndVerticalLength should be 0.98, is ' + result.secondaryUpperEndVerticalLength);
+		assert.equal(withinRange(result.secondaryLowerEndHorizontalLength, -0.87, allowableError), true, 'The secondaryLowerEndHorizontalLength should be -0.87, is ' + result.secondaryLowerEndHorizontalLength);
+		assert.equal(withinRange(result.secondaryLowerEndVerticalLength, -1.14, allowableError), true, 'The secondaryLowerEndVerticalLength should be -1.14, is ' + result.secondaryLowerEndVerticalLength);
+
+		assert.equal(withinRange(result.P2AngleDeg, 15, allowableError), true, 'The P2AngleDeg should be 15, is ' + result.P2AngleDeg);
+		assert.equal(withinRange(result.P2EndHorizontalLength, 0.77, allowableError), true, 'The P2EndHorizontalLength should be 0.77, is ' + result.P2EndHorizontalLength);
+		assert.equal(withinRange(result.P2EndVerticalLength, 0.21, allowableError), true, 'The P2EndVerticalLength should be 0.21, is ' + result.P2EndVerticalLength);
+
+		assert.equal(withinRange(result.P3EndHorizontalLength, 0.14, allowableError), true, 'The P3EndHorizontalLength should be 0.14, is ' + result.P3EndHorizontalLength);
+		assert.equal(withinRange(result.P3EndVerticalLength, 0.78, allowableError), true, 'The P3EndVerticalLength should be 0.78, is ' + result.P3EndVerticalLength);
+
+		assert.equal(withinRange(result.secondaryToP2UpperSlope, -3.48, allowableError), true, 'The secondaryToP2UpperSlope should be -3.48, is ' + result.secondaryToP2UpperSlope);
+		assert.equal(withinRange(result.secondaryToP2LowerSlope, -4.23, allowableError), true, 'The secondaryToP2LowerSlope should be -4.23, is ' + result.secondaryToP2LowerSlope);
+		assert.equal(withinRange(result.yUpperCross, 0.87, allowableError), true, 'The yUpperCross should be 0.87, is ' + result.yUpperCross);
+		assert.equal(withinRange(result.yLowerCross, -0.88, allowableError), true, 'The yLowerCross should be -0.88, is ' + result.yLowerCross);
+		assert.equal(withinRange(result.yUpperCrossAngleRad, 1.29, allowableError), true, 'The yUpperCrossAngleRad should be 1.29, is ' + result.yUpperCrossAngleRad);
+		assert.equal(withinRange(result.tertiaryUpperCrossAngleRad, 0.85, allowableError), true, 'The tertiaryUpperCrossAngleRad should be 0.85, is ' + result.tertiaryUpperCrossAngleRad);
+		assert.equal(withinRange(result.tertiaryUpperLength, 1.12, allowableError), true, 'The tertiaryUpperLength should be 1.12, is ' + result.tertiaryUpperLength);
+		assert.equal(withinRange(result.tertiaryUpperPointHorizontalLength, 0.60, allowableError), true, 'The tertiaryUpperPointHorizontalLength should be 0.60, is ' + result.tertiaryUpperPointHorizontalLength);
+		assert.equal(withinRange(result.tertiaryUpperPointVerticalLength, 0.94, allowableError), true, 'The tertiaryUpperPointVerticalLength should be 0.94, is ' + result.tertiaryUpperPointVerticalLength);
+		assert.equal(withinRange(result.yLowerCrossAngleRad, 1.34, allowableError), true, 'The yLowerCrossAngleRad should be 1.34, is ' + result.yLowerCrossAngleRad);
+		assert.equal(withinRange(result.tertiaryLowerCrossAngleRad, 0.80, allowableError), true, 'The tertiaryLowerCrossAngleRad should be 0.80, is ' + result.tertiaryLowerCrossAngleRad);
+		assert.equal(withinRange(result.tertiaryLowerPointHorizontalLength, -0.64, allowableError), true, 'The tertiaryLowerPointHorizontalLength should be -0.64, is ' + result.tertiaryLowerPointHorizontalLength);
+		assert.equal(withinRange(result.tertiaryLowerPointVerticalLength, -1.01, allowableError), true, 'The tertiaryLowerPointVerticalLength should be -1.01, is ' + result.tertiaryLowerPointVerticalLength);
+		assert.equal(withinRange(result.tertiaryLowerLength, 1.20, allowableError), true, 'The tertiaryLowerLength should be 1.20, is ' + result.tertiaryLowerLength);
+		assert.equal(withinRange(result.tertiaryLength, 2.31, allowableError), true, 'The tertiaryLength should be 2.31, is ' + result.tertiaryLength);
+		assert.equal(withinRange(result.tertiaryMinorAxisLength, 1.70, allowableError), true, 'The tertiaryMinorAxisLength should be 1.70, is ' + result.tertiaryMinorAxisLength);
+		assert.equal(withinRange(result.tertiaryOffset, 0.08, allowableError), true, 'The tertiaryOffset should be 0.08, is ' + result.tertiaryOffset);
+	});
+
+	QUnit.test('calcMirrorRadian', assert => {
+		var result = calcMirrorRadian(5);
+		assert.equal(withinRange(result, 0.1, 0.000001), true, 'smirrorRadian should be 0.1, is ' + result);
 	});
 
 	QUnit.module('foldedNewtonian');
@@ -2194,37 +2263,6 @@ note that visible? is coded from impossible=1 to very easy=6
 		result = eyepieceTravel(focalLength, distanceFromObjectiveToObject);
 		assert.equal(withinRange(result, expected, allowableError), true, 'eyepiece travel should be ' + expected + ', is ' + result);
 	});
-
-	QUnit.module('WaineoSphericalNull');
-
-	QUnit.skip('WaineoSphericalNull', assert => {
-		var inParms = {
-			// in mm
-			paraboloidalDia: 500,
-			KEpositionBehindSphere: 150,
-			nullingSphereRoC: 2000,
-			paraboloidRoC: 5000
-		},
-		expected = {
-			lightSourceDistanceInFrontOfSphere: 69.36592,
-			minimumSphereDia: 18.18299,
-			minimumHoleInSphereDia: 1.806831,
-			paraboloidDistanceFromSphere: 400.7165,
-			paraboloidToFocusKEDistance: 415.7165,
-			marginalSphericalAberration: -0.000000000000004440892, //difference between central and marginal focus of null system; should be less than 1.0E-15
-			opticalPathSifference: 0.08211839,                     // OPD between central and marginal rays expressed in wave lengths of 0.00055mm
-			sphericalAberrationZone707: -0.03745461,
-			zoneOPD707: 0.04089487,
-			minOPD: 0.01030829,              // minimized maximum OPD using 24 zones
-			incrementalBestFocus: 0.02805132 // KE adjustment for MinOPD
-		},
-		allowableError = 0.00001,
-		result = WaineoSphericalNull(inParms);
-
-		assert.equal(withinRange(result.lightSourceDistanceInFrontOfSphere, expected.lightSourceDistanceInFrontOfSphere, allowableError), true, 'lightSourceDistanceInFrontOfSphere should be ' + expected.lightSourceDistanceInFrontOfSphere + ', is ' + result.lightSourceDistanceInFrontOfSphere);
-
-	});
-
 });
 
 </script>
