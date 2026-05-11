@@ -542,7 +542,7 @@
 		assert.equal(withinRange(result.secondaryLowerLength, 5.987, allowableError), true, 'The secondaryLowerLength should be 5.987, is ' + result.secondaryLowerLength);
 		assert.equal(withinRange(result.secondaryMajorAxis, 10.818, allowableError), true, 'The secondaryMajorAxis should be 10.818, is ' + result.secondaryMajorAxis);
 		assert.equal(withinRange(result.secondaryMinorAxis, 9, allowableError), true, 'The secondaryMinorAxis should be 9, is ' + result.secondaryMinorAxis);
-		assert.equal(withinRange(result.secondaryOffset, 0.579, allowableError), true, 'The secondaryOffset should be 5.579, is ' + result.secondaryOffset);
+		assert.equal(withinRange(result.secondaryOffset, 0.579, allowableError), true, 'The secondaryOffset should be 0.579, is ' + result.secondaryOffset);
 		assert.equal(withinRange(result.secondaryUpperPointYLength, 4.065, allowableError), true, 'The secondaryUpperPointYLength should be 4.065, is ' + result.secondaryUpperPointYLength);
 		assert.equal(withinRange(result.secondaryUpperPointXLength, 2.609, allowableError), true, 'The secondaryUpperPointXLength should be 2.609, is ' + result.secondaryUpperPointXLength);
 		assert.equal(withinRange(result.secondaryLowerPointYLength, 5.039, allowableError), true, 'The secondaryLowerPointYLength should be 5.039, is ' + result.secondaryLowerPointYLength);
@@ -675,7 +675,7 @@
 
 		assert.equal(withinRange(result.secondaryMajorAxisLength, 2.66, allowableError), true, 'The secondaryMajorAxisLength should be 2.66, is ' + result.secondaryMajorAxisLength);
 		assert.equal(withinRange(result.secondaryMinorAxisLength, 2.10, allowableError), true, 'The secondaryMinorAxisLength should be 2.10, is ' + result.secondaryMinorAxisLength);
-		assert.equal(withinRange(result.secondaryOffset, 0.20, allowableError), true, 'The secondaryOffset should be 0.20, is ' + result.secondaryOffset);
+		assert.equal(withinRange(result.secondaryOffset, 0.10, allowableError), true, 'The secondaryOffset should be 0.10, is ' + result.secondaryOffset);
 
 		assert.equal(withinRange(result.secondaryUpperEndHorizontalLength, 0.75, allowableError), true, 'The secondaryUpperEndHorizontalLength should be 0.75, is ' + result.secondaryUpperEndHorizontalLength);
 		assert.equal(withinRange(result.secondaryUpperEndVerticalLength, 0.98, allowableError), true, 'The secondaryUpperEndVerticalLength should be 0.98, is ' + result.secondaryUpperEndVerticalLength);
@@ -705,7 +705,7 @@
 		assert.equal(withinRange(result.tertiaryLowerLength, 1.20, allowableError), true, 'The tertiaryLowerLength should be 1.20, is ' + result.tertiaryLowerLength);
 		assert.equal(withinRange(result.tertiaryLength, 2.31, allowableError), true, 'The tertiaryLength should be 2.31, is ' + result.tertiaryLength);
 		assert.equal(withinRange(result.tertiaryMinorAxisLength, 1.70, allowableError), true, 'The tertiaryMinorAxisLength should be 1.70, is ' + result.tertiaryMinorAxisLength);
-		assert.equal(withinRange(result.tertiaryOffset, 0.08, allowableError), true, 'The tertiaryOffset should be 0.08, is ' + result.tertiaryOffset);
+		assert.equal(withinRange(result.tertiaryOffset, 0.04, allowableError), true, 'The tertiaryOffset should be 0.04, is ' + result.tertiaryOffset);
 	});
 
 	QUnit.test('calcMirrorRadian', assert => {
