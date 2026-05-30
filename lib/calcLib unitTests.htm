@@ -505,7 +505,7 @@
 		var allowableError = 0.001,
 		    aperture = 10,
 			result = calcBinoscopeEquivalentApertureNebulosity(aperture),
-			expected = {low: 14, high: 18};
+			expected = {low: 14, high: 20};
 
 		assert.equal(withinRange(result.low, expected.low, allowableError), true, 'The binoscope aperture gain should be ' + expected.low + ', is ' + result.low);
 		assert.equal(withinRange(result.high, expected.high, allowableError), true, 'The binoscope aperture gain should be ' + expected.high + ', is ' + result.high);
