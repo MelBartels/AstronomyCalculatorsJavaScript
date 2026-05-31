@@ -2306,50 +2306,77 @@ copyright Mel Bartels, 2016-2026 -->
 				</table>
 			</div>
 
-			<h4>Interpreting diagonal sizes</h4>
+			<br><br>
+			<div id='diagonalInterpretation'></div>
+			<button class='accordion' id='btnDiagonalInterpretation'>Interpreting diagonal sizes</button>
+			<div class='panel'>
+				<p>For the complete picture, the chart includes light lost from the diagonal obstruction. Larger diagonals improve off-axis illumination but cost light across the entire field.
 
-			<p>For the complete picture, the chart includes light lost from the diagonal obstruction. Larger diagonals improve off-axis illumination but cost light across the entire field.
+				<p>Use the magnitude scale; avoid percentages of illumination: the eye responds logarithmically, not linearly. It's a mistake to be upset over a 5% light loss when in fact from the eye's perspective the light loss is an imperceptible 1/20 magnitude.
 
-			<p>Use the magnitude scale; avoid percentages of illumination: the eye responds logarithmically, not linearly. It's a mistake to be upset over a 5% light loss when in fact from the eye's perspective the light loss is an imperceptible 1/20 magnitude.
+				<p>The default diagonal to focus distance is set for a low profile focuser. Low profile focusers shorten the diagonal to focus distance enabling a smaller diagonal. Low profile focusers are not just for fast scopes where the bottom of the focuser barrel cannot be allowed to vignette or clip the light coming in from the mirror's edge to the eyepiece field's edge. Taller focusers have two benefits: the longer focuser barrel implies greater resistance to bending and play and the bottom of the focuser barrel can act to block some stray light.
 
-			<p>The default diagonal to focus distance is set for a low profile focuser. Low profile focusers shorten the diagonal to focus distance enabling a smaller diagonal. Low profile focusers are not just for fast scopes where the bottom of the focuser barrel cannot be allowed to vignette or clip the light coming in from the mirror's edge to the eyepiece field's edge. Taller focusers have two benefits: the longer focuser barrel implies greater resistance to bending and play and the bottom of the focuser barrel can act to block some stray light.
+				<p>Coma correctors like barlow lenses are best thought of as eyepiece accessories. Just reduce the desired field size by the coma corrector or barlow's magnification factor. Ignore the change in the focal plane. For example, if the coma corrector magnifies 15% then reduce the desired field to illuminate by 15%. Vignetting is not an issue down to F2.6 for pupils 7mm and smaller.
 
-			<p>Coma correctors like barlow lenses are best thought of as eyepiece accessories. Just reduce the desired field size by the coma corrector or barlow's magnification factor. Ignore the change in the focal plane. For example, if the coma corrector magnifies 15% then reduce the desired field to illuminate by 15%. Vignetting is not an issue down to F2.6 for pupils 7mm and smaller.
+				<p>I find light loss of less than 0.3 magnitude hardly noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects. A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 10 inch and a 11 inch telescope is much smaller at 0.2 magnitudes and not readily apparent.
 
-			<p>I find light loss of less than 0.3 magnitude hardly noticeable. For extended objects where both the background and object drop equally in magnitude, the contrast or ratio is unchanged, meaning that the eye's ability to detect the object remains largely unchanged. For instance, compare a 10 inch to a 12 inch telescope - the magnitude drop is 0.4. I can detect this difference when comparing views on borderline objects. A drop of 0.5 magnitude or more is not readily detectable on brighter objects. However, the difference between a 10 inch and a 11 inch telescope is much smaller at 0.2 magnitudes and not readily apparent.
+				<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field.
+				<!-- note that jumping to NewtDesigner.html#visual does not work because it needs a refresh -->
+				Read more on <a href='NewtDesigner.html#visual' target='_blank'>visual detection and limits at the eyepiece</a>.
 
-			<p>An object's detectability depends on contrast between object and sky, apparent size of the object and the object's brightness. The contrast is the ratio between the object's brightness per area (typically one arc-second squared) added to the sky background brightness that is in front of the object and the sky background brightness adjacent to the object (contrast=(object+sky) / sky). When a star or extended object is dimmed as it approaches the edge of the field of view, so is the sky background. Contrast remains the same. Experiments that I have conducted show that the object's detectability is not diminished as much as the raw magnitude loss suggests. Besides, if critical detection is required, then the object can be brought to the center of the field.
-			<!-- note that jumping to NewtDesigner.html#visual does not work because it needs a refresh -->
-			Read more on <a href='NewtDesigner.html#visual' target='_blank'>visual detection and limits at the eyepiece</a>.
+				<p>Diagonals act to lower contrast for certain spatial frequencies. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, lowers contrast to that of a 1/14 wave RMS system.
 
-			<p>Diagonals act to lower contrast for certain spatial frequencies. A one-third obstruction, a much larger ratio than the customary visual Newtonian uses, lowers contrast to that of a 1/14 wave RMS system.
+				<p>In particular I recommend analysis on the effects of central obstruction and optical quality like Damien Peach's at <a href='http://www.damianpeach.com/simulation.htm' target='_blank'>http://www.damianpeach.com/simulation.htm</a>.
+			</div>
 
-			<p>In particular I recommend analysis on the effects of central obstruction and optical quality like Damien Peach's at <a href='http://www.damianpeach.com/simulation.htm' target='_blank'>http://www.damianpeach.com/simulation.htm</a>.
+			<br><br>
+			<div id='diagonalOffset'></div>
+			<button class='accordion' id='btnDiagonalOffset'>The diagonal offset</button>
+			<div class='panel'>
+				<p>Diagonals are offset because the diagonal's edge closest to the primary mirror has further to travel to focus. Commonly the diagonal is positioned further away from the focal plane and closer to the primary mirror, in effect sliding the diagonal along its major axis. Here the diagonal intercept distance does not change.
 
-			<h4>The diagonal offset</h4>
+				<p><img alt='' loading='' src='DiagonalOffsetStudy\diagonal offset.jpg'>
+				<img alt='' loading='' src='DiagonalOffsetStudy\diagonal intercept vis-a-vis offset.jpg'>
 
-			<p>Diagonals are offset because the diagonal's edge closest to the primary mirror has further to travel to focus. Commonly the diagonal is positioned further away from the focal plane and closer to the primary mirror, in effect sliding the diagonal along its major axis. Here the diagonal intercept distance does not change.<br>
-			<img alt='' loading='' src='DiagonalOffsetStudy\diagonal offset.jpg'>
-			<img alt='' loading='' src='DiagonalOffsetStudy\diagonal intercept vis-a-vis offset.jpg'>
+				<p>I calculate four different offsets which vary depending on perspective.
+				<ol>
+					<li>The most common offset is based on the center of the field of view. As drawn above.
+					<li>However, the 'circle of even illumination' is not a circle but actually is an ovoid egg-shaped. Viewing the diagonal from the edge of the field of view results in the diagonal appearing to be tipped slightly away from 45 degrees. Balancing the illumination from the field of view's edges results in a slightly different offset.
+					<li>If instead the edge of the fully illuminated field is used, then yet another offset can be calculated.
+					<li>Many amateurs use a collimator that's set above the plane of the field of view. This results in yet a different offset.
+				</ol>
 
-			<p>I calculate four different offsets which vary depending on perspective.
-			<ol>
-				<li>The most common offset is based on the center of the field of view. As drawn above.
-				<li>However, the 'circle of even illumination' is not a circle but actually is an ovoid egg-shaped. Viewing the diagonal from the edge of the field of view results in the diagonal appearing to be tipped slightly away from 45 degrees. Balancing the illumination from the field of view's edges results in a slightly different offset.
-				<li>If instead the edge of the fully illuminated field is used, then yet another offset can be calculated.
-				<li>Many amateurs use a collimator that's set above the plane of the field of view. This results in yet a different offset.
-			</ol>
+				<p>In other words, the offset moves the center of illumination (there are at least four 'centers' as noted) towards the field center. Even if the primary mirror's perimeter cannot be seen in its entirely this hardly affects resolution and can be seen as a matter of the center of illumination vis-a-vis the eyepiece's center.
 
-			<p>In other words, the offset moves the center of illumination (there are at least four 'centers' as noted) towards the field center. Even if the primary mirror's perimeter cannot be seen in its entirely this hardly affects resolution and can be seen as a matter of the center of illumination vis-a-vis the eyepiece's center.
+				<p>When designing a telescope I select an average offset based on focal plane center and balancing illumination at the field edges. I mark the diagonal at this offset with a very fine point permanent marker, then use a laser collimator to align upper end, focuser, eyepiece, diagonal and primary components, with the goal to center the eyepiece axis and primary mirror axis on each other. For example, see how I <a href='30/30 inch mirrors log.html#24' target='_blank'> built the focuser adapter assembly</a> for my 30 inch [76cm] F2.7 telescope. In practice it is impossible to visually detect these different offsets and digital imagers will flat field anyhow.
+			</div>
 
-			<p>When designing a telescope I select an average offset based on focal plane center and balancing illumination at the field edges. I mark the diagonal at this offset with a very fine point permanent marker, then use a laser collimator to align upper end, focuser, eyepiece, diagonal and primary components, with the goal to center the eyepiece axis and primary mirror axis on each other. For example, see how I <a href='30/30 inch mirrors log.html#24' target='_blank'> built the focuser adapter assembly</a> for my 30 inch [76cm] F2.7 telescope. In practice it is impossible to visually detect these different offsets and digital imagers will flat field anyhow.
+			<br><br>
+			<div id='diagonalObstructionResolution'></div>
+			<button class='accordion' id='btnDiagonalObstructionResolution'>Diagonal obstruction effects on resolution</button>
+			<div class='panel'>
+				<p>Three situations to consider:
+				<ol>
+					<li>Low contrast planetary features. William Zmek, a prominent optical engineer, showed in his two part article, "Rules of Thumb for Planetary Telescopes", in the July and September 1993 issues of Sky and Telescope magazine that the equivalent non-obstructure aperture is equal to the obstructed mirror's diameter minus the obstruction. For example, a 10 inch Newtonian with a 2 inch diagonal resolves low contrast features equal to an 8 inch un-obstructed aperture. The diagonal redirects light from the Airy Disc into the surrounding rings, reducing contrast. However, many observers report that obstructions do not impact low contrast planetary features quite as much as this formula suggests. For more examples, see Damien Peach's at <a href='http://www.damianpeach.com/simulation.htm' target='_blank'>Damien Peach's simulations</a>.
+					<p>
+					<li>High contrast planetary and lunar features. The central obstruction has little effect on resolution.
+					<p>
+					<li>Very close double stars of equal magnitude. Obstructions, by slightly decreasing the size of the Airy Disc, may increase the ability to resolve these double stars.
+				</ol>
 
-			<h4>Equivalent non-obstructed resolution</h4>
+				<p>The MTF (Modulation Transfer Function) curve is an excellent way to understand the impact of obstructions. Here's <a href='http://www.astrophoto.fr/obstruction.html' target='_blank'>Thierry's detailed discussion</a>.
 
-			<p>A diagonal reduces resolution somewhat, particularly on low contrast features such as the clouds of Jupiter or markings on Mars. What unobstructed aperture might compare?
+				<p>Far more impactful on resolution than the central obstruction are:
+				<ol>
+					<li>Optical alignment
+					<li>Thermal issues affecting the primary mirror
+					<li>Seeing
+				</ol>
 
-			<p>William Zmek, a prominent optical engineer, showed in his two part article, "Rules of Thumb for Planetary Telescopes", in the July and September 1993 issues of Sky and Telescope magazine that the equivalent non-obstructure aperture is equal to the obstructed mirror's diameter minus the obstruction. For example, a 10 inch Newtonian with a 2 inch diagonal resolves low contrast features equal to an 8 inch un-obstructed aperture. The diagonal redirects light from the Airy Disc into the surrounding rings, reducing contrast. However, many observers report that the obstructed aperture resolves better than this formula. And indeed, for very close double stars of equal magnitude, modest obstructions may increase resolution!
+				<p>This was made evident on a night of perfect seeing at the Oregon Star Party. The central star of the Ring Nebula was a perfect dot at 6000x in my 20.5 inch F4.8 telescope. I took a trip around the telescope field. Even lowly Coulter scopes with their 'average' mirror quality gave surprisingly good images, revealing low contrast features on planets. The impact of seeing is far more impactful than central obstruction.
+			</div>
 
+			<br><br>
 			<div id='secondarySizeExperiment'></div>
 			<button class='accordion' id='btnSecondarySizeExperiment'>The 1974 Telescope Secondary Experiment</button>
 			<div class='panel'>
@@ -3005,6 +3032,14 @@ copyright Mel Bartels, 2016-2026 -->
 
 				<p>"The IFN, Integrated Flux Nebulae, are patches of the background sky that brighten up because there is interstellar material floating around in the galaxy. This is the supernova material that eventually becomes new stars and grubby little humans, so looking at IFN is really being able to see a whole new stage in stellar evolution that amateur astronomers have ignored until Mel Bartels started seeking them out in his fast scopes. To be clear, we’re talking about seeing something in real time that imagers have to spend hundreds of hours collecting data to pick up. He gave us a talk on Friday night via Zoom where he encouraged people to seek these out in any instrument they have, just get the biggest exit pupil possible. Of course Bloom and Heart have two exit pupils so they’re at a huge advantage. I sought out a couple by request. First, in Heart we looked at the huge IFN wall that stretches from M31 all the way down to M33. Then we spent some time looking at M13, which is surrounded by a bunch of IFN. This was a super-cool composition where we could see much of the detail in Mel’s sketch of the area [done with a 30 inch].
 
+				<h5>Bob Bjornstedt</h5>
+
+				<p>
+
+
+
+
+
 				<h5>Randy Muller</h5>
 
 				<p>Later at the Shingletown (California) Star Party, Randy Muller (responding to a question from a TAC-SAC listserv member, "What was your favorite [view] at SSP this year?") wrote, "The Lagoon Nebula, (M8) (in OIII) at around 100x through Bruce Sayre's 22" binocular. I visited Bruce near the end of the evening (actually I kept him up longer than he wanted to be up, but he graciously allowed me to look through his scope), so there was no line, and I was able to adjust precisely the inter-ocular distance and focus of each OTA."
@@ -3019,9 +3054,9 @@ copyright Mel Bartels, 2016-2026 -->
 
 				<h5>Clive Milne</h5>
 
-				<p>I don't have the energy (or the time) to give a full account of the first light with my binocular telescope, but here are a few impressions. Firstly, they worked with only a few minor repairs and tweaks, and that was a pleasant surprise considering that I took delivery of the optics 2 hours before sunset. It would be fair to say that setting the things up proved to be a little 'quirky', but that was to be expected I suppose. As they stand, the design is entirely valid for a permanent set up, and the minor modifications I have planned should ease the pain of using them on a whimsical basis. Currently, set up is a 'non-trivial' undertaking, but the issues have relatively simple solutions and all will be addressed in due course.
+				<p>I don't have the energy (or the time) to give a full account of the first light with my [20 inch] binocular telescope, but here are a few impressions. Firstly, they worked with only a few minor repairs and tweaks, and that was a pleasant surprise considering that I took delivery of the optics 2 hours before sunset. It would be fair to say that setting the things up proved to be a little 'quirky', but that was to be expected I suppose. As they stand, the design is entirely valid for a permanent set up, and the minor modifications I have planned should ease the pain of using them on a whimsical basis. Currently, set up is a 'non-trivial' undertaking, but the issues have relatively simple solutions and all will be addressed in due course.
 
-				<p>Some of the positives include the off-set wire spiders, which amazed everyone who tested their stability. And of course the OTA alignment joystick, which streamlined the operation by two orders of magnitude. People who had never used a telescope before found no difficulty in observing with this instrument, and no one reported any eyestrain over the two nights. What can I say other than 'it works'. The views through the instrument are hard to describe. However, to give you an idea of the compelling nature of observing with giant binoculars, consider that the first night with them, they were effectively as good as an un-baffled instrument. Every moment was so precious that we elected not to trade eyepiece time for that required to baffle the instrument properly. I don't think I have ever heard so many 'Ohhhhhhh myyyyy Goddddds' uttered in a single night. Except of course for the second night when the baffling was greatly improved. I also had the opportunity to compare a few objects using a nearby 25" Obsession. There is no denying that the views through it were quite stunning, and one could argue the merits of one instrument over the other based on limiting magnitude or faint detail perception, but that just misses the point completely. The incredible sense of total immersion in the reality of the experience is what binoculars are all about. The one positive impression that the 25" Obsession left me with was that I simply must build an even bigger pair of bino's  :)
+				<p>Some of the positives include the off-set wire spiders, which amazed everyone who tested their stability. And of course the OTA alignment joystick, which streamlined the operation by two orders of magnitude. People who had never used a telescope before found no difficulty in observing with this instrument, and no one reported any eyestrain over the two nights. What can I say other than 'it works'. The views through the instrument are hard to describe. However, to give you an idea of the compelling nature of observing with giant binoculars, consider that the first night with them, they were effectively as good as an un-baffled instrument. Every moment was so precious that we elected not to trade eyepiece time for that required to baffle the instrument properly. I don't think I have ever heard so many 'Ohhhhhhh myyyyy Goddddds' uttered in a single night. Except of course for the second night when the baffling was greatly improved. I also had the opportunity to compare a few objects using a nearby 25" Obsession. There is no denying that the views through it were quite stunning, and one could argue the merits of one instrument over the other based on limiting magnitude or faint detail perception, but that just misses the point completely. <b>The incredible sense of total immersion in the reality of the experience is what binoculars are all about</b>. The one positive impression that the 25" Obsession left me with was that I simply must build an even bigger pair of bino's  :)
 
 				<p>There is a negative side to observing with a giant binocular telescope though, and that is that the comfort level afforded by using both eyes means that people tend to 'hog' the eyepiece. I regularly had to suggest 'sorry, your time is up, let someone else have a look'.
 
@@ -3031,7 +3066,7 @@ copyright Mel Bartels, 2016-2026 -->
 
 				<p>On several nights over the last couple of years, I have taken my 17.5″ Dobsonian and my 13.1″ binoculars to a dark sky site. On the night of one memorable test session the seeing was very steady (unusual in Colorado) with much detail visible on Jupiter. All these optics are extremely good, with superior pedigrees and nearly perfect performance under careful testing. I tried both instruments on several targets, of various types. I made nearly all comparisons using approximately the same magnification through both (about 150x for most cases). The exit pupil was different in each instrument, of course, but fairly small so as to reduce effects due to the outer edge of the lens of my eye and make sure my 51 year-old eyes were accepting all the light. The effective light gathering of each instrument is about the same including the additional loss from the third reflection in the binoculars.
 
-				<p>On M13, both views were spectacular, with stars resolved to the core. My notes indicate more detail in the 17″ but the detail is more obvious in the binocs. The Veil Nebula was obvious in the 17″ and even MORE obvious in the binocs, with exquisite fine detailed knots and tendrils in both. Careful comparison indicated more detail visible in the 17″, but the detail was more “true” in the binocs. My notes here indicate that the effect in the binoculars was similar to the effect that many experienced deep sky observers are familiar with which occurs when you move the telescope slightly and faint nebulosity jumps out at you; the brain tunes in to motion. Apparently the brain tunes into binocular vision in a similar fashion. Jupiter showed much banding, swirls and fine detail in the 17″. The effect in the binocs was DUMBFOUNDING! It looked as if the seeing had just been locked down to perfect! It seemed as if as much or more detail was visible in the binoculars and it was OBVIOUS! Perhaps some of this was the standard effect of smaller aperture on seeing effects. I noticed that when one eye was seeing a momentary blur, the other was seeing a clean view. Subjectively, the effect was astounding. I strongly suspect that an experienced planetary observer would be able to painstakingly extract more detail through the 17″ with many tens of minutes at the eyepiece. But, through the binoculars such information was immediate, intuitive and unquestionable. In the 17″ the dust lanes of M31 were easy. In the binoculars the dust lanes jumped out of the eyepiece and slapped me in the face!
+				<p>On M13, both views were spectacular, with stars resolved to the core. My notes indicate more detail in the 17″ but the detail is more obvious in the binocs. The Veil Nebula was obvious in the 17″ and even MORE obvious in the binocs, with exquisite fine detailed knots and tendrils in both. Careful comparison indicated more detail visible in the 17″, but the detail was more “true” in the binocs. My notes here indicate that the effect in the binoculars was similar to the effect that many experienced deep sky observers are familiar with which occurs when you move the telescope slightly and faint nebulosity jumps out at you; the brain tunes in to motion. Apparently the brain tunes into binocular vision in a similar fashion. Jupiter showed much banding, swirls and fine detail in the 17″. The effect in the binocs was DUMBFOUNDING! <b>It looked as if the seeing had just been locked down to perfect! It seemed as if as much or more detail was visible in the binoculars and it was OBVIOUS</b>! Perhaps some of this was the standard effect of smaller aperture on seeing effects. I noticed that when one eye was seeing a momentary blur, the other was seeing a clean view. Subjectively, the effect was astounding. I strongly suspect that an experienced planetary observer would be able to painstakingly extract more detail through the 17″ with many tens of minutes at the eyepiece. But, through the binoculars such information was immediate, intuitive and unquestionable. <b>In the 17″ the dust lanes of M31 were easy. In the binoculars the dust lanes jumped out of the eyepiece and slapped me in the face</b>!
 
 				<p>Overall Impressions
 
@@ -3042,6 +3077,10 @@ copyright Mel Bartels, 2016-2026 -->
 				<h5>Peter Vercauteren</h5>
 
 				<p>A good video by Peter Vercauteren, an experienced binoscope viewer is at <a href='https://www.youtube.com/watch?v=-zeKqdjMVtQ' target='_blank'>https://www.youtube.com/watch?v=-zeKqdjMVtQ</a>.
+
+				<h5>Arie Otto</h5>
+
+				<p><a href='https://arieotte-binoscopes.nl/The%20WOW%20factor.htm' target='_blank'>Arie Otto's the 'WOW' factor</a>.
 			</div>
 
 			<br><br>
@@ -4209,7 +4248,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 30-May-2026
+				Last update 31-May-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
