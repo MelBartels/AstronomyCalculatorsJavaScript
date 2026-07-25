@@ -143,6 +143,7 @@
 		calcMirrorWeight = MLB.calcLib.calcMirrorWeight,
 		calcLensCG = MLB.calcLib.calcLensCG,
 		calcMirrorCG = MLB.calcLib.calcMirrorCG,
+		calcMinimumMeniscusMirrorDia = MLB.calcLib.calcMinimumMeniscusMirrorDia,
 		eyepieceTravel = MLB.calcLib.eyepieceTravel,
 		WaineoSphericalNull = MLB.calcLib.WaineoSphericalNull;
 
@@ -2242,6 +2243,30 @@ note that visible? is coded from impossible=1 to very easy=6
 		expected = 0.594;
 		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
 		assert.equal(withinRange(result, expected, allowableError), true, 'mirror (meniscus) CG should be ' + expected + ', is ' + result);
+	});
+		
+	QUnit.test('calcMinimumMeniscusMirrorDia', assert => {
+		// 20 inch x 2 inch thick F2; expected CG should be further from the mirror's top edge than half the sagitta
+		var mirrorDia = 24,
+			mirrorFocalRatio = 3,
+			expected = 0.5,
+			allowableError = 0.01,
+			result = calcMinimumMeniscusMirrorDia(mirrorDia, mirrorFocalRatio);
+
+		assert.equal(withinRange(result, expected, allowableError), true, 'expected meniscus minimum thickness should be ' + expected + ', is ' + result);
+
+		mirrorDia = 40;
+		mirrorFocalRatio = 2;
+		expected = 1.25;
+		result = calcMinimumMeniscusMirrorDia(mirrorDia, mirrorFocalRatio);
+		assert.equal(withinRange(result, expected, allowableError), true, 'expected meniscus minimum thickness should be ' + expected + ', is ' + result);
+
+		//metric 24" demonstrating that the function works in that the returned UOM is the input UOM
+		mirrorDia = 609.6;
+		mirrorFocalRatio = 3;
+		expected = 12.7;
+		result = calcMinimumMeniscusMirrorDia(mirrorDia, mirrorFocalRatio);
+		assert.equal(withinRange(result, expected, allowableError), true, 'expected meniscus minimum thickness should be ' + expected + ', is ' + result);
 	});
 
 	QUnit.module('focusing');
