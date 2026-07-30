@@ -148,25 +148,24 @@ thead tr th:first-child, tbody tr td:first-child {
 #panMountComparisonTable {
 	border-spacing: 5px;
 }
-
 #panMountComparisonTable td {
 	border: 1px solid gray;
 }
 
-#telescopeEyepieceMode {
-	border: 0;
-	border-collapse: collapse;
-	cellpadding: 3;
-	cellspacing: 0;
+#meniscusTable thead tr th:first-child, tbody tr td:first-child {
+	width: 15em;
 }
-
-#telescopeEyepieceMode tr {
-	height: 25px;
-}
-
-#telescopeEyepieceMode td {
+#meniscusTable td {
+	padding: 0px 20px 0px 0px;
 	table-layout: fixed;
 	width: auto; !important;
+}
+
+#idealMeniscusThicknessTable thead tr th:first-child, tbody tr td:first-child {
+	width: 10em;
+}
+#idealMeniscusThicknessTable td {
+	padding: 0px 20px 2px 20px;
 }
 
 .magnificationTable {
