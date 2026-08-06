@@ -132,17 +132,29 @@ thead tr th:first-child, tbody tr td:first-child {
 #maxApertureTable td,
 #M31compareTable td,
 #HETvsRFTTable td,
-#focalRatiosForEyepiecesWith8mmExitPupil td,
-#apertureFocalRatioConstantFocalLength td,
 #diagResultsTable td,
-#focuserTolerance td,
+#tubeSharedParmsTable td,
+#focuserSharedParmsTable td,
+#diagonalSharedParmsTable td,
+#designDiagonalTable td,
+#diagSharedParmsTable td,
+#lowriderBafflingTable td,
+#binoscopeTable td,
+#rockerTable td,
+#flexRockerTable td,
+#ETTable td,
+#focuserBaffleTable td,
 #offAxisMaskResultsTable td {
 	table-layout: fixed;
 	width: auto; !important;
 }
 
-#focuserTolerance th {
+#focuserToleranceTable th {
 	padding: 0px 20px 0px 0px;
+}
+#focuserToleranceTable td {
+	table-layout: fixed;
+	width: auto; !important;
 }
 
 #panMountComparisonTable {
