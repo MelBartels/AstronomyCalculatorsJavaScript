@@ -144,6 +144,14 @@ thead tr th:first-child, tbody tr td:first-child {
 #flexRockerTable td,
 #ETTable td,
 #focuserBaffleTable td,
+#bafflingTable td,
+#baffleResultsTable td,
+#lowriderResultsTable td,
+#binoscopeResultsTable td,
+#CGResultsTable td,
+#rockerResultsTable td,
+#flexRockerResultsTable td,
+#ETResultsTable td,
 #offAxisMaskResultsTable td {
 	table-layout: fixed;
 	width: auto; !important;
