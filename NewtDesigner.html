@@ -342,6 +342,7 @@ copyright Mel Bartels, 2016-2026 -->
 					<li><a href='#resolution'>Resolution</a>
 					<li><a href='#diffractionAiryDisk'>Diffraction and the Airy disk</a>
 					<li><a href='#etendue'>Etendue</a>
+					<li><a href='#EyeEtendueScopeObservation'>Eye->etendue->scope->observation</a>
 					<li><a href='#HET'>Highest etendue telescopes</a>
 					<li><a href='#lowMags'>A range of widest fields, lowest magnifications</a>
 				</ul>
@@ -585,6 +586,83 @@ copyright Mel Bartels, 2016-2026 -->
 				<p><b>But what about stars?</b> We know that stars are brighter with increased aperture and in fact are more visible at high magnification (smaller exit pupil) due to the dimmed sky background. Stars too obey the Law of Etendue, their surface brightness at the exit pupil never being brighter than the the surface brightness as the light leaves the star. However, stars being so far away, their surfaces are not resolved. It takes a mirror or lens thousands of times bigger than common telescopes. Or we could use light whose wavelength is thousands of times smaller than visible light. As a consequence of the lack of resolution of a star, the mirror or lens diffraction dominates. Due to diffraction, all the star light is pumped into the Airy Disk and rings; the eyepiece re-imaging the Airy Disk and rings into the eye. You can see this if you take a standard sized Newtonian Dobsonian telescope, stopping down the aperture to an inch or a couple of centimeters, then aiming at a very bright star.
 
 				<p><b>Consequently, star brightness increases with larger exit pupil if the magnification is kept constant.</b> Consider the beautiful star cluster, Carolyn's Rose, NGC 7789. In a 6 inch [15cm] at 1mm exit pupil, or 130x, the cluster is a beautiful ephemeral cotton ball of stars. Let's increase the exit pupil to 6mm, keeping the magnification unchanged. This means increasing the aperture to a 36 inch [91cm]. Here the cluster is an intense collection of stars, many with reddened hues. The stars are much brighter and there are many more to be seen in the larger scope.
+
+				<a name='EyeEtendueScopeObservation'></a>
+				<div id='EyeEtendueScopeObservation'></div>
+				<h3>Eye to etendue to scope to observation</h3>
+
+				<h4>The eye</h4>
+
+				<p>How can we use the concept of etendue to understand and improve our observations through the eyepiece? It starts with a sabre-tooth tiger lurking in the bush late at night. Gathered around the Pleistocene era camp, you watch the dwindling flames as the sky darkens. In the distance you hear sabre-tooth tigers killing and eating their prey. It's not a pretty sound. Your eyes dark adapt, taking about as long to do do as twilight lasts, an evolutionary adaptation. You turn to stare into the shadows, looking for critters that might want to make a meal of you. It gets very dark.
+
+				<p>Let's talk contast. The Andromeda Galaxy is 85% brighter than the darkest of skies. It's apparent size is three degrees or six Moons wide. Here I draw Andromeda as an oval of constant brightness, though in reality the galaxy's outer arms are fainter and the nucleus is brighter. Three degrees of apparent size is your index finger and middle finger together held at full arm's length. Situate yourself so that the galaxy looks about this size.
+
+				<div class='nearly_black_background'>
+					<br><br><br><br><br><br><br><br>
+					<div class='center_children'>
+						<img alt='' loading='' class='mediumSizeImage' src='obs/Andromeda Galaxy in dark sky.jpg'>
+					</div>
+					<br><br><br><br><br><br><br><br>
+				</div>
+
+				<h5>The '3-3' rule</h5>
+
+				<p>The lowest contrast I can see in an object that's three degrees wide is 3%. I call this the '3-3' rule: 3 degrees at 3%.
+
+				<p>At a constrast of 3%, if the background has a brightness level of 30 then the object's brightness is 3% higher, a level of 31. The faint oval is not necessarily immediately visible: I often have to spend time looking for it to become consciously visible. You can conduct your own experiments in a dark forest or perhaps in a darkened room. Cut out an oval out of printer paper and place it on a rock or wall. Illuminate it with a variable flashlight, using your smartphone's camera and graphics software to verify the desired contrast. Objects less than a degree or two in apparent size are invisible at 3% contrast, becoming visible when the contrast is increased.
+
+				<p>There are approximately 100 million rod cells in an eye, sensitive to dim light. An object of say three degrees apparent size spans about 500,000 rod cells (2000 to 2500 rod cells across the patch's diameter: about 0.3mm or a little more than 1/100th of an inch). A 3% difference in the combined signal from this patch of rod cells as compared to the signal of the surrounding rod cells creates conscious awareness.
+
+				<p>Here's an animation showing an elliptical galaxy of 3% contrast with the dark background alternating at an interval of 2 seconds. Can you find the galaxy? Move closer if you need to: the object is more easily detected when larger. Does the oval slowly come into awareness? Following this animation is the same image but marked.
+				<div class='nearly_black_background'>
+					<br><br><br><br><br><br><br><br>
+					<div class='center_children'>
+						<img alt='' loading='' class='mediumSizeImage' src='obs/3-3 animation.gif'>
+						<img alt='' loading='' class='mediumSizeImage' src='obs/bkg 30 31 3-3 outlined.jpg'>
+					</div>
+					<br><br><br><br><br><br><br><br>
+				</div>
+
+				<p>What does it mean when we say an astronomical object has a contrast of 3%? First, we must remember that the object is seen through the atmosphere, which has a surface or area brightness in our darkest skies of 22 magnitude per arc-second squared.
+
+				<p>The formula is: contrast = (object brightness + sky brightness) / sky brightness.
+
+				<p>If our limit is 3% contrast for an object of 3 degrees in apparent size and the darkest skies are 22 mag/arc-sec^2, then we can detect patchy or nebulous objects nearly 4 magnitudes fainter, down to 25.8 magnitude per arc-second squared. Which is astoundingly faint when we consider that a 16 inch telescope's limit for faint tiny galaxies is 14-15 magnitude (the galaxy's integrated magnitude).
+
+				<p>The eye's background noise has been set at 27 mag/arc-sec^2. That's 1% contrast in the darkest skies. With great difficulty, I've seen large apparent sized objects down to 2% contrast (object surface brightness of 26.25 mag/arc-sec^2).
+
+				<h5>Area brightness vs brightness of a point</h5>
+
+				<p>There is no such thing as a point source. All sources of light have an area. Surface brightness is the brightness per unit area. For example, the Andromeda Galaxy has an average surface brightness of 22.2 mag/arc-sec^2 and an integrated brightness of 3.4 magnitude (notice the lack of an area unit of measurement).
+
+				<p>All stars have a surface brightness and an integrated brightness. Because our telescopes need to be 1000 times bigger in aperture to resolve stars, stars appear as points in the eyepiece. The telescope collects the integrated light of a star into an Airy Disc formed by diffraction of the telescope's aperture. We can see resolve the Airy Disc (not resolve the star) if we magnify the image excessively. Larger apertures produce smaller Airy Discs. Seeing bloats the Airy Discs formed by larger aperture into dots expressed in arc-seconds. Great seeing might be one arc-second, poor seeing three arc-seconds.
+
+				<p>It can be said that one purpose of the telescope is to magnify objects enough so to be detectable by our eye. The other purpose of course is to magnify detail otherwise invisible. How can we ensure that we are doing this optimally? For that we need to understand the eye's pupil, etendue, and how the telescope delivers light into our eye.
+
+				<h5>The eye's pupil</h5>
+
+				<p>Light enters the eye through the eye's pupil. Bright light in the daytime causes our pupil to constrict to 2-4mm in order to protect the eye; at nighttime our pupils open to 4-9mm. Our eyes can vary greatly person to person. One set of muscles constricts the pupil, another dilates the pupil. It is important to understand that a shrinking pupil dims the light entering the eye: it does not affect the width of the field that we see. This is just like the iris in a camera: a wider iris setting which results in a faster focal ratio (for example,  f1.4) brightens the scene while a narrower iris results in a longer focal ratio (for example,  f16) and dimmer scene.<br>
+				<img alt='' loading='' class='largeSizeImage' src='obs/eye pupil variation.jpg'>
+
+				<h4>Etendue</h4>
+
+				<p>I like to think of Etendue as 'light throughput', also the 'area' of the light. It's the amount of light that is collected by a telescope and projected by the eyepiece through our eye's lens and onto our retina. Let's say we have a 25.4cm (10 inch) F2.85 telescope with a 20mm eyepiece of 86 degrees apparent field. This yields an exit pupil of 7mm, filling our eye's pupi with light. The true field of view is 2.37 degrees, the magnification is 36x.
+
+				<p>Etendue is calculated either by:
+				<ul>
+					<li>the telescope's perspective --- area of the aperture * area of the true field = 507 * 4.41 = 2237 cm^2deg^2
+					<li>the eyepiece's perspective --- area of the exit pupil * area of the eyepiece's apparent field = 38.5 * 58.1 = 2237 cm^2deg^2
+				</ul>
+
+				<p>Now that's startling: using either the telescope's perspective (light flowing into the aperture) or the eyepiece's perspective (light flowing out of the eyepiece) we get the same etendue or light throughput. Etendue is conserved because energy is conserved. Energy is conversed because of time translation symmetry, that is, we get the same result today as we will get tomorrow as we got yesterday (Emmy Noether's theorem).
+
+				<h4>How does etendue affect the view: matching the telescope and eyepiece to the eye to maximize etendue</h4>
+
+				<p>At first blush it seems logical to match the telescope's exit pupil to the eye's pupil. This maximizes etendue, allowing the detection of very low contrast objects of sufficient apparent size. Then pick the widest angle eyepiece. This is where fast scopes come into play. A 21mm 100 deg eyepiece can be used at F3 to maximize etendue. At F4.5 a 31mm 82 deg eyepiece gives an weaker etendue - 70% of the F3 example. Image dimming the oval test image even further: detection becomes that more difficult.
+
+				<p>We can also use even lower power which gives us a wider field but at the cost of aperture since etendue must be preserved. It's like a smaller wider angle telescope, a lower gear if you will.
+
+				<p>Maximum detail occurs at roughly 2.5X the magnification that yields maximum etendue. This lowers the etendue by over six times. This is a quandry. We have to trade etendue for detail. Or do we? If we had a 2.5X bigger scope we could jump over to it and observe the detail at maximum etendue. Eventually we run out of aperture. Instead of swapping telescopes (what I call 'telescope' mode), we swap eyepieces ('eyepiece' mode). However, there is a great deal of detail that's sufficiently bright to be seen at higher magnification, giving a pleasing if not astonishing view. And we can see fainter stars at higher magnification. The upshot is that we use a variety of telescopes and eyepieces to see aspects of objects: their faintest large scale structures, their small details. We combine the various views in our minds and in our sketches, forming visual memories that we later draw upon when we return to the object another night.
 
 				<a name='HET'></a>
 				<div id='HET'></div>
@@ -1467,6 +1545,7 @@ copyright Mel Bartels, 2016-2026 -->
 				<p><a href='https://www.amazon.com/Myths-Innovation-Scott-Berkun/dp/1449389627' target='_blank'>Scott Berkun's The Myths of Innovation</a>, O'Reilly, 2007
 				<p><a href='https://www.amazon.com/Nuts-Bolts-Seven-Inventions-Changed/dp/1324021527' target='_blank'>Roma Agrawal's Nuts and Bolts: Seven Small Inventions That Changed the World in a Big Way</a>
 				<p>Peter Wise's presentation, 'A Brief History of the Telescope – From the Bronze Age to the Space Age', 2009
+				<p><a href='http://europa.com/~telscope/binotele.htm' target='_blank'>Peter Abraham's compilation</a>
 			</div>
 
 			<br><br>
@@ -4334,7 +4413,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 7-Aug-2026
+				Last update 24-Aug-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end

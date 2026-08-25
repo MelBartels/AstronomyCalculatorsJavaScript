@@ -358,3 +358,17 @@ thead tr th:first-child, tbody tr td:first-child {
 	display: none;
 	overflow: hidden;
 }
+
+.nearly_black_background {
+	background-color: #303030;
+}
+
+.center_img {
+	display: block; 
+	margin: 0 auto;
+}
+
+.center_children {
+	display: flex;
+	justify-content: center;
+}
