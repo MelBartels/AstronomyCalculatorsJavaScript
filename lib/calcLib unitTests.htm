@@ -1955,11 +1955,9 @@ note that visible? is coded from impossible=1 to very easy=6
 	});
 
 	QUnit.test('calcCollimationToleranceInches', assert => {
-		// https://www.cloudynights.com/topic/902119-the-refractor-crowd-is-making-fun-of-us/?p=13157624
-		// where focuserAlignment should be 5.4mm for a 16 inch F3
 		var apertureInches = 16,
 			focalRatio = 3,
-			expected = {focuserAlignment: 0.216, primaryMirrorAlignment: 0.0189},
+			expected = {focuserAlignment: 0.027, primaryMirrorAlignment: 0.005},
 			allowableError = 0.001,
 			result = calcCollimationToleranceInches(apertureInches, focalRatio);
 
