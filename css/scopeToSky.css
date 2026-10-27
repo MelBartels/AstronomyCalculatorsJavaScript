@@ -1,13 +1,19 @@
 #title, #computeScope, #computeEncoders {
 	text-align: center;
 }
-#btnComputeTelescope, #btnComputeEquatCoords, #btnInitMatrix, #btnBestZ123, #btnBestZ13, #btnLoadTaki {
+#btnComputeTelescope, #btnComputeEquatCoords {
+	width: 300px;
+	height: 60px;
+	//font-weight: bold;
+	font-size: 1rem;
+}
+#btnInitMatrix, #btnBestZ123, #btnBestZ13, #btnLoadTaki {
 	width: 200px;
 }
 #btnUpdateEncoder1, #btnUpdateEncoder2, #btnUpdateEncoder3, #btnResetEncoder1, #btnResetEncoder2, #btnResetEncoder3 {
 	width: 80px;
 }
-#coordinatesHeader, #setupHeader, #telescopeHeader, #encodersHeader, #matrixConversionHeader, #notesHeader {
+#coordinatesHeader, #setupHeader, #telescopeHeader, #computeScopeHeader, #encodersHeader, #matrixConversionHeader, #notesHeader {
 	cursor: pointer;
 	background: lightgray;
 	clear: both;

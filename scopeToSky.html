@@ -14,11 +14,6 @@
 	<h1>Scope To Sky</h1>
 </div>
 
-<div id="computeScope">
-	<input ID="btnComputeTelescope" value="Compute telescope position" type="button">
-	<input ID="btnComputeEquatCoords" value="Compute equatorial coordinates" type="button">
-</div>
-
 <div id="coordinatesHeader" class="collapsableHeader">
 	<h3>Coordinates</h3>
 </div>
@@ -134,6 +129,7 @@
 		</tbody>
 		</table>		
 	</div>	
+	<br><br>
 </div>
 
 <div id="telescopeHeader" class="collapsableHeader">
@@ -239,6 +235,15 @@
 		</tbody>
 		</table>
 	</div>
+</div>
+
+<div id="computeScopeHeader" class="collapsableHeader">
+	<h3>Compute coordinates</h3>
+</div>
+
+<div id="computeScope"> <!-- not class="collapsableContent" because we want these buttons always displayed -->
+	<input ID="btnComputeTelescope" value="Compute telescope position" type="button">
+	<input ID="btnComputeEquatCoords" value="Compute equatorial coordinates" type="button">
 </div>
 
 <div id="encodersHeader" class="collapsableHeader">
@@ -545,8 +550,11 @@
 	<br>
 	Considerable time was taken to develop functions that effectively separate axis misalignment and azimuth offset and use these values to accurately calculate altazimuth values near the azimuth axis' pole. Five routines are tested: Taki's initial function, Taki's small angle solution, Taki's iterative solution, Larry Bell's iterative solution and a final function that combines Bell's and Taki's iterative solutions for speed. It's this final solution that's used in the calculator. With an axis misalignment of 0.04 degrees and an azimuth offset of 0.4 degrees, aimed 5 degrees from the zenith, the solutions accuracies (azimuth/altitude in arcseconds) are: 'Taki simple' 1386/237, 'Taki small angle' 30/104, 'Taki iterative' 0/0.2, 'Bell iterative' 0/0 and  Bell+Taki iterative 0/0.<br>
 	<br>
-	To look under the hood, see the more than 1000 unit tests that illustrate and test the code at <a href="http://www.bbastrodesigns.com/lib/coordLib%20unitTests.htm">http://www.bbastrodesigns.com/lib/coordLib%20unitTests.htm</a> and see the code itself at <a href="http://www.bbastrodesigns.com/lib/coordLib.js">http://www.bbastrodesigns.com/lib/coordLib.js</a>
+	To look under the hood, see the more than 1000 unit tests that illustrate and test the code at <a href="lib/coordLib unitTests.htm">lib/coordLib unitTests.htm</a> and see the code itself at <a href="lib/coordLib.js">lib/coordLib.js</a><br>
+	<br>
 	User interface rules:<br>
+	<br>
+	- Changing the alignment, conversion style, latitude or longitude triggers 'Compute telescope position'.<br>
 	<br>
 	- Coordinate corrections are turned off if 'Hour Angle' is selected for the equatorial coordinate.<br>
 	<br>
