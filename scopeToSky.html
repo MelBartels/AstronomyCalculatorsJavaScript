@@ -30,9 +30,9 @@
 			<tr><td>coordinate year
 				<td><input name="inputCoordinateYear" onfocus="select()" type="text">
 				<td>
-			<tr><td>include corrections			
+			<tr><td>include corrections
 				<td><input name="includeCorrections" value="yes" type="radio">yes <input name="includeCorrections" value="no" checked="checked" type="radio">no
-		</table>			
+		</table>
 	</div>
 	<div id="coordinatesDetailOutput">
 		<table>
@@ -56,13 +56,13 @@
 </div>
 
 <div id="setupHeader" class="collapsableHeader">
-	<h3>Setup: date-time and site</h3>
+	<h3>Date-time and site with dome orientation</h3>
 </div>
 
 <div id="setupDetail" class="collapsableContent">
 	<div id="setupDetailInput">
 		<table>
-			<tr><td>use current date-time			
+			<tr><td>use current date-time
 				<td><input name="useCurrentDateTime" value="yes" type="radio">yes <input name="useCurrentDateTime" value="no" checked="checked" type="radio">no
 			<tr><td>date-time
 				<td><input name="dateTime" onfocus="select()" type="text">
@@ -73,20 +73,25 @@
 			<tr><td>longitude east of GMT
 				<td><input name="longitude" onfocus="select()" type="text">
 		</table>
+		<br>
 	</div>
-	<div id="setupDetailOutput">		
+	<div id="setupDetailOutput">
 		<table>
 			<tr><td>local sidereal time
 				<td id='SidT'>
 			<tr><td>Julian Day
 				<td id='JD'>
-			<tr><td>site/dome azimuth
+			<tr><td>
+			<tr><td>
+			<tr><td>
+			<tr><td>
+			<tr><td>
+			<tr><td>Site/dome azimuth
 				<td id='azimuth'>
-			<tr><td>site/dome altitude
+			<tr><td>Site/dome altitude
 				<td id='altitude'>
-		</table>		
-	</div>	
-	<br><br>
+		</table>
+	</div>
 </div>
 
 <div id="telescopeHeader" class="collapsableHeader">
@@ -96,30 +101,30 @@
 <div id="telescopeDetail" class="collapsableContent">
 	<div id="telescopeDetailInput">
 		<table>
-			<tr><td>include refraction			
+			<tr><td>include refraction
 				<td><input name="includeRefraction" value="yes" type="radio">yes <input name="includeRefraction" value="no" checked="checked" type="radio">no
 			<tr id="alignmentRow">
-				<td>alignment			
+				<td>alignment
 				<td id="alignmentCell">
 					<input name="alignment" value="equatorial" type="radio">equatorial
 					<input name="alignment" value="altazimuth" checked="checked" type="radio">altaz
 					<input name="alignment" value="star" checked="checked" type="radio">star
 			<tr>
-				<td>conversion style			
+				<td>conversion style
 				<td><input name="conversionStyle" value="trig" type="radio">trig
 					<input name="conversionStyle" value="matrix" checked="checked" type="radio">matrix
 			<tr id="trackingRatesAlgorithm">
-				<td>tracking rates algorithm			
+				<td>tracking rates algorithm
 				<td><input name="trackingRatesAlgorithm" value="deltaTime" type="radio">delta time
 					<input name="trackingRatesAlgorithm" value="formulae" checked="checked" type="radio">formulae
 			<tr id="canFlipMeridian">
-				<td>can flip meridian			
+				<td>can flip meridian
 				<td><input name="canFlipMeridian" value="yes" type="radio">yes <input name="canFlipMeridian" value="no" checked="checked" type="radio">no
 			<tr id="flipped">
-				<td>flipped/swung thru pole			
+				<td>flipped/swung thru pole
 				<td><input name="flipped" value="yes" type="radio">yes <input name="flipped" value="no" checked="checked" type="radio">no
 			<tr id="flippedState">
-				<td>flipped state points			
+				<td>flipped state points
 				<td><input name="flippedState" value="onWestSidePointingEast" type="radio">east <input name="flippedState" value="onEastSidePointingWest" checked="checked" type="radio">west
 		</table>
 	</div>
@@ -135,7 +140,7 @@
 				<td id='refractedAltitude'>
 				<td id='refractionRA'>
 				<td id='refractionDec'>
-			<tr><td><br>		
+			<tr><td><br>
 			<tr><td>
 				<td>primary axis
 				<td>secondary axis
@@ -185,7 +190,7 @@
 				<td>Name
 				<td>primary axis
 				<td>secondary axis
-			<tr>			
+			<tr>
 			<tr><td>
 				<td>Min possible count
 				<td><input class='inputText' name="encoderMinCount1" value="0" onfocus="select()" type="text">
@@ -200,7 +205,7 @@
 				<td><input class='inputText' name="encoderGearReduction2" value="2:1" onfocus="select()" type="text">
 			<tr><td>State
 				<td>Current count
-				<td><input class='inputText' name="encoderCurrentCount1" value="0" onfocus="select()" type="text">				
+				<td><input class='inputText' name="encoderCurrentCount1" value="0" onfocus="select()" type="text">
 				<td><input class='inputText' name="encoderCurrentCount2" value="0" onfocus="select()" type="text">
 			<tr><td>
 				<td>Last count
@@ -225,8 +230,8 @@
 				<td><input ID="btnResetEncoder1" value="Reset" type="button">
 				<td><input ID="btnResetEncoder2" value="Reset" type="button">
 			<tr>
-				<td>Results (deg)				
-				<td>Direction is 
+				<td>Results (deg)
+				<td>Direction is
 				<td><input class='inputText' name="encoderDirection1" value="" onfocus="select()" type="text">
 				<td><input class='inputText' name="encoderDirection2" value="" onfocus="select()" type="text">
 			<tr>
@@ -242,7 +247,7 @@
 			<tr>
 				<td>
 				<td>Gear angle + offset
-				<td><input class='inputText' name="encoderGearAngleWithOffsetDeg1" value="" onfocus="select()" type="text">			
+				<td><input class='inputText' name="encoderGearAngleWithOffsetDeg1" value="" onfocus="select()" type="text">
 				<td><input class='inputText' name="encoderGearAngleWithOffsetDeg2" value="" onfocus="select()" type="text">
 		</table>
 	</div>
@@ -312,14 +317,14 @@
 	<br>
 	Drives rates and their rate of change are calculated with two different methods for comparison: delta time and formulae. The delta time method increments the sidereal time, or sky position, by one second, then computes the speed. The rate of change is calculated by taking a further third position, then comparing drive rates. The formulae method uses standard spherical trigonometry equations to compute speed. However, these equations do not include refraction. The rate of change is used to determine frequency of drive rate updates to the motors. If desired accuracy is 1/10 arcsecond, and rate of change is 1/1000 arcsecond, then the drive rate need not be updated for up to 100 seconds.<br>
 	<br>
-	Refraction has an increasingly significant impact on positioning as the telescope nears the horizon. Importantly, refraction slows down drives rates and increases the rate of change in the drives. The King Rate is included to contrast with rates generated by the delta time algorithm.<br>	
+	Refraction has an increasingly significant impact on positioning as the telescope nears the horizon. Importantly, refraction slows down drives rates and increases the rate of change in the drives. The King Rate is included to contrast with rates generated by the delta time algorithm.<br>
 	<br>
 	Fabrication errors include the offset in the primary axis (either Right Ascension or Hour Angle or azimuth, offset in the secondary axis (either Declination or altitude) and the misalignment between primary and secondary axes. Fabrication errors can be calculated when the conversion style is set to matrix. At the telescope, the azimuth offset can be ignored since the two star initialization method uses offsets exclusively. Altitude can be hard to set precisely, so calculation of altitude offset is of great help. And finally, the axes misalignment is a critical factor is slewing accurately. So calculation of altitude offset and axes alignment is can improve positioning.<br>
 	<br>
 	This calculator can be used to study initializations and their errors. For instance, is it true that init points should be 90 degrees apart? It's more important that the init points are accurate then that they scan as large as difference as possible. Moving exact offset distances from an init point, even if the init point was sloppy, is more important than anything else. Chances are though that if the init points were crudely done, then offset distances will be equally crude. And finally, there is no difference between the matrix and trig methods in accuracy<br>
 	<br>
 	The five minute error is the error that occurs if the tracking rates are not updated and instead continue as is. For an altazimuth telescope, the drive rates
-	vary continuously, so an error builds if the rates are not updated. For an equatorial telescope, small errors occur near the horizon due to refraction. The 
+	vary continuously, so an error builds if the rates are not updated. For an equatorial telescope, small errors occur near the horizon due to refraction. The
 	error displayed is the apparent error as would be seen in the eyepiece or in the digital image.<br>
 	<br>
 	Hours can be entered in a variety of formats. For example, '05h 12m 20.2sec', or '5 12 20.2' or '5:12:20.2' or simply ,'5' for 5 hrs. Decimals can be used anywhere, e.g., '5.5h' is 5h 30m. Any reasonable spelling or shorthand of hours, minutes and seconds can be used. Radians can also be used, e.g., 1.2 radians or 1.2rad or 1.2r.<br>
