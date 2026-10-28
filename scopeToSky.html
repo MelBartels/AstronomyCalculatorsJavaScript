@@ -21,57 +21,36 @@
 <div id="coordinatesDetail" class="collapsableContent">
 	<div id="coordinatesDetailInput">
 		<table>
-		<tbody>
-			<tr>
-				<td></td>
-				<td><input name="RAorHA" value="RA" type="radio" checked="checked">RA <input name="RAorHA" value="HA" type="radio">Hour Angle</td>
-				<td>Dec</td>
-			</tr>
-			<tr>
-				<td>coordinates</td>
-				<td><input name="inputRAHA" onfocus="select()" type="text"></td>
-				<td><input name="inputDec" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>coordinate year</td>
-				<td><input name="inputCoordinateYear" onfocus="select()" type="text"></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>include corrections</td>			
-				<td><input name="includeCorrections" value="yes" type="radio">yes <input name="includeCorrections" value="no" checked="checked" type="radio">no</td>
-			</tr>
-		</tbody>
+			<tr><td>
+				<td><input name="RAorHA" value="RA" type="radio" checked="checked">RA <input name="RAorHA" value="HA" type="radio">Hour Angle
+				<td>Dec
+			<tr><td>coordinates
+				<td><input name="inputRAHA" onfocus="select()" type="text">
+				<td><input name="inputDec" onfocus="select()" type="text">
+			<tr><td>coordinate year
+				<td><input name="inputCoordinateYear" onfocus="select()" type="text">
+				<td>
+			<tr><td>include corrections			
+				<td><input name="includeCorrections" value="yes" type="radio">yes <input name="includeCorrections" value="no" checked="checked" type="radio">no
 		</table>			
 	</div>
 	<div id="coordinatesDetailOutput">
 		<table>
-		<tbody>
-			<tr>
-				<td></td>
-				<td>RA</td>
-				<td>Dec</td>
-			</tr>
-			<tr>
-				<td>precession</td>
-				<td id='precessionRA'></td>
-				<td id='precessionDec'></td>
-			</tr>
-			<tr>
-				<td>nutation</td>
-				<td id='nutationRA'></td>
-				<td id='nutationDec'></td>
-			</tr>
-			<tr>
-				<td>annual aberration</td>
-				<td id='annualAberrationRA'></td>
-				<td id='annualAberrationDec'></td>
-			<tr>
-				<td>corrected</td>
-				<td id='correctedRA'></td>
-				<td id='correctedDec'></td>
-			</tr>
-		</tbody>
+			<tr><td>
+				<td>RA
+				<td>Dec
+			<tr><td>precession
+				<td id='precessionRA'>
+				<td id='precessionDec'>
+			<tr><td>nutation
+				<td id='nutationRA'>
+				<td id='nutationDec'>
+			<tr><td>annual aberration
+				<td id='annualAberrationRA'>
+				<td id='annualAberrationDec'>
+			<tr><td>corrected
+				<td id='correctedRA'>
+				<td id='correctedDec'>
 		</table>
 	</div>
 </div>
@@ -83,50 +62,28 @@
 <div id="setupDetail" class="collapsableContent">
 	<div id="setupDetailInput">
 		<table>
-		<tbody>
-			<tr>
-				<td>use current date-time</td>			
-				<td><input name="useCurrentDateTime" value="yes" type="radio">yes <input name="useCurrentDateTime" value="no" checked="checked" type="radio">no</td>
-			</tr>
-			<tr>
-				<td>date-time</td>
-				<td><input name="dateTime" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>timezone offset</td>
-				<td><input name="timezone" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>latitude (deg)</td>
-				<td><input name="latitude" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>longitude east of GMT</td>
-				<td><input name="longitude" onfocus="select()" type="text"></td>
-			</tr>
-		</tbody>
+			<tr><td>use current date-time			
+				<td><input name="useCurrentDateTime" value="yes" type="radio">yes <input name="useCurrentDateTime" value="no" checked="checked" type="radio">no
+			<tr><td>date-time
+				<td><input name="dateTime" onfocus="select()" type="text">
+			<tr><td>timezone offset
+				<td><input name="timezone" onfocus="select()" type="text">
+			<tr><td>latitude (deg)
+				<td><input name="latitude" onfocus="select()" type="text">
+			<tr><td>longitude east of GMT
+				<td><input name="longitude" onfocus="select()" type="text">
 		</table>
 	</div>
 	<div id="setupDetailOutput">		
 		<table>
-		<tbody>
-			<tr>
-				<td>local sidereal time</td>
-				<td id='SidT'></td>
-			</tr>
-			<tr>
-				<td>Julian Day</td>
-				<td id='JD'></td>
-			</tr>
-			<tr>
-				<td>azimuth</td>
-				<td id='azimuth'></td>
-			</tr>
-			<tr>
-				<td>altitude</td>
-				<td id='altitude'></td>
-			</tr>
-		</tbody>
+			<tr><td>local sidereal time
+				<td id='SidT'>
+			<tr><td>Julian Day
+				<td id='JD'>
+			<tr><td>site/dome azimuth
+				<td id='azimuth'>
+			<tr><td>site/dome altitude
+				<td id='altitude'>
 		</table>		
 	</div>	
 	<br><br>
@@ -139,100 +96,69 @@
 <div id="telescopeDetail" class="collapsableContent">
 	<div id="telescopeDetailInput">
 		<table>
-		<tbody>
-			<tr>
-				<td>include refraction</td>			
-				<td><input name="includeRefraction" value="yes" type="radio">yes <input name="includeRefraction" value="no" checked="checked" type="radio">no</td>
-			</tr>
+			<tr><td>include refraction			
+				<td><input name="includeRefraction" value="yes" type="radio">yes <input name="includeRefraction" value="no" checked="checked" type="radio">no
 			<tr id="alignmentRow">
-				<td>alignment</td>			
+				<td>alignment			
 				<td id="alignmentCell">
 					<input name="alignment" value="equatorial" type="radio">equatorial
 					<input name="alignment" value="altazimuth" checked="checked" type="radio">altaz
 					<input name="alignment" value="star" checked="checked" type="radio">star
-				</td>
-			</tr>
 			<tr>
-				<td>conversion style</td>			
+				<td>conversion style			
 				<td><input name="conversionStyle" value="trig" type="radio">trig
 					<input name="conversionStyle" value="matrix" checked="checked" type="radio">matrix
-				</td>
-			</tr>
 			<tr id="trackingRatesAlgorithm">
-				<td>tracking rates algorithm</td>			
+				<td>tracking rates algorithm			
 				<td><input name="trackingRatesAlgorithm" value="deltaTime" type="radio">delta time
 					<input name="trackingRatesAlgorithm" value="formulae" checked="checked" type="radio">formulae
-				</td>
-			</tr>
 			<tr id="canFlipMeridian">
-				<td>can flip meridian</td>			
-				<td><input name="canFlipMeridian" value="yes" type="radio">yes <input name="canFlipMeridian" value="no" checked="checked" type="radio">no</td>
-			</tr>
+				<td>can flip meridian			
+				<td><input name="canFlipMeridian" value="yes" type="radio">yes <input name="canFlipMeridian" value="no" checked="checked" type="radio">no
 			<tr id="flipped">
-				<td>flipped/swung thru pole</td>			
-				<td><input name="flipped" value="yes" type="radio">yes <input name="flipped" value="no" checked="checked" type="radio">no</td>
-			</tr>
+				<td>flipped/swung thru pole			
+				<td><input name="flipped" value="yes" type="radio">yes <input name="flipped" value="no" checked="checked" type="radio">no
 			<tr id="flippedState">
-				<td>flipped state points</td>			
-				<td><input name="flippedState" value="onWestSidePointingEast" type="radio">east <input name="flippedState" value="onEastSidePointingWest" checked="checked" type="radio">west</td>
-			</tr>
-		</tbody>
+				<td>flipped state points			
+				<td><input name="flippedState" value="onWestSidePointingEast" type="radio">east <input name="flippedState" value="onEastSidePointingWest" checked="checked" type="radio">west
 		</table>
 	</div>
 	<div id="telescopeDetailOutput">
 		<table>
-		<tbody>
-			<tr>
-				<td></td>
-				<td>refraction</td>
-				<td>refracted altitude</td>
-				<td>RA</td>
-				<td>Dec</td>
-			</tr>
-			<tr>
-				<td>refraction</td>
-				<td id='refraction'></td>
-				<td id='refractedAltitude'></td>
-				<td id='refractionRA'></td>
-				<td id='refractionDec'></td>
-			</tr>
-			<tr>
-				<td><br></td>		
-			</tr>
-			<tr>
-				<td></td>
-				<td>primary axis</td>
-				<td>secondary axis</td>
-				<td>tertiary axis</td>
-				<td>notes:</td>
-			</tr>
-			<tr>
-				<td>position</td>
-				<td><input name="az" onfocus="select()" type="text"></td>
-				<td><input name="alt" onfocus="select()" type="text"></td>
-				<td id='FR'></td>
-				<td id='notes1'></td>
-			</tr>
-			<tr>
-				<td>track rate &quot;/sec</td>
-				<td id='azRate'></td>
-				<td id='altRate'></td>
-				<td id='FRRate'></td>
-				<td id='notes2'></td>
-			</tr>
-			<tr>
-				<td>&Delta;track rate &quot;/sec/sec</td>
-				<td id='azRateChange'></td>
-				<td id='altRateChange'></td>
-				<td id='FRRateChange'></td>
-				<td id='notes3'></td>
-			</tr>
-			<tr>
-				<td>5 minute error &quot;</td>
-				<td id='fiveMinuteAzError'></td>
-				<td id='fiveMinuteAltError'></td>
-			</tr>
-		</tbody>
+			<tr><td>
+				<td>refraction
+				<td>refracted altitude
+				<td>RA
+				<td>Dec
+			<tr><td>refraction
+				<td id='refraction'>
+				<td id='refractedAltitude'>
+				<td id='refractionRA'>
+				<td id='refractionDec'>
+			<tr><td><br>		
+			<tr><td>
+				<td>primary axis
+				<td>secondary axis
+				<td>tertiary axis
+				<td>notes:
+			<tr><td>position
+				<td><input name="az" onfocus="select()" type="text">
+				<td><input name="alt" onfocus="select()" type="text">
+				<td id='FR'>
+				<td id='notes1'>
+			<tr><td>track rate &quot;/sec
+				<td id='azRate'>
+				<td id='altRate'>
+				<td id='FRRate'>
+				<td id='notes2'>
+			<tr><td>&Delta;track rate &quot;/sec/sec
+				<td id='azRateChange'>
+				<td id='altRateChange'>
+				<td id='FRRateChange'>
+				<td id='notes3'>
+			<tr><td>5 minute error &quot;
+				<td id='fiveMinuteAzError'>
+				<td id='fiveMinuteAltError'>
 		</table>
 	</div>
 </div>
@@ -255,168 +181,69 @@
 	</div>
 	<div id="encodersDetailOutput">
 		<table>
-		<tbody>
+			<tr><td>Configuration
+				<td>Name
+				<td>primary axis
+				<td>secondary axis
+			<tr>			
+			<tr><td>
+				<td>Min possible count
+				<td><input class='inputText' name="encoderMinCount1" value="0" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderMinCount2" value="0" onfocus="select()" type="text">
+			<tr><td>
+				<td>Max possible count
+				<td><input class='inputText' name="encoderMaxCount1" value="9999" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderMaxCount2" value="9999" onfocus="select()" type="text">
+			<tr><td>
+				<td>Gear reduction, if any
+				<td><input class='inputText' name="encoderGearReduction1" value="2:1" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderGearReduction2" value="2:1" onfocus="select()" type="text">
+			<tr><td>State
+				<td>Current count
+				<td><input class='inputText' name="encoderCurrentCount1" value="0" onfocus="select()" type="text">				
+				<td><input class='inputText' name="encoderCurrentCount2" value="0" onfocus="select()" type="text">
+			<tr><td>
+				<td>Last count
+				<td><input class='inputText' name="encoderLastCount1" value="0" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderLastCount2" value="0" onfocus="select()" type="text">
+			<tr><td>
+				<td>Rotations or carries
+				<td><input class='inputText' name="encoderRotations1" value="0" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderRotations2" value="0" onfocus="select()" type="text">
 			<tr>
-				<td>Configuration</td>
-				<td>Name</td>
-				<td>primary axis</td>
-				<td>secondary axis</td>
-			</tr>
+				<td>
+				<td>Angle offset (deg)
+				<td><input class='inputText' name="encoderAngleOffsetDeg1" value="0" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderAngleOffsetDeg2" value="0" onfocus="select()" type="text">
 			<tr>
-			</tr>
+				<td>Actions
+				<td>
+				<td><input ID="btnUpdateEncoder1" value="Update" type="button">
+				<td><input ID="btnUpdateEncoder2" value="Update" type="button">
+			<tr><td>
+				<td>
+				<td><input ID="btnResetEncoder1" value="Reset" type="button">
+				<td><input ID="btnResetEncoder2" value="Reset" type="button">
 			<tr>
-				<td></td>
-				<td>
-					 Min possible count
-				</td>
-				<td>
-					<input class='inputText' name="encoderMinCount1" value="0" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderMinCount2" value="0" onfocus="select()" type="text">
-				</td>
-			</tr>
+				<td>Results (deg)				
+				<td>Direction is 
+				<td><input class='inputText' name="encoderDirection1" value="" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderDirection2" value="" onfocus="select()" type="text">
 			<tr>
-				<td></td>
 				<td>
-					 Max possible count
-				</td>
-				<td>
-					<input class='inputText' name="encoderMaxCount1" value="9999" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderMaxCount2" value="9999" onfocus="select()" type="text">
-				</td>
-			</tr>
+				<td>Encoder angle
+				<td><input class='inputText' name="encoderAngleDeg1" value="" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderAngleDeg2" value="" onfocus="select()" type="text">
 			<tr>
-				<td></td>
 				<td>
-					 Gear reduction, if any
-				</td>
-				<td>
-					<input class='inputText' name="encoderGearReduction1" value="2:1" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderGearReduction2" value="2:1" onfocus="select()" type="text">
-				</td>
-			</tr>
+				<td>Geared angle
+				<td><input class='inputText' name="encoderGearAngleDeg1" value="" onfocus="select()" type="text">
+				<td><input class='inputText' name="encoderGearAngleDeg2" value="" onfocus="select()" type="text">
 			<tr>
-				<td>State</td>
 				<td>
-					 Current count
-				</td>
-				<td>
-					<input class='inputText' name="encoderCurrentCount1" value="0" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderCurrentCount2" value="0" onfocus="select()" type="text">
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					 Last count
-				</td>
-				<td>
-					<input class='inputText' name="encoderLastCount1" value="0" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderLastCount2" value="0" onfocus="select()" type="text">
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					 Rotations or carries
-				</td>
-				<td>
-					<input class='inputText' name="encoderRotations1" value="0" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderRotations2" value="0" onfocus="select()" type="text">
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					 Angle offset (deg)
-				</td>
-				<td>
-					<input class='inputText' name="encoderAngleOffsetDeg1" value="0" onfocus="select()" type="text">
-				</td>
-				<td>
-					<input class='inputText' name="encoderAngleOffsetDeg2" value="0" onfocus="select()" type="text">
-				</td>
-			</tr>
-			<tr>
-				<td>Actions</td>
-				<td></td>
-				<td>
-					<input ID="btnUpdateEncoder1" value="Update" type="button">
-				</td>
-				<td>
-					<input ID="btnUpdateEncoder2" value="Update" type="button">
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td>
-					<input ID="btnResetEncoder1" value="Reset" type="button">
-				</td>
-				<td>
-					<input ID="btnResetEncoder2" value="Reset" type="button">
-				</td>
-			</tr>
-			<tr>
-				<td>Results (deg)</td>				
-				<td>
-					 Direction is 
-				</td>
-				<td>
-					<input class='inputText' name="encoderDirection1" value="" onfocus="select()" type="text">
-				</td>	
-				<td>
-					<input class='inputText' name="encoderDirection2" value="" onfocus="select()" type="text">
-				</td>	
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					 Encoder angle
-				</td>
-				<td>
-					<input class='inputText' name="encoderAngleDeg1" value="" onfocus="select()" type="text">
-				</td>	
-				<td>
-					<input class='inputText' name="encoderAngleDeg2" value="" onfocus="select()" type="text">
-				</td>	
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					 Geared angle
-				</td>
-				<td>
-					<input class='inputText' name="encoderGearAngleDeg1" value="" onfocus="select()" type="text">
-				</td>	
-				<td>
-					<input class='inputText' name="encoderGearAngleDeg2" value="" onfocus="select()" type="text">
-				</td>	
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					 Gear angle + offset
-				</td>
-				<td>
-					<input class='inputText' name="encoderGearAngleWithOffsetDeg1" value="" onfocus="select()" type="text">
-				</td>	
-				<td>
-					<input class='inputText' name="encoderGearAngleWithOffsetDeg2" value="" onfocus="select()" type="text">
-				</td>	
-			</tr>
-		</tbody>
+				<td>Gear angle + offset
+				<td><input class='inputText' name="encoderGearAngleWithOffsetDeg1" value="" onfocus="select()" type="text">			
+				<td><input class='inputText' name="encoderGearAngleWithOffsetDeg2" value="" onfocus="select()" type="text">
 		</table>
 	</div>
 </div>
@@ -434,76 +261,40 @@
 <div id="matrixConversionDetail" class="collapsableContent">
 	<div id="matrixConversionDetailInput">
 		<table>
-		<tbody>
-			<tr>
-				<td><input ID="btnInitMatrix" value="Initialize (include fab. errors)" type="button"></td>
-			</tr>
-			<tr>
-				<td><br></td>
-			</tr>
-			<tr>
-				<td><input ID="btnBestZ13" value="Compute alt. offset & axes align." type="button"></td>
-			</tr>
-			<tr>
-				<td><input ID="btnBestZ123" value="Compute all fabrication errors" type="button"></td>
-			</tr>
-			<tr>
-				<td><br></td>
-			</tr>
-			<tr>
-				<td><input ID="btnLoadTaki" value="load Taki test data" type="button"></td>
-			</tr>
-		</tbody>
+			<tr><td><input ID="btnInitMatrix" value="Initialize (include fab. errors)" type="button">
+			<tr><td><br>
+			<tr><td><input ID="btnBestZ13" value="Compute alt. offset & axes align." type="button">
+			<tr><td><input ID="btnBestZ123" value="Compute all fabrication errors" type="button">
+			<tr><td><br>
+			<tr><td><input ID="btnLoadTaki" value="load Taki test data" type="button">
 		</table>
 	</div>
 	<div id="matrixConversionDetailOutput">
 		<table>
-		<tbody>
-			<tr>
-				<td></td>
-				<td>axes misalignment</td>
-				<td>primary axis offset</td>
-				<td>secondary axis offset</td>
-			</tr>
-			<tr>
-				<td>fabrication errors</td>
-				<td><input name="z1" onfocus="select()" type="text"></td>
-				<td><input name="z2" onfocus="select()" type="text"></td>
-				<td><input name="z3" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>alignment position #1</td>
-				<td colspan="4"><input name="one" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>alignment position #2</td>
-				<td colspan="4"><input name="two" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>alignment position #3</td>
-				<td colspan="4"><input name="three" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>initialization analysis</td>
-				<td colspan="4" id='initAnalysis'></td>
-			</tr>
-			<tr>
-				<td>fabrication errors analysis</td>
-				<td colspan="4" id='fabErrors'></td>
-			</tr>
-			<tr>
-				<td>analysis position #1</td>
-				<td colspan="4"><input name="analysisPosition1" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>analysis position #2</td>
-				<td colspan="4"><input name="analysisPosition2" onfocus="select()" type="text"></td>
-			</tr>
-			<tr>
-				<td>analysis position #3</td>
-				<td colspan="4"><input name="analysisPosition3" onfocus="select()" type="text"></td>
-			</tr>
-		</tbody>
+			<tr><td>
+				<td>axes misalignment
+				<td>primary axis offset
+				<td>secondary axis offset
+			<tr><td>fabrication errors
+				<td><input name="z1" onfocus="select()" type="text">
+				<td><input name="z2" onfocus="select()" type="text">
+				<td><input name="z3" onfocus="select()" type="text">
+			<tr><td>alignment position #1
+				<td colspan="4"><input name="one" onfocus="select()" type="text">
+			<tr><td>alignment position #2
+				<td colspan="4"><input name="two" onfocus="select()" type="text">
+			<tr><td>alignment position #3
+				<td colspan="4"><input name="three" onfocus="select()" type="text">
+			<tr><td>initialization analysis
+				<td colspan="4" id='initAnalysis'>
+			<tr><td>fabrication errors analysis
+				<td colspan="4" id='fabErrors'>
+			<tr><td>analysis position #1
+				<td colspan="4"><input name="analysisPosition1" onfocus="select()" type="text">
+			<tr><td>analysis position #2
+				<td colspan="4"><input name="analysisPosition2" onfocus="select()" type="text">
+			<tr><td>analysis position #3
+				<td colspan="4"><input name="analysisPosition3" onfocus="select()" type="text">
 		</table>
 	</div>
 </div>
