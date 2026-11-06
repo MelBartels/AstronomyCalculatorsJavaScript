@@ -2706,7 +2706,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<div class='panel'>
 				<p>A telescope mirror sags between support points due to gravity bending and shearing. There are three approaches to calculating the necessary number of support points so that the bending and shearing of glass is insignificant at the focal plane. They are: 1) Hubble's equal area rule, 2) structural deformation calculations, and 3) finite element analysis. To a useful approximation, all three agree.
 
-				<p>For a <b>3 point support</b>, minimum bending before refocusing occurs at the 70% radius while after refocusing minimum bending occurs at the 40% radius. See <a href='https://github.com/davidlewistoronto/plop' target='_blank'>David Lewis' discussion and further references to Luc Arnold and Richard Schwartz</a>. Texereau placed the support points just inside the edge to better position the mirror with respect to the edge supports. Superlight 3D FEA says that the radius should be 65%, +- a few percent depending on mirror thickness. We can conclude that the radius can range from 40% to near 100% with but a slight degradation in the cell's ability to support the mirror. 
+				<p>For a <b>3 point support</b>, minimum bending before refocusing occurs at the 70% radius while after refocusing minimum bending occurs at the 40% radius. See <a href='https://github.com/davidlewistoronto/plop' target='_blank'>David Lewis' discussion and further references to Luc Arnold and Richard Schwartz</a>. Texereau placed the support points just inside the edge to better position the mirror with respect to the edge supports. Superlight 3D FEA says that the radius should be 65%, +- a few percent depending on mirror thickness. We can conclude that the radius can range from 40% to near 100% with but a slight degradation in the cell's ability to support the mirror.
 
 				<p>For a <b>6 point support</b>, the ring that the 6 points form is best placed at a radius of 57% according to PLOP. Six point designs are nearly as good as 9 points and have been popular from at least the 1960's. The support radius can vary from 50% to 71% without too much degradation. Superlight 3D FEA says 70% +- a few percent depending on mirror thickness. It is interesting that by turning a 3 point ring into 6 points, the optimal radius moves outward closer to an equal area inside and outside of the ring.
 
@@ -2730,6 +2730,9 @@ copyright Mel Bartels, 2016-2026 -->
 				<p>If using flotation cells, then the pivoting should be as close to the mirror's back side as possible. Another reason to keep the stack of bars and triangles to a minimum. This implies that the support bars and triangles be as thin as possible.
 
 				<p>My definitive test is to move the scope from zenith to horizon: the brighter high magnification star images should be perfectly tiny round discs of light. Even with bloated poor seeing near the horizon, mirror cell issues are pretty easily seen.
+
+				<p>I always parabolize my mirrors in their mirror cells. That way I can compensate for much of the mirror cell deformation. Here is an extreme example. This is a 3D FEA analysis of the mirror cell for my 30 inch [0.76m] F2.7 mirror that is 5/8 inch [16mm] thick. You can see the broad high and low zones that I compensated for during the parabolizing. The mirror's final figure indeed shows a slightly low 70% zone that makes up for the cell's high 70% zone. This was done with the scope aimed upward at a 45 degree elevation. The variation in the overall mirror+cell figure from horizontal to vertical is much less than the zonal height.
+				<br><img alt='' loading='' class='mediumSizeImage' src='30/3D FEA 30F2.7 18 pt back support sling edge support.jpg'>
 			</div>
 
 			<br><br>
@@ -4451,7 +4454,7 @@ copyright Mel Bartels, 2016-2026 -->
 			<h3>Version and code</h3>
 
 			<div>
-				Last update 4-Nov-2026
+				Last update 5-Nov-2026
 			</div>
 			<p>Code available on github at <a href='https://github.com/MelBartels/AstronomyCalculatorsJavaScript' target='_blank'>https://github.com/MelBartels/AstronomyCalculatorsJavaScript</a>
 			<p>end
