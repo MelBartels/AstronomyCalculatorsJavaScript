@@ -126,6 +126,7 @@
 		calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches,
 		calcMagnifyingLensPower = MLB.calcLib.calcMagnifyingLensPower,
 		calcStrehlFromRMS_MahajanApproximation = MLB.calcLib.calcStrehlFromRMS_MahajanApproximation,
+		calcRMSFromStrehlUsingNaturalLog = MLB.calcLib.calcRMSFromStrehlUsingNaturalLog,
 		calcStrehlFromRMS = MLB.calcLib.calcStrehlFromRMS,
 		calcRMSFromStrehl = MLB.calcLib.calcRMSFromStrehl,
 		calcPVFromRMS = MLB.calcLib.calcPVFromRMS,
@@ -1848,8 +1849,6 @@ note that visible? is coded from impossible=1 to very easy=6
 		assert.equal(withinRange(result, expected, 0.01), true, 'lens magnifying power should be ' + expected + ', is ' + result);
 	});
 
-	// http://www.rfroyce.com/standards.htm
-
 	QUnit.test('calcStrehlFromRMS_MahajanApproximation', assert => {
 		var rms = 0.1,
 			expected = 0.6738,
@@ -1867,6 +1866,21 @@ note that visible? is coded from impossible=1 to very easy=6
 		result = calcStrehlFromRMS_MahajanApproximation(rms);
 		assert.equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
 	});
+	
+	QUnit.test('calcRMSFromStrehlUsingNaturalLog', assert => {
+		var Strehl = 0.969,
+			expected = 0.028,
+			result = calcRMSFromStrehlUsingNaturalLog(Strehl);
+
+		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
+		
+		Strehl = 0.6738;
+		expected = 0.1;
+		result = calcRMSFromStrehlUsingNaturalLog(Strehl);
+		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);		
+	});	
+
+	// http://www.rfroyce.com/standards.htm
 
 	QUnit.test('calcStrehlFromRMS', assert => {
 		var rms = 0.028,
