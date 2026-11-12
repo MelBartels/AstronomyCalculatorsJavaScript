@@ -74,13 +74,17 @@
 	&emsp; <b>Thin bands?
 	<input name='thinBands' value='yes' type='radio'>yes
 	<input name='thinBands' value='no' type='radio'>no</b>
+	&emsp; <input id='btnFlipThinning' value='Flip thinning/bands/transparency' type='button'>
 	&emsp; Show gradients?
 	<input name='showGradients' value='yes' type='radio'>yes
 	<input name='showGradients' value='no' type='radio'>no
-	&emsp; Calc zonal corrections?
+	<br>
+	Calc zonal corrections?
 	<input name='calcZonalCorrectionsFromThinning' value='yes' type='radio'>yes
 	<input name='calcZonalCorrectionsFromThinning' value='no' type='radio'>no
-	&emsp; <input id='btnFlipThinning' value='Flip thinning/bands/transparency' type='button'>
+	&emsp; <input id='btnBestROCoffsetUsingBandErrors' value='Best ROC offset using Ronchi band errors (long running)' type='button'>
+	<input id='btnBestROCoffsetUsingZonalErrors' value='Best ROC offset using zonal errors (long running)' type='button'>
+	<input id='btnBestXoffset' value='Best x offset (long running)' type='button'>
 	<br>
 	<br>
 	Band color (R,G,B) = <input class='inputTextLong' name='bandColorRGB' value='0,0,0' onfocus='select()' type='text'>
@@ -693,7 +697,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 9-Nov-2026</h4>
+	<h4>by Mel Bartels, 1992; last update 11-Nov-2026</h4>
 	<br>
 	<br>
 </div>
