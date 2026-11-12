@@ -125,6 +125,7 @@
 		calcDiopter = MLB.calcLib.calcDiopter,
 		calcFocalLengthInches = MLB.calcLib.calcFocalLengthInches,
 		calcMagnifyingLensPower = MLB.calcLib.calcMagnifyingLensPower,
+		calcStrehlFromRMS_MahajanApproximation = MLB.calcLib.calcStrehlFromRMS_MahajanApproximation,
 		calcStrehlFromRMS = MLB.calcLib.calcStrehlFromRMS,
 		calcRMSFromStrehl = MLB.calcLib.calcRMSFromStrehl,
 		calcPVFromRMS = MLB.calcLib.calcPVFromRMS,
@@ -1849,6 +1850,24 @@ note that visible? is coded from impossible=1 to very easy=6
 
 	// http://www.rfroyce.com/standards.htm
 
+	QUnit.test('calcStrehlFromRMS_MahajanApproximation', assert => {
+		var rms = 0.1,
+			expected = 0.6738,
+			result = calcStrehlFromRMS_MahajanApproximation(rms);
+
+		assert.equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
+
+		rms = 0.028;
+		expected = 0.969;
+		result = calcStrehlFromRMS_MahajanApproximation(rms);
+		assert.equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
+
+		rms = 1;
+		expected = 0;
+		result = calcStrehlFromRMS_MahajanApproximation(rms);
+		assert.equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
+	});
+
 	QUnit.test('calcStrehlFromRMS', assert => {
 		var rms = 0.028,
 			expected = 0.969,
@@ -2242,7 +2261,7 @@ note that visible? is coded from impossible=1 to very easy=6
 		result = calcMirrorCG(mirrorDia, mirrorFocalRatio, mirrorEdgeThickness, isMeniscus);
 		assert.equal(withinRange(result, expected, allowableError), true, 'mirror (meniscus) CG should be ' + expected + ', is ' + result);
 	});
-		
+
 	QUnit.test('calcMinimumMeniscusMirrorDia', assert => {
 		// 20 inch x 2 inch thick F2; expected CG should be further from the mirror's top edge than half the sagitta
 		var mirrorDia = 24,
