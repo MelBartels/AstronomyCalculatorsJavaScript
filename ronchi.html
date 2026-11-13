@@ -85,7 +85,7 @@
 	<input name='calcZonalCorrectionsFromThinning' value='no' type='radio'>no </b>
 	&emsp; <input id='btnBestROCoffsetUsingBandErrors' value='Best ROC offset using Ronchi band errors (long running)' type='button'>
 	&emsp; <input id='btnBestROCoffsetUsingZonalErrors' value='Best ROC offset using zonal errors (long running)' type='button'>
-	&emsp; <input id='btnBestXoffset' value='Best x offset (long running)' type='button'>
+	&emsp; <input id='btnBestXoffset' value='Best x offset using Ronchi band errors (long running)' type='button'>
 	<br>
 	<br>
 	Save and get data to local storage
@@ -143,15 +143,8 @@
 	</div>
 	Offset <input class='inputText' name='MLOffset' value='0' onfocus='select()' type='number' step='0.02'>
 	&emsp; M-L Peak-Valley: <label id='MLErrorsLabel' for=''></label>
-</div>
-
-<div id='zonalErrorsViewDiv' class='zonalErrorsViewDiv'>
-	<br><br>
-	<b>Zonal slope errors: side view</b>
-	<div id='zonesSideViewDiv'>
-		<!-- canvas created in JavaScript -->
-	</div>
-	(Note: not the mirror surface profile)
+	<br>M-L zones greater than 1 are undercorrected and high.
+	<br>M-L zones less than 1 are overcorrected and low.
 	<p>Include parab. correction?
 		<input name='includeParabCorr' value='yes' type='radio'>yes
 		<input name='includeParabCorr' value='no' type='radio'>no
