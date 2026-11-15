@@ -79,13 +79,10 @@
 	&emsp; Show gradients?
 	<input name='showGradients' value='yes' type='radio'>yes
 	<input name='showGradients' value='no' type='radio'>no
-	<br>
-	<b>Calc zonal corrections?
+	&emsp; <b>Calc zonal corrections?
 	<input name='calcZonalCorrectionsFromThinning' value='yes' type='radio'>yes
 	<input name='calcZonalCorrectionsFromThinning' value='no' type='radio'>no </b>
-	&emsp; <input id='btnBestROCoffsetUsingBandErrors' value='Best ROC offset using Ronchi band errors (long running)' type='button'>
-	&emsp; <input id='btnBestROCoffsetUsingZonalErrors' value='Best ROC offset using zonal errors (long running)' type='button'>
-	&emsp; <input id='btnBestXoffset' value='Best x offset using Ronchi band errors (long running)' type='button'>
+	&emsp; <input id='btnBestMatch' value='Find best Ronchi band match (long running)' type='button'>
 	<br>
 	<br>
 	Save and get data to local storage
@@ -141,8 +138,7 @@
 	<div id='MLErrorsViewDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	Offset <input class='inputText' name='MLOffset' value='0' onfocus='select()' type='number' step='0.02'>
-	&emsp; M-L Peak-Valley: <label id='MLErrorsLabel' for=''></label>
+	    M-L Peak-Valley: <label id='MLErrorsLabel' for=''></label>
 	<br>M-L zones greater than 1 are undercorrected and high.
 	<br>M-L zones less than 1 are overcorrected and low.
 	<p>Include parab. correction?
