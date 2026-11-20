@@ -19,7 +19,7 @@
 	<div class='grid-item'> <a href='#about'>About</a>                             </div>
 	<div class='grid-item'>	<a href='#mirrorQuality'>Mirror quality</a>            </div>
 	<div class='grid-item'>	<a href='#accuracy'>Ronchi accuracy</a>                </div>
-	<div class='grid-item'>	<a href='#tester'>Tester</a>                           </div>
+	<div class='grid-item'>	<a href='#tester'>The tester</a>                       </div>
 	<div class='grid-item'>	<a href='#instructions'>Instructions</a>               </div>
 	<div class='grid-item'>	<a href='#RonchiTape'>Ronchi Tape Test</a>             </div>
 	<div class='grid-item'>	<a href='#null'>Software nulling</a>                   </div>
@@ -47,8 +47,7 @@
 	&emsp; Parab. correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='number' step='0.1'>
 	<input id='sliderParabolicCorrection' min='0' max='2' step='0.02' type='range'/>
 	<p>
-	Ronchigram size = <input class='inputText' name='RonchigramSize' value='400' onfocus='select()' type='text'>
-	&emsp; Circular zonal rulers = <input class='inputText' name='circularZonalRulerCount' value='4' onfocus='select()' type='text'>
+	Circular zonal rulers = <input class='inputText' name='circularZonalRulerCount' value='4' onfocus='select()' type='text'>
 	&emsp; Invert bands?
 	<input name='invertBands' value='yes' type='radio'>yes
 	<input name='invertBands' value='no' type='radio'>no
@@ -88,7 +87,13 @@
 	name <input class='inputTextLong' id='pastedImageName' value='' onfocus='select()'>
 </div>
 
-<div id='Ronchigrams' class='floatLeftRonchigramsDiv'> <!-- canvases added in JavaScript --> </div>
+<div id='RonchigramMatch' class='floatLeftRonchigramsDiv'>
+	<!-- canvas added in JavaScript --> 
+</div>
+
+<div id='RonchigramNull' class='floatLeftRonchigramsDiv'>
+	<!-- canvas added in JavaScript --> 
+</div>
 
 <div id='zonalErrorsTableDiv' class='zonalErrorsTableDiv'>
 	<b>Zonal slope errors: manual manipulation</b>
@@ -138,10 +143,6 @@
 	<input id='btnPasteExampleRonchigramGrid'      value='grid'        type='button' class='exBtn'>
 	&emsp; &emsp; <b>My 16 inch F2.9 3/8 inch thick mirror</b>
 	<input id='btnPasteExampleRonchigram16Inside'  value='thinned'     type='button' class='exBtn'>
-	<!--
-	&emsp; &emsp; <b>12 inch F5 1/5th wavefront error</b>
-	<input id='btnPasteExampleRonchigram12F5Under' value='thinned'     type='button' class='exBtn'>
-	-->
 </div>
 
 <div id='discussionDiv' class='discussionDiv'>
