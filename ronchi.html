@@ -32,43 +32,40 @@
 
 <br>
 <div class='inputDiv'>
-	<b>Units</b>
+	Units
 	<input name='UOM' value='inches' type='radio'>inches
 	<input name='UOM' value='metric' type='radio'>mm
-	
-	<input id='btnUnits' value='' type='button' style="display: none;">
-	
-	&emsp; <b>Mirror diameter</b> = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
-	&emsp; <b>Radius of curvature (RoC)</b> = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
-	<b>Focal length</b> = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
-	<b>Focal ratio</b> = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
+	&emsp; Mirror diameter = <input class='inputText' name='mirrorDia' value='12' onfocus='select()' type='text'>
+	&emsp; Radius of curvature (RoC) = <input class='inputText' name='radiusOfCurvature' value='120' onfocus='select()' type='text'>
+	Focal length = <input class='inputText' name='focalLength' value='60' onfocus='select()' type='text'>
+	Focal ratio = <input class='inputText' name='focalRatio' value='5' onfocus='select()' type='text'>
 	&emsp; Central obstruction = <input class='inputText' name='centralObstruction' value='2.6' onfocus='select()' type='text'>
 	<br>
-	<b>Grating freq. (bars per unit of meas.)</b> = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
-	&emsp; <b>Grating offset from RoC</b> = <input class='inputText' name='gratingOffset' value='-0.2' onfocus='select()' type='number' step='0.002'>
+	Grating freq. (bars per unit of meas.) = <input class='inputText' name='gratingFreq' value='100' onfocus='select()' type='text'>
+	&emsp; Grating offset from RoC = <input class='inputText' name='gratingOffset' value='-0.2' onfocus='select()' type='number' step='0.002'>
 	<input id='sliderOffset' min='-1' max='1' step='0.002' type='range'/>
 	&emsp; Parab. correction = <input class='inputText' name='userParabolicCorrection' value='1.0' onfocus='select()' type='number' step='0.1'>
 	<input id='sliderParabolicCorrection' min='0' max='2' step='0.02' type='range'/>
 	<p>
 	Circular zonal rulers = <input class='inputText' name='circularZonalRulerCount' value='4' onfocus='select()' type='text'>
-	&emsp; Invert bands?
-	<input name='invertBands' value='yes' type='radio'>yes
-	<input name='invertBands' value='no' type='radio'>no
-	&emsp; Nulled bullseye zones?
-	<input name='showBullseyeZones' value='yes' type='radio'>yes
-	<input name='showBullseyeZones' value='no' type='radio'>no
-	&emsp; Ronchi grid/Hartmann?
-	<input name='RonchiGrid' value='yes' type='radio'>yes
-	<input name='RonchiGrid' value='no' type='radio'>no
+	&emsp; Invert bands
+	<input name='invertBands' value='on' type='radio'>on
+	<input name='invertBands' value='off' type='radio'>off
+	&emsp; Nulled bullseye zones
+	<input name='showBullseyeZones' value='on' type='radio'>on
+	<input name='showBullseyeZones' value='off' type='radio'>off
+	&emsp; Ronchi grid/Hartmann
+	<input name='RonchiGrid' value='on' type='radio'>on
+	<input name='RonchiGrid' value='off' type='radio'>off
 	<br>
 	<br>
-	<b>Thin bands?
-	<input name='thinBands' value='yes' type='radio'>yes
-	<input name='thinBands' value='no' type='radio'>no </b>
+	Thin bands
+	<input name='thinBands' value='on' type='radio'>on
+	<input name='thinBands' value='off' type='radio'>off 
 	&emsp; <input id='btnFlipThinning' value='Flip thinning/bands/transparency' type='button'>
-	&emsp; Show gradients?
-	<input name='showGradients' value='yes' type='radio'>yes
-	<input name='showGradients' value='no' type='radio'>no
+	&emsp; Gradients
+	<input name='showGradients' value='on' type='radio'>on
+	<input name='showGradients' value='off' type='radio'>off
 	<br>
 	<br>
 	Save and get data to local storage
@@ -78,9 +75,9 @@
 	&emsp; <input id='btnShowDataNames' value='Show saved data names' type='button'>
 	<input id='btnDeleteData' value='Delete saved data' type='button'>
 	<br>
-	Show pasted image?
-	<input name='pastedImageActive' value='yes' type='radio'>yes
-	<input name='pastedImageActive' value='no' type='radio'>no
+	Show pasted image
+	<input name='pastedImageActive' value='on' type='radio'>on
+	<input name='pastedImageActive' value='no' type='radio'>off
 	&emsp; transparency <input class='inputText' id='pastedImageTransparency' value='0.9' onfocus='select()' type='number' step='.02' min='0.0' max='1.0'>
 	width <input class='inputText' id='pastedImageWidth' value='400' onfocus='select()' type='number' step='1' min='1'>
 	height <input class='inputText' id='pastedImageHeight' value='400' onfocus='select()' type='number' step='1' min='1'>
