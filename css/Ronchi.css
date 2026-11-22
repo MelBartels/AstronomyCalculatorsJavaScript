@@ -24,12 +24,8 @@ html {
 	text-align: right;
 }
 
-.inputTextShort {
-	width: 50px;
-}
-
 .inputText {
-	width: 50px;
+	width: 60px;
 }
 
 .inputTextLong {
