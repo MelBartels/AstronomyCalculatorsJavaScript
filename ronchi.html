@@ -51,26 +51,13 @@
 	Invert bands
 	<input name='invertBands' value='on' type='radio'>on
 	<input name='invertBands' value='off' type='radio'>off
-	&emsp; Thin bands
-	<input name='thinBands' value='on' type='radio'>on
-	<input name='thinBands' value='off' type='radio'>off 
 	&emsp; Nulled bullseye zones
 	<input name='showBullseyeZones' value='on' type='radio'>on
 	<input name='showBullseyeZones' value='off' type='radio'>off
-	&emsp; Gradients
-	<input name='showGradients' value='on' type='radio'>on
-	<input name='showGradients' value='off' type='radio'>off
 	&emsp; Ronchi grid/Hartmann
 	<input name='RonchiGrid' value='on' type='radio'>on
 	<input name='RonchiGrid' value='off' type='radio'>off
 	<br>
-	<br>
-	Save and get data to local storage
-	<input id='btnPutData' value='Save data named ' type='button'>
-	<input class='inputText' name='dataName' value='My data' onfocus='select()' type='text'>
-	<input id='btnGetData' value='Get data' type='button'>
-	&emsp; <input id='btnShowDataNames' value='Show saved data names' type='button'>
-	<input id='btnDeleteData' value='Delete saved data' type='button'>
 	<br>
 	Show pasted image
 	<input name='pastedImageActive' value='on' type='radio'>on
@@ -79,6 +66,13 @@
 	x offset <input class='inputText' id='pastedImageOffsetX' value='0' onfocus='select()' type='number' step='1'>
 	y offset <input class='inputText' id='pastedImageOffsetY' value='0' onfocus='select()' type='number' step='1'>
 	name <input class='inputTextLong' id='pastedImageName' value='' onfocus='select()'>
+	<br>
+	Save and get data to local storage
+	<input id='btnPutData' value='Save data named ' type='button'>
+	<input class='inputText' name='dataName' value='My data' onfocus='select()' type='text'>
+	<input id='btnGetData' value='Get data' type='button'>
+	&emsp; <input id='btnShowDataNames' value='Show saved data names' type='button'>
+	<input id='btnDeleteData' value='Delete saved data' type='button'>	<br>
 </div>
 
 <div id='RonchigramMatchDiv' class='floatLeftRonchigramsDiv'>
@@ -129,11 +123,10 @@
 	<b>Examples:</b>
 	&emsp; <b>My 13.2 inch F3.0 1 inch thick mirror</b>
 	<input id='btnPasteExampleRonchigram13Inside'  value='inside RoC'  type='button' class='exBtn'>
-	<input id='btnPasteExampleRonchigram13Inside2' value='thinned'     type='button' class='exBtn'>
 	<input id='btnPasteExampleRonchigram13Outside' value='outside RoC' type='button' class='exBtn'>
 	<input id='btnPasteExampleRonchigramGrid'      value='grid'        type='button' class='exBtn'>
 	&emsp; &emsp; <b>My 16 inch F2.9 3/8 inch thick mirror</b>
-	<input id='btnPasteExampleRonchigram16Inside'  value='thinned'     type='button' class='exBtn'>
+	<input id='btnPasteExampleRonchigram16Inside'  value='inside RoC'  type='button' class='exBtn'>
 </div>
 
 <div id='discussionDiv' class='discussionDiv'>
@@ -254,7 +247,7 @@
 		<p>
 		<li>I use the Ronchi Tape Band test during mirror parabolizing. It is so easy, lightning quick and accurate, allowing me to concentrate on what's important: the next step in the parabolizing process. Of all the many mirror tests I've used, this is by far the best. See the <a href='#RonchiTape' target='_blank'>section elsewhere on this webpage</a>.
 		<p>
-		<li>Match using software null and straightened bands. A 1/8th wavefront undercorrected 12 inch F5 mirror shows an obvious mismatch.
+		<li>Match using software null and straightened bands. A 1/4th wavefront undercorrected 12 inch F5 mirror shows a mismatch.
 		<p><img alt='' loading='' class='' src='JoyOfMirrorMaking/matching Ronchigram discerns small errors.jpg'>
 	</ol>
 
@@ -406,7 +399,7 @@
 
 	<h5>The edge rules</h5>
 
-	<p>As the mirror's paraboloidal shape progresses, where should we match the nulled and thinned bands? Near the mirror's edge, as it turns out, especially so for large, fast mirrors. The reason lies with how we focus.
+	<p>As the mirror's paraboloidal shape progresses, where should we match the nulled bands? Near the mirror's edge, as it turns out, especially so for large, fast mirrors. The reason lies with how we focus.
 
 	<p>We focus using the disk of defocused starlight, shrinking it to the smallest dot possible. The edge of the disk of light, particularly when not that close to focus, corresponds to the edge of the mirror. The mirror's zones should be measured in relation to the focused edge then. And when the edge focus is compromised by out of compliance inner zones, then we can say that the mirror is unfinished and will focus poorly.
 
