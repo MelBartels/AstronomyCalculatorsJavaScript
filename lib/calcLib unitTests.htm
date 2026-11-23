@@ -1309,6 +1309,7 @@
 		}
 
 		assert.equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
+		assert.ok(true, displayResults);
 	});
 
 	// as above, but double the aperture to demonstrate that aperture has no bearing on allowable correction
@@ -1327,11 +1328,39 @@
 		}
 
 		assert.equal(results[9], expected, 'results[9] = ' + results[9] + ', should be ' + expected);
+		assert.ok(true, displayResults);
 	});
+
+	QUnit.test('findAllowableCorrection for 6F8', assert => {
+		var mirrorDia = 6,
+			focalRatio = 9,
+			results,
+			expected = 0.8502343750000001;
+
+		results = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
+
+		assert.equal(results, expected, 'results (6F8) = ' + results + ', should be ' + expected);
+	});
+
+	// // on mirror's surface
 
 	QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/10', assert => {
 		var focalRatio = 10,
 			expected = 0.16699999999999998,
+			result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
+	});
+
+	QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/5', assert => {
+		var focalRatio = 5,
+			expected = 0.08349999999999999,
+			result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
+		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
+	});
+
+	QUnit.test('calcAllowableParabolicDeviationForQuarterWavefront for f/3', assert => {
+		var focalRatio = 3,
+			expected = 0.0501,
 			result = calcAllowableParabolicDeviationForQuarterWavefront(focalRatio);
 		assert.equal(result, expected, 'result = ' + result + ', should be ' + expected);
 	});
@@ -1866,19 +1895,19 @@ note that visible? is coded from impossible=1 to very easy=6
 		result = calcStrehlFromRMS_MahajanApproximation(rms);
 		assert.equal(withinRange(result, expected, 0.001), true, 'Strehl should be ' + expected + ', is ' + result);
 	});
-	
+
 	QUnit.test('calcRMSFromStrehlUsingNaturalLog', assert => {
 		var Strehl = 0.969,
 			expected = 0.028,
 			result = calcRMSFromStrehlUsingNaturalLog(Strehl);
 
 		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
-		
+
 		Strehl = 0.6738;
 		expected = 0.1;
 		result = calcRMSFromStrehlUsingNaturalLog(Strehl);
-		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);		
-	});	
+		assert.equal(withinRange(result, expected, 0.001), true, 'RMS should be ' + expected + ', is ' + result);
+	});
 
 	// http://www.rfroyce.com/standards.htm
 
