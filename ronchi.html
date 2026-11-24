@@ -102,12 +102,11 @@
 
 <div id='MLErrorsDiv' class='MLErrorsDiv'>
 	<b>M-L errors with tolerance envelope</b>
+	<p>
 	<div id='MLErrorsViewDiv'>
 		<!-- canvas created in JavaScript -->
 	</div>
-	    M-L Peak-Valley: <label id='MLErrorsLabel' for=''></label>
-	<br>M-L zones greater than 1 are undercorrected and high.
-	<br>M-L zones less than 1 are overcorrected and low.
+	<p>M-L Peak-Valley: <label id='MLErrorsLabel' for=''></label>
 	<p>Include parab. correction?
 		<input name='includeParabCorr' value='yes' type='radio'>yes
 		<input name='includeParabCorr' value='no' type='radio'>no
@@ -135,6 +134,7 @@
 	<p>It is important to measure the clear diameter of the mirror and the RoC: accuracy is proportional to the mirror's clear diameter ^4 divided by the radius of curvature ^3.
 	<p>To <b>match</b> bands, drag and drop your mirror's Ronchigram, or copy and paste it into the browser page (if necessary, open the image in a program then copy from there). To remove the image press the escape key. Match by adjusting the grating offset.
 	<p><b>Match the edge first</b>. This mimics how we focus a star.
+	<p>The <b>software nulled</b> Ronchigram shows the mirror de-parabolized. Bands that are not straight indicate zones that are under or over corrected.
 	<p>The <b>grid</b> analyzes Ronchigrams made with a grid grating or a Hartmann mask across the mirror's face. See <a href='#grid'>grid testing section</a>.
 </div>
 
@@ -154,7 +154,8 @@
 	<h4>Milles-Lacroix tolerance envelope notes</h4>
 	<p>If the mirror's zonal slopes are within the tolerance envelope, then the reflected light rays geometrically pass through the Airy disk.
 	<p>While the mirror's center rays reflect nearly straight through the Airy disk, the mirror's edge rays are angled through the Airy disk. Consequently the mirror's edge is more constrained than the mirror's center. This creates a tolerance envelope that looks like a tornado.
-	<br><img alt='' loading='' class='' src='JoyOfMirrorMaking/MLToleranceTornado12F5.jpg'><br>
+	<p>A zone that sits 'high' on the M-L graph is undercorrected and high. That zone needs more polishing.
+	<p><img alt='' loading='' class='' src='JoyOfMirrorMaking/MLToleranceTornado12F5.jpg'><br>
 </div>
 
 <div class='clearFloat'></div>
@@ -587,7 +588,7 @@
 
 	<p>An article on the Mosby Null test including some Ronchi math can be found at <a href='http://bobmay.astronomy.net/misc/mosby.htm' target='_blank'>http://bobmay.astronomy.net/misc/mosby.htm</a>.
 
-	<h4>by Mel Bartels, 1992; last update 22-Nov-2026</h4>
+	<h4>by Mel Bartels, 1992; last update 23-Nov-2026</h4>
 	<br>
 	<br>
 </div>
