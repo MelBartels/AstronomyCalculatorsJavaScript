@@ -87,6 +87,7 @@
 		wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight = MLB.calcLib.wavefrontErrorFrom_MirrorDia_RoC_CorrectionFactor_WavelengthLight,
 		wavefrontErrorFromCorrectionsArray = MLB.calcLib.wavefrontErrorFromCorrectionsArray,
 		findAllowableCorrection = MLB.calcLib.findAllowableCorrection,
+		findAllowableCorrectionForQuarterWavefront = MLB.calcLib.findAllowableCorrectionForQuarterWavefront,
 		calcWavefrontErrorForSphericalMirror = MLB.calcLib.calcWavefrontErrorForSphericalMirror,
 		calcDobFriction = MLB.calcLib.calcDobFriction,
 		SQMtoNELMconverter = MLB.calcLib.SQMtoNELMconverter,
@@ -1299,26 +1300,48 @@
 		assert.equal(wavefrontRMS, expectedRMS, 'wavefrontErrorRMS = ' + wavefrontRMS + ', should be ' + expectedRMS);
 	});
 
-	QUnit.test('findAllowableCorrection for 20F5', assert => {
+	QUnit.test('findAllowableCorrection', assert => {
 		var mirrorDia = 20,
 			focalRatio = 5,
 			results,
 			expected = 0.93;
 
 		results = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
-
 		assert.equal(results, expected, 'results (20F5) = ' + results + ', should be ' + expected);
+
+		mirrorDia = 6;
+		focalRatio = 8;
+		expected = 0.060000000000000005;
+		results = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
+		assert.equal(results, expected, 'results (6F8) = ' + results + ', should be ' + expected);
+
+		mirrorDia = 16;
+		focalRatio = 3;
+		expected = 0.98;
+		results = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
+		assert.equal(results, expected, 'results (16F3) = ' + results + ', should be ' + expected);
 	});
 
-	QUnit.test('findAllowableCorrection for 6F8', assert => {
-		var mirrorDia = 6,
-			focalRatio = 8,
+	QUnit.test('findAllowableCorrectionForQuarterWavefront', assert => {
+		var mirrorDia = 20,
+			focalRatio = 5,
 			results,
-			expected = 0.060000000000000005;
+			expected = 0.9305555555555556;
 
-		results = findAllowableCorrection(mirrorDia, mirrorDia * focalRatio * 2);
+		results = findAllowableCorrectionForQuarterWavefront(mirrorDia, focalRatio);
+		assert.equal(results, expected, 'results (20F5) = ' + results + ', should be ' + expected);
 
+		mirrorDia = 6;
+		focalRatio = 8;
+		expected = 0.051851851851851816;
+		results = findAllowableCorrectionForQuarterWavefront(mirrorDia, focalRatio);
 		assert.equal(results, expected, 'results (6F8) = ' + results + ', should be ' + expected);
+
+		mirrorDia = 16;
+		focalRatio = 3;
+		expected = 0.98125;
+		results = findAllowableCorrectionForQuarterWavefront(mirrorDia, focalRatio);
+		assert.equal(results, expected, 'results (16F3) = ' + results + ', should be ' + expected);
 	});
 
 	QUnit.test('calcWavefrontErrorForSphericalMirror', assert => {
